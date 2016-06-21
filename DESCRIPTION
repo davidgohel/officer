@@ -1,0 +1,18 @@
+Package: oxbase
+Type: Package
+Title: openxml tools
+Version: 0.0.1
+Authors@R: c(
+    person("David", "Gohel", role = c("aut", "cre"),
+    email = "david.gohel@ardata.fr"))
+Description: Manipulate formatting properties to produce drawing ML content
+License: GPL-3
+LazyData: TRUE
+LinkingTo: Rcpp
+Imports:
+    Rcpp (>= 0.12.3),
+    purrr,
+    utils,
+    grDevices,
+    R6, purrr
+RoxygenNote: 5.0.1
