@@ -33,15 +33,15 @@ css_rpr <- function(size, italic, bold, underlined, col_font_r, col_font_g, col_
     .Call('oxbase_css_rpr', PACKAGE = 'oxbase', size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align)
 }
 
-w_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
-    .Call('oxbase_w_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+w_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
+    .Call('oxbase_w_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
 
-a_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
-    .Call('oxbase_a_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+a_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
+    .Call('oxbase_a_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
 
-css_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
-    .Call('oxbase_css_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+css_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
+    .Call('oxbase_css_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
 

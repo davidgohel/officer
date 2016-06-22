@@ -8,11 +8,12 @@ Authors@R: c(
 Description: Manipulate formatting properties to produce drawing ML content
 License: GPL-3
 LazyData: TRUE
-LinkingTo: Rcpp
+LinkingTo: Rcpp,
+    gdtools
 Imports:
     Rcpp (>= 0.12.3),
     purrr,
     utils,
     grDevices,
-    R6, purrr
+    R6, purrr, base64
 RoxygenNote: 5.0.1

@@ -2,6 +2,7 @@
 #include "tcpr.h"
 #include <iostream>
 #include "color_spec.h"
+#include <gdtools.h>
 
 using namespace Rcpp;
 
@@ -72,6 +73,10 @@ std::string tcpr::css()
   if( shading_.is_visible() > 0 )
     os << "background-color:" << shading_.get_css() << ";";
   else os << "background-color:transparent;";
+  if( this->do_bgimg ){
+    std::string base64_str = gdtools::base64_file_encode(this->bgimg_path);
+    os << "background-image:url(data:image/png;base64," << base64_str << ");";
+  }
 
   os << "margin-top:" << mt << "pt;";
   os << "margin-bottom:" << mb << "pt;";
@@ -125,8 +130,12 @@ std::string tcpr::a_tag()
   os << t.a_tag("T");
   os << b.a_tag("B");
 
-  if( !shading_.is_transparent() ) {
+  if( !do_bgimg && !shading_.is_transparent() ) {
     os << shading_.solid_fill();
+  } else if( do_bgimg ) {
+    os << "<a:blipFill rotWithShape=\"1\"><a:blip r:embed=\"";
+    os << bgimg_rid;
+    os << "\"/><a:stretch><a:fillRect/></a:stretch></a:blipFill>";
   }
 
   os << "</a:tcPr>";
@@ -136,6 +145,7 @@ std::string tcpr::a_tag()
 tcpr::tcpr(std::string vertical_align, std::string text_direction,
          int mb, int mt, int ml, int mr,
          int shd_r, int shd_g, int shd_b, int shd_a,
+         bool do_bgimg, std::string bgimg_rid, std::string bgimg_path,
          IntegerVector btlr_red, IntegerVector btlr_green,
          IntegerVector btlr_blue, IntegerVector btlr_alpha,
          CharacterVector type, IntegerVector width,
@@ -143,6 +153,7 @@ tcpr::tcpr(std::string vertical_align, std::string text_direction,
   vertical_align(vertical_align), text_direction(text_direction),
   mb(mb), mt(mt), ml(ml), mr(mr),
   shading_r(shd_r), shading_g(shd_g), shading_b(shd_b), shading_a(shd_a),
+  do_bgimg(do_bgimg), bgimg_rid(bgimg_rid), bgimg_path(bgimg_path),
   b(btlr_red[0], btlr_green[0], btlr_blue[0], btlr_alpha[0], as<std::string>(type[0]), width[0]),
   t(btlr_red[1], btlr_green[1], btlr_blue[1], btlr_alpha[1], as<std::string>(type[1]), width[1]),
   l(btlr_red[2], btlr_green[2], btlr_blue[2], btlr_alpha[2], as<std::string>(type[2]), width[2]),

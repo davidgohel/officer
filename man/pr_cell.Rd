@@ -10,8 +10,9 @@
 pr_cell(border = pr_border(width = 1, color = "gray20"), border.bottom,
   border.left, border.top, border.right, vertical.align = "middle",
   margin = 0, margin.bottom, margin.top, margin.left, margin.right,
-  background.color = "transparent", text.direction = "lrtb",
-  row_span = 1L, column_span = 1L)
+  background.color = "transparent", background.img.id = "rId1",
+  background.img.src = NULL, text.direction = "lrtb", row_span = 1L,
+  column_span = 1L)
 
 \method{format}{pr_cell}(x, type = "wml", ...)
 
@@ -19,8 +20,8 @@ pr_cell(border = pr_border(width = 1, color = "gray20"), border.bottom,
 
 \method{update}{pr_cell}(object, border, border.bottom, border.left, border.top,
   border.right, vertical.align, margin = 0, margin.bottom, margin.top,
-  margin.left, margin.right, background.color, text.direction, row_span,
-  column_span, ...)
+  margin.left, margin.right, background.color, background.img.id,
+  background.img.src, text.direction, row_span, column_span, ...)
 }
 \arguments{
 \item{border}{shortcut for all borders.}

@@ -15,6 +15,20 @@ check_set_color <- function( obj, value){
   obj
 }
 
+check_set_pic <- function( obj, value){
+  varname <- as.character(substitute(value))
+  if( !grepl(pattern = "^rId[0-9]+", value) )
+    stop(varname, " must be a valid reference id: ", value )
+  obj[[varname]] <- value
+  obj
+}
+check_set_file <- function( obj, value){
+  varname <- as.character(substitute(value))
+  if( !file.exists(value) )
+    stop(varname, " must be a valid filename." )
+  obj[[varname]] <- value
+  obj
+}
 check_set_border <- function( obj, value){
   varname <- as.character(substitute(value))
   if( !inherits( value, "pr_border" ) )

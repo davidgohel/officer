@@ -1,6 +1,8 @@
 vertical.align.styles <- c( "top", "middle", "bottom" )
 text.directions <- c( "lrtb", "tbrl", "btlr" )
 
+#' @importFrom gdtools raster_str
+
 #' @title Cell formatting properties
 #'
 #' @description Create a \code{pr_cell} object that describes cell formatting properties.
@@ -23,7 +25,10 @@ pr_cell = function(
 	vertical.align = "middle",
   margin = 0,
 	margin.bottom, margin.top, margin.left, margin.right,
-	background.color = "transparent", text.direction = "lrtb",
+  background.color = "transparent",
+  background.img.id = "rId1",
+  background.img.src = NULL,
+  text.direction = "lrtb",
 	row_span = 1L, column_span = 1L
 ){
 
@@ -47,6 +52,11 @@ if( !missing(border.right) )
 
 # background-color checking
 out <- check_set_color(out, background.color)
+
+if( !is.null( background.img.src ) ){
+  out <- check_set_pic(out, background.img.id)
+  out <- check_set_file(out, background.img.src)
+}
 
 out <- check_set_choice( obj = out, value = vertical.align,
                          choices = vertical.align.styles )
@@ -92,6 +102,17 @@ format.pr_cell = function (x, type = "wml", ...){
   widths <- map_int( btlr_list, "width" )
   shading <- col2rgb(x$background.color, alpha = TRUE )[,1]
 
+  if( !is.null( x$background.img.id )){
+    do_bg_img <- TRUE
+    img_id <- x$background.img.id
+    img_src <- x$background.img.src
+  } else {
+    do_bg_img <- FALSE
+    img_id <- ""
+    img_src <- ""
+  }
+
+
   if( type == "wml"){
 
     w_tcpr(vertical_align = x$vertical.align,
@@ -99,6 +120,7 @@ format.pr_cell = function (x, type = "wml", ...){
       mb = x$margin.bottom, mt = x$margin.top,
       ml = x$margin.left, mr = x$margin.right,
       shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
+      do_bg_img, img_id, img_src,
       colmat[,1], colmat[,2], colmat[,3], colmat[,4],
       type = types, width = widths,
       row_span = x$row_span, column_span = x$column_span )
@@ -110,6 +132,7 @@ format.pr_cell = function (x, type = "wml", ...){
            mb = x$margin.bottom, mt = x$margin.top,
            ml = x$margin.left, mr = x$margin.right,
            shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
+           do_bg_img, img_id, img_src,
            colmat[,1], colmat[,2], colmat[,3], colmat[,4],
            type = types, width = widths,
            row_span = x$row_span, column_span = x$column_span )
@@ -121,6 +144,7 @@ format.pr_cell = function (x, type = "wml", ...){
            mb = x$margin.bottom, mt = x$margin.top,
            ml = x$margin.left, mr = x$margin.right,
            shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
+           do_bg_img, img_id, img_src,
            colmat[,1], colmat[,2], colmat[,3], colmat[,4],
            type = types, width = widths,
            row_span = x$row_span, column_span = x$column_span )
@@ -144,7 +168,8 @@ update.pr_cell <- function(object, border,
                            border.bottom,border.left,border.top,border.right,
                            vertical.align, margin = 0,
                            margin.bottom, margin.top, margin.left, margin.right,
-                           background.color, text.direction,
+                           background.color, background.img.id, background.img.src,
+                           text.direction,
                            row_span, column_span, ...) {
 
   if( !missing(border) )
@@ -163,6 +188,11 @@ update.pr_cell <- function(object, border,
   # background-color checking
   if( !missing(background.color) )
     object <- check_set_color(object, background.color)
+  # background-img checking
+  if( !missing(background.img.id) )
+    object <- check_set_pic(object, background.img.id)
+  if( !missing(background.img.src) )
+    object <- check_set_file(object, background.img.src)
 
   if( !missing(vertical.align) )
     object <- check_set_choice( obj = object, value = vertical.align,
