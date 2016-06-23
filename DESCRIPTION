@@ -5,7 +5,7 @@ Version: 0.0.1
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Manipulate formatting properties to produce drawing ML content
+Description: Manipulate formatting properties to produce drawing ML content.
 License: GPL-3
 LazyData: TRUE
 LinkingTo: Rcpp,
@@ -15,5 +15,6 @@ Imports:
     purrr,
     utils,
     grDevices,
-    R6, purrr, base64
+    gdtools,
+    R6, openssl
 RoxygenNote: 5.0.1

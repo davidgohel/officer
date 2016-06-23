@@ -28,13 +28,35 @@ format.ftext = function (x, type = "wml", ...){
 }
 
 #' @export
-external_img <- function(x, id, height = .2, width = .5) {
+#' @importFrom gdtools str_extents
+dim.ftext <- function( x ){
+  mat <- str_extents(x = x$value,
+                     fontname = x$pr$font.family,
+                     fontsize = x$pr$font.size,
+                     bold = x$pr$bold,
+                     italic = x$pr$italic) / 72
+  mat <- as.data.frame(mat)
+  names(mat ) <- c("width", "height")
+  mat
+}
+
+
+#' @export
+external_img <- function(x, id=1, height = .2, width = .5) {
   stopifnot( file.exists(x) )
   class(x) <- c("external_img", "cot")
   attr(x, "rid") <- id
+  attr(x, "dims") <- list(width = width, height = height)
   x
 }
-#' @importFrom base64 img
+#' @export
+dim.external_img <- function( x ){
+  x <- attr(x, "dims")
+  data.frame(width = x$width, height = x$height)
+}
+
+
+#' @importFrom openssl base64_encode
 #' @export
 format.external_img = function (x, type = "wml", ...){
   # r <- as.raster(c(0.5, 1, 0.5))
@@ -44,7 +66,12 @@ format.external_img = function (x, type = "wml", ...){
   if( type == "pml" ){
     out <- ""
   } else if( type == "html" ){
-    out <- img(x)
+    dims <- dim(x)
+    input <- normalizePath(as.character(x), mustWork = TRUE)
+    buf <- readBin(input, raw(), file.info(input)$size)
+    base64 <- base64_encode(buf, linebreaks = FALSE)
+    out <- sprintf("<img src=\"data:image/png;base64,\n%s\" width=\"%.0f\" height=\"%.0f\"/>",
+            base64, dims$width*72, dims$height*72)
   } else stop("unimplemented")
   out
 }
@@ -55,7 +82,7 @@ format.external_img = function (x, type = "wml", ...){
 #' @title paragraph container
 #' @description a paragraph container
 #' @importFrom R6 R6Class
-#' @importFrom purrr map_chr
+#' @importFrom purrr map_chr map_df
 paragraph <- R6Class(
   "paragraph",
   public = list(
@@ -87,6 +114,9 @@ paragraph <- R6Class(
       }
       out
     },
+    dim = function( ){
+      as.list( colSums( map_df(private$chunks, dim ) ) )
+    },
     format = function(type = "pml"){
       par_style <- format(private$pr, type = type)
       chks <- map_chr(private$chunks, format, type = type)
@@ -104,6 +134,4 @@ paragraph <- R6Class(
     pr = NULL
   )
 )
-
-# paragraph$new(p_c())$add(external_img("/Users/davidgohel/Documents/raster.png", "rId2"))$add(ftext(" hello", prop = t_b()))$format(type="html")
 
