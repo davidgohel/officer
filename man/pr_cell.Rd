@@ -7,12 +7,11 @@
 \alias{update.pr_cell}
 \title{Cell formatting properties}
 \usage{
-pr_cell(border = pr_border(width = 1, color = "gray20"), border.bottom,
-  border.left, border.top, border.right, vertical.align = "middle",
-  margin = 0, margin.bottom, margin.top, margin.left, margin.right,
-  background.color = "transparent", background.img.id = "rId1",
-  background.img.src = NULL, text.direction = "lrtb", row_span = 1L,
-  column_span = 1L)
+pr_cell(border = pr_border(width = 0), border.bottom, border.left, border.top,
+  border.right, vertical.align = "middle", margin = 0, margin.bottom,
+  margin.top, margin.left, margin.right, background.color = "transparent",
+  background.img.id = "rId1", background.img.src = NULL,
+  text.direction = "lrtb", row_span = 1L, column_span = 1L)
 
 \method{format}{pr_cell}(x, type = "wml", ...)
 

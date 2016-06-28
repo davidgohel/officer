@@ -81,7 +81,18 @@ format.pr_text <- function( x, type = "wml", ... ){
 #' @rdname pr_text
 #' @export
 print.pr_text = function (x, ...){
-  cat( format(x, type = "html") )
+  out <- data.frame(
+    size = as.double(x$font.size),
+    italic = x$italic,
+    bold = x$bold,
+    underlined = x$underlined,
+    color = x$color,
+    shading = x$shading.color,
+    fontname = x$font.family,
+    vertical_align = x$vertical.align, stringsAsFactors = FALSE )
+  out <- as.data.frame( t(out) )
+  names(out) <- "values"
+  print(out)
 }
 
 

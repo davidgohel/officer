@@ -31,7 +31,7 @@ std::string ppr::css()
 
   std::stringstream os;
   os << "margin:0pt;";
-  os << "text_align:" << this->text_align << ";";
+  os << "text-align:" << this->text_align << ";";
 
   os << b.css("bottom");
   os << t.css("top");

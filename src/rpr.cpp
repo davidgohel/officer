@@ -83,7 +83,7 @@ std::string rpr::css()
 
   if( this->italic ) os << "font-style:italic;";
   else os << "font-style:normal;";
-  if( this->bold ) os << "font-weight:bold";
+  if( this->bold ) os << "font-weight:bold;";
   else os << "font-weight:normal;";
 
   if( this->underlined ) os << "text-decoration:underline;";

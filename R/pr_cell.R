@@ -20,7 +20,7 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @param row_span,column_span row and column span
 #' @export
 pr_cell = function(
-  border = pr_border(width=1, color = "gray20"),
+  border = pr_border(width=0),
 	border.bottom,border.left,border.top,border.right,
 	vertical.align = "middle",
   margin = 0,

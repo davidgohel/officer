@@ -16,5 +16,5 @@ Imports:
     utils,
     grDevices,
     gdtools,
-    R6, openssl
+    R.utils
 RoxygenNote: 5.0.1
