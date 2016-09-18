@@ -79,7 +79,7 @@ std::string rpr::css()
 
   os << "font-family:'" << this->fontname << "';";
   os << "color:" << col_.get_css() << ";";
-  os << "font-size:" << (int)this->size << "pt;";
+  os << "font-size:" << (int)this->size << "px;";
 
   if( this->italic ) os << "font-style:italic;";
   else os << "font-style:normal;";

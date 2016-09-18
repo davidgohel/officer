@@ -11,8 +11,8 @@
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' t_b()
-t_b = function(...) {pr_text( bold = TRUE, ... )}
+#' t_bold()
+t_bold = function(...) {pr_text( bold = TRUE, ... )}
 
 
 
@@ -20,8 +20,8 @@ t_b = function(...) {pr_text( bold = TRUE, ... )}
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' t_i()
-t_i = function( ... ) {pr_text( italic = TRUE, ... )}
+#' t_italic()
+t_italic = function( ... ) {pr_text( italic = TRUE, ... )}
 
 
 #' @rdname shortcut_properties
@@ -34,28 +34,28 @@ t_bi = function( ... ) {pr_text( bold = TRUE, italic = TRUE, ... )}
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_r()
-p_r = function( ... ) {pr_par( text.align = "right", ... )}
+#' p_right()
+p_right = function( ... ) {pr_par( text.align = "right", ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_l()
-p_l = function( ... ) {pr_par( text.align = "left", ... )}
+#' p_left()
+p_left = function( ... ) {pr_par( text.align = "left", ... )}
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_c()
-p_c = function( ... ) {pr_par( text.align = "center", ... )}
+#' p_center()
+p_center = function( ... ) {pr_par( text.align = "center", ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_j()
-p_j = function( ... ) {pr_par( text.align = "justify", ... )}
+#' p_justify()
+p_justify = function( ... ) {pr_par( text.align = "justify", ... )}
 
 
 #' @rdname shortcut_properties

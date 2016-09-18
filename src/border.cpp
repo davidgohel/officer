@@ -9,13 +9,12 @@ std::string border::w_tag(std::string side)
 {
   color_spec col_(this->red, this->green, this->blue, this->alpha);
 
-
-  std::stringstream os;
-  os << "<w:" << side << " ";
-
   if( col_.is_transparent() || width < 1 ) {
     return "";
   }
+
+  std::stringstream os;
+  os << "<w:" << side << " ";
 
   os << "w:val=";
   if( type == "solid")
@@ -40,6 +39,11 @@ std::string border::w_tag(std::string side)
 std::string border::a_tag(std::string side)
 {
   color_spec col_(this->red, this->green, this->blue, this->alpha);
+
+  /*if( col_.is_transparent() || width < 1 ) {
+    return "";
+  }*/
+
   std::stringstream os;
 
   os << "<a:ln" << side << " algn=\"ctr\" cmpd=\"sng\" cap=\"flat\" ";
