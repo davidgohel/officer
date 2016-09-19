@@ -1,8 +1,8 @@
 #' @title shortcuts for formatting properties
 #'
 #' @description
-#' Shortcuts for \code{pr_text}, \code{pr_par},
-#' \code{pr_cell} and \code{pr_border}.
+#' Shortcuts for \code{fp_text}, \code{fp_par},
+#' \code{fp_cell} and \code{fp_border}.
 #' @param ... further arguments passed to original functions.
 #' @rdname shortcut_properties
 #' @aliases shortcut_properties
@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #' t_bold()
-t_bold = function(...) {pr_text( bold = TRUE, ... )}
+fp_bold = function(...) {fp_text( bold = TRUE, ... )}
 
 
 
@@ -21,48 +21,48 @@ t_bold = function(...) {pr_text( bold = TRUE, ... )}
 #' @export
 #' @examples
 #' t_italic()
-t_italic = function( ... ) {pr_text( italic = TRUE, ... )}
+fp_italic = function( ... ) {fp_text( italic = TRUE, ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
 #' t_bi()
-t_bi = function( ... ) {pr_text( bold = TRUE, italic = TRUE, ... )}
+fp_bi = function( ... ) {fp_text( bold = TRUE, italic = TRUE, ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_right()
-p_right = function( ... ) {pr_par( text.align = "right", ... )}
+#' fp_right()
+fp_right = function( ... ) {fp_par( text.align = "right", ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_left()
-p_left = function( ... ) {pr_par( text.align = "left", ... )}
+#' fp_left()
+fp_left = function( ... ) {fp_par( text.align = "left", ... )}
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_center()
-p_center = function( ... ) {pr_par( text.align = "center", ... )}
+#' fp_center()
+fp_center = function( ... ) {fp_par( text.align = "center", ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' p_justify()
-p_justify = function( ... ) {pr_par( text.align = "justify", ... )}
+#' fp_justify()
+fp_justify = function( ... ) {fp_par( text.align = "justify", ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
 #' b_dot()
-b_dot = function( ... )  {pr_border( style="dotted", ... )}
+b_dot = function( ... )  {fp_border( style="dotted", ... )}
 
 
 
@@ -70,7 +70,7 @@ b_dot = function( ... )  {pr_border( style="dotted", ... )}
 #' @export
 #' @examples
 #' b_dash()
-b_dash = function( ... )  {pr_border( style="dashed", ... )}
+b_dash = function( ... )  {fp_border( style="dashed", ... )}
 
 
 
@@ -78,7 +78,7 @@ b_dash = function( ... )  {pr_border( style="dashed", ... )}
 #' @export
 #' @examples
 #' b_null()
-b_null = function( ... )  {pr_border( width = 0, ... )}
+b_null = function( ... )  {fp_border( width = 0, ... )}
 
 
 
@@ -87,7 +87,7 @@ b_null = function( ... )  {pr_border( width = 0, ... )}
 #' @examples
 #' c_b_null()
 c_b_null = function( ... )  {
-  pr_cell( border = b_null(), ... )
+  fp_cell( border = b_null(), ... )
 }
 
 #' @rdname shortcut_properties
@@ -95,7 +95,7 @@ c_b_null = function( ... )  {
 #' @examples
 #' c_b_all()
 c_b_all = function( ... )  {
-  pr_cell( border = pr_border(), ... )
+  fp_cell( border = fp_border(), ... )
 }
 
 #' @rdname shortcut_properties
@@ -103,7 +103,7 @@ c_b_all = function( ... )  {
 #' @examples
 #' c_b_b()
 c_b_b = function( ... )  {
-  pr_cell( border = b_null(), border.bottom = pr_border(), ... )
+  fp_cell( border = b_null(), border.bottom = fp_border(), ... )
 }
 
 #' @rdname shortcut_properties
@@ -111,7 +111,7 @@ c_b_b = function( ... )  {
 #' @examples
 #' c_b_t()
 c_b_t = function( ... )  {
-  pr_cell( border = b_null(), border.top = pr_border(), ... )
+  fp_cell( border = b_null(), border.top = fp_border(), ... )
 }
 
 #' @rdname shortcut_properties
@@ -119,9 +119,9 @@ c_b_t = function( ... )  {
 #' @examples
 #' c_b_tb()
 c_b_tb = function( ... ) {
-  pr_cell( border = b_null(),
-           border.bottom = pr_border(),
-           border.top = pr_border(), ... )
+  fp_cell( border = b_null(),
+           border.bottom = fp_border(),
+           border.top = fp_border(), ... )
 }
 
 #' @rdname shortcut_properties
@@ -129,7 +129,7 @@ c_b_tb = function( ... ) {
 #' @examples
 #' c_b_tb()
 c_b_lr = function( ... ) {
-  pr_cell( border = b_null(),
-           border.left = pr_border(),
-           border.right = pr_border(), ... )
+  fp_cell( border = b_null(),
+           border.left = fp_border(),
+           border.right = fp_border(), ... )
 }

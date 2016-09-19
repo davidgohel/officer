@@ -1,6 +1,6 @@
 #' @title Text formatting properties
 #'
-#' @description Create a \code{pr_text} object that describes
+#' @description Create a \code{fp_text} object that describes
 #' text formatting properties.
 #'
 #' @param color font color - a single character value specifying
@@ -15,9 +15,9 @@
 #' or \code{'subscript'} or \code{'superscript'}
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
-#' @return a \code{pr_text} object
+#' @return a \code{fp_text} object
 #' @export
-pr_text <- function( color = "black", font.size = 10,
+fp_text <- function( color = "black", font.size = 10,
                     bold = FALSE, italic = FALSE, underlined = FALSE,
                     font.family = "Arial",
                     vertical.align = "baseline",
@@ -36,17 +36,17 @@ pr_text <- function( color = "black", font.size = 10,
                            choices = c("subscript", "superscript", "baseline") )
   out <- check_set_color(out, shading.color)
 
-  class( out ) <- "pr_text"
+  class( out ) <- "fp_text"
 
   out
 }
 
-#' @rdname pr_text
+#' @rdname fp_text
 #' @param format format type, wml for MS word, pml for
 #' MS PowerPoint and html.
 #' @param type output type - one of 'wml', 'pml', 'html'.
 #' @export
-format.pr_text <- function( x, type = "wml", ... ){
+format.fp_text <- function( x, type = "wml", ... ){
 
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
@@ -75,12 +75,12 @@ format.pr_text <- function( x, type = "wml", ... ){
   } else stop("unimplemented type")
 }
 
-#' @param x \code{pr_text} object to print
+#' @param x \code{fp_text} object to print
 #' @examples
-#' print( pr_text (color="red", font.size = 12) )
-#' @rdname pr_text
+#' print( fp_text (color="red", font.size = 12) )
+#' @rdname fp_text
 #' @export
-print.pr_text = function (x, ...){
+print.fp_text = function (x, ...){
   out <- data.frame(
     size = as.double(x$font.size),
     italic = x$italic,
@@ -96,11 +96,11 @@ print.pr_text = function (x, ...){
 }
 
 
-#' @param object \code{pr_text} object to modify
+#' @param object \code{fp_text} object to modify
 #' @param ... further arguments - not used
-#' @rdname pr_text
+#' @rdname fp_text
 #' @export
-update.pr_text <- function(object, color, font.size,
+update.fp_text <- function(object, color, font.size,
                            bold = FALSE, italic = FALSE, underlined = FALSE,
                            font.family, vertical.align, shading.color, ...) {
 

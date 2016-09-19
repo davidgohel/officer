@@ -1,9 +1,9 @@
 #' @title Paragraph formatting properties
 #'
-#' @description Create a \code{pr_par} object that describes
+#' @description Create a \code{fp_par} object that describes
 #' paragraph formatting properties.
 #'
-#' @details pr_par is used to control paragraph properties.
+#' @details fp_par is used to control paragraph properties.
 #' It is used when adding plots or when adding content in a FlexTable.
 #'
 #' @param text.align text alignment - a single character value, expected value
@@ -16,12 +16,12 @@
 #' borders. overwrite other border properties.
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
-#' @return a \code{pr_par} object
+#' @return a \code{fp_par} object
 #' @examples
-#' pr_par(text.align = "center", padding = 5)
+#' fp_par(text.align = "center", padding = 5)
 #' @export
 #' @importFrom purrr map
-pr_par = function(text.align = "left",
+fp_par = function(text.align = "left",
                   padding = 0,
                   border = pr_border(width=0),
                   padding.bottom, padding.top,
@@ -61,7 +61,7 @@ pr_par = function(text.align = "left",
 	if( !missing(border.right) )
 	  out <- check_set_border( obj = out, border.right)
 
-	class( out ) = "pr_par"
+	class( out ) = "fp_par"
 
 	out
 }
@@ -70,7 +70,7 @@ pr_par = function(text.align = "left",
 #' @importFrom purrr map_chr
 #' @importFrom purrr map_int
 #' @importFrom grDevices col2rgb
-format.pr_par = function (x, type = "wml", ...){
+format.fp_par = function (x, type = "wml", ...){
   btlr_list <- list(x$border.bottom, x$border.top,
                     x$border.left, x$border.right)
 
@@ -113,21 +113,38 @@ format.pr_par = function (x, type = "wml", ...){
 
 
 
-#' @param x,object \code{pr_par} object
+#' @param x,object \code{fp_par} object
 #' @param ... further arguments - not used
-#' @rdname pr_par
+#' @rdname fp_par
 #' @export
-print.pr_par = function (x, ...){
-	cat( format(x, type = "html") )
+print.fp_par = function (x, ...){
+  out <- data.frame(
+    text.align = as.character(x$text.align),
+    padding.top = as.character(x$padding.top),
+    padding.bottom = as.character(x$padding.bottom),
+    padding.left = as.character(x$padding.left),
+    padding.right = as.character(x$padding.right),
+    shading.color = as.character(x$shading.color) )
+  out <- as.data.frame( t(out) )
+  names(out) <- "values"
+  print(out)
+  cat("borders:\n")
+  borders <- rbind(
+  as.data.frame( unclass(x$border.top )),
+  as.data.frame( unclass(x$border.bottom )),
+  as.data.frame( unclass(x$border.left )),
+  as.data.frame( unclass(x$border.right )) )
+  row.names(borders) = c("top", "bottom", "left", "right")
+  print(borders)
 }
 
 
-#' @rdname pr_par
+#' @rdname fp_par
 #' @examples
-#' obj <- pr_par(text.align = "center", padding = 1)
+#' obj <- fp_par(text.align = "center", padding = 1)
 #' update( obj, padding.bottom = 5 )
 #' @export
-update.pr_par <- function(object, text.align, padding, border,
+update.fp_par <- function(object, text.align, padding, border,
                           padding.bottom, padding.top, padding.left, padding.right,
                           border.bottom, border.left,border.top, border.right,
                           shading.color, ...) {

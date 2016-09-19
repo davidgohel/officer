@@ -5,7 +5,7 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 
 #' @title Cell formatting properties
 #'
-#' @description Create a \code{pr_cell} object that describes cell formatting properties.
+#' @description Create a \code{fp_cell} object that describes cell formatting properties.
 #'
 #' @param border shortcut for all borders.
 #' @param border.bottom,border.left,border.top,border.right \code{\link{pr_border}} for borders.
@@ -19,7 +19,7 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' value is one of "lrtb", "tbrl", "btlr".
 #' @param row_span,column_span row and column span
 #' @export
-pr_cell = function(
+fp_cell = function(
   border = pr_border(width=0),
 	border.bottom,border.left,border.top,border.right,
 	vertical.align = "middle",
@@ -78,17 +78,17 @@ if( !missing(margin.right) )
   out <- check_set_integer( obj = out, margin.right)
 
 
-class( out ) = "pr_cell"
+class( out ) = "fp_cell"
 out
 }
 
 
 #' @export
-#' @rdname pr_cell
-#' @param x,object object \code{pr_cell}
+#' @rdname fp_cell
+#' @param x,object object \code{fp_cell}
 #' @param type output type - one of 'wml', 'pml', 'html'.
 #' @param ... further arguments - not used
-format.pr_cell = function (x, type = "wml", ...){
+format.fp_cell = function (x, type = "wml", ...){
   btlr_list <- list(x$border.bottom, x$border.top,
                     x$border.left, x$border.right)
 
@@ -152,19 +152,19 @@ format.pr_cell = function (x, type = "wml", ...){
 }
 
 #' @export
-#' @rdname pr_cell
-print.pr_cell <- function(x, ...){
+#' @rdname fp_cell
+print.fp_cell <- function(x, ...){
   cat(format(x, type = "html"))
 }
 
 
 
-#' @rdname pr_cell
+#' @rdname fp_cell
 #' @examples
-#' obj <- pr_cell(margin = 1)
+#' obj <- fp_cell(margin = 1)
 #' update( obj, margin.bottom = 5 )
 #' @export
-update.pr_cell <- function(object, border,
+update.fp_cell <- function(object, border,
                            border.bottom,border.left,border.top,border.right,
                            vertical.align, margin = 0,
                            margin.bottom, margin.top, margin.left, margin.right,

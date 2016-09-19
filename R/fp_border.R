@@ -8,11 +8,11 @@ border_styles = c( "none", "solid", "dotted", "dashed" )
 #' @param style border style - single character value : "none" or "solid" or "dotted" or "dashed"
 #' @param width border width - an integer value : 0>= value
 #' @examples
-#' pr_border()
-#' pr_border(color="orange", style="solid", width=1)
-#' pr_border(color="gray", style="dotted", width=1)
+#' fp_border()
+#' fp_border(color="orange", style="solid", width=1)
+#' fp_border(color="gray", style="dotted", width=1)
 #' @export
-pr_border = function( color = "black", style = "solid", width = 1 ){
+fp_border = function( color = "black", style = "solid", width = 1 ){
 
   out <- list()
   out <- check_set_integer( obj = out, width)
@@ -20,21 +20,21 @@ pr_border = function( color = "black", style = "solid", width = 1 ){
   out <- check_set_choice( obj = out, style,
                            choices = border_styles )
 
-	class( out ) = "pr_border"
+	class( out ) = "fp_border"
 	out
 }
 
 
-#' @param object \code{pr_border} object to modify
+#' @param object \code{fp_border} object to modify
 #' @param ... further arguments - not used
-#' @rdname pr_border
+#' @rdname fp_border
 #' @examples
 #'
 #' # modify object ------
-#' border <- pr_border()
+#' border <- fp_border()
 #' update(border, style="dotted", width=3)
 #' @export
-update.pr_border <- function(object, color, style, width, ...) {
+update.fp_border <- function(object, color, style, width, ...) {
 
 
   if( !missing( color ) ){
