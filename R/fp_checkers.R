@@ -31,16 +31,16 @@ check_set_file <- function( obj, value){
 }
 check_set_border <- function( obj, value){
   varname <- as.character(substitute(value))
-  if( !inherits( value, "pr_border" ) )
-    stop(varname, " must be a pr_border object." )
+  if( !inherits( value, "fp_border" ) )
+    stop(varname, " must be a fp_border object." )
   else obj[[varname]] <- value
   obj
 }
 
 check_spread_border <- function( obj, value, dest ){
   varname <- as.character(substitute(value))
-  if( !inherits( value, "pr_border" ) )
-    stop(varname, " must be a pr_border object." )
+  if( !inherits( value, "fp_border" ) )
+    stop(varname, " must be a fp_border object." )
   for(i in dest )
     obj[[i]] <- value
   obj

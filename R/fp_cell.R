@@ -8,7 +8,7 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @description Create a \code{fp_cell} object that describes cell formatting properties.
 #'
 #' @param border shortcut for all borders.
-#' @param border.bottom,border.left,border.top,border.right \code{\link{pr_border}} for borders.
+#' @param border.bottom,border.left,border.top,border.right \code{\link{fp_border}} for borders.
 #' @param vertical.align cell content vertical alignment - a single character value
 #' , expected value is one of "center" or "top" or "bottom"
 #' @param margin shortcut for all margins.
@@ -20,8 +20,8 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @param row_span,column_span row and column span
 #' @export
 fp_cell = function(
-  border = pr_border(width=0),
-	border.bottom,border.left,border.top,border.right,
+  border = fp_border(width=0),
+	border.bottom, border.left, border.top, border.right,
 	vertical.align = "middle",
   margin = 0,
 	margin.bottom, margin.top, margin.left, margin.right,

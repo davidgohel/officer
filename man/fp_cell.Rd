@@ -7,7 +7,7 @@
 \alias{update.fp_cell}
 \title{Cell formatting properties}
 \usage{
-fp_cell(border = pr_border(width = 0), border.bottom, border.left, border.top,
+fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
   border.right, vertical.align = "middle", margin = 0, margin.bottom,
   margin.top, margin.left, margin.right, background.color = "transparent",
   background.img.id = "rId1", background.img.src = NULL,
@@ -25,7 +25,7 @@ fp_cell(border = pr_border(width = 0), border.bottom, border.left, border.top,
 \arguments{
 \item{border}{shortcut for all borders.}
 
-\item{border.bottom, border.left, border.top, border.right}{\code{\link{pr_border}} for borders.}
+\item{border.bottom, border.left, border.top, border.right}{\code{\link{fp_border}} for borders.}
 
 \item{vertical.align}{cell content vertical alignment - a single character value
 , expected value is one of "center" or "top" or "bottom"}

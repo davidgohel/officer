@@ -12,7 +12,7 @@
 #' @param padding paragraph paddings - 0 or positive integer value. Argument \code{padding} overwrites
 #' arguments \code{padding.bottom}, \code{padding.top}, \code{padding.left}, \code{padding.right}.
 #' @param border shortcut for all borders.
-#' @param border.bottom,border.left,border.top,border.right \code{\link{pr_border}} for
+#' @param border.bottom,border.left,border.top,border.right \code{\link{fp_border}} for
 #' borders. overwrite other border properties.
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
@@ -23,7 +23,7 @@
 #' @importFrom purrr map
 fp_par = function(text.align = "left",
                   padding = 0,
-                  border = pr_border(width=0),
+                  border = fp_border(width=0),
                   padding.bottom, padding.top,
                   padding.left, padding.right,
                   border.bottom, border.left,

@@ -11,7 +11,7 @@
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' t_bold()
+#' fp_bold()
 fp_bold = function(...) {fp_text( bold = TRUE, ... )}
 
 
@@ -20,14 +20,14 @@ fp_bold = function(...) {fp_text( bold = TRUE, ... )}
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' t_italic()
+#' fp_italic()
 fp_italic = function( ... ) {fp_text( italic = TRUE, ... )}
 
 
 #' @rdname shortcut_properties
 #' @export
 #' @examples
-#' t_bi()
+#' fp_bi()
 fp_bi = function( ... ) {fp_text( bold = TRUE, italic = TRUE, ... )}
 
 

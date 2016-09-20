@@ -60,9 +60,9 @@ Shortcuts for \code{fp_text}, \code{fp_par},
 \code{fp_cell} and \code{fp_border}.
 }
 \examples{
-t_bold()
-t_italic()
-t_bi()
+fp_bold()
+fp_italic()
+fp_bi()
 fp_right()
 fp_left()
 fp_center()

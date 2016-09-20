@@ -6,7 +6,7 @@
 \alias{update.fp_par}
 \title{Paragraph formatting properties}
 \usage{
-fp_par(text.align = "left", padding = 0, border = pr_border(width = 0),
+fp_par(text.align = "left", padding = 0, border = fp_border(width = 0),
   padding.bottom, padding.top, padding.left, padding.right, border.bottom,
   border.left, border.top, border.right, shading.color = "transparent")
 
@@ -27,7 +27,7 @@ arguments \code{padding.bottom}, \code{padding.top}, \code{padding.left}, \code{
 
 \item{padding.bottom, padding.top, padding.left, padding.right}{paragraph paddings - 0 or positive integer value.}
 
-\item{border.bottom, border.left, border.top, border.right}{\code{\link{pr_border}} for
+\item{border.bottom, border.left, border.top, border.right}{\code{\link{fp_border}} for
 borders. overwrite other border properties.}
 
 \item{shading.color}{shading color - a single character value specifying
