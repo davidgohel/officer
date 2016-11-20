@@ -33,6 +33,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ppr_new
+SEXP ppr_new(Rcpp::List compounds);
+RcppExport SEXP oxbase_ppr_new(SEXP compoundsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type compounds(compoundsSEXP);
+    rcpp_result_gen = Rcpp::wrap(ppr_new(compounds));
+    return rcpp_result_gen;
+END_RCPP
+}
 // w_ppr
 std::string w_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
 RcppExport SEXP oxbase_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
@@ -108,75 +119,83 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// w_rpr
-std::string w_rpr(double size, bool italic, bool bold, bool underlined, int col_font_r, int col_font_g, int col_font_b, int col_font_a, int col_shading_r, int col_shading_g, int col_shading_b, int col_shading_a, std::string fontname, std::string vertical_align);
-RcppExport SEXP oxbase_w_rpr(SEXP sizeSEXP, SEXP italicSEXP, SEXP boldSEXP, SEXP underlinedSEXP, SEXP col_font_rSEXP, SEXP col_font_gSEXP, SEXP col_font_bSEXP, SEXP col_font_aSEXP, SEXP col_shading_rSEXP, SEXP col_shading_gSEXP, SEXP col_shading_bSEXP, SEXP col_shading_aSEXP, SEXP fontnameSEXP, SEXP vertical_alignSEXP) {
+// rpr_new
+SEXP rpr_new(Rcpp::List compounds);
+RcppExport SEXP oxbase_rpr_new(SEXP compoundsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
-    Rcpp::traits::input_parameter< bool >::type underlined(underlinedSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_r(col_font_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_g(col_font_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_b(col_font_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_a(col_font_aSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_r(col_shading_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_g(col_shading_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_b(col_shading_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_a(col_shading_aSEXP);
-    Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type vertical_align(vertical_alignSEXP);
-    rcpp_result_gen = Rcpp::wrap(w_rpr(size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align));
+    Rcpp::traits::input_parameter< Rcpp::List >::type compounds(compoundsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rpr_new(compounds));
     return rcpp_result_gen;
 END_RCPP
 }
-// a_rpr
-std::string a_rpr(double size, bool italic, bool bold, bool underlined, int col_font_r, int col_font_g, int col_font_b, int col_font_a, int col_shading_r, int col_shading_g, int col_shading_b, int col_shading_a, std::string fontname, std::string vertical_align);
-RcppExport SEXP oxbase_a_rpr(SEXP sizeSEXP, SEXP italicSEXP, SEXP boldSEXP, SEXP underlinedSEXP, SEXP col_font_rSEXP, SEXP col_font_gSEXP, SEXP col_font_bSEXP, SEXP col_font_aSEXP, SEXP col_shading_rSEXP, SEXP col_shading_gSEXP, SEXP col_shading_bSEXP, SEXP col_shading_aSEXP, SEXP fontnameSEXP, SEXP vertical_alignSEXP) {
+// rpr_w
+std::string rpr_w(SEXP fp);
+RcppExport SEXP oxbase_rpr_w(SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
-    Rcpp::traits::input_parameter< bool >::type underlined(underlinedSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_r(col_font_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_g(col_font_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_b(col_font_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_a(col_font_aSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_r(col_shading_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_g(col_shading_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_b(col_shading_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_a(col_shading_aSEXP);
-    Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type vertical_align(vertical_alignSEXP);
-    rcpp_result_gen = Rcpp::wrap(a_rpr(size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align));
+    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
+    rcpp_result_gen = Rcpp::wrap(rpr_w(fp));
     return rcpp_result_gen;
 END_RCPP
 }
-// css_rpr
-std::string css_rpr(double size, bool italic, bool bold, bool underlined, int col_font_r, int col_font_g, int col_font_b, int col_font_a, int col_shading_r, int col_shading_g, int col_shading_b, int col_shading_a, std::string fontname, std::string vertical_align);
-RcppExport SEXP oxbase_css_rpr(SEXP sizeSEXP, SEXP italicSEXP, SEXP boldSEXP, SEXP underlinedSEXP, SEXP col_font_rSEXP, SEXP col_font_gSEXP, SEXP col_font_bSEXP, SEXP col_font_aSEXP, SEXP col_shading_rSEXP, SEXP col_shading_gSEXP, SEXP col_shading_bSEXP, SEXP col_shading_aSEXP, SEXP fontnameSEXP, SEXP vertical_alignSEXP) {
+// rpr_p
+std::string rpr_p(SEXP fp);
+RcppExport SEXP oxbase_rpr_p(SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
-    Rcpp::traits::input_parameter< bool >::type underlined(underlinedSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_r(col_font_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_g(col_font_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_b(col_font_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_a(col_font_aSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_r(col_shading_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_g(col_shading_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_b(col_shading_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_shading_a(col_shading_aSEXP);
-    Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type vertical_align(vertical_alignSEXP);
-    rcpp_result_gen = Rcpp::wrap(css_rpr(size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align));
+    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
+    rcpp_result_gen = Rcpp::wrap(rpr_p(fp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rpr_css
+std::string rpr_css(SEXP fp);
+RcppExport SEXP oxbase_rpr_css(SEXP fpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
+    rcpp_result_gen = Rcpp::wrap(rpr_css(fp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// chunk_w
+std::string chunk_w(std::string value, SEXP fp);
+RcppExport SEXP oxbase_chunk_w(SEXP valueSEXP, SEXP fpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
+    rcpp_result_gen = Rcpp::wrap(chunk_w(value, fp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// chunk_p
+std::string chunk_p(std::string value, SEXP fp);
+RcppExport SEXP oxbase_chunk_p(SEXP valueSEXP, SEXP fpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
+    rcpp_result_gen = Rcpp::wrap(chunk_p(value, fp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// chunk_html
+std::string chunk_html(std::string value, SEXP fp);
+RcppExport SEXP oxbase_chunk_html(SEXP valueSEXP, SEXP fpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
+    rcpp_result_gen = Rcpp::wrap(chunk_html(value, fp));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -270,6 +289,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type row_span(row_spanSEXP);
     Rcpp::traits::input_parameter< int >::type column_span(column_spanSEXP);
     rcpp_result_gen = Rcpp::wrap(css_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wml_run_pic
+std::string wml_run_pic(std::string src, double width, double height);
+RcppExport SEXP oxbase_wml_run_pic(SEXP srcSEXP, SEXP widthSEXP, SEXP heightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type src(srcSEXP);
+    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
+    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
+    rcpp_result_gen = Rcpp::wrap(wml_run_pic(src, width, height));
     return rcpp_result_gen;
 END_RCPP
 }

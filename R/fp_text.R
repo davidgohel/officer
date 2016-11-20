@@ -41,6 +41,19 @@ fp_text <- function( color = "black", font.size = 10,
   out
 }
 
+rpr_pointer <- function(x){
+  cols <- as.integer( col2rgb(x$color, alpha = TRUE)[,1] )
+  shadings <- as.integer( col2rgb(x$shading.color, alpha = TRUE)[,1] )
+
+  x <- append(x, list(
+    col_font_r = cols[1], col_font_g = cols[2],
+    col_font_b = cols[3], col_font_a = cols[4],
+    col_shading_r = shadings[1], col_shading_g = shadings[2],
+    col_shading_b = shadings[3], col_shading_a = shadings[4]
+  ))
+  rpr_new( x )
+}
+
 #' @rdname fp_text
 #' @param format format type, wml for MS word, pml for
 #' MS PowerPoint and html.
@@ -51,27 +64,14 @@ format.fp_text <- function( x, type = "wml", ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
-  cols <- as.integer( col2rgb(x$color, alpha = TRUE)[,1] )
-  shadings <- as.integer( col2rgb(x$shading.color, alpha = TRUE)[,1] )
+  ptr <- rpr_pointer( x )
 
   if( type == "wml" ){
-    w_rpr(size = as.double(x$font.size),
-          italic = x$italic, bold = x$bold, underlined = x$underlined,
-          col_font_r = cols[1], col_font_g = cols[2], col_font_b = cols[3], col_font_a = cols[4],
-          col_shading_r = shadings[1], col_shading_g = shadings[2], col_shading_b = shadings[3], col_shading_a = shadings[4],
-          fontname = x$font.family, vertical_align = x$vertical.align )
+    rpr_w(ptr)
   } else if( type == "pml" ){
-    a_rpr(size = as.double(x$font.size),
-          italic = x$italic, bold = x$bold, underlined = x$underlined,
-          col_font_r = cols[1], col_font_g = cols[2], col_font_b = cols[3], col_font_a = cols[4],
-          col_shading_r = shadings[1], col_shading_g = shadings[2], col_shading_b = shadings[3], col_shading_a = shadings[4],
-          fontname = x$font.family, vertical_align = x$vertical.align )
+    rpr_p(ptr)
   } else if(type == "html") {
-    css_rpr(size = as.double(x$font.size),
-          italic = x$italic, bold = x$bold, underlined = x$underlined,
-          col_font_r = cols[1], col_font_g = cols[2], col_font_b = cols[3], col_font_a = cols[4],
-          col_shading_r = shadings[1], col_shading_g = shadings[2], col_shading_b = shadings[3], col_shading_a = shadings[4],
-          fontname = x$font.family, vertical_align = x$vertical.align )
+    rpr_css(ptr)
   } else stop("unimplemented type")
 }
 
@@ -125,3 +125,14 @@ update.fp_text <- function(object, color, font.size,
 
   object
 }
+
+
+
+
+
+
+
+
+
+
+

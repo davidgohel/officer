@@ -9,6 +9,10 @@ color_css <- function(col_font_r, col_font_g, col_font_b, col_font_a) {
     .Call('oxbase_color_css', PACKAGE = 'oxbase', col_font_r, col_font_g, col_font_b, col_font_a)
 }
 
+ppr_new <- function(compounds) {
+    .Call('oxbase_ppr_new', PACKAGE = 'oxbase', compounds)
+}
+
 w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
     .Call('oxbase_w_ppr', PACKAGE = 'oxbase', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
@@ -21,16 +25,32 @@ css_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr
     .Call('oxbase_css_ppr', PACKAGE = 'oxbase', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
-w_rpr <- function(size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align) {
-    .Call('oxbase_w_rpr', PACKAGE = 'oxbase', size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align)
+rpr_new <- function(compounds) {
+    .Call('oxbase_rpr_new', PACKAGE = 'oxbase', compounds)
 }
 
-a_rpr <- function(size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align) {
-    .Call('oxbase_a_rpr', PACKAGE = 'oxbase', size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align)
+rpr_w <- function(fp) {
+    .Call('oxbase_rpr_w', PACKAGE = 'oxbase', fp)
 }
 
-css_rpr <- function(size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align) {
-    .Call('oxbase_css_rpr', PACKAGE = 'oxbase', size, italic, bold, underlined, col_font_r, col_font_g, col_font_b, col_font_a, col_shading_r, col_shading_g, col_shading_b, col_shading_a, fontname, vertical_align)
+rpr_p <- function(fp) {
+    .Call('oxbase_rpr_p', PACKAGE = 'oxbase', fp)
+}
+
+rpr_css <- function(fp) {
+    .Call('oxbase_rpr_css', PACKAGE = 'oxbase', fp)
+}
+
+chunk_w <- function(value, fp) {
+    .Call('oxbase_chunk_w', PACKAGE = 'oxbase', value, fp)
+}
+
+chunk_p <- function(value, fp) {
+    .Call('oxbase_chunk_p', PACKAGE = 'oxbase', value, fp)
+}
+
+chunk_html <- function(value, fp) {
+    .Call('oxbase_chunk_html', PACKAGE = 'oxbase', value, fp)
 }
 
 w_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
@@ -43,5 +63,9 @@ a_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g,
 
 css_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
     .Call('oxbase_css_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+}
+
+wml_run_pic <- function(src, width, height) {
+    .Call('oxbase_wml_run_pic', PACKAGE = 'oxbase', src, width, height)
 }
 

@@ -1,7 +1,7 @@
 Package: oxbase
 Type: Package
 Title: openxml tools
-Version: 0.0.1
+Version: 0.0.1.9000
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
@@ -16,8 +16,9 @@ Imports:
     utils,
     grDevices,
     gdtools,
-    R.utils
-RoxygenNote: 5.0.1
+    R.utils,
+    lazyeval,
+    openssl
+RoxygenNote: 5.0.1.9000
 Suggests: testthat,
   xml2
-
