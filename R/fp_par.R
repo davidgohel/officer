@@ -111,6 +111,15 @@ format.fp_par = function (x, type = "wml", ...){
 }
 
 
+#' @rdname fp_par
+#' @export
+#' @importFrom stats setNames
+dim.fp_par = function (x){
+  width <- x$padding.left + x$padding.right #+ x$border.left$width + x$border.right$width
+  height <- x$padding.top + x$padding.bottom #+ x$border.top$width + x$border.bottom$width
+  setNames(c(width, height) * (4/3) / 72, c("width", "height"))
+}
+
 
 
 #' @param x,object \code{fp_par} object

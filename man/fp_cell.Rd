@@ -37,6 +37,10 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
 \item{background.color}{cell background color - a single character value specifying a
 valid color (e.g. "#000000" or "black").}
 
+\item{background.img.id}{id of the background image in the relation file.}
+
+\item{background.img.src}{path of the background image}
+
 \item{text.direction}{cell text rotation - a single character value, expected
 value is one of "lrtb", "tbrl", "btlr".}
 

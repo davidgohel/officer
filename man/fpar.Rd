@@ -3,16 +3,19 @@
 \name{fpar}
 \alias{fpar}
 \alias{update.fpar}
-\alias{dim.fpar}
+\alias{fortify_fpar}
+\alias{as.data.frame.fpar}
 \alias{format.fpar}
 \alias{print.fpar}
-\title{formatted paragraph}
+\title{concatenate formatted text}
 \usage{
 fpar(...)
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
 
-\method{dim}{fpar}(x)
+fortify_fpar(x)
+
+\method{as.data.frame}{fpar}(x, ...)
 
 \method{format}{fpar}(x, type = "pml", ...)
 
@@ -30,7 +33,12 @@ fpar(...)
 \item{type}{a string value ("pml", "wml" or "html").}
 }
 \description{
-formatted paragraph
+create a paragraph representation by concatenating
+formatted text or images.
+}
+\details{
+\code{fortify_fpar}, \code{as.data.frame} are used internally and
+are not supposed to be used by end user.
 }
 \examples{
 fpar(ftext("hello", fp_bold()))

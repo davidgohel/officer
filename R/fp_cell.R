@@ -15,6 +15,8 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @param margin.bottom,margin.top,margin.left,margin.right cell margins - 0 or positive integer value.
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
+#' @param background.img.id id of the background image in the relation file.
+#' @param background.img.src path of the background image
 #' @param text.direction cell text rotation - a single character value, expected
 #' value is one of "lrtb", "tbrl", "btlr".
 #' @param row_span,column_span row and column span

@@ -4,6 +4,7 @@
 \alias{fp_text}
 \alias{format.fp_text}
 \alias{print.fp_text}
+\alias{as.data.frame.fp_text}
 \alias{update.fp_text}
 \title{Text formatting properties}
 \usage{
@@ -14,6 +15,8 @@ fp_text(color = "black", font.size = 10, bold = FALSE, italic = FALSE,
 \method{format}{fp_text}(x, type = "wml", ...)
 
 \method{print}{fp_text}(x, ...)
+
+\method{as.data.frame}{fp_text}(x, ...)
 
 \method{update}{fp_text}(object, color, font.size, bold = FALSE,
   italic = FALSE, underlined = FALSE, font.family, vertical.align,
@@ -40,7 +43,7 @@ or \code{'subscript'} or \code{'superscript'}}
 \item{shading.color}{shading color - a single character value specifying
 a valid color (e.g. "#000000" or "black").}
 
-\item{x}{\code{fp_text} object to print}
+\item{x}{\code{fp_text} object}
 
 \item{type}{output type - one of 'wml', 'pml', 'html'.}
 

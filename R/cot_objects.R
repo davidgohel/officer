@@ -13,7 +13,7 @@ ftext <- function(text, prop) {
 
 
 #' @export
-#' @param type output format
+#' @param type output format, one of wml, pml, html, console, text.
 #' @param ... unused
 #' @rdname ftext
 format.ftext = function (x, type = "console", ...){
@@ -36,29 +36,11 @@ format.ftext = function (x, type = "console", ...){
   out
 }
 
+#' @export
+#' @rdname ftext
+#' @param x \code{ftext} object
 print.ftext = function (x, ...){
   cat( format(x, type = "console"), "\n", sep = "" )
-}
-
-#' @export
-#' @importFrom gdtools str_extents
-#' @param x \code{ftext} object
-#' @rdname ftext
-#' @section dim:
-#'
-#' Function \code{dim} returns width and height of the \code{ftext} when
-#' formatted.
-#'
-dim.ftext <- function( x ){
-  stopifnot(inherits(x$pr, "fp_text"))
-  mat <- str_extents(x = x$value,
-                     fontname = x$pr$font.family,
-                     fontsize = x$pr$font.size,
-                     bold = x$pr$bold,
-                     italic = x$pr$italic) / 72
-  mat <- as.data.frame(mat)
-  names(mat ) <- c("width", "height")
-  mat
 }
 
 
@@ -83,6 +65,14 @@ external_img <- function(src, width = .5, height = .2) {
 dim.external_img <- function( x ){
   x <- attr(x, "dims")
   data.frame(width = x$width, height = x$height)
+}
+
+
+#' @rdname minibar
+#' @export
+as.data.frame.external_img <- function( x, ... ){
+  dimx <- attr(x, "dims")
+  data.frame(path = as.character(x), width = dimx$width, height = dimx$height)
 }
 
 #' @importFrom openssl base64_encode
@@ -136,9 +126,8 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
     value <- max
   }
   width_ <- as.integer(width * 72)
-  height_ <- as.integer(height * 72)
   value <- as.integer( (value / max) * width_ )
-  n_empty <- width_-value
+  n_empty <- width_ - value
   out <- tempfile(fileext = ".png")
   class(out) <- c("minibar", "cot")
   attr(out, "dims") <- list(width = width, height = height)
@@ -153,6 +142,13 @@ minibar <- function(value, max, barcol = "#CCCCCC", bg = "transparent", width = 
 dim.minibar <- function( x ){
   x <- attr(x, "dims")
   data.frame(width = x$width, height = x$height)
+}
+
+#' @rdname minibar
+#' @export
+as.data.frame.minibar <- function( x, ... ){
+  dimx <- attr(x, "dims")
+  data.frame(path = as.character(x), width = dimx$width, height = dimx$height)
 }
 
 #' @param type output format

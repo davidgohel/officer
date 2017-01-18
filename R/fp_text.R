@@ -75,13 +75,22 @@ format.fp_text <- function( x, type = "wml", ... ){
   } else stop("unimplemented type")
 }
 
-#' @param x \code{fp_text} object to print
+#' @param x \code{fp_text} object
 #' @examples
 #' print( fp_text (color="red", font.size = 12) )
 #' @rdname fp_text
 #' @export
 print.fp_text = function (x, ...){
-  out <- data.frame(
+  out <- as.data.frame(x )
+  out <- as.data.frame( t(out) )
+  names(out) <- "values"
+  print(out)
+}
+
+#' @rdname fp_text
+#' @export
+as.data.frame.fp_text = function (x, ...){
+  data.frame(
     size = as.double(x$font.size),
     italic = x$italic,
     bold = x$bold,
@@ -90,9 +99,6 @@ print.fp_text = function (x, ...){
     shading = x$shading.color,
     fontname = x$font.family,
     vertical_align = x$vertical.align, stringsAsFactors = FALSE )
-  out <- as.data.frame( t(out) )
-  names(out) <- "values"
-  print(out)
 }
 
 

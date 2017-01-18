@@ -2,6 +2,7 @@
 % Please edit documentation in R/fp_par.R
 \name{fp_par}
 \alias{fp_par}
+\alias{dim.fp_par}
 \alias{print.fp_par}
 \alias{update.fp_par}
 \title{Paragraph formatting properties}
@@ -9,6 +10,8 @@
 fp_par(text.align = "left", padding = 0, border = fp_border(width = 0),
   padding.bottom, padding.top, padding.left, padding.right, border.bottom,
   border.left, border.top, border.right, shading.color = "transparent")
+
+\method{dim}{fp_par}(x)
 
 \method{print}{fp_par}(x, ...)
 

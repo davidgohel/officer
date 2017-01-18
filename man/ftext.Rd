@@ -3,14 +3,14 @@
 \name{ftext}
 \alias{ftext}
 \alias{format.ftext}
-\alias{dim.ftext}
+\alias{print.ftext}
 \title{formatted text}
 \usage{
 ftext(text, prop)
 
 \method{format}{ftext}(x, type = "console", ...)
 
-\method{dim}{ftext}(x)
+\method{print}{ftext}(x, ...)
 }
 \arguments{
 \item{text}{text value}
@@ -19,18 +19,12 @@ ftext(text, prop)
 
 \item{x}{\code{ftext} object}
 
-\item{type}{output format}
+\item{type}{output format, one of wml, pml, html, console, text.}
 
 \item{...}{unused}
 }
 \description{
 Format a chunk of text with text formatting properties.
-}
-\section{dim}{
-
-
-Function \code{dim} returns width and height of the \code{ftext} when
-formatted.
 }
 \examples{
 ftext("hello", fp_text())
