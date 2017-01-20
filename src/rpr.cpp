@@ -117,22 +117,4 @@ rpr::rpr(double size, bool italic, bool bold, bool underlined,
 }
 
 
-bool operator== (const rpr &c1, const rpr &c2)
-{
-  return (c1.bold== c2.bold &&
-          c1.italic== c2.italic &&
-          c1.fontname==c2.fontname &&
-          c1.size==c2.size &&
-          c1.underlined==c2.underlined &&
-          c1.vertical_align==c2.vertical_align &&
-          c1.col_font_a==c2.col_font_a &&
-          c1.col_font_b==c2.col_font_b &&
-          c1.col_font_g==c2.col_font_g &&
-          c1.col_font_r==c2.col_font_r &&
-          c1.col_shading_a==c2.col_shading_a &&
-          c1.col_shading_r==c2.col_shading_r &&
-          c1.col_shading_g==c2.col_shading_g &&
-          c1.col_shading_b==c2.col_shading_b
-          );
-}
 

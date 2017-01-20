@@ -5,34 +5,6 @@
 
 using namespace Rcpp;
 
-// solid_fill
-std::string solid_fill(int col_font_r, int col_font_g, int col_font_b, int col_font_a);
-RcppExport SEXP oxbase_solid_fill(SEXP col_font_rSEXP, SEXP col_font_gSEXP, SEXP col_font_bSEXP, SEXP col_font_aSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type col_font_r(col_font_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_g(col_font_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_b(col_font_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_a(col_font_aSEXP);
-    rcpp_result_gen = Rcpp::wrap(solid_fill(col_font_r, col_font_g, col_font_b, col_font_a));
-    return rcpp_result_gen;
-END_RCPP
-}
-// color_css
-std::string color_css(int col_font_r, int col_font_g, int col_font_b, int col_font_a);
-RcppExport SEXP oxbase_color_css(SEXP col_font_rSEXP, SEXP col_font_gSEXP, SEXP col_font_bSEXP, SEXP col_font_aSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type col_font_r(col_font_rSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_g(col_font_gSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_b(col_font_bSEXP);
-    Rcpp::traits::input_parameter< int >::type col_font_a(col_font_aSEXP);
-    rcpp_result_gen = Rcpp::wrap(color_css(col_font_r, col_font_g, col_font_b, col_font_a));
-    return rcpp_result_gen;
-END_RCPP
-}
 // ppr_new
 SEXP ppr_new(Rcpp::List compounds);
 RcppExport SEXP oxbase_ppr_new(SEXP compoundsSEXP) {
