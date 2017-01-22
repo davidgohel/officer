@@ -1,4 +1,4 @@
 library(testthat)
-library(oxbase)
+library(officer)
 
-test_check("oxbase")
+test_check("officer")

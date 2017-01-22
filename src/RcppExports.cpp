@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // ppr_new
 SEXP ppr_new(Rcpp::List compounds);
-RcppExport SEXP oxbase_ppr_new(SEXP compoundsSEXP) {
+RcppExport SEXP officer_ppr_new(SEXP compoundsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // w_ppr
 std::string w_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
-RcppExport SEXP oxbase_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
+RcppExport SEXP officer_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // a_ppr
 std::string a_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
-RcppExport SEXP oxbase_a_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
+RcppExport SEXP officer_a_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -68,7 +68,7 @@ END_RCPP
 }
 // css_ppr
 std::string css_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
-RcppExport SEXP oxbase_css_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
+RcppExport SEXP officer_css_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -93,7 +93,7 @@ END_RCPP
 }
 // rpr_new
 SEXP rpr_new(Rcpp::List compounds);
-RcppExport SEXP oxbase_rpr_new(SEXP compoundsSEXP) {
+RcppExport SEXP officer_rpr_new(SEXP compoundsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -104,7 +104,7 @@ END_RCPP
 }
 // rpr_w
 std::string rpr_w(SEXP fp);
-RcppExport SEXP oxbase_rpr_w(SEXP fpSEXP) {
+RcppExport SEXP officer_rpr_w(SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -115,7 +115,7 @@ END_RCPP
 }
 // rpr_p
 std::string rpr_p(SEXP fp);
-RcppExport SEXP oxbase_rpr_p(SEXP fpSEXP) {
+RcppExport SEXP officer_rpr_p(SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -126,7 +126,7 @@ END_RCPP
 }
 // rpr_css
 std::string rpr_css(SEXP fp);
-RcppExport SEXP oxbase_rpr_css(SEXP fpSEXP) {
+RcppExport SEXP officer_rpr_css(SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -137,7 +137,7 @@ END_RCPP
 }
 // chunk_w
 std::string chunk_w(std::string value, SEXP fp);
-RcppExport SEXP oxbase_chunk_w(SEXP valueSEXP, SEXP fpSEXP) {
+RcppExport SEXP officer_chunk_w(SEXP valueSEXP, SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -149,7 +149,7 @@ END_RCPP
 }
 // chunk_p
 std::string chunk_p(std::string value, SEXP fp);
-RcppExport SEXP oxbase_chunk_p(SEXP valueSEXP, SEXP fpSEXP) {
+RcppExport SEXP officer_chunk_p(SEXP valueSEXP, SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -161,7 +161,7 @@ END_RCPP
 }
 // chunk_html
 std::string chunk_html(std::string value, SEXP fp);
-RcppExport SEXP oxbase_chunk_html(SEXP valueSEXP, SEXP fpSEXP) {
+RcppExport SEXP officer_chunk_html(SEXP valueSEXP, SEXP fpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -173,7 +173,7 @@ END_RCPP
 }
 // w_tcpr
 std::string w_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
-RcppExport SEXP oxbase_w_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
+RcppExport SEXP officer_w_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -204,7 +204,7 @@ END_RCPP
 }
 // a_tcpr
 std::string a_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
-RcppExport SEXP oxbase_a_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
+RcppExport SEXP officer_a_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -235,7 +235,7 @@ END_RCPP
 }
 // css_tcpr
 std::string css_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
-RcppExport SEXP oxbase_css_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
+RcppExport SEXP officer_css_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -266,7 +266,7 @@ END_RCPP
 }
 // wml_run_pic
 std::string wml_run_pic(std::string src, double width, double height);
-RcppExport SEXP oxbase_wml_run_pic(SEXP srcSEXP, SEXP widthSEXP, SEXP heightSEXP) {
+RcppExport SEXP officer_wml_run_pic(SEXP srcSEXP, SEXP widthSEXP, SEXP heightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

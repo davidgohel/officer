@@ -1,7 +1,7 @@
-Package: oxbase
+Package: officer
 Type: Package
 Title: openxml tools
-Version: 0.0.1.9000
+Version: 0.0.2
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))

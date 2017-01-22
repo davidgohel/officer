@@ -2,62 +2,62 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 ppr_new <- function(compounds) {
-    .Call('oxbase_ppr_new', PACKAGE = 'oxbase', compounds)
+    .Call('officer_ppr_new', PACKAGE = 'officer', compounds)
 }
 
 w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call('oxbase_w_ppr', PACKAGE = 'oxbase', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call('officer_w_ppr', PACKAGE = 'officer', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 a_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call('oxbase_a_ppr', PACKAGE = 'oxbase', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call('officer_a_ppr', PACKAGE = 'officer', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 css_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call('oxbase_css_ppr', PACKAGE = 'oxbase', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call('officer_css_ppr', PACKAGE = 'officer', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 rpr_new <- function(compounds) {
-    .Call('oxbase_rpr_new', PACKAGE = 'oxbase', compounds)
+    .Call('officer_rpr_new', PACKAGE = 'officer', compounds)
 }
 
 rpr_w <- function(fp) {
-    .Call('oxbase_rpr_w', PACKAGE = 'oxbase', fp)
+    .Call('officer_rpr_w', PACKAGE = 'officer', fp)
 }
 
 rpr_p <- function(fp) {
-    .Call('oxbase_rpr_p', PACKAGE = 'oxbase', fp)
+    .Call('officer_rpr_p', PACKAGE = 'officer', fp)
 }
 
 rpr_css <- function(fp) {
-    .Call('oxbase_rpr_css', PACKAGE = 'oxbase', fp)
+    .Call('officer_rpr_css', PACKAGE = 'officer', fp)
 }
 
 chunk_w <- function(value, fp) {
-    .Call('oxbase_chunk_w', PACKAGE = 'oxbase', value, fp)
+    .Call('officer_chunk_w', PACKAGE = 'officer', value, fp)
 }
 
 chunk_p <- function(value, fp) {
-    .Call('oxbase_chunk_p', PACKAGE = 'oxbase', value, fp)
+    .Call('officer_chunk_p', PACKAGE = 'officer', value, fp)
 }
 
 chunk_html <- function(value, fp) {
-    .Call('oxbase_chunk_html', PACKAGE = 'oxbase', value, fp)
+    .Call('officer_chunk_html', PACKAGE = 'officer', value, fp)
 }
 
 w_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
-    .Call('oxbase_w_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+    .Call('officer_w_tcpr', PACKAGE = 'officer', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
 
 a_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
-    .Call('oxbase_a_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+    .Call('officer_a_tcpr', PACKAGE = 'officer', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
 
 css_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
-    .Call('oxbase_css_tcpr', PACKAGE = 'oxbase', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
+    .Call('officer_css_tcpr', PACKAGE = 'officer', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
 
 wml_run_pic <- function(src, width, height) {
-    .Call('oxbase_wml_run_pic', PACKAGE = 'oxbase', src, width, height)
+    .Call('officer_wml_run_pic', PACKAGE = 'officer', src, width, height)
 }
 
