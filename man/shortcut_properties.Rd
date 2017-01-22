@@ -4,53 +4,14 @@
 \alias{fp_bold}
 \alias{shortcut_properties}
 \alias{fp_italic}
-\alias{fp_bi}
-\alias{fp_right}
-\alias{fp_left}
-\alias{fp_center}
-\alias{fp_justify}
-\alias{b_dot}
-\alias{b_dash}
 \alias{b_null}
-\alias{c_b_null}
-\alias{c_b_all}
-\alias{c_b_b}
-\alias{c_b_t}
-\alias{c_b_tb}
-\alias{c_b_lr}
 \title{shortcuts for formatting properties}
 \usage{
 fp_bold(...)
 
 fp_italic(...)
 
-fp_bi(...)
-
-fp_right(...)
-
-fp_left(...)
-
-fp_center(...)
-
-fp_justify(...)
-
-b_dot(...)
-
-b_dash(...)
-
 b_null(...)
-
-c_b_null(...)
-
-c_b_all(...)
-
-c_b_b(...)
-
-c_b_t(...)
-
-c_b_tb(...)
-
-c_b_lr(...)
 }
 \arguments{
 \item{...}{further arguments passed to original functions.}
@@ -62,19 +23,6 @@ Shortcuts for \code{fp_text}, \code{fp_par},
 \examples{
 fp_bold()
 fp_italic()
-fp_bi()
-fp_right()
-fp_left()
-fp_center()
-fp_justify()
-b_dot()
-b_dash()
 b_null()
-c_b_null()
-c_b_all()
-c_b_b()
-c_b_t()
-c_b_tb()
-c_b_tb()
 }
 

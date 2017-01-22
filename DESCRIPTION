@@ -19,6 +19,7 @@ Imports:
     R.utils,
     lazyeval,
     openssl,
+    digest,
     xml2
 RoxygenNote: 5.0.1.9000
 Suggests: testthat
