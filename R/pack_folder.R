@@ -10,6 +10,7 @@
 #' @param target path of the archive to create
 pack_folder <- function( folder, target ){
   target <- getAbsolutePath(target)
+  folder <- getAbsolutePath(folder)
   curr_wd <- getwd()
   zip_dir <- folder
   setwd(zip_dir)

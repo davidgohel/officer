@@ -11,7 +11,7 @@
 #' @param fp_t default text formatting properties
 #' @param x,object fpar object
 #' @examples
-#' fpar(ftext("hello", fp_bold()))
+#' fpar(ftext("hello", shortcuts$fp_bold()))
 fpar <- function( ... ) {
   out <- list()
   out$chunks <- f_list(...)
@@ -98,11 +98,3 @@ print.fpar = function (x, ...){
   cat( format(x, type = "console"), "\n", sep = "" )
 }
 
-set_rid <- function( x, id ){
-  for(i in seq_along(x$chunks) ){
-    if( inherits(x$chunks[[i]], "external_img")){
-      attr(x$chunks[[i]], "id") <- sprintf("rId%0.f", id + i )
-    }
-  }
-  x
-}

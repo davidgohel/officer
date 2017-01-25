@@ -7,7 +7,7 @@
 fp_sign(x)
 }
 \arguments{
-\item{x}{a flextable object}
+\item{x}{a formatting set of properties}
 }
 \description{
 Get unique signature for a formatting properties

@@ -3,9 +3,6 @@
 #' @description Create a \code{fp_par} object that describes
 #' paragraph formatting properties.
 #'
-#' @details fp_par is used to control paragraph properties.
-#' It is used when adding plots or when adding content in a FlexTable.
-#'
 #' @param text.align text alignment - a single character value, expected value
 #' is one of 'left', 'right', 'center', 'justify'.
 #' @param padding.bottom,padding.top,padding.left,padding.right paragraph paddings - 0 or positive integer value.

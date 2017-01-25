@@ -3,7 +3,7 @@
 #' @title object unique signature
 #' @description Get unique signature for a formatting properties
 #' object.
-#' @param x a flextable object
+#' @param x a formatting set of properties
 #' @examples
 #' fp_sign( fp_text(color="orange") )
 #' @export

@@ -1,11 +1,14 @@
 Package: officer
 Type: Package
-Title: openxml tools
-Version: 0.0.2
+Title: Manipulation of 'Microsoft' Documents
+Version: 0.0.3
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Manipulate formatting properties to produce drawing ML content.
+Description: Framework to work with office documents
+Description: Manipulate 'Microsoft Word' document from R. 
+    The package does not require any installation of Microsoft product 
+    to be able to write Microsoft files.
 License: GPL-3
 LazyData: TRUE
 LinkingTo: Rcpp,
@@ -20,6 +23,7 @@ Imports:
     lazyeval,
     openssl,
     digest,
-    xml2
+    magrittr, tibble, 
+    xml2 (>= 1.1.0)
 RoxygenNote: 5.0.1.9000
-Suggests: testthat
+Suggests: testthat, ionicons

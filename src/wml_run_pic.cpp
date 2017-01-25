@@ -6,11 +6,11 @@ std::string wml_run_pic(std::string src, double width, double height) {
   std::stringstream os;
   os << "<w:r><w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">";
   os << "<wp:extent cx=\"" << (int)(width * 12700) << "\" cy=\"" << (int)(height * 12700) << "\"/>";
-  os << "<wp:docPr id=\"DRAWINGOBJECTID\" name=\"\"/>";
+  os << "<wp:docPr id=\"\" name=\"\"/>";
   os << "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>";
   os << "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">";
   os << "<pic:nvPicPr>";
-  os << "<pic:cNvPr id=\"PICTUREID\" name=\"\"/>";
+  os << "<pic:cNvPr id=\"\" name=\"\"/>";
   os << "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>";
   os << "</pic:cNvPicPr></pic:nvPicPr>";
   os << "<pic:blipFill>";

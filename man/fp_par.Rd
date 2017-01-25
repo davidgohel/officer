@@ -47,10 +47,6 @@ a \code{fp_par} object
 Create a \code{fp_par} object that describes
 paragraph formatting properties.
 }
-\details{
-fp_par is used to control paragraph properties.
-It is used when adding plots or when adding content in a FlexTable.
-}
 \examples{
 fp_par(text.align = "center", padding = 5)
 obj <- fp_par(text.align = "center", padding = 1)

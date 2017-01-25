@@ -3,28 +3,22 @@
 #' @description
 #' Shortcuts for \code{fp_text}, \code{fp_par},
 #' \code{fp_cell} and \code{fp_border}.
-#' @param ... further arguments passed to original functions.
-#' @rdname shortcut_properties
-#' @aliases shortcut_properties
-
-
-#' @rdname shortcut_properties
-#' @export
+#' @name shortcuts
 #' @examples
-#' fp_bold()
-fp_bold = function(...) {fp_text( bold = TRUE, ... )}
+#' shortcuts$fp_bold()
+#' shortcuts$fp_italic()
+#' shortcuts$b_null()
+NULL
 
-
-#' @rdname shortcut_properties
+#' @rdname shortcuts
+#' @format NULL
+#' @docType NULL
+#' @keywords NULL
 #' @export
-#' @examples
-#' fp_italic()
-fp_italic = function( ... ) {fp_text( italic = TRUE, ... )}
+shortcuts <- list(
+  fp_bold = function(...) {fp_text( bold = TRUE, ... )},
+  fp_italic = function( ... ) {fp_text( italic = TRUE, ... )},
+  b_null = function( ... )  {fp_border( width = 0, ... )}
+)
 
-
-#' @rdname shortcut_properties
-#' @export
-#' @examples
-#' b_null()
-b_null = function( ... )  {fp_border( width = 0, ... )}
 

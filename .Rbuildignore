@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^template\.docx$
+^\.travis\.yml$
+^\.README\.Rmd$

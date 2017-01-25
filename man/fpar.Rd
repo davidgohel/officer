@@ -41,6 +41,6 @@ formatted text or images.
 are not supposed to be used by end user.
 }
 \examples{
-fpar(ftext("hello", fp_bold()))
+fpar(ftext("hello", shortcuts$fp_bold()))
 }
 
