@@ -8,40 +8,24 @@
 #' identifiers that need to be known to
 #' link these images with their corresponding xml code (wml).
 #'
-#' @details
-#' The function copy images into the docx document and a data.frame
-#' describing images and their id is returned.
 #' @param x docx object
 #' @param src a vector of character containing image filenames.
 docx_reference_img <- function( x, src){
   src <- unique( src )
+  x$rels$add_img(src, root_target = "media")
 
-  rel_path <- file.path(x$package_dir, "word/_rels/document.xml.rels")
-  relationship <- read_relationship(rel_path)
-
-  int_id <- as.integer( gsub(pattern = "^rId", replacement = "", x = relationship$id ) )
-  last_id <- as.integer( max(int_id) )
+  x$rels$write( file.path(x$package_dir, "word/_rels/document.xml.rels") )
 
   img_path <- file.path(x$package_dir, "word", "media")
   dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
   file.copy(from = src, to = file.path(x$package_dir, "word", "media", basename(src)))
 
-  rId <- paste0("rId", seq_along(src) + last_id)
-
-  new_rel <- data.frame(
-    id = paste0("rId", seq_along(src) + last_id),
-    type = rep("http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
-               length(src)),
-    target = file.path("media", basename(src) ),
-    stringsAsFactors = FALSE )
-
-  write_relationship(x, rbind(relationship, new_rel) )
-  new_rel$src <- src
-  new_rel$id <- seq_along(src) + last_id
-  new_rel
+  x
 }
 
 #' @importFrom xml2 as_xml_document xml_attr<-
+#' @importFrom dplyr filter_
+#' @importFrom lazyeval interp
 #' @export
 #' @title transform an xml string with images references
 #' @description The function replace images filenames
@@ -50,9 +34,12 @@ docx_reference_img <- function( x, src){
 #' @details
 #' The function is available to let the creation of valid
 #' wml code containing references to images.
+#' @param x docx object
 #' @param str wml string
-#' @param ref result of \code{\link{docx_reference_img}}
-wml_link_images <- function(str, ref ){
+wml_link_images <- function(x, str){
+  ref <- x$rels$get_data()
+  ref <- filter_(ref, interp(~ src != "") )
+
   doc <- as_xml_document(str)
   for(id in seq_along(ref$src) ){
     xpth <- paste0("//w:drawing",
@@ -61,7 +48,7 @@ wml_link_images <- function(str, ref ){
                    "]")
     src_nodes <- xml_find_all(doc, xpth)
     xml_find_all(src_nodes, "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip") %>%
-    {xml_attr(., "r:embed") <- paste0("rId", ref$id[id]);.}
+    {xml_attr(., "r:embed") <- ref$id[id];.}
   }
   as.character(doc)
 }

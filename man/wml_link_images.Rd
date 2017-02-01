@@ -4,12 +4,12 @@
 \alias{wml_link_images}
 \title{transform an xml string with images references}
 \usage{
-wml_link_images(str, ref)
+wml_link_images(x, str)
 }
 \arguments{
-\item{str}{wml string}
+\item{x}{docx object}
 
-\item{ref}{result of \code{\link{docx_reference_img}}}
+\item{str}{wml string}
 }
 \description{
 The function replace images filenames

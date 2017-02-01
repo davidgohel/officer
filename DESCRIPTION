@@ -15,7 +15,7 @@ LinkingTo: Rcpp,
     gdtools
 Imports:
     Rcpp (>= 0.12.3),
-    purrr,
+    purrr,dplyr,R6,
     utils,
     grDevices,
     gdtools,

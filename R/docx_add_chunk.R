@@ -104,8 +104,8 @@ docx_append_img <- function( x, src, style = "Normal", width, height, pos = "aft
   xml_elt <- format(ext_img, type = "wml")
   xml_elt <- paste0(sprintf("<w:p %s>", base_ns), "<w:pPr/>", xml_elt, "</w:p>")
 
-  rids <- docx_reference_img(x, src)
-  xml_elt <- wml_link_images( xml_elt, rids )
+  x <- docx_reference_img(x, src)
+  xml_elt <- wml_link_images( x, xml_elt )
 
   drawing_node <- as_xml_document(xml_elt) %>% xml_find_first("//w:r/w:drawing")
 

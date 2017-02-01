@@ -20,8 +20,8 @@ docx_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
                     xml_elt,
                     "</w:p>")
 
-  rids <- docx_reference_img(x, src)
-  xml_elt <- wml_link_images( xml_elt, rids )
+  x <- docx_reference_img(x, src)
+  xml_elt <- wml_link_images( x, xml_elt )
 
 
   add_xml_node(x = x, str = xml_elt, pos = pos)

@@ -1,0 +1,81 @@
+#' @importFrom R6 R6Class
+#' @importFrom dplyr arrange_
+#' @importFrom xml2 read_xml xml_children xml_ns xml_attr
+relationship <- R6Class(
+  "relationship",
+  public = list(
+
+    initialize = function(id = character(0), type = character(0), target = character(0)) {
+      private$id <- id
+      private$type <- type
+      private$target <- target
+      private$src <- character(length(id))
+    },
+    feed_from_xml = function(path) {
+      doc <- read_xml( x = path )
+      children <- xml_children( doc )
+      ns <- xml_ns( doc )
+      private$id <- c( private$id, sapply( children, xml_attr, attr = "Id", ns) )
+      private$type <- c( private$type, sapply( children, xml_attr, attr = "Type", ns) )
+      private$target <- c( private$target, sapply( children, xml_attr, attr = "Target", ns) )
+      private$src <- c( private$src, character(length(children)) )
+      self
+    },
+    write = function(path) {
+      str <- paste0("<Relationship Id=\"", private$id, "\" Type=\"", private$type, "\" Target=\"", private$target, "\"/>", collapse = "")
+      str <- paste0(XML_HEADER,
+             "\n<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">", str, "</Relationships>")
+      cat(str, file = path)
+      self
+    },
+    get_next_id = function(){
+      max(private$get_int_id()) + 1
+    },
+    get_data = function() {
+      data <- data.frame(id = private$id,
+                         int_id = as.integer(gsub("rId([0-9]+)", "\\1", private$id)),
+                         type = private$type,
+                         target = private$target,
+                         src = private$src,
+                         stringsAsFactors = FALSE )
+      arrange_(data, .dots = "id")
+    },
+    add_img = function( src, root_target ) {
+      src <- setdiff(src, private$src)
+      if( !length(src) ) return(self)
+      last_id <- max( private$get_int_id() )
+
+      id <- paste0("rId", seq_along(src) + last_id)
+      type <- rep("http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+                 length(src))
+      target <- file.path(root_target, basename(src) )
+
+      private$id <- c( private$id, id )
+      private$type <- c( private$type, type )
+      private$target <- c( private$target, target )
+      private$src <- c( private$src, src )
+
+      self
+    },
+    add = function(id, type, target ) {
+      private$id <- c( private$id, id )
+      private$type <- c( private$type, type )
+      private$target <- c( private$target, target )
+      private$src <- c( private$src, "" )
+      self
+    },
+    show = function() {
+      print(self$get_data())
+    }
+  ),
+  private = list(
+    id = NA,
+    type = NA,
+    target = NA,
+    src = NA,
+    get_int_id = function(){
+      as.integer(gsub("rId([0-9]+)", "\\1", private$id))
+    }
+  )
+)
+

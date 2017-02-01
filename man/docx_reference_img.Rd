@@ -20,8 +20,4 @@ Word document, this will generate unique
 identifiers that need to be known to
 link these images with their corresponding xml code (wml).
 }
-\details{
-The function copy images into the docx document and a data.frame
-describing images and their id is returned.
-}
 

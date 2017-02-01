@@ -29,6 +29,7 @@ docx <- function( path = NULL ){
   obj <- list(
     package_dir = package_dir,
     cursor = sprintf("/w:document/w:body/*[%.0f]", len - 1),
+    rels = relationship$new()$feed_from_xml( file.path(package_dir, "word/_rels/document.xml.rels") ),
     styles = read_styles(package_dir),
     xml_doc = doc
   )
@@ -88,8 +89,4 @@ length.docx <- function( x ){
 
 }
 
-docx_relationship <- function( x ){
-  document_path <- file.path(x$package_dir, "word/_rels/document.xml.rels")
-  read_relationship(document_path)
-}
 
