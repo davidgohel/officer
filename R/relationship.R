@@ -9,7 +9,7 @@ relationship <- R6Class(
       private$id <- id
       private$type <- type
       private$target <- target
-      private$src <- character(length(id))
+      private$ext_src <- character(length(id))
     },
     feed_from_xml = function(path) {
       doc <- read_xml( x = path )
@@ -18,7 +18,7 @@ relationship <- R6Class(
       private$id <- c( private$id, sapply( children, xml_attr, attr = "Id", ns) )
       private$type <- c( private$type, sapply( children, xml_attr, attr = "Type", ns) )
       private$target <- c( private$target, sapply( children, xml_attr, attr = "Target", ns) )
-      private$src <- c( private$src, character(length(children)) )
+      private$ext_src <- c( private$ext_src, character(length(children)) )
       self
     },
     write = function(path) {
@@ -36,12 +36,12 @@ relationship <- R6Class(
                          int_id = as.integer(gsub("rId([0-9]+)", "\\1", private$id)),
                          type = private$type,
                          target = private$target,
-                         src = private$src,
+                         ext_src = private$ext_src,
                          stringsAsFactors = FALSE )
       arrange_(data, .dots = "id")
     },
     add_img = function( src, root_target ) {
-      src <- setdiff(src, private$src)
+      src <- setdiff(src, private$ext_src)
       if( !length(src) ) return(self)
       last_id <- max( private$get_int_id() )
 
@@ -53,7 +53,7 @@ relationship <- R6Class(
       private$id <- c( private$id, id )
       private$type <- c( private$type, type )
       private$target <- c( private$target, target )
-      private$src <- c( private$src, src )
+      private$ext_src <- c( private$ext_src, src )
 
       self
     },
@@ -61,7 +61,7 @@ relationship <- R6Class(
       private$id <- c( private$id, id )
       private$type <- c( private$type, type )
       private$target <- c( private$target, target )
-      private$src <- c( private$src, "" )
+      private$ext_src <- c( private$ext_src, "" )
       self
     },
     show = function() {
@@ -72,7 +72,7 @@ relationship <- R6Class(
     id = NA,
     type = NA,
     target = NA,
-    src = NA,
+    ext_src = NA,
     get_int_id = function(){
       as.integer(gsub("rId([0-9]+)", "\\1", private$id))
     }

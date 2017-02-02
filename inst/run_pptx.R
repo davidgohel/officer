@@ -1,0 +1,17 @@
+library(tidyverse)
+library(officer)
+library(flextable)
+unlink(c("aaaa", "coco.pptx" ), recursive = TRUE, force = TRUE)
+doc <- pptx(path = "example.pptx")
+doc <- add_slide(doc, layout = "Titre et contenu", master = "masque1")
+doc <- add_slide(doc, layout = "Titre et contenu", master = "masque2")
+print(doc, target = "coco.pptx" )
+# unzip("coco.pptx", exdir = "aaaa")
+# doc$slideMasters$mapping()
+
+# doc$presentation$rel_df()
+#
+# doc$slideMasters$names()
+# doc$slideLayouts$names()
+# zzzz=doc$slideLayouts$get_data()
+doc$slide$layout_files()

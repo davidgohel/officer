@@ -27,3 +27,10 @@ is.color = function(x) {
 }
 
 
+attr_chunk <- function( x ){
+  if( !is.null(x) && length( x ) > 0){
+    attribs <- paste0(names(x), "=", shQuote(x, type = "cmd"), collapse = " " )
+    attribs <- paste0(" ", attribs)
+  } else attribs <- ""
+  attribs
+}
