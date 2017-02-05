@@ -38,14 +38,17 @@ docx_reference_img <- function( x, src){
 #' @param str wml string
 wml_link_images <- function(x, str){
   ref <- x$rels$get_data()
-  ref <- filter_(ref, interp(~ src != "") )
+
+  ref <- filter_(ref, interp(~ ext_src != "") )
 
   doc <- as_xml_document(str)
-  for(id in seq_along(ref$src) ){
+  for(id in seq_along(ref$ext_src) ){
+
     xpth <- paste0("//w:drawing",
                    "[wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip",
-                   sprintf( "[contains(@r:embed,'%s')]", ref$src[id]),
+                   sprintf( "[contains(@r:embed,'%s')]", ref$ext_src[id]),
                    "]")
+
     src_nodes <- xml_find_all(doc, xpth)
     xml_find_all(src_nodes, "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip") %>%
     {xml_attr(., "r:embed") <- ref$id[id];.}

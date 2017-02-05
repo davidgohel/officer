@@ -41,5 +41,12 @@ doc <- docx() %>%
   docx_add_table(iris, style = "table_template", width = 3, last_column = TRUE)
 
 
+unlink(c("aaaa", "test3.docx" ), recursive = TRUE, force = TRUE)
+
+doc <- docx() %>%
+  docx_append_img(src = as_png(name = "calendar", fill = "#FFE64D", width = 15, height = 15),
+                  width = .2, height = .2, style = "strong")
 print(doc, target = "test3.docx")
+unzip("test3.docx", exdir = "aaaa")
+#
 browseURL("test3.docx")

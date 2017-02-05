@@ -34,3 +34,56 @@ attr_chunk <- function( x ){
   } else attribs <- ""
   attribs
 }
+
+read_xfrm <- function(nodeset, file, name){
+  xfrm <- map_df( nodeset, function(x) {
+    ph <- xml_child(x, "p:nvSpPr/p:nvPr/p:ph")
+    type <- xml_attr(ph, "type")
+    if( is.na(type) )
+      type <- "body"
+    id <- xml_child(x, "p:nvSpPr/p:cNvPr")
+    off <- xml_child(x, "p:spPr/a:xfrm/a:off")
+    ext <- xml_child(x, "p:spPr/a:xfrm/a:ext")
+    tibble( type = type,
+            id = xml_attr(id, "id"),
+            file = basename(file),
+            offx = as.integer(xml_attr(off, "x")),
+            offy = as.integer(xml_attr(off, "y")),
+            cx = as.integer(xml_attr(ext, "cx")),
+            cy = as.integer(xml_attr(ext, "cy")),
+            name = name )
+  })
+}
+
+
+#' @importFrom dplyr rename
+#' @importFrom dplyr select
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+xfrmize <- function( x ){
+
+  slide_xfrm <- x$slideLayouts$description()
+  master_xfrm <- x$slideLayouts$get_master()$description() %>%
+    rename(offx_ref = offx, offy_ref = offy, cx_ref = cx, cy_ref = cy) %>%
+    select(-name, -id)
+
+  slide_xfrm <- left_join(
+    slide_xfrm,
+    master_xfrm,
+    by = c("master_file"="file", "type" = "type")
+  )
+  slide_xfrm <- slide_xfrm %>%
+    mutate( offx = ifelse( !is.finite(offx), offx_ref, offx ),
+            offy = ifelse( !is.finite(offy), offy_ref, offy ),
+            cx = ifelse( !is.finite(cx), cx_ref, cx ),
+            cy = ifelse( !is.finite(cy), cy_ref, cy ) ) %>%
+    mutate( offx = offx / 914400,
+            offy = offy / 914400,
+            cx = cx / 914400,
+            cy = cy / 914400 ) %>%
+    select(-offx_ref, -offy_ref, -cx_ref, -cy_ref)
+
+  slide_xfrm
+}
+
+

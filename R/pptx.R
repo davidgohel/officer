@@ -18,7 +18,6 @@ pptx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.pptx")
 
-
   package_dir <- tempfile()
   unzip( zipfile = path, exdir = package_dir )
 
@@ -29,13 +28,8 @@ pptx <- function( path = NULL ){
   obj$slideLayouts <- dir_layout$new(obj )
   obj$slide <- dir_slide$new(obj )
   obj$content_type <- content_type$new(obj )
-
-  # read_master_layouts(obj)
-  # read_slide_layouts(obj)
-  # obj$layout_desc <- inner_join( read_master_layouts(obj),
-  #                                read_slide_layouts(obj),
-  #                                by = "target" )
-
+  obj$cursor = obj$slide$length()
+  obj$coordinates <- xfrmize( obj )
   obj
 }
 
@@ -49,6 +43,7 @@ print.pptx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
     cat("pptx document\n")
+    print(x$coordinates)
     return(invisible())
   }
   x$presentation$save()
@@ -94,28 +89,46 @@ add_slide <- function( x, layout = "Titre et contenu", master = "masque1" ){
   x$presentation$add_slide(target = file.path( "slides", new_slidename) )
   x$content_type$add_slide(partname = file.path( "/ppt/slides", new_slidename) )
   x$slide$update()
+  x$cursor = x$slide$length()
 
   x
 
 }
 
 
-#' #' @export
-#' #' @title add a title
-#' #' @description add a title into a pptx object
-#' #' @param x a pptx device
-#' #' @param value a character
-#' #' @param style paragraph style
-#' #' @param pos where to add the new element relative to the cursor,
-#' #' one of "after", "before", "on".
-#' #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-#' pptx_slide_title <- function( x, value, style, pos = "after" ){
-#'
-#'   style_id <- get_style_id(x=x, style=style, type = "paragraph")
-#'
-#'   xml_elt <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
-#'                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
-#'                     value, "</w:t></w:r></w:p>")
-#'   add_xml_node(x = x, str = xml_elt, pos = pos)
-#' }
-#'
+#' @export
+#' @title add a title
+#' @description add a title into a pptx object
+#' @param x a pptx device
+#' @param value a character
+#' @param pos where to add the new element relative to the cursor,
+#' one of "after", "before", "on".
+#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
+set_title <- function( x, value ){
+
+  slide <- x$slide$get_slide(x$cursor)
+
+  layoutdata <- x$slideLayouts$get_data()
+  layoutdata <- layoutdata[ basename( layoutdata$filename) %in% slide$layout_name(), ]
+
+  layout_doc <- read_xml(layoutdata$filename)
+  template_node <- xml_find_first(layout_doc, "//p:sp[p:nvSpPr/p:nvPr/p:ph[contains(@type,'title')]]")
+
+  xml_remove( xml_find_all(template_node, "//p:txBody/a:p") )
+  extra_ns <- "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\""
+  xml_elt <- sprintf( "<a:p %s><a:r><a:rPr/><a:t>%s</a:t></a:r></a:p>", extra_ns, value )
+  xml_add_child( xml_find_first(template_node, "//p:txBody"), as_xml_document(xml_elt) )
+
+  xml_list <- xml_find_first(slide$get(), "//p:sp[p:nvSpPr/p:nvPr/p:ph[contains(@type,'title')]]")
+
+  if( !inherits(xml_list, "xml_missing")){
+    xml_replace(xml_list, template_node)
+  } else{
+    xml_add_child(xml_find_first(slide$get(), "//p:spTree"), template_node)
+  }
+  slide$save()
+  x
+
+}
+
+

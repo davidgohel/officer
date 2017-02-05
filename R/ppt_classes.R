@@ -102,6 +102,9 @@ openxml_document <- R6Class(
     name = function(){
       basename(private$filename)
     },
+    get = function(){
+      private$doc
+    },
     dir_name = function(){
       private$reldir
     },
@@ -174,7 +177,6 @@ presentation <- R6Class(
         xml_replace(xml_list, xml_elt)
       } else{ ## needs to be after sldMasterIdLst...
         xml_add_sibling(xml_find_first(private$doc, "//p:sldMasterIdLst"), xml_elt)
-
       }
 
       self
@@ -197,6 +199,7 @@ presentation <- R6Class(
 
 
 # slide master ------------------------------------------------------------
+#' @importFrom xml2 xml_child
 slide_master <- R6Class(
   "slide_master",
   inherit = openxml_document,
@@ -206,6 +209,12 @@ slide_master <- R6Class(
       theme_ <- private$theme_file()
       root <- gsub( paste0(self$dir_name(), "$"), "", dirname( private$filename ) )
       xml_attr(read_xml(file.path( root,theme_)), "name")
+
+    },
+    summary = function(){
+
+      nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+      read_xfrm(nodeset, self$file_name(), self$name())
     }
 
 
@@ -224,6 +233,9 @@ slide_master <- R6Class(
 
 # slide_layout ------------------------------------------------------------
 
+#' @importFrom dplyr group_by_
+#' @importFrom dplyr mutate_
+#' @importFrom dplyr ungroup
 slide_layout <- R6Class(
   "slide_layout",
   inherit = openxml_document,
@@ -234,7 +246,18 @@ slide_layout <- R6Class(
       rels <- rels[basename( rels$type ) == "slideMaster", ]
       tibble(name = self$name(), filename = self$file_name(), master_file = basename(rels$target) )
     },
+    summary = function(){
+      rels <- self$rel_df()
+      rels <- rels[basename( rels$type ) == "slideMaster", ]
 
+      nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+      data <- read_xfrm(nodeset, self$file_name(), self$name())
+      data <- group_by_(data, .dots = c("id", "type"))
+      data <- mutate_(data, num = "row_number()")
+      data <- ungroup(data)
+      data$master_file <- basename(rels$target)
+      data
+    },
     name = function(){
       xmldoc <- read_xml(self$file_name())
       csld <- xml_find_first(xmldoc, "//p:cSld")
@@ -292,6 +315,9 @@ dir_collection <- R6Class(
     },
     names = function(){
       map_chr(private$collection, function(x) x$name())
+    },
+    description = function( ){
+      map_df(private$collection, function(x) x$summary() )
     }
   ),
 
@@ -341,6 +367,9 @@ dir_layout <- R6Class(
       out <- inner_join(data_layouts, data_masters, by = "master_file")
       out$master_file <- NULL
       out
+    },
+    get_master = function(){
+      private$master_collection
     }
 
   ),
@@ -358,6 +387,12 @@ dir_slide <- R6Class(
   public = list(
     initialize = function( x ) {
       super$initialize(x, slide$new("ppt/slides"))
+    },
+    get_slide = function(id){
+      private$collection[[id]]
+    },
+    length = function(){
+      length(private$collection)
     },
     update = function(){
       dir_ <- file.path(private$package_dir, "ppt/slides")
