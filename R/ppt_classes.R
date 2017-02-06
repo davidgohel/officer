@@ -289,7 +289,8 @@ slide <- R6Class(
 
   ),
   private = list(
-    layout_file = NULL
+    layout_file = NULL,
+    element_data = NULL
   )
 
 )
@@ -365,9 +366,11 @@ dir_layout <- R6Class(
       data_masters$master_file <- basename(data_masters$filename)
       data_masters$filename <- NULL
       out <- inner_join(data_layouts, data_masters, by = "master_file")
+      out$filename <- basename(out$filename)
       out$master_file <- NULL
       out
     },
+
     get_master = function(){
       private$master_collection
     }
