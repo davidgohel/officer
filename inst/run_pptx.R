@@ -9,9 +9,7 @@ myft <- flextable(head(iris)) %>%
 
 calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
 
-unlink(c("aaaa", "coco.pptx", "calendar.png" ), recursive = TRUE, force = TRUE)
-
-doc <- pptx(path = "example.pptx")
+doc <- pptx(path = system.file(package = "officer", "template/template_fr.pptx") )
 doc <- add_slide(doc, layout = "Titre et contenu", master = "masque1")
 doc <- placeholder_set_text(x = doc, id = "title", str = "Un titre")
 doc <- placeholder_set_text(x = doc, id = "ftr", str = "pied de page")
