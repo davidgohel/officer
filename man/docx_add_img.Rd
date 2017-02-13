@@ -23,4 +23,24 @@ one of "after", "before", "on".}
 \description{
 add an image into a docx object
 }
+\examples{
+doc <- docx()
+
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+if( file.exists(img.file) ){
+  doc <- docx_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
+}
+if( require("ionicons") ){
+  calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
+  doc <- docx_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
+}
+if( require("devEMF") ){
+  emf("bar.emf", height = 5, width = 5)
+  barplot(1:10, col = 1:10)
+  dev.off()
+  doc <- docx_add_img(x = doc, src = "bar.emf", height = 5, width = 5)
+}
+
+print(doc, target = "docx_add_img.docx" )
+}
 

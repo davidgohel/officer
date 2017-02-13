@@ -75,7 +75,8 @@ print.docx <- function(x, target = NULL, ...){
   write_xml(x$xml_doc, file = document_path)
   add_content_type(x, extension = "png", type = "image/png")
   add_content_type(x, extension = "jpeg", type = "image/jpeg")
-  add_content_type(x, extension = "jpg", type = "image/jpeg")
+  add_content_type(x, extension = "jpg", type = "application/octet-stream")
+  add_content_type(x, extension = "emf", type = "image/x-emf")
 
   pack_folder(folder = x$package_dir, target = target )
 }
