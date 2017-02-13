@@ -26,10 +26,14 @@ pptx <- function( path = NULL ){
                    class = "pptx")
   obj$presentation <- presentation$new(obj)
   obj$slideLayouts <- dir_layout$new(obj )
+
+  slide_xfrm <- obj$slideLayouts$xfrm()
+  master_xfrm <- obj$slideLayouts$get_master()$xfrm()
+  obj$coordinates <- xfrmize( slide_xfrm, master_xfrm )
+
   obj$slide <- dir_slide$new(obj )
   obj$content_type <- content_type$new(obj )
   obj$cursor = obj$slide$length()
-  obj$coordinates <- xfrmize( obj )
   obj
 }
 
@@ -58,15 +62,19 @@ print.pptx <- function(x, target = NULL, ...){
 #' @importFrom lazyeval interp
 #' @importFrom dplyr filter_
 #' @importFrom xml2 xml_name<- xml_set_attrs xml_ns xml_remove
+#' @title add a slide
+#' @description add a slide to a pptx presentation
+#' @param x pptx object
+#' @param layout slide layout name to use
+#' @param master master layout name where \code{layout} is located
 add_slide <- function( x, layout = "Titre et contenu", master = "masque1" ){
 
   filter_criteria <- interp(~ name == layout & master_name == master, layout = layout, master = master)
-  slide_info <- filter_(x$slideLayouts$get_data(), filter_criteria)
+  slide_info <- filter_(x$slideLayouts$get_metadata(), filter_criteria)
   new_slidename <- x$slide$get_new_slidename()
-  xml_file <- file.path(x$package_dir, "ppt/slides",
-                        new_slidename)
-  xml_layout <- file.path(x$package_dir, "ppt/slideLayouts",
-                          slide_info$filename)
+
+  xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
+  xml_layout <- file.path(x$package_dir, "ppt/slideLayouts", slide_info$filename)
 
   xml_doc <- read_xml(xml_layout)
   xml_name(xml_doc) <- "sld"
@@ -87,12 +95,11 @@ add_slide <- function( x, layout = "Titre et contenu", master = "masque1" ){
     target = file.path("../slideLayouts", basename(slide_info$filename)) )
   newrel$write(path = rel_filename)
 
-  # update preentation elements
+  # update presentation elements
   x$presentation$add_slide(target = file.path( "slides", new_slidename) )
   x$content_type$add_slide(partname = file.path( "/ppt/slides", new_slidename) )
   x$slide$update()
   x$cursor = x$slide$length()
-
   x
 
 }

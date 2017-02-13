@@ -87,7 +87,7 @@ format.external_img = function (x, type = "console", ...){
   stopifnot( type %in% c("wml", "pml", "html", "console") )
   dims <- dim(x)
   if( type == "pml" ){
-    out <- ""
+    out <- pml_run_pic(as.character(x), width = dims$width*72, height = dims$height*72)
   } else if( type == "wml" ){
     out <- wml_run_pic(as.character(x), width = dims$width*72, height = dims$height*72)
   } else if( type == "html" ){

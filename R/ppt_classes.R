@@ -36,7 +36,7 @@ content_type <- R6Class(
     },
 
     add_ext = function( extension, type ){
-      if( !type %in% private$default ){
+      if( !type %in% private$default && !extension %in% names(private$default) ){
         content_type <- setNames(type, extension )
         default <- c( private$default, content_type )
         private$default <- default
@@ -45,7 +45,9 @@ content_type <- R6Class(
     },
 
     save = function() {
+      self$add_ext(extension = "jpeg", type = "image/jpeg")
       self$add_ext(extension = "png", type = "image/png")
+      self$add_ext(extension = "jpg", type = "application/octet-stream")
       attribs <- attr_chunk(c(xmlns = "http://schemas.openxmlformats.org/package/2006/content-types"))
       out <- paste0(XML_HEADER,
                     "\n<Types", attribs, ">")
@@ -78,57 +80,6 @@ content_type <- R6Class(
   )
 )
 
-
-# openxml_document --------------------------------------------------------
-openxml_document <- R6Class(
-  "openxml_document",
-  public = list(
-
-    initialize = function( dir ) {
-      private$reldir = dir
-    },
-
-    feed = function( file ) {
-      private$filename <- file
-      private$rels_filename <- file.path( dirname(file), "_rels", paste0(basename(file), ".rels") )
-
-      private$doc <- read_xml(file)
-      private$rels_doc <- relationship$new()$feed_from_xml(private$rels_filename)
-      self
-    },
-    file_name = function(){
-      private$filename
-    },
-    name = function(){
-      basename(private$filename)
-    },
-    get = function(){
-      private$doc
-    },
-    dir_name = function(){
-      private$reldir
-    },
-    save = function() {
-      write_xml(private$doc, file = private$filename)
-      private$rels_doc$write(private$rels_filename)
-      self
-    },
-    rel_df = function(){
-      private$rels_doc$get_data()
-    }
-
-  ),
-  private = list(
-
-    filename = NULL,
-    rels_filename = NULL,
-    doc = NULL,
-    rels_doc = NULL,
-    reldir = NULL
-
-  )
-)
-
 # presentation ------------------------------------------------------------
 
 presentation <- R6Class(
@@ -152,8 +103,8 @@ presentation <- R6Class(
 
 
       private$rels_doc$add(id = paste0("rId", private$rels_doc$get_next_id() ),
-                        type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide",
-                        target = target )
+                           type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide",
+                           target = target )
       rels <- private$rels_doc$get_data()
       rid <- rels[rels$target %in% target,"id"]
 
@@ -198,6 +149,60 @@ presentation <- R6Class(
 )
 
 
+# openxml_document --------------------------------------------------------
+openxml_document <- R6Class(
+  "openxml_document",
+  public = list(
+
+    initialize = function( dir ) {
+      private$reldir = dir
+    },
+
+    feed = function( file ) {
+      private$filename <- file
+      private$rels_filename <- file.path( dirname(file), "_rels", paste0(basename(file), ".rels") )
+
+      private$doc <- read_xml(file)
+      private$rels_doc <- relationship$new()$feed_from_xml(private$rels_filename)
+      self
+    },
+    file_name = function(){
+      private$filename
+    },
+    name = function(){
+      basename(private$filename)
+    },
+    get = function(){
+      private$doc
+    },
+    dir_name = function(){
+      private$reldir
+    },
+    save = function() {
+      write_xml(private$doc, file = private$filename)
+      private$rels_doc$write(private$rels_filename)
+      self
+    },
+    rel_df = function(){
+      private$rels_doc$get_data()
+    },
+    relationship = function(){
+      private$rels_doc
+    }
+
+  ),
+  private = list(
+
+    filename = NULL,
+    rels_filename = NULL,
+    doc = NULL,
+    rels_doc = NULL,
+    reldir = NULL
+
+  )
+)
+
+
 # slide master ------------------------------------------------------------
 #' @importFrom xml2 xml_child
 slide_master <- R6Class(
@@ -209,10 +214,9 @@ slide_master <- R6Class(
       theme_ <- private$theme_file()
       root <- gsub( paste0(self$dir_name(), "$"), "", dirname( private$filename ) )
       xml_attr(read_xml(file.path( root,theme_)), "name")
-
     },
-    summary = function(){
 
+    xfrm = function(){
       nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
       read_xfrm(nodeset, self$file_name(), self$name())
     }
@@ -241,12 +245,12 @@ slide_layout <- R6Class(
   inherit = openxml_document,
   public = list(
 
-    get_data = function( ){
+    get_metadata = function( ){
       rels <- self$rel_df()
       rels <- rels[basename( rels$type ) == "slideMaster", ]
-      tibble(name = self$name(), filename = self$file_name(), master_file = basename(rels$target) )
+      tibble(name = self$name(), filename = self$file_name(), master_file = rels$target)
     },
-    summary = function(){
+    xfrm = function(){
       rels <- self$rel_df()
       rels <- rels[basename( rels$type ) == "slideMaster", ]
 
@@ -283,8 +287,46 @@ slide <- R6Class(
       private$layout_file <- basename( slide_info$target )
       self
     },
+
+    set_xfrm = function(xfrm_ref){
+      private$element_data <- xfrm_ref[xfrm_ref$file == private$layout_file,]
+      self
+    },
+    fortify_id = function(){
+      cnvpr <- xml_find_all(private$doc, "//p:cNvPr")
+      for(i in seq_along(cnvpr))
+        xml_attr( cnvpr[[i]], "id") <- i
+      self$save()
+    },
+
+    reference_img = function(src, dir_name){
+      src <- unique( src )
+      private$rels_doc$add_img(src, root_target = "../media")
+      dir.create(dir_name, recursive = TRUE, showWarnings = FALSE)
+      file.copy(from = src, to = file.path(dir_name, basename(src)))
+      self
+    },
+
+    get_xfrm = function(type = NULL, index = 1){
+
+      out <- private$element_data
+      if( !is.null(type) ){
+        if( type %in% out$type ){
+          id <- which( out$type == type )[index]
+        } else stop("type ", type, " is not available in the slide layout")
+        out <- out[id, ]
+      }
+      out
+    },
+
     layout_name = function(){
       private$layout_file
+    },
+
+    get_metadata = function( ){
+      rels <- self$rel_df()
+      rels <- rels[basename( rels$type ) == "slideLayout", ]
+      tibble(name = self$name(), filename = self$file_name(), layout_file = rels$target)
     }
 
   ),
@@ -311,14 +353,14 @@ dir_collection <- R6Class(
       }, container = container)
 
     },
-    get_data = function(){
-      map_df(private$collection, function(x) x$get_data())
+    get_metadata = function(){
+      map_df(private$collection, function(x) x$get_metadata())
     },
     names = function(){
       map_chr(private$collection, function(x) x$name())
     },
-    description = function( ){
-      map_df(private$collection, function(x) x$summary() )
+    xfrm = function( ){
+      map_df(private$collection, function(x) x$xfrm() )
     }
   ),
 
@@ -340,7 +382,7 @@ dir_master <- R6Class(
   inherit = dir_collection,
   public = list(
 
-    get_data = function( ){
+    get_metadata = function( ){
       unames <- map_chr(private$collection, function(x) x$name())
       ufnames <- map_chr(private$collection, function(x) x$file_name())
       tibble(master_name = unames, filename = ufnames)
@@ -351,7 +393,7 @@ dir_master <- R6Class(
 
 
 # dir_layout ---------------------------------------------------------
-
+#' @importFrom dplyr inner_join
 dir_layout <- R6Class(
   "dir_layout",
   inherit = dir_collection,
@@ -359,15 +401,21 @@ dir_layout <- R6Class(
     initialize = function( x ) {
       super$initialize(x, slide_layout$new("ppt/slideLayouts"))
       private$master_collection <- dir_master$new(x, slide_master$new("ppt/slideMasters") )
+      private$xfrmize()
     },
-    get_data = function( ){
-      data_layouts <- super$get_data()
-      data_masters <- private$master_collection$get_data()
+
+    get_xfrm = function(){
+      private$xfrm_data
+    },
+
+    get_metadata = function( ){
+      data_layouts <- super$get_metadata()
+      data_masters <- private$master_collection$get_metadata()
       data_masters$master_file <- basename(data_masters$filename)
       data_masters$filename <- NULL
+      data_layouts$master_file <- basename(data_layouts$master_file)
       out <- inner_join(data_layouts, data_masters, by = "master_file")
       out$filename <- basename(out$filename)
-      out$master_file <- NULL
       out
     },
 
@@ -377,7 +425,13 @@ dir_layout <- R6Class(
 
   ),
   private = list(
-    master_collection = NULL
+    master_collection = NULL,
+    xfrm_data = NULL,
+
+    xfrmize = function( ){
+      private$xfrm_data <- xfrmize(self$xfrm(), private$master_collection$xfrm())
+      self
+    }
   )
 )
 
@@ -388,22 +442,42 @@ dir_slide <- R6Class(
   "dir_slide",
   inherit = dir_collection,
   public = list(
+
     initialize = function( x ) {
       super$initialize(x, slide$new("ppt/slides"))
+      private$slides_path <- file.path(x$package_dir, "ppt/slides")
+      private$slide_layouts <- dir_layout$new( x )
+      map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm() )
     },
-    get_slide = function(id){
-      private$collection[[id]]
-    },
-    length = function(){
-      length(private$collection)
-    },
-    update = function(){
+
+    update = function( ){
       dir_ <- file.path(private$package_dir, "ppt/slides")
       filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
       private$collection <- map( filenames, function(x, container){
-        container$clone()$feed(x)
-      }, container = slide$new("ppt/slides") )
+        container$clone()$feed(x)$fortify_id()
+      }, container = slide$new("ppt/slides"))
+      private$slides_path <- file.path(private$package_dir, "ppt/slides")
+      private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm() )
+      self
     },
+
+    get_xfrm = function( ){
+      map(private$collection, function(x, ref) x$get_xfrm() )
+    },
+
+
+    get_slide = function(id){
+      private$collection[[id]]
+    },
+
+    get_metadata = function(){
+      super$get_metadata()
+    },
+
+    length = function(){
+      length(private$collection)
+    },
+
     get_new_slidename = function(){
       slide_dir <- file.path(private$package_dir, "ppt/slides")
       if( !file.exists(slide_dir)){
@@ -423,6 +497,8 @@ dir_slide <- R6Class(
     }
   ),
   private = list(
+    slides_path = NULL,
+    slide_layouts = NULL
   )
 )
 

@@ -39,6 +39,7 @@ read_xfrm <- function(nodeset, file, name){
   xfrm <- map_df( nodeset, function(x) {
     ph <- xml_child(x, "p:nvSpPr/p:nvPr/p:ph")
     type <- xml_attr(ph, "type")
+    idx <- xml_attr(ph, "idx")
     if( is.na(type) )
       type <- "body"
     id <- xml_child(x, "p:nvSpPr/p:cNvPr")
@@ -46,6 +47,7 @@ read_xfrm <- function(nodeset, file, name){
     ext <- xml_child(x, "p:spPr/a:xfrm/a:ext")
     tibble( type = type,
             id = xml_attr(id, "id"),
+            ph = as.character(ph),
             file = basename(file),
             offx = as.integer(xml_attr(off, "x")),
             offy = as.integer(xml_attr(off, "y")),
@@ -60,12 +62,11 @@ read_xfrm <- function(nodeset, file, name){
 #' @importFrom dplyr select
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
-xfrmize <- function( x ){
+xfrmize <- function( slide_xfrm, master_xfrm ){
 
-  slide_xfrm <- x$slideLayouts$description()
-  master_xfrm <- x$slideLayouts$get_master()$description() %>%
+  master_xfrm <- master_xfrm %>%
     rename(offx_ref = offx, offy_ref = offy, cx_ref = cx, cy_ref = cy) %>%
-    select(-name, -id)
+    select(-name, -id, -ph)
 
   slide_xfrm <- left_join(
     slide_xfrm,
@@ -85,5 +86,22 @@ xfrmize <- function( x ){
 
   slide_xfrm
 }
+
+
+set_xfrm_attr <- function( doc, offx, offy, cx, cy ){
+  node <- xml_find_first( doc, "//*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+  off <- xml_child(node, "p:xfrm/a:off")
+  ext <- xml_child(node, "p:xfrm/a:ext")
+
+  xml_attr( off, "x") <- sprintf( "%.0f", offx * 914400 )
+  xml_attr( off, "y") <- sprintf( "%.0f", offy * 914400 )
+  xml_attr( ext, "cx") <- sprintf( "%.0f", cx * 914400 )
+  xml_attr( ext, "cy") <- sprintf( "%.0f", cy * 914400 )
+
+  cnvpr <- xml_child(node, "*/p:cNvPr")
+  xml_attr( cnvpr, "id") <- ""
+  doc
+}
+
 
 

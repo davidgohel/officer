@@ -61,3 +61,7 @@ wml_run_pic <- function(src, width, height) {
     .Call('officer_wml_run_pic', PACKAGE = 'officer', src, width, height)
 }
 
+pml_run_pic <- function(src, width, height) {
+    .Call('officer_pml_run_pic', PACKAGE = 'officer', src, width, height)
+}
+
