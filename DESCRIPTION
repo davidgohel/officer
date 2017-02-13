@@ -16,7 +16,7 @@ LinkingTo: Rcpp,
 Imports:
     Rcpp (>= 0.12.3),
     purrr,dplyr,R6,
-    utils,
+    utils,tools,
     grDevices,
     gdtools,
     R.utils,
@@ -27,4 +27,3 @@ Imports:
     xml2 (>= 1.1.0)
 RoxygenNote: 5.0.1.9000
 Suggests: testthat, ionicons
-Remotes: davidgohel/ionicons

@@ -43,6 +43,7 @@ pptx <- function( path = NULL ){
 #' @param target path to the pptx file to write
 #' @param ... unused
 #' @rdname pptx
+#' @importFrom tools file_ext
 print.pptx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
@@ -50,6 +51,10 @@ print.pptx <- function(x, target = NULL, ...){
     print(x$coordinates)
     return(invisible())
   }
+
+  if( file_ext(target) != "pptx" )
+    stop(target , " should have '.pptx' extension.")
+
   x$presentation$save()
   x$content_type$save()
   pack_folder(folder = x$package_dir, target = target )

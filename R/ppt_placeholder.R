@@ -77,7 +77,7 @@ placeholder_set_text <- function( x, str, id = "title", index = 1 ){
 #' @inheritParams placeholder_remove
 #' @param value a character
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-placeholder_add_xml <- function( x, value, id = "body", index = 1 ){
+placeholder_set_xml <- function( x, value, id = "body", index = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm(type = id, index = index)

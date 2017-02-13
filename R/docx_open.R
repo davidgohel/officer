@@ -60,6 +60,9 @@ print.docx <- function(x, target = NULL, ...){
     return(invisible())
   }
 
+  if( file_ext(target) != "docx" )
+    stop(target , " should have '.docx' extension.")
+
   document_path <- file.path(x$package_dir, "word/document.xml")
 
   # make all id unique
