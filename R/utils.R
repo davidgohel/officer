@@ -58,31 +58,33 @@ read_xfrm <- function(nodeset, file, name){
 }
 
 
-#' @importFrom dplyr rename
-#' @importFrom dplyr select
 #' @importFrom dplyr left_join
-#' @importFrom dplyr mutate
+#' @importFrom dplyr rename_ select_ mutate_
 xfrmize <- function( slide_xfrm, master_xfrm ){
 
+
   master_xfrm <- master_xfrm %>%
-    rename(offx_ref = offx, offy_ref = offy, cx_ref = cx, cy_ref = cy) %>%
-    select(-name, -id, -ph)
+    rename_( .dots = setNames( c("offx", "offy", "cx", "cy"),
+                               c("offx_ref", "offy_ref", "cx_ref", "cy_ref"))) %>%
+    select_("-name", "-id", "-ph")
 
   slide_xfrm <- left_join(
     slide_xfrm,
     master_xfrm,
     by = c("master_file"="file", "type" = "type")
   )
+  offx <- interp("ifelse( !is.finite(offx), offx_ref, offx )")
+  offy <- interp("ifelse( !is.finite(offy), offy_ref, offy )")
+  cx <- interp("ifelse( !is.finite(cx), cx_ref, cx )")
+  cy <- interp("ifelse( !is.finite(cy), cy_ref, cy )")
+
   slide_xfrm <- slide_xfrm %>%
-    mutate( offx = ifelse( !is.finite(offx), offx_ref, offx ),
-            offy = ifelse( !is.finite(offy), offy_ref, offy ),
-            cx = ifelse( !is.finite(cx), cx_ref, cx ),
-            cy = ifelse( !is.finite(cy), cy_ref, cy ) ) %>%
-    mutate( offx = offx / 914400,
-            offy = offy / 914400,
-            cx = cx / 914400,
-            cy = cy / 914400 ) %>%
-    select(-offx_ref, -offy_ref, -cx_ref, -cy_ref)
+    mutate_( .dots = list(offx = offx, offy = offy, cx = cx, cy = cy ) ) %>%
+    mutate_( .dots = list(offx = interp("offx / 914400"),
+            offy = interp("offy / 914400"),
+            cx = interp("cx / 914400"),
+            cy = interp("cy / 914400") ) ) %>%
+    select_("-offx_ref", "-offy_ref", "-cx_ref", "-cy_ref")
 
   slide_xfrm
 }

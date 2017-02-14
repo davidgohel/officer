@@ -77,7 +77,7 @@ format.fpar <- function( x, type = "pml", ...){
     par_style <- format(x$fp_p, type = type)
   chks <- fortify_fpar(x)
   if( inherits(try(expr = map_chr(chks, format, type = type) ), "try-error"))
-    browser()
+    stop("unexpected error while formatting fpar in ", type, call. = FALSE)
   chks <- map_chr(chks, format, type = type)
   chks <- paste0(chks, collapse = "")
   if( type == "pml" )

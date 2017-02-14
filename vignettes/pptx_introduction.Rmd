@@ -25,7 +25,7 @@ doc
 ```
 
 ```{r}
-fileout <- tempfile(fileext = ".pptx")
+fileout <- "example.pptx"
 
 doc %>%
   add_slide(layout = "Two Content", master = "Office Theme") %>%
@@ -35,7 +35,6 @@ doc %>%
   placeholder_set_text(str = "text 1", id = "body", index = 1) %>%
   placeholder_set_text(str = "text 2", id = "body", index = 2) %>%
   print(target = fileout )
-browseURL(fileout)
 ```
 
 
