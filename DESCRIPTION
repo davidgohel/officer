@@ -1,14 +1,12 @@
 Package: officer
 Type: Package
 Title: Manipulation of 'Microsoft' Documents
-Version: 0.0.4
+Version: 0.0.4.9000
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Framework to work with office documents
-Description: Manipulate 'Microsoft Word' document from R. 
-    The package does not require any installation of Microsoft product 
-    to be able to write Microsoft files.
+Description: Description: Manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
+    The package does not require any installation of Microsoft product. 
 License: GPL-3
 LazyData: TRUE
 LinkingTo: Rcpp,
@@ -26,4 +24,7 @@ Imports:
     magrittr, tibble, 
     xml2 (>= 1.1.0)
 RoxygenNote: 5.0.1.9000
-Suggests: testthat, ionicons, devEMF
+Suggests: testthat, ionicons, devEMF,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

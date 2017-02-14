@@ -34,7 +34,11 @@ content_type <- R6Class(
       private$override <- override
       self
     },
-
+    remove_slide = function(partname){
+      id <- which( basename(names(private$override)) %in% basename(partname) )
+      private$override <- private$override[-id]
+      self
+    },
     add_ext = function( extension, type ){
       if( !type %in% private$default && !extension %in% names(private$default) ){
         content_type <- setNames(type, extension )
@@ -132,6 +136,34 @@ presentation <- R6Class(
       }
 
       self
+    },
+
+    remove_slide = function(target){
+
+      reldf <- self$rel_df()
+      id <- which( basename(reldf$target) %in% basename(target)  )
+      rid <- reldf$id[id]
+      private$rels_doc$remove(target = target )
+
+      dropid <- which( private$slide_rid %in% rid )
+
+      private$slide_id <- private$slide_id[-dropid]
+      private$slide_rid <- private$slide_rid[-dropid]
+
+      xml_list <- xml_find_first(private$doc, "//p:sldIdLst")
+      xml_elt <- paste(
+        sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
+        collapse = "" )
+      xml_elt <- paste0("<p:sldIdLst xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">", xml_elt, "</p:sldIdLst>")
+      xml_elt <- as_xml_document(xml_elt)
+
+      if( !inherits(xml_list, "xml_missing")){
+        xml_replace(xml_list, xml_elt)
+      } else{ ## needs to be after sldMasterIdLst...
+        xml_add_sibling(xml_find_first(private$doc, "//p:sldMasterIdLst"), xml_elt)
+      }
+
+      self
     }
 
   ),
@@ -183,6 +215,11 @@ openxml_document <- R6Class(
       write_xml(private$doc, file = private$filename)
       private$rels_doc$write(private$rels_filename)
       self
+    },
+    remove = function() {
+      unlink(private$filename)
+      unlink(private$rels_filename)
+      private$filename
     },
     rel_df = function(){
       private$rels_doc$get_data()
@@ -461,7 +498,11 @@ dir_slide <- R6Class(
       private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm() )
       self
     },
-
+    remove = function(index ){
+      slide_obj <- private$collection[[index]]
+      private$collection <- private$collection[-index]
+      slide_obj$remove()
+    },
     get_xfrm = function( ){
       map(private$collection, function(x, ref) x$get_xfrm() )
     },

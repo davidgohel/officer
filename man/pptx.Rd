@@ -3,16 +3,22 @@
 \name{pptx}
 \alias{pptx}
 \alias{print.pptx}
+\alias{length.pptx}
+\alias{summary.pptx}
 \title{open a connexion to a 'PowerPoint' file}
 \usage{
 pptx(path = NULL)
 
 \method{print}{pptx}(x, target = NULL, ...)
+
+\method{length}{pptx}(x)
+
+\method{summary}{pptx}(object, ...)
 }
 \arguments{
 \item{path}{path to the pptx file to use a base document.}
 
-\item{x}{a pptx object}
+\item{x, object}{a pptx object}
 
 \item{target}{path to the pptx file to write}
 
@@ -21,6 +27,16 @@ pptx(path = NULL)
 \description{
 read and import a pptx file as an R object
 representing the document.
+}
+\section{number of slides}{
+
+Function \code{length} will return the number of slides.
+}
+
+\section{slide summary}{
+
+Function \code{summary} will return a data.frame describing the content of
+the current slide.
 }
 \examples{
 # create a pptx object with default template ---

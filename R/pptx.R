@@ -3,7 +3,7 @@
 #' @description read and import a pptx file as an R object
 #' representing the document.
 #' @param path path to the pptx file to use a base document.
-#' @param x a pptx object
+#' @param x,object a pptx object
 #' @examples
 #' # create a pptx object with default template ---
 #' pptx()
@@ -48,7 +48,7 @@ print.pptx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
     cat("pptx document\n")
-    print(x$coordinates)
+    print(x$coordinates[, c("type", "name", "master_file")])
     return(invisible())
   }
 
@@ -104,6 +104,72 @@ add_slide <- function( x, layout = "Titre et contenu", master = "masque1" ){
   x$presentation$add_slide(target = file.path( "slides", new_slidename) )
   x$content_type$add_slide(partname = file.path( "/ppt/slides", new_slidename) )
   x$slide$update()
+  x$cursor = x$slide$length()
+  x
+
+}
+
+#' @export
+#' @rdname pptx
+#' @section number of slides:
+#' Function \code{length} will return the number of slides.
+length.pptx <- function( x ){
+  x$slide$length()
+}
+
+#' @export
+#' @title change current slide
+#' @description change current slide index of a pptx object.
+#' @param x pptx object
+#' @param index slide index
+#' @examples
+#' doc <- pptx()
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- on_slide( doc, index = 1)
+#' doc <- placeholder_set_text(x = doc, id = "title", str = "First title")
+#' doc <- on_slide( doc, index = 3)
+#' doc <- placeholder_set_text(x = doc, id = "title", str = "Third title")
+#'
+#' print(doc, target = "on_slide.pptx" )
+on_slide <- function( x, index ){
+  if(index > length(x) || index < 1)
+    stop("invalid index value: ", index)
+  x$cursor = index
+  x
+}
+
+
+#' @export
+#' @rdname pptx
+#' @section slide summary:
+#' Function \code{summary} will return a data.frame describing the content of
+#' the current slide.
+#' @importFrom xml2 xml_find_all xml_text
+summary.pptx <- function( object, ... ){
+
+  slide <- object$slide$get_slide(object$cursor)
+  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+  nodes <- xml_find_all(slide$get(), str)
+  xfrm <- read_xfrm(nodes, file = "slide", name = "" )
+  xfrm$name <- NULL
+  xfrm$file <- NULL
+  xfrm$ph <- NULL
+  xfrm$text <- xml_text(nodes)
+  xfrm
+}
+
+#' @export
+#' @title remove a slide
+#' @description remove a slide from a pptx presentation
+#' @param x pptx object
+remove_slide <- function( x ){
+
+  del_file <- x$slide$remove(x$cursor)
+  # update presentation elements
+  x$presentation$remove_slide(del_file)
+  x$content_type$remove_slide(partname = del_file )
   x$cursor = x$slide$length()
   x
 

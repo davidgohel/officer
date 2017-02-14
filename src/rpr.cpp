@@ -12,9 +12,13 @@ std::string rpr::a_tag()
 
   std::stringstream os;
 
-  os << "<a:rPr sz=\"";
-  os << (int)(this->size*100);
-  os << "\"";
+  os << "<a:rPr";
+  if( this->size > 0 ){
+    os << " sz=\"";
+    os << (int)(this->size*100);
+    os << "\"";
+  }
+
   if( this->italic ) os << " i=\"1\"";
   if( this->bold ) os << " b=\"1\"";
   if( this->underlined ) os << " u=\"1\"";

@@ -22,6 +22,7 @@ is not unique in the current slide, e.g. two placeholders with id 'body'.}
 add an image into a new shape in a slide
 }
 \examples{
+fileout <- tempfile(fileext = ".pptx")
 doc <- pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 
@@ -41,6 +42,6 @@ if( require("devEMF") ){
   doc <- placeholder_set_img(x = doc, id = "body", src = "bar.emf" )
 }
 
-print(doc, target = "placeholder_set_img.pptx" )
+print(doc, target = fileout )
 }
 

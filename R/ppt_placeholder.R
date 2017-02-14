@@ -1,6 +1,6 @@
 simple_shape <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
   <p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>
-<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr lang=\"fr-FR\" smtClean=\"0\"/><a:t>%s</a:t></a:r><a:endParaRPr lang=\"fr-FR\"/></a:p></p:txBody></p:sp>"
+<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>%s</a:t></a:r></a:p></p:txBody></p:sp>"
 
 
 #' @export
@@ -11,11 +11,12 @@ simple_shape <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/200
 #' @param index placeholder index. This is to be used when a placeholder id
 #' is not unique in the current slide, e.g. two placeholders with id 'body'.
 #' @examples
+#' fileout <- tempfile(fileext = ".pptx")
 #' doc <- pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- placeholder_set_text(x = doc, id = "title", str = "Un titre")
 #' doc <- placeholder_remove(x = doc, id = "title")
-#' print(doc, target = "placeholder_remove.pptx" )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
 placeholder_remove <- function( x, id = "title", index = 1 ){
 
@@ -39,6 +40,7 @@ placeholder_remove <- function( x, id = "title", index = 1 ){
 #' @inheritParams placeholder_remove
 #' @param str text to add
 #' @examples
+#' fileout <- tempfile(fileext = ".pptx")
 #' doc <- pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- placeholder_set_text(x = doc, id = "title", str = "Un titre")
@@ -50,7 +52,7 @@ placeholder_remove <- function( x, id = "title", index = 1 ){
 #' doc <- placeholder_set_text(x = doc, id = "subTitle", str = "Un sous titre")
 #' doc <- placeholder_set_text(x = doc, id = "ctrTitle", str = "Un titre")
 #'
-#' print(doc, target = "placeholder_set_text.pptx" )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 placeholder_set_text <- function( x, str, id = "title", index = 1 ){
 
@@ -58,7 +60,6 @@ placeholder_set_text <- function( x, str, id = "title", index = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm_df <- slide$get_xfrm(type = id, index = index)
-
   xml_elt <- sprintf( simple_shape, xfrm_df$ph, str )
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
@@ -69,6 +70,98 @@ placeholder_set_text <- function( x, str, id = "title", index = 1 ){
 }
 
 
+#' @export
+#' @title append text
+#' @description append text into a paragraph of a pptx object
+#' @param x a pptx device
+#' @param str text to add
+#' @param uid unique id, use column \code{id} of the
+#' result of \code{\link{summary.pptx}}
+#' @param style text style, a \code{\link{fp_text}} object
+#' @param pos where to add the new element relative to the cursor,
+#' "after" or "before".
+#' @examples
+#' library(magrittr)
+#' fileout <- tempfile(fileext = ".pptx")
+#' doc <- pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
+#'   placeholder_set_text(id = "body", str = "Un texte")
+#' id_body <- summary(doc)$id[1]
+
+#' placeholder_add_text(doc, str = " et un autre ", uid = id_body) %>%
+#'   print(target = fileout)
+#' @importFrom xml2 xml_child xml_children xml_add_child
+placeholder_add_text <- function( x, str, uid, style = fp_text(font.size = 0), pos = "after" ){
+
+  slide <- x$slide$get_slide(x$cursor)
+  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
+
+  shape_id <- which( !is.na( xml_child(nodes, sprintf( "/p:cNvPr[@id='%s']", uid ) ) ) )
+
+  current_p <- xml_child(nodes[[shape_id]], "/a:p[last()]")
+
+  simple_shape <- paste0( "<a:r xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                          format(style, type = "pml"),
+                          sprintf("<a:t>%s</a:t>", str),
+                          "</a:r>" )
+
+  where_ <- ifelse( pos == "after", length(xml_children(current_p)), 0 )
+  xml_add_child(current_p, as_xml_document(simple_shape), .where = where_ )
+
+  slide$save()
+  x$slide$update()
+
+  x
+}
+
+#' @export
+#' @title append text
+#' @description append text into a paragraph of a pptx object
+#' @param x a pptx device
+#' @param uid unique id, use column \code{id} of the
+#' result of \code{\link{summary.pptx}}
+#' @param level paragraph level
+#' @examples
+#' library(magrittr)
+#'
+#' fileout <- tempfile(fileext = ".pptx")
+#' default_text <- fp_text(font.size = 0, bold = TRUE, color = "red")
+#'
+#' doc <- pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
+#'   placeholder_set_text(id = "title", str = "A title") %>%
+#'   placeholder_set_text(id = "body", str = "A text")
+#'
+#' id_body <- summary(doc)$id[2]
+#'
+#' placeholder_add_paragraph(x = doc, uid = id_body, level = 2) %>%
+#'   placeholder_add_text(str = "and another, ", uid = id_body,
+#'     style = default_text ) %>%
+#'   placeholder_add_paragraph(uid = id_body, level = 3) %>%
+#'   placeholder_add_text(str = "and another!", uid = id_body,
+#'     style = update(default_text, color = "blue")) %>%
+#'   print(target = fileout)
+#' @importFrom xml2 xml_child xml_children xml_add_child
+placeholder_add_paragraph <- function( x, uid, level = 1 ){
+
+  slide <- x$slide$get_slide(x$cursor)
+  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
+
+  shape_id <- which( !is.na( xml_child(nodes, sprintf( "/p:cNvPr[@id='%s']", uid ) ) ) )
+
+  current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
+
+  if( level > 1 )
+    simple_shape <- sprintf("<a:p xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:pPr lvl=\"%.0f\"/></a:p>", level - 1)
+  else
+    simple_shape <- "<a:p xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"/>"
+
+  xml_add_child(current_p, as_xml_document(simple_shape) )
+  slide$save()
+  x$slide$update()
+
+  x
+}
 
 
 #' @export
@@ -83,12 +176,12 @@ placeholder_set_xml <- function( x, value, id = "body", index = 1 ){
   xfrm <- slide$get_xfrm(type = id, index = index)
 
   doc <- as_xml_document(value)
-  doc <- set_xfrm_attr(doc, offx = xfrm$offx, offy = xfrm$offy,
+  node <- xml_find_first( doc, "//*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+  node <- set_xfrm_attr(node, offx = xfrm$offx, offy = xfrm$offy,
                        cx = xfrm$cx, cy = xfrm$cy)
-
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
 
-  slide$save()
+  slide$fortify_id()$save()
   x$slide$update()
   x
 }
@@ -101,6 +194,7 @@ placeholder_set_xml <- function( x, value, id = "body", index = 1 ){
 #' @param src image path
 #' @param width,height image size in inches
 #' @examples
+#' fileout <- tempfile(fileext = ".pptx")
 #' doc <- pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #'
@@ -120,7 +214,7 @@ placeholder_set_xml <- function( x, value, id = "body", index = 1 ){
 #'   doc <- placeholder_set_img(x = doc, id = "body", src = "bar.emf" )
 #' }
 #'
-#' print(doc, target = "placeholder_set_img.pptx" )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 placeholder_set_img <- function( x, src, id, index = 1, width = NULL, height = NULL ){
 
@@ -152,6 +246,8 @@ placeholder_set_img <- function( x, src, id, index = 1, width = NULL, height = N
   x
 
 }
+
+
 
 
 fortify_pml_images <- function(x, str){

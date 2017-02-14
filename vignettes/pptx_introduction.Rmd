@@ -1,0 +1,42 @@
+---
+title: "Introduction to pptx"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pptx introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Creation of PowerPoint documents is made with function `pptx`. 
+
+One can add and remove slides with functions `add_slide` and `remove_slide`. 
+Function `on_slide` select a current slide. Management of the content of the 
+current slide can be made with functions `placeholder_add_paragraph`, `placeholder_add_text`, 
+`placeholder_remove`, `placeholder_set_img` and `placeholder_set_text`.
+
+
+```{r}
+library(officer)
+library(magrittr)
+
+doc <- pptx() %>%
+  add_slide(layout = "Title and Content", master = "Office Theme")
+doc
+```
+
+```{r}
+fileout <- tempfile(fileext = ".pptx")
+
+doc %>%
+  add_slide(layout = "Two Content", master = "Office Theme") %>%
+  placeholder_set_text(id = "title", str = "A title") %>%
+  placeholder_set_text(id = "ftr", str = "pied de page") %>%
+  placeholder_set_text(id = "dt", str = format(Sys.Date())) %>%
+  placeholder_set_text(str = "text 1", id = "body", index = 1) %>%
+  placeholder_set_text(str = "text 2", id = "body", index = 2) %>%
+  print(target = fileout )
+browseURL(fileout)
+```
+
+
+

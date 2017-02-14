@@ -64,6 +64,14 @@ relationship <- R6Class(
       private$ext_src <- c( private$ext_src, "" )
       self
     },
+    remove = function( target ) {
+      id <- which( basename(private$target) %in% basename(target)  )
+      private$id <- private$id[-id]
+      private$type <- private$type[-id]
+      private$target <- private$target[-id]
+      private$ext_src <- private$ext_src[-id]
+      self
+    },
     show = function() {
       print(self$get_data())
     }

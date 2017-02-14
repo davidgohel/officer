@@ -20,6 +20,7 @@ is not unique in the current slide, e.g. two placeholders with id 'body'.}
 add text into a new shape in a slide
 }
 \examples{
+fileout <- tempfile(fileext = ".pptx")
 doc <- pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- placeholder_set_text(x = doc, id = "title", str = "Un titre")
@@ -31,6 +32,6 @@ doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
 doc <- placeholder_set_text(x = doc, id = "subTitle", str = "Un sous titre")
 doc <- placeholder_set_text(x = doc, id = "ctrTitle", str = "Un titre")
 
-print(doc, target = "placeholder_set_text.pptx" )
+print(doc, target = fileout )
 }
 

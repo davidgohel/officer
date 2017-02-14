@@ -42,7 +42,7 @@ read_xfrm <- function(nodeset, file, name){
     idx <- xml_attr(ph, "idx")
     if( is.na(type) )
       type <- "body"
-    id <- xml_child(x, "p:nvSpPr/p:cNvPr")
+    id <- xml_child(x, "/p:cNvPr")
     off <- xml_child(x, "p:spPr/a:xfrm/a:off")
     ext <- xml_child(x, "p:spPr/a:xfrm/a:ext")
     tibble( type = type,
@@ -88,8 +88,7 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
 }
 
 
-set_xfrm_attr <- function( doc, offx, offy, cx, cy ){
-  node <- xml_find_first( doc, "//*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+set_xfrm_attr <- function( node, offx, offy, cx, cy ){
   off <- xml_child(node, "p:xfrm/a:off")
   ext <- xml_child(node, "p:xfrm/a:ext")
 
@@ -100,7 +99,7 @@ set_xfrm_attr <- function( doc, offx, offy, cx, cy ){
 
   cnvpr <- xml_child(node, "*/p:cNvPr")
   xml_attr( cnvpr, "id") <- ""
-  doc
+  node
 }
 
 
