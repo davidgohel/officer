@@ -1,0 +1,49 @@
+title: officer package
+
+
+template:
+  package: ardatatemplate
+  bootswatch: simplex
+
+reference:
+  - title: Working with Word documents
+    contents:
+    - docx
+    - docx_add_img
+    - docx_add_par
+    - docx_add_table
+    - docx_add_toc
+    - docx_add_pbreak
+    - docx_append_img
+    - docx_append_run
+    - docx_append_seqfield
+  - title: Functions specific to PowerPoint
+    contents:
+    - read_pptx
+    - add_slide
+    - remove_slide
+    - on_slide
+    - placeholder_remove
+    - placeholder_set_img
+    - placeholder_set_text
+    - placeholder_set
+    - placeholder_add_text
+    - placeholder_add_paragraph
+  - title: Formatting properties
+    contents:
+    - fp_text
+    - fp_par
+    - fp_border
+    - fp_cell
+
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Powerpoint
+    href: articles/pptx_introduction.html
+  right:
+  - text: Function reference
+    href: reference/index.html
+  - icon: fa-github fa-lg
+    href: https://github.com/davidgohel/officer

@@ -9,13 +9,13 @@ officer R package
 officer
 -------
 
-The officer package provides lets R users manipulate Word documents (`.docx`). This package is close to ReporteRs as it produces Word files (PowerPoint will be implemented later) but it is faster, do not require `rJava` (but `xml2`).
+The officer package provides lets R users manipulate Word (`.docx`) and PowerPoint (`*.pptx`) documents.
 
-Last but not least, *cursor* concept has been implemented to make it easier the post processing of Word files. One can use the cursor to reach a particular paragraph containing a given text, or the beginning of the document and the end.
+> This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require `rJava` (but `xml2`) and has less functions that will make it easier to maintain.
 
-The package `flextable` brings in addition a full API to produce nice tables and use them with `officer`.
+A *cursor* concept has been implemented to make it easier the post processing of files. In a Word document, one can use the cursor to reach a particular paragraph containing a given text, or the beginning of the document and the end. In a PowerPoint document, one can set a slide as selected and reach a particular shape (and remove it or add text).
 
-> There is no vignette yet, for now, please search the R help file (major functions are all starting with `docx_`).
+The package [flextable](https://github.com/davidgohel/flextable) brings a full API to produce nice tables and use them with `officer`.
 
 ### Installation
 

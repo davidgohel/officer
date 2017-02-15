@@ -3,3 +3,4 @@
 ^template\.docx$
 ^\.travis\.yml$
 ^README\.Rmd$
+_pkgdown\.yml
