@@ -8,21 +8,29 @@ template:
 reference:
   - title: Working with Word documents
     contents:
-    - docx
-    - docx_add_img
-    - docx_add_par
-    - docx_add_table
-    - docx_add_toc
-    - docx_add_pbreak
-    - docx_append_img
-    - docx_append_run
-    - docx_append_seqfield
+    - read_docx
+    - cursor_backward
+    - cursor_begin
+    - cursor_end
+    - cursor_forward
+    - cursor_reach
+    - body_add_img
+    - body_add_par
+    - body_add_table
+    - body_add_toc
+    - body_add_break
+    - slip_in_img
+    - slip_in_text
+    - slip_in_seqfield
   - title: Functions specific to PowerPoint
     contents:
     - read_pptx
     - add_slide
     - remove_slide
     - on_slide
+    - layout_summary
+    - layout_properties
+    - slide_summary
     - ph_remove
     - ph_with_img
     - ph_with_text

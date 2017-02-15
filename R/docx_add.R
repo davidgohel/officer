@@ -9,26 +9,26 @@
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @examples
-#' doc <- docx()
+#' doc <- read_docx()
 #'
 #' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 #' if( file.exists(img.file) ){
-#'   doc <- docx_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
+#'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
 #' }
 #' if( require("ionicons") ){
 #'   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
-#'   doc <- docx_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
+#'   doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
 #' }
 #' if( require("devEMF") ){
 #'   emf("bar.emf", height = 5, width = 5)
 #'   barplot(1:10, col = 1:10)
 #'   dev.off()
-#'   doc <- docx_add_img(x = doc, src = "bar.emf", height = 5, width = 5)
+#'   doc <- body_add_img(x = doc, src = "bar.emf", height = 5, width = 5)
 #' }
 #'
-#' print(doc, target = "docx_add_img.docx" )
+#' print(doc, target = "body_add_img.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-docx_add_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
+body_add_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
 
   style_id <- get_style_id(x=x, style=style, type = "paragraph")
 
@@ -43,7 +43,7 @@ docx_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
   xml_elt <- wml_link_images( x, xml_elt )
 
 
-  add_xml_node(x = x, str = xml_elt, pos = pos)
+  body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
 #' @export
@@ -55,14 +55,14 @@ docx_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-docx_add_par <- function( x, value, style, pos = "after" ){
+body_add_par <- function( x, value, style, pos = "after" ){
 
   style_id <- get_style_id(x=x, style=style, type = "paragraph")
 
   xml_elt <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
                     value, "</w:t></w:r></w:p>")
-  add_xml_node(x = x, str = xml_elt, pos = pos)
+  body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
 as_tc <- function(x, collapse = FALSE ){
@@ -83,7 +83,7 @@ as_tc <- function(x, collapse = FALSE ){
 #' @param width table width for column width calculation
 #' @param first_row,last_row,first_column,last_column,no_hband,no_vband logical for Word table options
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-docx_add_table <- function( x, value, style, pos = "after", width = 5,
+body_add_table <- function( x, value, style, pos = "after", width = 5,
                             first_row = TRUE, first_column = FALSE,
                             last_row = TRUE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
@@ -115,7 +115,7 @@ docx_add_table <- function( x, value, style, pos = "after", width = 5,
   xml_elt <- paste0( sprintf("<w:tbl %s>", base_ns),
           tbpr, grid_col, dat, "</w:tbl>")
 
-  add_xml_node(x = x, str = xml_elt, pos = pos)
+  body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
 
@@ -129,7 +129,7 @@ docx_add_table <- function( x, value, style, pos = "after", width = 5,
 #' one of "after", "before", "on".
 #' @param style optional. style in the document that will be used to build entries of the TOC.
 #' @param separator optional. Some configurations need "," (i.e. from Canada) separator instead of ";"
-docx_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
+body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
     str <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:pPr/>",
@@ -147,7 +147,7 @@ docx_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
     out <- sprintf(str, style, separator)
   }
 
-  add_xml_node(x = x, str = out, pos = pos)
+  body_add_xml(x = x, str = out, pos = pos)
 
 }
 
@@ -159,12 +159,12 @@ docx_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 #' @param x a docx object
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
-docx_add_pbreak <- function( x, pos = "after"){
+body_add_break <- function( x, pos = "after"){
 
   str <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:pPr/>",
                 "<w:r><w:br w:type=\"page\"/></w:r>",
                 "</w:p>")
-  add_xml_node(x = x, str = str, pos = pos)
+  body_add_xml(x = x, str = str, pos = pos)
 
 }
 
@@ -177,7 +177,7 @@ docx_add_pbreak <- function( x, pos = "after"){
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
-add_xml_node <- function(x, str, pos){
+body_add_xml <- function(x, str, pos){
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before", "on")
 

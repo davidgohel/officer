@@ -11,40 +11,32 @@ myft <- flextable(head(iris)) %>%
 
 src = as_png(name = "usb", fill = "red", width = 72, height = 72)
 
-# doc <- docx() %>%
-#   cursor_begin() %>%
-#   docx_add_toc(pos = "on") %>%
-#   docx_add_pbreak() %>%
-#   docx_add_img(src, width = 1, height = 1, style = "Normal" ) %>%
-#   # docx_add_par("Titre de niveau 1", style = "heading 1") %>%
-#   # docx_add_par("Titre de niveau 2", style = "heading 2") %>%
-#   docx_add_flextable( value = myft )
 
-doc <- docx() %>%
-  docx_add_toc(style = "centered") %>%
-  docx_add_flextable(value = myft) %>%
-  docx_add_par("", style = "Normal") %>%
-  docx_add_par("", style = "Normal") %>%
-  docx_append_run("sympa", style = "strong") %>%
-  docx_append_img(src, width = .2, height = .2, style = "strong") %>%
-  docx_append_seqfield(str = "TIME \u005C@ \"HH:mm:ss\" \u005C* MERGEFORMAT", style = 'Default Paragraph Font') %>%
-  docx_add_img(src, width = 1, height = 1, style = "Normal" ) %>%
-  docx_add_par(" : Liste des machin", style = "centered") %>%
-  docx_append_seqfield(str = "SEQ Figure \u005C* roman", style = 'Default Paragraph Font', pos = "before") %>%
-  docx_append_run("Figure ", style = "strong", pos = "before") %>%
-  docx_add_img(src, width = 1, height = 1, style = "Normal" ) %>%
-  docx_add_par(" : Liste 2 de machins", style = "centered") %>%
-  docx_append_seqfield(str = "SEQ Figure \u005C* roman", style = 'Default Paragraph Font', pos = "before")  %>%
-  docx_append_run("Figure ", style = "strong", pos = "before") %>%
-  docx_add_par("", style = "Normal") %>%
-  docx_append_seqfield(str = "SYMBOL 100 \u005Cf Wingdings", style = 'Default Paragraph Font') %>%
-  docx_add_table(iris, style = "table_template", width = 3, last_column = TRUE)
+doc <- read_docx() %>%
+  body_add_toc(style = "centered") %>%
+  body_add_flextable(value = myft) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par("", style = "Normal") %>%
+  slip_in_text("sympa", style = "strong") %>%
+  slip_in_img(src, width = .2, height = .2, style = "strong") %>%
+  slip_in_seqfield(str = "TIME \u005C@ \"HH:mm:ss\" \u005C* MERGEFORMAT", style = 'Default Paragraph Font') %>%
+  body_add_img(src, width = 1, height = 1, style = "Normal" ) %>%
+  body_add_par(" : Liste des machin", style = "centered") %>%
+  slip_in_seqfield(str = "SEQ Figure \u005C* roman", style = 'Default Paragraph Font', pos = "before") %>%
+  slip_in_text("Figure ", style = "strong", pos = "before") %>%
+  body_add_img(src, width = 1, height = 1, style = "Normal" ) %>%
+  body_add_par(" : Liste 2 de machins", style = "centered") %>%
+  slip_in_seqfield(str = "SEQ Figure \u005C* roman", style = 'Default Paragraph Font', pos = "before")  %>%
+  slip_in_text("Figure ", style = "strong", pos = "before") %>%
+  body_add_par("", style = "Normal") %>%
+  slip_in_seqfield(str = "SYMBOL 100 \u005Cf Wingdings", style = 'Default Paragraph Font') %>%
+  body_add_table(iris, style = "table_template", width = 3, last_column = TRUE)
 
 
 unlink(c("aaaa", "test3.docx" ), recursive = TRUE, force = TRUE)
 
-# doc <- docx() %>%
-#   docx_append_img(src = as_png(name = "calendar", fill = "#FFE64D", width = 15, height = 15),
+# doc <- read_docx() %>%
+#   slip_in_img(src = as_png(name = "calendar", fill = "#FFE64D", width = 15, height = 15),
 #                   width = .2, height = .2, style = "strong")
 print(doc, target = "test3.docx")
 # unzip("test3.docx", exdir = "aaaa")

@@ -8,26 +8,26 @@
 #' "after" or "before".
 #' @examples
 #' library(magrittr)
-#' docx() %>%
-#'   docx_add_par("Time is: ", style = "Normal") %>%
-#'   docx_append_seqfield(
+#' read_docx() %>%
+#'   body_add_par("Time is: ", style = "Normal") %>%
+#'   slip_in_seqfield(
 #'     str = "TIME \u005C@ \"HH:mm:ss\" \u005C* MERGEFORMAT",
 #'     style = 'strong') %>%
 #'
-#'   docx_add_par(" - This is a figure title", style = "centered") %>%
-#'   docx_append_seqfield(str = "SEQ Figure \u005C* roman",
+#'   body_add_par(" - This is a figure title", style = "centered") %>%
+#'   slip_in_seqfield(str = "SEQ Figure \u005C* roman",
 #'     style = 'Default Paragraph Font', pos = "before") %>%
-#'   docx_append_run("Figure: ", style = "strong", pos = "before") %>%
+#'   slip_in_text("Figure: ", style = "strong", pos = "before") %>%
 #'
-#'   docx_add_par(" - This is another figure title", style = "centered") %>%
-#'   docx_append_seqfield(str = "SEQ Figure \u005C* roman",
+#'   body_add_par(" - This is another figure title", style = "centered") %>%
+#'   slip_in_seqfield(str = "SEQ Figure \u005C* roman",
 #'     style = 'strong', pos = "before")  %>%
-#'   docx_append_run("Figure: ", style = "strong", pos = "before") %>%
-#'   docx_add_par("This is a symbol: ", style = "Normal") %>%
-#'   docx_append_seqfield(str = "SYMBOL 100 \u005Cf Wingdings",
+#'   slip_in_text("Figure: ", style = "strong", pos = "before") %>%
+#'   body_add_par("This is a symbol: ", style = "Normal") %>%
+#'   slip_in_seqfield(str = "SYMBOL 100 \u005Cf Wingdings",
 #'     style = 'strong') %>%
 #'   print(target = "seqfield.docx")
-docx_append_seqfield <- function( x, str, style = "Normal", pos = "after" ){
+slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 
   style_id <- get_style_id(x=x, style=style, type = "character")
 
@@ -44,13 +44,13 @@ docx_append_seqfield <- function( x, str, style = "Normal", pos = "after" ){
                       "<w:r><w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/></w:r>",
                       "</w:r>")
   if( pos == "after"){
-    add_xml_run(x = x, str = xml_elt_1, pos = pos)
-    add_xml_run(x = x, str = xml_elt_2, pos = pos)
-    add_xml_run(x = x, str = xml_elt_3, pos = pos)
+    slip_in_xml(x = x, str = xml_elt_1, pos = pos)
+    slip_in_xml(x = x, str = xml_elt_2, pos = pos)
+    slip_in_xml(x = x, str = xml_elt_3, pos = pos)
   } else {
-    add_xml_run(x = x, str = xml_elt_3, pos = pos)
-    add_xml_run(x = x, str = xml_elt_2, pos = pos)
-    add_xml_run(x = x, str = xml_elt_1, pos = pos)
+    slip_in_xml(x = x, str = xml_elt_3, pos = pos)
+    slip_in_xml(x = x, str = xml_elt_2, pos = pos)
+    slip_in_xml(x = x, str = xml_elt_1, pos = pos)
   }
 
 }
@@ -65,17 +65,17 @@ docx_append_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 #' "after" or "before".
 #' @examples
 #' library(magrittr)
-#' docx() %>%
-#'   docx_add_par("Hello ", style = "Normal") %>%
-#'   docx_append_run("world", style = "strong") %>%
-#'   docx_append_run("Message is", style = "strong", pos = "before") %>%
+#' read_docx() %>%
+#'   body_add_par("Hello ", style = "Normal") %>%
+#'   slip_in_text("world", style = "strong") %>%
+#'   slip_in_text("Message is", style = "strong", pos = "before") %>%
 #'   print(target = "append_run.docx")
-docx_append_run <- function( x, str, style = "Normal", pos = "after" ){
+slip_in_text <- function( x, str, style = "Normal", pos = "after" ){
 
   style_id <- get_style_id(x=x, style=style, type = "character")
   xml_elt <- "<w:r xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr><w:t xml:space=\"preserve\">%s</w:t></w:r>"
   xml_elt <- sprintf(xml_elt, style_id, str)
-  add_xml_run(x = x, str = xml_elt, pos = pos)
+  slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
 #' @export
@@ -92,11 +92,11 @@ docx_append_run <- function( x, str, style = "Normal", pos = "after" ){
 #' @examples
 #' library(magrittr)
 #' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
-#' docx() %>%
-#'   docx_add_par("R logo: ", style = "Normal") %>%
-#'   docx_append_img(src = img.file, style = "strong", width = .3, height = .3) %>%
+#' read_docx() %>%
+#'   body_add_par("R logo: ", style = "Normal") %>%
+#'   slip_in_img(src = img.file, style = "strong", width = .3, height = .3) %>%
 #'   print(target = "append_img.docx")
-docx_append_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
+slip_in_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
 
   style_id <- get_style_id(x=x, style=style, type = "character")
 
@@ -112,7 +112,7 @@ docx_append_img <- function( x, src, style = "Normal", width, height, pos = "aft
   wml_ <- "<w:r %s><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>%s</w:r>"
   xml_elt <- sprintf(wml_, base_ns, style_id, as.character(drawing_node) )
 
-  add_xml_run(x = x, str = xml_elt, pos = pos)
+  slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
 
@@ -125,7 +125,7 @@ docx_append_img <- function( x, src, style = "Normal", width, height, pos = "aft
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
-add_xml_run <- function(x, str, pos){
+slip_in_xml <- function(x, str, pos){
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before")
 

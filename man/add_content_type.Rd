@@ -18,6 +18,6 @@ The function add a new content type associated to an
 extension into a docx object.
 }
 \examples{
-x <- docx()
+x <- read_docx()
 x <- add_content_type(x, extension = "png", type = "image/png")
 }

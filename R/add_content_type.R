@@ -6,7 +6,7 @@
 #' @param extension extension string value (i.e. 'png')
 #' @param type corresponding type (i.e. 'image/png')
 #' @examples
-#' x <- docx()
+#' x <- read_docx()
 #' x <- add_content_type(x, extension = "png", type = "image/png")
 #' @importFrom xml2 read_xml xml_find_all xml_attr xml_add_child write_xml
 add_content_type <- function( x, extension, type ){

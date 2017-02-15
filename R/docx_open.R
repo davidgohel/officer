@@ -6,11 +6,11 @@
 #' @param x a docx object
 #' @examples
 #' # create a docx object with default template ---
-#' docx()
+#' read_docx()
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first
 #' @importFrom utils unzip
-docx <- function( path = NULL ){
+read_docx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
     stop("could not find file ", shQuote(path), call. = FALSE)
@@ -41,11 +41,11 @@ docx <- function( path = NULL ){
 #' @export
 #' @param target path to the docx file to write
 #' @param ... unused
-#' @rdname docx
+#' @rdname read_docx
 #' @examples
 #' # write a docx object in a docx file ----
 #' if( require(magrittr) ){
-#'   docx() %>% print(target = "out.docx")
+#'   read_docx() %>% print(target = "out.docx")
 #'   # full path of produced file is returned
 #'   print(.Last.value)
 #' }
@@ -84,10 +84,10 @@ print.docx <- function(x, target = NULL, ...){
 #' @export
 #' @examples
 #' # how many element are there in the document ----
-#' length( docx() )
+#' length( read_docx() )
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first
-#' @rdname docx
+#' @rdname read_docx
 length.docx <- function( x ){
   xml_find_first(x$xml_doc, "/w:document/w:body") %>% xml_length()
 
