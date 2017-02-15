@@ -36,6 +36,18 @@ attr_chunk <- function( x ){
 }
 
 read_xfrm <- function(nodeset, file, name){
+  if( length(nodeset) < 1 ){
+    return(tibble( type = character(0),
+                   id = character(0),
+                   ph = character(0),
+                   file = character(0),
+                   offx = integer(0),
+                   offy = integer(0),
+                   cx = integer(0),
+                   cy = integer(0),
+                   name = character(0) ))
+  }
+
   xfrm <- map_df( nodeset, function(x) {
     ph <- xml_child(x, "p:nvSpPr/p:nvPr/p:ph")
     type <- xml_attr(ph, "type")
@@ -58,17 +70,28 @@ read_xfrm <- function(nodeset, file, name){
 }
 
 
-#' @importFrom dplyr left_join
+#' @importFrom dplyr left_join anti_join bind_rows distinct
 #' @importFrom dplyr rename_ select_ mutate_
 xfrmize <- function( slide_xfrm, master_xfrm ){
 
+  master_ref <- master_xfrm %>%
+    rename_( .dots = setNames( "name", "master_name")) %>%
+    select_("file", "master_name") %>%
+    distinct()
 
   master_xfrm <- master_xfrm %>%
-    rename_( .dots = setNames( c("offx", "offy", "cx", "cy"),
-                               c("offx_ref", "offy_ref", "cx_ref", "cy_ref"))) %>%
-    select_("-name", "-id", "-ph")
+    rename_( .dots = setNames( c("offx", "offy", "cx", "cy", "name"),
+                               c("offx_ref", "offy_ref", "cx_ref", "cy_ref", "master_name"))) %>%
+    select_("-id", "-ph")
 
-  slide_xfrm <- left_join(
+  slide_xfrm_no_match <- anti_join(
+    slide_xfrm,
+    master_xfrm,
+    by = c("master_file"="file", "type" = "type") ) %>% inner_join(
+    master_ref,
+    by = c("master_file"="file")
+  )
+  slide_xfrm <- inner_join(
     slide_xfrm,
     master_xfrm,
     by = c("master_file"="file", "type" = "type")
@@ -84,7 +107,8 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
             offy = interp("offy / 914400"),
             cx = interp("cx / 914400"),
             cy = interp("cy / 914400") ) ) %>%
-    select_("-offx_ref", "-offy_ref", "-cx_ref", "-cy_ref")
+    select_("-offx_ref", "-offy_ref", "-cx_ref", "-cy_ref") %>%
+    bind_rows(slide_xfrm_no_match)
 
   slide_xfrm
 }

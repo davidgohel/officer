@@ -4,17 +4,18 @@
 \alias{placeholder_set_img}
 \title{add image into a new shape}
 \usage{
-placeholder_set_img(x, src, id, index = 1, width = NULL, height = NULL)
+placeholder_set_img(x, src, type = "body", index = 1, width = NULL,
+  height = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{src}{image path}
 
-\item{id}{placeholder id}
+\item{type}{placeholder type}
 
-\item{index}{placeholder index. This is to be used when a placeholder id
-is not unique in the current slide, e.g. two placeholders with id 'body'.}
+\item{index}{placeholder index (integer). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body'.}
 
 \item{width, height}{image size in inches}
 }
@@ -23,23 +24,23 @@ add an image into a new shape in a slide
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")
-doc <- pptx()
+doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 
 img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 if( file.exists(img.file) ){
-  doc <- placeholder_set_img(x = doc, id = "body", src = img.file, height = 1.06, width = 1.39 )
+  doc <- placeholder_set_img(x = doc, type = "body", src = img.file, height = 1.06, width = 1.39 )
 }
 if( require("ionicons") ){
   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
-  doc <- placeholder_set_img(x = doc, id = "dt", src = calendar_src )
+  doc <- placeholder_set_img(x = doc, type = "dt", src = calendar_src )
 }
 if( require("devEMF") ){
   emf("bar.emf")
   barplot(1:10, col = 1:10)
   dev.off()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- placeholder_set_img(x = doc, id = "body", src = "bar.emf" )
+  doc <- placeholder_set_img(x = doc, type = "body", src = "bar.emf" )
 }
 
 print(doc, target = fileout )

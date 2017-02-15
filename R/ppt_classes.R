@@ -254,6 +254,21 @@ slide_master <- R6Class(
       xml_attr(read_xml(file.path( root,theme_)), "name")
     },
 
+    colors = function(){
+      theme_ <- private$theme_file()
+      root <- gsub( paste0(self$dir_name(), "$"), "", dirname( private$filename ) )
+
+      doc <- read_xml(file.path( root,theme_))
+      nodes <- xml_find_all(doc, "//a:clrScheme/*")
+
+      names_ <- xml_name(nodes)
+      col_types_ <- xml_name(xml_children(nodes) )
+      vals <- xml_attr(xml_children(nodes), "val")
+      last_colors_ <- xml_attr(xml_children(nodes), "lastClr")
+      vals <- ifelse(col_types_ == "srgbClr", paste0("#", vals), paste0("#", last_colors_) )
+      tibble(name = names_, type = col_types_, value = vals, theme = self$name())
+    },
+
     xfrm = function(){
       nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
       read_xfrm(nodeset, self$file_name(), self$name())
@@ -424,6 +439,9 @@ dir_master <- R6Class(
       unames <- map_chr(private$collection, function(x) x$name())
       ufnames <- map_chr(private$collection, function(x) x$file_name())
       tibble(master_name = unames, filename = ufnames)
+    },
+    get_color_scheme = function( ){
+      map_df(private$collection, function(x) x$colors())
     }
 
   )
@@ -439,10 +457,10 @@ dir_layout <- R6Class(
     initialize = function( x ) {
       super$initialize(x, slide_layout$new("ppt/slideLayouts"))
       private$master_collection <- dir_master$new(x, slide_master$new("ppt/slideMasters") )
-      private$xfrmize()
+      private$xfrm_data <- xfrmize(self$xfrm(), private$master_collection$xfrm())
     },
 
-    get_xfrm = function(){
+    get_xfrm_data = function(){
       private$xfrm_data
     },
 
@@ -464,18 +482,13 @@ dir_layout <- R6Class(
   ),
   private = list(
     master_collection = NULL,
-    xfrm_data = NULL,
-
-    xfrmize = function( ){
-      private$xfrm_data <- xfrmize(self$xfrm(), private$master_collection$xfrm())
-      self
-    }
+    xfrm_data = NULL
   )
 )
 
 
 # dir_slide ---------------------------------------------------------
-
+#' @importFrom dplyr between
 dir_slide <- R6Class(
   "dir_slide",
   inherit = dir_collection,
@@ -485,7 +498,7 @@ dir_slide <- R6Class(
       super$initialize(x, slide$new("ppt/slides"))
       private$slides_path <- file.path(x$package_dir, "ppt/slides")
       private$slide_layouts <- dir_layout$new( x )
-      map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm() )
+      map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
     },
 
     update = function( ){
@@ -495,7 +508,7 @@ dir_slide <- R6Class(
         container$clone()$feed(x)$fortify_id()
       }, container = slide$new("ppt/slides"))
       private$slides_path <- file.path(private$package_dir, "ppt/slides")
-      private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm() )
+      private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
       self
     },
     remove = function(index ){
@@ -509,6 +522,10 @@ dir_slide <- R6Class(
 
 
     get_slide = function(id){
+      l_ <- self$length()
+      if( is.null(id) || !between(id, 1, l_ ) ){
+        stop("unvalid id ", id, " (", l_," slide(s))", call. = FALSE)
+      }
       private$collection[[id]]
     },
 

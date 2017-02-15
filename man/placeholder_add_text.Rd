@@ -4,16 +4,19 @@
 \alias{placeholder_add_text}
 \title{append text}
 \usage{
-placeholder_add_text(x, str, uid, style = fp_text(font.size = 0),
-  pos = "after")
+placeholder_add_text(x, str, type = NULL, id_chr = NULL,
+  style = fp_text(font.size = 0), pos = "after")
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{str}{text to add}
 
-\item{uid}{unique id, use column \code{id} of the
-result of \code{\link{summary.pptx}}}
+\item{type}{placeholder type}
+
+\item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body'.
+Values can be read from \code{\link{slide_summary}}.}
 
 \item{style}{text style, a \code{\link{fp_text}} object}
 
@@ -26,11 +29,18 @@ append text into a paragraph of a pptx object
 \examples{
 library(magrittr)
 fileout <- tempfile(fileext = ".pptx")
-doc <- pptx() \%>\%
+my_pres <- read_pptx() \%>\%
   add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  placeholder_set_text(id = "body", str = "Un texte")
-id_body <- summary(doc)$id[1]
-placeholder_add_text(doc, str = " et un autre ", uid = id_body) \%>\%
-  print(target = fileout)
+  placeholder_set(type = "body")
+
+small_red <- fp_text(color = "red", font.size = 14)
+
+my_pres <- my_pres \%>\%
+  placeholder_add_paragraph(level = 3) \%>\%
+  placeholder_add_text(str = "A small red text.", style = small_red) \%>\%
+  placeholder_add_paragraph(level = 2) \%>\%
+  placeholder_add_text(str = "Level 2")
+
+print(my_pres, target = fileout)
 }
 

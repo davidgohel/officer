@@ -4,13 +4,16 @@
 \alias{placeholder_add_paragraph}
 \title{append text}
 \usage{
-placeholder_add_paragraph(x, uid, level = 1)
+placeholder_add_paragraph(x, type = NULL, id_chr = NULL, level = 1)
 }
 \arguments{
 \item{x}{a pptx device}
 
-\item{uid}{unique id, use column \code{id} of the
-result of \code{\link{summary.pptx}}}
+\item{type}{placeholder type}
+
+\item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body'.
+Values can be read from \code{\link{slide_summary}}.}
 
 \item{level}{paragraph level}
 }
@@ -23,18 +26,13 @@ library(magrittr)
 fileout <- tempfile(fileext = ".pptx")
 default_text <- fp_text(font.size = 0, bold = TRUE, color = "red")
 
-doc <- pptx() \%>\%
+doc <- read_pptx() \%>\%
   add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  placeholder_set_text(id = "title", str = "A title") \%>\%
-  placeholder_set_text(id = "body", str = "A text")
-
-id_body <- summary(doc)$id[2]
-
-placeholder_add_paragraph(x = doc, uid = id_body, level = 2) \%>\%
-  placeholder_add_text(str = "and another, ", uid = id_body,
-    style = default_text ) \%>\%
-  placeholder_add_paragraph(uid = id_body, level = 3) \%>\%
-  placeholder_add_text(str = "and another!", uid = id_body,
+  placeholder_set_text(type = "body", str = "A text") \%>\%
+  placeholder_add_paragraph(level = 2) \%>\%
+  placeholder_add_text(str = "and another, ", style = default_text ) \%>\%
+  placeholder_add_paragraph(level = 3) \%>\%
+  placeholder_add_text(str = "and another!",
     style = update(default_text, color = "blue")) \%>\%
   print(target = fileout)
 }

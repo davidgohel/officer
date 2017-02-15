@@ -4,33 +4,33 @@
 \alias{placeholder_set_text}
 \title{add text into a new shape}
 \usage{
-placeholder_set_text(x, str, id = "title", index = 1)
+placeholder_set_text(x, str, type = "title", index = 1)
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{str}{text to add}
 
-\item{id}{placeholder id}
+\item{type}{placeholder type}
 
-\item{index}{placeholder index. This is to be used when a placeholder id
-is not unique in the current slide, e.g. two placeholders with id 'body'.}
+\item{index}{placeholder index (integer). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body'.}
 }
 \description{
 add text into a new shape in a slide
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")
-doc <- pptx()
+doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- placeholder_set_text(x = doc, id = "title", str = "Un titre")
-doc <- placeholder_set_text(x = doc, id = "ftr", str = "pied de page")
-doc <- placeholder_set_text(x = doc, id = "dt", str = format(Sys.Date()))
-doc <- placeholder_set_text(x = doc, id = "sldNum", str = "slide 1")#
+doc <- placeholder_set_text(x = doc, type = "title", str = "Un titre")
+doc <- placeholder_set_text(x = doc, type = "ftr", str = "pied de page")
+doc <- placeholder_set_text(x = doc, type = "dt", str = format(Sys.Date()))
+doc <- placeholder_set_text(x = doc, type = "sldNum", str = "slide 1")#
 
 doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
-doc <- placeholder_set_text(x = doc, id = "subTitle", str = "Un sous titre")
-doc <- placeholder_set_text(x = doc, id = "ctrTitle", str = "Un titre")
+doc <- placeholder_set_text(x = doc, type = "subTitle", str = "Un sous titre")
+doc <- placeholder_set_text(x = doc, type = "ctrTitle", str = "Un titre")
 
 print(doc, target = fileout )
 }

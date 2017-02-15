@@ -15,14 +15,14 @@ on_slide(x, index)
 change current slide index of a pptx object.
 }
 \examples{
-doc <- pptx()
+doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- on_slide( doc, index = 1)
-doc <- placeholder_set_text(x = doc, id = "title", str = "First title")
+doc <- placeholder_set_text(x = doc, type = "title", str = "First title")
 doc <- on_slide( doc, index = 3)
-doc <- placeholder_set_text(x = doc, id = "title", str = "Third title")
+doc <- placeholder_set_text(x = doc, type = "title", str = "Third title")
 
 print(doc, target = "on_slide.pptx" )
 }

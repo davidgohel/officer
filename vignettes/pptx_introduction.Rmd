@@ -1,41 +1,240 @@
 ---
-title: "Introduction to pptx"
+title: "pptx device"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{pptx introduction}
+  %\VignetteIndexEntry{pptx device}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Creation of PowerPoint documents is made with function `pptx`. 
+> Package `officer` provides a set of functions to manipulate PowerPoint presentations from R.
 
-One can add and remove slides with functions `add_slide` and `remove_slide`. 
-Function `on_slide` select a current slide. Management of the content of the 
-current slide can be made with functions `placeholder_add_paragraph`, `placeholder_add_text`, 
-`placeholder_remove`, `placeholder_set_img` and `placeholder_set_text`.
-
+*Package `magrittr` can be used with `officer` as it will make the workflow easier to read.*
 
 ```{r}
 library(officer)
 library(magrittr)
-
-doc <- pptx() %>%
-  add_slide(layout = "Title and Content", master = "Office Theme")
-doc
 ```
+
+## Introduction
+
+Use the function `read_pptx` to create an r object representing a PowerPoint document.
+It takes one argument `path`: a initial PowerPoint file. If none is provided, this file will be an empty document
+located in the package directory. Formats and available slide layouts will be those available in the template file.
+
+### Create a PowerPoint device
 
 ```{r}
-fileout <- "example.pptx"
+my_pres <- read_pptx() 
+```
 
-doc %>%
+### Add a slide
+
+Next thing to do will most often be to add a new slide, this can be achieved with function `add_slide`. It requires 3 arguments: 
+
+- a pptx object
+- a slide layout name
+- a master layout name
+
+```{r}
+my_pres <- my_pres %>% 
+  add_slide(layout = "Two Content", master = "Office Theme")
+```
+
+#### master layouts and slide layouts
+
+`officer` uses a PowerPoint file as initial document. This is the original
+PowerPoint document where all slides layouts, shapes (placeholders) and
+styles come from. Major points to be aware of are:
+
+* Slide layouts are relative to a master layout. A document can contain more than one 
+master layout ; a master layout can contain more than one slide layout. 
+* A slide layout inherits design properties from its master layout file but 
+some properties can be overwritten.
+* Designs and formating properties of layouts and shapes (placeholders 
+in a layout) are defined within the initial document. There is no R function 
+to modify these values, they must be defined in the initial document.
+
+**`layout` and `master` values must match values from the initial document.** 
+Layout names and master layout names are not available in a tidy view within PowerPoint, but theses can be read easily with function `layout_summary`.
+
+```{r}
+layout_summary(my_pres)
+```
+
+### Add text content into a placeholder
+
+Use function `placeholder_set_text` to add text into a shape defined in the slide layout associated to the current slide.
+
+```{r}
+my_pres <- my_pres %>% 
+  placeholder_set_text(type = "title", str = "A title") %>%
+  placeholder_set_text(type = "ftr", str = "A footer") %>%
+  placeholder_set_text(type = "dt", str = format(Sys.Date())) %>%
+  placeholder_set_text(str = "text 1", type = "body", index = 1) %>%
+  placeholder_set_text(str = "text 2", type = "body", index = 2)
+```
+
+#### Available shapes per slide layout
+
+Function `layout_properties` provides details about available shapes of a slide layout:
+
+```{r}
+layout_properties ( x = my_pres, layout = "Two Content", master = "Office Theme" ) %>% head()
+```
+
+### Write the PowerPoint
+
+File can be generated using function `print` and argument `target`:
+
+```{r}
+print(my_pres, target = "example.pptx" )
+```
+
+## Slides manipulation
+
+There are 3 functions to let you manipulate slides: add_slide, remove_slide and on_slide.
+
+### Add a slide 
+
+A slide can be added with function `add_slide`.
+
+```{r}
+my_pres <- read_pptx() %>% 
+  add_slide(layout = "Two Content", master = "Office Theme") %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  add_slide(layout = "Title Only", master = "Office Theme")
+length(my_pres)
+```
+
+### Remove a slide 
+
+A Slide can be removed with function `remove_slide`.
+
+```{r}
+my_pres <- my_pres %>% remove_slide(index = 1)
+length(my_pres)
+```
+
+### Select current slide 
+
+Selected slide can be set with function `on_slide`. 
+
+```{r}
+my_pres <- my_pres %>% on_slide(index = 1)
+```
+
+## Add content into a placeholder
+
+### Add text
+
+Use function `placeholder_set_text` to add text into a placeholder (or a shape). 
+Argument `type` specify the placeholder of the associated layout to be 
+added as new shape (`index` is to be used when an `type` is not unique 
+in the slide layout).
+
+```{r}
+doc <- read_pptx() 
+doc <- doc %>%
   add_slide(layout = "Two Content", master = "Office Theme") %>%
-  placeholder_set_text(id = "title", str = "A title") %>%
-  placeholder_set_text(id = "ftr", str = "pied de page") %>%
-  placeholder_set_text(id = "dt", str = format(Sys.Date())) %>%
-  placeholder_set_text(str = "text 1", id = "body", index = 1) %>%
-  placeholder_set_text(str = "text 2", id = "body", index = 2) %>%
-  print(target = fileout )
+  placeholder_set_text(type = "body", str = "A first text", index = 1) %>%
+  placeholder_set_text(type = "body", str = "A second text", index = 2) %>%
+  placeholder_set_text(type = "title", str = "A title") %>%
+  placeholder_set_text(type = "ftr", str = "Slide footer") %>%
+  placeholder_set_text(type = "dt", str = format(Sys.Date()))
+```
+
+Use `layout_properties` to see what are available placeholders in the slide layout. 
+
+### Add image
+
+Use function `placeholder_set_img` to add an image into a placeholder. Again, 
+argument `type` specify the placeholder of the associated layout to be added 
+as new shape (`index` is to be used when an `type` is not unique in the slide layout).
+
+```{r}
+doc <- read_pptx() 
+doc <- doc %>%
+  add_slide(layout = "Two Content", master = "Office Theme") %>%
+  placeholder_set_text(type = "body", str = "body (index 1) is text", index = 1)
+
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+f_exists <- file.exists(img.file)
+if( f_exists ){
+  doc <- placeholder_set_img(x = doc, type = "body", index = 2,
+                             src = img.file, height = 1.06, width = 1.39 )
+}
 ```
 
 
+## Remove content from a slide
+
+Use `slide_summary` to easily identify shapes in the slide that can be removed.
+
+```{r}
+slide_summary(doc)
+```
+
+In the following example, shape corresponding to `type "body"` and `id "3"` will be removed from the 
+current slide:
+
+```{r}
+doc <- placeholder_remove(x = doc, type = "body", id_chr = "3")
+```
+
+
+## Append text sequentially in a shape
+
+### Add to an empty new placeholder
+
+`placeholder_set` will add a new empty placeholder in the current slide. 
+
+```{r}
+my_pres <- read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  placeholder_set(type = "body")
+```
+
+As there is not paragraph yet in the new shape, function `placeholder_add_paragraph` will be used to add a new paragraph. Then `placeholder_add_text` will be used to add text into that 
+new paragraph.
+
+```{r}
+my_pres <- my_pres %>% 
+  placeholder_add_paragraph() %>%
+  placeholder_add_text(str = "A small red text!", 
+                       style = fp_text(color = "red", font.size = 10) ) 
+
+my_pres <- my_pres %>% 
+  placeholder_add_paragraph(level = 2) %>%
+  placeholder_add_text(str = "Level 2")
+# print(my_pres, "my_pres.pptx") %>% browseURL()
+```
+
+### Add to an existing placeholder of text
+
+The following code produce a presentation made of one text shape containing text "A first text".
+
+```{r}
+my_pres <- read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  placeholder_set_text(type = "body", str = "A first text")
+```
+
+There is a paragraph in the new shape, function `placeholder_add_paragraph` has to be used to add a new paragraph and `placeholder_add_text` has to be used to add text into the 
+last paragraph of the shape.
+
+```{r}
+my_pres <- my_pres %>% 
+  placeholder_add_text(str = "A small red text!", 
+                       style = fp_text(color = "red", font.size = 10) ) %>% 
+  placeholder_add_text(str = "Blue text first... ", pos = "before",
+                       style = fp_text(color = "blue", font.size = 0) )
+
+# print(my_pres, "my_pres.pptx") %>% browseURL()
+```
+
+
+```{r echo=FALSE}
+unlink("*.pptx")
+```
 

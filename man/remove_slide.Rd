@@ -4,12 +4,24 @@
 \alias{remove_slide}
 \title{remove a slide}
 \usage{
-remove_slide(x)
+remove_slide(x, index = NULL)
 }
 \arguments{
 \item{x}{pptx object}
+
+\item{index}{slide index, default to current slide position.}
 }
 \description{
 remove a slide from a pptx presentation
+}
+\note{
+cursor is set on the last slide.
+}
+\examples{
+my_pres <- read_pptx()
+my_pres <- add_slide(my_pres,
+  layout = "Two Content", master = "Office Theme")
+
+my_pres <- remove_slide(my_pres)
 }
 

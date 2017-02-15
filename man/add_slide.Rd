@@ -4,7 +4,7 @@
 \alias{add_slide}
 \title{add a slide}
 \usage{
-add_slide(x, layout = "Titre et contenu", master = "masque1")
+add_slide(x, layout, master)
 }
 \arguments{
 \item{x}{pptx object}
@@ -14,6 +14,11 @@ add_slide(x, layout = "Titre et contenu", master = "masque1")
 \item{master}{master layout name where \code{layout} is located}
 }
 \description{
-add a slide to a pptx presentation
+add a slide into a pptx presentation
+}
+\examples{
+my_pres <- read_pptx()
+my_pres <- add_slide(my_pres,
+  layout = "Two Content", master = "Office Theme")
 }
 

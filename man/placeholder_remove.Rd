@@ -4,25 +4,27 @@
 \alias{placeholder_remove}
 \title{remove shape}
 \usage{
-placeholder_remove(x, id = "title", index = 1)
+placeholder_remove(x, type = NULL, id_chr = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
 
-\item{id}{placeholder id}
+\item{type}{placeholder type}
 
-\item{index}{placeholder index. This is to be used when a placeholder id
-is not unique in the current slide, e.g. two placeholders with id 'body'.}
+\item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body'.
+Values can be read from \code{\link{slide_summary}}.}
 }
 \description{
 remove a shape in a slide
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")
-doc <- pptx()
+doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- placeholder_set_text(x = doc, id = "title", str = "Un titre")
-doc <- placeholder_remove(x = doc, id = "title")
+doc <- placeholder_set_text(x = doc, type = "title", str = "Un titre")
+slide_summary(doc) # read column id here
+doc <- placeholder_remove(x = doc, type = "title", id_chr = "2")
 print(doc, target = fileout )
 }
 

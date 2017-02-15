@@ -67,7 +67,7 @@ print.docx <- function(x, target = NULL, ...){
 
   # make all id unique
   all_uid <- xml_find_all(x$xml_doc, "//*[@id]")
-  walk2(all_uid, seq_along(all_uid)-1, function(x, z) {
+  walk2(all_uid, seq_along(all_uid), function(x, z) {
     xml_attr(x, "id") <- z
     x
   })

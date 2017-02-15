@@ -4,17 +4,17 @@
 \alias{placeholder_set_xml}
 \title{add a string as xml}
 \usage{
-placeholder_set_xml(x, value, id = "body", index = 1)
+placeholder_set_xml(x, value, type = "body", index = 1)
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{value}{a character}
 
-\item{id}{placeholder id}
+\item{type}{placeholder type}
 
-\item{index}{placeholder index. This is to be used when a placeholder id
-is not unique in the current slide, e.g. two placeholders with id 'body'.}
+\item{index}{placeholder index (integer). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body'.}
 }
 \description{
 add a string (valid xml) into a pptx object
