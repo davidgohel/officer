@@ -52,4 +52,3 @@ fp_par(text.align = "center", padding = 5)
 obj <- fp_par(text.align = "center", padding = 1)
 update( obj, padding.bottom = 5 )
 }
-

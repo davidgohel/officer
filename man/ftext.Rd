@@ -29,4 +29,3 @@ Format a chunk of text with text formatting properties.
 \examples{
 ftext("hello", fp_text())
 }
-

@@ -31,4 +31,3 @@ docx() \%>\%
   docx_append_img(src = img.file, style = "strong", width = .3, height = .3) \%>\%
   print(target = "append_img.docx")
 }
-

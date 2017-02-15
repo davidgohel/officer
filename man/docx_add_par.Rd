@@ -19,4 +19,3 @@ one of "after", "before", "on".}
 \description{
 add a paragraph into a docx object
 }
-

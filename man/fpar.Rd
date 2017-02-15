@@ -43,4 +43,3 @@ are not supposed to be used by end user.
 \examples{
 fpar(ftext("hello", shortcuts$fp_bold()))
 }
-

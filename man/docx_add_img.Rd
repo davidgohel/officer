@@ -43,4 +43,3 @@ if( require("devEMF") ){
 
 print(doc, target = "docx_add_img.docx" )
 }
-

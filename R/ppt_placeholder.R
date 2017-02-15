@@ -50,12 +50,12 @@ get_shape_id <- function(x, type = NULL, id_chr = NULL ){
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- placeholder_set_text(x = doc, type = "title", str = "Un titre")
+#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre")
 #' slide_summary(doc) # read column id here
-#' doc <- placeholder_remove(x = doc, type = "title", id_chr = "2")
+#' doc <- ph_remove(x = doc, type = "title", id_chr = "2")
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
-placeholder_remove <- function( x, type = NULL, id_chr = NULL ){
+ph_remove <- function( x, type = NULL, id_chr = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
@@ -80,18 +80,18 @@ placeholder_remove <- function( x, type = NULL, id_chr = NULL ){
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- placeholder_set_text(x = doc, type = "title", str = "Un titre")
-#' doc <- placeholder_set_text(x = doc, type = "ftr", str = "pied de page")
-#' doc <- placeholder_set_text(x = doc, type = "dt", str = format(Sys.Date()))
-#' doc <- placeholder_set_text(x = doc, type = "sldNum", str = "slide 1")#
+#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre")
+#' doc <- ph_with_text(x = doc, type = "ftr", str = "pied de page")
+#' doc <- ph_with_text(x = doc, type = "dt", str = format(Sys.Date()))
+#' doc <- ph_with_text(x = doc, type = "sldNum", str = "slide 1")#
 #'
 #' doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
-#' doc <- placeholder_set_text(x = doc, type = "subTitle", str = "Un sous titre")
-#' doc <- placeholder_set_text(x = doc, type = "ctrTitle", str = "Un titre")
+#' doc <- ph_with_text(x = doc, type = "subTitle", str = "Un sous titre")
+#' doc <- ph_with_text(x = doc, type = "ctrTitle", str = "Un titre")
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
-placeholder_set_text <- function( x, str, type = "title", index = 1 ){
+ph_with_text <- function( x, str, type = "title", index = 1 ){
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
 
@@ -117,11 +117,11 @@ placeholder_set_text <- function( x, str, type = "title", index = 1 ){
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- placeholder_set(x = doc, type = "title")
+#' doc <- ph_empty(x = doc, type = "title")
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
-placeholder_set <- function( x, type = "title", index = 1 ){
+ph_empty <- function( x, type = "title", index = 1 ){
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
 
@@ -140,7 +140,7 @@ placeholder_set <- function( x, type = "title", index = 1 ){
 #' @export
 #' @title append text
 #' @description append text into a paragraph of a pptx object
-#' @inheritParams placeholder_remove
+#' @inheritParams ph_remove
 #' @param str text to add
 #' @param style text style, a \code{\link{fp_text}} object
 #' @param pos where to add the new element relative to the cursor,
@@ -150,19 +150,19 @@ placeholder_set <- function( x, type = "title", index = 1 ){
 #' fileout <- tempfile(fileext = ".pptx")
 #' my_pres <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   placeholder_set(type = "body")
+#'   ph_empty(type = "body")
 #'
 #' small_red <- fp_text(color = "red", font.size = 14)
 #'
 #' my_pres <- my_pres %>%
-#'   placeholder_add_paragraph(level = 3) %>%
-#'   placeholder_add_text(str = "A small red text.", style = small_red) %>%
-#'   placeholder_add_paragraph(level = 2) %>%
-#'   placeholder_add_text(str = "Level 2")
+#'   ph_add_par(level = 3) %>%
+#'   ph_add_text(str = "A small red text.", style = small_red) %>%
+#'   ph_add_par(level = 2) %>%
+#'   ph_add_text(str = "Level 2")
 #'
 #' print(my_pres, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
-placeholder_add_text <- function( x, str, type = NULL, id_chr = NULL,
+ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
   style = fp_text(font.size = 0), pos = "after" ){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -190,7 +190,7 @@ placeholder_add_text <- function( x, str, type = NULL, id_chr = NULL,
 #' @export
 #' @title append text
 #' @description append text into a paragraph of a pptx object
-#' @inheritParams placeholder_remove
+#' @inheritParams ph_remove
 #' @param level paragraph level
 #' @examples
 #' library(magrittr)
@@ -200,15 +200,15 @@ placeholder_add_text <- function( x, str, type = NULL, id_chr = NULL,
 #'
 #' doc <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   placeholder_set_text(type = "body", str = "A text") %>%
-#'   placeholder_add_paragraph(level = 2) %>%
-#'   placeholder_add_text(str = "and another, ", style = default_text ) %>%
-#'   placeholder_add_paragraph(level = 3) %>%
-#'   placeholder_add_text(str = "and another!",
+#'   ph_with_text(type = "body", str = "A text") %>%
+#'   ph_add_par(level = 2) %>%
+#'   ph_add_text(str = "and another, ", style = default_text ) %>%
+#'   ph_add_par(level = 3) %>%
+#'   ph_add_text(str = "and another!",
 #'     style = update(default_text, color = "blue")) %>%
 #'   print(target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
-placeholder_add_paragraph <- function( x, type = NULL, id_chr = NULL, level = 1 ){
+ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
@@ -250,7 +250,7 @@ placeholder_add_paragraph <- function( x, type = NULL, id_chr = NULL, level = 1 
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
 #' @param value a character
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-placeholder_set_xml <- function( x, value, type = "body", index = 1 ){
+ph_from_xml <- function( x, value, type = "body", index = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm(type = type, index = index)
@@ -283,23 +283,23 @@ placeholder_set_xml <- function( x, value, type = "body", index = 1 ){
 #'
 #' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 #' if( file.exists(img.file) ){
-#'   doc <- placeholder_set_img(x = doc, type = "body", src = img.file, height = 1.06, width = 1.39 )
+#'   doc <- ph_with_img(x = doc, type = "body", src = img.file, height = 1.06, width = 1.39 )
 #' }
 #' if( require("ionicons") ){
 #'   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
-#'   doc <- placeholder_set_img(x = doc, type = "dt", src = calendar_src )
+#'   doc <- ph_with_img(x = doc, type = "dt", src = calendar_src )
 #' }
 #' if( require("devEMF") ){
 #'   emf("bar.emf")
 #'   barplot(1:10, col = 1:10)
 #'   dev.off()
 #'   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#'   doc <- placeholder_set_img(x = doc, type = "body", src = "bar.emf" )
+#'   doc <- ph_with_img(x = doc, type = "body", src = "bar.emf" )
 #' }
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
-placeholder_set_img <- function( x, src, type = "body", index = 1, width = NULL, height = NULL ){
+ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm(type = type, index = index)

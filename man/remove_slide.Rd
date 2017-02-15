@@ -24,4 +24,3 @@ my_pres <- add_slide(my_pres,
 
 my_pres <- remove_slide(my_pres)
 }
-

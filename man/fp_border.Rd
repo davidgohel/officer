@@ -32,4 +32,3 @@ fp_border(color="gray", style="dotted", width=1)
 border <- fp_border()
 update(border, style="dotted", width=3)
 }
-

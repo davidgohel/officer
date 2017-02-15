@@ -29,7 +29,7 @@ representing the document.
 
 Function \code{length} will return the number of slides.
 }
+
 \examples{
 read_pptx()
 }
-

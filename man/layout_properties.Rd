@@ -24,4 +24,3 @@ layout_properties ( x = x, master = "Office Theme" )
 layout_properties ( x = x, layout = "Two Content" )
 layout_properties ( x = x )
 }
-

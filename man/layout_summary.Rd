@@ -17,4 +17,3 @@ master layouts into a data.frame.
 my_pres <- read_pptx()
 layout_summary ( x = my_pres )
 }
-

@@ -20,4 +20,3 @@ Word document, this will generate unique
 identifiers that need to be known to
 link these images with their corresponding xml code (wml).
 }
-

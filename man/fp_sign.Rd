@@ -16,4 +16,3 @@ object.
 \examples{
 fp_sign( fp_text(color="orange") )
 }
-

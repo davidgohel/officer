@@ -16,4 +16,3 @@ shortcuts$fp_bold()
 shortcuts$fp_italic()
 shortcuts$b_null()
 }
-

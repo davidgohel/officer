@@ -15,4 +15,3 @@ one of "after", "before", "on".}
 \description{
 add a page break into a docx object
 }
-

@@ -130,9 +130,9 @@ length.pptx <- function( x ){
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- on_slide( doc, index = 1)
-#' doc <- placeholder_set_text(x = doc, type = "title", str = "First title")
+#' doc <- ph_with_text(x = doc, type = "title", str = "First title")
 #' doc <- on_slide( doc, index = 3)
-#' doc <- placeholder_set_text(x = doc, type = "title", str = "Third title")
+#' doc <- ph_with_text(x = doc, type = "title", str = "Third title")
 #'
 #' print(doc, target = "on_slide.pptx" )
 on_slide <- function( x, index ){
@@ -246,7 +246,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #'
 #' my_pres <- read_pptx() %>%
 #'   add_slide(layout = "Two Content", master = "Office Theme") %>%
-#'   placeholder_set_text(type = "dt", str = format(Sys.Date())) %>%
+#'   ph_with_text(type = "dt", str = format(Sys.Date())) %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme")
 #'
 #' slide_summary(my_pres)

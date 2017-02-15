@@ -18,4 +18,3 @@ add_xml_run(x, str, pos)
 The function add a wml string into
 the document after, before or on a cursor location.
 }
-

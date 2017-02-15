@@ -41,4 +41,3 @@ docx() \%>\%
     style = 'strong') \%>\%
   print(target = "seqfield.docx")
 }
-

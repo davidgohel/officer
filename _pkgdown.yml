@@ -23,12 +23,12 @@ reference:
     - add_slide
     - remove_slide
     - on_slide
-    - placeholder_remove
-    - placeholder_set_img
-    - placeholder_set_text
-    - placeholder_set
-    - placeholder_add_text
-    - placeholder_add_paragraph
+    - ph_remove
+    - ph_with_img
+    - ph_with_text
+    - ph_empty
+    - ph_add_text
+    - ph_add_par
   - title: Formatting properties
     contents:
     - fp_text

@@ -64,4 +64,3 @@ text formatting properties.
 \examples{
 print( fp_text (color="red", font.size = 12) )
 }
-

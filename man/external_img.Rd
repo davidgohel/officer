@@ -31,4 +31,3 @@ This function is used to insert images into flextable with function \code{displa
 \examples{
 # external_img("example.png")
 }
-

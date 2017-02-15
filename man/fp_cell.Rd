@@ -59,4 +59,3 @@ Create a \code{fp_cell} object that describes cell formatting properties.
 obj <- fp_cell(margin = 1)
 update( obj, margin.bottom = 5 )
 }
-

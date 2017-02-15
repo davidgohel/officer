@@ -21,4 +21,3 @@ extension into a docx object.
 x <- docx()
 x <- add_content_type(x, extension = "png", type = "image/png")
 }
-

@@ -27,4 +27,3 @@ docx() \%>\%
   docx_append_run("Message is", style = "strong", pos = "before") \%>\%
   print(target = "append_run.docx")
 }
-

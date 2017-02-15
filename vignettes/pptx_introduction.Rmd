@@ -64,15 +64,15 @@ layout_summary(my_pres)
 
 ### Add text content into a placeholder
 
-Use function `placeholder_set_text` to add text into a shape defined in the slide layout associated to the current slide.
+Use function `ph_with_text` to add text into a shape defined in the slide layout associated to the current slide.
 
 ```{r}
 my_pres <- my_pres %>% 
-  placeholder_set_text(type = "title", str = "A title") %>%
-  placeholder_set_text(type = "ftr", str = "A footer") %>%
-  placeholder_set_text(type = "dt", str = format(Sys.Date())) %>%
-  placeholder_set_text(str = "text 1", type = "body", index = 1) %>%
-  placeholder_set_text(str = "text 2", type = "body", index = 2)
+  ph_with_text(type = "title", str = "A title") %>%
+  ph_with_text(type = "ftr", str = "A footer") %>%
+  ph_with_text(type = "dt", str = format(Sys.Date())) %>%
+  ph_with_text(str = "text 1", type = "body", index = 1) %>%
+  ph_with_text(str = "text 2", type = "body", index = 2)
 ```
 
 #### Available shapes per slide layout
@@ -128,7 +128,7 @@ my_pres <- my_pres %>% on_slide(index = 1)
 
 ### Add text
 
-Use function `placeholder_set_text` to add text into a placeholder (or a shape). 
+Use function `ph_with_text` to add text into a placeholder (or a shape). 
 Argument `type` specify the placeholder of the associated layout to be 
 added as new shape (`index` is to be used when an `type` is not unique 
 in the slide layout).
@@ -137,18 +137,18 @@ in the slide layout).
 doc <- read_pptx() 
 doc <- doc %>%
   add_slide(layout = "Two Content", master = "Office Theme") %>%
-  placeholder_set_text(type = "body", str = "A first text", index = 1) %>%
-  placeholder_set_text(type = "body", str = "A second text", index = 2) %>%
-  placeholder_set_text(type = "title", str = "A title") %>%
-  placeholder_set_text(type = "ftr", str = "Slide footer") %>%
-  placeholder_set_text(type = "dt", str = format(Sys.Date()))
+  ph_with_text(type = "body", str = "A first text", index = 1) %>%
+  ph_with_text(type = "body", str = "A second text", index = 2) %>%
+  ph_with_text(type = "title", str = "A title") %>%
+  ph_with_text(type = "ftr", str = "Slide footer") %>%
+  ph_with_text(type = "dt", str = format(Sys.Date()))
 ```
 
 Use `layout_properties` to see what are available placeholders in the slide layout. 
 
 ### Add image
 
-Use function `placeholder_set_img` to add an image into a placeholder. Again, 
+Use function `ph_with_img` to add an image into a placeholder. Again, 
 argument `type` specify the placeholder of the associated layout to be added 
 as new shape (`index` is to be used when an `type` is not unique in the slide layout).
 
@@ -156,13 +156,12 @@ as new shape (`index` is to be used when an `type` is not unique in the slide la
 doc <- read_pptx() 
 doc <- doc %>%
   add_slide(layout = "Two Content", master = "Office Theme") %>%
-  placeholder_set_text(type = "body", str = "body (index 1) is text", index = 1)
+  ph_with_text(type = "body", str = "body (index 1) is text", index = 1)
 
 img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 f_exists <- file.exists(img.file)
 if( f_exists ){
-  doc <- placeholder_set_img(x = doc, type = "body", index = 2,
-                             src = img.file, height = 1.06, width = 1.39 )
+  doc <- ph_with_img(x = doc, type = "body", index = 2, src = img.file, height = 1.06, width = 1.39 )
 }
 ```
 
@@ -179,7 +178,7 @@ In the following example, shape corresponding to `type "body"` and `id "3"` will
 current slide:
 
 ```{r}
-doc <- placeholder_remove(x = doc, type = "body", id_chr = "3")
+doc <- ph_remove(x = doc, type = "body", id_chr = "3")
 ```
 
 
@@ -187,26 +186,25 @@ doc <- placeholder_remove(x = doc, type = "body", id_chr = "3")
 
 ### Add to an empty new placeholder
 
-`placeholder_set` will add a new empty placeholder in the current slide. 
+`ph_empty` will add a new empty placeholder in the current slide. 
 
 ```{r}
 my_pres <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  placeholder_set(type = "body")
+  ph_empty(type = "body")
 ```
 
-As there is not paragraph yet in the new shape, function `placeholder_add_paragraph` will be used to add a new paragraph. Then `placeholder_add_text` will be used to add text into that 
+As there is not paragraph yet in the new shape, function `ph_add_par` will be used to add a new paragraph. Then `ph_add_text` will be used to add text into that 
 new paragraph.
 
 ```{r}
 my_pres <- my_pres %>% 
-  placeholder_add_paragraph() %>%
-  placeholder_add_text(str = "A small red text!", 
-                       style = fp_text(color = "red", font.size = 10) ) 
+  ph_add_par() %>%
+  ph_add_text(str = "A small red text!", style = fp_text(color = "red", font.size = 10) ) 
 
 my_pres <- my_pres %>% 
-  placeholder_add_paragraph(level = 2) %>%
-  placeholder_add_text(str = "Level 2")
+  ph_add_par(level = 2) %>%
+  ph_add_text(str = "Level 2")
 # print(my_pres, "my_pres.pptx") %>% browseURL()
 ```
 
@@ -217,18 +215,16 @@ The following code produce a presentation made of one text shape containing text
 ```{r}
 my_pres <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  placeholder_set_text(type = "body", str = "A first text")
+  ph_with_text(type = "body", str = "A first text")
 ```
 
-There is a paragraph in the new shape, function `placeholder_add_paragraph` has to be used to add a new paragraph and `placeholder_add_text` has to be used to add text into the 
+There is a paragraph in the new shape, function `ph_add_par` has to be used to add a new paragraph and `ph_add_text` has to be used to add text into the 
 last paragraph of the shape.
 
 ```{r}
 my_pres <- my_pres %>% 
-  placeholder_add_text(str = "A small red text!", 
-                       style = fp_text(color = "red", font.size = 10) ) %>% 
-  placeholder_add_text(str = "Blue text first... ", pos = "before",
-                       style = fp_text(color = "blue", font.size = 0) )
+  ph_add_text(str = "A small red text!", style = fp_text(color = "red", font.size = 10) ) %>% 
+  ph_add_text(str = "Blue text first... ", pos = "before", style = fp_text(color = "blue", font.size = 0) )
 
 # print(my_pres, "my_pres.pptx") %>% browseURL()
 ```

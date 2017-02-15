@@ -40,4 +40,3 @@ if( require(magrittr) ){
 length( docx() )
 
 }
-

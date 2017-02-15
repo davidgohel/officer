@@ -20,4 +20,3 @@ be valid without this operation.
 The function is available to let the creation of valid
 wml code containing references to images.
 }
-

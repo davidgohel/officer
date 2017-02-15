@@ -18,4 +18,3 @@ one of "after", "before", "on".}
 The function add a wml string into
 the document after, before or on a cursor location.
 }
-

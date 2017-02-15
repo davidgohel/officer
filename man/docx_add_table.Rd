@@ -25,4 +25,3 @@ one of "after", "before", "on".}
 \description{
 add a table into a docx object
 }
-

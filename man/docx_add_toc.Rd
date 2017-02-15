@@ -21,4 +21,3 @@ one of "after", "before", "on".}
 \description{
 add a table of content into a docx object
 }
-

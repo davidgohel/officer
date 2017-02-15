@@ -39,4 +39,3 @@ minibar(value, max, barcol = "#CCCCCC", bg = "transparent", width = 1,
 \description{
 This function is used to insert bars into flextable with function \code{display}
 }
-

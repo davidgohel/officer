@@ -23,7 +23,7 @@ Imports:
     digest,
     magrittr, tibble, 
     xml2 (>= 1.1.0)
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
 Suggests: testthat, ionicons, devEMF,
     knitr,
     rmarkdown

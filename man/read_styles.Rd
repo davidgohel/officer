@@ -18,4 +18,3 @@ docx_file <- system.file(package = "officer", "template/template.docx")
 unzip( zipfile = docx_file, exdir = template_dir )
 read_styles( path = template_dir )
 }
-
