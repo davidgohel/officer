@@ -49,7 +49,7 @@ navbar:
   type: default
   left:
   - text: Powerpoint
-    href: articles/pptx_introduction.html
+    href: articles/powerpoint.html
   right:
   - text: Function reference
     href: reference/index.html
