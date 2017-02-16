@@ -67,7 +67,47 @@ outfile <- tempfile(fileext = ".docx")
 print(my_doc, target = outfile )
 ```
 
+## Getting started
 
+To produce Word documents from R, you will need to manipulate few concepts.
 
+`read_docx` read an initial `docx` file. It takes one argument `path`: a initial Word file (I sometimes refer to it as *template*. 
+If none is provided, this file will be an empty document located in the package directory.
+Styles will be those available in the template file.
+
+### Add elements
+
+To add paragraphs, tables, images or other elements into the document, you will have to use functions starting with `body_add_`:
+
+```{r echo=FALSE}
+objs <- objects(envir = as.environment("package:officer"), pattern = "^body_")
+objs <- setdiff(objs, "body_add_xml")
+htmltools::tags$ul(lapply(objs, htmltools::tags$li))
+```
+
+### Cursor
+
+A cursor is available and can be manipulated so that content can be added regarding to its position: 
+
+- `before` will insert a new element before the selected element in the document.
+- `after` will insert a new element after the selected element in the document.
+- `on` will replace the selected element in the document by a new element.
+
+Cursor functions are the following:
+
+```{r echo=FALSE}
+objs <- objects(envir = as.environment("package:officer"), pattern = "^cursor_")
+htmltools::tags$ul(lapply(objs, htmltools::tags$li))
+```
+
+### Append text in existing paragraphs
+
+Text and images can be inserted at the beginning or the end of the selected paragraph (by the cursor). This can be made with functions 
+
+```{r echo=FALSE}
+objs <- objects(envir = as.environment("package:officer"), pattern = "^slip_in_")
+objs <- setdiff(objs, "slip_in_xml")
+htmltools::tags$ul(lapply(objs, htmltools::tags$li))
+```
 
 
