@@ -15,6 +15,6 @@ read core properties of a Word file and returns a tabular description
 \examples{
 template_dir <- tempfile()
 docx_file <- system.file(package = "officer", "template/template.docx")
-unzip( zipfile = docx_file, exdir = template_dir )
+unpack_folder( file = docx_file, folder = template_dir )
 read_core( path = template_dir )
 }

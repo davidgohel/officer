@@ -13,15 +13,12 @@ LinkingTo: Rcpp,
     gdtools
 Imports:
     Rcpp (>= 0.12.3),
-    purrr,dplyr,R6,
-    utils,tools,
-    grDevices,
+    purrr,dplyr,R6,tibble,lazyeval, 
+    R.utils,utils,grDevices,
     gdtools,
-    R.utils,
-    lazyeval,
     openssl,
     digest,
-    magrittr, tibble, 
+    magrittr, 
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1
 Suggests: testthat, ionicons, devEMF,

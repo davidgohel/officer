@@ -9,7 +9,6 @@
 #' read_docx()
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first
-#' @importFrom utils unzip
 read_docx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
@@ -20,7 +19,7 @@ read_docx <- function( path = NULL ){
 
 
   package_dir <- tempfile()
-  unzip( zipfile = path, exdir = package_dir )
+  unpack_folder( file = path, folder = package_dir )
 
   document_path <- file.path(package_dir, "word/document.xml")
   doc <- read_xml(document_path)
@@ -60,7 +59,7 @@ print.docx <- function(x, target = NULL, ...){
     return(invisible())
   }
 
-  if( file_ext(target) != "docx" )
+  if( !grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE) )
     stop(target , " should have '.docx' extension.")
 
   document_path <- file.path(x$package_dir, "word/document.xml")

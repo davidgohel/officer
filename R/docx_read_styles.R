@@ -8,7 +8,7 @@
 #' @examples
 #' template_dir <- tempfile()
 #' docx_file <- system.file(package = "officer", "template/template.docx")
-#' unzip( zipfile = docx_file, exdir = template_dir )
+#' unpack_folder( file = docx_file, folder = template_dir )
 #' read_styles( path = template_dir )
 read_styles <- function( path ){
   styles_file <- file.path(path, "word/styles.xml")
@@ -35,7 +35,7 @@ read_styles <- function( path ){
 #' @examples
 #' template_dir <- tempfile()
 #' docx_file <- system.file(package = "officer", "template/template.docx")
-#' unzip( zipfile = docx_file, exdir = template_dir )
+#' unpack_folder( file = docx_file, folder = template_dir )
 #' read_core( path = template_dir )
 #' @export
 read_core <- function( path ){

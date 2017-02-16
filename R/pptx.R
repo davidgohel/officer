@@ -7,7 +7,6 @@
 #' @examples
 #' read_pptx()
 #' @importFrom xml2 read_xml xml_length xml_find_first xml_attr xml_ns
-#' @importFrom utils unzip
 read_pptx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
@@ -17,7 +16,7 @@ read_pptx <- function( path = NULL ){
     path <- system.file(package = "officer", "template/template.pptx")
 
   package_dir <- tempfile()
-  unzip( zipfile = path, exdir = package_dir )
+  unpack_folder( file = path, folder = package_dir )
 
   obj <- structure(list(package_dir = package_dir),
                    .Names = c("package_dir"),
@@ -40,7 +39,6 @@ read_pptx <- function( path = NULL ){
 #' @param target path to the pptx file to write
 #' @param ... unused
 #' @rdname read_pptx
-#' @importFrom tools file_ext
 print.pptx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
@@ -50,7 +48,7 @@ print.pptx <- function(x, target = NULL, ...){
     return(invisible())
   }
 
-  if( file_ext(target) != "pptx" )
+  if( !grepl(x = target, pattern = "\\.(pptx)$", ignore.case = TRUE) )
     stop(target , " should have '.pptx' extension.")
 
   x$presentation$save()

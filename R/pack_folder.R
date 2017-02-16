@@ -1,6 +1,6 @@
 #' @export
-#' @importFrom utils zip
 #' @importFrom R.utils getAbsolutePath
+#' @importFrom utils zip
 #' @title compress a folder
 #' @description compress a folder to a target file. The
 #' function returns the complete path to target file.
@@ -20,3 +20,25 @@ pack_folder <- function( folder, target ){
   target
 }
 
+#' @export
+#' @importFrom utils unzip
+#' @importFrom R.utils getAbsolutePath
+#' @title Extract files from a zip file
+#' @description Extract files from a zip file to a folder. The
+#' function returns the complete path to destination folder.
+#' @details
+#' The function is using \link[utils]{unzip}, it needs an unzip program.
+#' @param file path of the archive to unzip
+#' @param folder folder to create
+unpack_folder <- function( file, folder ){
+
+  file <- getAbsolutePath(file)
+  folder <- getAbsolutePath(folder)
+  stopifnot(file.exists(file))
+
+  unlink(folder, recursive = TRUE, force = TRUE)
+
+  unzip( zipfile = file, exdir = folder )
+
+  folder
+}
