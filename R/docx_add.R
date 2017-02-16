@@ -30,7 +30,7 @@
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
 
-  style_id <- get_style_id(x=x, style=style, type = "paragraph")
+  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
 
   ext_img <- external_img(src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")
@@ -54,10 +54,18 @@ body_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
 #' @param style paragraph style
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
+#' @examples
+#' library(magrittr)
+#'
+#' doc <- read_docx() %>%
+#'   body_add_par("A title", style = "heading 1") %>%
+#'   body_add_par("Hello world!", style = "Normal") %>%
+#'   body_add_par("centered text", style = "centered")
+#' print(doc, target = "body_add_par.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_par <- function( x, value, style, pos = "after" ){
 
-  style_id <- get_style_id(x=x, style=style, type = "paragraph")
+  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
 
   xml_elt <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
@@ -82,13 +90,19 @@ as_tc <- function(x, collapse = FALSE ){
 #' one of "after", "before", "on".
 #' @param width table width for column width calculation
 #' @param first_row,last_row,first_column,last_column,no_hband,no_vband logical for Word table options
+#' @examples
+#' library(magrittr)
+#'
+#' doc <- read_docx() %>%
+#'   body_add_table(iris, style = "table_template")
+#' print(doc, target = "body_add_table.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_table <- function( x, value, style, pos = "after", width = 5,
                             first_row = TRUE, first_column = FALSE,
                             last_row = TRUE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
 
-  style_id <- get_style_id(x=x, style=style, type = "table")
+  style_id <- x$doc_obj$get_style_id(style=style, type = "table")
 
   tbl_look <- "<w:tblLook w:firstRow=\"%.0f\" w:lastRow=\"%.0f\" w:firstColumn=\"%.0f\" w:lastColumn=\"%.0f\" w:noHBand=\"%.0f\" w:noVBand=\"%.0f\" />"
   tbl_look <- sprintf(tbl_look, first_row, last_row, first_column, last_column, no_hband, no_vband)
@@ -129,6 +143,10 @@ body_add_table <- function( x, value, style, pos = "after", width = 5,
 #' one of "after", "before", "on".
 #' @param style optional. style in the document that will be used to build entries of the TOC.
 #' @param separator optional. Some configurations need "," (i.e. from Canada) separator instead of ";"
+#' @examples
+#' library(magrittr)
+#' doc <- read_docx() %>% body_add_toc()
+#' print(doc, target = "body_add_toc.docx" )
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
@@ -159,6 +177,10 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 #' @param x a docx object
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
+#' @examples
+#' library(magrittr)
+#' doc <- read_docx() %>% body_add_break()
+#' print(doc, target = "body_add_break.docx" )
 body_add_break <- function( x, pos = "after"){
 
   str <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:pPr/>",
@@ -185,7 +207,7 @@ body_add_xml <- function(x, str, pos){
     stop("unknown pos ", shQuote(pos, type = "sh"), ", it should be ",
          paste( shQuote(pos_list, type = "sh"), collapse = " or ") )
 
-  cursor_elt <- xml_find_first(x$xml_doc, x$cursor)
+  cursor_elt <- x$doc_obj$get_at_cursor()
   if( pos != "on")
     xml_add_sibling(cursor_elt, xml_elt, .where = pos)
   else {

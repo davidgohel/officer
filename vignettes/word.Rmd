@@ -1,0 +1,73 @@
+---
+title: "docx device"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{docx device}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+> `officer` provides a set of functions to manipulate Word documents from R.
+
+*Package `magrittr` can be used with `officer` as it will make the workflow easier to read.*
+
+```{r}
+library(officer)
+library(magrittr)
+```
+
+## Introduction
+
+Use the function `read_docx` to create an r object representing a PowerPoint document.
+It takes one argument `path`: a initial Word file. If none is provided, this file will be an empty document
+located in the package directory. Formats and styles will be those available in the template file.
+
+### Create a Word device
+
+```{r}
+my_doc <- read_docx() 
+my_doc
+```
+
+### Add elements to document
+
+Let's add an image in the documet first.
+
+```{r}
+src <- tempfile(fileext = ".png")
+png(filename = src, width = 5, height = 6, units = 'in', res = 300)
+barplot(1:10, col = 1:10)
+dev.off()
+
+my_doc <- my_doc %>% 
+  body_add_img(src = src, width = 5, height = 6, style = "centered")
+```
+
+Then some paragraphs.
+
+```{r}
+my_doc <- my_doc %>% 
+  body_add_par("Hello world!", style = "Normal") %>% 
+  body_add_par("", style = "Normal") # blank paragraph
+```
+
+And a table.
+
+```{r}
+my_doc <- my_doc %>% 
+  body_add_table(iris, style = "table_template", width = 3)
+```
+
+### Write the Word file
+
+File can be generated using function `print` and argument `target`:
+
+```{r}
+outfile <- tempfile(fileext = ".docx")
+print(my_doc, target = outfile )
+```
+
+
+
+
+

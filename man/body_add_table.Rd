@@ -25,3 +25,10 @@ one of "after", "before", "on".}
 \description{
 add a table into a docx object
 }
+\examples{
+library(magrittr)
+
+doc <- read_docx() \%>\%
+  body_add_table(iris, style = "table_template")
+print(doc, target = "body_add_table.docx" )
+}

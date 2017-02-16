@@ -15,3 +15,8 @@ one of "after", "before", "on".}
 \description{
 add a page break into a docx object
 }
+\examples{
+library(magrittr)
+doc <- read_docx() \%>\% body_add_break()
+print(doc, target = "body_add_break.docx" )
+}

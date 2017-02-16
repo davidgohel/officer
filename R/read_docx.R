@@ -17,23 +17,16 @@ read_docx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.docx")
 
-
   package_dir <- tempfile()
   unpack_folder( file = path, folder = package_dir )
 
-  document_path <- file.path(package_dir, "word/document.xml")
-  doc <- read_xml(document_path)
-  len <- xml_find_first(doc, "/w:document/w:body") %>% xml_length()
+  obj <- structure(list( package_dir = package_dir ),
+                   .Names = c("package_dir"),
+                   class = "docx")
 
-  obj <- list(
-    package_dir = package_dir,
-    cursor = sprintf("/w:document/w:body/*[%.0f]", len - 1),
-    rels = relationship$new()$feed_from_xml( file.path(package_dir, "word/_rels/document.xml.rels") ),
-    styles = read_styles(package_dir),
-    xml_doc = doc
-  )
-  class(obj) <- "docx"
-
+  obj$content_type <- content_type$new( obj )
+  obj$doc_obj <- docx_document$new(package_dir)
+  obj <- cursor_end(obj)
   obj
 }
 
@@ -54,30 +47,25 @@ read_docx <- function( path = NULL ){
 print.docx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
-    cat("docx document\n")
-    print(x$styles)
+    cat("docx document with", length(x), "element(s)\n")
+    cat("Available styles are:\n")
+    print(as.data.frame(x$doc_obj$styles()))
     return(invisible())
   }
 
   if( !grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE) )
     stop(target , " should have '.docx' extension.")
 
-  document_path <- file.path(x$package_dir, "word/document.xml")
-
   # make all id unique
-  all_uid <- xml_find_all(x$xml_doc, "//*[@id]")
+  all_uid <- xml_find_all(x$doc_obj$get(), "//*[@id]")
   walk2(all_uid, seq_along(all_uid), function(x, z) {
     xml_attr(x, "id") <- z
     x
   })
+  x$doc_obj$save()
+  x$content_type$save()
 
-  write_xml(x$xml_doc, file = document_path)
-  add_content_type(x, extension = "png", type = "image/png")
-  add_content_type(x, extension = "jpeg", type = "image/jpeg")
-  add_content_type(x, extension = "jpg", type = "application/octet-stream")
-  add_content_type(x, extension = "emf", type = "image/x-emf")
-
-  pack_folder(folder = x$package_dir, target = target )
+  pack_folder(folder = x$doc_obj$package_dirname(), target = target )
 }
 
 #' @export
@@ -88,8 +76,10 @@ print.docx <- function(x, target = NULL, ...){
 #' @importFrom xml2 read_xml xml_length xml_find_first
 #' @rdname read_docx
 length.docx <- function( x ){
-  xml_find_first(x$xml_doc, "/w:document/w:body") %>% xml_length()
+  xml_find_first(x$doc_obj$get(), "/w:document/w:body") %>% xml_length()
 
 }
+
+
 
 

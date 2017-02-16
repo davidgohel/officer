@@ -29,7 +29,7 @@
 #'   print(target = "seqfield.docx")
 slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 
-  style_id <- get_style_id(x=x, style=style, type = "character")
+  style_id <- x$doc_obj$get_style_id(style=style, type = "character")
 
   xml_elt_1 <- paste0(sprintf("<w:r %s>", base_ns),
                       sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", style_id),
@@ -72,7 +72,7 @@ slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 #'   print(target = "append_run.docx")
 slip_in_text <- function( x, str, style = "Normal", pos = "after" ){
 
-  style_id <- get_style_id(x=x, style=style, type = "character")
+  style_id <- x$doc_obj$get_style_id(style=style, type = "character")
   xml_elt <- "<w:r xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr><w:t xml:space=\"preserve\">%s</w:t></w:r>"
   xml_elt <- sprintf(xml_elt, style_id, str)
   slip_in_xml(x = x, str = xml_elt, pos = pos)
@@ -98,7 +98,7 @@ slip_in_text <- function( x, str, style = "Normal", pos = "after" ){
 #'   print(target = "append_img.docx")
 slip_in_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
 
-  style_id <- get_style_id(x=x, style=style, type = "character")
+  style_id <- x$doc_obj$get_style_id(style=style, type = "character")
 
   ext_img <- external_img(src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")
@@ -133,10 +133,8 @@ slip_in_xml <- function(x, str, pos){
     stop("unknown pos ", shQuote(pos, type = "sh"), ", it should be ",
          paste( shQuote(pos_list, type = "sh"), collapse = " or ") )
 
-  cursor_elt <- xml_find_first(x$xml_doc, x$cursor)
-
+  cursor_elt <- x$doc_obj$get_at_cursor()
   pos <- ifelse(pos=="after", length(xml_children(cursor_elt)), 1)
-  cursor_elt <- xml_find_first(x$xml_doc, x$cursor)
   xml_add_child(.x = cursor_elt, .value = xml_elt, .where = pos )
   x
 }

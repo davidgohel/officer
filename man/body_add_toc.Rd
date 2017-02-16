@@ -21,3 +21,8 @@ one of "after", "before", "on".}
 \description{
 add a table of content into a docx object
 }
+\examples{
+library(magrittr)
+doc <- read_docx() \%>\% body_add_toc()
+print(doc, target = "body_add_toc.docx" )
+}

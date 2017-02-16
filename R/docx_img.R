@@ -12,13 +12,13 @@
 #' @param src a vector of character containing image filenames.
 docx_reference_img <- function( x, src){
   src <- unique( src )
-  x$rels$add_img(src, root_target = "media")
+  x$doc_obj$relationship()$add_img(src, root_target = "media")
 
-  x$rels$write( file.path(x$package_dir, "word/_rels/document.xml.rels") )
+  # x$doc_obj$relationship()$write( file.path(x$package_dir, "word/_rels/document.xml.rels") )
 
-  img_path <- file.path(x$package_dir, "word", "media")
+  img_path <- file.path(x$doc_obj$package_dirname(), "word", "media")
   dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
-  file.copy(from = src, to = file.path(x$package_dir, "word", "media", basename(src)))
+  file.copy(from = src, to = file.path(x$doc_obj$package_dirname(), "word", "media", basename(src)))
 
   x
 }
@@ -37,7 +37,7 @@ docx_reference_img <- function( x, src){
 #' @param x docx object
 #' @param str wml string
 wml_link_images <- function(x, str){
-  ref <- x$rels$get_data()
+  ref <- x$doc_obj$relationship()$get_data()
 
   ref <- filter_(ref, interp(~ ext_src != "") )
 
