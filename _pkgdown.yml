@@ -14,10 +14,12 @@ reference:
     - body_add_table
     - body_add_toc
     - body_add_break
+    - body_end_section
     - slip_in_img
     - slip_in_text
     - slip_in_seqfield
     - starts_with("cursor_")
+    - body_remove
   - title: Functions specific to PowerPoint
     contents:
     - read_pptx

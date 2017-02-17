@@ -140,7 +140,7 @@ my_doc</code></pre></div>
 <p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outfile &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".docx"</span>)
 <span class="kw">print</span>(my_doc, <span class="dt">target =</span> outfile )</code></pre></div>
-<pre><code>## [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/Rtmpug40ck/file380340537af1.docx"</code></pre>
+<pre><code>## [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/RtmpRrBCcq/file1d60e32ffa7.docx"</code></pre>
 </div>
 </div>
 <div id="getting-started" class="section level2">
@@ -158,6 +158,8 @@ my_doc</code></pre></div>
 <li>body_add_par</li>
 <li>body_add_table</li>
 <li>body_add_toc</li>
+<li>body_end_section</li>
+<li>body_remove</li>
 </ul>
 </div>
 <div id="cursor" class="section level3">
@@ -192,6 +194,50 @@ my_doc</code></pre></div>
 </ul>
 </div>
 </div>
+<div id="remove-content" class="section level2">
+<h2 class="hasAnchor">
+<html><body><a href="#remove-content" class="anchor"> </a></body></html>Remove content</h2>
+<p>The function <code>body_remove</code> let remove content from a Word document. This function used with <code>cursor_*</code> functions is a convenient tool to update an existing document.</p>
+<p>For illustration purpose, we will generate a document that will be used as initial document later when showing how to use <code>body_remove</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
+<span class="kw">library</span>(magrittr)
+
+str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">20</span>) %&gt;%<span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+str2 &lt;-<span class="st"> "Drop that text"</span> 
+str3 &lt;-<span class="st"> "Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">20</span>) %&gt;%<span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+
+my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"init_doc.docx"</span>)</code></pre></div>
+<pre><code>## [1] "/Users/davidgohel/Github/officer/docs/articles/init_doc.docx"</code></pre>
+<p>File <code>init_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"init_doc.docx"</span>)  %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/cursor_begin.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"that text"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>()
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"result_doc.docx"</span>)</code></pre></div>
+<pre><code>## [1] "/Users/davidgohel/Github/officer/docs/articles/result_doc.docx"</code></pre>
+<p><strong>The text search is made via <code>xpath 1.0</code> and regular expressions are not supported.</strong></p>
+</div>
+<div id="sections" class="section level2">
+<h2 class="hasAnchor">
+<html><body><a href="#sections" class="anchor"> </a></body></html>Sections</h2>
+<p>Sections can be added to a document. This is possible by using function <code>body_end_section</code>.</p>
+<blockquote>
+<p>A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared. The function is reflecting that (complicated) Word concept, by adding an ending section attached to the paragraph where cursor is.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">landscape =</span> <span class="ot">TRUE</span>, <span class="dt">colwidths =</span> <span class="kw">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>), <span class="dt">space =</span> .<span class="dv">05</span>, <span class="dt">sep =</span> <span class="ot">FALSE</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"section.docx"</span>)</code></pre></div>
+<pre><code>## [1] "/Users/davidgohel/Github/officer/docs/articles/section.docx"</code></pre>
+<p>In the previous example, first two paragraphs will be in a 2 column section and the third will be in a default section.</p>
+</div>
 </div>
   </div>
 
@@ -201,6 +247,8 @@ my_doc</code></pre></div>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#getting-started">Getting started</a></li>
+      <li><a href="#remove-content">Remove content</a></li>
+      <li><a href="#sections">Sections</a></li>
       </ul>
 </div>
       </div>
