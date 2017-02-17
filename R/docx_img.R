@@ -14,8 +14,6 @@ docx_reference_img <- function( x, src){
   src <- unique( src )
   x$doc_obj$relationship()$add_img(src, root_target = "media")
 
-  # x$doc_obj$relationship()$write( file.path(x$package_dir, "word/_rels/document.xml.rels") )
-
   img_path <- file.path(x$doc_obj$package_dirname(), "word", "media")
   dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
   file.copy(from = src, to = file.path(x$doc_obj$package_dirname(), "word", "media", basename(src)))

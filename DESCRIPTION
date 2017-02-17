@@ -22,6 +22,6 @@ Imports:
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1
 Suggests: testthat, ionicons, devEMF,
-    knitr,
+    knitr,htmltools,
     rmarkdown
 VignetteBuilder: knitr

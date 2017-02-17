@@ -39,7 +39,10 @@ docx_document <- R6Class(
     },
 
     get_at_cursor = function() {
-      xml_find_first(self$get(), private$cursor)
+      node <- xml_find_first(self$get(), private$cursor)
+      if( inherits(node, "xml_missing") )
+        stop("cursor does not correspond to any node", call. = FALSE)
+      node
     },
 
 
@@ -57,7 +60,10 @@ docx_document <- R6Class(
 
     cursor_reach = function( keyword ){
       xpath_ <- sprintf("/w:document/w:body/*[contains(./w:r/w:t/text(),'%s')]", keyword)
-      private$cursor <- xml_find_first(self$get(), xpath_) %>% xml_path()
+      cursor <- xml_find_first(self$get(), xpath_) %>% xml_path()
+      if( inherits(cursor, "xml_missing") )
+        stop(keyword, " has not been found in the document", call. = FALSE)
+      private$cursor <- cursor
       self
     },
 
@@ -97,8 +103,8 @@ docx_document <- R6Class(
       all_desc
     },
 
-    read_core = function( path ){
-      core_file <- file.path(path, "docProps/core.xml")
+    read_core = function(  ){
+      core_file <- file.path(private$package_dir, "docProps/core.xml")
       doc <- read_xml(core_file)
 
       all_ <- xml_find_all(doc, "/cp:coreProperties/*")
