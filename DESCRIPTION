@@ -1,11 +1,11 @@
 Package: officer
 Type: Package
 Title: Manipulation of 'Microsoft' Documents
-Version: 0.0.5.9000
+Version: 0.0.6
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Description: Manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
+Description: Manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
     The package does not require any installation of Microsoft product. 
 License: GPL-3
 LazyData: TRUE
