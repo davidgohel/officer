@@ -75,7 +75,7 @@ docx_document <- R6Class(
 
 
     cursor_backward = function( ){
-      xpath_ <- paste0(private$cursor, "/preceding-sibling::*" )
+      xpath_ <- paste0(private$cursor, "/preceding-sibling::*[1]" )
       private$cursor <- xml_find_first(self$get(), xpath_ ) %>% xml_path()
       self
     }

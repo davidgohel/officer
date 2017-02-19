@@ -207,15 +207,21 @@ body_add_xml <- function(x, str, pos){
     stop("unknown pos ", shQuote(pos, type = "sh"), ", it should be ",
          paste( shQuote(pos_list, type = "sh"), collapse = " or ") )
 
-  cursor_elt <- x$doc_obj$get_at_cursor()
-  if( pos != "on")
-    xml_add_sibling(cursor_elt, xml_elt, .where = pos)
-  else {
-    xml_replace(cursor_elt, xml_elt)
+  if( length(x) == 1 ){
+    xml_add_child(x$doc_obj$get(), xml_elt)
+    x <- cursor_end(x)
+  } else {
+    cursor_elt <- x$doc_obj$get_at_cursor()
+    if( pos != "on")
+      xml_add_sibling(cursor_elt, xml_elt, .where = pos)
+    else {
+      xml_replace(cursor_elt, xml_elt)
+    }
+    if(pos == "after")
+      x <- cursor_forward(x)
   }
 
-  if(pos == "after")
-    x <- cursor_forward(x)
+
   x
 }
 
