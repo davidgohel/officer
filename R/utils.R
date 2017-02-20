@@ -40,7 +40,6 @@ read_xfrm <- function(nodeset, file, name){
   xfrm <- map_df( nodeset, function(x) {
     ph <- xml_child(x, "p:nvSpPr/p:nvPr/p:ph")
     type <- xml_attr(ph, "type")
-    idx <- xml_attr(ph, "idx")
     if( is.na(type) )
       type <- "body"
     id <- xml_child(x, "/p:cNvPr")
@@ -116,6 +115,4 @@ set_xfrm_attr <- function( node, offx, offy, cx, cy ){
   xml_attr( cnvpr, "id") <- ""
   node
 }
-
-
 

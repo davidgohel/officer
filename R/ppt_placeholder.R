@@ -98,13 +98,13 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
   slide <- x$slide$get_slide(x$cursor)
   xfrm_df <- slide$get_xfrm(type = type, index = index)
   xml_elt <- sprintf( simple_shape, xfrm_df$ph, str )
-
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
 
   slide$save()
   x$slide$update()
   x
 }
+
 
 #' @export
 #' @title add a new shape
@@ -233,6 +233,67 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
     xml_add_child(current_p, as_xml_document(simple_shape) )
   }
 
+
+  slide$save()
+  x$slide$update()
+
+  x
+}
+
+
+
+#' @export
+#' @title append text
+#' @description append text into a paragraph of a pptx object
+#' @inheritParams ph_remove
+#' @param value fpar object
+#' @param level paragraph level
+#' @examples
+#' library(magrittr)
+#'
+#' bold_face <- shortcuts$fp_bold(font.size = 30)
+#' bold_redface <- update(bold_face, color = "red")
+#'
+#' fpar_ <- fpar(ftext("Hello ", prop = bold_face),
+#'   ftext("World", prop = bold_redface ),
+#'   ftext(", how are you?", prop = bold_face ) )
+#'
+#' doc <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
+#'   ph_empty(type = "body") %>%
+#'   ph_add_fpar(value = fpar_, type = "body", level = 2)
+#'
+#' print(doc, target = "ph_add_fpar.pptx")
+#' @importFrom xml2 xml_child xml_children xml_add_child
+ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
+
+  slide <- x$slide$get_slide(x$cursor)
+  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+
+  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
+
+  current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
+  newp_str <- format(value, type = "pml")
+  newp_str <- gsub("<a:p>", sprintf("<a:p%s>", pml_ns), newp_str )
+
+  node <- as_xml_document(newp_str)
+  {
+    ppr <- xml_child(node, "/a:pPr")
+    empty_par <- as_xml_document(sprintf("<a:pPr%s/>", pml_ns))
+    xml_replace(ppr, empty_par )
+  }
+  ppr <- xml_child(node, "/a:pPr")
+  if( level > 1 ){
+    xml_attr(ppr, "lvl") <- sprintf("%.0f", level - 1)
+  }
+  if( inherits(current_p, "xml_missing") ){
+    simple_shape <- sprintf( "<p:txBody%s><a:bodyPr/><a:lstStyle/></p:txBody>", pml_ns)
+    newnode <- as_xml_document(simple_shape)
+    xml_add_child(newnode, node)
+    xml_add_child(nodes[[shape_id]], newnode )
+  } else {
+    xml_add_child(current_p, node )
+  }
 
   slide$save()
   x$slide$update()

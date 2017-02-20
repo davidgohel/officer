@@ -41,8 +41,9 @@ slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
                       "</w:r>")
   xml_elt_3 <- paste0(sprintf("<w:r %s>", base_ns),
                       sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", style_id),
-                      "<w:r><w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/></w:r>",
+                      "<w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/>",
                       "</w:r>")
+
   if( pos == "after"){
     slip_in_xml(x = x, str = xml_elt_1, pos = pos)
     slip_in_xml(x = x, str = xml_elt_2, pos = pos)

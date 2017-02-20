@@ -98,6 +98,76 @@ test_that("slide remove", {
   expect_equal(sm$text, "Hello world 2")
 })
 
+
+
+test_that("ph remove", {
+  x <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "Hello world 1") %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "Hello world 2") %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "Hello world 3")
+  print(x, target = "template.pptx")
+
+  x <- read_pptx(path = "template.pptx")
+  x <- ph_remove(x = x)
+
+  expect_equal(nrow(slide_summary(x)), 0)
+})
+
+test_that("add text into placeholder", {
+  doc <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_empty(type = "body")
+  print(doc, target = "temp.pptx")
+
+  doc <- read_pptx(path = "./temp.pptx")
+  sm <- slide_summary(doc)
+
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$text, "")
+
+  small_red <- fp_text(color = "red", font.size = 14)
+  doc <- doc %>%
+    ph_add_par(level = 2) %>%
+    ph_add_text(str = "chunk 1", style = small_red )
+  sm <- slide_summary(doc)
+  expect_equal(sm$text, "chunk 1")
+
+  doc <- doc %>%
+    ph_add_text(str = "this is ", style = small_red, pos = "before" )
+  sm <- slide_summary(doc)
+  expect_equal(sm$text, "this is chunk 1")
+})
+
+test_that("add img into placeholder", {
+  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  doc <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_img(type = "body", src = img.file,
+                       height = 1.06, width = 1.39 )
+  sm <- slide_summary(doc)
+
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$text, "")
+  expect_equal(sm$cx, 1.39*914400)
+  expect_equal(sm$cy, 1.06*914400)
+
+
+})
+
+test_that("add xml into placeholder", {
+  xml_str <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\"><p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr><p:ph type=\"title\"/></p:nvPr></p:nvSpPr><p:spPr/>\n<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>Hello world 1</a:t></a:r></a:p></p:txBody></p:sp>"
+
+  doc <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_from_xml(type = "body", value = xml_str)
+  sm <- slide_summary(doc)
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$text, "Hello world 1")
+})
+
 unlink("*.pptx")
 unlink("*.emf")
 

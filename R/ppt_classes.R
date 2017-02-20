@@ -70,12 +70,6 @@ content_type <- R6Class(
       cat(out, file = private$filename)
       self
 
-    },
-    show = function() {
-      cat("Defaults: \n")
-      print(head(private$default))
-      cat("Override: \n")
-      print(head(private$override, n = 2))
     }
   ),
   private = list(
