@@ -63,7 +63,7 @@ test_that("id are sequentially defined", {
 })
 
 
-test_that("id are sequentially defined", {
+test_that("cursor behavior", {
 
   doc <- read_docx() %>%
     body_add_par("paragraph 1", style = "Normal") %>%
@@ -85,8 +85,11 @@ test_that("id are sequentially defined", {
   expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 7" )
   doc <- doc %>% cursor_backward()
   expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 6" )
+  doc <- doc %>% cursor_reach(keyword = "paragraph 5")
+  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 5" )
 
 })
 
 unlink("*.docx")
 unlink("*.emf")
+

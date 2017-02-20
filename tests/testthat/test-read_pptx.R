@@ -2,6 +2,7 @@ context("read_pptx")
 
 library(utils)
 library(xml2)
+library(magrittr)
 
 test_that("defaul template", {
   x <- read_pptx()
@@ -49,5 +50,54 @@ test_that("check template", {
   expect_equal(length(x), 2)
 })
 
+
+
+test_that("check slide selection", {
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with_text(x, type = "body", str = "Hello world 1")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with_text(x, type = "body", str = "Hello world 2")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with_text(x, type = "body", str = "Hello world 3")
+  print(x, target = "template.pptx")
+
+  x <- read_pptx(path = "template.pptx")
+
+  x <-  x %>% on_slide(index = 1)
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 1")
+
+  x <-  x %>% on_slide(index = 2)
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 2")
+
+  x <-  x %>% on_slide(index = 3)
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 3")
+
+})
+
+test_that("slide remove", {
+  x <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "Hello world 1") %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "Hello world 2") %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "Hello world 3")
+  print(x, target = "template.pptx")
+
+  x <- read_pptx(path = "template.pptx")
+  x <- remove_slide(x = x)
+  expect_equal(length(x), 2)
+  x <- remove_slide(x = x, index = 1)
+  expect_equal(length(x), 1)
+
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 2")
+})
+
 unlink("*.pptx")
 unlink("*.emf")
+
