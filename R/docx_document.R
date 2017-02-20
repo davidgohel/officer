@@ -101,22 +101,21 @@ docx_document <- R6Class(
       )
 
       all_desc
-    },
-
-    read_core = function(  ){
-      core_file <- file.path(private$package_dir, "docProps/core.xml")
-      doc <- read_xml(core_file)
-
-      all_ <- xml_find_all(doc, "/cp:coreProperties/*")
-      ns_ <- xml_ns(doc)
-      all_desc <- tibble(
-        tag_ns = all_ %>% xml_name(ns = ns_),
-        tag = all_ %>% xml_name(),
-        value = all_ %>% xml_text()
-      )
-
-      all_desc
     }
+    # , read_core = function(  ){
+    #   core_file <- file.path(private$package_dir, "docProps/core.xml")
+    #   doc <- read_xml(core_file)
+    #
+    #   all_ <- xml_find_all(doc, "/cp:coreProperties/*")
+    #   ns_ <- xml_ns(doc)
+    #   all_desc <- tibble(
+    #     tag_ns = all_ %>% xml_name(ns = ns_),
+    #     tag = all_ %>% xml_name(),
+    #     value = all_ %>% xml_text()
+    #   )
+    #
+    #   all_desc
+    # }
 
   )
 
