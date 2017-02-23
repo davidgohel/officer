@@ -1,4 +1,4 @@
-vertical.align.styles <- c( "top", "middle", "bottom" )
+vertical.align.styles <- c( "top", "center", "bottom" )
 text.directions <- c( "lrtb", "tbrl", "btlr" )
 
 #' @importFrom gdtools raster_str
@@ -24,7 +24,7 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 fp_cell = function(
   border = fp_border(width=0),
 	border.bottom, border.left, border.top, border.right,
-	vertical.align = "middle",
+	vertical.align = "center",
   margin = 0,
 	margin.bottom, margin.top, margin.left, margin.right,
   background.color = "transparent",

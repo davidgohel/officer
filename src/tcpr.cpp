@@ -43,13 +43,11 @@ std::string tcpr::w_tag()
     os << "<w:textDirection w:val=\"tbRl\"/>";
 
   os << "<w:vAlign w:val=\"";
-  if( vertical_align == "center" || vertical_align == "middle" )
+  if( vertical_align == "center" )
     os << "center";
   else if( vertical_align == "top" )
     os << "top";
-  else if( vertical_align == "bottom" )
-    os << "bottom";
-  else os << "center";
+  else os << "bottom";
   os << "\"/>";
 
   os << "</w:tcPr>";
@@ -84,13 +82,11 @@ std::string tcpr::css()
   os << "margin-right:" << mr << "pt;";
 
   os << "vertical-align:";
-  if( vertical_align == "center" || vertical_align == "middle" )
+  if( vertical_align == "center" )
     os << "middle;";
   else if( vertical_align == "top" )
     os << "top;";
-  else if( vertical_align == "bottom" )
-    os << "bottom;";
-  else os << "middle;";
+  else os << "bottom;";
 
   return os.str();
 }
@@ -111,13 +107,12 @@ std::string tcpr::a_tag()
     os << "vert=\"vert\" ";
 
   os << "anchor=\"";
-  if( vertical_align == "center" || vertical_align == "middle" )
+  if( vertical_align == "center" )
     os << "ctr";
   else if( vertical_align == "top" )
     os << "t";
-  else if( vertical_align == "bottom" )
+  else
     os << "b";
-  else os << "ctr";
   os << "\" ";
 
   os << "marB=\""<< mb*12700 << "\" ";

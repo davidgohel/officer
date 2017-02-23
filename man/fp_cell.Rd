@@ -8,7 +8,7 @@
 \title{Cell formatting properties}
 \usage{
 fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
-  border.right, vertical.align = "middle", margin = 0, margin.bottom,
+  border.right, vertical.align = "center", margin = 0, margin.bottom,
   margin.top, margin.left, margin.right, background.color = "transparent",
   background.img.id = "rId1", background.img.src = NULL,
   text.direction = "lrtb", row_span = 1L, column_span = 1L)
