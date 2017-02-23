@@ -5,17 +5,6 @@
 
 using namespace Rcpp;
 
-// ppr_new
-SEXP ppr_new(Rcpp::List compounds);
-RcppExport SEXP officer_ppr_new(SEXP compoundsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type compounds(compoundsSEXP);
-    rcpp_result_gen = Rcpp::wrap(ppr_new(compounds));
-    return rcpp_result_gen;
-END_RCPP
-}
 // w_ppr
 std::string w_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
 RcppExport SEXP officer_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
