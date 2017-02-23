@@ -1,7 +1,4 @@
-context("read_pptx")
-
-library(xml2)
-library(magrittr)
+context("miscellaneous checks for pptx")
 
 test_that("defaul template", {
   x <- read_pptx()
@@ -203,16 +200,6 @@ test_that("add xml into placeholder", {
   expect_equal(sm$text, "Hello world 1")
 })
 
-test_that("get shape id", {
-
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with_text(type = "body", str = "hello")
-  expect_equal(officer:::get_shape_id(doc, type = "body", id_chr = "2"), 1)
-  expect_equal(officer:::get_shape_id(doc, type = "body"), 1)
-  expect_equal(officer:::get_shape_id(doc, id_chr = "2"), 1)
-  expect_error(officer:::get_shape_id(doc, type = "body", id_chr = "1") )
-})
 
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")

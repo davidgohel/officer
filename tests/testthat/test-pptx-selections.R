@@ -1,7 +1,4 @@
-context("pptx selection cases")
-
-library(xml2)
-library(magrittr)
+context("checks selections for pptx")
 
 test_that("on_slide", {
   x <- read_pptx()
@@ -21,6 +18,18 @@ test_that("on_slide", {
   expect_error(slide_summary(x, index = 3), "unvalid index 3")
 
 })
+
+test_that("get shape id", {
+
+  doc <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "hello")
+  expect_equal(officer:::get_shape_id(doc, type = "body", id_chr = "2"), 1)
+  expect_equal(officer:::get_shape_id(doc, type = "body"), 1)
+  expect_equal(officer:::get_shape_id(doc, id_chr = "2"), 1)
+  expect_error(officer:::get_shape_id(doc, type = "body", id_chr = "1") )
+})
+
 
 unlink("*.pptx")
 

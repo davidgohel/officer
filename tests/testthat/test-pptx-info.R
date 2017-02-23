@@ -1,7 +1,4 @@
-context("pptx info")
-
-library(xml2)
-library(magrittr)
+context("informations for pptx")
 
 test_that("layout summary", {
   x <- read_pptx()

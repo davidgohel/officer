@@ -1,8 +1,7 @@
-context("paragraph formatting properties")
+context("formatting properties for paragraphs")
 
-library(xml2)
-library(magrittr)
 source("utils.R")
+
 test_that("fp_par", {
   expect_error( fp_par(text.align = "glop"), "must be one of" )
   expect_error( fp_par(padding = -2), "padding must be a positive integer scalar" )
@@ -19,6 +18,9 @@ test_that("fp_par", {
 
   x <- fp_par(padding = 0, border = shortcuts$b_null())
   expect_identical(dim(x), c("width" = 0, "height" = 0) )
+
+  expect_equal(fp_sign( fp_par() ), "9b85a72e897738b15bd38b54ded1c5e9" )
+
 })
 
 

@@ -1,8 +1,4 @@
-context("read_docx")
-
-library(utils)
-library(xml2)
-library(magrittr)
+context("miscellaneous check for docx")
 
 test_that("defaul template", {
   x <- read_docx()

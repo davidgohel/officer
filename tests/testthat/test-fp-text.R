@@ -1,4 +1,4 @@
-context("fp_text")
+context("formatting properties for text")
 
 source("utils.R")
 
@@ -13,7 +13,10 @@ test_that("fp_text - as.data.frame", {
 })
 
 test_that("fp_text - update", {
+
   fp <- fp_text(font.size = 10)
+  expect_equal(fp_sign( fp ), "b219bb0bdd7045575978f22781d0d77a" )
+
   fp <- update(fp, font.size = 20)
   expect_equal(fp$font.size, 20)
   fp <- update(fp, color = "red")

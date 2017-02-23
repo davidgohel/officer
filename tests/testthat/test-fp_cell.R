@@ -1,12 +1,14 @@
-context("cell formatting properties")
+context("formatting properties for cells")
 
-library(purrr)
+suppressPackageStartupMessages({library(purrr)})
+
 source("utils.R")
 
 test_that("fp_cell", {
   expect_error( fp_cell(text.direction = "sdqsd"), "must be one of" )
   expect_error( fp_cell(margin = -2), "must be a positive integer scalar" )
   expect_error( fp_cell(border = fp_text()), "border must be a fp_border object" )
+  expect_error( fp_cell(border.bottom = fp_text()), "border.bottom must be a fp_border object" )
   expect_error( fp_cell(background.color = "#340F2A78d"), " must be a valid color" )
   x <- fp_cell()
   x <- update(x, margin = 3, background.color = "#340F2A78",
@@ -15,6 +17,9 @@ test_that("fp_cell", {
   expect_equal(x$margin.bottom, 3)
   expect_equal(x$margin.left, 3)
   expect_equal(x$border.bottom, fp_border(color = "red"))
+
+  expect_equal(fp_sign( fp_cell() ), "b491487a861225173a309c5a74dc9f45" )
+
 })
 
 
@@ -65,6 +70,20 @@ test_that("pml fp_border", {
   expect_equal(xml_attr(node, "anchor"), "ctr")
   node <- pml_cell_node(fp_cell(vertical.align = "bottom"))
   expect_equal(xml_attr(node, "anchor"), "b")
+
+  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  x <- fp_cell(background.img.src = img.file, background.img.id = "rId2")
+  node <- pml_cell_node(x)
+  rid <- xml_find_all(node, "a:blipFill/a:blip") %>% xml_attr("embed")
+  expect_equal(rid, "rId2")
+
+  x <- fp_cell(text.direction = "btlr")
+  node <- pml_cell_node(x)
+  expect_equal(xml_attr(node, "vert"), "vert270")
+  x <- fp_cell(text.direction = "tbrl")
+  node <- pml_cell_node(x)
+  expect_equal(xml_attr(node, "vert"), "vert")
+
 })
 
 
@@ -107,6 +126,15 @@ test_that("wml fp_border", {
   node <- wml_cell_node(fp_cell(vertical.align = "bottom"))
   valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
   expect_equal(valign, "bottom")
+
+  x <- fp_cell(text.direction = "btlr")
+  node <- wml_cell_node(x)
+  td <- xml_child(node, "w:textDirection") %>% xml_attr("val")
+  expect_equal(td, "btLr")
+  x <- fp_cell(text.direction = "tbrl")
+  node <- wml_cell_node(x)
+  td <- xml_child(node, "w:textDirection") %>% xml_attr("val")
+  expect_equal(td, "tbRl")
 })
 
 
@@ -132,6 +160,11 @@ test_that("css fp_border", {
   expect_true(has_css_attr(x, "vertical-align", "middle"))
   x <- fp_cell(vertical.align = "bottom")
   expect_true(has_css_attr(x, "vertical-align", "bottom"))
+
+  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  x <- fp_cell(background.img.src = img.file)
+  expect_true(has_css_attr(x, "background-image", "url\\(data:image/png;base64,"))
+
 })
 
 
