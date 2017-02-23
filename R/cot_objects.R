@@ -19,14 +19,17 @@ ftext <- function(text, prop) {
 format.ftext = function (x, type = "console", ...){
   stopifnot( length(type) == 1,
              type %in% c("wml", "pml", "html", "console", "text") )
-  ptr <- rpr_pointer( x$pr )
 
   if( type == "wml" ){
-    out <- chunk_w(x$value, ptr)
+    out <- paste0("<w:r>", format(x$pr, type = type ),
+           "<w:t xml:space=\"preserve\">",
+           x$value, "</w:t></w:r>")
   } else if( type == "pml" ){
-    out <- chunk_p(x$value, ptr)
+    out <- paste0("<a:r>", format(x$pr, type = type ),
+                  "<a:t>", x$value, "</a:t></a:r>")
   } else if( type == "html" ){
-    out <- chunk_html(x$value, ptr)
+    out <- paste0("<span style=\"", format(x$pr, type = type ),
+                  "\">", x$value, "</span>")
   } else if( type == "console" ){
     out <- paste0( "{text:{", x$value, "}}" )
   } else if( type == "text" ){

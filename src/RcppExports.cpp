@@ -135,42 +135,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// chunk_w
-std::string chunk_w(std::string value, SEXP fp);
-RcppExport SEXP officer_chunk_w(SEXP valueSEXP, SEXP fpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
-    rcpp_result_gen = Rcpp::wrap(chunk_w(value, fp));
-    return rcpp_result_gen;
-END_RCPP
-}
-// chunk_p
-std::string chunk_p(std::string value, SEXP fp);
-RcppExport SEXP officer_chunk_p(SEXP valueSEXP, SEXP fpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
-    rcpp_result_gen = Rcpp::wrap(chunk_p(value, fp));
-    return rcpp_result_gen;
-END_RCPP
-}
-// chunk_html
-std::string chunk_html(std::string value, SEXP fp);
-RcppExport SEXP officer_chunk_html(SEXP valueSEXP, SEXP fpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type fp(fpSEXP);
-    rcpp_result_gen = Rcpp::wrap(chunk_html(value, fp));
-    return rcpp_result_gen;
-END_RCPP
-}
 // w_tcpr
 std::string w_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
 RcppExport SEXP officer_w_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {

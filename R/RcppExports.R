@@ -33,18 +33,6 @@ rpr_css <- function(fp) {
     .Call('officer_rpr_css', PACKAGE = 'officer', fp)
 }
 
-chunk_w <- function(value, fp) {
-    .Call('officer_chunk_w', PACKAGE = 'officer', value, fp)
-}
-
-chunk_p <- function(value, fp) {
-    .Call('officer_chunk_p', PACKAGE = 'officer', value, fp)
-}
-
-chunk_html <- function(value, fp) {
-    .Call('officer_chunk_html', PACKAGE = 'officer', value, fp)
-}
-
 w_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span) {
     .Call('officer_w_tcpr', PACKAGE = 'officer', vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span)
 }
