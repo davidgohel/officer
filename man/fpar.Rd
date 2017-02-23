@@ -3,7 +3,6 @@
 \name{fpar}
 \alias{fpar}
 \alias{update.fpar}
-\alias{fortify_fpar}
 \alias{as.data.frame.fpar}
 \alias{format.fpar}
 \alias{print.fpar}
@@ -12,8 +11,6 @@
 fpar(...)
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
-
-fortify_fpar(x)
 
 \method{as.data.frame}{fpar}(x, ...)
 
@@ -37,8 +34,8 @@ create a paragraph representation by concatenating
 formatted text or images.
 }
 \details{
-\code{fortify_fpar}, \code{as.data.frame} are used internally and
-are not supposed to be used by end user.
+\code{as.data.frame} is used internally and
+is not supposed to be used by end user.
 }
 \examples{
 fpar(ftext("hello", shortcuts$fp_bold()))
