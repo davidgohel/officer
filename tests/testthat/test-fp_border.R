@@ -38,11 +38,22 @@ test_that("pml fp_border", {
   type <- xml_child(node, "/a:prstDash") %>%
     xml_attr("val")
   expect_equal(type, "solid")
+  node <- pml_border_node(fp_border(style = "dashed"))
+  type <- xml_child(node, "/a:prstDash") %>%
+    xml_attr("val")
+  expect_equal(type, "sysDash")
+  node <- pml_border_node(fp_border(style = "dotted", width = 2))
+  type <- xml_child(node, "/a:prstDash") %>%
+    xml_attr("val")
+  expect_equal(type, "sysDot")
 
   width <- xml_attr(node, "w") %>%
     as.integer()
   expect_equal(width, 12700 * 2)
 
+  node <- pml_border_node(fp_border(color = "transparent"))
+  col <- xml_child(node, "a:noFill")
+  expect_false(inherits(col, "xml_missing"))
 })
 
 
@@ -53,7 +64,7 @@ wml_border_node <- function(x, side = "bottom"){
   xml_find_first(doc, paste0("//w:tcPr/w:tcBorders/w:", side))
 }
 
-test_that("pml fp_border", {
+test_that("wml fp_border", {
 
   node <- wml_border_node(fp_border(width = 2, color = "#00FF00"))
 
@@ -63,8 +74,13 @@ test_that("pml fp_border", {
   sz <- xml_attr(node, "sz")
   expect_equal(sz, "8")
 
-  type <- xml_attr(node, "val")
-  expect_equal(type, "single")
+  node <- wml_border_node(fp_border(style = "dotted"))
+  expect_equal(xml_attr(node, "val"), "dotted")
+  node <- wml_border_node(fp_border(style = "solid"))
+  expect_equal(xml_attr(node, "val"), "single")
+  node <- wml_border_node(fp_border(style = "dashed"))
+  expect_equal(xml_attr(node, "val"), "dashed")
+
 })
 
 
@@ -84,5 +100,13 @@ test_that("css fp_border", {
   col <- "#00FF0099"
   x <- fp_border(width = 4, color = col, style = "dashed")
   rb <- regexp_border(4, "dashed", "rgba\\(0,255,0,0.60\\)", x)
+  expect_true( rb )
+
+  x <- fp_border(width = 4, color = col, style = "dotted")
+  rb <- regexp_border(4, "dotted", "rgba\\(0,255,0,0.60\\)", x)
+  expect_true( rb )
+
+  x <- fp_border(color = "transparent")
+  rb <- regexp_border(1, "solid", "transparent", x)
   expect_true( rb )
 })

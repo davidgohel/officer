@@ -59,6 +59,12 @@ test_that("pml fp_border", {
   expect_equal(xml_attr(node, "marR") %>% as.integer(), 12700 * 2)
   expect_equal(xml_attr(node, "marL") %>% as.integer(), 12700 * 2)
 
+  node <- pml_cell_node(fp_cell(vertical.align = "top"))
+  expect_equal(xml_attr(node, "anchor"), "t")
+  node <- pml_cell_node(fp_cell(vertical.align = "center"))
+  expect_equal(xml_attr(node, "anchor"), "ctr")
+  node <- pml_cell_node(fp_cell(vertical.align = "bottom"))
+  expect_equal(xml_attr(node, "anchor"), "b")
 })
 
 
@@ -91,8 +97,41 @@ test_that("wml fp_border", {
   node <- wml_cell_node(fp_cell(border = fp_border()))
   border_nodes <- xml_find_all(node, "w:tcBorders/*[self::w:bottom or self::w:top or self::w:left or self::w:right]")
   expect_length(border_nodes, 4)
+
+  node <- wml_cell_node(fp_cell(vertical.align = "top"))
+  valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
+  expect_equal(valign, "top")
+  node <- wml_cell_node(fp_cell(vertical.align = "center"))
+  valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
+  expect_equal(valign, "center")
+  node <- wml_cell_node(fp_cell(vertical.align = "bottom"))
+  valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
+  expect_equal(valign, "bottom")
 })
 
 
+test_that("css fp_border", {
+
+  x <- fp_cell(background.color = "#00FF0099", margin = 2)
+  expect_true(has_css_color(x, "background-color", "rgba\\(0,255,0,0.60\\)"))
+
+  expect_true(has_css_attr(x, "margin-top", "2pt"))
+  expect_true(has_css_attr(x, "margin-bottom", "2pt"))
+  expect_true(has_css_attr(x, "margin-left", "2pt"))
+  expect_true(has_css_attr(x, "margin-right", "2pt"))
+
+  x <- fp_cell(margin = 2, margin.bottom = 0)
+  expect_true(has_css_attr(x, "margin-top", "2pt"))
+  expect_true(has_css_attr(x, "margin-bottom", "0pt"))
+  expect_true(has_css_attr(x, "margin-left", "2pt"))
+  expect_true(has_css_attr(x, "margin-right", "2pt"))
+
+  x <- fp_cell(vertical.align = "top")
+  expect_true(has_css_attr(x, "vertical-align", "top"))
+  x <- fp_cell(vertical.align = "center")
+  expect_true(has_css_attr(x, "vertical-align", "middle"))
+  x <- fp_cell(vertical.align = "bottom")
+  expect_true(has_css_attr(x, "vertical-align", "bottom"))
+})
 
 
