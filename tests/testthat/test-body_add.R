@@ -1,9 +1,5 @@
 context("body_add")
 
-library(utils)
-library(xml2)
-library(magrittr)
-
 getncheck <- function(x, str){
   child_ <- xml_child(x, str)
   expect_false( inherits(child_, "xml_missing") )
