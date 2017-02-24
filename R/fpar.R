@@ -4,8 +4,8 @@
 #' @description create a paragraph representation by concatenating
 #' formatted text or images.
 #' @details
-#' \code{as.data.frame} is used internally and
-#' is not supposed to be used by end user.
+#' \code{fortify_fpar}, \code{as.data.frame} are used internally and
+#' are not supposed to be used by end user.
 #'
 #' @param fp_p paragraph formatting properties
 #' @param fp_t default text formatting properties
@@ -38,6 +38,8 @@ update.fpar <- function (object, fp_p=NULL, fp_t=NULL, ...){
 
 
 #' @importFrom purrr map
+#' @export
+#' @rdname fpar
 fortify_fpar <- function(x){
   map(x$chunks, function(chk) {
     if( !inherits(chk, "cot") ){
