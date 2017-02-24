@@ -1,37 +1,42 @@
 ---
-title: "docx device"
+title: "Word documents generation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{docx device}
+  %\VignetteIndexEntry{Word}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-> `officer` provides a set of functions to manipulate Word documents from R.
 
-*Package `magrittr` can be used with `officer` as it will make the workflow easier to read.*
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
+```
 
 ```{r}
 library(officer)
+# Package `magrittr` makes officer usage easier.
 library(magrittr)
 ```
 
+<div style="text-align:center;">
+<img src="data:image/png;base64,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" width="128" height="128"/>
+</div>
+
+
 ## Introduction
 
-Use the function `read_docx` to create an r object representing a PowerPoint document.
-It takes one argument `path`: a initial Word file. If none is provided, this file will be an empty document
-located in the package directory. Formats and styles will be those available in the template file.
-
-### Create a Word device
+Use the function `read_docx` to create an r object representing a Word document.
+Initial Word file can be specified with argument `path`. If none is provided, 
+this file will be an empty document located in the package directory. Formats 
+and styles will be those available in the initial file.
 
 ```{r}
 my_doc <- read_docx() 
-my_doc
 ```
 
 ### Add elements to document
 
-Let's add an image in the documet first.
+Let's add an image in the document first.
 
 ```{r}
 src <- tempfile(fileext = ".png")
@@ -63,29 +68,27 @@ my_doc <- my_doc %>%
 File can be generated using function `print` and argument `target`:
 
 ```{r}
-outfile <- tempfile(fileext = ".docx")
-print(my_doc, target = outfile )
+print(my_doc, target = "assets/docx/first_example.docx") %>% 
+  invisible()
 ```
 
-## Getting started
+```{r echo=FALSE}
+office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/first_example.docx" ) )
+```
 
-To produce Word documents from R, you will need to manipulate few concepts.
 
-`read_docx` read an initial `docx` file. It takes one argument `path`: a initial Word file (I sometimes refer to it as *template*. 
-If none is provided, this file will be an empty document located in the package directory.
-Styles will be those available in the template file.
-
-### Add elements
+## Add elements
 
 To add paragraphs, tables, images or other elements into the document, you will have to use functions starting with `body_add_`:
 
-```{r echo=FALSE}
-objs <- objects(envir = as.environment("package:officer"), pattern = "^body_")
-objs <- setdiff(objs, "body_add_xml")
-htmltools::tags$ul(lapply(objs, htmltools::tags$li))
-```
+- body_add_par
+- body_add_img
+- body_add_table
+- body_add_break
+- body_add_toc
 
-### Cursor
+
+## Cursor manipulation
 
 A cursor is available and can be manipulated so that content can be added regarding to its position: 
 
@@ -95,19 +98,82 @@ A cursor is available and can be manipulated so that content can be added regard
 
 Cursor functions are the following:
 
+- cursor_begin
+- cursor_end
+- cursor_reach
+- cursor_backward
+- cursor_forward
+
+In order to illustrate *cursor* functions, a document made of several paragraphs will be used (let's use officer for that).
+
+```{r}
+read_docx() %>%
+  body_add_par("paragraph 1", style = "Normal") %>%
+  body_add_par("paragraph 2", style = "Normal") %>%
+  body_add_par("paragraph 3", style = "Normal") %>%
+  body_add_par("paragraph 4", style = "Normal") %>%
+  body_add_par("paragraph 5", style = "Normal") %>%
+  body_add_par("paragraph 6", style = "Normal") %>%
+  body_add_par("paragraph 7", style = "Normal") %>%
+  print(target = "assets/docx/init_doc.docx" ) %>% 
+  invisible()
+```
+
+Now, let's use `init_doc.docx` with `read_docx` and manipulate its content with cursor functions.
+
+```{r}
+doc <- read_docx(path = "assets/docx/init_doc.docx") %>%
+
+  # default template contains only an empty paragraph
+  # Using cursor_begin and body_remove, we can delete it
+  cursor_begin() %>% body_remove() %>%
+
+  # Let add text at the beginning of the
+  # paragraph containing text "paragraph 4"
+  cursor_reach(keyword = "paragraph 4") %>%
+  slip_in_text("This is ", pos = "before", style = "Default Paragraph Font") %>%
+
+  # move the cursor forward and end a section
+  cursor_forward() %>%
+  body_add_par("The section stop here", style = "Normal") %>%
+  body_end_section(landscape = TRUE) %>%
+
+  # move the cursor at the end of the document
+  cursor_end() %>%
+  body_add_par("The document ends now", style = "Normal")
+
+print(doc, target = "assets/docx/cursor.docx") %>% 
+  invisible()
+```
+
 ```{r echo=FALSE}
-objs <- objects(envir = as.environment("package:officer"), pattern = "^cursor_")
-htmltools::tags$ul(lapply(objs, htmltools::tags$li))
+office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx" ) )
 ```
 
 ### Append text in existing paragraphs
 
-Text and images can be inserted at the beginning or the end of the selected paragraph (by the cursor). This can be made with functions 
+Text and images can be inserted at the beginning or the end of the selected paragraph (selection made by the cursor). Available functions are the following:
+
+- slip_in_img
+- slip_in_seqfield
+- slip_in_text
+
+```{r}
+library(magrittr)
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+
+read_docx() %>%
+  body_add_par("R logo: ", style = "Normal") %>%
+  slip_in_img(src = img.file, style = "strong", width = .3, height = .3) %>%
+  slip_in_text("This is official ", style = "strong", pos = "before") %>%
+  slip_in_text(" that can be found here: ", style = "strong", pos = "after") %>%
+  slip_in_text(img.file, style = "strong", pos = "after") %>%
+  print(target = "assets/docx/slip_in_demo.docx") %>% 
+  invisible()
+```
 
 ```{r echo=FALSE}
-objs <- objects(envir = as.environment("package:officer"), pattern = "^slip_in_")
-objs <- setdiff(objs, "slip_in_xml")
-htmltools::tags$ul(lapply(objs, htmltools::tags$li))
+office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
 ```
 
 ## Remove content
@@ -130,23 +196,29 @@ my_doc <- read_docx()  %>%
   body_add_par(value = str1, style = "Normal") %>% 
   body_add_par(value = str2, style = "centered") %>% 
   body_add_par(value = str3, style = "Normal") 
-print(my_doc, target = "init_doc.docx")
+
+print(my_doc, target = "assets/docx/ipsum_doc.docx") %>% invisible()
 ```
 
-File `init_doc.docx` now exists and contains a paragraph containing text *that text*. In the following example, we will position the cursor on that paragraph and then delete it:
+File `ipsum_doc.docx` now exists and contains a paragraph containing text *that text*. In the following example, we will position the cursor on that paragraph and then delete it:
 
 ```{r}
-my_doc <- read_docx(path = "init_doc.docx")  %>% 
+my_doc <- read_docx(path = "assets/docx/ipsum_doc.docx")  %>% 
   cursor_reach(keyword = "that text") %>% 
   body_remove()
-print(my_doc, target = "result_doc.docx")
+
+print(my_doc, target = "assets/docx/ipsum_doc.docx") %>% invisible()
 ```
 
 **The text search is made via `xpath 1.0` and regular expressions are not supported.**
 
+```{r echo=FALSE}
+office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx" ) )
+```
+
 ## Sections
 
-Sections can be added to a document. This is possible by using function `body_end_section`. 
+Sections can be added to a document. This is possible by using function `body_end_section`.
 
 > A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared. The function is reflecting that (complicated) Word concept, by adding an ending section attached to the paragraph where cursor is.
 
@@ -157,11 +229,12 @@ my_doc <- read_docx()  %>%
   body_add_par(value = str2, style = "centered") %>% 
   body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) %>%
   body_add_par(value = str3, style = "Normal") 
-print(my_doc, target = "section.docx")
+print(my_doc, target = "assets/docx/section.docx") %>% invisible()
 ```
-
-In the previous example, first two paragraphs will be in a 2 column section and the third will be in a default section.
 
 ```{r echo=FALSE}
-unlink("*.docx")
+office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx" ) )
 ```
+
+In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.
+
