@@ -9,7 +9,7 @@ office_web_viewer <- function(url, width = "80%", height="500px"){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
   htmltools::tags$iframe(
     "iframes are not supported",
-    src = paste0("http://view.officeapps.live.com/op/view.aspx?src=", url),
+    src = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url),
     width = width, height=height
   )
 }

@@ -123,7 +123,7 @@
 <p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/first_example.docx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/first_example.docx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/first_example.docx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
 <div id="add-elements" class="section level2">
@@ -169,6 +169,7 @@
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 7"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/init_doc.docx"</span> ) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/init_doc.docx" width="80%" height="500px">iframes are not supported</iframe>
 <p>Now, let’s use <code>init_doc.docx</code> with <code>read_docx</code> and manipulate its content with cursor functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/init_doc.docx"</span>) %&gt;%
 
@@ -192,7 +193,7 @@
 
 <span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/docx/cursor.docx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/cursor.docx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/cursor.docx" width="80%" height="500px">iframes are not supported</iframe>
 <div id="append-text-in-existing-paragraphs" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#append-text-in-existing-paragraphs" class="anchor"> </a></body></html>Append text in existing paragraphs</h3>
@@ -213,7 +214,7 @@ img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span 
 <span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) %&gt;%
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/slip_in_demo.docx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
 <div id="remove-content" class="section level2">
@@ -243,7 +244,7 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 
 <span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) %&gt;%<span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
 <p><strong>The text search is made via <code>xpath 1.0</code> and regular expressions are not supported.</strong></p>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/ipsum_doc.docx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/ipsum_doc.docx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 <div id="sections" class="section level2">
 <h2 class="hasAnchor">
@@ -252,13 +253,18 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <blockquote>
 <p>A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared. The function is reflecting that (complicated) Word concept, by adding an ending section attached to the paragraph where cursor is.</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) %&gt;%<span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+str2 &lt;-<span class="st"> "Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) %&gt;%<span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+
+my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="dt">str =</span> str1, <span class="dt">style =</span> <span class="st">"strong"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">landscape =</span> <span class="ot">TRUE</span>, <span class="dt">colwidths =</span> <span class="kw">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>), <span class="dt">space =</span> .<span class="dv">05</span>, <span class="dt">sep =</span> <span class="ot">FALSE</span>) %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
 <span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/section.docx"</span>) %&gt;%<span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/section.docx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/section.docx" width="80%" height="500px">iframes are not supported</iframe>
 <p>In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.</p>
 </div>
 </div>

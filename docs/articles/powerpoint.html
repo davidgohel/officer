@@ -145,7 +145,7 @@
 <p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/first_example.pptx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/first_example.pptx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/first_example.pptx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
 <div id="slides-selection-and-manipulation" class="section level2">
@@ -173,8 +173,7 @@
 <h3 class="hasAnchor">
 <html><body><a href="#add-text" class="anchor"> </a></body></html>Add text</h3>
 <p>Use function <code>ph_with_text</code> to add text into a new shape. Argument <code>type</code> specify which placeholder of the associated layout is to be added (<code>index</code> is to be used when a <code>type</code> is not unique in the slide layout).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
-doc &lt;-<span class="st"> </span>doc %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A second text"</span>, <span class="dt">index =</span> <span class="dv">2</span>) %&gt;%
@@ -182,9 +181,9 @@ doc &lt;-<span class="st"> </span>doc %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>, <span class="dt">str =</span> <span class="st">"Slide footer"</span>) %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>, <span class="dt">str =</span> <span class="kw">format</span>(<span class="kw">Sys.Date</span>()))
 
-<span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_text.pptx"</span>) %&gt;%<span class="st"> </span>
+<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_text.pptx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_text.pptx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_text.pptx" width="80%" height="500px">iframes are not supported</iframe>
 <p>Again, use <code>layout_properties</code> to see what are available placeholders in the slide layout.</p>
 </div>
 <div id="add-image" class="section level3">
@@ -199,9 +198,9 @@ doc &lt;-<span class="st"> </span>doc %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"body (index 1) is text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_img.html">ph_with_img</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">index =</span> <span class="dv">2</span>, <span class="dt">src =</span> img.file, <span class="dt">height =</span> <span class="fl">1.06</span>, <span class="dt">width =</span> <span class="fl">1.39</span> )
 
-<span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_img.pptx"</span>) %&gt;%<span class="st"> </span>
+<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_img.pptx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_img.pptx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_img.pptx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
 <div id="remove-content-from-a-slide" class="section level2">
@@ -239,7 +238,7 @@ my_pres &lt;-<span class="st"> </span>my_pres %&gt;%<span class="st"> </span>
 
 <span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_1.pptx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_1.pptx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_1.pptx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 <div id="add-to-an-existing-placeholder-of-text" class="section level3">
 <h3 class="hasAnchor">
@@ -258,7 +257,7 @@ my_pres &lt;-<span class="st"> </span>my_pres %&gt;%<span class="st"> </span>
 
 <span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_2.pptx"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_2.pptx" width="80%" height="500px">iframes are not supported</iframe>
+<iframe src="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_2.pptx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
 </div>

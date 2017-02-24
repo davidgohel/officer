@@ -143,8 +143,7 @@ to be added (`index` is to be used when a `type` is not unique
 in the slide layout).
 
 ```{r}
-doc <- read_pptx() 
-doc <- doc %>%
+doc <- read_pptx() %>%
   add_slide(layout = "Two Content", master = "Office Theme") %>%
   ph_with_text(type = "body", str = "A first text", index = 1) %>%
   ph_with_text(type = "body", str = "A second text", index = 2) %>%
@@ -152,7 +151,7 @@ doc <- doc %>%
   ph_with_text(type = "ftr", str = "Slide footer") %>%
   ph_with_text(type = "dt", str = format(Sys.Date()))
 
-print(my_pres, target = "assets/pptx/ph_with_text.pptx") %>% 
+print(doc, target = "assets/pptx/ph_with_text.pptx") %>% 
   invisible()
 ```
 
@@ -176,7 +175,7 @@ doc <- doc %>%
   ph_with_text(type = "body", str = "body (index 1) is text", index = 1) %>% 
   ph_with_img(type = "body", index = 2, src = img.file, height = 1.06, width = 1.39 )
 
-print(my_pres, target = "assets/pptx/ph_with_img.pptx") %>% 
+print(doc, target = "assets/pptx/ph_with_img.pptx") %>% 
   invisible()
 ```
 
