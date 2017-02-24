@@ -1,4 +1,4 @@
-context("formatting properties for borders")
+context("fp for borders")
 
 source("utils.R")
 

@@ -1,4 +1,4 @@
-context("formatting properties for paragraphs")
+context("fp for paragraphs")
 
 source("utils.R")
 

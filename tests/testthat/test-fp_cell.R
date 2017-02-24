@@ -1,4 +1,4 @@
-context("formatting properties for cells")
+context("fp for cells")
 
 suppressPackageStartupMessages({library(purrr)})
 

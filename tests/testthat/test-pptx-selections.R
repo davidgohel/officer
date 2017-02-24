@@ -1,6 +1,29 @@
 context("checks selections for pptx")
 
-test_that("on_slide", {
+test_that("check slide selection", {
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with_text(x, type = "body", str = "Hello world 1")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with_text(x, type = "body", str = "Hello world 2")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with_text(x, type = "body", str = "Hello world 3")
+
+  x <-  x %>% on_slide(index = 1)
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 1")
+
+  x <-  x %>% on_slide(index = 2)
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 2")
+
+  x <-  x %>% on_slide(index = 3)
+  sm <- slide_summary(x)
+  expect_equal(sm$text, "Hello world 3")
+
+})
+
+test_that("check errors", {
   x <- read_pptx()
   expect_error(slide_summary(x), "presentation contains no slide")
   expect_error(remove_slide(x), "presentation contains no slide to delete")

@@ -6,17 +6,6 @@ getncheck <- function(x, str){
   child_
 }
 
-test_that("style is read from document", {
-  x <- read_docx()
-  expect_silent({
-    x <- body_add_par(x = x, value = "paragraph 1", style = "Normal")
-  })
-
-  expect_error({
-    x <- body_add_par(x = x, value = "paragraph 1", style = "blahblah")
-  })
-})
-
 test_that("body_add_break", {
   x <- read_docx()
   x <- body_add_break(x)
@@ -80,6 +69,17 @@ test_that("body_add_toc", {
   expect_equal( xml_text(child_), "TOC \\h \\z \\t \"Normal;1\"" )
 
 })
+
+test_that("image add ", {
+  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  x <- read_docx() %>%
+    body_add_par("", style = "Normal") %>%
+    slip_in_img(src = img.file, style = "strong", width = .3, height = .3)
+
+  node <- x$doc_obj$get_at_cursor()
+  getncheck(node, "w:r/w:drawing")
+})
+
 
 
 unlink("*.docx")

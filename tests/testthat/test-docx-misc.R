@@ -20,6 +20,17 @@ test_that("check extention and print document", {
   expect_error(print(x, target = "print.docxxx"))
 })
 
+test_that("style is read from document", {
+  x <- read_docx()
+  expect_silent({
+    x <- body_add_par(x = x, value = "paragraph 1", style = "Normal")
+  })
+
+  expect_error({
+    x <- body_add_par(x = x, value = "paragraph 1", style = "blahblah")
+  })
+})
+
 
 test_that("id are sequentially defined", {
 
