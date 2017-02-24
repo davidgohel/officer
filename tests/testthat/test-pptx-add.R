@@ -42,6 +42,7 @@ test_that("ph_add_par append when text alrady exists", {
 
 
 test_that("add img into placeholder", {
+  skip_on_os("windows")
   img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
