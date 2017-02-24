@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_toc}
 \alias{body_add_toc}
-\title{add a table of content}
+\title{add table of content}
 \usage{
 body_add_toc(x, level = 3, pos = "after", style = NULL, separator = ";")
 }

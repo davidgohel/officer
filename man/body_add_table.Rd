@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_table}
 \alias{body_add_table}
-\title{add a table}
+\title{add table}
 \usage{
 body_add_table(x, value, style, pos = "after", width = 5,
   first_row = TRUE, first_column = FALSE, last_row = TRUE,

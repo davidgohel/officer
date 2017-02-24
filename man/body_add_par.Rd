@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_par}
 \alias{body_add_par}
-\title{add a paragraph}
+\title{add paragraph}
 \usage{
 body_add_par(x, value, style, pos = "after")
 }

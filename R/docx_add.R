@@ -1,5 +1,5 @@
 #' @export
-#' @title add an image
+#' @title add image
 #' @description add an image into a docx object
 #' @param x a docx device
 #' @param src image filename
@@ -47,7 +47,7 @@ body_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
 }
 
 #' @export
-#' @title add a paragraph
+#' @title add paragraph
 #' @description add a paragraph into a docx object
 #' @param x a docx device
 #' @param value a character
@@ -81,7 +81,7 @@ as_tc <- function(x, collapse = FALSE ){
 }
 
 #' @export
-#' @title add a table
+#' @title add table
 #' @description add a table into a docx object
 #' @param x a docx device
 #' @param value a data.frame
@@ -135,7 +135,7 @@ body_add_table <- function( x, value, style, pos = "after", width = 5,
 
 
 #' @export
-#' @title add a table of content
+#' @title add table of content
 #' @description add a table of content into a docx object
 #' @param x a docx object
 #' @param level max title level of the table
@@ -172,7 +172,7 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 
 
 #' @export
-#' @title add a page break
+#' @title add page break
 #' @description add a page break into a docx object
 #' @param x a docx object
 #' @param pos where to add the new element relative to the cursor,
