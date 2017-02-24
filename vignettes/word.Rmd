@@ -32,6 +32,9 @@ and styles will be those available in the initial file.
 
 ```{r}
 my_doc <- read_docx() 
+
+# display styles
+styles_info(my_doc)
 ```
 
 ### Add elements to document
