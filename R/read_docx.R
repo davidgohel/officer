@@ -49,7 +49,7 @@ print.docx <- function(x, target = NULL, ...){
   if( is.null( target) ){
     cat("docx document with", length(x), "element(s)\n")
     cat("Available styles are:\n")
-    print(as.data.frame(x$doc_obj$styles()))
+    print(as.data.frame(styles_info(x)))
     return(invisible())
   }
 
@@ -80,6 +80,16 @@ length.docx <- function( x ){
 
 }
 
-
+#' @export
+#' @title read Word styles
+#' @description read Word styles and get results in
+#' a tidy data.frame.
+#' @param x a docx object
+#' @examples
+#' library(magrittr)
+#' read_docx() %>% styles_info()
+styles_info <- function( x ){
+  x$doc_obj$styles()
+}
 
 

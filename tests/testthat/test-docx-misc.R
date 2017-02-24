@@ -32,6 +32,21 @@ test_that("style is read from document", {
 })
 
 
+test_that("styles_info is returning a tidy df", {
+  x <- read_docx()
+  df <- styles_info(x)
+
+  expect_is( df, "data.frame" )
+  expect_true( all( c("style_type", "style_id", "style_name", "is_custom", "is_default") %in% names(df)) )
+  expect_is( df$style_type, "character" )
+  expect_is( df$style_id, "character" )
+  expect_is( df$style_name, "character" )
+  expect_is( df$is_custom, "logical" )
+  expect_is( df$is_default, "logical" )
+
+})
+
+
 test_that("id are sequentially defined", {
 
   doc <- read_docx()
