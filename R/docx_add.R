@@ -34,7 +34,7 @@ body_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
 
   ext_img <- external_img(src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")
-  xml_elt <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">",
+  xml_elt <- paste0(wml_with_ns("w:p"),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
                     xml_elt,
                     "</w:p>")
@@ -67,7 +67,7 @@ body_add_par <- function( x, value, style, pos = "after" ){
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
 
-  xml_elt <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
+  xml_elt <- paste0(wml_with_ns("w:p"),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
                     value, "</w:t></w:r></w:p>")
   body_add_xml(x = x, str = xml_elt, pos = pos)
@@ -126,7 +126,7 @@ body_add_table <- function( x, value, style, pos = "after", width = 5,
   tbpr <- "<w:tblPr><w:tblStyle w:val=\"%s\"/><w:tblW/>%s</w:tblPr>"
   tbpr <- sprintf(tbpr, style_id, tbl_look)
 
-  xml_elt <- paste0( sprintf("<w:tbl %s>", base_ns),
+  xml_elt <- paste0( wml_with_ns("w:tbl"),
           tbpr, grid_col, dat, "</w:tbl>")
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
@@ -150,14 +150,14 @@ body_add_table <- function( x, value, style, pos = "after", width = 5,
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
-    str <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:pPr/>",
+    str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
                   "<w:r><w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/></w:r>",
                   "<w:r><w:instrText xml:space=\"preserve\" w:dirty=\"true\">TOC \u005Co &quot;1-%.0f&quot; \u005Ch \u005Cz \u005Cu</w:instrText></w:r>",
                   "<w:r><w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/></w:r>",
                   "</w:p>")
     out <- sprintf(str, level)
   } else {
-    str <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:pPr/>",
+    str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
                   "<w:r><w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/></w:r>",
                   "<w:r><w:instrText xml:space=\"preserve\" w:dirty=\"true\">TOC \u005Ch \u005Cz \u005Ct \"%s%s1\"</w:instrText></w:r>",
                   "<w:r><w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/></w:r>",
@@ -183,7 +183,7 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 #' print(doc, target = "body_add_break.docx" )
 body_add_break <- function( x, pos = "after"){
 
-  str <- paste0("<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:pPr/>",
+  str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
                 "<w:r><w:br w:type=\"page\"/></w:r>",
                 "</w:p>")
   body_add_xml(x = x, str = str, pos = pos)
@@ -349,9 +349,8 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
           length(colwidths), as.integer(sep), space * w, paste0(columns_str, collapse = "") )
 
 
-
-  str <- paste0("<w:sectPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
-                pgsz_str, columns_str, mar_str, "</w:sectPr>")
+  str <- paste0( wml_with_ns("w:sectPr"),
+                     pgsz_str, columns_str, mar_str, "</w:sectPr>")
   xml_elt <- as_xml_document(str)
 
   cursor_elt <- x$doc_obj$get_at_cursor()

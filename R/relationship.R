@@ -23,7 +23,7 @@ relationship <- R6Class(
     },
     write = function(path) {
       str <- paste0("<Relationship Id=\"", private$id, "\" Type=\"", private$type, "\" Target=\"", private$target, "\"/>", collapse = "")
-      str <- paste0(XML_HEADER,
+      str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
              "\n<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">", str, "</Relationships>")
       cat(str, file = path)
       self

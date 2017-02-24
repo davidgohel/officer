@@ -1,6 +1,27 @@
-XML_HEADER <- "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+wml_with_ns <- function(x){
+  base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\""
+  sprintf("<%s %s>", x, base_ns)
+}
 
-base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
+pml_with_ns <- function(x){
+  base_ns <- "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\""
+  sprintf("<%s %s>", x, base_ns)
+}
+
+pml_run_str <- function(str, style) {
+  str_ <- paste0( pml_with_ns("a:r"), "%s<a:t>%s</a:t></a:r>" )
+  sprintf(str_, format(style, type = "pml"), str)
+}
+
+pml_shape_str <- function(str, ph) {
+  str_ <- paste0( pml_with_ns("p:sp"),
+                  "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>",
+                  "<p:spPr/>",
+                  "<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>%s</a:t></a:r></a:p></p:txBody></p:sp>"
+                  )
+  sprintf( str_, ph, str )
+}
+
 
 is.color = function(x) {
   # http://stackoverflow.com/a/13290832/3315962

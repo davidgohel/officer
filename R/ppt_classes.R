@@ -54,7 +54,7 @@ content_type <- R6Class(
       self$add_ext(extension = "emf", type = "image/x-emf")
       self$add_ext(extension = "jpg", type = "application/octet-stream")
       attribs <- attr_chunk(c(xmlns = "http://schemas.openxmlformats.org/package/2006/content-types"))
-      out <- paste0(XML_HEADER,
+      out <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
                     "\n<Types", attribs, ">")
       if(length(private$default) > 0 ){
         default <- sprintf("<Default Extension=\"%s\" ContentType=\"%s\"/>", names(private$default), private$default )
@@ -120,7 +120,7 @@ presentation <- R6Class(
       xml_elt <- paste(
         sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
         collapse = "" )
-      xml_elt <- paste0("<p:sldIdLst xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">", xml_elt, "</p:sldIdLst>")
+      xml_elt <- paste0( pml_with_ns("p:sldIdLst"),  xml_elt, "</p:sldIdLst>")
       xml_elt <- as_xml_document(xml_elt)
 
       if( !inherits(xml_list, "xml_missing")){
@@ -148,7 +148,8 @@ presentation <- R6Class(
       xml_elt <- paste(
         sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
         collapse = "" )
-      xml_elt <- paste0("<p:sldIdLst xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">", xml_elt, "</p:sldIdLst>")
+
+      xml_elt <- paste0(pml_with_ns("p:sldIdLst"), xml_elt, "</p:sldIdLst>")
       xml_elt <- as_xml_document(xml_elt)
 
       if( !inherits(xml_list, "xml_missing")){

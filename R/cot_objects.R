@@ -78,7 +78,7 @@ as.data.frame.external_img <- function( x, ... ){
   data.frame(path = as.character(x), width = dimx$width, height = dimx$height)
 }
 
-#' @importFrom openssl base64_encode
+#' @importFrom base64enc dataURI
 #' @param type output format
 #' @param ... unused
 #' @export
@@ -94,11 +94,9 @@ format.external_img = function (x, type = "console", ...){
   } else if( type == "wml" ){
     out <- wml_run_pic(as.character(x), width = dims$width*72, height = dims$height*72)
   } else if( type == "html" ){
-    input <- normalizePath(as.character(x), mustWork = TRUE)
-    buf <- readBin(input, raw(), file.info(input)$size)
-    base64 <- base64_encode(buf, linebreaks = FALSE)
-    out <- sprintf("<img src=\"data:image/png;base64,\n%s\" width=\"%.0f\" height=\"%.0f\"/>",
-            base64, dims$width*72, dims$height*72)
+    out <- sprintf("<img src=\"%s\" width=\"%.0f\" height=\"%.0f\"/>",
+                   dataURI(file = as.character(x), mime="image/png"),
+                   dims$width*72, dims$height*72)
   } else if( type == "console" ){
     out <- paste0( "{image:{", as.character(x), "}}" )
   } else stop("unimplemented")

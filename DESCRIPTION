@@ -1,12 +1,11 @@
 Package: officer
 Type: Package
-Title: Manipulation of 'Microsoft' Documents
-Version: 0.0.6
+Title: Manipulation of Microsoft Word and PowerPoint Documents
+Version: 0.0.7
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
 Description: Manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
-    The package does not require any installation of Microsoft product. 
 License: GPL-3
 LazyData: TRUE
 LinkingTo: Rcpp,
@@ -16,9 +15,9 @@ Imports:
     purrr,dplyr,R6,tibble,lazyeval, 
     R.utils,utils,grDevices,
     gdtools,
-    openssl,
+    base64enc,
     digest,
-    magrittr, 
+    magrittr,
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1
 Suggests: testthat, ionicons, devEMF,

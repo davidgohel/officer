@@ -31,15 +31,15 @@ slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "character")
 
-  xml_elt_1 <- paste0(sprintf("<w:r %s>", base_ns),
+  xml_elt_1 <- paste0(wml_with_ns("w:r"),
                       sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", style_id),
                       "<w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/>",
                       "</w:r>")
-  xml_elt_2 <- paste0(sprintf("<w:r %s>", base_ns),
+  xml_elt_2 <- paste0(wml_with_ns("w:r"),
                       sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", style_id),
                       sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", str ),
                       "</w:r>")
-  xml_elt_3 <- paste0(sprintf("<w:r %s>", base_ns),
+  xml_elt_3 <- paste0(wml_with_ns("w:r"),
                       sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", style_id),
                       "<w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/>",
                       "</w:r>")
@@ -74,7 +74,9 @@ slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 slip_in_text <- function( x, str, style = "Normal", pos = "after" ){
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "character")
-  xml_elt <- "<w:r xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr><w:t xml:space=\"preserve\">%s</w:t></w:r>"
+  xml_elt <- paste0( wml_with_ns("w:r"),
+      "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
+      "<w:t xml:space=\"preserve\">%s</w:t></w:r>")
   xml_elt <- sprintf(xml_elt, style_id, str)
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -103,15 +105,15 @@ slip_in_img <- function( x, src, style = "Normal", width, height, pos = "after" 
 
   ext_img <- external_img(src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")
-  xml_elt <- paste0(sprintf("<w:p %s>", base_ns), "<w:pPr/>", xml_elt, "</w:p>")
+  xml_elt <- paste0(wml_with_ns("w:p"), "<w:pPr/>", xml_elt, "</w:p>")
 
   x <- docx_reference_img(x, src)
   xml_elt <- wml_link_images( x, xml_elt )
 
   drawing_node <- as_xml_document(xml_elt) %>% xml_find_first("//w:r/w:drawing")
 
-  wml_ <- "<w:r %s><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>%s</w:r>"
-  xml_elt <- sprintf(wml_, base_ns, style_id, as.character(drawing_node) )
+  wml_ <- paste0(wml_with_ns("w:r"), "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>%s</w:r>")
+  xml_elt <- sprintf(wml_, style_id, as.character(drawing_node) )
 
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }

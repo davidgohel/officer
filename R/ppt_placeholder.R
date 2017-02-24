@@ -2,14 +2,6 @@ simple_shape <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/200
   <p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>
 <p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>%s</a:t></a:r></a:p></p:txBody></p:sp>"
 
-empty_shape <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
-  <p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/></p:sp>"
-
-r_shape <- paste0( "<a:r xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
-                   "%s",# style formatted
-                   "<a:t>%s</a:t>",#text
-                   "</a:r>" )
-
 pml_ns <- " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\""
 
 get_shape_id <- function(x, type = NULL, id_chr = NULL ){
@@ -83,7 +75,7 @@ ph_remove <- function( x, type = NULL, id_chr = NULL ){
 #' doc <- ph_with_text(x = doc, type = "title", str = "Un titre")
 #' doc <- ph_with_text(x = doc, type = "ftr", str = "pied de page")
 #' doc <- ph_with_text(x = doc, type = "dt", str = format(Sys.Date()))
-#' doc <- ph_with_text(x = doc, type = "sldNum", str = "slide 1")#
+#' doc <- ph_with_text(x = doc, type = "sldNum", str = "slide 1")
 #'
 #' doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
 #' doc <- ph_with_text(x = doc, type = "subTitle", str = "Un sous titre")
@@ -97,7 +89,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm_df <- slide$get_xfrm(type = type, index = index)
-  xml_elt <- sprintf( simple_shape, xfrm_df$ph, str )
+  xml_elt <- pml_shape_str(str = str, ph = xfrm_df$ph )
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
 
   slide$save()
@@ -127,6 +119,10 @@ ph_empty <- function( x, type = "title", index = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm_df <- slide$get_xfrm(type = type, index = index)
+
+  empty_shape <- paste0(pml_with_ns("p:sp"),
+    "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/></p:sp>")
+
   xml_elt <- sprintf( empty_shape, xfrm_df$ph )
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
@@ -173,7 +169,7 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
   current_p <- xml_child(nodes[[shape_id]], "/a:p[last()]")
   if( inherits(current_p, "xml_missing") )
     stop("Could not find any paragraph in the selected shape.")
-  r_shape_ <- sprintf(r_shape, format(style, type = "pml"), str )
+  r_shape_ <- pml_run_str(str = str, style = style )
 
   if( pos == "after" )
     where_ <- length(xml_children(current_p))
@@ -222,14 +218,15 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
       p_shape <- sprintf("<a:p><a:pPr lvl=\"%.0f\"/></a:p>", level - 1)
     else
       p_shape <- "<a:p/>"
-    simple_shape <- sprintf( paste0( "<p:txBody%s><a:bodyPr/><a:lstStyle/>",
-                            p_shape, "</p:txBody>"), pml_ns)
+
+    simple_shape <- paste0( pml_with_ns("p:txBody"), "<a:bodyPr/><a:lstStyle/>",
+                            p_shape, "</p:txBody>")
     xml_add_child(nodes[[shape_id]], as_xml_document(simple_shape) )
   } else {
-    if( level > 1 )
-      simple_shape <- sprintf("<a:p%s><a:pPr lvl=\"%.0f\"/></a:p>", pml_ns, level - 1)
-    else
-      simple_shape <- sprintf("<a:p%s/>", pml_ns)
+    if( level > 1 ){
+      simple_shape <- sprintf(paste0( pml_with_ns("a:p"), "<a:pPr lvl=\"%.0f\"/></a:p>" ), level - 1)
+    } else
+      simple_shape <- pml_with_ns("a:p")
     xml_add_child(current_p, as_xml_document(simple_shape) )
   }
 
@@ -274,12 +271,12 @@ ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
 
   current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
   newp_str <- format(value, type = "pml")
-  newp_str <- gsub("<a:p>", sprintf("<a:p%s>", pml_ns), newp_str )
+  newp_str <- gsub("<a:p>", pml_with_ns("a:p"), newp_str )
 
   node <- as_xml_document(newp_str)
   {
     ppr <- xml_child(node, "/a:pPr")
-    empty_par <- as_xml_document(sprintf("<a:pPr%s/>", pml_ns))
+    empty_par <- as_xml_document(paste0(pml_with_ns("a:pPr"), "</a:pPr>"))
     xml_replace(ppr, empty_par )
   }
   ppr <- xml_child(node, "/a:pPr")
@@ -287,7 +284,7 @@ ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
     xml_attr(ppr, "lvl") <- sprintf("%.0f", level - 1)
   }
   if( inherits(current_p, "xml_missing") ){
-    simple_shape <- sprintf( "<p:txBody%s><a:bodyPr/><a:lstStyle/></p:txBody>", pml_ns)
+    simple_shape <- paste0( pml_with_ns("p:txBody"), "<a:bodyPr/><a:lstStyle/></p:txBody>")
     newnode <- as_xml_document(simple_shape)
     xml_add_child(newnode, node)
     xml_add_child(nodes[[shape_id]], newnode )
