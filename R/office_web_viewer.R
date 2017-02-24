@@ -5,7 +5,7 @@
 #' @param url file url
 #' @param width iframe width
 #' @param height iframe height
-office_web_viewer <- function(url, width = "80%", height="500px"){
+office_web_viewer <- function(url, width = "100%", height="500px"){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
   htmltools::tags$iframe(
     "iframes are not supported",

@@ -4,7 +4,7 @@
 \alias{office_web_viewer}
 \title{Office Web Viewer}
 \usage{
-office_web_viewer(url, width = "80\%", height = "500px")
+office_web_viewer(url, width = "100\%", height = "500px")
 }
 \arguments{
 \item{url}{file url}
