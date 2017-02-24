@@ -48,7 +48,17 @@ test_that("slide summary", {
   expect_is( sm$cy, "integer" )
 })
 
+test_that("color scheme", {
+  x <- read_pptx()
+  cs <- color_scheme(x)
 
-unlink("*.pptx")
-unlink("*.emf")
+  expect_is( cs, "data.frame" )
+  expect_equal( ncol(cs), 4 )
+  expect_true( all( c("name", "type", "value", "theme") %in% names(cs)) )
+  expect_is( cs$name, "character" )
+  expect_is( cs$type, "character" )
+  expect_is( cs$value, "character" )
+  expect_is( cs$theme, "character" )
+})
+
 

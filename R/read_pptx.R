@@ -271,3 +271,19 @@ slide_summary <- function( x, index = NULL ){
 
   select_(data, "-name", "-file", "-ph")
 }
+
+
+
+
+
+
+#' @export
+#' @title color scheme
+#' @description get master layout color scheme into a data.frame.
+#' @param x pptx object
+#' @examples
+#' x <- read_pptx()
+#' color_scheme ( x = x )
+color_scheme <- function( x ){
+  x$slideLayouts$get_master()$get_color_scheme()
+}

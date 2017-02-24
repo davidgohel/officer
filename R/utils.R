@@ -137,3 +137,19 @@ set_xfrm_attr <- function( node, offx, offy, cx, cy ){
   node
 }
 
+
+
+read_theme_colors <- function(doc){
+
+  nodes <- xml_find_all(doc, "//a:clrScheme/*")
+
+  names_ <- xml_name(nodes)
+  col_types_ <- xml_name(xml_children(nodes) )
+  vals <- xml_attr(xml_children(nodes), "val")
+  last_colors_ <- xml_attr(xml_children(nodes), "lastClr")
+  vals <- ifelse(col_types_ == "srgbClr", paste0("#", vals), paste0("#", last_colors_) )
+  tibble(name = names_, type = col_types_, value = vals, theme = self$name())
+}
+
+
+
