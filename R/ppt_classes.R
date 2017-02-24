@@ -254,14 +254,7 @@ slide_master <- R6Class(
       root <- gsub( paste0(self$dir_name(), "$"), "", dirname( private$filename ) )
 
       doc <- read_xml(file.path( root,theme_))
-      nodes <- xml_find_all(doc, "//a:clrScheme/*")
-
-      names_ <- xml_name(nodes)
-      col_types_ <- xml_name(xml_children(nodes) )
-      vals <- xml_attr(xml_children(nodes), "val")
-      last_colors_ <- xml_attr(xml_children(nodes), "lastClr")
-      vals <- ifelse(col_types_ == "srgbClr", paste0("#", vals), paste0("#", last_colors_) )
-      tibble(name = names_, type = col_types_, value = vals, theme = self$name())
+      read_theme_colors( doc )
     },
 
     xfrm = function(){
