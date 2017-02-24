@@ -3,12 +3,15 @@
 \name{external_img}
 \alias{external_img}
 \alias{dim.external_img}
+\alias{as.data.frame.external_img}
 \alias{format.external_img}
 \title{external image}
 \usage{
 external_img(src, width = 0.5, height = 0.2)
 
 \method{dim}{external_img}(x)
+
+\method{as.data.frame}{external_img}(x, ...)
 
 \method{format}{external_img}(x, type = "console", ...)
 }
@@ -21,9 +24,9 @@ external_img(src, width = 0.5, height = 0.2)
 
 \item{x}{\code{external_img} object}
 
-\item{type}{output format}
-
 \item{...}{unused}
+
+\item{type}{output format}
 }
 \description{
 This function is used to insert images into flextable with function \code{display}
