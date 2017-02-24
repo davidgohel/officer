@@ -133,6 +133,39 @@ that contains text specified in argument <code>keyword</code>.</p>
     <p>Move the cursor backward, it decrements the cursor in the document.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)
+
+<span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 1"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 2"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 3"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 4"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 5"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 6"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"paragraph 7"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+
+  <span class='co'># default template contains only an empty paragraph</span>
+  <span class='co'># Using cursor_begin and body_remove, we can delete it</span>
+  <span class='fu'>cursor_begin</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='body_remove.html'>body_remove</a></span>() <span class='kw'>%&gt;%</span>
+
+  <span class='co'># Let add text at the beginning of the</span>
+  <span class='co'># paragraph containing text "paragraph 4"</span>
+  <span class='fu'>cursor_reach</span>(<span class='kw'>keyword</span> <span class='kw'>=</span> <span class='st'>"paragraph 4"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span>(<span class='st'>"This is "</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"before"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Default Paragraph Font"</span>) <span class='kw'>%&gt;%</span>
+
+  <span class='co'># move the cursor forward and end a section</span>
+  <span class='fu'>cursor_forward</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"The section stop here"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_end_section.html'>body_end_section</a></span>(<span class='kw'>landscape</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
+
+  <span class='co'># move the cursor at the end of the document</span>
+  <span class='fu'>cursor_end</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"The document ends now"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
+
+  <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"cursor.docx"</span>)</div><div class='output co'>#&gt; [1] &quot;/Users/davidgohel/Github/officer/docs/reference/cursor.docx&quot;</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -148,7 +181,9 @@ that contains text specified in argument <code>keyword</code>.</p>
       <li><a href="#cursor-forward">cursor_forward</a></li>
 
       <li><a href="#cursor-backward">cursor_backward</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

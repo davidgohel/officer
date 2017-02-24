@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>docx device • officer package</title>
+<title>Word documents generation • officer package</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -57,67 +57,28 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>docx device</h1>
+      <h1>Word documents generation</h1>
             
           </div>
 
     
     
 <div class="contents">
-<blockquote>
-<p><code>officer</code> provides a set of functions to manipulate Word documents from R.</p>
-</blockquote>
-<p><em>Package <code>magrittr</code> can be used with <code>officer</code> as it will make the workflow easier to read.</em></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
+<span class="co"># Package `magrittr` makes officer usage easier.</span>
 <span class="kw">library</span>(magrittr)</code></pre></div>
+<div style="text-align:center;">
+<p><img src="data:image/png;base64,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" width="128" height="128"></p>
+</div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#introduction" class="anchor"> </a></body></html>Introduction</h2>
-<p>Use the function <code>read_docx</code> to create an r object representing a PowerPoint document. It takes one argument <code>path</code>: a initial Word file. If none is provided, this file will be an empty document located in the package directory. Formats and styles will be those available in the template file.</p>
-<div id="create-a-word-device" class="section level3">
-<h3 class="hasAnchor">
-<html><body><a href="#create-a-word-device" class="anchor"> </a></body></html>Create a Word device</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() 
-my_doc</code></pre></div>
-<pre><code>## docx document with 2 element(s)
-## Available styles are:
-##    style_type            style_id             style_name is_custom
-## 1   paragraph              Normal                 Normal     FALSE
-## 2   paragraph              Titre1              heading 1     FALSE
-## 3   paragraph              Titre2              heading 2     FALSE
-## 4   paragraph              Titre3              heading 3     FALSE
-## 5   character      Policepardfaut Default Paragraph Font     FALSE
-## 6       table       TableauNormal           Normal Table     FALSE
-## 7   numbering         Aucuneliste                No List     FALSE
-## 8   character              strong                 strong      TRUE
-## 9   paragraph            centered               centered      TRUE
-## 10      table              Grille             Table Grid     FALSE
-## 11      table       tabletemplate         table_template      TRUE
-## 12      table Listeclaire-Accent2    Light List Accent 2     FALSE
-## 13  character           Titre1Car            Titre 1 Car      TRUE
-## 14  character           Titre2Car            Titre 2 Car      TRUE
-## 15  character           Titre3Car            Titre 3 Car      TRUE
-##    is_default
-## 1        TRUE
-## 2       FALSE
-## 3       FALSE
-## 4       FALSE
-## 5        TRUE
-## 6        TRUE
-## 7        TRUE
-## 8       FALSE
-## 9       FALSE
-## 10      FALSE
-## 11      FALSE
-## 12      FALSE
-## 13      FALSE
-## 14      FALSE
-## 15      FALSE</code></pre>
-</div>
+<p>Use the function <code>read_docx</code> to create an r object representing a Word document. Initial Word file can be specified with argument <code>path</code>. If none is provided, this file will be an empty document located in the package directory. Formats and styles will be those available in the initial file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() </code></pre></div>
 <div id="add-elements-to-document" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#add-elements-to-document" class="anchor"> </a></body></html>Add elements to document</h3>
-<p>Let’s add an image in the documet first.</p>
+<p>Let’s add an image in the document first.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">src &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)
 <span class="kw">png</span>(<span class="dt">filename =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">'in'</span>, <span class="dt">res =</span> <span class="dv">300</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">col =</span> <span class="dv">1</span>:<span class="dv">10</span>)
@@ -138,33 +99,26 @@ my_doc</code></pre></div>
 <h3 class="hasAnchor">
 <html><body><a href="#write-the-word-file" class="anchor"> </a></body></html>Write the Word file</h3>
 <p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outfile &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".docx"</span>)
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> outfile )</code></pre></div>
-<pre><code>## [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/RtmpRrBCcq/file1d60e32ffa7.docx"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/first_example.docx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/first_example.docx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
-<div id="getting-started" class="section level2">
+<div id="add-elements" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#getting-started" class="anchor"> </a></body></html>Getting started</h2>
-<p>To produce Word documents from R, you will need to manipulate few concepts.</p>
-<p><code>read_docx</code> read an initial <code>docx</code> file. It takes one argument <code>path</code>: a initial Word file (I sometimes refer to it as <em>template</em>. If none is provided, this file will be an empty document located in the package directory. Styles will be those available in the template file.</p>
-<div id="add-elements" class="section level3">
-<h3 class="hasAnchor">
-<html><body><a href="#add-elements" class="anchor"> </a></body></html>Add elements</h3>
+<html><body><a href="#add-elements" class="anchor"> </a></body></html>Add elements</h2>
 <p>To add paragraphs, tables, images or other elements into the document, you will have to use functions starting with <code>body_add_</code>:</p>
 <ul>
-<li>body_add_break</li>
-<li>body_add_img</li>
 <li>body_add_par</li>
+<li>body_add_img</li>
 <li>body_add_table</li>
+<li>body_add_break</li>
 <li>body_add_toc</li>
-<li>body_end_section</li>
-<li>body_remove</li>
 </ul>
 </div>
-<div id="cursor" class="section level3">
-<h3 class="hasAnchor">
-<html><body><a href="#cursor" class="anchor"> </a></body></html>Cursor</h3>
+<div id="cursor-manipulation" class="section level2">
+<h2 class="hasAnchor">
+<html><body><a href="#cursor-manipulation" class="anchor"> </a></body></html>Cursor manipulation</h2>
 <p>A cursor is available and can be manipulated so that content can be added regarding to its position:</p>
 <ul>
 <li>
@@ -176,22 +130,68 @@ my_doc</code></pre></div>
 </ul>
 <p>Cursor functions are the following:</p>
 <ul>
-<li>cursor_backward</li>
 <li>cursor_begin</li>
 <li>cursor_end</li>
-<li>cursor_forward</li>
 <li>cursor_reach</li>
+<li>cursor_backward</li>
+<li>cursor_forward</li>
 </ul>
-</div>
+<p>In order to illustrate <em>cursor</em> functions, a document made of several paragraphs will be used (let’s use officer for that).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 1"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 2"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 3"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 4"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 5"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 6"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 7"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/init_doc.docx"</span> ) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<p>Now, let’s use <code>init_doc.docx</code> with <code>read_docx</code> and manipulate its content with cursor functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/init_doc.docx"</span>) %&gt;%
+
+<span class="st">  </span><span class="co"># default template contains only an empty paragraph</span>
+<span class="st">  </span><span class="co"># Using cursor_begin and body_remove, we can delete it</span>
+<span class="st">  </span><span class="kw"><a href="../reference/cursor_begin.html">cursor_begin</a></span>() %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>() %&gt;%
+
+<span class="st">  </span><span class="co"># Let add text at the beginning of the</span>
+<span class="st">  </span><span class="co"># paragraph containing text "paragraph 4"</span>
+<span class="st">  </span><span class="kw"><a href="../reference/cursor_begin.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"paragraph 4"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">"This is "</span>, <span class="dt">pos =</span> <span class="st">"before"</span>, <span class="dt">style =</span> <span class="st">"Default Paragraph Font"</span>) %&gt;%
+
+<span class="st">  </span><span class="co"># move the cursor forward and end a section</span>
+<span class="st">  </span><span class="kw"><a href="../reference/cursor_begin.html">cursor_forward</a></span>() %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"The section stop here"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">landscape =</span> <span class="ot">TRUE</span>) %&gt;%
+
+<span class="st">  </span><span class="co"># move the cursor at the end of the document</span>
+<span class="st">  </span><span class="kw"><a href="../reference/cursor_begin.html">cursor_end</a></span>() %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"The document ends now"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>)
+
+<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/docx/cursor.docx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/cursor.docx" width="80%" height="500px">iframes are not supported</iframe>
 <div id="append-text-in-existing-paragraphs" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#append-text-in-existing-paragraphs" class="anchor"> </a></body></html>Append text in existing paragraphs</h3>
-<p>Text and images can be inserted at the beginning or the end of the selected paragraph (by the cursor). This can be made with functions</p>
+<p>Text and images can be inserted at the beginning or the end of the selected paragraph (selection made by the cursor). Available functions are the following:</p>
 <ul>
 <li>slip_in_img</li>
 <li>slip_in_seqfield</li>
 <li>slip_in_text</li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">Sys.getenv</span>(<span class="st">"R_HOME"</span>), <span class="st">"doc"</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
+
+<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"R logo: "</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_img.html">slip_in_img</a></span>(<span class="dt">src =</span> img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">width =</span> .<span class="dv">3</span>, <span class="dt">height =</span> .<span class="dv">3</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">"This is official "</span>, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">" that can be found here: "</span>, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) %&gt;%
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/slip_in_demo.docx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 </div>
 <div id="remove-content" class="section level2">
@@ -212,15 +212,16 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"init_doc.docx"</span>)</code></pre></div>
-<pre><code>## [1] "/Users/davidgohel/Github/officer/docs/articles/init_doc.docx"</code></pre>
-<p>File <code>init_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"init_doc.docx"</span>)  %&gt;%<span class="st"> </span>
+
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) %&gt;%<span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
+<p>File <code>ipsum_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)  %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/cursor_begin.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"that text"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>()
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"result_doc.docx"</span>)</code></pre></div>
-<pre><code>## [1] "/Users/davidgohel/Github/officer/docs/articles/result_doc.docx"</code></pre>
+
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) %&gt;%<span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
 <p><strong>The text search is made via <code>xpath 1.0</code> and regular expressions are not supported.</strong></p>
+<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/ipsum_doc.docx" width="80%" height="500px">iframes are not supported</iframe>
 </div>
 <div id="sections" class="section level2">
 <h2 class="hasAnchor">
@@ -234,9 +235,9 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">landscape =</span> <span class="ot">TRUE</span>, <span class="dt">colwidths =</span> <span class="kw">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>), <span class="dt">space =</span> .<span class="dv">05</span>, <span class="dt">sep =</span> <span class="ot">FALSE</span>) %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"section.docx"</span>)</code></pre></div>
-<pre><code>## [1] "/Users/davidgohel/Github/officer/docs/articles/section.docx"</code></pre>
-<p>In the previous example, first two paragraphs will be in a 2 column section and the third will be in a default section.</p>
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/section.docx"</span>) %&gt;%<span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
+<iframe src="http://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/section.docx" width="80%" height="500px">iframes are not supported</iframe>
+<p>In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.</p>
 </div>
 </div>
   </div>
@@ -246,7 +247,8 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#getting-started">Getting started</a></li>
+      <li><a href="#add-elements">Add elements</a></li>
+      <li><a href="#cursor-manipulation">Cursor manipulation</a></li>
       <li><a href="#remove-content">Remove content</a></li>
       <li><a href="#sections">Sections</a></li>
       </ul>
