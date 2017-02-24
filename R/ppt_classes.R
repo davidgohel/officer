@@ -254,7 +254,7 @@ slide_master <- R6Class(
       root <- gsub( paste0(self$dir_name(), "$"), "", dirname( private$filename ) )
 
       doc <- read_xml(file.path( root,theme_))
-      read_theme_colors( doc )
+      read_theme_colors( doc, self$name() )
     },
 
     xfrm = function(){
