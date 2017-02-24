@@ -13,6 +13,11 @@ vignette: >
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
+office_doc_link <- function(url){
+  stopifnot(requireNamespace("htmltools", quietly = TRUE))
+  htmltools::tags$p(  htmltools::tags$span("Download file: "),
+    htmltools::tags$a(basename(url), href = url))
+}
 ```
 
 ```{r}
@@ -103,7 +108,7 @@ print(my_pres, target = "assets/pptx/first_example.pptx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/first_example.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/first_example.pptx" ) )
 ```
 
 ## Slides selection and manipulation
@@ -156,7 +161,7 @@ print(doc, target = "assets/pptx/ph_with_text.pptx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_text.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_text.pptx" ) )
 ```
 
 Again, use `layout_properties` to see what are available placeholders in the slide layout. 
@@ -180,7 +185,7 @@ print(doc, target = "assets/pptx/ph_with_img.pptx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_img.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_img.pptx" ) )
 ```
 
 ## Remove content from a slide
@@ -227,7 +232,7 @@ print(my_pres, target = "assets/pptx/ph_add_text_1.pptx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_1.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_1.pptx" ) )
 ```
 
 ### Add to an existing placeholder of text
@@ -256,6 +261,6 @@ print(my_pres, target = "assets/pptx/ph_add_text_2.pptx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_2.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_2.pptx" ) )
 ```
 

@@ -10,6 +10,11 @@ vignette: >
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
+office_doc_link <- function(url){
+  stopifnot(requireNamespace("htmltools", quietly = TRUE))
+  htmltools::tags$p(  htmltools::tags$span("Download file: "),
+    htmltools::tags$a(basename(url), href = url))
+}
 ```
 
 ```{r}
@@ -76,7 +81,7 @@ print(my_doc, target = "assets/docx/first_example.docx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/first_example.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/first_example.docx" ) )
 ```
 
 
@@ -123,7 +128,7 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/init_doc.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/init_doc.docx" ) )
 ```
 
 Now, let's use `init_doc.docx` with `read_docx` and manipulate its content with cursor functions.
@@ -154,7 +159,7 @@ print(doc, target = "assets/docx/cursor.docx") %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx" ) )
 ```
 
 ### Append text in existing paragraphs
@@ -180,7 +185,7 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
 ```
 
 ## Remove content
@@ -220,7 +225,7 @@ print(my_doc, target = "assets/docx/ipsum_doc.docx") %>% invisible()
 **The text search is made via `xpath 1.0` and regular expressions are not supported.**
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx" ) )
 ```
 
 ## Sections
@@ -245,7 +250,7 @@ print(my_doc, target = "assets/docx/section.docx") %>% invisible()
 ```
 
 ```{r echo=FALSE}
-office_web_viewer( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx" ) )
 ```
 
 In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.
