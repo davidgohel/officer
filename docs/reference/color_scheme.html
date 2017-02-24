@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add table of content — body_add_toc • officer package</title>
+<title>color scheme — color_scheme • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,35 +77,25 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add table of content</h1>
+    <h1>color scheme</h1>
     </div>
 
     
-    <p>add a table of content into a docx object</p>
+    <p>get master layout color scheme into a data.frame.</p>
     
 
-    <pre><span class='fu'>body_add_toc</span>(<span class='no'>x</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>";"</span>)</pre>
+    <pre><span class='fu'>color_scheme</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>a docx object</dd>
-      <dt>level</dt>
-      <dd>max title level of the table</dd>
-      <dt>pos</dt>
-      <dd>where to add the new element relative to the cursor,
-one of &quot;after&quot;, &quot;before&quot;, &quot;on&quot;.</dd>
-      <dt>style</dt>
-      <dd>optional. style in the document that will be used to build entries of the TOC.</dd>
-      <dt>separator</dt>
-      <dd>optional. Some configurations need &quot;,&quot; (i.e. from Canada) separator instead of &quot;;&quot;</dd>
+      <dd>pptx object</dd>
     </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>body_add_toc</span>()
-<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"body_add_toc.docx"</span> )</div><div class='output co'>#&gt; [1] &quot;/Users/davidgohel/Github/officer/docs/reference/body_add_toc.docx&quot;</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='fu'>color_scheme</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span> )</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): objet &#39;self&#39; introuvable</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
