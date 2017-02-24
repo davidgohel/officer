@@ -74,7 +74,29 @@
 <h2 class="hasAnchor">
 <html><body><a href="#introduction" class="anchor"> </a></body></html>Introduction</h2>
 <p>Use the function <code>read_docx</code> to create an r object representing a Word document. Initial Word file can be specified with argument <code>path</code>. If none is provided, this file will be an empty document located in the package directory. Formats and styles will be those available in the initial file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() 
+
+<span class="co"># display styles</span>
+<span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>(my_doc)</code></pre></div>
+<pre><code>## # A tibble: 15 × 5
+##    style_type            style_id             style_name is_custom
+##         &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;     &lt;lgl&gt;
+## 1   paragraph              Normal                 Normal     FALSE
+## 2   paragraph              Titre1              heading 1     FALSE
+## 3   paragraph              Titre2              heading 2     FALSE
+## 4   paragraph              Titre3              heading 3     FALSE
+## 5   character      Policepardfaut Default Paragraph Font     FALSE
+## 6       table       TableauNormal           Normal Table     FALSE
+## 7   numbering         Aucuneliste                No List     FALSE
+## 8   character              strong                 strong      TRUE
+## 9   paragraph            centered               centered      TRUE
+## 10      table              Grille             Table Grid     FALSE
+## 11      table       tabletemplate         table_template      TRUE
+## 12      table Listeclaire-Accent2    Light List Accent 2     FALSE
+## 13  character           Titre1Car            Titre 1 Car      TRUE
+## 14  character           Titre2Car            Titre 2 Car      TRUE
+## 15  character           Titre3Car            Titre 3 Car      TRUE
+## # ... with 1 more variables: is_default &lt;lgl&gt;</code></pre>
 <div id="add-elements-to-document" class="section level3">
 <h3 class="hasAnchor">
 <html><body><a href="#add-elements-to-document" class="anchor"> </a></body></html>Add elements to document</h3>

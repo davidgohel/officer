@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add table of content — body_add_toc • officer package</title>
+<title>read Word styles — styles_info • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,35 +77,43 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add table of content</h1>
+    <h1>read Word styles</h1>
     </div>
 
     
-    <p>add a table of content into a docx object</p>
+    <p>read Word styles and get results in
+a tidy data.frame.</p>
     
 
-    <pre><span class='fu'>body_add_toc</span>(<span class='no'>x</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>";"</span>)</pre>
+    <pre><span class='fu'>styles_info</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>a docx object</dd>
-      <dt>level</dt>
-      <dd>max title level of the table</dd>
-      <dt>pos</dt>
-      <dd>where to add the new element relative to the cursor,
-one of &quot;after&quot;, &quot;before&quot;, &quot;on&quot;.</dd>
-      <dt>style</dt>
-      <dd>optional. style in the document that will be used to build entries of the TOC.</dd>
-      <dt>separator</dt>
-      <dd>optional. Some configurations need &quot;,&quot; (i.e. from Canada) separator instead of &quot;;&quot;</dd>
     </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>body_add_toc</span>()
-<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"body_add_toc.docx"</span> )</div><div class='output co'>#&gt; [1] &quot;/Users/davidgohel/Github/officer/docs/reference/body_add_toc.docx&quot;</div></pre>
+<span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>styles_info</span>()</div><div class='output co'>#&gt; # A tibble: 15 × 5
+#&gt;    style_type            style_id             style_name is_custom is_default
+#&gt;         &lt;chr&gt;               &lt;chr&gt;                  &lt;chr&gt;     &lt;lgl&gt;      &lt;lgl&gt;
+#&gt; 1   paragraph              Normal                 Normal     FALSE       TRUE
+#&gt; 2   paragraph              Titre1              heading 1     FALSE      FALSE
+#&gt; 3   paragraph              Titre2              heading 2     FALSE      FALSE
+#&gt; 4   paragraph              Titre3              heading 3     FALSE      FALSE
+#&gt; 5   character      Policepardfaut Default Paragraph Font     FALSE       TRUE
+#&gt; 6       table       TableauNormal           Normal Table     FALSE       TRUE
+#&gt; 7   numbering         Aucuneliste                No List     FALSE       TRUE
+#&gt; 8   character              strong                 strong      TRUE      FALSE
+#&gt; 9   paragraph            centered               centered      TRUE      FALSE
+#&gt; 10      table              Grille             Table Grid     FALSE      FALSE
+#&gt; 11      table       tabletemplate         table_template      TRUE      FALSE
+#&gt; 12      table Listeclaire-Accent2    Light List Accent 2     FALSE      FALSE
+#&gt; 13  character           Titre1Car            Titre 1 Car      TRUE      FALSE
+#&gt; 14  character           Titre2Car            Titre 2 Car      TRUE      FALSE
+#&gt; 15  character           Titre3Car            Titre 3 Car      TRUE      FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

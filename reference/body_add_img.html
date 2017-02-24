@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add an image — body_add_img • officer package</title>
+<title>add image — body_add_img • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add an image</h1>
+    <h1>add image</h1>
     </div>
 
     
@@ -114,14 +114,12 @@ one of &quot;after&quot;, &quot;before&quot;, &quot;on&quot;.</dd>
 <span class='kw'>if</span>( <span class='fu'>require</span>(<span class='st'>"ionicons"</span>) ){
   <span class='no'>calendar_src</span> <span class='kw'>=</span> <span class='fu'>as_png</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"calendar"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"#FFE64D"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>144</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>144</span>)
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add_img</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>calendar_src</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>2</span> )
-}
-<span class='kw'>if</span>( <span class='fu'>require</span>(<span class='st'>"devEMF"</span>) ){
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ionicons</span></div><div class='input'><span class='kw'>if</span>( <span class='fu'>require</span>(<span class='st'>"devEMF"</span>) ){
   <span class='fu'>emf</span>(<span class='st'>"bar.emf"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>)
   <span class='fu'>barplot</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)
   <span class='fu'>dev.off</span>()
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add_img</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>src</span> <span class='kw'>=</span> <span class='st'>"bar.emf"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-}
-
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: devEMF</span></div><div class='input'>
 <span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"body_add_img.docx"</span> )</div><div class='output co'>#&gt; [1] &quot;/Users/davidgohel/Github/officer/docs/reference/body_add_img.docx&quot;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
