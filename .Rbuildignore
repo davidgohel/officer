@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^template\.docx$
 ^\.travis\.yml$
+^appveyor\.yml$
 ^README\.Rmd$
 _pkgdown\.yml
 ^docs$
