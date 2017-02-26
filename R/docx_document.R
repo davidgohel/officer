@@ -59,7 +59,7 @@ docx_document <- R6Class(
     },
 
     cursor_reach = function( keyword ){
-      xpath_ <- sprintf("/w:document/w:body/*[contains(./w:r/w:t/text(),'%s')]", keyword)
+      xpath_ <- sprintf("/w:document/w:body/*[contains(.//*/w:t/text(),'%s')]", keyword)
       cursor <- xml_find_first(self$get(), xpath_) %>% xml_path()
       if( inherits(cursor, "xml_missing") )
         stop(keyword, " has not been found in the document", call. = FALSE)
