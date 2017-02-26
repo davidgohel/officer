@@ -264,3 +264,64 @@ print(my_pres, target = "assets/pptx/ph_add_text_2.pptx") %>%
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_2.pptx" ) )
 ```
 
+## Links
+
+### External links
+
+`ph_hyperlink` add an hyperlink to an existing placeholder in the current slide. Argument `href` should contain a valid URL (i.e. starting with `http(s)`).
+
+```{r}
+doc <- read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_text(type = "body", str = "Blah blah blah") %>% 
+  ph_hyperlink(type = "body", href = "https://cran.r-project.org") %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_text(type = "body", str = "placeholder target")
+
+print(doc, target = "assets/pptx/ph_hyperlink.pptx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_hyperlink.pptx" ) )
+```
+
+
+### Internal links
+
+`ph_slidelink` add an internal link into an existing placeholder. Argument `slide_index` should contain the index of the target slide.
+
+```{r}
+doc <- read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_text(type = "body", str = "Blah blah blah") %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_text(type = "body", str = "placeholder target") %>% 
+  on_slide(index = 1 ) %>% 
+  ph_slidelink(type = "body", slide_index = 2)
+
+print(doc, target = "assets/pptx/ph_slidelink.pptx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_slidelink.pptx" ) )
+```
+
+### Add text with external link
+
+Function `ph_add_text` has an optional argument `href`, if used, the chunk of text will be an hyperlink.
+
+```{r}
+my_pres <- read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_text(type = "body", str = "An ") %>% 
+  ph_add_text(str = "hyperlink", href = "https://cran.r-project.org" )
+
+print(my_pres, target = "assets/pptx/ph_add_text_3.pptx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_3.pptx" ) )
+```

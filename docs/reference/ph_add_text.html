@@ -85,7 +85,7 @@
     
 
     <pre><span class='fu'>ph_add_text</span>(<span class='no'>x</span>, <span class='no'>str</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>font.size</span>
-  <span class='kw'>=</span> <span class='fl'>0</span>), <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>)</pre>
+  <span class='kw'>=</span> <span class='fl'>0</span>), <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>, <span class='kw'>href</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -104,6 +104,8 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
       <dt>pos</dt>
       <dd>where to add the new element relative to the cursor,
 &quot;after&quot; or &quot;before&quot;.</dd>
+      <dt>href</dt>
+      <dd>hyperlink</dd>
     </dl>
     
 
@@ -122,7 +124,7 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
   <span class='fu'><a href='ph_add_par.html'>ph_add_par</a></span>(<span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>ph_add_text</span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Level 2"</span>)
 
-<span class='fu'>print</span>(<span class='no'>my_pres</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] &quot;/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/RtmpQP57m4/file35fe3a327561.pptx&quot;</div></pre>
+<span class='fu'>print</span>(<span class='no'>my_pres</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] &quot;/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/Rtmp7sjSrH/file2894636d514a.pptx&quot;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
