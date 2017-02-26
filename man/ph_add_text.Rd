@@ -5,7 +5,7 @@
 \title{append text}
 \usage{
 ph_add_text(x, str, type = NULL, id_chr = NULL, style = fp_text(font.size
-  = 0), pos = "after")
+  = 0), pos = "after", href = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -22,6 +22,8 @@ Values can be read from \code{\link{slide_summary}}.}
 
 \item{pos}{where to add the new element relative to the cursor,
 "after" or "before".}
+
+\item{href}{hyperlink}
 }
 \description{
 append text into a paragraph of a pptx object

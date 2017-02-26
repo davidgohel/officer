@@ -9,6 +9,7 @@ relationship <- R6Class(
       private$id <- id
       private$type <- type
       private$target <- target
+      private$target_mode <- as.character( rep(NA, length(target)) )
       private$ext_src <- character(length(id))
     },
     feed_from_xml = function(path) {
@@ -18,11 +19,20 @@ relationship <- R6Class(
       private$id <- c( private$id, sapply( children, xml_attr, attr = "Id", ns) )
       private$type <- c( private$type, sapply( children, xml_attr, attr = "Type", ns) )
       private$target <- c( private$target, sapply( children, xml_attr, attr = "Target", ns) )
+      private$target_mode <- c( private$target_mode, sapply( children, xml_attr, attr = "TargetMode", ns) )
       private$ext_src <- c( private$ext_src, character(length(children)) )
       self
     },
     write = function(path) {
-      str <- paste0("<Relationship Id=\"", private$id, "\" Type=\"", private$type, "\" Target=\"", private$target, "\"/>", collapse = "")
+
+      str <- paste0("<Relationship Id=\"", private$id,
+                    "\" Type=\"", private$type,
+                    "\" Target=\"", private$target,
+                    ifelse(
+                          is.na(private$target_mode),
+                          "",
+                          "\" TargetMode=\"External" ),
+                    "\"/>", collapse = "")
       str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
              "\n<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">", str, "</Relationships>")
       cat(str, file = path)
@@ -36,6 +46,7 @@ relationship <- R6Class(
                          int_id = as.integer(gsub("rId([0-9]+)", "\\1", private$id)),
                          type = private$type,
                          target = private$target,
+                         target_mode = private$target_mode,
                          ext_src = private$ext_src,
                          stringsAsFactors = FALSE )
       arrange_(data, .dots = "id")
@@ -53,14 +64,16 @@ relationship <- R6Class(
       private$id <- c( private$id, id )
       private$type <- c( private$type, type )
       private$target <- c( private$target, target )
+      private$target_mode <- c( private$target_mode, NA )
       private$ext_src <- c( private$ext_src, src )
 
       self
     },
-    add = function(id, type, target ) {
+    add = function(id, type, target, target_mode = NA ) {
       private$id <- c( private$id, id )
       private$type <- c( private$type, type )
       private$target <- c( private$target, target )
+      private$target_mode <- c( private$target_mode, target_mode )
       private$ext_src <- c( private$ext_src, "" )
       self
     },
@@ -69,6 +82,7 @@ relationship <- R6Class(
       private$id <- private$id[-id]
       private$type <- private$type[-id]
       private$target <- private$target[-id]
+      private$target_mode <- private$target_mode[-id]
       private$ext_src <- private$ext_src[-id]
       self
     },
@@ -80,6 +94,7 @@ relationship <- R6Class(
     id = NA,
     type = NA,
     target = NA,
+    target_mode = NA,
     ext_src = NA,
     get_int_id = function(){
       as.integer(gsub("rId([0-9]+)", "\\1", private$id))

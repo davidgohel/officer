@@ -60,6 +60,92 @@ ph_remove <- function( x, type = NULL, id_chr = NULL ){
 }
 
 
+
+#' @export
+#' @title add slide link
+#' @description add slide link to a shape
+#' @inheritParams ph_remove
+#' @param slide_index slide index to reach
+#' @examples
+#' fileout <- tempfile(fileext = ".pptx")
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
+#' doc <- on_slide(doc, 1)
+#' slide_summary(doc) # read column id here
+#' doc <- ph_slidelink(x = doc, id_chr = "2", slide_index = 2)
+#' print(doc, target = fileout )
+#' @importFrom xml2 xml_remove xml_find_all
+ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
+
+  slide <- x$slide$get_slide(x$cursor)
+  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+  node <- xml_find_all(slide$get(), str)[[shape_id]]
+
+  # declare slide ref in relationships
+  slide_name <- x$slide$names()[slide_index]
+  slide$reference_slide(slide_name)
+  rel_df <- slide$rel_df()
+  id <- rel_df[rel_df$target == slide_name, "id" ]
+
+  # add hlinkClick
+  cnvpr <- xml_child(node, "p:nvSpPr/p:cNvPr")
+  str_ <- "<a:hlinkClick xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"%s\" action=\"ppaction://hlinksldjump\"/>"
+  str_ <- sprintf(str_, id)
+  xml_add_child(cnvpr, as_xml_document(str_) )
+
+  slide$save()
+  x$slide$update()
+  x
+}
+
+
+#' @export
+#' @title add slide link
+#' @description add slide link to a shape
+#' @inheritParams ph_remove
+#' @param href hyperlink (do not forget prefix http or https)
+#' @examples
+#' fileout <- tempfile(fileext = ".pptx")
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
+#' doc <- on_slide(doc, 1)
+#' slide_summary(doc) # read column id here
+#' doc <- ph_hyperlink(x = doc, id_chr = "2",
+#'   href = "https://cran.r-project.org")
+#' print(doc, target = fileout )
+#' @importFrom xml2 xml_remove xml_find_all
+ph_hyperlink <- function( x, type = NULL, id_chr = NULL, href ){
+
+  slide <- x$slide$get_slide(x$cursor)
+  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+  node <- xml_find_all(slide$get(), str)[[shape_id]]
+
+  # declare link in relationships
+  slide$reference_hyperlink(href)
+  rel_df <- slide$rel_df()
+  id <- rel_df[rel_df$target == href, "id" ]
+
+  # add hlinkClick
+  cnvpr <- xml_child(node, "p:nvSpPr/p:cNvPr")
+  str_ <- "<a:hlinkClick xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"%s\"/>"
+  str_ <- sprintf(str_, id)
+  xml_add_child(cnvpr, as_xml_document(str_) )
+
+  slide$save()
+  x$slide$update()
+  x
+}
+
+
+
 #' @export
 #' @title add text into a new shape
 #' @description add text into a new shape in a slide
@@ -141,6 +227,7 @@ ph_empty <- function( x, type = "title", index = 1 ){
 #' @param style text style, a \code{\link{fp_text}} object
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
+#' @param href hyperlink
 #' @examples
 #' library(magrittr)
 #' fileout <- tempfile(fileext = ".pptx")
@@ -159,11 +246,10 @@ ph_empty <- function( x, type = "title", index = 1 ){
 #' print(my_pres, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
 ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
-  style = fp_text(font.size = 0), pos = "after" ){
+  style = fp_text(font.size = 0), pos = "after", href = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
-
   nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
 
   current_p <- xml_child(nodes[[shape_id]], "/a:p[last()]")
@@ -175,7 +261,21 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
     where_ <- length(xml_children(current_p))
   else where_ <- 0
 
-  xml_add_child(current_p, as_xml_document(r_shape_), .where = where_ )
+  new_node <- as_xml_document(r_shape_)
+
+  if( !is.null(href)){
+    slide$reference_hyperlink(href)
+    rel_df <- slide$rel_df()
+    id <- rel_df[rel_df$target == href, "id" ]
+
+    apr <- xml_child(new_node, "a:rPr")
+    str_ <- "<a:hlinkClick xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"%s\"/>"
+    str_ <- sprintf(str_, id)
+    xml_add_child(apr, as_xml_document(str_) )
+  }
+
+
+  xml_add_child(current_p, new_node, .where = where_ )
 
   slide$save()
   x$slide$update()

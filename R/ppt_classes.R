@@ -348,6 +348,34 @@ slide <- R6Class(
       self
     },
 
+    reference_slide = function(slide_file){
+
+      rel_dat <- private$rels_doc$get_data()
+
+      if( !slide_file %in% rel_dat$target ){
+        next_id <- private$rels_doc$get_next_id()
+        private$rels_doc$add(id = sprintf("rId%.0f", next_id),
+                             type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide",
+                             target = slide_file )
+      }
+      # <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slide3.xml"/>
+      self
+    },
+
+    reference_hyperlink = function(href){
+
+      rel_dat <- private$rels_doc$get_data()
+
+      if( !href %in% rel_dat$target ){
+        next_id <- private$rels_doc$get_next_id()
+        private$rels_doc$add(id = sprintf("rId%.0f", next_id),
+                             type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+                             target = href, target_mode = "External" )
+      }
+      # <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slide3.xml"/>
+      self
+    },
+
     get_xfrm = function(type = NULL, index = 1){
 
       out <- private$element_data
