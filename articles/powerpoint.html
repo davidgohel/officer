@@ -275,6 +275,63 @@ my_pres &lt;-<span class="st"> </span>my_pres %&gt;%<span class="st"> </span>
 </p>
 </div>
 </div>
+<div id="links" class="section level2">
+<h2 class="hasAnchor">
+<html><body><a href="#links" class="anchor"> </a></body></html>Links</h2>
+<div id="external-links" class="section level3">
+<h3 class="hasAnchor">
+<html><body><a href="#external-links" class="anchor"> </a></body></html>External links</h3>
+<p><code>ph_hyperlink</code> add an hyperlink to an existing placeholder in the current slide. Argument <code>href</code> should contain a valid URL (i.e. starting with <code>http(s)</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_hyperlink.html">ph_hyperlink</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"placeholder target"</span>)
+
+<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_hyperlink.pptx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<p>
+<span>Download file: </span>
+<a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_hyperlink.pptx">ph_hyperlink.pptx</a>
+</p>
+</div>
+<div id="internal-links" class="section level3">
+<h3 class="hasAnchor">
+<html><body><a href="#internal-links" class="anchor"> </a></body></html>Internal links</h3>
+<p><code>ph_slidelink</code> add an internal link into an existing placeholder. Argument <code>slide_index</code> should contain the index of the target slide.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"placeholder target"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span> ) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_slidelink.html">ph_slidelink</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">slide_index =</span> <span class="dv">2</span>)
+
+<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_slidelink.pptx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<p>
+<span>Download file: </span>
+<a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_slidelink.pptx">ph_slidelink.pptx</a>
+</p>
+</div>
+<div id="add-text-with-external-link" class="section level3">
+<h3 class="hasAnchor">
+<html><body><a href="#add-text-with-external-link" class="anchor"> </a></body></html>Add text with external link</h3>
+<p>Function <code>ph_add_text</code> has an optional argument <code>href</code>, if used, the chunk of text will be an hyperlink.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"An "</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"hyperlink"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span> )
+
+<span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_3.pptx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<p>
+<span>Download file: </span>
+<a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_3.pptx">ph_add_text_3.pptx</a>
+</p>
+</div>
+</div>
 </div>
   </div>
 
@@ -287,6 +344,7 @@ my_pres &lt;-<span class="st"> </span>my_pres %&gt;%<span class="st"> </span>
       <li><a href="#add-content-into-a-placeholder">Add content into a placeholder</a></li>
       <li><a href="#remove-content-from-a-slide">Remove content from a slide</a></li>
       <li><a href="#append-text-sequentially-in-a-shape">Append text sequentially in a shape</a></li>
+      <li><a href="#links">Links</a></li>
       </ul>
 </div>
       </div>
