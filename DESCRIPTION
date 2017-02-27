@@ -6,6 +6,8 @@ Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
 Description: Manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
+  The package focus on tabular and graphical reporting from R. A set of functions 
+  let add and remove images, tables and paragraph of text in new or existing documents. 
 License: GPL-3
 LazyData: TRUE
 LinkingTo: Rcpp,
@@ -19,6 +21,8 @@ Imports:
     digest,
     magrittr,
     xml2 (>= 1.1.0)
+URL: https://davidgohel.github.io/officer
+BugReports: https://github.com/davidgohel/officer/issues
 RoxygenNote: 6.0.1
 Suggests: testthat, ionicons, devEMF,
     knitr,htmltools,
