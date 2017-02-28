@@ -14,13 +14,6 @@ test_that("body_add_break", {
   expect_is( xml_child(node, "/w:r/w:br"), "xml_node" )
 })
 
-test_that("body_add_table", {
-  x <- read_docx()
-  x <- body_add_table(x, value = iris, style = "table_template")
-  node <- x$doc_obj$get_at_cursor()
-  expect_equal( xml_name(node), "tbl" )
-})
-
 test_that("body_add_section", {
 
   x <- read_docx() %>%
@@ -80,6 +73,17 @@ test_that("image add ", {
   getncheck(node, "w:r/w:drawing")
 })
 
+test_that("fpar add ", {
+  bold_face <- shortcuts$fp_bold(font.size = 20)
+  bold_redface <- update(bold_face, color = "red")
+  fpar_ <- fpar(ftext("This is a big ", prop = bold_face),
+                ftext("text", prop = bold_redface ) ) %>%
+    update(fp_p = fp_par(text.align = "center"))
+  x <- read_docx() %>% body_add_fpar(fpar_)
+
+  node <- x$doc_obj$get_at_cursor()
+  expect_equal(xml_text(node), "This is a big text" )
+})
 
 
 unlink("*.docx")
