@@ -13,6 +13,7 @@ reference:
     - body_add_img
     - body_add_par
     - body_add_table
+    - body_add_fpar
     - body_add_toc
     - body_add_break
     - body_end_section
@@ -32,6 +33,7 @@ reference:
     - slide_summary
     - ph_remove
     - ph_with_img
+    - ph_with_table
     - ph_with_text
     - ph_empty
     - ph_add_text

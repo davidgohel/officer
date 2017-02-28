@@ -6,4 +6,4 @@
 ^README\.Rmd$
 _pkgdown\.yml
 ^docs$
-^todo\.Rmd$
+^inst/tools$
