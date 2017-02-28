@@ -68,7 +68,7 @@ And a table.
 
 ```{r}
 my_doc <- my_doc %>% 
-  body_add_table(iris, style = "table_template", width = 3)
+  body_add_table(iris, style = "table_template")
 ```
 
 ### Write the Word file

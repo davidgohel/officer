@@ -188,6 +188,24 @@ print(doc, target = "assets/pptx/ph_with_img.pptx") %>%
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_img.pptx" ) )
 ```
 
+### Add table
+
+Use function `ph_with_table` to add a table into a placeholder.
+
+```{r}
+doc <- read_pptx() 
+doc <- doc %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") %>%
+  ph_with_table(type = "body", value = head(mtcars) )
+
+print(doc, target = "assets/pptx/ph_with_table.pptx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_table.pptx" ) )
+```
+
 ## Remove content from a slide
 
 Use `slide_summary` to easily identify shapes in the slide that can be removed.
@@ -196,11 +214,11 @@ Use `slide_summary` to easily identify shapes in the slide that can be removed.
 slide_summary(doc)
 ```
 
-In the following example, shape corresponding to `type "body"` and `id "3"` 
+In the following example, shape corresponding to `type "body"`  
 will be removed from the current slide:
 
 ```{r}
-doc <- ph_remove(x = doc, type = "body", id_chr = "3")
+doc <- ph_remove(x = doc, type = "body")
 ```
 
 ## Append text sequentially in a shape
