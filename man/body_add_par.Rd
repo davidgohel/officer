@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_par}
 \alias{body_add_par}
-\title{add paragraph}
+\title{add paragraph of text}
 \usage{
 body_add_par(x, value, style, pos = "after")
 }
@@ -17,7 +17,7 @@ body_add_par(x, value, style, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add a paragraph into a docx object
+add a paragraph of text into a docx object
 }
 \examples{
 library(magrittr)

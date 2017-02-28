@@ -1,8 +1,9 @@
 #' @importFrom lazyeval f_list
 #' @export
 #' @title concatenate formatted text
-#' @description create a paragraph representation by concatenating
-#' formatted text or images.
+#' @description Create a paragraph representation by concatenating
+#' formatted text or images. Modify default text and paragraph
+#' formatting properties with update.
 #' @details
 #' \code{fortify_fpar}, \code{as.data.frame} are used internally and
 #' are not supposed to be used by end user.

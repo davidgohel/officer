@@ -152,4 +152,30 @@ read_theme_colors <- function(doc, theme){
 }
 
 
+get_shape_id <- function(x, type = NULL, id_chr = NULL ){
+  shape_index_data <- slide_summary(x)
+  shape_index_data$shape_id <- seq_len(nrow(shape_index_data))
+
+  if( !is.null(type) && !is.null(id_chr) ){
+    filter_criteria <- interp(~ type == tp & id == index, tp = type, index = id_chr)
+    shape_index_data <- filter_(shape_index_data, filter_criteria)
+  } else if( is.null(type) && !is.null(id_chr) ){
+    filter_criteria <- interp(~ id == index, index = id_chr)
+    shape_index_data <- filter_(shape_index_data, filter_criteria)
+  } else if( !is.null(type) && is.null(id_chr) ){
+    filter_criteria <- interp(~ type == tp, tp = type)
+    shape_index_data <- filter_(shape_index_data, filter_criteria)
+  } else {
+    filter_criteria <- interp(~ type == tp, tp = type)
+    shape_index_data <- shape_index_data[nrow(shape_index_data), ]
+  }
+
+  if( nrow(shape_index_data) < 1 )
+    stop("selection does not match any row in slide_summary. Use function slide_summary.", call. = FALSE)
+  else if( nrow(shape_index_data) > 1 )
+    stop("selection does match more than a single row in slide_summary. Use function slide_summary.", call. = FALSE)
+
+  shape_index_data$shape_id
+}
+
 

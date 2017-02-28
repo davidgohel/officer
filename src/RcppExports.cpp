@@ -5,6 +5,42 @@
 
 using namespace Rcpp;
 
+// pml_table
+String pml_table(DataFrame x, std::string style_id, int col_width, int row_height, int first_row, int last_row, int first_column, int last_column);
+RcppExport SEXP officer_pml_table(SEXP xSEXP, SEXP style_idSEXP, SEXP col_widthSEXP, SEXP row_heightSEXP, SEXP first_rowSEXP, SEXP last_rowSEXP, SEXP first_columnSEXP, SEXP last_columnSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type style_id(style_idSEXP);
+    Rcpp::traits::input_parameter< int >::type col_width(col_widthSEXP);
+    Rcpp::traits::input_parameter< int >::type row_height(row_heightSEXP);
+    Rcpp::traits::input_parameter< int >::type first_row(first_rowSEXP);
+    Rcpp::traits::input_parameter< int >::type last_row(last_rowSEXP);
+    Rcpp::traits::input_parameter< int >::type first_column(first_columnSEXP);
+    Rcpp::traits::input_parameter< int >::type last_column(last_columnSEXP);
+    rcpp_result_gen = Rcpp::wrap(pml_table(x, style_id, col_width, row_height, first_row, last_row, first_column, last_column));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wml_table
+String wml_table(DataFrame x, std::string style_id, int first_row, int last_row, int first_column, int last_column, int no_hband, int no_vband);
+RcppExport SEXP officer_wml_table(SEXP xSEXP, SEXP style_idSEXP, SEXP first_rowSEXP, SEXP last_rowSEXP, SEXP first_columnSEXP, SEXP last_columnSEXP, SEXP no_hbandSEXP, SEXP no_vbandSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type style_id(style_idSEXP);
+    Rcpp::traits::input_parameter< int >::type first_row(first_rowSEXP);
+    Rcpp::traits::input_parameter< int >::type last_row(last_rowSEXP);
+    Rcpp::traits::input_parameter< int >::type first_column(first_columnSEXP);
+    Rcpp::traits::input_parameter< int >::type last_column(last_columnSEXP);
+    Rcpp::traits::input_parameter< int >::type no_hband(no_hbandSEXP);
+    Rcpp::traits::input_parameter< int >::type no_vband(no_vbandSEXP);
+    rcpp_result_gen = Rcpp::wrap(wml_table(x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband));
+    return rcpp_result_gen;
+END_RCPP
+}
 // w_ppr
 std::string w_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
 RcppExport SEXP officer_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {

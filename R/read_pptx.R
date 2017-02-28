@@ -21,6 +21,9 @@ read_pptx <- function( path = NULL ){
   obj <- structure(list(package_dir = package_dir),
                    .Names = c("package_dir"),
                    class = "pptx")
+
+  obj$table_styles <- read_table_style(package_dir)
+
   obj$presentation <- presentation$new(obj)
   obj$slideLayouts <- dir_layout$new(obj )
 
@@ -33,7 +36,14 @@ read_pptx <- function( path = NULL ){
   obj
 }
 
-
+read_table_style <- function(path){
+  file <- file.path(path, "ppt/tableStyles.xml")
+  doc <- read_xml(file)
+  nodes <- xml_find_all(doc, "//a:tblStyleLst")
+  data.frame(def = nodes %>% xml_attr("def"),
+             styleName = nodes %>% xml_attr("styleName"),
+             stringsAsFactors = FALSE )
+}
 
 #' @export
 #' @param target path to the pptx file to write

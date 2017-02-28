@@ -47,8 +47,8 @@ body_add_img <- function( x, src, style = "Normal", width, height, pos = "after"
 }
 
 #' @export
-#' @title add paragraph
-#' @description add a paragraph into a docx object
+#' @title add paragraph of text
+#' @description add a paragraph of text into a docx object
 #' @param x a docx device
 #' @param value a character
 #' @param style paragraph style
@@ -73,11 +73,30 @@ body_add_par <- function( x, value, style, pos = "after" ){
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
-as_tc <- function(x, collapse = FALSE ){
-  str <- paste0("<w:tc><w:trPr/><w:p><w:r><w:t>", gsub("(^[ ]|[ ]$)", "", format(x)), "</w:t></w:r></w:p></w:tc>")
-  if( collapse )
-    str <- paste(str, collapse = "")
-  str
+#' @export
+#' @title add fpar
+#' @description add an \code{fpar} (a formatted paragraph) into a docx object
+#' @param x a docx device
+#' @param value a character
+#' @param pos where to add the new element relative to the cursor,
+#' one of "after", "before", "on".
+#' @examples
+#' library(magrittr)
+#' bold_face <- shortcuts$fp_bold(font.size = 30)
+#' bold_redface <- update(bold_face, color = "red")
+#' fpar_ <- fpar(ftext("Hello ", prop = bold_face),
+#'               ftext("World", prop = bold_redface ),
+#'               ftext(", how are you?", prop = bold_face ) )
+#' doc <- read_docx() %>% body_add_fpar(fpar_)
+#' print(doc, target = "body_add_fpar.docx" )
+#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
+#' @seealso \code{\link{fpar}}
+body_add_fpar <- function( x, value, pos = "after" ){
+
+  xml_elt <- format(value, type = "wml")
+  xml_elt <- gsub("<w:p>", wml_with_ns("w:p"), xml_elt )
+
+  body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
 #' @export
@@ -88,7 +107,6 @@ as_tc <- function(x, collapse = FALSE ){
 #' @param style table style
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
-#' @param width table width for column width calculation
 #' @param first_row,last_row,first_column,last_column,no_hband,no_vband logical for Word table options
 #' @examples
 #' library(magrittr)
@@ -97,37 +115,17 @@ as_tc <- function(x, collapse = FALSE ){
 #'   body_add_table(iris, style = "table_template")
 #' print(doc, target = "body_add_table.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-body_add_table <- function( x, value, style, pos = "after", width = 5,
+body_add_table <- function( x, value, style, pos = "after",
                             first_row = TRUE, first_column = FALSE,
-                            last_row = TRUE, last_column = FALSE,
+                            last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "table")
 
-  tbl_look <- "<w:tblLook w:firstRow=\"%.0f\" w:lastRow=\"%.0f\" w:firstColumn=\"%.0f\" w:lastColumn=\"%.0f\" w:noHBand=\"%.0f\" w:noVBand=\"%.0f\" />"
-  tbl_look <- sprintf(tbl_look, first_row, last_row, first_column, last_column, no_hband, no_vband)
-
-  dat <- lapply(value, as_tc)
-  dat <- do.call(cbind, dat)
-  dat <- apply( dat, 1, function(x){
-    paste0("<w:tr>", paste(x, collapse = ""), "</w:tr>")
-  })
-  dat <- paste(dat, collapse = "")
-  dat <- paste( paste0("<w:tr><w:trPr><w:tblHeader/></w:trPr>",
-                       as_tc(names(value), collapse = TRUE), "</w:tr>"),
-                dat )
-
-  width <- width * 72 * 20
-  grid_col <- sprintf("<w:gridCol w:w=\"%.0f\"/>", width / ncol(value) )
-  grid_col <- rep(grid_col, ncol(value))
-  grid_col <- paste(grid_col, collapse = "")
-  grid_col <- paste0("<w:tblGrid>", grid_col, "</w:tblGrid>")
-
-  tbpr <- "<w:tblPr><w:tblStyle w:val=\"%s\"/><w:tblW/>%s</w:tblPr>"
-  tbpr <- sprintf(tbpr, style_id, tbl_look)
-
-  xml_elt <- paste0( wml_with_ns("w:tbl"),
-          tbpr, grid_col, dat, "</w:tbl>")
+  xml_elt <- wml_table(value, style_id,
+            first_row, last_row,
+            first_column, last_column,
+            no_hband, no_vband)
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -191,14 +189,14 @@ body_add_break <- function( x, pos = "after"){
 }
 
 #' @export
-#' @title add a wml string into a Word document
-#' @importFrom xml2 as_xml_document xml_replace
-#' @description The function add a wml string into
-#' the document after, before or on a cursor location.
+#' @title add an xml string as document element
+#' @description Add an xml string as document element in the document. This function
+#' is to be used to add custom openxml code.
 #' @param x a docx object
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
+#' @importFrom xml2 xml_replace xml_add_sibling
 body_add_xml <- function(x, str, pos){
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before", "on")

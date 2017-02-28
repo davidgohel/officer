@@ -33,8 +33,9 @@ fortify_fpar(x)
 \item{type}{a string value ("pml", "wml" or "html").}
 }
 \description{
-create a paragraph representation by concatenating
-formatted text or images.
+Create a paragraph representation by concatenating
+formatted text or images. Modify default text and paragraph
+formatting properties with update.
 }
 \details{
 \code{fortify_fpar}, \code{as.data.frame} are used internally and

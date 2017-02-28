@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_xml}
 \alias{body_add_xml}
-\title{add a wml string into a Word document}
+\title{add an xml string as document element}
 \usage{
 body_add_xml(x, str, pos)
 }
@@ -15,6 +15,6 @@ body_add_xml(x, str, pos)
 one of "after", "before", "on".}
 }
 \description{
-The function add a wml string into
-the document after, before or on a cursor location.
+Add an xml string as document element in the document. This function
+is to be used to add custom openxml code.
 }
