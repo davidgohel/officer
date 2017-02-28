@@ -6,22 +6,10 @@ cache: packages
 r_github_packages:
   - jimhester/covr
 
-matrix:
-  include:
-    - os: linux
-      r: oldrel
-    - os: linux
-      r: release
-    - os: linux
-      r: devel
-    - os: linux
-      dist: trusty
-      r: devel
-    - os: linux
-      dist: xenial
-      r: devel
-    - os: osx
-      osx_image: beta-xcode6.1
+r:
+ - oldrel
+ - release
+ - devel
 
 after_success:
   - Rscript -e 'library(covr);codecov()'
