@@ -35,13 +35,6 @@ if( require("ionicons") ){
   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
   doc <- ph_with_img(x = doc, type = "dt", src = calendar_src )
 }
-if( require("devEMF") ){
-  emf("bar.emf")
-  barplot(1:10, col = 1:10)
-  dev.off()
-  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_img(x = doc, type = "body", src = "bar.emf" )
-}
 
 print(doc, target = fileout )
 }

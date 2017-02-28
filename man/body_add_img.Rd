@@ -34,12 +34,6 @@ if( require("ionicons") ){
   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
   doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
 }
-if( require("devEMF") ){
-  emf("bar.emf", height = 5, width = 5)
-  barplot(1:10, col = 1:10)
-  dev.off()
-  doc <- body_add_img(x = doc, src = "bar.emf", height = 5, width = 5)
-}
 
 print(doc, target = "body_add_img.docx" )
 }
