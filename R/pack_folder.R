@@ -14,9 +14,14 @@ pack_folder <- function( folder, target ){
   curr_wd <- getwd()
   zip_dir <- folder
   setwd(zip_dir)
-  zip(zipfile = target, flags = "-qr9X",
+  zz <- zip(zipfile = target, flags = "-qr9X",
       files = list.files(all.files = TRUE, recursive = TRUE))
   setwd(curr_wd)
+  if(zz != 0){
+    stop('could not zip document package. A zip application must be available to R.
+         Set its path with Sys.setenv("R_ZIPCMD" = "path/to/zip")', call. = FALSE)
+  }
+
   target
 }
 
