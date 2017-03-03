@@ -2,20 +2,20 @@
 % Please edit documentation in R/read_pptx.R
 \name{read_pptx}
 \alias{read_pptx}
-\alias{print.pptx}
-\alias{length.pptx}
+\alias{print.rpptx}
+\alias{length.rpptx}
 \title{open a connexion to a 'PowerPoint' file}
 \usage{
 read_pptx(path = NULL)
 
-\method{print}{pptx}(x, target = NULL, ...)
+\method{print}{rpptx}(x, target = NULL, ...)
 
-\method{length}{pptx}(x)
+\method{length}{rpptx}(x)
 }
 \arguments{
 \item{path}{path to the pptx file to use a base document.}
 
-\item{x}{a pptx object}
+\item{x}{an rpptx object}
 
 \item{target}{path to the pptx file to write}
 

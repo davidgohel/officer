@@ -7,7 +7,7 @@
 layout_properties(x, layout = NULL, master = NULL)
 }
 \arguments{
-\item{x}{pptx object}
+\item{x}{rpptx object}
 
 \item{layout}{slide layout name to use}
 

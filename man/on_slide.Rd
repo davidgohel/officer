@@ -7,12 +7,12 @@
 on_slide(x, index)
 }
 \arguments{
-\item{x}{pptx object}
+\item{x}{rpptx object}
 
 \item{index}{slide index}
 }
 \description{
-change current slide index of a pptx object.
+change current slide index of an rpptx object.
 }
 \examples{
 doc <- read_pptx()

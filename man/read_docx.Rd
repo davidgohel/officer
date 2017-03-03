@@ -2,20 +2,20 @@
 % Please edit documentation in R/read_docx.R
 \name{read_docx}
 \alias{read_docx}
-\alias{print.docx}
-\alias{length.docx}
+\alias{print.rdocx}
+\alias{length.rdocx}
 \title{open a connexion to a 'Word' file}
 \usage{
 read_docx(path = NULL)
 
-\method{print}{docx}(x, target = NULL, ...)
+\method{print}{rdocx}(x, target = NULL, ...)
 
-\method{length}{docx}(x)
+\method{length}{rdocx}(x)
 }
 \arguments{
 \item{path}{path to the docx file to use a base document.}
 
-\item{x}{a docx object}
+\item{x}{a rdocx object}
 
 \item{target}{path to the docx file to write}
 
@@ -26,10 +26,10 @@ read and import a docx file as an R object
 representing the document.
 }
 \examples{
-# create a docx object with default template ---
+# create a rdocx object with default template ---
 read_docx()
 
-# write a docx object in a docx file ----
+# write a rdocx object in a docx file ----
 if( require(magrittr) ){
   read_docx() \%>\% print(target = "out.docx")
   # full path of produced file is returned

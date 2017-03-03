@@ -7,7 +7,7 @@
 color_scheme(x)
 }
 \arguments{
-\item{x}{pptx object}
+\item{x}{rpptx object}
 }
 \description{
 get master layout color scheme into a data.frame.

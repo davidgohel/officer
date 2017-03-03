@@ -7,7 +7,7 @@
 add_slide(x, layout, master)
 }
 \arguments{
-\item{x}{pptx object}
+\item{x}{rpptx object}
 
 \item{layout}{slide layout name to use}
 

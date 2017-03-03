@@ -3,9 +3,9 @@
 #' @description read and import a docx file as an R object
 #' representing the document.
 #' @param path path to the docx file to use a base document.
-#' @param x a docx object
+#' @param x a rdocx object
 #' @examples
-#' # create a docx object with default template ---
+#' # create a rdocx object with default template ---
 #' read_docx()
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first
@@ -22,7 +22,7 @@ read_docx <- function( path = NULL ){
 
   obj <- structure(list( package_dir = package_dir ),
                    .Names = c("package_dir"),
-                   class = "docx")
+                   class = "rdocx")
 
   obj$content_type <- content_type$new( obj )
   obj$doc_obj <- docx_document$new(package_dir)
@@ -35,7 +35,7 @@ read_docx <- function( path = NULL ){
 #' @param ... unused
 #' @rdname read_docx
 #' @examples
-#' # write a docx object in a docx file ----
+#' # write a rdocx object in a docx file ----
 #' if( require(magrittr) ){
 #'   read_docx() %>% print(target = "out.docx")
 #'   # full path of produced file is returned
@@ -44,10 +44,10 @@ read_docx <- function( path = NULL ){
 #'
 #' @importFrom xml2 xml_attr<- xml_find_all xml_find_all
 #' @importFrom purrr walk2
-print.docx <- function(x, target = NULL, ...){
+print.rdocx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
-    cat("docx document with", length(x), "element(s)\n")
+    cat("rdocx document with", length(x), "element(s)\n")
     cat("Available styles are:\n")
     print(as.data.frame(styles_info(x)))
     return(invisible())
@@ -75,7 +75,7 @@ print.docx <- function(x, target = NULL, ...){
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first
 #' @rdname read_docx
-length.docx <- function( x ){
+length.rdocx <- function( x ){
   xml_find_first(x$doc_obj$get(), "/w:document/w:body") %>% xml_length()
 
 }
@@ -84,7 +84,7 @@ length.docx <- function( x ){
 #' @title read Word styles
 #' @description read Word styles and get results in
 #' a tidy data.frame.
-#' @param x a docx object
+#' @param x a rdocx object
 #' @examples
 #' library(magrittr)
 #' read_docx() %>% styles_info()

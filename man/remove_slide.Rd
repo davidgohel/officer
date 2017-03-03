@@ -7,7 +7,7 @@
 remove_slide(x, index = NULL)
 }
 \arguments{
-\item{x}{pptx object}
+\item{x}{rpptx object}
 
 \item{index}{slide index, default to current slide position.}
 }
