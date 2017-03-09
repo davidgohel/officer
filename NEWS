@@ -4,6 +4,7 @@
 
 * argument `style` of functions `body_add*` and `slip_in*` now will use docx default style if not specified
 * new function body_add_gg to add ggplots to Word documents
+* new function test_zip for diagnostic purpose
 
 ## API changes
 

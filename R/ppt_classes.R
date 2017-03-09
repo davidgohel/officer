@@ -358,7 +358,6 @@ slide <- R6Class(
                              type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide",
                              target = slide_file )
       }
-      # <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slide3.xml"/>
       self
     },
 

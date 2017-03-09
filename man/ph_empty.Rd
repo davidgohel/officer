@@ -23,5 +23,6 @@ doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_empty(x = doc, type = "title")
 
-print(doc, target = fileout )
+if( has_zip() )
+  print(doc, target = fileout )
 }

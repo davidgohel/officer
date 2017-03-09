@@ -30,5 +30,6 @@ gg_plot <- ggplot(data = iris ) +
 
 doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 
-print(doc, target = "body_add_gg.docx" )
+if( has_zip() )
+  print(doc, target = "body_add_gg.docx" )
 }

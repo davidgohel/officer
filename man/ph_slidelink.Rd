@@ -30,5 +30,7 @@ doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
 doc <- on_slide(doc, 1)
 slide_summary(doc) # read column id here
 doc <- ph_slidelink(x = doc, id_chr = "2", slide_index = 2)
-print(doc, target = fileout )
+
+if( has_zip() )
+  print(doc, target = fileout )
 }

@@ -36,5 +36,6 @@ if( require("ionicons") ){
   doc <- ph_with_img(x = doc, type = "dt", src = calendar_src )
 }
 
-print(doc, target = fileout )
+if( has_zip() )
+  print(doc, target = fileout )
 }

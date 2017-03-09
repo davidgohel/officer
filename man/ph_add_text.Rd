@@ -43,5 +43,6 @@ my_pres <- my_pres \%>\%
   ph_add_par(level = 2) \%>\%
   ph_add_text(str = "Level 2")
 
-print(my_pres, target = fileout)
+if( has_zip() )
+  print(my_pres, target = fileout)
 }

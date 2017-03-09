@@ -25,5 +25,7 @@ doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_with_text(x = doc, type = "title", str = "Un titre")
 slide_summary(doc) # read column id here
 doc <- ph_remove(x = doc, type = "title", id_chr = "2")
-print(doc, target = fileout )
+
+if( has_zip() )
+  print(doc, target = fileout )
 }

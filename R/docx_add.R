@@ -7,7 +7,9 @@
 #' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_break()
-#' print(doc, target = "body_add_break.docx" )
+#'
+#' if( has_zip() )
+#'   print(doc, target = "body_add_break.docx" )
 body_add_break <- function( x, pos = "after"){
 
   str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
@@ -37,7 +39,8 @@ body_add_break <- function( x, pos = "after"){
 #'   doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
 #' }
 #'
-#' print(doc, target = "body_add_img.docx" )
+#' if( has_zip() )
+#'   print(doc, target = "body_add_img.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
@@ -80,7 +83,8 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #'
 #' doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 #'
-#' print(doc, target = "body_add_gg.docx" )
+#' if( has_zip() )
+#'   print(doc, target = "body_add_gg.docx" )
 body_add_gg <- function( x, value, width = 6, height = 5, style = NULL ){
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
@@ -106,7 +110,9 @@ body_add_gg <- function( x, value, width = 6, height = 5, style = NULL ){
 #'   body_add_par("A title", style = "heading 1") %>%
 #'   body_add_par("Hello world!", style = "Normal") %>%
 #'   body_add_par("centered text", style = "centered")
-#' print(doc, target = "body_add_par.docx" )
+#'
+#' if( has_zip() )
+#'   print(doc, target = "body_add_par.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
@@ -136,7 +142,9 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #'               ftext("World", prop = bold_redface ),
 #'               ftext(", how are you?", prop = bold_face ) )
 #' doc <- read_docx() %>% body_add_fpar(fpar_)
-#' print(doc, target = "body_add_fpar.docx" )
+#'
+#' if( has_zip() )
+#'   print(doc, target = "body_add_fpar.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @seealso \code{\link{fpar}}
 body_add_fpar <- function( x, value, pos = "after" ){
@@ -161,7 +169,9 @@ body_add_fpar <- function( x, value, pos = "after" ){
 #'
 #' doc <- read_docx() %>%
 #'   body_add_table(iris, style = "table_template")
-#' print(doc, target = "body_add_table.docx" )
+#'
+#' if( has_zip() )
+#'   print(doc, target = "body_add_table.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_table <- function( x, value, style = NULL, pos = "after",
                             first_row = TRUE, first_column = FALSE,
@@ -195,7 +205,9 @@ body_add_table <- function( x, value, style = NULL, pos = "after",
 #' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_toc()
-#' print(doc, target = "body_add_toc.docx" )
+#'
+#' if( has_zip() )
+#'   print(doc, target = "body_add_toc.docx" )
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
@@ -276,12 +288,16 @@ body_add_xml <- function(x, str, pos){
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   body_add_par(value = str2, style = "centered") %>%
 #'   body_add_par(value = str3, style = "Normal")
-#' print(my_doc, target = "init_doc.docx")
 #'
-#' my_doc <- read_docx(path = "init_doc.docx")  %>%
-#'   cursor_reach(keyword = "that text") %>%
-#'   body_remove()
-#' print(my_doc, target = "result_doc.docx")
+#' if( has_zip() ){
+#'   print(my_doc, target = "init_doc.docx")
+#'
+#'   my_doc <- read_docx(path = "init_doc.docx")  %>%
+#'     cursor_reach(keyword = "that text") %>%
+#'     body_remove()
+#'
+#'   print(my_doc, target = "result_doc.docx")
+#' }
 body_remove <- function(x){
   cursor_elt <- x$doc_obj$get_at_cursor()
   xml_remove(cursor_elt)
@@ -326,7 +342,9 @@ body_remove <- function(x){
 #'   body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) %>%
 #'   body_add_par("String 3", style = "heading 1") %>%
 #'   body_add_par(value = str3, style = "Normal")
-#' print(my_doc, target = "body_end_section.docx")
+#'
+#' if( has_zip() )
+#'   print(my_doc, target = "body_end_section.docx")
 #' @importFrom xml2 as_list
 body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05, sep = FALSE){
 

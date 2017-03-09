@@ -60,7 +60,7 @@ Move the cursor backward, it decrements the cursor in the document.
 library(officer)
 library(magrittr)
 
-read_docx() \%>\%
+doc <- read_docx() \%>\%
   body_add_par("paragraph 1", style = "Normal") \%>\%
   body_add_par("paragraph 2", style = "Normal") \%>\%
   body_add_par("paragraph 3", style = "Normal") \%>\%
@@ -85,8 +85,9 @@ read_docx() \%>\%
 
   # move the cursor at the end of the document
   cursor_end() \%>\%
-  body_add_par("The document ends now", style = "Normal") \%>\%
+  body_add_par("The document ends now", style = "Normal")
 
-  print(target = "cursor.docx")
+if( has_zip() )
+  print(doc, target = "cursor.docx")
 
 }

@@ -26,10 +26,14 @@ my_doc <- read_docx()  \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   body_add_par(value = str2, style = "centered") \%>\%
   body_add_par(value = str3, style = "Normal")
-print(my_doc, target = "init_doc.docx")
 
-my_doc <- read_docx(path = "init_doc.docx")  \%>\%
-  cursor_reach(keyword = "that text") \%>\%
-  body_remove()
-print(my_doc, target = "result_doc.docx")
+if( has_zip() ){
+  print(my_doc, target = "init_doc.docx")
+
+  my_doc <- read_docx(path = "init_doc.docx")  \%>\%
+    cursor_reach(keyword = "that text") \%>\%
+    body_remove()
+
+  print(my_doc, target = "result_doc.docx")
+}
 }

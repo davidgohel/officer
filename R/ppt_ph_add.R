@@ -22,7 +22,8 @@
 #'   ph_add_par(level = 2) %>%
 #'   ph_add_text(str = "Level 2")
 #'
-#' print(my_pres, target = fileout)
+#' if( has_zip() )
+#'   print(my_pres, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
 ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
   style = fp_text(font.size = 0), pos = "after", href = NULL ){
@@ -80,8 +81,10 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
 #'   ph_add_text(str = "and another, ", style = default_text ) %>%
 #'   ph_add_par(level = 3) %>%
 #'   ph_add_text(str = "and another!",
-#'     style = update(default_text, color = "blue")) %>%
-#'   print(target = fileout)
+#'     style = update(default_text, color = "blue"))
+#'
+#' if( has_zip() )
+#'   print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
 ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 
@@ -139,7 +142,8 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 #'   ph_empty(type = "body") %>%
 #'   ph_add_fpar(value = fpar_, type = "body", level = 2)
 #'
-#' print(doc, target = "ph_add_fpar.pptx")
+#' if( has_zip() )
+#'   print(doc, target = "ph_add_fpar.pptx")
 #' @importFrom xml2 xml_child xml_children xml_add_child
 #' @seealso \code{\link{fpar}}
 ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){

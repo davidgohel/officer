@@ -26,8 +26,10 @@ append an image into a paragraph of a docx object
 \examples{
 library(magrittr)
 img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
-read_docx() \%>\%
+x <- read_docx() \%>\%
   body_add_par("R logo: ", style = "Normal") \%>\%
-  slip_in_img(src = img.file, style = "strong", width = .3, height = .3) \%>\%
-  print(target = "append_img.docx")
+  slip_in_img(src = img.file, style = "strong", width = .3, height = .3)
+
+if( has_zip() )
+  print(x, target = "append_img.docx")
 }

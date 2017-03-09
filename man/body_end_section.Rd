@@ -48,5 +48,7 @@ my_doc <- read_docx()  \%>\%
   body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) \%>\%
   body_add_par("String 3", style = "heading 1") \%>\%
   body_add_par(value = str3, style = "Normal")
-print(my_doc, target = "body_end_section.docx")
+
+if( has_zip() )
+  print(my_doc, target = "body_end_section.docx")
 }

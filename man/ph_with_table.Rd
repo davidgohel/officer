@@ -30,5 +30,6 @@ doc <- read_pptx() \%>\%
   ph_with_table(value = mtcars[1:6,], type = "body",
     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 
-print(doc, target = "ph_with_table.pptx")
+if( has_zip() )
+  print(doc, target = "ph_with_table.pptx")
 }

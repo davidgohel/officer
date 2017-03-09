@@ -33,6 +33,8 @@ doc <- read_pptx() \%>\%
   ph_add_text(str = "and another, ", style = default_text ) \%>\%
   ph_add_par(level = 3) \%>\%
   ph_add_text(str = "and another!",
-    style = update(default_text, color = "blue")) \%>\%
-  print(target = fileout)
+    style = update(default_text, color = "blue"))
+
+if( has_zip() )
+  print(doc, target = fileout)
 }

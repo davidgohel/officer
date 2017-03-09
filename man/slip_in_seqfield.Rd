@@ -21,7 +21,7 @@ append seq field into a paragraph of a docx object
 }
 \examples{
 library(magrittr)
-read_docx() \%>\%
+x <- read_docx() \%>\%
   body_add_par("Time is: ", style = "Normal") \%>\%
   slip_in_seqfield(
     str = "TIME \\u005C@ \\"HH:mm:ss\\" \\u005C* MERGEFORMAT",
@@ -38,6 +38,8 @@ read_docx() \%>\%
   slip_in_text("Figure: ", style = "strong", pos = "before") \%>\%
   body_add_par("This is a symbol: ", style = "Normal") \%>\%
   slip_in_seqfield(str = "SYMBOL 100 \\u005Cf Wingdings",
-    style = 'strong') \%>\%
-  print(target = "seqfield.docx")
+    style = 'strong')
+
+if( has_zip() )
+  print(x, target = "seqfield.docx")
 }

@@ -49,6 +49,13 @@ read_table_style <- function(path){
 #' @param target path to the pptx file to write
 #' @param ... unused
 #' @rdname read_pptx
+#' @examples
+#' # write a rdocx object in a docx file ----
+#' if( require(magrittr) && has_zip() ){
+#'   read_pptx() %>% print(target = "out.pptx")
+#'   # full path of produced file is returned
+#'   print(.Last.value)
+#' }
 print.rpptx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
@@ -142,7 +149,8 @@ length.rpptx <- function( x ){
 #' doc <- on_slide( doc, index = 3)
 #' doc <- ph_with_text(x = doc, type = "title", str = "Third title")
 #'
-#' print(doc, target = "on_slide.pptx" )
+#' if( has_zip() )
+#'   print(doc, target = "on_slide.pptx" )
 on_slide <- function( x, index ){
 
   l_ <- length(x)

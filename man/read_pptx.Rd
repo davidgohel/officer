@@ -32,4 +32,10 @@ Function \code{length} will return the number of slides.
 
 \examples{
 read_pptx()
+# write a rdocx object in a docx file ----
+if( require(magrittr) && has_zip() ){
+  read_pptx() \%>\% print(target = "out.pptx")
+  # full path of produced file is returned
+  print(.Last.value)
+}
 }

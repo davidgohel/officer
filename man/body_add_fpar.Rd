@@ -25,7 +25,9 @@ fpar_ <- fpar(ftext("Hello ", prop = bold_face),
               ftext("World", prop = bold_redface ),
               ftext(", how are you?", prop = bold_face ) )
 doc <- read_docx() \%>\% body_add_fpar(fpar_)
-print(doc, target = "body_add_fpar.docx" )
+
+if( has_zip() )
+  print(doc, target = "body_add_fpar.docx" )
 }
 \seealso{
 \code{\link{fpar}}
