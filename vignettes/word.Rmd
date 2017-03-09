@@ -312,7 +312,7 @@ doc <- read_docx() %>%
   body_add_par(value = "Table of graphics", style = "heading 2") %>% 
   body_add_toc(style = "graphic title")
 
-print(my_doc, target = "assets/docx/toc_and_captions.docx") %>% invisible()
+print(doc, target = "assets/docx/toc_and_captions.docx") %>% invisible()
 ```
 
 ```{r echo=FALSE}
