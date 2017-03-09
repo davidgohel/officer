@@ -26,3 +26,12 @@ has_css_attr <- function(x, atname, value){
   grepl(reg, css)
 }
 
+has_zip <- function(){
+  ifile <- tempfile(fileext = ".txt")
+  cat("hi", file = ifile)
+  ofile <- tempfile(fileext = ".zip")
+  try(zip(zipfile = ofile, flags = "-qr9X", files = ifile ), silent = TRUE)
+  file.exists(ofile)
+}
+
+

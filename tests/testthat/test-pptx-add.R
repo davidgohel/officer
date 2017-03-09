@@ -1,5 +1,8 @@
 context("add elements in slides")
 
+source("utils.R")
+
+skip_if_not(has_zip())
 
 test_that("add text into placeholder", {
   doc <- read_pptx() %>%

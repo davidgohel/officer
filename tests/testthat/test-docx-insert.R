@@ -13,8 +13,7 @@ test_that("seqfield add ", {
   x <- read_docx() %>%
     body_add_par("Time is: ", style = "Normal") %>%
     slip_in_seqfield(
-      str = "TIME \u005C@ \"HH:mm:ss\" \u005C* MERGEFORMAT",
-      style = 'strong')
+      str = "TIME \u005C@ \"HH:mm:ss\" \u005C* MERGEFORMAT")
 
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")

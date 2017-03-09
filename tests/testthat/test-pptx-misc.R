@@ -14,6 +14,7 @@ test_that("console printing", {
 })
 
 test_that("check extention and print document", {
+  skip_if_not(has_zip())
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")
   x <- ph_with_text(x, type = "body", str = "Hello world")
@@ -25,6 +26,7 @@ test_that("check extention and print document", {
 
 
 test_that("check template", {
+  skip_if_not(has_zip())
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")
   x <- ph_with_text(x, type = "body", str = "Hello world")
@@ -41,6 +43,7 @@ test_that("check template", {
 
 
 test_that("slide remove", {
+  skip_if_not(has_zip())
   x <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
     ph_with_text(type = "body", str = "Hello world 1") %>%
@@ -63,6 +66,7 @@ test_that("slide remove", {
 
 
 test_that("ph remove", {
+  skip_if_not(has_zip())
   x <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
     ph_with_text(type = "body", str = "Hello world 1") %>%

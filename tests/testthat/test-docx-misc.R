@@ -1,5 +1,7 @@
 context("miscellaneous check for docx")
 
+source("utils.R")
+
 test_that("defaul template", {
   x <- read_docx()
   expect_equal(length( x ), 2)
@@ -13,6 +15,9 @@ test_that("console printing", {
 })
 
 test_that("check extention and print document", {
+
+  skip_if_not(has_zip())
+
   x <- read_docx()
   print(x, target = "print.docx")
   expect_true( file.exists("print.docx") )
@@ -48,6 +53,7 @@ test_that("styles_info is returning a tidy df", {
 
 
 test_that("id are sequentially defined", {
+  skip_if_not(has_zip())
 
   doc <- read_docx()
   any_img <- FALSE
@@ -79,6 +85,7 @@ test_that("id are sequentially defined", {
 
 
 test_that("cursor behavior", {
+  skip_if_not(has_zip())
 
   doc <- read_docx() %>%
     body_add_par("paragraph 1", style = "Normal") %>%
