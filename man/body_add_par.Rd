@@ -4,7 +4,7 @@
 \alias{body_add_par}
 \title{add paragraph of text}
 \usage{
-body_add_par(x, value, style, pos = "after")
+body_add_par(x, value, style = NULL, pos = "after")
 }
 \arguments{
 \item{x}{a docx device}

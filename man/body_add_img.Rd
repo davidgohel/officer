@@ -4,10 +4,10 @@
 \alias{body_add_img}
 \title{add image}
 \usage{
-body_add_img(x, src, style = "Normal", width, height, pos = "after")
+body_add_img(x, src, style = NULL, width, height, pos = "after")
 }
 \arguments{
-\item{x}{a docx device}
+\item{x}{a docx object}
 
 \item{src}{image filename}
 

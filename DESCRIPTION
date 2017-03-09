@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.1.9000
+Version: 0.1.0.9000
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
@@ -18,7 +18,7 @@ LinkingTo: Rcpp,
     gdtools
 Imports:
     Rcpp (>= 0.12.3),
-    purrr,dplyr,R6,tibble,lazyeval, 
+    purrr,dplyr,R6,tibble,lazyeval,ggplot2,
     R.utils,utils,grDevices,
     gdtools,
     base64enc,

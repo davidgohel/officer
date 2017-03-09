@@ -4,7 +4,7 @@
 \alias{slip_in_img}
 \title{append an image}
 \usage{
-slip_in_img(x, src, style = "Normal", width, height, pos = "after")
+slip_in_img(x, src, style = NULL, width, height, pos = "after")
 }
 \arguments{
 \item{x}{a docx device}

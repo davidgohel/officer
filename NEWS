@@ -1,0 +1,11 @@
+# officer 0.1.1
+
+## Enhancement
+
+* argument `style` of functions `body_add*` and `slip_in*` now will use docx default style if not specified
+* new function body_add_gg to add ggplots to Word documents
+
+## API changes
+
+* classes `docx` and `pptx` have been renamed `rdocx` and `pptx` to avoid conflict with package ReporteRs.
+

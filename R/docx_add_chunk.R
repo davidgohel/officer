@@ -27,7 +27,10 @@
 #'   slip_in_seqfield(str = "SYMBOL 100 \u005Cf Wingdings",
 #'     style = 'strong') %>%
 #'   print(target = "seqfield.docx")
-slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
+slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
+
+  if( is.null(style) )
+    style <- x$default_styles$character
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "character")
 
@@ -71,7 +74,10 @@ slip_in_seqfield <- function( x, str, style = "Normal", pos = "after" ){
 #'   slip_in_text("world", style = "strong") %>%
 #'   slip_in_text("Message is", style = "strong", pos = "before") %>%
 #'   print(target = "append_run.docx")
-slip_in_text <- function( x, str, style = "Normal", pos = "after" ){
+slip_in_text <- function( x, str, style = NULL, pos = "after" ){
+
+  if( is.null(style) )
+    style <- x$default_styles$character
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "character")
   xml_elt <- paste0( wml_with_ns("w:r"),
@@ -99,7 +105,10 @@ slip_in_text <- function( x, str, style = "Normal", pos = "after" ){
 #'   body_add_par("R logo: ", style = "Normal") %>%
 #'   slip_in_img(src = img.file, style = "strong", width = .3, height = .3) %>%
 #'   print(target = "append_img.docx")
-slip_in_img <- function( x, src, style = "Normal", width, height, pos = "after" ){
+slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
+
+  if( is.null(style) )
+    style <- x$default_styles$character
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "character")
 

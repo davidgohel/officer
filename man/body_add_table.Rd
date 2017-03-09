@@ -4,7 +4,7 @@
 \alias{body_add_table}
 \title{add table}
 \usage{
-body_add_table(x, value, style, pos = "after", first_row = TRUE,
+body_add_table(x, value, style = NULL, pos = "after", first_row = TRUE,
   first_column = FALSE, last_row = FALSE, last_column = FALSE,
   no_hband = FALSE, no_vband = TRUE)
 }

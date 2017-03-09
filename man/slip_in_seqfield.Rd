@@ -4,7 +4,7 @@
 \alias{slip_in_seqfield}
 \title{append seq field}
 \usage{
-slip_in_seqfield(x, str, style = "Normal", pos = "after")
+slip_in_seqfield(x, str, style = NULL, pos = "after")
 }
 \arguments{
 \item{x}{a docx device}
