@@ -12,8 +12,14 @@ vignette: >
 dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
 office_doc_link <- function(url){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
-  htmltools::tags$p(  htmltools::tags$span("Download file: "),
-    htmltools::tags$a(basename(url), href = url))
+  htmltools::tags$p(  htmltools::tags$span("Download file "),
+    htmltools::tags$a(basename(url), href = url), 
+    htmltools::tags$span(" - view with"),
+    htmltools::tags$a("office web viewer", 
+      href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
+      ), 
+    style="text-align:center;font-style:italic;color:gray;"
+    )
 }
 ```
 
@@ -254,4 +260,62 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 ```
 
 In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.
+
+## Table and image captions
+
+Man can combine `slip_in_seqfield` and `slip_in_text` to prefix a paragraph with references (i.e. chapter number and graphic index in the document). However, producing a plot or a table and its caption can be verbose. 
+
+Shortcuts functions are implemented in the object `shortcuts` (it will at least give you a template of code to modify if it does not fit exactly your need). `slip_in_tableref`, `slip_in_plotref` and `body_add_gg` can make life easier. 
+
+Below an illustration, the code is linear and easy to read:
+
+```{r}
+library(magrittr)
+library(officer)
+library(ggplot2)
+
+gg1 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + geom_point()
+gg2 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length, color = Species)) + geom_point()
+
+
+doc <- read_docx() %>% 
+  body_add_par(value = "Table of content", style = "heading 1") %>% 
+  body_add_toc(level = 2) %>% 
+  
+  body_add_par(value = "Tables", style = "heading 1") %>% 
+  body_add_par(value = "dataset mtcars", style = "heading 2") %>% 
+  body_add_table(value = head(mtcars)[, 1:4], style = "table_template" ) %>% 
+  body_add_par(value = "data mtcars", style = "table title") %>% 
+  shortcuts$slip_in_tableref(depth = 2) %>%
+  
+  body_add_par(value = "dataset iris", style = "heading 2") %>% 
+  body_add_table(value = head(iris), style = "table_template" ) %>% 
+  body_add_par(value = "data iris", style = "table title") %>% 
+  shortcuts$slip_in_tableref(depth = 2) %>%
+  
+  body_end_section(landscape = FALSE ) %>% 
+  
+  body_add_par(value = "plot examples", style = "heading 1") %>% 
+  body_add_gg(value = gg1, style = "centered" ) %>% 
+  body_add_par(value = "graph example 1", style = "graphic title") %>% 
+  shortcuts$slip_in_plotref(depth = 1) %>%
+  
+  body_add_par(value = "plot 2", style = "heading 2") %>% 
+  body_add_gg(value = gg2, style = "centered" ) %>% 
+  body_add_par(value = "graph example 2", style = "graphic title") %>% 
+  shortcuts$slip_in_plotref(depth = 2) %>%
+  
+  body_end_section(landscape = TRUE) %>% 
+  
+  body_add_par(value = "Table of tables", style = "heading 2") %>% 
+  body_add_toc(style = "table title") %>% 
+  body_add_par(value = "Table of graphics", style = "heading 2") %>% 
+  body_add_toc(style = "graphic title")
+
+print(my_doc, target = "assets/docx/toc_and_captions.docx") %>% invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
+```
 
