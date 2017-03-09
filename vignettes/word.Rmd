@@ -15,7 +15,7 @@ office_doc_link <- function(url){
   htmltools::tags$p(  htmltools::tags$span("Download file "),
     htmltools::tags$a(basename(url), href = url), 
     htmltools::tags$span(" - view with"),
-    htmltools::tags$a("office web viewer", 
+    htmltools::tags$a("office web viewer", target="_blank", 
       href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
       ), 
     style="text-align:center;font-style:italic;color:gray;"
