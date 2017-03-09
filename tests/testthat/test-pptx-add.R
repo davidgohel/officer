@@ -33,7 +33,7 @@ test_that("ph_add_par append when text alrady exists", {
     ph_with_text(type = "body", str = "This is a ") %>%
     ph_add_par(level = 2) %>%
     ph_add_text(str = "test", style = small_red )
-  print(doc, target = "test.pptx")
+
   sm <- slide_summary(doc)
   expect_equal(sm$text, "This is a test")
 
