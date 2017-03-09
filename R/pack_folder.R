@@ -51,3 +51,16 @@ unpack_folder <- function( file, folder ){
 
   folder
 }
+
+#' @export
+#' @title test zip function
+#' @description test wether zip can produce a zip file.
+#' @examples
+#' has_zip()
+has_zip <- function(){
+  ifile <- tempfile(fileext = ".txt")
+  cat("hi", file = ifile)
+  ofile <- tempfile(fileext = ".zip")
+  try(zip(zipfile = ofile, flags = "-qr9X", files = ifile ), silent = TRUE)
+  file.exists(ofile)
+}
