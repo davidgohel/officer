@@ -519,6 +519,11 @@ dir_slide <- R6Class(
     update = function( ){
       dir_ <- file.path(private$package_dir, "ppt/slides")
       filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
+
+      # order matter here, so lets order file regarding their index
+      sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", basename(filenames) ) )
+      filenames <- filenames[order(sl_id)]
+
       private$collection <- map( filenames, function(x, container){
         container$clone()$feed(x)$fortify_id()
       }, container = slide$new("ppt/slides"))

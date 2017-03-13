@@ -83,7 +83,16 @@ test_that("ph remove", {
 })
 
 
+test_that("cursor is incremented as expected", {
+  x <- read_pptx()
+  for(i in 1:11){
+    x <- add_slide(x, "Title Slide", "Office Theme")
+    x <- ph_with_text(x, i, type = "ctrTitle")
+  }
+  expect_equal(nrow( slide_summary(x, 11) ), 1 )
+  expect_equal(x$slide$get_slide(11)$name(), "slide11.xml" )
 
+})
 
 unlink("*.pptx")
 unlink("*.emf")
