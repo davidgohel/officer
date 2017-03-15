@@ -51,7 +51,7 @@ String pml_table(DataFrame x, std::string style_id,
   for(int i = 0 ; i < nrow ; i++){
     os << "<a:tr h=\"" << row_height << "\">";
     for(int j = 0 ; j < ncol ; j++){
-      NumericVector tmp=x[j];
+      CharacterVector tmp=x[j];
       os << "<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>";
       os << tmp[i];
       os << "</a:t></a:r></a:p></a:txBody></a:tc>";
@@ -106,7 +106,7 @@ String wml_table(DataFrame x, std::string style_id,
   for(int i = 0 ; i < nrow ; i++){
     os << "<w:tr>";
     for(int j = 0 ; j < ncol ; j++){
-      NumericVector tmp=x[j];
+      CharacterVector tmp=x[j];
       os << "<w:tc><w:trPr/><w:p><w:r><w:t>";
       os << tmp[i];
       os << "</w:t></w:r></w:p></w:tc>";

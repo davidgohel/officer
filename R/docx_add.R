@@ -178,10 +178,14 @@ body_add_table <- function( x, value, style = NULL, pos = "after",
                             last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
 
+  stopifnot(is.data.frame(value))
+
   if( is.null(style) )
     style <- x$default_styles$table
 
   style_id <- x$doc_obj$get_style_id(style=style, type = "table")
+
+  value <- characterise_df(value)
 
   xml_elt <- wml_table(value, style_id,
             first_row, last_row,

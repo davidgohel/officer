@@ -179,3 +179,12 @@ get_shape_id <- function(x, type = NULL, id_chr = NULL ){
 }
 
 
+characterise_df <- function(x){
+  x <- lapply(x, function( x ) {
+    if( is.character(x) ) x
+    else if( is.factor(x) ) as.character(x)
+    else gsub("(^ | $)+", "", format(x))
+  })
+  data.frame(x, stringsAsFactors = FALSE)
+}
+

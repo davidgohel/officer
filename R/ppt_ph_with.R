@@ -88,6 +88,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 ph_with_table <- function( x, value, type = "title", index = 1,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE ){
+  stopifnot(is.data.frame(value))
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
 
@@ -97,6 +98,7 @@ ph_with_table <- function( x, value, type = "title", index = 1,
   def_height <- xfrm_df$cy*914400 / (nrow(value) + 1)
   def_width <- xfrm_df$cx*914400 / (ncol(value))
 
+  value <- characterise_df(value)
 
   style_id <- x$table_styles$def[1]
   xml_elt <- pml_table(value, style_id = style_id,
