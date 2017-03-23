@@ -60,10 +60,18 @@ docx_document <- R6Class(
 
     cursor_reach = function( keyword ){
       xpath_ <- sprintf("/w:document/w:body/*[contains(.//*/w:t/text(),'%s')]", keyword)
-      cursor <- xml_find_first(self$get(), xpath_) %>% xml_path()
-      if( inherits(cursor, "xml_missing") )
+      nodes_with_text <- xml_find_all(self$get(),"/w:document/w:body/*[.//*/text()]")
+
+      if( length(nodes_with_text) < 1 )
+        stop("no text found in the document", call. = FALSE)
+
+      text_ <- xml_text(nodes_with_text)
+      test_ <- grepl(pattern = keyword, x = text_)
+      if( !any(test_) )
         stop(keyword, " has not been found in the document", call. = FALSE)
-      private$cursor <- cursor
+
+      node <- nodes_with_text[[ which(test_)[1] ]]
+      private$cursor <- xml_path(node)
       self
     },
 
