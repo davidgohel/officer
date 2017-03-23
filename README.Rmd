@@ -42,7 +42,10 @@ In a Word document, one can use cursor functions to reach the beginning of a doc
 
 The file generation is performed with function `print`.
 
+### import Word document in a data.frame
 
+Function `fortify_docx` read and import content of a Word document into 
+a tibble object. The function handles paragraphs, tables and section breaks. 
 
 ## PowerPoint documents
 

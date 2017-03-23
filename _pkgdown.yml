@@ -9,6 +9,7 @@ reference:
   - title: Working with Word documents
     contents:
     - read_docx
+    - fortify_docx
     - styles_info
     - body_add_img
     - body_add_par
