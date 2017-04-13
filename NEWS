@@ -3,6 +3,7 @@
 ## new features
 
 * new function `fortify_docx` will import content of a Word document into a tody data.frame.
+* new functions `set_doc_properties` and `doc_properties` to let you modify metadata of a Word document.
 
 ## Issues
 

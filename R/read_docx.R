@@ -66,8 +66,14 @@ print.rdocx <- function(x, target = NULL, ...){
     xml_attr(x, "id") <- z
     x
   })
+
   x$doc_obj$save()
   x$content_type$save()
+
+  # save doc properties
+  x$doc_obj$get_doc_properties()$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
+  x$doc_obj$get_doc_properties()$set_modified_by(Sys.getenv("USER"))
+  x$doc_obj$get_doc_properties()$save()
 
   pack_folder(folder = x$doc_obj$package_dirname(), target = target )
 }
@@ -96,4 +102,44 @@ styles_info <- function( x ){
   x$doc_obj$styles()
 }
 
+#' @export
+#' @title read document properties
+#' @description read Word document properties and get results in
+#' a tidy data.frame.
+#' @param x a rdocx object
+#' @examples
+#' library(magrittr)
+#' read_docx() %>% doc_properties()
+doc_properties <- function( x ){
+  x$doc_obj$get_doc_properties()$get_data()
+}
+
+#' @export
+#' @title set document properties
+#' @description set Word document properties. These are not visible in the document but are available as
+#' metadata of the document.
+#' @note
+#' Fields "last modified" and "last modified by" will be automatically be updated
+#' when Word file will be written.
+#' @param x a rdocx object
+#' @param title,subject,creator,description text fields
+#' @param created a date object
+#' @examples
+#' library(magrittr)
+#' read_docx() %>% set_doc_properties(title = "title",
+#'   subject = "document subject", creator = "Me me me",
+#'   description = "this document is empty",
+#'   created = Sys.time()) %>% doc_properties()
+set_doc_properties <- function( x, title = NULL, subject = NULL,
+                                creator = NULL, description = NULL, created = NULL ){
+  cp <- x$doc_obj$get_doc_properties()
+
+  if( !is.null(title) ) cp$set_title(title)
+  if( !is.null(subject) ) cp$set_subject(subject)
+  if( !is.null(creator) ) cp$set_creator(creator)
+  if( !is.null(description) ) cp$set_description(description)
+  if( !is.null(created) ) cp$set_created(format( created, "%Y-%m-%dT%H:%M:%SZ"))
+
+  x
+}
 
