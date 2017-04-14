@@ -23,6 +23,8 @@ reference:
     - slip_in_seqfield
     - starts_with("cursor_")
     - body_remove
+    - doc_properties
+    - set_doc_properties
   - title: Functions specific to PowerPoint
     contents:
     - read_pptx
