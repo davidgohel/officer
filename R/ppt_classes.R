@@ -480,7 +480,7 @@ dir_slide <- R6Class(
       slide_obj$remove()
     },
     get_xfrm = function( ){
-      map(private$collection, function(x, ref) x$get_xfrm() )
+      map(private$collection, function(x) x$get_xfrm() )
     },
 
 
