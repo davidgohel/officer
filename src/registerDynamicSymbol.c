@@ -12,6 +12,7 @@ extern SEXP officer_a_ppr(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, 
 extern SEXP officer_a_tcpr(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP officer_css_ppr(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP officer_css_tcpr(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP officer_p_ph(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP officer_pml_run_pic(SEXP, SEXP, SEXP);
 extern SEXP officer_pml_table(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP officer_rpr_css(SEXP);
@@ -28,6 +29,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"officer_a_tcpr",      (DL_FUNC) &officer_a_tcpr,      21},
   {"officer_css_ppr",     (DL_FUNC) &officer_css_ppr,     15},
   {"officer_css_tcpr",    (DL_FUNC) &officer_css_tcpr,    21},
+  {"officer_p_ph",        (DL_FUNC) &officer_p_ph,         9},
   {"officer_pml_run_pic", (DL_FUNC) &officer_pml_run_pic,  3},
   {"officer_pml_table",   (DL_FUNC) &officer_pml_table,    8},
   {"officer_rpr_css",     (DL_FUNC) &officer_rpr_css,      1},

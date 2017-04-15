@@ -9,6 +9,10 @@ wml_table <- function(x, style_id, first_row = TRUE, last_row = FALSE, first_col
     .Call('officer_wml_table', PACKAGE = 'officer', x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband)
 }
 
+p_ph <- function(offx, offy, cx, cy, rot, r, g, b, a) {
+    .Call('officer_p_ph', PACKAGE = 'officer', offx, offy, cx, cy, rot, r, g, b, a)
+}
+
 w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
     .Call('officer_w_ppr', PACKAGE = 'officer', text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
