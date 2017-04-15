@@ -96,9 +96,7 @@ my_pres <- my_pres %>%
   ph_with_text(str = "Hello world", type = "body")
 ```
 
-#### Available shapes per slide layout
-
-Function `layout_properties` provides details about available shapes of a slide layout:
+> Function `layout_properties` provides details about available shapes of a slide layout:
 
 ```{r}
 layout_properties ( x = my_pres, layout = "Two Content", master = "Office Theme" ) %>% head()
@@ -172,6 +170,7 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 Again, use `layout_properties` to see what are available placeholders in the slide layout. 
 
+
 ### Add image
 
 Use function `ph_with_img` to add an image into a placeholder. As for all `ph_with_*` functions, argument `type` specifies the placeholder of the associated layout to be added 
@@ -194,6 +193,27 @@ print(doc, target = "assets/pptx/ph_with_img.pptx") %>%
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_img.pptx" ) )
 ```
 
+To add an image into a new shape at arbitrary coordinates, use function `ph_with_img_at`. 
+Arguments `left` and `top` are specifying the top left coordinate of the new shape and arguments 
+`width` and `height` are specifying the dimensions of the new shape.
+
+```{r}
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+
+doc <- read_pptx() %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") %>%
+  ph_with_text(type = "title", str = "A image") %>%
+  ph_with_img_at(src = img.file, left = 3, top = 4, 
+                 height = 1.06, width = 1.39, rot = 45 )
+
+print(doc, target = "assets/pptx/ph_with_img_at.pptx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_img_at.pptx" ) )
+```
+
 ### Add table
 
 Use function `ph_with_table` to add a table into a placeholder.
@@ -211,6 +231,24 @@ print(doc, target = "assets/pptx/ph_with_table.pptx") %>%
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_table.pptx" ) )
 ```
+
+To add a table into a new shape at arbitrary coordinates, use function `ph_with_table_at`. 
+
+```{r}
+doc <- read_pptx() 
+doc <- doc %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") %>%
+  ph_with_table_at(value = head(mtcars), left = 1, top = 3, 
+                 height = 7, width = 7 )
+
+print(doc, target = "assets/pptx/ph_with_table_at.pptx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_table_at.pptx" ) )
+```
+
 
 ## Remove content from a slide
 
@@ -231,7 +269,7 @@ doc <- ph_remove(x = doc, type = "body")
 
 ### Add to an empty new placeholder
 
-`ph_empty` will add a new empty placeholder in the current slide. When using `ph_with_text`, added text automatically inherits from the layout placeholder, `ph_empty` gives more control on format of added text and paragraphs.
+`ph_empty` (`ph_empty_at`) will add a new empty placeholder in the current slide. When using `ph_with_text`, added text automatically inherits from the layout placeholder, `ph_empty` gives more control on format of added text and paragraphs.
 
 ```{r}
 my_pres <- read_pptx() %>% 
