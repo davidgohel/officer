@@ -95,39 +95,10 @@ ph_with_table <- function( x, value, type = "title", index = 1,
   slide <- x$slide$get_slide(x$cursor)
   xfrm_df <- slide$get_xfrm(type = type, index = index)
 
-  def_height <- xfrm_df$cy*914400 / (nrow(value) + 1)
-  def_width <- xfrm_df$cx*914400 / (ncol(value))
+  xml_elt <- table_shape(x = x, value = value, left = xfrm_df$offx, top = xfrm_df$offy, width = xfrm_df$cx, height = xfrm_df$cy,
+                          first_row = first_row, first_column = first_column,
+                          last_row = last_row, last_column = last_column )
 
-  value <- characterise_df(value)
-
-  style_id <- x$table_styles$def[1]
-  xml_elt <- pml_table(value, style_id = style_id,
-                       col_width = as.integer(def_width),
-                       row_height = as.integer(def_height),
-                       first_row = first_row, last_row = last_row,
-                       first_column = first_column, last_column = last_column )
-
-  xml_elt <- paste0(
-    "<p:graphicFrame ",
-    "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
-    "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
-    "xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
-    "<p:nvGraphicFramePr>",
-    "<p:cNvPr id=\"\" name=\"\"/>",
-    "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"true\"/></p:cNvGraphicFramePr>",
-    "<p:nvPr/>",
-    "</p:nvGraphicFramePr>",
-    "<p:xfrm rot=\"0\">",
-    sprintf( "<a:off x=\"%.0f\" y=\"%.0f\"/>", xfrm_df$offx*914400, xfrm_df$offy*914400 ),
-    sprintf( "<a:ext cx=\"%.0f\" cy=\"%.0f\"/>", xfrm_df$cx*914400, xfrm_df$cy*914400 ),
-    "</p:xfrm>",
-    "<a:graphic>",
-    "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">",
-    xml_elt,
-    "</a:graphicData>",
-    "</a:graphic>",
-    "</p:graphicFrame>"
-  )
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
   slide$save()
   x$slide$update()
