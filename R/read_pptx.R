@@ -32,6 +32,9 @@ read_pptx <- function( path = NULL ){
 
   obj$slide <- dir_slide$new(obj )
   obj$content_type <- content_type$new(obj )
+
+  obj$core_properties <- core_properties$new(obj$package_dir)
+
   obj$cursor = obj$slide$length()
   obj
 }
@@ -70,6 +73,11 @@ print.rpptx <- function(x, target = NULL, ...){
 
   x$presentation$save()
   x$content_type$save()
+
+  x$core_properties$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
+  x$core_properties$set_modified_by(Sys.getenv("USER"))
+  x$core_properties$save()
+
   pack_folder(folder = x$package_dir, target = target )
 }
 
@@ -206,7 +214,7 @@ remove_slide <- function( x, index = NULL ){
 #' @title presentation layouts summary
 #' @description get informations about slide layouts and
 #' master layouts into a data.frame.
-#' @param x a pptx object
+#' @param x rpptx object
 #' @examples
 #' my_pres <- read_pptx()
 #' layout_summary ( x = my_pres )

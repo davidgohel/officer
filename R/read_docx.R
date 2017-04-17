@@ -111,17 +111,22 @@ styles_info <- function( x ){
 #' library(magrittr)
 #' read_docx() %>% doc_properties()
 doc_properties <- function( x ){
-  x$doc_obj$get_doc_properties()$get_data()
+  if( inherits(x, "rdocx"))
+    cp <- x$doc_obj$get_doc_properties()
+  else if( inherits(x, "rpptx")) cp <- x$core_properties
+  else stop("x should be a rpptx or rdocx object.")
+
+  cp$get_data()
 }
 
 #' @export
 #' @title set document properties
-#' @description set Word document properties. These are not visible in the document but are available as
+#' @description set Word or PowerPoint document properties. These are not visible in the document but are available as
 #' metadata of the document.
 #' @note
 #' Fields "last modified" and "last modified by" will be automatically be updated
-#' when Word file will be written.
-#' @param x a rdocx object
+#' when file will be written.
+#' @param x a rdocx or rpptx object
 #' @param title,subject,creator,description text fields
 #' @param created a date object
 #' @examples
@@ -132,7 +137,11 @@ doc_properties <- function( x ){
 #'   created = Sys.time()) %>% doc_properties()
 set_doc_properties <- function( x, title = NULL, subject = NULL,
                                 creator = NULL, description = NULL, created = NULL ){
-  cp <- x$doc_obj$get_doc_properties()
+
+  if( inherits(x, "rdocx"))
+    cp <- x$doc_obj$get_doc_properties()
+  else if( inherits(x, "rpptx")) cp <- x$core_properties
+  else stop("x should be a rpptx or rdocx object.")
 
   if( !is.null(title) ) cp$set_title(title)
   if( !is.null(subject) ) cp$set_subject(subject)
