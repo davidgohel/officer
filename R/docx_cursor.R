@@ -1,6 +1,6 @@
 #' @export
 #' @rdname cursor
-#' @title set cursor in a docx object
+#' @title set cursor in an rdocx object
 #' @description a set of functions is available to manipulate
 #' the position of a virtual cursor. This cursor will be used when
 #' inserting, deleting or updating elements in the document.
@@ -44,6 +44,29 @@
 #'
 cursor_begin <- function( x ){
   x$doc_obj$cursor_begin()
+  x
+}
+
+#' @rdname cursor
+#' @param id bookmark id
+#' @export
+#' @examples
+#'
+#' # cursor_bookmark ----
+#' library(magrittr)
+#'
+#' doc <- read_docx() %>%
+#'   body_add_par("centered text", style = "centered") %>%
+#'   body_bookmark("text_to_replace") %>%
+#'   body_add_par("A title", style = "heading 1") %>%
+#'   body_add_par("Hello world!", style = "Normal") %>%
+#'   cursor_bookmark("text_to_replace") %>%
+#'   body_add_table(value = head(iris), style = "table_template")
+#'
+#' if( has_zip() )
+#'   print(doc, target = "bookmark.docx")
+cursor_bookmark <- function( x, id ){
+  x$doc_obj$cursor_bookmark(id)
   x
 }
 

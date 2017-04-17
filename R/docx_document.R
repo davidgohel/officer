@@ -61,8 +61,31 @@ docx_document <- R6Class(
       self
     },
 
+    cursor_bookmark = function( id ){
+      xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
+      bm_start <- xml_find_first(self$get(), xpath_)
+
+      if( inherits(bm_start, "xml_missing") )
+        stop("cannot find bookmark ", shQuote(id), call. = FALSE)
+
+      bm_id <- xml_attr(bm_start, "id")
+
+      xpath_ <- sprintf("/w:document/w:body/*[w:bookmarkStart[@w:id='%s']]", bm_id)
+      par_with_bm <- xml_find_first(self$get(), xpath_)
+
+      cursor <- xml_path(par_with_bm)
+
+      xpath_ <- paste0( cursor, sprintf("/w:bookmarkEnd[@w:id='%s']", bm_id) )
+      nodes_with_bm_end <- xml_find_first(self$get(), xpath_)
+      if( inherits(nodes_with_bm_end, "xml_missing") )
+        stop("bookmark ", shQuote(id), " does not end in the same paragraph (or is on the whole paragraph)", call. = FALSE)
+
+      cursor <- cursor
+      private$cursor <- cursor
+      self
+    },
+
     cursor_reach = function( keyword ){
-      xpath_ <- sprintf("/w:document/w:body/*[contains(.//*/w:t/text(),'%s')]", keyword)
       nodes_with_text <- xml_find_all(self$get(),"/w:document/w:body/*[.//*/text()]")
 
       if( length(nodes_with_text) < 1 )
