@@ -112,7 +112,7 @@ sect_as_tibble <- function(node){
 }
 
 
-#' @title tidy content for a docx object
+#' @title tidy content for an rdocx object
 #' @description read content of a Word document and
 #' return a tidy dataset representing the document.
 #' @param x an rdocx object

@@ -7,7 +7,7 @@
 body_add_gg(x, value, width = 6, height = 5, style = NULL)
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 
 \item{value}{ggplot object}
 
@@ -18,7 +18,7 @@ body_add_gg(x, value, width = 6, height = 5, style = NULL)
 \item{style}{paragraph style}
 }
 \description{
-add a ggplot as a png image into a docx object
+add a ggplot as a png image into an rdocx object
 }
 \examples{
 library(ggplot2)

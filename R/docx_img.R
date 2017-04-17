@@ -1,5 +1,5 @@
 #' @export
-#' @title add images into a docx object
+#' @title add images into an rdocx object
 #' @description reference images into a Word document.
 #' This function is to be used with \code{\link{wml_link_images}}.
 #'

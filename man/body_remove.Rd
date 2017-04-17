@@ -7,7 +7,7 @@
 body_remove(x)
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 }
 \description{
 remove element pointed by cursor from a Word document

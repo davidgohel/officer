@@ -7,7 +7,7 @@
 slip_in_img(x, src, style = NULL, width, height, pos = "after")
 }
 \arguments{
-\item{x}{a docx device}
+\item{x}{an rdocx object}
 
 \item{src}{image filename}
 

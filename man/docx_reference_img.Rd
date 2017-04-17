@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_img.R
 \name{docx_reference_img}
 \alias{docx_reference_img}
-\title{add images into a docx object}
+\title{add images into an rdocx object}
 \usage{
 docx_reference_img(x, src)
 }

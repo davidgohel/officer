@@ -7,7 +7,7 @@
 layout_summary(x)
 }
 \arguments{
-\item{x}{a pptx object}
+\item{x}{rpptx object}
 }
 \description{
 get informations about slide layouts and

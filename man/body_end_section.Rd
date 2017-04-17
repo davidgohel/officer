@@ -8,7 +8,7 @@ body_end_section(x, landscape = FALSE, colwidths = c(1), space = 0.05,
   sep = FALSE)
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 
 \item{landscape}{landscape orientation}
 

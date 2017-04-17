@@ -2,13 +2,16 @@
 % Please edit documentation in R/docx_cursor.R
 \name{cursor_begin}
 \alias{cursor_begin}
+\alias{cursor_bookmark}
 \alias{cursor_end}
 \alias{cursor_reach}
 \alias{cursor_forward}
 \alias{cursor_backward}
-\title{set cursor in a docx object}
+\title{set cursor in an rdocx object}
 \usage{
 cursor_begin(x)
+
+cursor_bookmark(x, id)
 
 cursor_end(x)
 
@@ -20,6 +23,8 @@ cursor_backward(x)
 }
 \arguments{
 \item{x}{a docx device}
+
+\item{id}{bookmark id}
 
 \item{keyword}{keyword to look for}
 }
@@ -90,4 +95,18 @@ doc <- read_docx() \%>\%
 if( has_zip() )
   print(doc, target = "cursor.docx")
 
+
+# cursor_bookmark ----
+library(magrittr)
+
+doc <- read_docx() \%>\%
+  body_add_par("centered text", style = "centered") \%>\%
+  body_bookmark("text_to_replace") \%>\%
+  body_add_par("A title", style = "heading 1") \%>\%
+  body_add_par("Hello world!", style = "Normal") \%>\%
+  cursor_bookmark("text_to_replace") \%>\%
+  body_add_table(value = head(iris), style = "table_template")
+
+if( has_zip() )
+  print(doc, target = "bookmark.docx")
 }

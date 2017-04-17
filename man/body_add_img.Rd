@@ -7,7 +7,7 @@
 body_add_img(x, src, style = NULL, width, height, pos = "after")
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 
 \item{src}{image filename}
 
@@ -21,7 +21,7 @@ body_add_img(x, src, style = NULL, width, height, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add an image into a docx object
+add an image into an rdocx object
 }
 \examples{
 doc <- read_docx()

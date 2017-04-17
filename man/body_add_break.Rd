@@ -7,13 +7,13 @@
 body_add_break(x, pos = "after")
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
 }
 \description{
-add a page break into a docx object
+add a page break into an rdocx object
 }
 \examples{
 library(magrittr)

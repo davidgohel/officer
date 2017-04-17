@@ -1,7 +1,7 @@
 #' @export
 #' @title append seq field
 #' @description append seq field into a paragraph of a docx object
-#' @param x a docx device
+#' @param x an rdocx object
 #' @param str seq field value
 #' @param style text style
 #' @param pos where to add the new element relative to the cursor,
@@ -64,7 +64,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' @export
 #' @title append text
 #' @description append text into a paragraph of a docx object
-#' @param x a docx device
+#' @param x an rdocx object
 #' @param str text
 #' @param style text style
 #' @param pos where to add the new element relative to the cursor,
@@ -94,7 +94,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after" ){
 #' @export
 #' @title append an image
 #' @description append an image into a paragraph of a docx object
-#' @param x a docx device
+#' @param x an rdocx object
 #' @param src image filename
 #' @param style text style
 #' @param width height in inches

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fortify_docx.R
 \name{fortify_docx}
 \alias{fortify_docx}
-\title{tidy content for a docx object}
+\title{tidy content for an rdocx object}
 \usage{
 fortify_docx(x)
 }

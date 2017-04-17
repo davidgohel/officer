@@ -17,7 +17,7 @@ body_add_par(x, value, style = NULL, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add a paragraph of text into a docx object
+add a paragraph of text into an rdocx object
 }
 \examples{
 library(magrittr)

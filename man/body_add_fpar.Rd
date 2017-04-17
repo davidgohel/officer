@@ -15,7 +15,7 @@ body_add_fpar(x, value, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add an \code{fpar} (a formatted paragraph) into a docx object
+add an \code{fpar} (a formatted paragraph) into an rdocx object
 }
 \examples{
 library(magrittr)
