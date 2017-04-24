@@ -38,10 +38,9 @@ test_that("slide summary", {
 
   expect_is( sm, "data.frame" )
   expect_equal( nrow(sm), 2 )
-  expect_true( all( c("id", "type", "offx", "offy", "cx", "cy", "text") %in% names(sm)) )
+  expect_true( all( c("id", "type", "offx", "offy", "cx", "cy") %in% names(sm)) )
   expect_is( sm$id, "character" )
   expect_is( sm$type, "character" )
-  expect_is( sm$text, "character" )
   expect_is( sm$offx, "integer" )
   expect_is( sm$offy, "integer" )
   expect_is( sm$cx, "integer" )

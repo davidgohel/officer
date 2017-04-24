@@ -260,9 +260,10 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 
 
 #' @export
-#' @title slide summary
-#' @description get informations about current slide
-#' into a data.frame.
+#' @title slide content summary
+#' @description get content and positions of current slide
+#' into a data.frame. If any table, image or paragraph, data is
+#' imported into the resulting data.frame.
 #' @param x rpptx object
 #' @param index slide index
 #' @examples
@@ -275,6 +276,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #'
 #' slide_summary(my_pres)
 #' slide_summary(my_pres, index = 1)
+#' @importFrom purrr map2_df
 slide_summary <- function( x, index = NULL ){
 
   l_ <- length(x)
@@ -293,7 +295,29 @@ slide_summary <- function( x, index = NULL ){
   str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
   nodes <- xml_find_all(slide$get(), str)
   data <- read_xfrm(nodes, file = "slide", name = "" )
-  data$text <- xml_text(nodes)
+
+  content <- map_df(nodes, function(node){
+    is_table <- !inherits( xml_child(node, "/a:graphic/a:graphicData/a:tbl"), "xml_missing")
+    is_par <- !inherits( xml_child(node, "/p:txBody/a:p"), "xml_missing")
+    is_img <- xml_name(node) == "pic"
+
+    if( is_table )
+      tibble( table_data = list( pptxtable_as_tibble(node) ) )
+    else if( is_par ){
+      tibble( par_data = list( pptx_par_as_tibble(node) ) )
+    } else if( is_img ){
+      rel <- slide$relationship()
+      images_ <- rel$get_images_path()
+      img_id <- names(images_)
+      images_ <- normalizePath( file.path(dirname( slide$file_name() ), images_) )
+      names( images_ ) <- img_id
+      tibble( raster_data = list( pptx_img_as_tibble(node, images_) ) )
+    } else {
+      tibble( null_data = list( NULL ) )
+    }
+  })
+  data <- bind_cols(data, content)
+
 
   select_(data, "-name", "-file", "-ph")
 }

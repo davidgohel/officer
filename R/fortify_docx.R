@@ -129,7 +129,7 @@ sect_as_tibble <- function(node){
 #'   cursor_begin() %>% body_remove()
 #'
 #' # read the document in a tibble ---
-#' my_doc_desc <- fortify_docx(doc)
+#' my_doc_desc <- docx_summary(doc)
 #'
 #' # access first table ---
 #' my_doc_desc
@@ -139,7 +139,7 @@ sect_as_tibble <- function(node){
 #' all_tables[[1, "table_data"]] %>%
 #'   filter(is_header)
 #' @export
-fortify_docx <- function( x ){
+docx_summary <- function( x ){
 
   all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*")
   data <- map2_df(all_nodes, seq_along(all_nodes), function(node, id){

@@ -60,7 +60,7 @@ test_that("slide remove", {
   expect_equal(length(x), 1)
 
   sm <- slide_summary(x)
-  expect_equal(sm$text, "Hello world 2")
+  expect_equal(sm[[1, "par_data"]][["paragraph"]], "Hello world 2")
 })
 
 

@@ -51,6 +51,12 @@ relationship <- R6Class(
                          stringsAsFactors = FALSE )
       arrange_(data, .dots = "id")
     },
+    get_images_path = function() {
+      is_img <- basename( private$type ) %in% "image"
+      targets <- private$target[is_img]
+      names( targets ) <- private$id[is_img]
+      targets
+    },
     add_img = function( src, root_target ) {
       src <- setdiff(src, private$ext_src)
       if( !length(src) ) return(self)
