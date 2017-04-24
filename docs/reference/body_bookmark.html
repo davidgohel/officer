@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>slide link to a placeholder — ph_slidelink • officer package</title>
+<title>add bookmark — body_bookmark • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -79,54 +79,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>slide link to a placeholder</h1>
+    <h1>add bookmark</h1>
     </div>
 
     
-    <p>add slide link to a placeholder in the current slide.</p>
+    <p>Add a bookmark at the cursor location.</p>
     
 
-    <pre class="usage"><span class='fu'>ph_slidelink</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>slide_index</span>)</pre>
+    <pre class="usage"><span class='fu'>body_bookmark</span>(<span class='no'>x</span>, <span class='no'>id</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a pptx device</p></td>
+      <td><p>an rdocx object</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>placeholder type</p></td>
-    </tr>
-    <tr>
-      <th>id_chr</th>
-      <td><p>placeholder id (a string). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.
-Values can be read from <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>slide_index</th>
-      <td><p>slide index to reach</p></td>
+      <th>id</th>
+      <td><p>bookmark name</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre 1"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre 2"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='on_slide.html'>on_slide</a></span>(<span class='no'>doc</span>, <span class='fl'>1</span>)
-<span class='fu'><a href='slide_summary.html'>slide_summary</a></span>(<span class='no'>doc</span>) <span class='co'># read column id here</span></div><div class='output co'>#&gt; # A tibble: 1 × 7
-#&gt;    type    id  offx  offy    cx    cy         par_data
-#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;           &lt;list&gt;
-#&gt; 1 title     2    NA    NA    NA    NA &lt;tibble [1 × 1]&gt;</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_slidelink</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='st'>"2"</span>, <span class='kw'>slide_index</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+    <pre class="examples"><div class='input'>
+<span class='co'># cursor_bookmark ----</span>
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)
 
-<span class='kw'>if</span>( <span class='fu'><a href='has_zip.html'>has_zip</a></span>() )
-  <span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/Rtmpdxoueh/file516d7d2237e2.pptx"</div></pre>
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"centered text"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"centered"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>body_bookmark</span>(<span class='st'>"text_to_replace"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
