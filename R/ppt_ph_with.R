@@ -204,4 +204,27 @@ ph_from_xml <- function( x, value, type = "body", index = 1 ){
 }
 
 
+#' @export
+#' @rdname ph_from_xml
+#' @param left,top location of the new shape on the slide
+#' @param width,height shape size in inches
+ph_from_xml_at <- function( x, value, left, top, width, height ){
+
+  slide <- x$slide$get_slide(x$cursor)
+
+  doc <- as_xml_document(value)
+  node <- xml_find_first( doc, "//*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+  node <- set_xfrm_attr(node,
+                        offx = left,
+                        offy = top,
+                        cx = width,
+                        cy = height)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
+
+  slide$fortify_id()$save()
+  x$slide$update()
+  x
+}
+
+
 

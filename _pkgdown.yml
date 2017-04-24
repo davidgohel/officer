@@ -11,6 +11,13 @@ reference:
     - read_docx
     - docx_summary
     - styles_info
+    - doc_properties
+    - set_doc_properties
+  - title: Navigate into Word documents
+    contents:
+    - starts_with("cursor_")
+  - title: Add content to Word documents
+    contents:
     - body_add_img
     - body_add_par
     - body_add_table
@@ -21,20 +28,20 @@ reference:
     - slip_in_img
     - slip_in_text
     - slip_in_seqfield
-    - starts_with("cursor_")
+  - title: Remove content from Word documents
+    contents:
     - body_remove
-    - doc_properties
-    - set_doc_properties
-  - title: Functions specific to PowerPoint
+  - title: Working with PowerPoint documents
     contents:
     - read_pptx
     - add_slide
-    - remove_slide
     - on_slide
     - layout_summary
     - layout_properties
     - slide_summary
-    - ph_remove
+    - color_scheme
+  - title: Add content to PowerPoint documents
+    contents:
     - ph_with_img
     - ph_with_table
     - ph_with_text
@@ -44,7 +51,13 @@ reference:
     - ph_add_fpar
     - ph_slidelink
     - ph_hyperlink
-    - color_scheme
+    - ph_empty_at
+    - ph_with_table_at
+    - ph_with_img_at
+  - title: Remove content from PowerPoint documents
+    contents:
+    - remove_slide
+    - ph_remove
   - title: Create formatted paragraphs
     contents:
     - fpar
@@ -65,8 +78,8 @@ navbar:
     href: articles/powerpoint.html
   - text: Word
     href: articles/word.html
-  right:
   - text: Function reference
     href: reference/index.html
+  right:
   - icon: fa-github fa-lg
     href: https://github.com/davidgohel/officer

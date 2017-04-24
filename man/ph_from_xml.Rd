@@ -2,9 +2,12 @@
 % Please edit documentation in R/ppt_ph_with.R
 \name{ph_from_xml}
 \alias{ph_from_xml}
+\alias{ph_from_xml_at}
 \title{add an xml string as new shape}
 \usage{
 ph_from_xml(x, value, type = "body", index = 1)
+
+ph_from_xml_at(x, value, left, top, width, height)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -15,6 +18,10 @@ ph_from_xml(x, value, type = "body", index = 1)
 
 \item{index}{placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.}
+
+\item{left, top}{location of the new shape on the slide}
+
+\item{width, height}{shape size in inches}
 }
 \description{
 Add an xml string as new shape in the current slide. This function
