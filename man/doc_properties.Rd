@@ -7,11 +7,11 @@
 doc_properties(x)
 }
 \arguments{
-\item{x}{a rdocx object}
+\item{x}{an \code{rdocx} or \code{rpptx} object}
 }
 \description{
-read Word document properties and get results in
-a tidy data.frame.
+read Word or PowerPoint document properties
+and get results in a tidy data.frame.
 }
 \examples{
 library(magrittr)

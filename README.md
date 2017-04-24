@@ -26,7 +26,7 @@ The file generation is performed with function `print`.
 
 ### import Word document in a data.frame
 
-Function `fortify_docx` read and import content of a Word document into a tibble object. The function handles paragraphs, tables and section breaks.
+Function `docx_summary` read and import content of a Word document into a tibble object. The function handles paragraphs, tables and section breaks.
 
 PowerPoint documents
 --------------------
@@ -42,6 +42,10 @@ The package provides functions to add R outputs into existing or new PowerPoint 
 In a PowerPoint document, one can set a slide as selected and reach a particular shape (and remove it or add text).
 
 The file generation is performed with function `print`.
+
+### import Slide data in a data.frame
+
+Function `slide_summary` read and import content of a PowerPoint slide into a tibble object. The function handles paragraphs, tables and images.
 
 ### Tables and package `flextable`
 

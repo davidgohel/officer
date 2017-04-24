@@ -104,9 +104,9 @@ styles_info <- function( x ){
 
 #' @export
 #' @title read document properties
-#' @description read Word document properties and get results in
-#' a tidy data.frame.
-#' @param x a rdocx object
+#' @description read Word or PowerPoint document properties
+#' and get results in a tidy data.frame.
+#' @param x an \code{rdocx} or \code{rpptx} object
 #' @examples
 #' library(magrittr)
 #' read_docx() %>% doc_properties()
@@ -121,8 +121,8 @@ doc_properties <- function( x ){
 
 #' @export
 #' @title set document properties
-#' @description set Word or PowerPoint document properties. These are not visible in the document but are available as
-#' metadata of the document.
+#' @description set Word or PowerPoint document properties. These are not visible
+#' in the document but are available as metadata of the document.
 #' @note
 #' Fields "last modified" and "last modified by" will be automatically be updated
 #' when file will be written.

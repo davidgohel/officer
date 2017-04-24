@@ -2,8 +2,8 @@
 
 ## new features
 
-* new function `fortify_docx` will import content of a Word document into a tidy data.frame.
-* new functions `set_doc_properties` and `doc_properties` to let you modify metadata of Word and PowerPoint documents.
+* new function `docx_summary` will import content of a Word document into a tidy data.frame. Function `slide_summary` has been improved, its results now contains tables, paragraphs and images.
+* new functions `set_doc_properties` and `doc_properties` to let you modify/access metadata of Word and PowerPoint documents.
 * cursor can now reach paragraphs with a bookmark (functions `body_bookmark` and `cursor_bookmark`).
 * Content can be inserted at any arbitrary location in PowerPoint (functions `ph_empty_at`, `ph_with_img_at` and `ph_with_table_at`).
 

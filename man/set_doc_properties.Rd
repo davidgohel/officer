@@ -15,8 +15,8 @@ set_doc_properties(x, title = NULL, subject = NULL, creator = NULL,
 \item{created}{a date object}
 }
 \description{
-set Word or PowerPoint document properties. These are not visible in the document but are available as
-metadata of the document.
+set Word or PowerPoint document properties. These are not visible
+in the document but are available as metadata of the document.
 }
 \note{
 Fields "last modified" and "last modified by" will be automatically be updated

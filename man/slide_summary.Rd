@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pptx.R
 \name{slide_summary}
 \alias{slide_summary}
-\title{slide summary}
+\title{slide content summary}
 \usage{
 slide_summary(x, index = NULL)
 }
@@ -12,8 +12,9 @@ slide_summary(x, index = NULL)
 \item{index}{slide index}
 }
 \description{
-get informations about current slide
-into a data.frame.
+get content and positions of current slide
+into a data.frame. If any table, image or paragraph, data is
+imported into the resulting data.frame.
 }
 \examples{
 library(magrittr)
