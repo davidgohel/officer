@@ -60,4 +60,10 @@ test_that("color scheme", {
   expect_is( cs$theme, "character" )
 })
 
+test_that("slide summary objects", {
+  doc <- read_pptx("template/template.pptx")
+  sm <- slide_summary(doc)
+  table_data <- sm[[2, "table_data"]]
+  expect_equal( table_data$txt[table_data$row_id %in% 1], c("Table 1", "", "col2") )
+})
 
