@@ -391,16 +391,12 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
 
   last_sect <- x$doc_obj$get() %>% xml_find_first("/w:document/w:body/w:sectPr[last()]")
   section_obj <- as_list(last_sect)
+  sdim <- section_dimensions(last_sect)
 
-  h_ref <- as.integer(attr(section_obj$pgSz, "h"))
-  w_ref <- as.integer(attr(section_obj$pgSz, "w"))
-
-  mar_t <- as.integer(attr(section_obj$pgMar, "top"))
-  mar_b <- as.integer(attr(section_obj$pgMar, "bottom"))
-  mar_r <- as.integer(attr(section_obj$pgMar, "right"))
-  mar_l <- as.integer(attr(section_obj$pgMar, "left"))
-  mar_h <- as.integer(attr(section_obj$pgMar, "header"))
-  mar_f <- as.integer(attr(section_obj$pgMar, "footer"))
+  h_ref <- sdim$page["height"];w_ref <- sdim$page["width"]
+  mar_t <- sdim$margins["top"];mar_b <- sdim$margins["bottom"]
+  mar_r <- sdim$margins["right"];mar_l <- sdim$margins["left"]
+  mar_h <- sdim$margins["header"];mar_f <- sdim$margins["footer"]
 
   if( !landscape ){
     h <- h_ref
@@ -442,4 +438,21 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
   cursor_elt <- x$doc_obj$get_at_cursor()
   xml_add_child(.x = xml_child(cursor_elt, "w:pPr"), .value = xml_elt )
   x
+}
+
+
+
+
+#' @export
+#' @title Word page layout
+#' @description get page width, page height and margins. The return values
+#' are those corresponding to the section where the cursor is.
+#' @param x a \code{rdocx} object
+#' @examples
+#' docx_dim(read_docx())
+docx_dim <- function(x){
+  cursor_elt <- x$doc_obj$get_at_cursor()
+  xpath_ <- file.path( xml_path(cursor_elt), "following-sibling::w:sectPr")
+  next_section <- xml_find_first(x$doc_obj$get(), xpath_)
+  section_dimensions(next_section)
 }

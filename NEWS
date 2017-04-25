@@ -12,11 +12,6 @@
 * cast all columns of data.frame as character when using ph_with_table and body_add_table
 * fix pptx when more than 9 slides
 
-## Changes
-
-* cast all columns of data.frame as character when using ph_with_table and body_add_table
-* fix pptx when more than 9 slides
-
 # officer 0.1.1
 
 ## Enhancement
