@@ -13,6 +13,7 @@ reference:
     - styles_info
     - doc_properties
     - set_doc_properties
+    - docx_dim
   - title: Navigate into Word documents
     contents:
     - starts_with("cursor_")
