@@ -32,6 +32,5 @@ slide_summary(doc) # read column id here
 doc <- ph_hyperlink(x = doc, id_chr = "2",
   href = "https://cran.r-project.org")
 
-if( has_zip() )
-  print(doc, target = fileout )
+print(doc, target = fileout )
 }

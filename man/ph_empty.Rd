@@ -34,8 +34,7 @@ doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_empty(x = doc, type = "title")
 
-if( has_zip() )
-  print(doc, target = fileout )
+print(doc, target = fileout )
 
 # demo ph_empty_at ------
 fileout <- tempfile(fileext = ".pptx")
@@ -43,6 +42,5 @@ doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_empty_at(x = doc, left = 1, top = 2, width = 5, height = 4)
 
-if( has_zip() )
-  print(doc, target = fileout )
+print(doc, target = fileout )
 }

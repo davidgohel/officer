@@ -29,6 +29,5 @@ library(magrittr)
 doc <- read_docx() \%>\%
   body_add_table(iris, style = "table_template")
 
-if( has_zip() )
-  print(doc, target = "body_add_table.docx" )
+print(doc, target = "body_add_table.docx" )
 }

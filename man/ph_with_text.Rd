@@ -32,6 +32,5 @@ doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
 doc <- ph_with_text(x = doc, type = "subTitle", str = "Un sous titre")
 doc <- ph_with_text(x = doc, type = "ctrTitle", str = "Un titre")
 
-if( has_zip() )
-  print(doc, target = fileout )
+print(doc, target = fileout )
 }

@@ -35,6 +35,5 @@ if( require("ionicons") ){
   doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
 }
 
-if( has_zip() )
-  print(doc, target = "body_add_img.docx" )
+print(doc, target = "body_add_img.docx" )
 }

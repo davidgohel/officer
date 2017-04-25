@@ -26,6 +26,5 @@ x <- read_docx() \%>\%
   slip_in_text("world", style = "strong") \%>\%
   slip_in_text("Message is", style = "strong", pos = "before")
 
-if( has_zip() )
-  print(x, target = "append_run.docx")
+print(x, target = "append_run.docx")
 }

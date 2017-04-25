@@ -30,7 +30,7 @@ representing the document.
 read_docx()
 
 # write a rdocx object in a docx file ----
-if( require(magrittr) && has_zip() ){
+if( require(magrittr) ){
   read_docx() \%>\% print(target = "out.docx")
   # full path of produced file is returned
   print(.Last.value)

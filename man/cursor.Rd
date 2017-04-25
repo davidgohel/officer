@@ -92,8 +92,7 @@ doc <- read_docx() \%>\%
   cursor_end() \%>\%
   body_add_par("The document ends now", style = "Normal")
 
-if( has_zip() )
-  print(doc, target = "cursor.docx")
+print(doc, target = "cursor.docx")
 
 
 # cursor_bookmark ----
@@ -107,6 +106,5 @@ doc <- read_docx() \%>\%
   cursor_bookmark("text_to_replace") \%>\%
   body_add_table(value = head(iris), style = "table_template")
 
-if( has_zip() )
-  print(doc, target = "bookmark.docx")
+print(doc, target = "bookmark.docx")
 }

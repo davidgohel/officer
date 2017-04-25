@@ -43,8 +43,7 @@ if( require("ionicons") ){
   doc <- ph_with_img(x = doc, type = "dt", src = calendar_src )
 }
 
-if( has_zip() )
-  print(doc, target = fileout )
+print(doc, target = fileout )
 
 fileout <- tempfile(fileext = ".pptx")
 doc <- read_pptx()
@@ -56,6 +55,5 @@ if( file.exists(img.file) ){
     left = 4, top = 4, rot = 45 )
 }
 
-if( has_zip() )
-  print(doc, target = fileout )
+print(doc, target = fileout )
 }

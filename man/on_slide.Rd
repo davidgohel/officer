@@ -24,6 +24,5 @@ doc <- ph_with_text(x = doc, type = "title", str = "First title")
 doc <- on_slide( doc, index = 3)
 doc <- ph_with_text(x = doc, type = "title", str = "Third title")
 
-if( has_zip() )
-  print(doc, target = "on_slide.pptx" )
+print(doc, target = "on_slide.pptx" )
 }

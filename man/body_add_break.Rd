@@ -18,7 +18,5 @@ add a page break into an rdocx object
 \examples{
 library(magrittr)
 doc <- read_docx() \%>\% body_add_break()
-
-if( has_zip() )
-  print(doc, target = "body_add_break.docx" )
+print(doc, target = "body_add_break.docx" )
 }

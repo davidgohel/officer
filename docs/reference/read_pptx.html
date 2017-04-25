@@ -137,7 +137,7 @@ representing the document.</p>
 #&gt; 9                    Blank Office Theme
 #&gt; 10    Content with Caption Office Theme
 #&gt; 11    Picture with Caption Office Theme</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
-<span class='kw'>if</span>( <span class='fu'>require</span>(<span class='no'>magrittr</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='has_zip.html'>has_zip</a></span>() ){
+<span class='kw'>if</span>( <span class='fu'>require</span>(<span class='no'>magrittr</span>) ){
   <span class='fu'>read_pptx</span>() <span class='kw'>%&gt;%</span> <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"out.pptx"</span>)
   <span class='co'># full path of produced file is returned</span>
   <span class='fu'>print</span>(<span class='no'>.Last.value</span>)

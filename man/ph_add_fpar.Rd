@@ -37,8 +37,7 @@ doc <- read_pptx() \%>\%
   ph_empty(type = "body") \%>\%
   ph_add_fpar(value = fpar_, type = "body", level = 2)
 
-if( has_zip() )
-  print(doc, target = "ph_add_fpar.pptx")
+print(doc, target = "ph_add_fpar.pptx")
 }
 \seealso{
 \code{\link{fpar}}

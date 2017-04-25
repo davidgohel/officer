@@ -40,6 +40,5 @@ x <- read_docx() \%>\%
   slip_in_seqfield(str = "SYMBOL 100 \\u005Cf Wingdings",
     style = 'strong')
 
-if( has_zip() )
-  print(x, target = "seqfield.docx")
+print(x, target = "seqfield.docx")
 }
