@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add a slide — add_slide • officer package</title>
+<title>Word page layout — docx_dim • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -79,37 +79,38 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add a slide</h1>
+    <h1>Word page layout</h1>
     </div>
 
     
-    <p>add a slide into a pptx presentation</p>
+    <p>get page width, page height and margins. The return values
+are those corresponding to the section where the cursor is.</p>
     
 
-    <pre class="usage"><span class='fu'>add_slide</span>(<span class='no'>x</span>, <span class='no'>layout</span>, <span class='no'>master</span>)</pre>
+    <pre class="usage"><span class='fu'>docx_dim</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>rpptx object</p></td>
-    </tr>
-    <tr>
-      <th>layout</th>
-      <td><p>slide layout name to use</p></td>
-    </tr>
-    <tr>
-      <th>master</th>
-      <td><p>master layout name where <code>layout</code> is located</p></td>
+      <td><p>a <code>rdocx</code> object</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'>add_slide</span>(<span class='no'>my_pres</span>,
-  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>docx_dim</span>(<span class='fu'><a href='read_docx.html'>read_docx</a></span>())</div><div class='output co'>#&gt; $page
+#&gt;  width height 
+#&gt;  11900  16840 
+#&gt; 
+#&gt; $landscape
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $margins
+#&gt;    top bottom   left  right header footer 
+#&gt;   1417   1417   1417   1417    708    708 
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>tidy content for an rdocx object — docx_summary • officer package</title>
+<title>get Word content in a tidy format — docx_summary • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -56,13 +56,13 @@
 <li>
   <a href="../articles/word.html">Word</a>
 </li>
+<li>
+  <a href="../reference/index.html">Function reference</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Function reference</a>
-</li>
-<li>
   <a href="https://github.com/davidgohel/officer">
     <span class="fa fa-github fa-lg"></span>
      
@@ -79,7 +79,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>tidy content for an rdocx object</h1>
+    <h1>get Word content in a tidy format</h1>
     </div>
 
     
@@ -100,12 +100,8 @@ return a tidy dataset representing the document.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='co'># dummy document ---</span>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)
+<span class='co'># dummy document ---</span>
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"A title"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"heading 1"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Hello world!"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
