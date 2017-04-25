@@ -7,9 +7,7 @@
 #' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_break()
-#'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_break.docx" )
+#' print(doc, target = "body_add_break.docx" )
 body_add_break <- function( x, pos = "after"){
 
   str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
@@ -39,8 +37,7 @@ body_add_break <- function( x, pos = "after"){
 #'   doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
 #' }
 #'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_img.docx" )
+#' print(doc, target = "body_add_img.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
@@ -83,8 +80,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #'
 #' doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 #'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_gg.docx" )
+#' print(doc, target = "body_add_gg.docx" )
 body_add_gg <- function( x, value, width = 6, height = 5, style = NULL ){
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
@@ -111,8 +107,7 @@ body_add_gg <- function( x, value, width = 6, height = 5, style = NULL ){
 #'   body_add_par("Hello world!", style = "Normal") %>%
 #'   body_add_par("centered text", style = "centered")
 #'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_par.docx" )
+#' print(doc, target = "body_add_par.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
@@ -143,8 +138,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #'               ftext(", how are you?", prop = bold_face ) )
 #' doc <- read_docx() %>% body_add_fpar(fpar_)
 #'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_fpar.docx" )
+#' print(doc, target = "body_add_fpar.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @seealso \code{\link{fpar}}
 body_add_fpar <- function( x, value, pos = "after" ){
@@ -170,8 +164,7 @@ body_add_fpar <- function( x, value, pos = "after" ){
 #' doc <- read_docx() %>%
 #'   body_add_table(iris, style = "table_template")
 #'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_table.docx" )
+#' print(doc, target = "body_add_table.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_table <- function( x, value, style = NULL, pos = "after",
                             first_row = TRUE, first_column = FALSE,
@@ -210,8 +203,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after",
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_toc()
 #'
-#' if( has_zip() )
-#'   print(doc, target = "body_add_toc.docx" )
+#' print(doc, target = "body_add_toc.docx" )
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
@@ -327,15 +319,13 @@ body_bookmark <- function(x, id){
 #'   body_add_par(value = str2, style = "centered") %>%
 #'   body_add_par(value = str3, style = "Normal")
 #'
-#' if( has_zip() ){
-#'   print(my_doc, target = "init_doc.docx")
+#' print(my_doc, target = "init_doc.docx")
 #'
-#'   my_doc <- read_docx(path = "init_doc.docx")  %>%
-#'     cursor_reach(keyword = "that text") %>%
-#'     body_remove()
+#' my_doc <- read_docx(path = "init_doc.docx")  %>%
+#'   cursor_reach(keyword = "that text") %>%
+#'   body_remove()
 #'
-#'   print(my_doc, target = "result_doc.docx")
-#' }
+#' print(my_doc, target = "result_doc.docx")
 body_remove <- function(x){
   cursor_elt <- x$doc_obj$get_at_cursor()
   xml_remove(cursor_elt)
@@ -381,8 +371,7 @@ body_remove <- function(x){
 #'   body_add_par("String 3", style = "heading 1") %>%
 #'   body_add_par(value = str3, style = "Normal")
 #'
-#' if( has_zip() )
-#'   print(my_doc, target = "body_end_section.docx")
+#' print(my_doc, target = "body_end_section.docx")
 #' @importFrom xml2 as_list
 body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05, sep = FALSE){
 
@@ -440,19 +429,3 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
   x
 }
 
-
-
-
-#' @export
-#' @title Word page layout
-#' @description get page width, page height and margins. The return values
-#' are those corresponding to the section where the cursor is.
-#' @param x a \code{rdocx} object
-#' @examples
-#' docx_dim(read_docx())
-docx_dim <- function(x){
-  cursor_elt <- x$doc_obj$get_at_cursor()
-  xpath_ <- file.path( xml_path(cursor_elt), "following-sibling::w:sectPr")
-  next_section <- xml_find_first(x$doc_obj$get(), xpath_)
-  section_dimensions(next_section)
-}

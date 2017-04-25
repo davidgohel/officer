@@ -29,8 +29,7 @@ ph <- function( left = 0, top = 0, width = 3, height = 3, bg = "transparent", ro
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- ph_empty_at(x = doc, left = 1, top = 2, width = 5, height = 4)
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0 ){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -63,8 +62,7 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 #'     left = 4, top = 4, rot = 45 )
 #' }
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -109,8 +107,7 @@ ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 #'     height = 4, width = 8, left = 4, top = 4,
 #'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 #'
-#' if( has_zip() )
-#'   print(doc, target = "ph_with_table2.pptx")
+#' print(doc, target = "ph_with_table2.pptx")
 ph_with_table_at <- function( x, value, left, top, width, height,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE ){

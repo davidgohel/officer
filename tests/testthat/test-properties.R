@@ -1,8 +1,6 @@
 context("doc properties")
 
 test_that("read docx properties", {
-  skip_if_not(has_zip())
-
   doc <- read_docx(path = "template/template.docx")
   properties <- doc_properties(doc)
   expect_equal( properties$value[properties$tag %in% "title"], "document title" )
@@ -14,8 +12,6 @@ test_that("read docx properties", {
 })
 
 test_that("read pptx properties", {
-  skip_if_not(has_zip())
-
   doc <- read_pptx(path = "template/template.pptx")
   properties <- doc_properties(doc)
   expect_equal( properties$value[properties$tag %in% "title"], "document title" )
@@ -28,8 +24,6 @@ test_that("read pptx properties", {
 
 
 test_that("set docx properties", {
-  skip_if_not(has_zip())
-
   doc <- read_docx(path = "template/template.docx")
   time_now <- Sys.time()
   filename <- tempfile(fileext = ".docx")
@@ -54,8 +48,6 @@ test_that("set docx properties", {
 
 
 test_that("set pptx properties", {
-  skip_if_not(has_zip())
-
   doc <- read_pptx(path = "template/template.pptx")
   time_now <- Sys.time()
   filename <- tempfile(fileext = ".pptx")

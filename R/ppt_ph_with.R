@@ -11,8 +11,7 @@
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- ph_empty(x = doc, type = "title")
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_empty <- function( x, type = "title", index = 1 ){
 
@@ -51,8 +50,7 @@ ph_empty <- function( x, type = "title", index = 1 ){
 #' doc <- ph_with_text(x = doc, type = "subTitle", str = "Un sous titre")
 #' doc <- ph_with_text(x = doc, type = "ctrTitle", str = "Un titre")
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_with_text <- function( x, str, type = "title", index = 1 ){
 
@@ -83,8 +81,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 #'   ph_with_table(value = mtcars[1:6,], type = "body",
 #'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 #'
-#' if( has_zip() )
-#'   print(doc, target = "ph_with_table.pptx")
+#' print(doc, target = "ph_with_table.pptx")
 ph_with_table <- function( x, value, type = "title", index = 1,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE ){
@@ -127,8 +124,7 @@ ph_with_table <- function( x, value, type = "title", index = 1,
 #'   doc <- ph_with_img(x = doc, type = "dt", src = calendar_src )
 #' }
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height = NULL ){
 

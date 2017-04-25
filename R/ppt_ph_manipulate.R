@@ -14,8 +14,7 @@
 #' slide_summary(doc) # read column id here
 #' doc <- ph_remove(x = doc, type = "title", id_chr = "2")
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
 ph_remove <- function( x, type = NULL, id_chr = NULL ){
 
@@ -47,8 +46,7 @@ ph_remove <- function( x, type = NULL, id_chr = NULL ){
 #' slide_summary(doc) # read column id here
 #' doc <- ph_slidelink(x = doc, id_chr = "2", slide_index = 2)
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
 ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
 
@@ -92,8 +90,7 @@ ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
 #' doc <- ph_hyperlink(x = doc, id_chr = "2",
 #'   href = "https://cran.r-project.org")
 #'
-#' if( has_zip() )
-#'   print(doc, target = fileout )
+#' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
 ph_hyperlink <- function( x, type = NULL, id_chr = NULL, href ){
 
