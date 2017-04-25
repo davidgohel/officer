@@ -139,18 +139,21 @@ sect_as_tibble <- function(node){
 #' all_tables[[1, "table_data"]] %>%
 #'   filter(is_header)
 #' @export
+#' @importFrom purrr map_df
 docx_summary <- function( x ){
 
   all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*")
-  data <- map2_df(all_nodes, seq_along(all_nodes), function(node, id){
-    node_name <- xml_name(node)
-    switch(node_name,
-           p = par_as_tibble(node, styles_info(x)),
-           tbl = docxtable_desc(node, styles_info(x)),
-           sectPr = sect_as_tibble(node),
-           NULL)
-  })
+  data <- map_df(all_nodes, node_content, x)
   data <- select_(data, "content", "txt", "style_name", "table_data", "section_data", "item_level", "list_id")
   data$doc_index = seq_len(nrow(data))
   data
+}
+
+node_content <- function(node, x){
+  node_name <- xml_name(node)
+  switch(node_name,
+         p = par_as_tibble(node, styles_info(x)),
+         tbl = docxtable_desc(node, styles_info(x)),
+         sectPr = sect_as_tibble(node),
+         NULL)
 }

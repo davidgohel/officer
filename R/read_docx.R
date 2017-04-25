@@ -40,7 +40,7 @@ read_docx <- function( path = NULL ){
 #' @rdname read_docx
 #' @examples
 #' # write a rdocx object in a docx file ----
-#' if( require(magrittr) && has_zip() ){
+#' if( require(magrittr) ){
 #'   read_docx() %>% print(target = "out.docx")
 #'   # full path of produced file is returned
 #'   print(.Last.value)
@@ -52,8 +52,11 @@ print.rdocx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
     cat("rdocx document with", length(x), "element(s)\n")
-    cat("Available styles are:\n")
+    cat("* Available styles are:\n")
     print(as.data.frame(select_( styles_info(x), "style_type", "style_name")))
+    cursor_elt <- x$doc_obj$get_at_cursor()
+    cat("* Content at cursor location:\n")
+    print(node_content(cursor_elt, x))
     return(invisible())
   }
 
@@ -152,3 +155,17 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
   x
 }
 
+
+#' @export
+#' @title Word page layout
+#' @description get page width, page height and margins. The return values
+#' are those corresponding to the section where the cursor is.
+#' @param x a \code{rdocx} object
+#' @examples
+#' docx_dim(read_docx())
+docx_dim <- function(x){
+  cursor_elt <- x$doc_obj$get_at_cursor()
+  xpath_ <- file.path( xml_path(cursor_elt), "following-sibling::w:sectPr")
+  next_section <- xml_find_first(x$doc_obj$get(), xpath_)
+  section_dimensions(next_section)
+}
