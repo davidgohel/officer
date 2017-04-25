@@ -22,7 +22,7 @@ Imports:
     purrr,dplyr,R6,tibble,lazyeval,ggplot2,
     R.utils,utils,grDevices,
     gdtools,
-    base64enc,
+    base64enc,zip,
     digest,uuid,
     magrittr,
     xml2 (>= 1.1.0), 
@@ -34,3 +34,4 @@ Suggests: testthat, ionicons, devEMF,
     knitr,htmltools,
     rmarkdown
 VignetteBuilder: knitr
+Remotes: gaborcsardi/zip
