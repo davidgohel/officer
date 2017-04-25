@@ -56,13 +56,13 @@
 <li>
   <a href="../articles/word.html">Word</a>
 </li>
+<li>
+  <a href="../reference/index.html">Function reference</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Function reference</a>
-</li>
-<li>
   <a href="https://github.com/davidgohel/officer">
     <span class="fa fa-github fa-lg"></span>
      
@@ -148,7 +148,9 @@ representing the document.</p>
   <span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span> <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"out.docx"</span>)
   <span class='co'># full path of produced file is returned</span>
   <span class='fu'>print</span>(<span class='no'>.Last.value</span>)
-}</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+}</div><div class='output co'>#&gt;  [1] "officer"   "dplyr"     "ionicons"  "ggplot2"   "covr"      "magrittr" 
+#&gt;  [7] "stats"     "graphics"  "grDevices" "utils"     "datasets"  "methods"  
+#&gt; [13] "base"     </div><div class='input'>
 <span class='co'># how many element are there in the document ----</span>
 <span class='fu'>length</span>( <span class='fu'>read_docx</span>() )</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
 </div></pre>

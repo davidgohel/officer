@@ -56,13 +56,13 @@
 <li>
   <a href="../articles/word.html">Word</a>
 </li>
+<li>
+  <a href="../reference/index.html">Function reference</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="../reference/index.html">Function reference</a>
-</li>
-<li>
   <a href="https://github.com/davidgohel/officer">
     <span class="fa fa-github fa-lg"></span>
      
@@ -129,7 +129,8 @@ one of "after", "before", "on".</p></td>
 <span class='kw'>if</span>( <span class='fu'>require</span>(<span class='st'>"ionicons"</span>) ){
   <span class='no'>calendar_src</span> <span class='kw'>=</span> <span class='fu'>as_png</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"calendar"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"#FFE64D"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>144</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>144</span>)
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add_img</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>calendar_src</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>2</span> )
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: ionicons</span></div><div class='input'>
+}
+
 <span class='kw'>if</span>( <span class='fu'><a href='has_zip.html'>has_zip</a></span>() )
   <span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"body_add_img.docx"</span> )</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/officer/docs/reference/body_add_img.docx"</div></pre>
   </div>
