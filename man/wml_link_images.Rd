@@ -7,7 +7,7 @@
 wml_link_images(x, str)
 }
 \arguments{
-\item{x}{docx object}
+\item{x}{an rdocx object}
 
 \item{str}{wml string}
 }

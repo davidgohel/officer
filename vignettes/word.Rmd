@@ -117,6 +117,7 @@ Cursor functions are the following:
 - cursor_reach
 - cursor_backward
 - cursor_forward
+- cursor_bookmark
 
 In order to illustrate *cursor* functions, a document made of several paragraphs will be used (let's use officer for that).
 

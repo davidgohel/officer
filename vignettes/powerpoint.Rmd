@@ -52,7 +52,7 @@ my_pres <- read_pptx()
 
 Next thing to do is to add a new slide, use function `add_slide`. It requires 3 arguments: 
 
-- a pptx object
+- an rpptx object
 - a slide layout name
 - a master layout name
 

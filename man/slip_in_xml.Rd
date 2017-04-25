@@ -7,7 +7,7 @@
 slip_in_xml(x, str, pos)
 }
 \arguments{
-\item{x}{a docx object}
+\item{x}{an rdocx object}
 
 \item{str}{a wml string}
 

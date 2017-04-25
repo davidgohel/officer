@@ -2,7 +2,7 @@
 % Please edit documentation in R/fortify_docx.R
 \name{docx_summary}
 \alias{docx_summary}
-\title{tidy content for an rdocx object}
+\title{get Word content in a tidy format}
 \usage{
 docx_summary(x)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pptx.R
 \name{slide_summary}
 \alias{slide_summary}
-\title{slide content summary}
+\title{get PowerPoint slide content in a tidy format}
 \usage{
 slide_summary(x, index = NULL)
 }

@@ -139,7 +139,7 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @importFrom xml2 as_xml_document xml_find_first xml_add_child
 #' @description The function add a wml string into
 #' the document after, before or on a cursor location.
-#' @param x a docx object
+#' @param x an rdocx object
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".

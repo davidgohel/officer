@@ -8,7 +8,7 @@
 #' identifiers that need to be known to
 #' link these images with their corresponding xml code (wml).
 #'
-#' @param x docx object
+#' @param x an rdocx object
 #' @param src a vector of character containing image filenames.
 docx_reference_img <- function( x, src){
   src <- unique( src )
@@ -32,7 +32,7 @@ docx_reference_img <- function( x, src){
 #' @details
 #' The function is available to let the creation of valid
 #' wml code containing references to images.
-#' @param x docx object
+#' @param x an rdocx object
 #' @param str wml string
 wml_link_images <- function(x, str){
   ref <- x$doc_obj$relationship()$get_data()

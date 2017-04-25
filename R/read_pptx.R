@@ -260,7 +260,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 
 
 #' @export
-#' @title slide content summary
+#' @title get PowerPoint slide content in a tidy format
 #' @description get content and positions of current slide
 #' into a data.frame. If any table, image or paragraph, data is
 #' imported into the resulting data.frame.

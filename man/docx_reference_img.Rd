@@ -7,7 +7,7 @@
 docx_reference_img(x, src)
 }
 \arguments{
-\item{x}{docx object}
+\item{x}{an rdocx object}
 
 \item{src}{a vector of character containing image filenames.}
 }
