@@ -113,15 +113,12 @@
   <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>str2</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"centered"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>str3</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>)
 
-<span class='kw'>if</span>( <span class='fu'><a href='has_zip.html'>has_zip</a></span>() ){
-  <span class='fu'>print</span>(<span class='no'>my_doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"init_doc.docx"</span>)
+<span class='fu'>print</span>(<span class='no'>my_doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"init_doc.docx"</span>)</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/officer/docs/reference/init_doc.docx"</div><div class='input'>
+<span class='no'>my_doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"init_doc.docx"</span>)  <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='cursor.html'>cursor_reach</a></span>(<span class='kw'>keyword</span> <span class='kw'>=</span> <span class='st'>"that text"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>body_remove</span>()
 
-  <span class='no'>my_doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"init_doc.docx"</span>)  <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='cursor.html'>cursor_reach</a></span>(<span class='kw'>keyword</span> <span class='kw'>=</span> <span class='st'>"that text"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>body_remove</span>()
-
-  <span class='fu'>print</span>(<span class='no'>my_doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"result_doc.docx"</span>)
-}</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/officer/docs/reference/result_doc.docx"</div></pre>
+<span class='fu'>print</span>(<span class='no'>my_doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"result_doc.docx"</span>)</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/officer/docs/reference/result_doc.docx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
