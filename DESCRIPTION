@@ -5,8 +5,9 @@ Version: 0.1.1.9001
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
-Description: Manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
-  The package focus on tabular and graphical reporting from R. A set of functions 
+Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
+  The package focus on tabular and graphical reporting from R; it also provides two functions 
+  that let users get document content into data objects. A set of functions 
   lets add and remove images, tables and paragraphs of text in new or existing documents. 
   When working with 'PowerPoint' presentations, slides can be added or removed; shapes inside 
   slides can also be added or removed. When working with 'Word' documents, a cursor can be 
