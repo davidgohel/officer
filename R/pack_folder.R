@@ -10,8 +10,8 @@
 #' @param target path of the archive to create
 pack_folder <- function( folder, target ){
 
-  target <- getAbsolutePath(target)
-  folder <- getAbsolutePath(folder)
+  target <- getAbsolutePath(path.expand(target))
+  folder <- getAbsolutePath(path.expand(folder))
   curr_wd <- getwd()
   zip_dir <- folder
   setwd(zip_dir)
@@ -39,8 +39,8 @@ pack_folder <- function( folder, target ){
 #' @param folder folder to create
 unpack_folder <- function( file, folder ){
 
-  file <- getAbsolutePath(file)
-  folder <- getAbsolutePath(folder)
+  file <- getAbsolutePath(path.expand(file))
+  folder <- getAbsolutePath(path.expand(folder))
   stopifnot(file.exists(file))
 
   unlink(folder, recursive = TRUE, force = TRUE)
