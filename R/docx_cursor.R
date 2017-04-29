@@ -60,7 +60,7 @@ cursor_begin <- function( x ){
 #'   body_add_par("A title", style = "heading 1") %>%
 #'   body_add_par("Hello world!", style = "Normal") %>%
 #'   cursor_bookmark("text_to_replace") %>%
-#'   body_add_table(value = head(iris), style = "table_template")
+#'   body_add_table(value = iris, style = "table_template")
 #'
 #' print(doc, target = "bookmark.docx")
 cursor_bookmark <- function( x, id ){
