@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>formatted text — ftext • officer package</title>
+<title>get PowerPoint content in a tidy format — pptx_summary • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -82,49 +82,45 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>formatted text</h1>
+    <h1>get PowerPoint content in a tidy format</h1>
     </div>
 
     
-    <p>Format a chunk of text with text formatting properties.</p>
+    <p>read content of a PowerPoint document and
+return a tidy dataset representing the document.</p>
     
 
-    <pre class="usage"><span class='fu'>ftext</span>(<span class='no'>text</span>, <span class='no'>prop</span>)
-
-<span class='co'># S3 method for ftext</span>
-<span class='fu'>format</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"console"</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for ftext</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>pptx_summary</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text</th>
-      <td><p>text value</p></td>
-    </tr>
-    <tr>
-      <th>prop</th>
-      <td><p>formatting text properties</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p><code>ftext</code> object</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>output format, one of wml, pml, html, console, text.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
+      <td><p>an rpptx object</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ftext</span>(<span class='st'>"hello"</span>, <span class='fu'><a href='fp_text.html'>fp_text</a></span>())</div><div class='output co'>#&gt; {text:{hello}}</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>example_pptx</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"officer"</span>,
+  <span class='st'>"doc_examples/example.pptx"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>(<span class='no'>example_pptx</span>)
+<span class='fu'>pptx_summary</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; # A tibble: 29 × 9
+#&gt;                 text    id content_type slide_id row_id cell_id col_span
+#&gt;                &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
+#&gt; 1              Title    12    paragraph        1     NA      NA       NA
+#&gt; 2           A table     13    paragraph        1     NA      NA       NA
+#&gt; 3      and some text    13    paragraph        1     NA      NA       NA
+#&gt; 4  and some list (1)    13    paragraph        1     NA      NA       NA
+#&gt; 5  and some list (2)    13    paragraph        1     NA      NA       NA
+#&gt; 6          Header 1     18   table cell        1      1       1        1
+#&gt; 7           Header 2    18   table cell        1      1       2        1
+#&gt; 8           Header 3    18   table cell        1      1       3        1
+#&gt; 9                  A    18   table cell        1      2       1        1
+#&gt; 10             12.23    18   table cell        1      2       2        1
+#&gt; # ... with 19 more rows, and 2 more variables: row_span &lt;dbl&gt;,
+#&gt; #   magick_data &lt;list&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
