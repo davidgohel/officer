@@ -35,6 +35,7 @@ reference:
   - title: Working with PowerPoint documents
     contents:
     - read_pptx
+    - pptx_summary
     - add_slide
     - on_slide
     - layout_summary
@@ -79,6 +80,8 @@ navbar:
     href: articles/powerpoint.html
   - text: Word
     href: articles/word.html
+  - text: Office scraping
+    href: articles/officer_reader.html
   - text: Function reference
     href: reference/index.html
   right:
