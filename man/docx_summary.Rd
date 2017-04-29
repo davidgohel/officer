@@ -14,25 +14,8 @@ read content of a Word document and
 return a tidy dataset representing the document.
 }
 \examples{
-library(dplyr)
-# dummy document ---
-doc <- read_docx() \%>\%
-  body_add_par("A title", style = "heading 1") \%>\%
-  body_add_par("Hello world!", style = "Normal") \%>\%
-  body_add_par("iris table", style = "centered") \%>\%
-  body_add_table(iris, style = "table_template") \%>\%
-  body_add_par("mtcars table", style = "centered") \%>\%
-  body_add_table(mtcars, style = "table_template") \%>\%
-  cursor_begin() \%>\% body_remove()
-
-# read the document in a tibble ---
-my_doc_desc <- docx_summary(doc)
-
-# access first table ---
-my_doc_desc
-all_tables <- my_doc_desc \%>\%
-  filter(content=="table")
-all_tables[[1, "table_data"]]
-all_tables[[1, "table_data"]] \%>\%
-  filter(is_header)
+example_pptx <- system.file(package = "officer",
+  "doc_examples/example.docx")
+doc <- read_docx(example_pptx)
+docx_summary(doc)
 }

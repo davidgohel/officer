@@ -25,7 +25,7 @@ unfold_row_xml <- function(node, row_id){
 
   out <- tibble(row_id = row_id, is_header = is_header,
                 cell_id = 1 + dplyr::lag( cumsum(col_span), default=0 ),
-                txt = txt, col_span = col_span) %>%
+                text = txt, col_span = col_span) %>%
     bind_cols(row_span)
 
 
@@ -36,7 +36,7 @@ unfold_row_xml <- function(node, row_id){
       out <- map_df( seq_len(reps_), function(x, df) {
         out <- df
         out$col_span <- 0
-        out$txt <- NA
+        out$text <- NA
         out
       }, row_data)
       out$cell_id <- seq_len(reps_) + row_data$cell_id
@@ -49,66 +49,56 @@ unfold_row_xml <- function(node, row_id){
 globalVariables(c("."))
 
 #' @importFrom purrr map2_df
-docxtable_as_tibble <- function(node, styles ){
+docxtable_as_tibble <- function( node, styles ){
   xpath_ <- paste0( xml_path(node), "/w:tr")
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
 
   row_details <- map2_df( rows, seq_along(rows), unfold_row_xml )
   out <- split(row_details, row_details$cell_id)
-  map_df(out, function(dat){
+  out <- map_df(out, function(dat){
     rle_ <- rle(dat$row_merge)
     new_vals <- rle_$lengths[rle_$values]
     dat[dat$row_merge, "row_span"] <- 0
     dat[dat$row_merge & dat$first, "row_span"] <- new_vals
     select_( dat, "-row_merge", "-first" )
   })
-}
 
-#' @importFrom purrr map2_df
-docxtable_desc <- function(node, styles ){
-  style_id <- xml_attr( xml_child(node, "w:tblPr/w:tblStyle"), "val")
-  out <- tibble( content = "table", table_data = list(docxtable_as_tibble(node, styles )), style_id = style_id )
-  styles <- select_( styles, "style_name", "style_id" )
-  out <- left_join(out, styles, by = "style_id")
-  select_( out, "-style_id")
+  style_node <- xml_child(node, "w:tblPr/w:tblStyle")
+  if( inherits(style_node, "xml_missing") ){
+    style_name <- NA
+  } else {
+    style_id <- xml_attr( style_node, "val")
+    out$style_name <- rep( styles$style_name[styles$style_id %in% style_id], nrow(out))
+  }
+
+  add_column(out, content_type = "table cell")
 }
 
 par_as_tibble <- function(node, styles){
-  txt <- xml_text(node)
 
-  style_id <- xml_attr( xml_child(node, "w:pPr/w:pStyle"), "val")
-  level <- as.integer(xml_attr( xml_child(node, "w:pPr/w:numPr/w:ilvl"), "val")) + 1
-  num_id <- as.integer(xml_attr( xml_child(node, "w:pPr/w:numPr/w:numId"), "val"))
+  style_node <- xml_child(node, "w:pPr/w:pStyle")
+  if( inherits(style_node, "xml_missing") ){
+    style_name <- NA
+  } else {
+    style_id <- xml_attr( style_node, "val")
+    style_name <- styles$style_name[styles$style_id %in% style_id]
+  }
 
-  out <- tibble( content = "paragraph", txt = txt, style_id = style_id, item_level = level, list_id = num_id )
-  styles <- select_( styles, "style_name", "style_id" )
-  out <- left_join(out, styles, by = "style_id")
-  out <- select_( out, "-style_id")
-  sect_data <- sect_as_tibble(xml_child(node, "w:pPr/w:sectPr"))
-  bind_cols( out, sect_data )
+  par_data <- tibble(
+    level = as.integer(xml_attr( xml_child(node, "w:pPr/w:numPr/w:ilvl"), "val")) + 1,
+    num_id = as.integer(xml_attr( xml_child(node, "w:pPr/w:numPr/w:numId"), "val")),
+    text = xml_text(node), style_name = style_name )
+
+  add_column(par_data, content_type = "paragraph")
 }
 
-
-sect_as_tibble <- function(node){
-
-  if( inherits(node, "xml_missing") )
-    return(NULL )
-
-  sect_desc <- tibble(
-    type = xml_attr( xml_child(node, "w:type"), "val"),
-    width = as.integer( xml_attr( xml_child(node, "w:pgSz"), "w") ) / 12700,
-    height = as.integer( xml_attr( xml_child(node, "w:pgSz"), "h") ) / 12700,
-    top = as.integer( xml_attr( xml_child(node, "w:pgMar"), "top") ) / 12700,
-    right = as.integer( xml_attr( xml_child(node, "w:pgMar"), "right") ) / 12700,
-    bottom = as.integer( xml_attr( xml_child(node, "w:pgMar"), "bottom") ) / 12700,
-    left = as.integer( xml_attr( xml_child(node, "w:pgMar"), "left") ) / 12700,
-    header = as.integer( xml_attr( xml_child(node, "w:pgMar"), "header") ) / 12700,
-    footer = as.integer( xml_attr( xml_child(node, "w:pgMar"), "footer") ) / 12700,
-    gutter = as.integer( xml_attr( xml_child(node, "w:pgMar"), "gutter") ) / 12700,
-    cols = as.integer( xml_attr( xml_child(node, "w:cols"), "num") ) )
-
-  tibble(content = "section_break", section_data = list(sect_desc) )
+node_content <- function(node, x){
+  node_name <- xml_name(node)
+  switch(node_name,
+         p = par_as_tibble(node, styles_info(x)),
+         tbl = docxtable_as_tibble(node, styles_info(x)),
+         NULL)
 }
 
 
@@ -117,43 +107,23 @@ sect_as_tibble <- function(node){
 #' return a tidy dataset representing the document.
 #' @param x an rdocx object
 #' @examples
-#' library(dplyr)
-#' # dummy document ---
-#' doc <- read_docx() %>%
-#'   body_add_par("A title", style = "heading 1") %>%
-#'   body_add_par("Hello world!", style = "Normal") %>%
-#'   body_add_par("iris table", style = "centered") %>%
-#'   body_add_table(iris, style = "table_template") %>%
-#'   body_add_par("mtcars table", style = "centered") %>%
-#'   body_add_table(mtcars, style = "table_template") %>%
-#'   cursor_begin() %>% body_remove()
-#'
-#' # read the document in a tibble ---
-#' my_doc_desc <- docx_summary(doc)
-#'
-#' # access first table ---
-#' my_doc_desc
-#' all_tables <- my_doc_desc %>%
-#'   filter(content=="table")
-#' all_tables[[1, "table_data"]]
-#' all_tables[[1, "table_data"]] %>%
-#'   filter(is_header)
+#' example_pptx <- system.file(package = "officer",
+#'   "doc_examples/example.docx")
+#' doc <- read_docx(example_pptx)
+#' docx_summary(doc)
 #' @export
-#' @importFrom purrr map_df
+#' @importFrom purrr map map2_df
+#' @importFrom tibble add_column
 docx_summary <- function( x ){
 
-  all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*")
-  data <- map_df(all_nodes, node_content, x)
-  data <- select_(data, "content", "txt", "style_name", "table_data", "section_data", "item_level", "list_id")
-  data$doc_index = seq_len(nrow(data))
-  data
+  all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*[self::w:p or self::w:tbl]")
+  data <- map(all_nodes, node_content, x)
+  data <- map2_df( data, seq_along(data), function(x, id) {
+    add_column(x, doc_index = id)
+  })
+
+  select_(data, "doc_index", "content_type", "style_name", "text",
+          "level", "num_id", "row_id", "is_header", "cell_id",
+          "col_span", "row_span")
 }
 
-node_content <- function(node, x){
-  node_name <- xml_name(node)
-  switch(node_name,
-         p = par_as_tibble(node, styles_info(x)),
-         tbl = docxtable_desc(node, styles_info(x)),
-         sectPr = sect_as_tibble(node),
-         NULL)
-}

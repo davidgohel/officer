@@ -15,12 +15,12 @@ test_that("add text into placeholder", {
     ph_add_par(level = 2) %>%
     ph_add_text(str = "chunk 1", style = small_red )
   sm <- slide_summary(doc)
-  expect_equal(sm[[1, "par_data"]]$paragraph, "chunk 1")
+  expect_equal(sm[1, ]$text, "chunk 1")
 
   doc <- doc %>%
     ph_add_text(str = "this is ", style = small_red, pos = "before" )
   sm <- slide_summary(doc)
-  expect_equal(sm[[1, "par_data"]]$paragraph, "this is chunk 1")
+  expect_equal(sm[1, ]$text, "this is chunk 1")
 })
 
 test_that("ph_add_par append when text alrady exists", {
@@ -28,11 +28,12 @@ test_that("ph_add_par append when text alrady exists", {
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
     ph_with_text(type = "body", str = "This is a ") %>%
-    ph_add_par(level = 2) %>%
+    ph_add_par(level = 2)
+  doc <- doc %>%
     ph_add_text(str = "test", style = small_red )
 
   sm <- slide_summary(doc)
-  expect_equal(sm[[1, "par_data"]]$paragraph, c("This is a ", "test") )
+  expect_equal(sm$text, "This is a test")
 
   xmldoc <- doc$slide$get_slide(1)$get()
   txt <- xml_find_all(xmldoc, "//p:spTree/p:sp/p:txBody/a:p") %>% xml_text()
@@ -70,7 +71,6 @@ test_that("add img into placeholder", {
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
-  expect_false(is.null(sm$raster_data))
   expect_equal(sm$cx, 1.39*914400)
   expect_equal(sm$cy, 1.06*914400)
 
@@ -91,7 +91,7 @@ test_that("add formatted par into placeholder", {
     ph_add_fpar(value = fpar_, type = "body", level = 2)
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 1)
-  expect_equal(sm[[1, "par_data"]][["paragraph"]], "Hello World, how are you?")
+  expect_equal(sm[1, ]$text, "Hello World, how are you?")
 
   xmldoc <- doc$slide$get_slide(id = 1)$get()
   cols <- xml_find_all(xmldoc, "//a:rPr/a:solidFill/a:srgbClr") %>% xml_attr("val")
@@ -108,7 +108,7 @@ test_that("add xml into placeholder", {
     ph_from_xml(type = "body", value = xml_str)
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 1)
-  expect_equal(sm[[1, "par_data"]][["paragraph"]], "Hello world 1")
+  expect_equal(sm[1,]$text, "Hello world 1")
 })
 
 test_that("hyperlink shape", {

@@ -101,6 +101,8 @@ add_slide <- function( x, layout, master ){
 
   filter_criteria <- interp(~ name == layout & master_name == master, layout = layout, master = master)
   slide_info <- filter_(x$slideLayouts$get_metadata(), filter_criteria)
+  if( nrow( slide_info ) < 1 )
+    stop("could not find layout named ", shQuote(layout), " in master named ", shQuote(master))
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
@@ -294,30 +296,7 @@ slide_summary <- function( x, index = NULL ){
   str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
   nodes <- xml_find_all(slide$get(), str)
   data <- read_xfrm(nodes, file = "slide", name = "" )
-
-  content <- map_df(nodes, function(node){
-    is_table <- !inherits( xml_child(node, "/a:graphic/a:graphicData/a:tbl"), "xml_missing")
-    is_par <- !inherits( xml_child(node, "/p:txBody/a:p"), "xml_missing")
-    is_img <- xml_name(node) == "pic"
-
-    if( is_table )
-      tibble( table_data = list( pptxtable_as_tibble(node) ) )
-    else if( is_par ){
-      tibble( par_data = list( pptx_par_as_tibble(node) ) )
-    } else if( is_img ){
-      rel <- slide$relationship()
-      images_ <- rel$get_images_path()
-      img_id <- names(images_)
-      images_ <- normalizePath( file.path(dirname( slide$file_name() ), images_) )
-      names( images_ ) <- img_id
-      tibble( raster_data = list( pptx_img_as_tibble(node, images_) ) )
-    } else {
-      tibble( null_data = list( NULL ) )
-    }
-  })
-  data <- bind_cols(data, content)
-
-
+  data$text <- map_chr(nodes, xml_text )
   select_(data, "-name", "-file", "-ph")
 }
 

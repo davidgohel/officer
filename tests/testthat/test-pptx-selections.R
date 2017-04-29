@@ -11,15 +11,15 @@ test_that("check slide selection", {
 
   x <-  x %>% on_slide(index = 1)
   sm <- slide_summary(x)
-  expect_equal(sm[[1, "par_data"]][["paragraph"]], "Hello world 1")
+  expect_equal(sm[1,]$text, "Hello world 1")
 
   x <-  x %>% on_slide(index = 2)
   sm <- slide_summary(x)
-  expect_equal(sm[[1, "par_data"]][["paragraph"]], "Hello world 2")
+  expect_equal(sm[1, ]$text, "Hello world 2")
 
   x <-  x %>% on_slide(index = 3)
   sm <- slide_summary(x)
-  expect_equal(sm[[1, "par_data"]][["paragraph"]], "Hello world 3")
+  expect_equal(sm[1, ]$text, "Hello world 3")
 
 })
 

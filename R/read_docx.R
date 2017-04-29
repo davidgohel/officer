@@ -39,6 +39,7 @@ read_docx <- function( path = NULL ){
 #' @param ... unused
 #' @rdname read_docx
 #' @examples
+#' print(read_docx())
 #' # write a rdocx object in a docx file ----
 #' if( require(magrittr) ){
 #'   read_docx() %>% print(target = "out.docx")
@@ -52,10 +53,16 @@ print.rdocx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
     cat("rdocx document with", length(x), "element(s)\n")
-    cat("* Available styles are:\n")
-    print(as.data.frame(select_( styles_info(x), "style_type", "style_name")))
+    cat("\n* styles:\n")
+
+    style_names <- select_( styles_info(x), "style_type", "style_name")
+    style_sample <- style_names$style_type
+    names(style_sample) <- style_names$style_name
+    print(style_sample)
+
+
     cursor_elt <- x$doc_obj$get_at_cursor()
-    cat("* Content at cursor location:\n")
+    cat("\n* Content at cursor location:\n")
     print(node_content(cursor_elt, x))
     return(invisible())
   }
