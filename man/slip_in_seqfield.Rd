@@ -17,7 +17,7 @@ slip_in_seqfield(x, str, style = NULL, pos = "after")
 "after" or "before".}
 }
 \description{
-append seq field into a paragraph of a docx object
+append seq field into a paragraph of an rdocx object
 }
 \examples{
 library(magrittr)

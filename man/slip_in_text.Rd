@@ -17,7 +17,7 @@ slip_in_text(x, str, style = NULL, pos = "after")
 "after" or "before".}
 }
 \description{
-append text into a paragraph of a docx object
+append text into a paragraph of an rdocx object
 }
 \examples{
 library(magrittr)

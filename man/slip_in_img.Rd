@@ -21,7 +21,7 @@ slip_in_img(x, src, style = NULL, width, height, pos = "after")
 "after" or "before".}
 }
 \description{
-append an image into a paragraph of a docx object
+append an image into a paragraph of an rdocx object
 }
 \examples{
 library(magrittr)

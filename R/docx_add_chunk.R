@@ -1,6 +1,6 @@
 #' @export
 #' @title append seq field
-#' @description append seq field into a paragraph of a docx object
+#' @description append seq field into a paragraph of an rdocx object
 #' @param x an rdocx object
 #' @param str seq field value
 #' @param style text style
@@ -62,7 +62,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 
 #' @export
 #' @title append text
-#' @description append text into a paragraph of a docx object
+#' @description append text into a paragraph of an rdocx object
 #' @param x an rdocx object
 #' @param str text
 #' @param style text style
@@ -91,7 +91,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after" ){
 
 #' @export
 #' @title append an image
-#' @description append an image into a paragraph of a docx object
+#' @description append an image into a paragraph of an rdocx object
 #' @param x an rdocx object
 #' @param src image filename
 #' @param style text style
