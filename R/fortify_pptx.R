@@ -61,11 +61,34 @@ pptx_par_as_tibble <- function(node){
 }
 
 
-#' @importFrom magick image_read
+
 embed_img_raster  <- function(node, img_src ){
   blip <- xml_child(node, "/p:blipFill/a:blip" )
   img_id <- xml_attr(blip, "embed")
-  image_read( img_src[img_id] )
+
+  file_ <- img_src[img_id]
+  stopifnot(is.character(file_), length(file_) == 1)
+  tibble(media_file = file.path( "ppt/media/", basename(file_) ) )
+}
+
+#' @export
+#' @title Extract media from a document object
+#' @description Extract files from an \code{rdocx} or \code{rpptx} object.
+#' @param x an rpptx object or an rdocx object
+#' @param path media path, should be a relative path
+#' @param target target file
+#' @examples
+#' example_pptx <- system.file(package = "officer",
+#'   "doc_examples/example.pptx")
+#' doc <- read_pptx(example_pptx)
+#' content <- pptx_summary(doc)
+#' image_row <- content[content$content_type %in% "image", ]
+#' media_file <- image_row$media_file
+#' media_extract(doc, path = media_file, target = "extract.png")
+media_extract <- function( x, path, target ){
+  media <- file.path(x$package_dir, path )
+  stopifnot(file.exists(media))
+  file.copy(from = media, to = target)
 }
 
 #' @title get PowerPoint content in a tidy format
@@ -95,14 +118,15 @@ pptx_summary <- function( x ){
       if( is_table )
         add_column(pptxtable_as_tibble(node), id = id, content_type = "table cell", slide_id = slide_id)
       else if( is_par ){
-        add_column(pptx_par_as_tibble(node), id = id, content_type = "paragraph", slide_id = slide_id)
+        add_column(pptx_par_as_tibble(node), id = id,
+                   content_type = "paragraph", slide_id = slide_id)
       } else if( is_img ){
         rel <- slide$relationship()
         images_ <- rel$get_images_path()
         img_id <- names(images_)
         images_ <- normalizePath( file.path(dirname( slide$file_name() ), images_) )
         names( images_ ) <- img_id
-        tibble(magick_data = list( embed_img_raster(node, images_) ), id = id, content_type = "image", slide_id = slide_id)
+        add_column( embed_img_raster(node, images_), id = id, content_type = "image", slide_id = slide_id)
       } else {
         tibble( id = id, content_type = "unknown", slide_id = slide_id)
       }

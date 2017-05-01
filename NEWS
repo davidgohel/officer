@@ -1,3 +1,13 @@
+# officer 0.1.3
+
+## new feature
+
+* new function media_extract to extract a media file from a document object. This function can be used to access images stored in a PowerPoint file.
+
+## Issues
+
+* drop magick dependence
+
 # officer 0.1.2
 
 ## new features
