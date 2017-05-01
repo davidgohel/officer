@@ -10,7 +10,7 @@ docx_dim(x)
 \item{x}{a \code{rdocx} object}
 }
 \description{
-get page width, page height and margins. The return values
+get page width, page height and margins (in inches). The return values
 are those corresponding to the section where the cursor is.
 }
 \examples{

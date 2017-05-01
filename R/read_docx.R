@@ -165,7 +165,7 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 
 #' @export
 #' @title Word page layout
-#' @description get page width, page height and margins. The return values
+#' @description get page width, page height and margins (in inches). The return values
 #' are those corresponding to the section where the cursor is.
 #' @param x a \code{rdocx} object
 #' @examples
@@ -174,5 +174,9 @@ docx_dim <- function(x){
   cursor_elt <- x$doc_obj$get_at_cursor()
   xpath_ <- file.path( xml_path(cursor_elt), "following-sibling::w:sectPr")
   next_section <- xml_find_first(x$doc_obj$get(), xpath_)
-  section_dimensions(next_section)
+  sd <- section_dimensions(next_section)
+  sd$page <- sd$page / 914400
+  sd$margins <- sd$margins / 914400
+  sd
+
 }
