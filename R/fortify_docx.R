@@ -121,9 +121,10 @@ docx_summary <- function( x ){
   data <- map2_df( data, seq_along(data), function(x, id) {
     add_column(x, doc_index = id)
   })
-
-  select_(data, "doc_index", "content_type", "style_name", "text",
-          "level", "num_id", "row_id", "is_header", "cell_id",
-          "col_span", "row_span")
+  colnames <- c("doc_index", "content_type", "style_name", "text",
+  "level", "num_id", "row_id", "is_header", "cell_id",
+  "col_span", "row_span")
+  colnames <- intersect(colnames, names(data))
+  data[, colnames]
 }
 
