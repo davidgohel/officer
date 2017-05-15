@@ -109,6 +109,24 @@ test_that("cursor behavior", {
 
 })
 
+test_that("cursor remove", {
+  doc <- read_docx() %>%
+    body_add_par("paragraph 1", style = "Normal") %>%
+    body_add_par("paragraph 2", style = "Normal") %>%
+
+    cursor_begin() %>%
+    body_remove() %>%
+
+    body_add_par("new 1", style = "Normal") %>%
+    cursor_forward() %>%
+    body_add_par("new 2", style = "Normal")
+
+  ds_ <- docx_summary(doc)
+
+  expect_equal( ds_$text, c("paragraph 1", "new 1", "paragraph 2", "new 2") )
+
+})
+
 
 unlink("*.docx")
 unlink("*.emf")

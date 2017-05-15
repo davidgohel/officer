@@ -328,8 +328,10 @@ body_bookmark <- function(x, id){
 #' print(my_doc, target = "result_doc.docx")
 body_remove <- function(x){
   cursor_elt <- x$doc_obj$get_at_cursor()
+  x$doc_obj$cursor_forward()
+  new_cursor_elt <- x$doc_obj$get_at_cursor()
   xml_remove(cursor_elt)
-  x <- cursor_forward(x)
+  x$doc_obj$set_cursor(xml_path(new_cursor_elt))
   x
 }
 

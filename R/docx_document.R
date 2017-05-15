@@ -49,6 +49,10 @@ docx_document <- R6Class(
     get_doc_properties = function(){
       private$doc_properties
     },
+    set_cursor = function( cursor ){
+      private$cursor <- cursor
+      self
+    },
     cursor_begin = function( ){
       private$cursor <- "/w:document/w:body/*[1]"
       self
