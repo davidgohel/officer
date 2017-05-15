@@ -243,7 +243,9 @@ slide_layout <- R6Class(
       data <- group_by_(data, .dots = c("id", "type"))
       data <- mutate_(data, num = "row_number()")
       data <- ungroup(data)
-      data$master_file <- basename(rels$target)
+      if( nrow(data))
+        data$master_file <- basename(rels$target)
+      else data$master_file <- character(0)
       data
     },
     name = function(){
