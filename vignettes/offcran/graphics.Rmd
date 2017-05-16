@@ -69,7 +69,7 @@ read_docx() %>%
 
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/graphics/demo_emf.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_emf.docx" ) )
 ```
 
 
@@ -95,7 +95,7 @@ read_pptx() %>%
 
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/graphics/demo_emf.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_emf.pptx" ) )
 ```
 
 
@@ -113,5 +113,5 @@ read_pptx() %>%
 
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/graphics/demo_rvg.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_rvg.pptx" ) )
 ```
