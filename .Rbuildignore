@@ -7,3 +7,4 @@
 _pkgdown\.yml
 ^docs$
 ^inst/tools$
+^vignettes/offcran/untitled\.Rmd$

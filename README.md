@@ -2,7 +2,7 @@ officer R package
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-The officer package lets R users manipulate Word (`.docx`) and PowerPoint (`*.pptx`) documents. In short, one can add images, tables and text into documents from R.
+The officer package lets R users manipulate Word (`.docx`) and PowerPoint (`*.pptx`) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided, contents, styles and properties of the original document will then be available.
 
 *This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require `rJava` (but `xml2`) and has less functions that will make it easier to maintain.*
 
@@ -65,3 +65,9 @@ Or the latest version on CRAN:
 ``` r
 install.packages("officer")
 ```
+
+Plan / to do list
+-----------------
+
+-   enable access to headers and footers in Word documents
+-   improve tests and documentation (help is more than welcome)

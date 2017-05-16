@@ -1,0 +1,118 @@
+---
+title: "Officer and tables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{flextable}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+dir.create("../assets/flextable", recursive = TRUE, showWarnings = FALSE)
+office_doc_link <- function(url){
+  stopifnot(requireNamespace("htmltools", quietly = TRUE))
+  htmltools::tags$p(  htmltools::tags$span("Download file "),
+    htmltools::tags$a(basename(url), href = url), 
+    htmltools::tags$span(" - view with"),
+    htmltools::tags$a("office web viewer", target="_blank", 
+      href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
+      ), 
+    style="text-align:center;font-style:italic;color:gray;"
+    )
+}
+```
+
+> Use package `flextable` to create tables with advanced formatting and layouts.
+
+```{r}
+library(officer)
+library(flextable)
+library(magrittr)
+```
+
+
+## Package flextable
+
+Documentation can be found here: https://davidgohel.github.io/flextable/.
+
+The flextable package has been written to enable production of tabular reporting; it is working very well with `officer`. 
+
+You can install it from CRAN:
+
+```{r eval=FALSE}
+install.packages("flextable")
+```
+
+The development version is available on Github:
+
+```{r eval=FALSE}
+devtools::install_github("davidgohel/flextable")
+```
+
+
+## Example
+
+Data used for illustrations is shown below:
+
+```{r}
+data = structure(list(Status = c("Alive", "Alive", "Alive", "Alive","Melanoma", "Melanoma","Melanoma", "Melanoma", "Non-melanoma","Non-melanoma", "Non-melanoma", "Non-melanoma"), Gender = c("Female","Female", "Male", "Male", "Female", "Female", "Male", "Male","Female", "Female", "Male", "Male"), Ulceration = c("Absent","Present", "Absent", "Present", "Absent", "Present", "Absent","Present", "Absent", "Present", "Absent", "Present"), n = c(68L,23L, 24L, 19L, 8L, 20L, 8L, 21L, 3L, 4L, 4L, 3L), Mean = c(1.693,2.972, 1.468, 4.319, 2.139, 4.724, 3.266, 5.143, 1.667, 3.302,2.42, 8.053), SD = c(2.004, 2.593, 1.719, 2.423, 1.184, 4.128,4.681, 2.862, 1.141, 3.713, 2.499, 4.019)), class = "data.frame", .Names = c("Status","Gender", "Ulceration", "n", "Mean", "SD"), row.names = c(NA,-12L))
+data
+```
+
+From these data, let's create a simple `flextable`:
+
+```{r}
+ft <- flextable(data = data) %>% 
+  theme_booktabs() %>% 
+  set_header_labels( n = "#", Mean = "\u03D1", SD = "\u03C3") %>% 
+  color(i = ~ n < 4, color = "wheat") %>% 
+  autofit() 
+```
+
+The table will be display as below: 
+
+```{r echo=FALSE}
+tabwid(ft)
+```
+
+## Add a flextable into a Word document 
+
+To insert that table in a Word document, function `flextable::body_add_flextable` is to be used.
+
+```{r}
+read_docx() %>% 
+  body_add_flextable(ft) %>% 
+  print(target = "../assets/flextable/flextable.docx") %>% 
+  invisible()
+```
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/flextable/flextable.docx" ) )
+```
+
+## Add a flextable into a PowerPoint document 
+
+To insert that table in a PowerPoint document, functions `flextable::ph_with_flextable()` or `flextable::ph_with_flextable_at()` are to be used:
+
+- ph_with_flextable add the flextable into an available shape of the chosen layout
+- ph_with_flextable_at add the flextable at any arbitrary location in the current slide
+
+```{r}
+read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_flextable(ft, type = "body") %>% 
+  add_slide(layout = "Title Only", master = "Office Theme") %>% 
+  ph_with_flextable_at(ft, left = 3, top = 4) %>% 
+  print(target = "../assets/flextable/flextable.pptx") %>% 
+  invisible()
+```
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/flextable/flextable.pptx" ) )
+```
+
+
+

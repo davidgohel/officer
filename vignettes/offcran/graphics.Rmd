@@ -1,0 +1,117 @@
+---
+title: "Officer and graphics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{graphics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+dir.create("../assets/graphics", recursive = TRUE, showWarnings = FALSE)
+office_doc_link <- function(url){
+  stopifnot(requireNamespace("htmltools", quietly = TRUE))
+  htmltools::tags$p(  htmltools::tags$span("Download file "),
+    htmltools::tags$a(basename(url), href = url), 
+    htmltools::tags$span(" - view with"),
+    htmltools::tags$a("office web viewer", target="_blank", 
+      href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
+      ), 
+    style="text-align:center;font-style:italic;color:gray;"
+    )
+}
+```
+
+## Word documents and graphics 
+
+Graphics and more generally raster images and vector graphic images are added in a Word document as elements of a **paragraph**. `officer` provides two functions to let users add images into a Word document:
+
+- *body_add_img*: add an image in a new paragraph. This is usually the function to use when the need is to add a plot generated with R into a document.
+- *slip_in_img*: add an image inside an existing paragraph (defined by the cursor location), user can choose to insert it at beginning or end of the paragraph. This allows to mix text and images within a single paragraph.
+
+Those functions accept various image formats: png, jpeg and emf.
+
+### R plots
+
+So far, tests has been made with outputs from `grDevices::png()`, `grDevices::jpeg()` and `devEMF::emf()`. Enhanced metafile graphics produced by package `devEMF` seem to be the best solution to have vector graphics within Word document. 
+
+```{r}
+library(officer)
+library(devEMF)
+library(magrittr)
+library(ggplot2)
+```
+
+`officer` is not producing the image, it only provides functions to add a produced image into a Word document.
+
+Let's first produce the image:
+
+```{r results='hide'}
+# ggplot example
+gg <- ggplot(mtcars, aes(x = mpg , y = wt, colour = qsec)) + geom_point() + theme_minimal()
+
+# produce an emf file containing the ggplot
+filename <- tempfile(fileext = ".emf")
+emf(file = filename, width = 6, height = 7)
+print(gg)
+dev.off()
+```
+
+Then add it to a new Word document:
+
+```{r}
+read_docx() %>% 
+  body_add_img(src = filename, width = 6, height = 7) %>% 
+  print(target = "../assets/graphics/demo_emf.docx") %>% 
+  invisible()
+```
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/graphics/demo_emf.docx" ) )
+```
+
+
+## PowerPoint documents and graphics 
+
+Raster images and vector graphic images are added in a PowerPoint document as a shape on the current slide. In PowerPoint, images and text can not be mixed in the same shape (or placeholder). `officer` provides two functions to let users add images into a Word document:
+
+* ph_with_img: add an image as a new shape in the current slide.
+* ph_with_img_at: add an image in the current slide at any arbitrary location.
+
+Again those functions accept various image formats: png, jpeg and emf.
+
+```{r}
+read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_img(src = filename, width = 6, height = 7, type = "body") %>% 
+  add_slide(layout = "Title Only", master = "Office Theme") %>% 
+  ph_with_img_at(src = filename, left = 0, top = 0, width = 6, height = 7) %>% 
+  print(target = "../assets/graphics/demo_emf.pptx") %>% 
+  invisible()
+```
+
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/graphics/demo_emf.pptx" ) )
+```
+
+
+Package `rvg` is providing editable vector graphics that can be used with `officer`. Function `ph_with_vg` can be used to generate (from R plot commands) a nice editable graphic within PowerPoint.
+
+```{r}
+library(rvg)
+read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_vg(code = print(gg), type = "body") %>% 
+  print(target = "../assets/graphics/demo_rvg.pptx") %>% 
+  invisible()
+```
+
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/graphics/demo_rvg.pptx" ) )
+```

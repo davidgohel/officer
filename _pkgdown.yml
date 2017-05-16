@@ -80,6 +80,10 @@ navbar:
     href: articles/powerpoint.html
   - text: Word
     href: articles/word.html
+  - text: Tables
+    href: articles/offcran/tables.html
+  - text: Graphics
+    href: articles/offcran/graphics.html
   - text: Office scraping
     href: articles/officer_reader.html
   - text: Function reference
