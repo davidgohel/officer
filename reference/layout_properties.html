@@ -118,7 +118,7 @@ into a data.frame.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title Slide"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span> )</div><div class='output co'>#&gt; # A tibble: 5 × 7
+<span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title Slide"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span> )</div><div class='output co'>#&gt; # A tibble: 5 x 7
 #&gt;    master_name        name     type         offx         offy           cx
 #&gt;          &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
 #&gt; 1 Office Theme Title Slide       dt 5.000000e-01 6.951389e+00 2.333333e+00
@@ -126,20 +126,20 @@ into a data.frame.</p>
 #&gt; 3 Office Theme Title Slide   sldNum 7.166667e+00 6.951389e+00 2.333333e+00
 #&gt; 4 Office Theme Title Slide subTitle 1.371600e+06 3.886200e+06 6.400800e+06
 #&gt; 5 Office Theme Title Slide ctrTitle 6.858000e+05 2.130425e+06 7.772400e+06
-#&gt; # ... with 1 more variables: cy &lt;dbl&gt;</div><div class='input'><span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span> )</div><div class='output co'>#&gt; # A tibble: 58 × 7
+#&gt; # ... with 1 more variables: cy &lt;dbl&gt;</div><div class='input'><span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span> )</div><div class='output co'>#&gt; # A tibble: 58 x 7
 #&gt;     master_name                    name   type     offx      offy       cx
 #&gt;           &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1  Office Theme             Title Slide     dt 0.500000 6.9513889 2.333333
-#&gt; 2  Office Theme             Title Slide    ftr 3.416667 6.9513889 3.166667
-#&gt; 3  Office Theme             Title Slide sldNum 7.166667 6.9513889 2.333333
-#&gt; 4  Office Theme Title and Vertical Text  title 0.500000 0.3003478 9.000000
-#&gt; 5  Office Theme Title and Vertical Text   body 0.500000 1.7500000 9.000000
-#&gt; 6  Office Theme Title and Vertical Text     dt 0.500000 6.9513889 2.333333
-#&gt; 7  Office Theme Title and Vertical Text    ftr 3.416667 6.9513889 3.166667
-#&gt; 8  Office Theme Title and Vertical Text sldNum 7.166667 6.9513889 2.333333
-#&gt; 9  Office Theme Vertical Title and Text  title 7.250000 0.3003478 2.250000
+#&gt;  1 Office Theme             Title Slide     dt 0.500000 6.9513889 2.333333
+#&gt;  2 Office Theme             Title Slide    ftr 3.416667 6.9513889 3.166667
+#&gt;  3 Office Theme             Title Slide sldNum 7.166667 6.9513889 2.333333
+#&gt;  4 Office Theme Title and Vertical Text  title 0.500000 0.3003478 9.000000
+#&gt;  5 Office Theme Title and Vertical Text   body 0.500000 1.7500000 9.000000
+#&gt;  6 Office Theme Title and Vertical Text     dt 0.500000 6.9513889 2.333333
+#&gt;  7 Office Theme Title and Vertical Text    ftr 3.416667 6.9513889 3.166667
+#&gt;  8 Office Theme Title and Vertical Text sldNum 7.166667 6.9513889 2.333333
+#&gt;  9 Office Theme Vertical Title and Text  title 7.250000 0.3003478 2.250000
 #&gt; 10 Office Theme Vertical Title and Text   body 0.500000 0.3003478 6.583333
-#&gt; # ... with 48 more rows, and 1 more variables: cy &lt;dbl&gt;</div><div class='input'><span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span> )</div><div class='output co'>#&gt; # A tibble: 6 × 7
+#&gt; # ... with 48 more rows, and 1 more variables: cy &lt;dbl&gt;</div><div class='input'><span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span> )</div><div class='output co'>#&gt; # A tibble: 6 x 7
 #&gt;    master_name        name   type     offx      offy       cx        cy
 #&gt;          &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 #&gt; 1 Office Theme Two Content  title 0.500000 0.3003478 9.000000 1.2500000
@@ -147,18 +147,18 @@ into a data.frame.</p>
 #&gt; 3 Office Theme Two Content   body 5.083333 1.7500000 4.416667 4.9496533
 #&gt; 4 Office Theme Two Content     dt 0.500000 6.9513889 2.333333 0.3993056
 #&gt; 5 Office Theme Two Content    ftr 3.416667 6.9513889 3.166667 0.3993056
-#&gt; 6 Office Theme Two Content sldNum 7.166667 6.9513889 2.333333 0.3993056</div><div class='input'><span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span> )</div><div class='output co'>#&gt; # A tibble: 58 × 7
+#&gt; 6 Office Theme Two Content sldNum 7.166667 6.9513889 2.333333 0.3993056</div><div class='input'><span class='fu'>layout_properties</span> ( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span> )</div><div class='output co'>#&gt; # A tibble: 58 x 7
 #&gt;     master_name                    name   type     offx      offy       cx
 #&gt;           &lt;chr&gt;                   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1  Office Theme             Title Slide     dt 0.500000 6.9513889 2.333333
-#&gt; 2  Office Theme             Title Slide    ftr 3.416667 6.9513889 3.166667
-#&gt; 3  Office Theme             Title Slide sldNum 7.166667 6.9513889 2.333333
-#&gt; 4  Office Theme Title and Vertical Text  title 0.500000 0.3003478 9.000000
-#&gt; 5  Office Theme Title and Vertical Text   body 0.500000 1.7500000 9.000000
-#&gt; 6  Office Theme Title and Vertical Text     dt 0.500000 6.9513889 2.333333
-#&gt; 7  Office Theme Title and Vertical Text    ftr 3.416667 6.9513889 3.166667
-#&gt; 8  Office Theme Title and Vertical Text sldNum 7.166667 6.9513889 2.333333
-#&gt; 9  Office Theme Vertical Title and Text  title 7.250000 0.3003478 2.250000
+#&gt;  1 Office Theme             Title Slide     dt 0.500000 6.9513889 2.333333
+#&gt;  2 Office Theme             Title Slide    ftr 3.416667 6.9513889 3.166667
+#&gt;  3 Office Theme             Title Slide sldNum 7.166667 6.9513889 2.333333
+#&gt;  4 Office Theme Title and Vertical Text  title 0.500000 0.3003478 9.000000
+#&gt;  5 Office Theme Title and Vertical Text   body 0.500000 1.7500000 9.000000
+#&gt;  6 Office Theme Title and Vertical Text     dt 0.500000 6.9513889 2.333333
+#&gt;  7 Office Theme Title and Vertical Text    ftr 3.416667 6.9513889 3.166667
+#&gt;  8 Office Theme Title and Vertical Text sldNum 7.166667 6.9513889 2.333333
+#&gt;  9 Office Theme Vertical Title and Text  title 7.250000 0.3003478 2.250000
 #&gt; 10 Office Theme Vertical Title and Text   body 0.500000 0.3003478 6.583333
 #&gt; # ... with 48 more rows, and 1 more variables: cy &lt;dbl&gt;</div></pre>
   </div>

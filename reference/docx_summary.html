@@ -112,18 +112,18 @@ return a tidy dataset representing the document.</p>
     <pre class="examples"><div class='input'><span class='no'>example_pptx</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"officer"</span>,
   <span class='st'>"doc_examples/example.docx"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>(<span class='no'>example_pptx</span>)
-<span class='fu'>docx_summary</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; # A tibble: 69 × 11
+<span class='fu'>docx_summary</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; # A tibble: 69 x 11
 #&gt;    doc_index content_type     style_name
 #&gt;        &lt;int&gt;        &lt;chr&gt;          &lt;chr&gt;
-#&gt; 1          1    paragraph      heading 1
-#&gt; 2          2    paragraph           &lt;NA&gt;
-#&gt; 3          3    paragraph      heading 1
-#&gt; 4          4    paragraph List Paragraph
-#&gt; 5          5    paragraph List Paragraph
-#&gt; 6          6    paragraph List Paragraph
-#&gt; 7          7    paragraph      heading 2
-#&gt; 8          8    paragraph List Paragraph
-#&gt; 9          9    paragraph List Paragraph
+#&gt;  1         1    paragraph      heading 1
+#&gt;  2         2    paragraph           &lt;NA&gt;
+#&gt;  3         3    paragraph      heading 1
+#&gt;  4         4    paragraph List Paragraph
+#&gt;  5         5    paragraph List Paragraph
+#&gt;  6         6    paragraph List Paragraph
+#&gt;  7         7    paragraph      heading 2
+#&gt;  8         8    paragraph List Paragraph
+#&gt;  9         9    paragraph List Paragraph
 #&gt; 10        10    paragraph List Paragraph
 #&gt; # ... with 59 more rows, and 8 more variables: text &lt;chr&gt;, level &lt;dbl&gt;,
 #&gt; #   num_id &lt;int&gt;, row_id &lt;int&gt;, is_header &lt;lgl&gt;, cell_id &lt;dbl&gt;, col_span &lt;dbl&gt;,

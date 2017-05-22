@@ -87,18 +87,18 @@
 
 <span class="co"># display styles</span>
 <span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>(my_doc)</code></pre></div>
-<pre><code>## # A tibble: 21 × 5
+<pre><code>## # A tibble: 21 x 5
 ##    style_type       style_id             style_name is_custom is_default
 ##         &lt;chr&gt;          &lt;chr&gt;                  &lt;chr&gt;     &lt;lgl&gt;      &lt;lgl&gt;
-## 1   paragraph         Normal                 Normal     FALSE       TRUE
-## 2   paragraph         Titre1              heading 1     FALSE      FALSE
-## 3   paragraph         Titre2              heading 2     FALSE      FALSE
-## 4   paragraph         Titre3              heading 3     FALSE      FALSE
-## 5   character Policepardfaut Default Paragraph Font     FALSE       TRUE
-## 6       table  TableauNormal           Normal Table     FALSE       TRUE
-## 7   numbering    Aucuneliste                No List     FALSE       TRUE
-## 8   character         strong                 strong      TRUE      FALSE
-## 9   paragraph       centered               centered      TRUE      FALSE
+##  1  paragraph         Normal                 Normal     FALSE       TRUE
+##  2  paragraph         Titre1              heading 1     FALSE      FALSE
+##  3  paragraph         Titre2              heading 2     FALSE      FALSE
+##  4  paragraph         Titre3              heading 3     FALSE      FALSE
+##  5  character Policepardfaut Default Paragraph Font     FALSE       TRUE
+##  6      table  TableauNormal           Normal Table     FALSE       TRUE
+##  7  numbering    Aucuneliste                No List     FALSE       TRUE
+##  8  character         strong                 strong      TRUE      FALSE
+##  9  paragraph       centered               centered      TRUE      FALSE
 ## 10      table  tabletemplate         table_template      TRUE      FALSE
 ## # ... with 11 more rows</code></pre>
 <div id="add-elements-to-document" class="section level3">
@@ -108,10 +108,9 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">src &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)
 <span class="kw">png</span>(<span class="dt">filename =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">'in'</span>, <span class="dt">res =</span> <span class="dv">300</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">col =</span> <span class="dv">1</span>:<span class="dv">10</span>)
-<span class="kw">dev.off</span>()</code></pre></div>
-<pre><code>## quartz_off_screen 
-##                 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span>my_doc %&gt;%<span class="st"> </span>
+<span class="kw">dev.off</span>()
+
+my_doc &lt;-<span class="st"> </span>my_doc %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_img.html">body_add_img</a></span>(<span class="dt">src =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">"centered"</span>)</code></pre></div>
 <p>Then some paragraphs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span>my_doc %&gt;%<span class="st"> </span>
@@ -138,19 +137,85 @@
 <div id="add-elements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-elements" class="anchor"></a>Add elements</h2>
-<p>To add paragraphs, tables, images or other elements into the document, you will have to use functions starting with <code>body_add_</code>:</p>
+<p>There are two types of functions.</p>
+<ul>
+<li>add content as a paragraph: images, tables, text. Use <code>body_add_*</code> functions:
 <ul>
 <li>body_add_par</li>
 <li>body_add_img</li>
 <li>body_add_table</li>
 <li>body_add_break</li>
 <li>body_add_toc</li>
+<li>body_add_gg</li>
 </ul>
+</li>
+<li>add text or image inside an existing paragraph. Use <code>slip_in_*</code> functions:
+<ul>
+<li>slip_in_img</li>
+<li>slip_in_seqfield</li>
+<li>slip_in_text</li>
+</ul>
+</li>
+</ul>
+<div id="body_add_-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#body_add_-functions" class="anchor"></a><code>body_add_*</code> functions</h3>
+<p>The paragraph is the main top container for content within a Word document. <em>Note that tables are top container, they are at the same level than paragraphs</em>. <code>body_add_*</code> functions are designed to add content as a top container: text as an entire paragraph, table, image, page break…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+gg &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> iris, <span class="kw">aes</span>(Sepal.Length, Petal.Length)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>()
+
+<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Table of content"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_break.html">body_add_break</a></span>() %&gt;%<span class="st"> </span>
+
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"dataset iris"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(iris), <span class="dt">style =</span> <span class="st">"table_template"</span> ) %&gt;%<span class="st"> </span>
+<span class="st">  </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"plot examples"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_gg.html">body_add_gg</a></span>(<span class="dt">value =</span> gg, <span class="dt">style =</span> <span class="st">"centered"</span> ) %&gt;%<span class="st"> </span>
+
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/body_add_demo.docx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://davidgohel.github.io/officer/articles/assets/docx/body_add_demo.docx">body_add_demo.docx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/body_add_demo.docx">office web viewer</a>
+</p>
+</div>
+<div id="slip_in_-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#slip_in_-functions" class="anchor"></a><code>slip_in_*</code> functions</h3>
+<p><code>slip_in_*</code> functions are designed to add content inside an existing paragraph: text, image or seq field. Element is inserted at beginning or end of the paragraph (<code>pos=c('after', 'before')</code>). Available functions are the following:</p>
+<ul>
+<li>slip_in_img</li>
+<li>slip_in_seqfield</li>
+<li>slip_in_text</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">Sys.getenv</span>(<span class="st">"R_HOME"</span>), <span class="st">"doc"</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
+<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"R logo: "</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_img.html">slip_in_img</a></span>(<span class="dt">src =</span> img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, 
+              <span class="dt">width =</span> .<span class="dv">3</span>, <span class="dt">height =</span> .<span class="dv">3</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">" - This is "</span>, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_seqfield.html">slip_in_seqfield</a></span>(<span class="dt">str =</span> <span class="st">"SEQ Figure \u005C* ARABIC"</span>,
+    <span class="dt">style =</span> <span class="st">'strong'</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/slip_in_demo.docx"</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">slip_in_demo.docx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">office web viewer</a>
+</p>
+</div>
 </div>
 <div id="cursor-manipulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cursor-manipulation" class="anchor"></a>Cursor manipulation</h2>
-<p>A cursor is available and can be manipulated so that content can be added regarding to its position:</p>
+<p>A cursor is available and can be manipulated so that content can be added regarding to its position with <code>body_add_*</code> functions:</p>
 <ul>
 <li>
 <code>before</code> will insert a new element before the selected element in the document.</li>
@@ -214,33 +279,6 @@
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/cursor.docx">office web viewer</a>
 </p>
-<div id="append-text-in-existing-paragraphs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#append-text-in-existing-paragraphs" class="anchor"></a>Append text in existing paragraphs</h3>
-<p>Text and images can be inserted at the beginning or the end of the selected paragraph (selection made by the cursor). Available functions are the following:</p>
-<ul>
-<li>slip_in_img</li>
-<li>slip_in_seqfield</li>
-<li>slip_in_text</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">Sys.getenv</span>(<span class="st">"R_HOME"</span>), <span class="st">"doc"</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
-
-<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"R logo: "</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/slip_in_img.html">slip_in_img</a></span>(<span class="dt">src =</span> img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">width =</span> .<span class="dv">3</span>, <span class="dt">height =</span> .<span class="dv">3</span>) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">"This is official "</span>, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">" that can be found here: "</span>, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) %&gt;%
-<span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/slip_in_demo.docx"</span>) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
-<p style="text-align:center;font-style:italic;color:gray;">
-<span>Download file </span>
-<a href="https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">slip_in_demo.docx</a>
-<span> - view with</span>
-<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">office web viewer</a>
-</p>
-</div>
 </div>
 <div id="remove-content" class="section level2">
 <h2 class="hasAnchor">

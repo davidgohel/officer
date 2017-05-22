@@ -147,7 +147,7 @@ representing the document.</p>
 #&gt;            "paragraph"            "paragraph"            "character" 
 #&gt; 
 #&gt; * Content at cursor location:
-#&gt; # A tibble: 1 × 5
+#&gt; # A tibble: 1 x 5
 #&gt;   level num_id  text style_name content_type
 #&gt;   &lt;dbl&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;        &lt;chr&gt;
 #&gt; 1    NA     NA               NA    paragraph</div><div class='input'>
@@ -170,7 +170,7 @@ representing the document.</p>
 #&gt;            "paragraph"            "paragraph"            "character" 
 #&gt; 
 #&gt; * Content at cursor location:
-#&gt; # A tibble: 1 × 5
+#&gt; # A tibble: 1 x 5
 #&gt;   level num_id  text style_name content_type
 #&gt;   &lt;dbl&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;        &lt;chr&gt;
 #&gt; 1    NA     NA               NA    paragraph</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
@@ -178,7 +178,7 @@ representing the document.</p>
   <span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span> <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"out.docx"</span>)
   <span class='co'># full path of produced file is returned</span>
   <span class='fu'>print</span>(<span class='no'>.Last.value</span>)
-}</div><div class='output co'>#&gt; NULL</div><div class='input'>
+}</div><div class='output co'>#&gt; [1] 0</div><div class='input'>
 <span class='co'># how many element are there in the document ----</span>
 <span class='fu'>length</span>( <span class='fu'>read_docx</span>() )</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
 </div></pre>

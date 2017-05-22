@@ -112,18 +112,18 @@ return a tidy dataset representing the document.</p>
     <pre class="examples"><div class='input'><span class='no'>example_pptx</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"officer"</span>,
   <span class='st'>"doc_examples/example.pptx"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>(<span class='no'>example_pptx</span>)
-<span class='fu'>pptx_summary</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; # A tibble: 29 × 9
+<span class='fu'>pptx_summary</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; # A tibble: 29 x 9
 #&gt;                 text    id content_type slide_id row_id cell_id col_span
 #&gt;                &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
-#&gt; 1              Title    12    paragraph        1     NA      NA       NA
-#&gt; 2           A table     13    paragraph        1     NA      NA       NA
-#&gt; 3      and some text    13    paragraph        1     NA      NA       NA
-#&gt; 4  and some list (1)    13    paragraph        1     NA      NA       NA
-#&gt; 5  and some list (2)    13    paragraph        1     NA      NA       NA
-#&gt; 6          Header 1     18   table cell        1      1       1        1
-#&gt; 7           Header 2    18   table cell        1      1       2        1
-#&gt; 8           Header 3    18   table cell        1      1       3        1
-#&gt; 9                  A    18   table cell        1      2       1        1
+#&gt;  1             Title    12    paragraph        1     NA      NA       NA
+#&gt;  2          A table     13    paragraph        1     NA      NA       NA
+#&gt;  3     and some text    13    paragraph        1     NA      NA       NA
+#&gt;  4 and some list (1)    13    paragraph        1     NA      NA       NA
+#&gt;  5 and some list (2)    13    paragraph        1     NA      NA       NA
+#&gt;  6         Header 1     18   table cell        1      1       1        1
+#&gt;  7          Header 2    18   table cell        1      1       2        1
+#&gt;  8          Header 3    18   table cell        1      1       3        1
+#&gt;  9                 A    18   table cell        1      2       1        1
 #&gt; 10             12.23    18   table cell        1      2       2        1
 #&gt; # ... with 19 more rows, and 2 more variables: row_span &lt;dbl&gt;, media_file &lt;chr&gt;</div></pre>
   </div>

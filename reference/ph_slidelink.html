@@ -129,12 +129,12 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre 2"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='on_slide.html'>on_slide</a></span>(<span class='no'>doc</span>, <span class='fl'>1</span>)
-<span class='fu'><a href='slide_summary.html'>slide_summary</a></span>(<span class='no'>doc</span>) <span class='co'># read column id here</span></div><div class='output co'>#&gt; # A tibble: 1 × 7
+<span class='fu'><a href='slide_summary.html'>slide_summary</a></span>(<span class='no'>doc</span>) <span class='co'># read column id here</span></div><div class='output co'>#&gt; # A tibble: 1 x 7
 #&gt;    type    id  offx  offy    cx    cy       text
 #&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;chr&gt;
 #&gt; 1 title     2    NA    NA    NA    NA Un titre 1</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_slidelink</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='st'>"2"</span>, <span class='kw'>slide_index</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/RtmpAXUT3Y/filef1c655dcac2.pptx"</div></pre>
+<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T/RtmpIBchEW/filec1e15990b77.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
