@@ -97,18 +97,18 @@
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</code></pre></div>
 <p><strong><code>layout</code> and <code>master</code> values must match values from the initial document.</strong> Layout names and master layout names are not available in a tidy view within PowerPoint, but theses can be read easily with function <code>layout_summary</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/layout_summary.html">layout_summary</a></span>(my_pres)</code></pre></div>
-<pre><code>## # A tibble: 11 × 2
+<pre><code>## # A tibble: 11 x 2
 ##                     layout       master
 ##                      &lt;chr&gt;        &lt;chr&gt;
-## 1              Title Slide Office Theme
-## 2  Title and Vertical Text Office Theme
-## 3  Vertical Title and Text Office Theme
-## 4        Title and Content Office Theme
-## 5           Section Header Office Theme
-## 6              Two Content Office Theme
-## 7               Comparison Office Theme
-## 8               Title Only Office Theme
-## 9                    Blank Office Theme
+##  1             Title Slide Office Theme
+##  2 Title and Vertical Text Office Theme
+##  3 Vertical Title and Text Office Theme
+##  4       Title and Content Office Theme
+##  5          Section Header Office Theme
+##  6             Two Content Office Theme
+##  7              Comparison Office Theme
+##  8              Title Only Office Theme
+##  9                   Blank Office Theme
 ## 10    Content with Caption Office Theme
 ## 11    Picture with Caption Office Theme</code></pre>
 <div id="master-layouts-and-slide-layouts" class="section level4">
@@ -136,7 +136,7 @@
 <p>Function <code>layout_properties</code> provides details about available shapes of a slide layout:</p>
 </blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/layout_properties.html">layout_properties</a></span> ( <span class="dt">x =</span> my_pres, <span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span> ) %&gt;%<span class="st"> </span><span class="kw">head</span>()</code></pre></div>
-<pre><code>## # A tibble: 6 × 7
+<pre><code>## # A tibble: 6 x 7
 ##    master_name        name   type     offx      offy       cx        cy
 ##          &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 Office Theme Two Content  title 0.500000 0.3003478 9.000000 1.2500000
@@ -280,7 +280,7 @@ doc &lt;-<span class="st"> </span>doc %&gt;%
 <a href="#remove-content-from-a-slide" class="anchor"></a>Remove content from a slide</h2>
 <p>Use <code>slide_summary</code> to easily identify shapes in the slide that can be removed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/slide_summary.html">slide_summary</a></span>(doc)</code></pre></div>
-<pre><code>## # A tibble: 1 × 7
+<pre><code>## # A tibble: 1 x 7
 ##    type    id  offx  offy    cx    cy
 ##   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1  body     2    NA    NA    NA    NA
