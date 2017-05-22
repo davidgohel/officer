@@ -52,7 +52,7 @@ styles_info(my_doc)
 
 Let's add an image in the document first.
 
-```{r}
+```{r results='hide'}
 src <- tempfile(fileext = ".png")
 png(filename = src, width = 5, height = 6, units = 'in', res = 300)
 barplot(1:10, col = 1:10)
@@ -93,18 +93,77 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Add elements
 
-To add paragraphs, tables, images or other elements into the document, you will have to use functions starting with `body_add_`:
+There are two types of functions.
 
-- body_add_par
-- body_add_img
-- body_add_table
-- body_add_break
-- body_add_toc
+- add content as a paragraph: images, tables, text. Use `body_add_*` functions:
+    - body_add_par
+    - body_add_img
+    - body_add_table
+    - body_add_break
+    - body_add_toc
+    - body_add_gg
+- add text or image inside an existing paragraph. Use `slip_in_*` functions:
+    - slip_in_img
+    - slip_in_seqfield
+    - slip_in_text
 
+### `body_add_*` functions
+
+The paragraph is the main top container for content within a Word document. *Note that tables are top container, they are at the same level than paragraphs*. `body_add_*` functions are designed to add content as a top container: text as an entire paragraph, table, image, page break... 
+
+```{r}
+library(ggplot2)
+gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
+  geom_point()
+
+read_docx() %>% 
+  body_add_par(value = "Table of content", style = "heading 1") %>% 
+  body_add_toc(level = 2) %>% 
+  body_add_break() %>% 
+
+  body_add_par(value = "dataset iris", style = "heading 2") %>% 
+  body_add_table(value = head(iris), style = "table_template" ) %>% 
+  
+  body_add_par(value = "plot examples", style = "heading 1") %>% 
+  body_add_gg(value = gg, style = "centered" ) %>% 
+
+  print(target = "assets/docx/body_add_demo.docx") %>% 
+  invisible()
+
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
+```
+
+### `slip_in_*` functions
+
+`slip_in_*` functions are designed to add content inside an existing paragraph: text, image or seq field. Element is inserted at beginning or end of the paragraph (`pos=c('after', 'before')`). Available functions are the following:
+
+- slip_in_img
+- slip_in_seqfield
+- slip_in_text
+
+```{r}
+img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+read_docx() %>%
+  body_add_par("R logo: ", style = "Normal") %>%
+  slip_in_img(src = img.file, style = "strong", 
+              width = .3, height = .3, pos = "after") %>% 
+  slip_in_text(" - This is ", style = "strong", pos = "before") %>% 
+  slip_in_seqfield(str = "SEQ Figure \u005C* ARABIC",
+    style = 'strong', pos = "before") %>% 
+  print(target = "assets/docx/slip_in_demo.docx") %>% 
+  invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
+```
 
 ## Cursor manipulation
 
-A cursor is available and can be manipulated so that content can be added regarding to its position: 
+A cursor is available and can be manipulated so that content can be added regarding to its position with `body_add_*` functions: 
 
 - `before` will insert a new element before the selected element in the document.
 - `after` will insert a new element after the selected element in the document.
@@ -167,32 +226,6 @@ print(doc, target = "assets/docx/cursor.docx") %>%
 
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx" ) )
-```
-
-### Append text in existing paragraphs
-
-Text and images can be inserted at the beginning or the end of the selected paragraph (selection made by the cursor). Available functions are the following:
-
-- slip_in_img
-- slip_in_seqfield
-- slip_in_text
-
-```{r}
-library(magrittr)
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
-
-read_docx() %>%
-  body_add_par("R logo: ", style = "Normal") %>%
-  slip_in_img(src = img.file, style = "strong", width = .3, height = .3) %>%
-  slip_in_text("This is official ", style = "strong", pos = "before") %>%
-  slip_in_text(" that can be found here: ", style = "strong", pos = "after") %>%
-  slip_in_text(img.file, style = "strong", pos = "after") %>%
-  print(target = "assets/docx/slip_in_demo.docx") %>% 
-  invisible()
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
 ```
 
 ## Remove content
