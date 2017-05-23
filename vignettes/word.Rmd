@@ -33,57 +33,52 @@ library(magrittr)
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3gIRDQAVE4DD3QAADZRJREFUeNrtXWtwE9cV/nZXKxmDsY2NX8HGBj/AvB+2lTTNpE06dtK0DZnJdCDTtEOazrTJj5LOtLRNMkA6qTrTIWkedNIGJkkDJKYhaUJCEiAhBDC2eRg/JD+wMcRItoXx25Il7d7+EFZke3ctQAZZOt+Mx5ZWe717z7fnfPfce64AAoFAIBAIBAKB4MXz27/mIuE+BTL1aLy4q8zUG3PHnUdOtxbd85P1Rw0Z90S11+47FK73q4tUQ+/eX2MsPWguMbfYMe+2+OLO7kHjoMOFl3ZXMFEncAa9DnXNnQAwHM79EJYEeH7HUe5P6+9kI69/t/WA6ZNjjc4FWYnFfYPDxraOPjz72lfgAPA8h/PWHgDej+tFgYukByGsbvaFnSdMpQfNzo6uQceKvBRT44UueCQZHo/MBB03+l7Z2LOZWrOb6/c+uYk8QAjh7U9qjO99WV9iOW9HVmpcsb1nyDjocOOV0pNM1PGcQS/AfN7us6lOx3NM3cARjZAjwF92HOWevuq+y6rbjKWHLCWfHjuHBVmJxf0DLmObvR9bth8FBwae59Bq6/Wd63XfZOgpEQLe2FfN/eKBpT5rbd1VYSo9YHbae4Ycy3OSTE3fdMPp8nhZynMKjpqp2Jqp/MlAISAECLBzf62x9FB9SXVTh+N7q+eaaprtGHS44XJLTBR4juMUDKNoUyJAyIWALduPcc8+9h2v+66xGt89YC759EQLFmYlFPcPuoxW+wCe23EcHIDoKBHltVZft+tFgfO+IBce8h5gx0fV3Poffeu+/76zwvTfL+qdl3sdjmXZSaamb65g2CV5GaY0qvIzNFN5nzxACBLgrU9qjO992VhS02x33L0yw1TbfBlDTq/71un83DeboGOJAKFHgOd2HOeeWX8HA4BjZ9uMpV80lHxe3oqFmQnFfQPDRlvXAGTGfMmT8f3JVPpyahOA4/jDnCB8NVUN7JFk/Oz+JVHPPHbnxnuf2MkdfPURpuoBHtr4PjvX1gOXe8R98+odFCkE4Hlw/NSeMnF7JBYTbeCMS9I2bfvDfZv9j/lbGI0XuyHLDDqBH2N8wlSGqBM4p8uDg+Wtm9b8fo9RlQCE8IZOx0OW8cKkDQPDEQX5aShcPGfKXr9BL8D0ZhkMojeM2ewDRiLANaAwPw1PPLxqSt/Dln8f9RFgwOEChQACEYBABCAQAQhEACIAgQhAUIVeH94r5ykPMAFMbx7Hc9uPh+z1bVhXiA3rCokAkwWDKCDKELpeQC/e2LVRCCANQIhkUAiYAMNuCW6PFLLXN7J2gwgwSdj48zvw+JqVFAIiFS6XFNb3RwQgEUggAhCIAAQiAIHyAISxqDBbgT2nQvb6CheloSA/lQjAGIMsMzAwSDIDGIMkeWscbiRfXmm24mR9R0jfe1gQQJYZmMwgMxkyA2RZRrRBnLBW2O2R8JuHVyM+JgoJcdHQizxSE2Kg1wlISZyOPQct2Pp2WZhthhOCIcAjyeA4DpIkgzFAr+OhUOw/Cga9gEdKFsOgF5AYOw3RUSISY6MRHSVibmosbl//BvgJVArHcdiwrkj1eFVDOziOA20RMwkEiJthwKP3L8awR8K8tFh4JIb05JmI0gvY+MphNF/q0Tz/jqVz8JTGXPaS7CTUtXRqtrFo3mzN42XVbWTlySKAXhTw+IPLFI8tzErUJABjDKsXaseuFXnJqGuxQ2vTiKU5SarHuvud6OpzYHqUeAPxNbQrgwoXpd06AmgZOD8rAR99fQ5qUcDlllEwAQGW5ybjjX3Vo/YIGqUbGENOxizV80/WWX0VMdfdwWFQGTRpeQCDKOB0g7JCzp4TD48kq54ryTLy5yVqtr94fpLmVKxHkrEgU72Nk2YrVTlPJgFEnYDaZrtKCEjQNF5+VuKE7acnx0DUqT/BLreE5TnJ6vG/5hJZeDIJwHFApaVd8Vh8TJSm+10V4Nh1mUaMj4uJgk6nfgtnGzvIwpNJAACqHgAAclXisyQzzSd3rBBU9SIaI4Cqxg5NchCCRIDz1l7VYwtV3LzLLQWcvVqem6yqJZZlq3uHU2Yr9ESAySeAlhDMzYgHY0ragcecpJiA2vcKwfEEkGWG7PR41fMqzbYJE1EBDXWpMCQwIbhSwVXnpM+CR5IhjnkSlcauF9p7MTclVkEIzhx3PgC4PBKW5qSoXtfx6m+C0kFUGBKgEHz0/sUKQ8G48QRgwPLc8a67q9cJgyggJWGGghAcSQh9C7dHRt5cZY1xuWcIfQPDiL6BBJC/h6PCkOsUgqmJM7x7CvobTlJOANku9+NS50DAQjAtcYaG+7eGvesOGQ0AAC0aQjBvzEhg2OVBwaJURRLVt3YpC8G88UJwidb4v7qNEkA3KwSMuMlTDR1YpfCkZs+JH7Wnf0rCdETpx//bk5Z2dF5x4JH7FqkKQX+j5mgIwJMWW9A6iApDAhSCdc12RQIszUnCgYpW35xAQb7y5EX1uU5c6XUoHhsrBCVJ1swkVjd1YOZ0Q1A6mApDAmmEg+pQcGQkAACMAasXjlfurbZeeCQZTRevqP6PZX4u3+2RsTRbOQScstgUPcx1P2FUGBIY6i8ox+/M1FgfAdQSQFUNHRB1Agx6Aafq2ycUgi63hLmpscru32yFKJIAvOkEMJ+/rOK+YyDL3myQJCu77jNNHRB4DqJOQJWKJ/EXgnmZCdoJILLrzSeAQa9DXYsyCUbG62pxu9Jsu5pT4FCpIuD8M4I56eprAI4FKQFEBLjWhISOR1WT2toAr8FWqSwAsfh5j6qGdlUhOM3gje1LVOYA2rsG4Rx2k1VvBQE4jsOZRuX1e/nzErwzgAoZwLqWyxD8Vn7augbgHPYotrNyQQrcHvURwInqNuhFKnW46cNA/2SOIgEyEzHkdCtmAKsaOyCKvF9OQYcKsw13rUgf99kl2Uk4erZNdRKowmKFwAdXAVBhSBCE4IjBlGYAy2ougfebtRN1PKoa2xUJUJCfhhffqUB68kzlEUCdNegdHO6FIUHNl6oJwTlJMViZpzxzV6PgNc6ojAQWz5+NvIyEayYg4SYRQEsI3luYOe49jyRf/ebuMW5X5UmeHR+tWgdQXmsNagKICBBkIWhUWANQUWdDlMKs3ZDTDXvPkGI73y/IVHb/FqvmAlLCTdAAWkIwMy02YKPpRW9C6AdFWYphQAll1W3gJiEDRIUhQRKCCbHTFMii/FmdwOOkxaZIALWFphV1k1MDQIUhQRKCSjiuUbenJgSV0Grthccjkz8PBQJoCUF/2HuG4HCqZ+2qzwVOgEqL9YaXRhEBboIQ9EdVQ6fmrJ3bLY9aSKKFk3XWcUvPCLeIAFpCcKwA1IrZoiigKsDKnkqzlSwZSgQwB6ABqibwEgLPqeYDxqLpYjdZMpQIEIgQVFv4MZokE3uAI6cvIsoweQkgKgy5TiG4v6wFjHkXhHAcRq3Rs10ehGLJ0BhYAkjtVlqsioUjwQIVhlynENz+v7N47f0qSJJ3TZ0kMciMISstDg6nO6CnVhB4VNRZkZMej/iZ01QEoG1SOzjcC0MmzXcKAg9BACCOfjqv9DkQ6H5NBlHA2qc/gCzJkGQGxhgS4rybSCXGTUPMND1qmztBCEECBAtRegFg37Lc5Zbgckvo6Q+cSIQpTIBbDSoMiXBQYUiEgwpDCEQAAhGAQAQgEAEIlAeINFBhSISDCkMIpAEIRAACicDIBBWGRDioMIRAGoBABCAQAQhEAAIRgEAEiCiEQ2WQ//cmy2MKckaV1C5et4NpNaP9kqkcYypNMZWPsvEfVmyaqSwLZyp/al+/2hpzl8Tg9kxt48fOMPgKsRbNn409f33IZ3dKBE2AUK8MCogEzPebtVzq3rJ1Vzn31LoiNs4DLPjp60y9ZDsyPQDH8+D4MAgDDCwjZSb32ctrOVUNsObuXJPA85vzsxJOpCfPBGMMkuz9iVxM7Y0nZMawaP5sRE/Tbfns5bXcP96p4K7p7vYebjTuPdxYcrqhHfPS4oqv9DmNfYPDcLkkJuoE31fzhasHAPDH+r1PmqY6jf3dflDo/c+9Z0zvfm5xXrIPOFbnp5gsrV1weyS4PTITR23YO+UJsLl+75ObwtW/XbcI/PVDKzYCwAu7K7kNawv+NvL+xlcPm/aXtTjzMmYVDwy5ja22bsiyl2oC7eMTmQHuwyONxtJD9SWnLO2Yd1tccU//sLGn34Fht8REHc/5xRHyAFPFA1wLfnxX7gkAJwDAAvg681/vnzG9/Wmts62z31G0KM1kOX8ZLvfVMKIjdxE2BFDDr9Z4w8jWXRXcU+sKfWHkz9sOm/YdbXLmZiQUDzldxpa2bu/3DnEcbQcXqWOcj79uMr57wFxSXmfF/PT44u4+h7Gnz4lht8T0/mGEQsDU8QDXgh9+N8cXRhr8wsjrH5wx/efjGufFjl5H0eLbTPXn7Vc3dRg7GiFMaQKo4ZcPesPIi7vKud+uK/KFkWe2fWn68EijM3duQvHgkMvYcqkbkixfHY3QHNiUCwHBwL4jDcY9hywlZdVtyE6fVdzd5zB29zkx7JKYXuT8wgiFgLDEA3fl+cJIo18Y2f7BGdNbH1c5L1h7HbcvSzeZmzt9YYS+hTyC8NLu8lEu4Olth0xFj75+N/UMgUAgEAgEAoFACB/8H2V2HJFZ2vV+AAAAAElFTkSuQmCC" width="128" height="128"/>
 </div>
 
+## Quick start
 
-## Introduction
+1. Start with `read_docx`
 
 Use the function `read_docx` to create an r object representing a Word document.
+
 Initial Word file can be specified with argument `path`. If none is provided, 
 this file will be an empty document located in the package directory. Formats 
-and styles will be those available in the initial file.
+and styles are defined in the initial file.
+
+From the initial document, we will be able to use an object containing not only paragraph styles, character styles and table styles of the original document but also its content. 
 
 ```{r}
 my_doc <- read_docx() 
-
-# display styles
 styles_info(my_doc)
 ```
 
-### Add elements to document
+2. Add elements to document
 
-Let's add an image in the document first.
+> By default new content is added at the end of the document. To understand how to add content at any location in the document, see section about cursor.
+
+Let's create an image from a plot...
 
 ```{r results='hide'}
 src <- tempfile(fileext = ".png")
 png(filename = src, width = 5, height = 6, units = 'in', res = 300)
 barplot(1:10, col = 1:10)
 dev.off()
-
-my_doc <- my_doc %>% 
-  body_add_img(src = src, width = 5, height = 6, style = "centered")
 ```
 
-Then some paragraphs.
+... and add that image in the document and some new paragraphs of text and a table. 
 
-```{r}
+```{r results='hide'}
 my_doc <- my_doc %>% 
+  body_add_img(src = src, width = 5, height = 6, style = "centered") %>% 
   body_add_par("Hello world!", style = "Normal") %>% 
-  body_add_par("", style = "Normal") # blank paragraph
-```
-
-And a table.
-
-```{r}
-my_doc <- my_doc %>% 
+  body_add_par("", style = "Normal") %>% # blank paragraph
   body_add_table(iris, style = "table_template")
 ```
 
-### Write the Word file
+3. Write the Word file
 
 File can be generated using function `print` and argument `target`:
 
-```{r}
-print(my_doc, target = "assets/docx/first_example.docx") %>% 
-  invisible()
+```{r results='hide'}
+print(my_doc, target = "assets/docx/first_example.docx")
 ```
 
 ```{r echo=FALSE}
@@ -91,9 +86,9 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 ```
 
 
-## Add elements
+## Adding elements
 
-There are two types of functions.
+There are two types of functions for adding elements.
 
 - add content as a paragraph: images, tables, text. Use `body_add_*` functions:
     - body_add_par
@@ -109,7 +104,23 @@ There are two types of functions.
 
 ### `body_add_*` functions
 
-The paragraph is the main top container for content within a Word document. *Note that tables are top container, they are at the same level than paragraphs*. `body_add_*` functions are designed to add content as a top container: text as an entire paragraph, table, image, page break... 
+The paragraph is the main top container for content within a Word document. *Note that tables are top container, they are at the same level than paragraphs*. `body_add_*` functions are designed to **add content as a top container**: text as an entire paragraph, table, image, page break... 
+
+A title is a paragraph. To add a title, use `body_add_par()` with `style` argument pointing to corresponding title style. 
+
+Use function `styles_info()` to see available styles:
+
+```{r message=FALSE}
+library(dplyr)
+read_docx() %>% styles_info() %>% 
+  dplyr::filter( style_type %in% "paragraph" )
+```
+
+> It is important to understand that these style names are read in the initial file provided to `read_docx`. Few comments
+
+* One of the styles is *heading 1* which correspond to a level 1 title. 
+* When using `body_add_gg` in the following code, using `style = "centered"` will set *centered* paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.
+* Table templates are also defined in the initial document and can be used with `body_add_table`. For advanced tabular formatting, use package `flextable` instead, it has a function `body_add_flextable()` that can be used with `officer`.
 
 ```{r}
 library(ggplot2)
@@ -138,7 +149,7 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ### `slip_in_*` functions
 
-`slip_in_*` functions are designed to add content inside an existing paragraph: text, image or seq field. Element is inserted at beginning or end of the paragraph (`pos=c('after', 'before')`). Available functions are the following:
+`slip_in_*` functions are designed to add content **inside an existing paragraph**: text, image or seq field. Element is inserted at beginning or end of the paragraph (`pos=c('after', 'before')`). Available functions are the following:
 
 - slip_in_img
 - slip_in_seqfield
@@ -160,6 +171,9 @@ read_docx() %>%
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
 ```
+
+These have been implemented mostly to let add Word numbering seq-fields at beginning of paragraphs used as reference entries (i.e. a table caption, a plot caption). See Section *Table and image captions*.
+
 
 ## Cursor manipulation
 
@@ -268,6 +282,36 @@ print(my_doc, target = "assets/docx/ipsum_doc.docx") %>% invisible()
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx" ) )
 ```
 
+## Replace content
+
+Functions `body_add_*` let replace content in a Word document. 
+
+For illustration purpose, we will generate a document that will be used as initial document later.
+
+```{r results='hide'}
+my_doc <- read_docx()  %>% 
+  body_add_par(value = str1, style = "Normal") %>% 
+  body_add_par(value = str2, style = "centered") %>% 
+  body_add_par(value = str3, style = "Normal") 
+
+print(my_doc, target = "assets/docx/replace_template.docx")
+```
+
+File `replace_template.docx` now exists and contains a paragraph containing text *that text*. In the following example, we will position the cursor on that paragraph and then replace it. Using `pos = "on"` will replace content where cursor is by new content. 
+
+```{r results='hide'}
+my_doc <- read_docx(path = "assets/docx/replace_template.docx")  %>% 
+  cursor_reach(keyword = "that text") %>% 
+  body_add_par(value = "This is a new paragraph.", style = "centered", pos = "on")
+
+print(my_doc, target = "assets/docx/replace_doc.docx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/replace_doc.docx" ) )
+```
+
+
 ## Sections
 
 Sections can be added to a document. This is possible by using function `body_end_section`.
@@ -301,7 +345,7 @@ Man can combine `slip_in_seqfield` and `slip_in_text` to prefix a paragraph with
 
 Shortcuts functions are implemented in the object `shortcuts` (it will at least give you a template of code to modify if it does not fit exactly your need). `slip_in_tableref`, `slip_in_plotref` and `body_add_gg` can make life easier. 
 
-Below an illustration, the code is linear and easy to read:
+Below an illustration:
 
 ```{r}
 library(magrittr)
