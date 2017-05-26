@@ -4,7 +4,7 @@
 \alias{body_add_gg}
 \title{add ggplot}
 \usage{
-body_add_gg(x, value, width = 6, height = 5, style = NULL)
+body_add_gg(x, value, width = 6, height = 5, style = NULL, ...)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -16,6 +16,8 @@ body_add_gg(x, value, width = 6, height = 5, style = NULL)
 \item{height}{height in inches}
 
 \item{style}{paragraph style}
+
+\item{...}{Arguments to be passed to png function.}
 }
 \description{
 add a ggplot as a png image into an rdocx object

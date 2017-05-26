@@ -68,6 +68,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @param style paragraph style
 #' @param width height in inches
 #' @param height height in inches
+#' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
 #' @import ggplot2
 #' @examples
@@ -81,10 +82,10 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 #'
 #' print(doc, target = "body_add_gg.docx" )
-body_add_gg <- function( x, value, width = 6, height = 5, style = NULL ){
+body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width, height = height, units = "in", res = 300)
+  png(filename = file, width = width, height = height, units = "in", res = 300, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
