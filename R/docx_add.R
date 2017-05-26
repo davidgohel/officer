@@ -427,7 +427,12 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
   xml_elt <- as_xml_document(str)
 
   cursor_elt <- x$doc_obj$get_at_cursor()
-  xml_add_child(.x = xml_child(cursor_elt, "w:pPr"), .value = xml_elt )
+  if( xml_name(cursor_elt) == "p" )
+    last_pPr <- xml_child(cursor_elt, "w:pPr")
+  else {
+    stop("ending a section can only happen on a paragraph, the cursor is located on a ", xml_name(cursor_elt), ", you may have to add an empty paragraph.")
+  }
+  xml_add_child(.x = last_pPr, .value = xml_elt )
   x
 }
 

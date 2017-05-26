@@ -1,3 +1,10 @@
+# officer 0.1.4
+
+## Issues
+
+* `body_end_section` is supposed to only work with cursor on a paragraph, an error is raised now if ending a section on something else than a paragraph.
+
+
 # officer 0.1.3
 
 ## new feature
