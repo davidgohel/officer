@@ -211,7 +211,7 @@ slide_master <- R6Class(
 
     theme_file = function(){
       data <- self$rel_df()
-      theme_file <- data[basename(data$type) == "theme", "target", drop = TRUE]
+      theme_file <- data$target[basename(data$type) == "theme"]
       file.path( "ppt/theme", basename(theme_file) )
     }
 

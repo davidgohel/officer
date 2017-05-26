@@ -58,30 +58,28 @@ read_xfrm <- function(nodeset, file, name){
                    name = character(0) ))
   }
 
-  xfrm <- map_df( nodeset, function(x) {
-    ph <- xml_child(x, "p:nvSpPr/p:nvPr/p:ph")
-    type <- xml_attr(ph, "type")
-    if( is.na(type) )
-      type <- "body"
-    id <- xml_child(x, "/p:cNvPr")
-    off <- xml_child(x, "p:spPr/a:xfrm/a:off")
-    ext <- xml_child(x, "p:spPr/a:xfrm/a:ext")
-    tibble( type = type,
-            id = xml_attr(id, "id"),
-            ph = as.character(ph),
-            file = basename(file),
-            offx = as.integer(xml_attr(off, "x")),
-            offy = as.integer(xml_attr(off, "y")),
-            cx = as.integer(xml_attr(ext, "cx")),
-            cy = as.integer(xml_attr(ext, "cy")),
-            name = name )
-  })
+  ph <- xml_child(nodeset, "p:nvSpPr/p:nvPr/p:ph")
+  type <- xml_attr(ph, "type")
+  type[is.na(type)] <- "body"
+  id <- xml_attr(xml_child(nodeset, "/p:cNvPr"), "id")
+  off <- xml_child(nodeset, "p:spPr/a:xfrm/a:off")
+  ext <- xml_child(nodeset, "p:spPr/a:xfrm/a:ext")
+  tibble( type = type, id = id,
+          ph = as.character(ph),
+          file = basename(file),
+          offx = as.integer(xml_attr(off, "x")),
+          offy = as.integer(xml_attr(off, "y")),
+          cx = as.integer(xml_attr(ext, "cx")),
+          cy = as.integer(xml_attr(ext, "cy")),
+          name = name )
 }
 
 
 #' @importFrom dplyr left_join anti_join bind_rows distinct
 #' @importFrom dplyr rename_ select_ mutate_
 xfrmize <- function( slide_xfrm, master_xfrm ){
+  slide_xfrm<<-slide_xfrm
+  master_xfrm<<-master_xfrm
 
   master_ref <- master_xfrm %>%
     rename_( .dots = setNames( "name", "master_name")) %>%
@@ -93,33 +91,27 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
                                c("offx_ref", "offy_ref", "cx_ref", "cy_ref", "master_name"))) %>%
     select_("-id", "-ph")
 
-  slide_xfrm_no_match <- anti_join(
-    slide_xfrm,
-    master_xfrm,
-    by = c("master_file"="file", "type" = "type") ) %>% inner_join(
-    master_ref,
-    by = c("master_file"="file")
-  )
+  slide_key_id <- paste0(slide_xfrm$master_file, slide_xfrm$type)
+  master_key_id <- paste0(master_xfrm$file, master_xfrm$type)
+
+  slide_xfrm_no_match <- slide_xfrm[!slide_key_id %in% master_key_id, ] %>%
+    inner_join( master_ref, by = c("master_file"="file") )
+
   slide_xfrm <- inner_join(
     slide_xfrm,
     master_xfrm,
     by = c("master_file"="file", "type" = "type")
   )
-  offx <- interp("ifelse( !is.finite(offx), offx_ref, offx )")
-  offy <- interp("ifelse( !is.finite(offy), offy_ref, offy )")
-  cx <- interp("ifelse( !is.finite(cx), cx_ref, cx )")
-  cy <- interp("ifelse( !is.finite(cy), cy_ref, cy )")
 
-  slide_xfrm <- slide_xfrm %>%
-    mutate_( .dots = list(offx = offx, offy = offy, cx = cx, cy = cy ) ) %>%
-    mutate_( .dots = list(offx = interp("offx / 914400"),
-            offy = interp("offy / 914400"),
-            cx = interp("cx / 914400"),
-            cy = interp("cy / 914400") ) ) %>%
-    select_("-offx_ref", "-offy_ref", "-cx_ref", "-cy_ref") %>%
-    bind_rows(slide_xfrm_no_match)
-
-  slide_xfrm
+  slide_xfrm$offx <- ifelse( !is.finite(slide_xfrm$offx), slide_xfrm$offx_ref, slide_xfrm$offx ) / 914400
+  slide_xfrm$offy <- ifelse( !is.finite(slide_xfrm$offy), slide_xfrm$offy_ref, slide_xfrm$offy ) / 914400
+  slide_xfrm$cx <- ifelse( !is.finite(slide_xfrm$cx), slide_xfrm$cx_ref, slide_xfrm$cx ) / 914400
+  slide_xfrm$cy <- ifelse( !is.finite(slide_xfrm$cy), slide_xfrm$cy_ref, slide_xfrm$cy ) / 914400
+  slide_xfrm$offx_ref <- NULL
+  slide_xfrm$offy_ref <- NULL
+  slide_xfrm$cx_ref <- NULL
+  slide_xfrm$cy_ref <- NULL
+  bind_rows(slide_xfrm, slide_xfrm_no_match)
 }
 
 
