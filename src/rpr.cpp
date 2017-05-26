@@ -8,6 +8,7 @@ using namespace Rcpp;
 std::string rpr::a_tag()
 {
   color_spec col_(this->col_font_r, this->col_font_g, this->col_font_b, this->col_font_a);
+  color_spec shading_(this->col_shading_r, this->col_shading_g, this->col_shading_b, this->col_shading_a);
   if( col_.is_visible() < 1 ) return "";
 
   std::stringstream os;
@@ -22,10 +23,20 @@ std::string rpr::a_tag()
   if( this->italic ) os << " i=\"1\"";
   if( this->bold ) os << " b=\"1\"";
   if( this->underlined ) os << " u=\"1\"";
+
+  if( this->vertical_align == "superscript")
+    os << " baseline=\"40000\"";
+  else if( this->vertical_align == "subscript")
+    os << " baseline=\"-40000\"";
+
+
   os << ">";
   os << col_.solid_fill();
   os << "<a:latin typeface=\"" << this->fontname << "\"/>";
   os << "<a:cs typeface=\"" << this->fontname << "\"/>";
+
+  if( shading_.is_visible() > 0 )
+    os << shading_.highlight();
 
   os << "</a:rPr>";
 
@@ -50,6 +61,13 @@ std::string rpr::w_tag()
   if( this->italic ) os << "<w:i/>";
   if( this->bold ) os << "<w:b/>";
   if( this->underlined ) os << "<w:u/>";
+
+  if( this->vertical_align == "superscript")
+    os << "<w:vertAlign w:val=\"superscript\"/>";
+  else if( this->vertical_align == "subscript")
+    os << "<w:vertAlign w:val=\"subscript\"/>";
+
+
 
   os << "<w:sz w:val=\"";
   os << (int)(this->size*2);
@@ -96,6 +114,11 @@ std::string rpr::css()
   if( shading_.is_visible() > 0 )
     os << "background-color:" << shading_.get_css() << ";";
   else os << "background-color:transparent;";
+
+  if( this->vertical_align == "superscript")
+    os << "vertical-align: super;";
+  else if( this->vertical_align == "subscript")
+    os << "vertical-align: sub;";
 
   return os.str();
 }

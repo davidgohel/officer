@@ -4,6 +4,7 @@ public:
   color_spec (int, int, int, int);
   int is_visible();
   int has_alpha();
+  std::string highlight();
   std::string solid_fill();
   std::string solid_fill_w14();
   std::string w_color();

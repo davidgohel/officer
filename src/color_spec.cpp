@@ -4,6 +4,22 @@
 #include "R_ext/GraphicsDevice.h"
 using namespace Rcpp;
 
+std::string color_spec::highlight()
+{
+
+  char col_buf[ 100 ];
+  sprintf( col_buf, "%02X%02X%02X", this->red, this->green, this->blue);
+  std::string col_str = col_buf;
+
+  std::stringstream os;
+  os << "<a:highlight><a:srgbClr val=\"";
+  os << col_str;
+  os << "\">";
+  os << "<a:alpha val=\"" << (int)(this->alpha / 255.0 * 100000) << "\"/>";
+  os << "</a:srgbClr></a:highlight>";
+  return os.str();
+}
+
 std::string color_spec::solid_fill()
 {
 
@@ -56,7 +72,7 @@ std::string color_spec::w_shd()
   sprintf( col_buf, "%02X%02X%02X", this->red, this->green, this->blue);
   std::string col_str = col_buf;
   std::stringstream os;
-  os << "<w:shd w:fill=\"";
+  os << "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"";
   os << col_str;
   os << "\"/>";
 
