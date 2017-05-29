@@ -89,7 +89,7 @@ body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
   print(value)
   dev.off()
   on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = 6, height = 5)
+  body_add_img(x, src = file, style = style, width = width, height = height)
 }
 
 #' @export
