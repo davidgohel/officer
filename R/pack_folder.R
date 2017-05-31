@@ -15,17 +15,10 @@ pack_folder <- function( folder, target ){
   curr_wd <- getwd()
   zip_dir <- folder
   setwd(zip_dir)
-
-  tryCatch(
-    zip(zipfile = target,
-        files = list.files(all.files = TRUE, recursive = TRUE))
-    , error = function(e) {
-      stop("Could not write ", shQuote(target), " [", e$message, "]")
-    }
-    , finally = {
-    setwd(curr_wd)
-  })
-
+# zip -FSr target *
+  zipCmd = paste('zip -FSr ', target, ' *', sep='')
+  system(zipCmd)
+  setwd(curr_wd)
 
   if( !file.exists(target) ){
     msg <- sprintf("could not zip package %s in file %s", shQuote(zip_dir), shQuote(target))
@@ -34,7 +27,6 @@ pack_folder <- function( folder, target ){
 
   target
 }
-
 #' @export
 #' @importFrom utils unzip
 #' @importFrom R.utils getAbsolutePath
