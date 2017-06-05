@@ -70,7 +70,7 @@ relationship <- R6Class(
       private$id <- c( private$id, id )
       private$type <- c( private$type, type )
       private$target <- c( private$target, target )
-      private$target_mode <- c( private$target_mode, NA )
+      private$target_mode <- c( private$target_mode, rep(NA, length(id) ) )
       private$ext_src <- c( private$ext_src, src )
 
       self
