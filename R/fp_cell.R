@@ -19,7 +19,6 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @param background.img.src path of the background image
 #' @param text.direction cell text rotation - a single character value, expected
 #' value is one of "lrtb", "tbrl", "btlr".
-#' @param row_span,column_span row and column span
 #' @export
 fp_cell = function(
   border = fp_border(width=0),
@@ -30,14 +29,10 @@ fp_cell = function(
   background.color = "transparent",
   background.img.id = "rId1",
   background.img.src = NULL,
-  text.direction = "lrtb",
-	row_span = 1L, column_span = 1L
+  text.direction = "lrtb"
 ){
 
 out <- list()
-
-out <- check_set_integer( obj = out, row_span)
-out <- check_set_integer( obj = out, column_span)
 
 # border checking
 out <- check_spread_border( obj = out, border,
@@ -124,8 +119,7 @@ format.fp_cell = function (x, type = "wml", ...){
       shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
       do_bg_img, img_id, img_src,
       colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-      type = types, width = widths,
-      row_span = x$row_span, column_span = x$column_span )
+      type = types, width = widths )
 
   } else if( type == "pml"){
 
@@ -136,8 +130,7 @@ format.fp_cell = function (x, type = "wml", ...){
            shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
            do_bg_img, img_id, img_src,
            colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-           type = types, width = widths,
-           row_span = x$row_span, column_span = x$column_span )
+           type = types, width = widths )
 
   } else if( type == "html" ){
 
@@ -148,8 +141,7 @@ format.fp_cell = function (x, type = "wml", ...){
            shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
            do_bg_img, img_id, img_src,
            colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-           type = types, width = widths,
-           row_span = x$row_span, column_span = x$column_span )
+           type = types, width = widths )
   } else stop("unimplemented")
 }
 
@@ -171,8 +163,7 @@ update.fp_cell <- function(object, border,
                            vertical.align, margin = 0,
                            margin.bottom, margin.top, margin.left, margin.right,
                            background.color, background.img.id, background.img.src,
-                           text.direction,
-                           row_span, column_span, ...) {
+                           text.direction, ...) {
 
   if( !missing(border) )
     object <- check_spread_border( obj = object, border,
@@ -217,11 +208,6 @@ update.fp_cell <- function(object, border,
     object <- check_set_integer( obj = object, margin.top)
   if( !missing(margin.right) )
     object <- check_set_integer( obj = object, margin.right)
-
-  if( !missing(row_span) )
-    object <- check_set_integer( obj = object, row_span)
-  if( !missing(column_span) )
-    object <- check_set_integer( obj = object, column_span)
 
   object
 }

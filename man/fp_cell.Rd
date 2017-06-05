@@ -11,7 +11,7 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
   border.right, vertical.align = "center", margin = 0, margin.bottom,
   margin.top, margin.left, margin.right, background.color = "transparent",
   background.img.id = "rId1", background.img.src = NULL,
-  text.direction = "lrtb", row_span = 1L, column_span = 1L)
+  text.direction = "lrtb")
 
 \method{format}{fp_cell}(x, type = "wml", ...)
 
@@ -20,7 +20,7 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
 \method{update}{fp_cell}(object, border, border.bottom, border.left, border.top,
   border.right, vertical.align, margin = 0, margin.bottom, margin.top,
   margin.left, margin.right, background.color, background.img.id,
-  background.img.src, text.direction, row_span, column_span, ...)
+  background.img.src, text.direction, ...)
 }
 \arguments{
 \item{border}{shortcut for all borders.}
@@ -43,8 +43,6 @@ valid color (e.g. "#000000" or "black").}
 
 \item{text.direction}{cell text rotation - a single character value, expected
 value is one of "lrtb", "tbrl", "btlr".}
-
-\item{row_span, column_span}{row and column span}
 
 \item{x, object}{object \code{fp_cell}}
 

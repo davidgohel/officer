@@ -18,7 +18,7 @@ test_that("fp_cell", {
   expect_equal(x$margin.left, 3)
   expect_equal(x$border.bottom, fp_border(color = "red"))
 
-  expect_equal(fp_sign( fp_cell() ), "b491487a861225173a309c5a74dc9f45" )
+  expect_equal(fp_sign( fp_cell() ), "5b0e47eddc8511939ee5472b6bdb01da" )
 
 })
 

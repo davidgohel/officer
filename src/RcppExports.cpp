@@ -180,8 +180,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // w_tcpr
-std::string w_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
-RcppExport SEXP officer_w_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
+std::string w_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
+RcppExport SEXP officer_w_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -204,15 +204,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type btlr_alpha(btlr_alphaSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type type(typeSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< int >::type row_span(row_spanSEXP);
-    Rcpp::traits::input_parameter< int >::type column_span(column_spanSEXP);
-    rcpp_result_gen = Rcpp::wrap(w_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span));
+    rcpp_result_gen = Rcpp::wrap(w_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width));
     return rcpp_result_gen;
 END_RCPP
 }
 // a_tcpr
-std::string a_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
-RcppExport SEXP officer_a_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
+std::string a_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
+RcppExport SEXP officer_a_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -235,15 +233,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type btlr_alpha(btlr_alphaSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type type(typeSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< int >::type row_span(row_spanSEXP);
-    Rcpp::traits::input_parameter< int >::type column_span(column_spanSEXP);
-    rcpp_result_gen = Rcpp::wrap(a_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span));
+    rcpp_result_gen = Rcpp::wrap(a_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width));
     return rcpp_result_gen;
 END_RCPP
 }
 // css_tcpr
-std::string css_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width, int row_span, int column_span);
-RcppExport SEXP officer_css_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP, SEXP row_spanSEXP, SEXP column_spanSEXP) {
+std::string css_tcpr(std::string vertical_align, std::string text_direction, int mb, int mt, int ml, int mr, int shd_r, int shd_g, int shd_b, int shd_a, bool do_bgimg, std::string bgimg_rid, std::string bgimg_path, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
+RcppExport SEXP officer_css_tcpr(SEXP vertical_alignSEXP, SEXP text_directionSEXP, SEXP mbSEXP, SEXP mtSEXP, SEXP mlSEXP, SEXP mrSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP do_bgimgSEXP, SEXP bgimg_ridSEXP, SEXP bgimg_pathSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -266,9 +262,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type btlr_alpha(btlr_alphaSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type type(typeSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< int >::type row_span(row_spanSEXP);
-    Rcpp::traits::input_parameter< int >::type column_span(column_spanSEXP);
-    rcpp_result_gen = Rcpp::wrap(css_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width, row_span, column_span));
+    rcpp_result_gen = Rcpp::wrap(css_tcpr(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width));
     return rcpp_result_gen;
 END_RCPP
 }

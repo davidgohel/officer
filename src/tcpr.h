@@ -11,8 +11,7 @@ public:
        bool, std::string, std::string,
        IntegerVector, IntegerVector,
        IntegerVector, IntegerVector,
-       CharacterVector, IntegerVector,
-       int, int
+       CharacterVector, IntegerVector
   );
   std::string a_tag();
   std::string w_tag();
@@ -27,6 +26,4 @@ private:
   std::string bgimg_rid;
   std::string bgimg_path;
   border b,t,l,r;
-  int row_span;
-  int column_span;
 };

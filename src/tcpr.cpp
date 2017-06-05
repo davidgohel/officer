@@ -13,13 +13,6 @@ std::string tcpr::w_tag()
   std::stringstream os;
   os << "<w:tcPr>";
 
-  if( row_span > 1 )
-    os << "<w:gridSpan w:val=\""<< row_span << "\"/>";
-  if( column_span > 1 )
-    os << "<w:vMerge w:val=\"restart\"/>";
-  else if( column_span < 1 )
-    os << "<w:vMerge/>";
-
   os << "<w:tcBorders>";
   os << b.w_tag("bottom");
   os << t.w_tag("top");
@@ -93,8 +86,6 @@ std::string tcpr::css()
 
 std::string tcpr::a_tag()
 {
-  // if( row_span > 1 )
-  //   return "<a:tcPr/>";
 
   color_spec shading_(this->shading_r, this->shading_g, this->shading_b, this->shading_a);
 
@@ -143,8 +134,7 @@ tcpr::tcpr(std::string vertical_align, std::string text_direction,
          bool do_bgimg, std::string bgimg_rid, std::string bgimg_path,
          IntegerVector btlr_red, IntegerVector btlr_green,
          IntegerVector btlr_blue, IntegerVector btlr_alpha,
-         CharacterVector type, IntegerVector width,
-         int row_span, int column_span):
+         CharacterVector type, IntegerVector width):
   vertical_align(vertical_align), text_direction(text_direction),
   mb(mb), mt(mt), ml(ml), mr(mr),
   shading_r(shd_r), shading_g(shd_g), shading_b(shd_b), shading_a(shd_a),
@@ -152,6 +142,5 @@ tcpr::tcpr(std::string vertical_align, std::string text_direction,
   b(btlr_red[0], btlr_green[0], btlr_blue[0], btlr_alpha[0], as<std::string>(type[0]), width[0]),
   t(btlr_red[1], btlr_green[1], btlr_blue[1], btlr_alpha[1], as<std::string>(type[1]), width[1]),
   l(btlr_red[2], btlr_green[2], btlr_blue[2], btlr_alpha[2], as<std::string>(type[2]), width[2]),
-  r(btlr_red[3], btlr_green[3], btlr_blue[3], btlr_alpha[3], as<std::string>(type[3]), width[3]),
-  row_span(row_span), column_span(column_span){
+  r(btlr_red[3], btlr_green[3], btlr_blue[3], btlr_alpha[3], as<std::string>(type[3]), width[3]){
 }
