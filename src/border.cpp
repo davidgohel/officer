@@ -9,7 +9,7 @@ std::string border::w_tag(std::string side)
 {
   color_spec col_(this->red, this->green, this->blue, this->alpha);
 
-  if( col_.is_transparent() || width < 1 ) {
+  if( col_.is_transparent() || width < 1 || type == "none") {
     return "";
   }
 
@@ -51,7 +51,7 @@ std::string border::a_tag(std::string side)
   os << width * 12700;
   os << "\">";
 
-  if( col_.is_transparent() ) {
+  if( col_.is_transparent() || width < 1 ) {
     os << "<a:noFill/>";
   } else os << col_.solid_fill();
 
