@@ -4,6 +4,10 @@
 
 * `body_end_section` is supposed to only work with cursor on a paragraph, an error is raised now if ending a section on something else than a paragraph.
 
+## Enhancement
+
+* read_pptx run faster than in previous version thanks to some code refactoring
+
 
 # officer 0.1.3
 
