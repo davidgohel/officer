@@ -120,7 +120,7 @@ read_docx() %>% styles_info() %>%
 
 * One of the styles is *heading 1* which correspond to a level 1 title. 
 * When using `body_add_gg` in the following code, using `style = "centered"` will set *centered* paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.
-* Table templates are also defined in the initial document and can be used with `body_add_table`. For advanced tabular formatting, use package `flextable` instead, it has a function `body_add_flextable()` that can be used with `officer`.
+* Table templates are also defined in the initial document and can be used with `body_add_table`. For advanced tabular formatting, use package `flextable` instead ([flextable website](https://davidgohel.github.io/officer/)), it has a function `body_add_flextable()` that can be used with `officer`.
 
 ```{r}
 library(ggplot2)

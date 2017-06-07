@@ -42,7 +42,7 @@ library(magrittr)
 Use the function `read_pptx` to create an r object representing a PowerPoint document. 
 Initial PowerPoint file can be specified with argument `path`. If none is provided, 
 this file will be an empty document located in the package directory. Formats and 
-available slide layouts will be those available in the template file.
+available slide layouts will be those available in the template file. Content of original document is also preserved (but can be manipulated, i.e. delete a slide).
 
 ```{r}
 my_pres <- read_pptx() 
@@ -85,7 +85,7 @@ to modify these values, they must be defined in the initial document.
 ### Add text content into a placeholder
 
 Use function `ph_with_text` to add text into a new shape. The type of the shape 
-is defined in the slide layout associated to the current slide.
+is defined in the slide layout associated to the current slide, for example, using `type = "title"` will create a title shape in the slide.
 
 ```{r}
 my_pres <- my_pres %>% 
