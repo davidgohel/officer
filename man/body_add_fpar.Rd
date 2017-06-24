@@ -4,12 +4,14 @@
 \alias{body_add_fpar}
 \title{add fpar}
 \usage{
-body_add_fpar(x, value, pos = "after")
+body_add_fpar(x, value, style = NULL, pos = "after")
 }
 \arguments{
 \item{x}{a docx device}
 
 \item{value}{a character}
+
+\item{style}{paragraph style}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}

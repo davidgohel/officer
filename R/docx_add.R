@@ -129,6 +129,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #' @description add an \code{fpar} (a formatted paragraph) into an rdocx object
 #' @param x a docx device
 #' @param value a character
+#' @param style paragraph style
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @examples
@@ -143,12 +144,26 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #' print(doc, target = "body_add_fpar.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @seealso \code{\link{fpar}}
-body_add_fpar <- function( x, value, pos = "after" ){
+body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
+
+  if( is.null(style) )
+    style <- x$default_styles$paragraph
+  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
 
   xml_elt <- format(value, type = "wml")
   xml_elt <- gsub("<w:p>", wml_with_ns("w:p"), xml_elt )
+  xml_node <- as_xml_document(xml_elt)
+  ppr <- xml_child(xml_node, "w:pPr")
+  xml_remove(xml_children(ppr))
+  xml_add_child(ppr,
+                as_xml_document(
+                  paste0(
+                    "<w:pStyle xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"",
+                    style_id, "\"/>"))
+                )
 
-  body_add_xml(x = x, str = xml_elt, pos = pos)
+
+  body_add_xml(x = x, str = as.character(xml_node), pos = pos)
 }
 
 #' @export
