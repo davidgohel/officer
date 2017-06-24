@@ -23,13 +23,13 @@ format.ftext = function (x, type = "console", ...){
   if( type == "wml" ){
     out <- paste0("<w:r>", format(x$pr, type = type ),
            "<w:t xml:space=\"preserve\">",
-           x$value, "</w:t></w:r>")
+           htmlEscape(x$value), "</w:t></w:r>")
   } else if( type == "pml" ){
     out <- paste0("<a:r>", format(x$pr, type = type ),
-                  "<a:t>", x$value, "</a:t></a:r>")
+                  "<a:t>", htmlEscape(x$value), "</a:t></a:r>")
   } else if( type == "html" ){
     out <- paste0("<span style=\"", format(x$pr, type = type ),
-                  "\">", x$value, "</span>")
+                  "\">", htmlEscape(x$value), "</span>")
   } else if( type == "console" ){
     out <- paste0( "{text:{", x$value, "}}" )
   } else if( type == "text" ){

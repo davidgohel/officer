@@ -10,7 +10,7 @@ pml_with_ns <- function(x){
 
 pml_run_str <- function(str, style) {
   str_ <- paste0( pml_with_ns("a:r"), "%s<a:t>%s</a:t></a:r>" )
-  sprintf(str_, format(style, type = "pml"), str)
+  sprintf(str_, format(style, type = "pml"), htmlEscape(str))
 }
 
 pml_shape_str <- function(str, ph) {
@@ -19,7 +19,7 @@ pml_shape_str <- function(str, ph) {
                   "<p:spPr/>",
                   "<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>%s</a:t></a:r></a:p></p:txBody></p:sp>"
                   )
-  sprintf( str_, ph, str )
+  sprintf( str_, ph, htmlEscape(str) )
 }
 
 
@@ -173,9 +173,9 @@ get_shape_id <- function(x, type = NULL, id_chr = NULL ){
 
 characterise_df <- function(x){
   x <- lapply(x, function( x ) {
-    if( is.character(x) ) x
-    else if( is.factor(x) ) as.character(x)
-    else gsub("(^ | $)+", "", format(x))
+    if( is.character(x) ) htmlEscape(x)
+    else if( is.factor(x) ) htmlEscape(as.character(x))
+    else gsub("(^ | $)+", "", htmlEscape(format(x)))
   })
   data.frame(x, stringsAsFactors = FALSE)
 }

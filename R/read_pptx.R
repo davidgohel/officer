@@ -254,7 +254,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
     data <- filter_(data, filter_criteria)
   }
 
-  data <- select_(data, "master_name", "name", "type", "offx", "offy", "cx", "cy")
+  data <- select_(data, "master_name", "name", "type", "id", "offx", "offy", "cx", "cy")
 
   data
 }
