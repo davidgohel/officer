@@ -99,7 +99,7 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 ```
 
 
-Package `rvg` is providing editable vector graphics that can be used with `officer`. Function `ph_with_vg` can be used to generate (from R plot commands) a nice editable graphic within PowerPoint.
+Package `rvg` is providing editable vector graphics that can be used with `officer`. Function `ph_with_vg` can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function `ph_with_vg_at` is also provided to let you add a graphic at any arbitrary location in the current slide.
 
 ```{r}
 library(rvg)
