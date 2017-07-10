@@ -77,6 +77,13 @@ print.rdocx <- function(x, target = NULL, ...){
     x
   })
 
+  sections_ <- xml_find_all(x$doc_obj$get(), "//w:sectPr")
+  last_sect <- sections_[length(sections_)]
+  if( inherits( xml_find_first(x$doc_obj$get(), file.path( xml_path(last_sect), "w:type")), "xml_missing" ) ){
+    xml_add_child( last_sect,
+      as_xml_document("<w:type xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"continuous\"/>")
+      )
+  }
   x$doc_obj$save()
   x$content_type$save()
 
