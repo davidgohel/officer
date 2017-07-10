@@ -1,4 +1,3 @@
-#' @importFrom lazyeval f_list
 #' @export
 #' @title concatenate formatted text
 #' @description Create a paragraph representation by concatenating
@@ -15,7 +14,7 @@
 #' fpar(ftext("hello", shortcuts$fp_bold()))
 fpar <- function( ... ) {
   out <- list()
-  out$chunks <- f_list(...)
+  out$chunks <- list(...)
 
   out$fp_p <- fp_par()
   out$fp_t <- fp_text()

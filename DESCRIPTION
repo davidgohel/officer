@@ -19,7 +19,7 @@ LinkingTo: Rcpp,
     gdtools
 Imports:
     Rcpp (>= 0.12.3),
-    purrr,dplyr,R6,tibble,lazyeval,ggplot2,
+    purrr,dplyr,R6,tibble,ggplot2,
     R.utils,utils,grDevices,
     gdtools,
     base64enc,zip,

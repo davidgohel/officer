@@ -29,6 +29,7 @@ unfold_row_pml <- function(node, row_id){
 globalVariables(c("."))
 
 #' @importFrom purrr map2_df
+#' @importFrom dplyr ungroup
 pptxtable_as_tibble <- function( node ){
   xpath_ <- paste0( xml_path(node), "/a:graphic/a:graphicData/a:tbl/a:tr")
   rows <- xml_find_all(node, xpath_)
@@ -49,8 +50,7 @@ pptxtable_as_tibble <- function( node ){
     row_details <- anti_join(row_details, rep_rows, by = c("row_id", "cell_id") )
     row_details <- bind_rows(row_details, rep_rows)
   }
-  arrange_(row_details, .dots = c("row_id", "cell_id") )
-
+  row_details[order(row_details$row_id, row_details$cell_id),]
 }
 
 

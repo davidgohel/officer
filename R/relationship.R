@@ -1,5 +1,4 @@
 #' @importFrom R6 R6Class
-#' @importFrom dplyr arrange_
 #' @importFrom xml2 read_xml xml_children xml_ns xml_attr
 relationship <- R6Class(
   "relationship",
@@ -49,7 +48,7 @@ relationship <- R6Class(
                          target_mode = private$target_mode,
                          ext_src = private$ext_src,
                          stringsAsFactors = FALSE )
-      arrange_(data, .dots = "id")
+      data[order(data$id),]
     },
     get_images_path = function() {
       is_img <- basename( private$type ) %in% "image"

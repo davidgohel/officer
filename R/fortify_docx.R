@@ -43,10 +43,9 @@ unfold_row_xml <- function(node, row_id){
       out
     })
   out <- bind_rows(out, out_add)
-  arrange_(out, .dots = "cell_id")
+  out[order(out$cell_id),]
 }
 
-globalVariables(c("."))
 
 #' @importFrom purrr map2_df
 docxtable_as_tibble <- function( node, styles ){
@@ -61,7 +60,9 @@ docxtable_as_tibble <- function( node, styles ){
     new_vals <- rle_$lengths[rle_$values]
     dat[dat$row_merge, "row_span"] <- 0
     dat[dat$row_merge & dat$first, "row_span"] <- new_vals
-    select_( dat, "-row_merge", "-first" )
+    dat$row_merge <- NULL
+    dat$first <- NULL
+    dat
   })
 
   style_node <- xml_child(node, "w:tblPr/w:tblStyle")

@@ -162,7 +162,7 @@ fortify_pml_images <- function(x, str){
   slide <- x$slide$get_slide(x$cursor)
   ref <- slide$rel_df()
 
-  ref <- filter_(ref, interp(~ ext_src != "") )
+  ref <- ref[ref$ext_src != "",]
   doc <- as_xml_document(str)
   for(id in seq_along(ref$ext_src) ){
     xpth <- paste0("//p:pic/p:blipFill/a:blip",

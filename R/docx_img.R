@@ -22,8 +22,6 @@ docx_reference_img <- function( x, src){
 }
 
 #' @importFrom xml2 as_xml_document xml_attr<-
-#' @importFrom dplyr filter_
-#' @importFrom lazyeval interp
 #' @export
 #' @title transform an xml string with images references
 #' @description The function replace images filenames
@@ -37,7 +35,7 @@ docx_reference_img <- function( x, src){
 wml_link_images <- function(x, str){
   ref <- x$doc_obj$relationship()$get_data()
 
-  ref <- filter_(ref, interp(~ ext_src != "") )
+  ref <- ref[ref$ext_src != "",]
 
   doc <- as_xml_document(str)
   for(id in seq_along(ref$ext_src) ){

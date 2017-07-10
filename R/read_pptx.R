@@ -85,8 +85,6 @@ print.rpptx <- function(x, target = NULL, ...){
 
 
 #' @export
-#' @importFrom lazyeval interp
-#' @importFrom dplyr filter_
 #' @importFrom xml2 xml_name<- xml_set_attrs xml_ns xml_remove
 #' @title add a slide
 #' @description add a slide into a pptx presentation
@@ -99,8 +97,9 @@ print.rpptx <- function(x, target = NULL, ...){
 #'   layout = "Two Content", master = "Office Theme")
 add_slide <- function( x, layout, master ){
 
-  filter_criteria <- interp(~ name == layout & master_name == master, layout = layout, master = master)
-  slide_info <- filter_(x$slideLayouts$get_metadata(), filter_criteria)
+  slide_info <- x$slideLayouts$get_metadata()
+  slide_info <- slide_info[slide_info$name == layout & slide_info$master_name == master, ]
+
   if( nrow( slide_info ) < 1 )
     stop("could not find layout named ", shQuote(layout), " in master named ", shQuote(master))
   new_slidename <- x$slide$get_new_slidename()
@@ -220,10 +219,8 @@ remove_slide <- function( x, index = NULL ){
 #' my_pres <- read_pptx()
 #' layout_summary ( x = my_pres )
 layout_summary <- function( x ){
-  data <- x$slideLayouts$get_metadata() %>%
-    rename_( .dots = setNames( c("name", "master_name"), c("layout", "master"))) %>%
-    select_("layout", "master")
-  data
+  data <- x$slideLayouts$get_metadata()
+  data.frame(layout = data$name, master = data$master_name, stringsAsFactors = FALSE)
 }
 
 #' @export
@@ -244,17 +241,14 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   data <- x$slideLayouts$get_xfrm_data()
 
   if( !is.null(layout) && !is.null(master) ){
-    filter_criteria <- interp(~ name == layout & master_name == master, layout = layout, master = master)
-    data <- filter_(data, filter_criteria)
-  } else if( is.null(layout) && !is.null(master) ){
-    filter_criteria <- interp(~ master_name == master, master = master)
-    data <- filter_(data, filter_criteria)
-  } else if( !is.null(layout) && is.null(master) ){
-    filter_criteria <- interp(~ name == layout, layout = layout)
-    data <- filter_(data, filter_criteria)
-  }
 
-  data <- select_(data, "master_name", "name", "type", "id", "offx", "offy", "cx", "cy")
+    data <- data[data$name == layout & data$master_name == master,]
+  } else if( is.null(layout) && !is.null(master) ){
+    data <- data[data$master_name == master,]
+  } else if( !is.null(layout) && is.null(master) ){
+    data <- data[data$name == layout,]
+  }
+  data <- data[,c("master_name", "name", "type", "id", "offx", "offy", "cx", "cy")]
 
   data
 }
@@ -297,7 +291,10 @@ slide_summary <- function( x, index = NULL ){
   nodes <- xml_find_all(slide$get(), str)
   data <- read_xfrm(nodes, file = "slide", name = "" )
   data$text <- map_chr(nodes, xml_text )
-  select_(data, "-name", "-file", "-ph")
+  data$name <- NULL
+  data$file <- NULL
+  data$ph <- NULL
+  data
 }
 
 

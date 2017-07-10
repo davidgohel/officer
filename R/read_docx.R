@@ -27,7 +27,8 @@ read_docx <- function( path = NULL ){
   obj$content_type <- content_type$new( obj )
   obj$doc_obj <- docx_document$new(package_dir)
 
-  default_refs <- filter_(styles_info(obj) , interp(~ is_default) )
+  default_refs <- styles_info(obj)
+  default_refs <- default_refs[default_refs$is_default,]
   obj$default_styles <- setNames( as.list(default_refs$style_name), default_refs$style_type )
 
   obj <- cursor_end(obj)
@@ -55,7 +56,7 @@ print.rdocx <- function(x, target = NULL, ...){
     cat("rdocx document with", length(x), "element(s)\n")
     cat("\n* styles:\n")
 
-    style_names <- select_( styles_info(x), "style_type", "style_name")
+    style_names <- styles_info(x)
     style_sample <- style_names$style_type
     names(style_sample) <- style_names$style_name
     print(style_sample)

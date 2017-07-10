@@ -220,10 +220,6 @@ slide_master <- R6Class(
 )
 
 # slide_layout ------------------------------------------------------------
-
-#' @importFrom dplyr group_by_
-#' @importFrom dplyr mutate_
-#' @importFrom dplyr ungroup
 slide_layout <- R6Class(
   "slide_layout",
   inherit = openxml_document,
@@ -240,9 +236,6 @@ slide_layout <- R6Class(
 
       nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
       data <- read_xfrm(nodeset, self$file_name(), self$name())
-      data <- group_by_(data, .dots = c("id", "type"))
-      data <- mutate_(data, num = "row_number()")
-      data <- ungroup(data)
       if( nrow(data))
         data$master_file <- basename(rels$target)
       else data$master_file <- character(0)
@@ -268,8 +261,8 @@ slide <- R6Class(
 
     feed = function( file ) {
       super$feed(file)
-      filter_criteria <- interp(~ basename(type) == "slideLayout")
-      slide_info <- filter_(private$rels_doc$get_data() , filter_criteria)
+      slide_info <- private$rels_doc$get_data()
+      slide_info <- slide_info[basename(slide_info$type) == "slideLayout",]
       private$layout_file <- basename( slide_info$target )
       self
     },
