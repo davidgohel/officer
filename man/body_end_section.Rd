@@ -2,10 +2,13 @@
 % Please edit documentation in R/docx_add.R
 \name{body_end_section}
 \alias{body_end_section}
+\alias{break_column}
 \title{add section}
 \usage{
 body_end_section(x, landscape = FALSE, colwidths = c(1), space = 0.05,
-  sep = FALSE)
+  sep = FALSE, continuous = TRUE)
+
+break_column(x)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -18,6 +21,8 @@ Sum of this argument should be 1.}
 \item{space}{space in percent between columns.}
 
 \item{sep}{if TRUE a line is sperating columns.}
+
+\item{continuous}{TRUE for a continuous section break.}
 }
 \description{
 add a section in a Word document. A section is attached to the latest paragraph
@@ -28,6 +33,10 @@ A section start at the end of the previous section (or the beginning of
 the document if no preceding section exists), it stops where the section is declared.
 The function is reflecting that (complicated) Word concept, by adding an ending section
 attached to the paragraph where cursor is.
+}
+\note{
+Ability to work with continuous section is not perfect and will
+be improved in the next relase.
 }
 \examples{
 library(officer)
@@ -44,10 +53,12 @@ my_doc <- read_docx()  \%>\%
   body_add_par("String 1", style = "heading 1") \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   body_add_par("String 2", style = "heading 1") \%>\%
+  break_column() \%>\%
   body_add_par(value = str2, style = "Normal") \%>\%
   body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) \%>\%
   body_add_par("String 3", style = "heading 1") \%>\%
-  body_add_par(value = str3, style = "Normal")
+  body_add_par(value = str3, style = "Normal") \%>\%
+  body_end_section()
 
 print(my_doc, target = "body_end_section.docx")
 }

@@ -370,6 +370,10 @@ body_remove <- function(x){
 #' Sum of this argument should be 1.
 #' @param space space in percent between columns.
 #' @param sep if TRUE a line is sperating columns.
+#' @param continuous TRUE for a continuous section break.
+#' @note
+#' Ability to work with continuous section is not perfect and will
+#' be improved in the next relase.
 #' @examples
 #' library(officer)
 #' library(magrittr)
@@ -385,14 +389,16 @@ body_remove <- function(x){
 #'   body_add_par("String 1", style = "heading 1") %>%
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   body_add_par("String 2", style = "heading 1") %>%
+#'   break_column() %>%
 #'   body_add_par(value = str2, style = "Normal") %>%
 #'   body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) %>%
 #'   body_add_par("String 3", style = "heading 1") %>%
-#'   body_add_par(value = str3, style = "Normal")
+#'   body_add_par(value = str3, style = "Normal") %>%
+#'   body_end_section()
 #'
 #' print(my_doc, target = "body_end_section.docx")
 #' @importFrom xml2 as_list
-body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05, sep = FALSE){
+body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05, sep = FALSE, continuous = TRUE){
 
   stopifnot(all.equal( sum(colwidths), 1 ) )
 
@@ -435,12 +441,15 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
   columns_str_last <- sprintf("<w:col w:w=\"%.0f\"/>",
                               column_values[length(column_values)] * width_)
   columns_str <- c(columns_str_all_but_last, columns_str_last)
-  columns_str <- sprintf("<w:cols w:num=\"%.0f\" w:sep=\"%.0f\" w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
+  if( length(colwidths) > 1 )
+    columns_str <- sprintf("<w:cols w:num=\"%.0f\" w:sep=\"%.0f\" w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
           length(colwidths), as.integer(sep), space * w, paste0(columns_str, collapse = "") )
-
+  else columns_str <- sprintf("<w:cols w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
+                              space * w, paste0(columns_str, collapse = "") )
 
   str <- paste0( wml_with_ns("w:sectPr"),
-                     pgsz_str, columns_str, mar_str, "</w:sectPr>")
+                 ifelse( continuous, "<w:type w:val=\"continuous\"/>", "" ),
+                 pgsz_str, columns_str, mar_str, "</w:sectPr>")
   xml_elt <- as_xml_document(str)
 
   cursor_elt <- x$doc_obj$get_at_cursor()
@@ -452,4 +461,13 @@ body_end_section <- function(x, landscape = FALSE, colwidths = c(1), space = .05
   xml_add_child(.x = last_pPr, .value = xml_elt )
   x
 }
+
+
+#' @export
+#' @rdname body_end_section
+break_column <- function( x ){
+  xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
+  slip_in_xml(x = x, str = xml_elt, pos = "before")
+}
+
 
