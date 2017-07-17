@@ -2,62 +2,62 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 pml_table <- function(x, style_id, col_width, row_height, first_row = TRUE, last_row = FALSE, first_column = FALSE, last_column = FALSE) {
-    .Call(officer_pml_table, x, style_id, col_width, row_height, first_row, last_row, first_column, last_column)
+    .Call(`_officer_pml_table`, x, style_id, col_width, row_height, first_row, last_row, first_column, last_column)
 }
 
 wml_table <- function(x, style_id, first_row = TRUE, last_row = FALSE, first_column = FALSE, last_column = FALSE, no_hband = FALSE, no_vband = FALSE) {
-    .Call(officer_wml_table, x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband)
+    .Call(`_officer_wml_table`, x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband)
 }
 
 p_ph <- function(offx, offy, cx, cy, rot, r, g, b, a) {
-    .Call(officer_p_ph, offx, offy, cx, cy, rot, r, g, b, a)
+    .Call(`_officer_p_ph`, offx, offy, cx, cy, rot, r, g, b, a)
 }
 
 w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(officer_w_ppr, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call(`_officer_w_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 a_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(officer_a_ppr, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call(`_officer_a_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 css_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(officer_css_ppr, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call(`_officer_css_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 rpr_new <- function(compounds) {
-    .Call(officer_rpr_new, compounds)
+    .Call(`_officer_rpr_new`, compounds)
 }
 
 rpr_w <- function(fp) {
-    .Call(officer_rpr_w, fp)
+    .Call(`_officer_rpr_w`, fp)
 }
 
 rpr_p <- function(fp) {
-    .Call(officer_rpr_p, fp)
+    .Call(`_officer_rpr_p`, fp)
 }
 
 rpr_css <- function(fp) {
-    .Call(officer_rpr_css, fp)
+    .Call(`_officer_rpr_css`, fp)
 }
 
 w_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(officer_w_tcpr, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call(`_officer_w_tcpr`, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 a_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(officer_a_tcpr, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call(`_officer_a_tcpr`, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 css_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(officer_css_tcpr, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
+    .Call(`_officer_css_tcpr`, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, do_bgimg, bgimg_rid, bgimg_path, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
 wml_run_pic <- function(src, width, height) {
-    .Call(officer_wml_run_pic, src, width, height)
+    .Call(`_officer_wml_run_pic`, src, width, height)
 }
 
 pml_run_pic <- function(src, width, height) {
-    .Call(officer_pml_run_pic, src, width, height)
+    .Call(`_officer_pml_run_pic`, src, width, height)
 }
 
