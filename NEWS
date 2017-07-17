@@ -4,6 +4,10 @@
 
 * characters <, > and & are now html encoded
 
+## Changes
+
+* drop dplyr deprecated verbs from code
+
 # officer 0.1.4
 
 ## Issues
