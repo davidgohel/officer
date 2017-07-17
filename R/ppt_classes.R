@@ -34,6 +34,11 @@ content_type <- R6Class(
       private$override <- override
       self
     },
+    add_override = function(value){
+      override <- c( private$override, value )
+      private$override <- override
+      self
+    },
     remove_slide = function(partname){
       id <- which( basename(names(private$override)) %in% basename(partname) )
       private$override <- private$override[-id]
@@ -49,6 +54,7 @@ content_type <- R6Class(
     },
 
     save = function() {
+      self$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
       self$add_ext(extension = "jpeg", type = "image/jpeg")
       self$add_ext(extension = "png", type = "image/png")
       self$add_ext(extension = "emf", type = "image/x-emf")
@@ -253,7 +259,6 @@ slide_layout <- R6Class(
 )
 
 # slide ------------------------------------------------------------
-
 slide <- R6Class(
   "slide",
   inherit = openxml_document,
