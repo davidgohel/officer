@@ -25,7 +25,6 @@ fp_border = function( color = "black", style = "solid", width = 1 ){
 }
 
 
-#' @param object \code{fp_border} object to modify
 #' @param ... further arguments - not used
 #' @rdname fp_border
 #' @examples
@@ -53,3 +52,24 @@ update.fp_border <- function(object, color, style, width, ...) {
 }
 
 
+#' @export
+#' @rdname fp_border
+#' @param x,object object \code{fp_border}
+#' @param type output type - one of 'pml'.
+#' @param ... further arguments - not used
+format.fp_border = function (x, type = "pml", ...){
+
+
+  col_mat <- col2rgb(x$color, alpha = TRUE)
+  red <- col_mat[1,1]
+  green <- col_mat[2,1]
+  blue <- col_mat[3,1]
+  alpha <- col_mat[4,1]
+
+
+  if( type == "pml"){
+
+    a_border(r = red, g = green, b = blue, a = alpha, type = x$style, width = x$width)
+
+  } else stop("unimplemented")
+}
