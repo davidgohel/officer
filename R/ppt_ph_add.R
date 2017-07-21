@@ -29,7 +29,7 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
-  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
+  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
 
   current_p <- xml_child(nodes[[shape_id]], "/a:p[last()]")
   if( inherits(current_p, "xml_missing") )
@@ -89,8 +89,7 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
 
-  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
-
+  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
   current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
 
   if( inherits(current_p, "xml_missing") ){
@@ -148,7 +147,7 @@ ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
 
-  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/p:sp")
+  nodes <- xml_find_all(slide$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
 
   current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
   newp_str <- format(value, type = "pml")
