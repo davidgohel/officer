@@ -3,6 +3,7 @@
 ## Issues
 
 * characters <, > and & are now html encoded
+* on_slide index is now the correct slide number id.
 
 ## Changes
 
