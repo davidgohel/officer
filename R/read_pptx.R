@@ -169,7 +169,8 @@ on_slide <- function( x, index ){
     stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
   }
 
-  x$cursor = index
+  slide_file <- x$slide$get_slide_list()
+  x$cursor = which(slide_file$slide_index == index )
   x
 }
 

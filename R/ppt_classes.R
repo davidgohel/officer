@@ -500,6 +500,17 @@ dir_slide <- R6Class(
       length(private$collection)
     },
 
+    get_slide_list = function(){
+      slide_dir <- file.path(private$package_dir, "ppt/slides")
+      slide_files <- list.files(slide_dir, pattern = "\\.xml$")
+      slide_index <- seq_along(slide_files)
+      if( length(slide_files)){
+        slide_files <- basename( slide_files )
+        slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
+      }
+      data.frame( slide_files = slide_files, slide_index = slide_index, stringsAsFactors = FALSE)
+    },
+
     get_new_slidename = function(){
       slide_dir <- file.path(private$package_dir, "ppt/slides")
       if( !file.exists(slide_dir)){
