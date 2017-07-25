@@ -5,6 +5,7 @@ cache: packages
 
 r_github_packages:
   - jimhester/covr
+  - tidyverse/dplyr
 
 r:
  - oldrel
