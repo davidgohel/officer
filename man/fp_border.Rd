@@ -24,8 +24,6 @@ fp_border(color = "black", style = "solid", width = 1)
 \item{x, object}{object \code{fp_border}}
 
 \item{type}{output type - one of 'pml'.}
-
-\item{...}{further arguments - not used}
 }
 \description{
 create a border properties object.

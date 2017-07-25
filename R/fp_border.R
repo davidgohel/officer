@@ -56,7 +56,6 @@ update.fp_border <- function(object, color, style, width, ...) {
 #' @rdname fp_border
 #' @param x,object object \code{fp_border}
 #' @param type output type - one of 'pml'.
-#' @param ... further arguments - not used
 format.fp_border = function (x, type = "pml", ...){
 
 
