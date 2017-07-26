@@ -11,7 +11,7 @@ public:
        bool, std::string, std::string,
        IntegerVector, IntegerVector,
        IntegerVector, IntegerVector,
-       CharacterVector, IntegerVector
+       CharacterVector, DoubleVector
   );
   std::string a_tag();
   std::string w_tag();

@@ -85,6 +85,7 @@ out
 #' @param x,object object \code{fp_cell}
 #' @param type output type - one of 'wml', 'pml', 'html'.
 #' @param ... further arguments - not used
+#' @importFrom purrr map_dbl
 format.fp_cell = function (x, type = "wml", ...){
   btlr_list <- list(x$border.bottom, x$border.top,
                     x$border.left, x$border.right)
@@ -96,7 +97,7 @@ format.fp_cell = function (x, type = "wml", ...){
   )
   colmat <- do.call( "rbind", btlr_cols )
   types <- map_chr( btlr_list, "style" )
-  widths <- map_int( btlr_list, "width" )
+  widths <- map_dbl( btlr_list, "width" )
   shading <- col2rgb(x$background.color, alpha = TRUE )[,1]
 
   if( !is.null( x$background.img.id )){

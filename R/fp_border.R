@@ -15,7 +15,7 @@ border_styles = c( "none", "solid", "dotted", "dashed" )
 fp_border = function( color = "black", style = "solid", width = 1 ){
 
   out <- list()
-  out <- check_set_integer( obj = out, width)
+  out <- check_set_numeric( obj = out, width)
   out <- check_set_color(out, color)
   out <- check_set_choice( obj = out, style,
                            choices = border_styles )

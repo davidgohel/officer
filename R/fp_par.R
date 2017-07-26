@@ -65,7 +65,7 @@ fp_par = function(text.align = "left",
 
 #' @export
 #' @importFrom purrr map_chr
-#' @importFrom purrr map_int
+#' @importFrom purrr map_dbl map_int
 #' @importFrom grDevices col2rgb
 format.fp_par = function (x, type = "wml", ...){
   btlr_list <- list(x$border.bottom, x$border.top,
@@ -75,7 +75,7 @@ format.fp_par = function (x, type = "wml", ...){
        function(x) as.vector(col2rgb(x$color, alpha = TRUE )[,1] ) )
   colmat <- do.call( "rbind", btlr_cols )
   types <- map_chr( btlr_list, "style" )
-  widths <- map_int( btlr_list, "width" )
+  widths <- map_dbl( btlr_list, "width" )
   shading <- col2rgb(x$shading.color, alpha = TRUE )[,1]
 
   stopifnot(length(type) == 1)

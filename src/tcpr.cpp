@@ -134,7 +134,7 @@ tcpr::tcpr(std::string vertical_align, std::string text_direction,
          bool do_bgimg, std::string bgimg_rid, std::string bgimg_path,
          IntegerVector btlr_red, IntegerVector btlr_green,
          IntegerVector btlr_blue, IntegerVector btlr_alpha,
-         CharacterVector type, IntegerVector width):
+         CharacterVector type, DoubleVector width):
   vertical_align(vertical_align), text_direction(text_direction),
   mb(mb), mt(mt), ml(ml), mr(mr),
   shading_r(shd_r), shading_g(shd_g), shading_b(shd_b), shading_a(shd_a),

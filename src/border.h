@@ -1,7 +1,7 @@
 class border
 {
 public:
-  border(int, int, int, int, std::string, int);
+  border(int, int, int, int, std::string, double);
   std::string w_tag(std::string);
   std::string a_tag(std::string);
   std::string a_tag();
@@ -13,7 +13,7 @@ private:
   int blue;
   int alpha;
   std::string type;
-  int width;
+  double width;
 };
 
 

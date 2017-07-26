@@ -19,7 +19,7 @@ test_that("fp_par", {
   x <- fp_par(padding = 0, border = shortcuts$b_null())
   expect_identical(dim(x), c("width" = 0, "height" = 0) )
 
-  expect_equal(fp_sign( fp_par() ), "9b85a72e897738b15bd38b54ded1c5e9" )
+  expect_equal(fp_sign( fp_par() ), "b6db6621d828d1caf5b613024e1c5a41" )
 
 })
 

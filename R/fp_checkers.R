@@ -54,6 +54,14 @@ check_set_integer <- function( obj, value){
   obj
 }
 
+check_set_numeric <- function( obj, value){
+  varname <- as.character(substitute(value))
+  if( is.numeric( value ) && length(value) == 1  && value >= 0 ){
+    obj[[varname]] <- as.double(value)
+  } else stop(varname, " must be a positive numeric scalar.", call. = FALSE)
+  obj
+}
+
 check_set_bool <- function( obj, value){
   varname <- as.character(substitute(value))
   if( is.logical( value ) && length(value) == 1 ){

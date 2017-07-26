@@ -3,6 +3,7 @@
 ## Enhancement
 
 * new function `body_default_section`
+* fp_border supports width in double precision
 
 ## Issues
 

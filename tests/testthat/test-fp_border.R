@@ -3,7 +3,7 @@ context("fp for borders")
 source("utils.R")
 
 test_that("fp_border", {
-  expect_error( fp_border(width = -5), "width must be a positive integer scalar" )
+  expect_error( fp_border(width = -5), "width must be a positive numeric scalar" )
   expect_error( fp_border(color = "glop"), "color must be a valid color" )
   expect_error( fp_border(style = "glop"), "style must be one of" )
   x <- fp_border(color = "red", style = "dashed", width = 5)
@@ -86,7 +86,7 @@ test_that("wml fp_border", {
 
 regexp_border <- function(width, style, color, x){
   css <- format(fp_par(border = x), type = "html")
-  reg <- sprintf("border-bottom: %.0fpt %s %s", width, style, color)
+  reg <- sprintf("border-bottom: %.02fpt %s %s", width, style, color)
   grepl(reg, css)
 }
 

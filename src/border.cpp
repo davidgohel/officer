@@ -2,6 +2,7 @@
 #include "border.h"
 #include "color_spec.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace Rcpp;
 
@@ -9,7 +10,7 @@ std::string border::w_tag(std::string side)
 {
   color_spec col_(this->red, this->green, this->blue, this->alpha);
 
-  if( col_.is_transparent() || width < 1 || type == "none") {
+  if( col_.is_transparent() || width < .001 || type == "none") {
     return "";
   }
 
@@ -25,7 +26,7 @@ std::string border::w_tag(std::string side)
     os << "\"dashed\" ";
 
   os << "w:sz=\"";
-  os << width * 4;
+  os << std::setprecision(0) << std::fixed << width * 4;
   os << "\" ";
   os << "w:space=\"0\" ";
 
@@ -48,10 +49,10 @@ std::string border::a_tag(std::string side)
 
   os << "<a:ln" << side << " algn=\"ctr\" cmpd=\"sng\" cap=\"flat\" ";
   os << "w=\"";
-  os << width * 12700;
+  os << std::setprecision(0) << std::fixed << width * 12700;
   os << "\">";
 
-  if( col_.is_transparent() || width < 1 ) {
+  if( col_.is_transparent() || width < .001 ) {
     os << "<a:noFill/>";
   } else os << col_.solid_fill();
 
@@ -76,10 +77,10 @@ std::string border::a_tag()
 
   os << "<a:ln algn=\"ctr\" ";
   os << "w=\"";
-  os << width * 12700;
+  os << std::setprecision(0) << std::fixed << width * 12700;
   os << "\">";
 
-  if( col_.is_transparent() || width < 1 ) {
+  if( col_.is_transparent() || width < .001 ) {
     os << "<a:noFill/>";
   } else os << col_.solid_fill();
 
@@ -100,7 +101,7 @@ std::string border::css(std::string side)
   std::stringstream os;
 
   os << "border-" << side << ": ";
-  os << width << "pt ";
+  os << std::setprecision(2) << std::fixed << width << "pt ";
 
   if( type == "dotted")
     os << "dotted ";
@@ -116,7 +117,7 @@ std::string border::css(std::string side)
 }
 
 border::border(int r, int g, int b, int a,
-               std::string type, int width):
+               std::string type, double width):
   red(r), green(g), blue(b), alpha(a),
   type(type), width(width){
 
