@@ -1,3 +1,6 @@
 unlink("vignettes/assets", recursive = TRUE, force = TRUE)
 pkgdown::build_site()
 browseURL("docs/articles/assets/docx/toc_and_captions.docx")
+browseURL("docs/articles/assets/docx/body_add_demo.docx")
+browseURL("docs/articles/assets/docx/slip_in_demo.docx")
+browseURL("docs/articles/assets/docx/section.docx")

@@ -89,7 +89,7 @@ read_docx() %>%
 
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/flextable/flextable.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/flextable/flextable.docx" ) )
 ```
 
 ## Add a flextable into a PowerPoint document 
@@ -111,7 +111,7 @@ read_pptx() %>%
 
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "../assets/flextable/flextable.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/flextable/flextable.pptx" ) )
 ```
 
 
