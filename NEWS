@@ -1,5 +1,9 @@
 # officer 0.1.5
 
+## Enhancement
+
+* new function `body_default_section`
+
 ## Issues
 
 * characters <, > and & are now html encoded
@@ -8,6 +12,7 @@
 ## Changes
 
 * drop dplyr deprecated verbs from code
+* rename `break_column` to `break_column_before`.
 
 # officer 0.1.4
 
