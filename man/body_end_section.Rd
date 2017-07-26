@@ -2,13 +2,16 @@
 % Please edit documentation in R/docx_add.R
 \name{body_end_section}
 \alias{body_end_section}
-\alias{break_column}
+\alias{body_default_section}
+\alias{break_column_before}
 \title{add section}
 \usage{
 body_end_section(x, landscape = FALSE, colwidths = c(1), space = 0.05,
-  sep = FALSE, continuous = TRUE)
+  sep = FALSE, continuous = FALSE)
 
-break_column(x)
+body_default_section(x, landscape = FALSE)
+
+break_column_before(x)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -25,40 +28,39 @@ Sum of this argument should be 1.}
 \item{continuous}{TRUE for a continuous section break.}
 }
 \description{
-add a section in a Word document. A section is attached to the latest paragraph
-of the section.
+add a section in a Word document. A section has effect
+on preceding paragraphs or tables.
 }
 \details{
 A section start at the end of the previous section (or the beginning of
 the document if no preceding section exists), it stops where the section is declared.
-The function is reflecting that (complicated) Word concept, by adding an ending section
-attached to the paragraph where cursor is.
-}
-\note{
-Ability to work with continuous section is not perfect and will
-be improved in the next relase.
+The function \code{body_end_section()} is reflecting that Word concept.
+The function \code{body_default_section()} is only modifying the default section of
+the document.
 }
 \examples{
-library(officer)
 library(magrittr)
 
 str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " \%>\%
-  rep(20) \%>\% paste(collapse = "")
-str2 <- "Sed hendrerit, est eget convallis vestibulum, mauris ligula. " \%>\%
-  rep(20) \%>\% paste(collapse = "")
-str3 <- "Aenean venenatis varius elit et fermentum vivamus vehicula. " \%>\%
-  rep(20) \%>\% paste(collapse = "")
+  rep(10) \%>\% paste(collapse = "")
 
-my_doc <- read_docx()  \%>\%
-  body_add_par("String 1", style = "heading 1") \%>\%
+my_doc <- read_docx() \%>\%
+  # add a paragraph
   body_add_par(value = str1, style = "Normal") \%>\%
-  body_add_par("String 2", style = "heading 1") \%>\%
-  break_column() \%>\%
-  body_add_par(value = str2, style = "Normal") \%>\%
-  body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) \%>\%
-  body_add_par("String 3", style = "heading 1") \%>\%
-  body_add_par(value = str3, style = "Normal") \%>\%
-  body_end_section()
+  # add a continuous section
+  body_end_section(continuous = TRUE) \%>\%
+  body_add_par(value = str1, style = "Normal") \%>\%
+  body_add_par(value = str1, style = "Normal") \%>\%
+  # preceding paragraph is on a new column
+  break_column_before() \%>\%
+  # add a two columns continous section
+  body_end_section(colwidths = c(.6, .4),
+                   space = .05, sep = FALSE, continuous = TRUE) \%>\%
+  body_add_par(value = str1, style = "Normal") \%>\%
+  # add a continuous section ... so far there is no break page
+  body_end_section(continuous = TRUE) \%>\%
+  body_add_par(value = str1, style = "Normal") \%>\%
+  body_default_section(landscape = TRUE)
 
-print(my_doc, target = "body_end_section.docx")
+print(my_doc, target = "section.docx")
 }

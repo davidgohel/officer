@@ -8,7 +8,7 @@
 #' # create a rdocx object with default template ---
 #' read_docx()
 #'
-#' @importFrom xml2 read_xml xml_length xml_find_first
+#' @importFrom xml2 read_xml xml_length xml_find_first as_list
 read_docx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
@@ -30,6 +30,10 @@ read_docx <- function( path = NULL ){
   default_refs <- styles_info(obj)
   default_refs <- default_refs[default_refs$is_default,]
   obj$default_styles <- setNames( as.list(default_refs$style_name), default_refs$style_type )
+
+  last_sect <- xml_find_first(obj$doc_obj$get(), "/w:document/w:body/w:sectPr[last()]")
+  section_obj <- as_list(last_sect)
+  obj$sect_dim <- section_dimensions(last_sect)
 
   obj <- cursor_end(obj)
   obj

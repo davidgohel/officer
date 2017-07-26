@@ -228,7 +228,7 @@ doc <- read_docx(path = "assets/docx/init_doc.docx") %>%
   # move the cursor forward and end a section
   cursor_forward() %>%
   body_add_par("The section stop here", style = "Normal") %>%
-  body_end_section(landscape = TRUE) %>%
+  body_end_section(landscape = TRUE, continuous = FALSE) %>%
 
   # move the cursor at the end of the document
   cursor_end() %>%
@@ -314,9 +314,9 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Sections
 
-Sections can be added to a document. This is possible by using function `body_end_section`.
+Sections can be added to a document. This is possible by using function `body_end_section`. The default section can be modified with function `body_default_section`.
 
-> A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared. The function is reflecting that (complicated) Word concept, by adding an ending section attached to the paragraph where cursor is.
+> A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared. 
 
 
 ```{r}
@@ -328,7 +328,9 @@ str2 <- "Aenean venenatis varius elit et fermentum vivamus vehicula. " %>%
 my_doc <- read_docx()  %>% 
   slip_in_text(str = str1, style = "strong") %>% 
   body_add_par(value = str2, style = "centered") %>% 
-  body_end_section(landscape = TRUE, colwidths = c(.6, .4), space = .05, sep = FALSE) %>%
+  break_column_before() %>% 
+  body_end_section(continuous = TRUE, 
+                   colwidths = c(.6, .4), space = .05, sep = FALSE) %>%
   body_add_par(value = str3, style = "Normal") 
 print(my_doc, target = "assets/docx/section.docx") %>% invisible()
 ```
@@ -371,7 +373,7 @@ doc <- read_docx() %>%
   body_add_par(value = "data iris", style = "table title") %>% 
   shortcuts$slip_in_tableref(depth = 2) %>%
   
-  body_end_section(landscape = FALSE ) %>% 
+  body_end_section(continuous = FALSE, landscape = FALSE ) %>% 
   
   body_add_par(value = "plot examples", style = "heading 1") %>% 
   body_add_gg(value = gg1, style = "centered" ) %>% 
@@ -383,7 +385,7 @@ doc <- read_docx() %>%
   body_add_par(value = "graph example 2", style = "graphic title") %>% 
   shortcuts$slip_in_plotref(depth = 2) %>%
   
-  body_end_section(landscape = TRUE) %>% 
+  body_end_section(continuous = FALSE, landscape = TRUE) %>% 
   
   body_add_par(value = "Table of tables", style = "heading 2") %>% 
   body_add_toc(style = "table title") %>% 

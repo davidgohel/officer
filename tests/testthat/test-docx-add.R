@@ -25,14 +25,6 @@ test_that("body_add_section", {
   ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
   expect_false( inherits(ps, "xml_missing") )
   expect_equal( xml_attr(ps, "orient"), "landscape")
-
-  x <- read_docx() %>%
-    body_add_table(iris, style = "table_template")
-  expect_error(body_end_section(x, landscape = TRUE),
-               regexp = "ending a section can only happen on a paragraph" )
-
-
-
 })
 
 
