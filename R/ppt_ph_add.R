@@ -105,7 +105,7 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
     if( level > 1 ){
       simple_shape <- sprintf(paste0( pml_with_ns("a:p"), "<a:pPr lvl=\"%.0f\"/></a:p>" ), level - 1)
     } else
-      simple_shape <- pml_with_ns("a:p")
+      simple_shape <- paste0(pml_with_ns("a:p"), "</a:p>")
     xml_add_child(current_p, as_xml_document(simple_shape) )
   }
 
