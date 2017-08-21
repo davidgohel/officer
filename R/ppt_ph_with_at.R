@@ -21,6 +21,12 @@ ph <- function( left = 0, top = 0, width = 3, height = 3, bg = "transparent", ro
 #' @param width,height shape size in inches
 #' @param bg background color
 #' @param rot rotation angle
+#' @param template_type placeholder template type. If used, the new shape will
+#' inherit the style from the placeholder template. If not used, no text
+#' property is defined and for example text lists will not be indented.
+#' @param template_index placeholder template index (integer). To be used when a placeholder
+#' template type is not unique in the current slide, e.g. two placeholders with
+#' type 'body'.
 #' @examples
 #'
 #' # demo ph_empty_at ------
@@ -30,12 +36,18 @@ ph <- function( left = 0, top = 0, width = 3, height = 3, bg = "transparent", ro
 #' doc <- ph_empty_at(x = doc, left = 1, top = 2, width = 5, height = 4)
 #'
 #' print(doc, target = fileout )
-ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0 ){
+ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
+                         template_type = NULL, template_index = 1 ){
 
+  stopifnot( template_type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
   slide <- x$slide$get_slide(x$cursor)
 
   new_ph <- ph(left = left, top = top, width = width, height = height, rot = rot, bg = bg)
   new_ph <- paste0( pml_with_ns("p:sp"), new_ph,"</p:sp>")
+  if( !is.null( template_type ) ){
+    xfrm_df <- slide$get_xfrm(type = template_type, index = template_index)
+    new_ph <- gsub("<p:ph/>", xfrm_df$ph, new_ph)
+  }
   new_node <- as_xml_document(new_ph)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), new_node)

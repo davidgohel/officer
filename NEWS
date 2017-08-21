@@ -1,3 +1,10 @@
+# officer 0.1.6
+
+## Enhancement
+
+* function `ph_empty_at` can now make new shapes inherit
+  properties from template
+
 # officer 0.1.5
 
 ## Enhancement

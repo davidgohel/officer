@@ -7,7 +7,8 @@
 \usage{
 ph_empty(x, type = "title", index = 1)
 
-ph_empty_at(x, left, top, width, height, bg = "transparent", rot = 0)
+ph_empty_at(x, left, top, width, height, bg = "transparent", rot = 0,
+  template_type = NULL, template_index = 1)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -24,6 +25,14 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.}
 \item{bg}{background color}
 
 \item{rot}{rotation angle}
+
+\item{template_type}{placeholder template type. If used, the new shape will
+inherit the style from the placeholder template. If not used, no text
+property is defined and for example text lists will not be indented.}
+
+\item{template_index}{placeholder template index (integer). To be used when a placeholder
+template type is not unique in the current slide, e.g. two placeholders with
+type 'body'.}
 }
 \description{
 add a new empty shape in the current slide.
