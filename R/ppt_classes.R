@@ -456,7 +456,8 @@ dir_slide <- R6Class(
       super$initialize(x, slide$new("ppt/slides"))
       private$slides_path <- file.path(x$package_dir, "ppt/slides")
       private$slide_layouts <- dir_layout$new( x )
-      map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
+      private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
+      names(private$collection) <- map_chr(private$collection, function(x) x$name() )
     },
 
     update = function( ){
@@ -472,6 +473,7 @@ dir_slide <- R6Class(
       }, container = slide$new("ppt/slides"))
       private$slides_path <- file.path(private$package_dir, "ppt/slides")
       private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
+      names(private$collection) <- basename(filenames)
       self
     },
     remove = function(index ){
@@ -489,7 +491,9 @@ dir_slide <- R6Class(
       if( is.null(id) || !between(id, 1, l_ ) ){
         stop("unvalid id ", id, " (", l_," slide(s))", call. = FALSE)
       }
-      private$collection[[id]]
+      slide_files <- self$get_slide_list()
+      index <- which( names(private$collection) == slide_files[id])
+      private$collection[[index]]
     },
 
     get_metadata = function(){
@@ -507,8 +511,9 @@ dir_slide <- R6Class(
       if( length(slide_files)){
         slide_files <- basename( slide_files )
         slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
+        slide_files <- slide_files[order(slide_index)]
       }
-      data.frame( slide_files = slide_files, slide_index = slide_index, stringsAsFactors = FALSE)
+      slide_files#data.frame( slide_files = slide_files, slide_index = slide_index, stringsAsFactors = FALSE)
     },
 
     get_new_slidename = function(){
