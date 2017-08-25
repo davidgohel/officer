@@ -187,8 +187,8 @@ docx_dim <- function(x){
   xpath_ <- file.path( xml_path(cursor_elt), "following-sibling::w:sectPr")
   next_section <- xml_find_first(x$doc_obj$get(), xpath_)
   sd <- section_dimensions(next_section)
-  sd$page <- sd$page / 914400
-  sd$margins <- sd$margins / 914400
+  sd$page <- sd$page / (20*72)
+  sd$margins <- sd$margins / (20*72)
   sd
 
 }
