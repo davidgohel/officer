@@ -308,3 +308,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_officer_pml_table", (DL_FUNC) &_officer_pml_table, 8},
+    {"_officer_wml_table", (DL_FUNC) &_officer_wml_table, 8},
+    {"_officer_p_ph", (DL_FUNC) &_officer_p_ph, 9},
+    {"_officer_a_border", (DL_FUNC) &_officer_a_border, 6},
+    {"_officer_w_ppr", (DL_FUNC) &_officer_w_ppr, 15},
+    {"_officer_a_ppr", (DL_FUNC) &_officer_a_ppr, 15},
+    {"_officer_css_ppr", (DL_FUNC) &_officer_css_ppr, 15},
+    {"_officer_rpr_new", (DL_FUNC) &_officer_rpr_new, 1},
+    {"_officer_rpr_w", (DL_FUNC) &_officer_rpr_w, 1},
+    {"_officer_rpr_p", (DL_FUNC) &_officer_rpr_p, 1},
+    {"_officer_rpr_css", (DL_FUNC) &_officer_rpr_css, 1},
+    {"_officer_w_tcpr", (DL_FUNC) &_officer_w_tcpr, 19},
+    {"_officer_a_tcpr", (DL_FUNC) &_officer_a_tcpr, 19},
+    {"_officer_css_tcpr", (DL_FUNC) &_officer_css_tcpr, 19},
+    {"_officer_wml_run_pic", (DL_FUNC) &_officer_wml_run_pic, 3},
+    {"_officer_pml_run_pic", (DL_FUNC) &_officer_pml_run_pic, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_officer(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}
