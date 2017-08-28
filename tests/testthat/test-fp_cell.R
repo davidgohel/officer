@@ -161,10 +161,6 @@ test_that("css fp_border", {
   x <- fp_cell(vertical.align = "bottom")
   expect_true(has_css_attr(x, "vertical-align", "bottom"))
 
-  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
-  x <- fp_cell(background.img.src = img.file)
-  expect_true(has_css_attr(x, "background-image", "url\\(data:image/png;base64,"))
-
 })
 
 

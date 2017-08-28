@@ -1,4 +1,3 @@
-#' @importFrom dplyr bind_cols lag rowwise do
 unfold_row_pml <- function(node, row_id){
 
   children_ <- xml_children(node)
@@ -28,23 +27,23 @@ unfold_row_pml <- function(node, row_id){
 
 globalVariables(c("."))
 
-#' @importFrom purrr map2_df
-#' @importFrom dplyr ungroup
+#' @importFrom purrr map2_df pmap_df
 pptxtable_as_tibble <- function( node ){
   xpath_ <- paste0( xml_path(node), "/a:graphic/a:graphicData/a:tbl/a:tr")
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
 
   row_details <- map2_df( rows, seq_along(rows), unfold_row_pml )
-  rep_rows <- rowwise(row_details[row_details$row_span> 1,])
-  rep_rows <- do(rep_rows, {
-    data <- .
-    row_id <- data$row_id + seq_len(data$row_span)
-    row_span <- rep(0, data$row_span)
-    cell_id <- rep(data$cell_id, data$row_span)
-    col_span <- rep(data$col_span, data$row_span)
-    data.frame(row_id = row_id, row_span = row_span, col_span = col_span, cell_id = cell_id)
-  }) %>% ungroup()
+
+  rep_rows <- row_details[row_details$row_span> 1,]
+  rep_rows <- pmap_df(rep_rows, function(row_id, cell_id, text, col_span, row_span){
+    row_id_ <- row_id + seq_len(row_span)
+    row_span_ <- rep(0, row_span)
+    cell_id_ <- rep(cell_id, row_span)
+    col_span_ <- rep(col_span, row_span)
+    data.frame(row_id = row_id_, row_span = row_span_, col_span = col_span_,
+               cell_id = cell_id_)
+  })
 
   if( nrow(rep_rows) > 0 ){
     row_details <- anti_join(row_details, rep_rows, by = c("row_id", "cell_id") )

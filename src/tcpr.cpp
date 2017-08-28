@@ -2,7 +2,6 @@
 #include "tcpr.h"
 #include <iostream>
 #include "color_spec.h"
-#include <gdtools.h>
 
 using namespace Rcpp;
 
@@ -64,10 +63,10 @@ std::string tcpr::css()
   if( shading_.is_visible() > 0 )
     os << "background-color:" << shading_.get_css() << ";";
   else os << "background-color:transparent;";
-  if( this->do_bgimg ){
-    std::string base64_str = gdtools::base64_file_encode(this->bgimg_path);
-    os << "background-image:url(data:image/png;base64," << base64_str << ");";
-  }
+  // if( this->do_bgimg ){
+  //   std::string base64_str = gdtools::base64_file_encode(this->bgimg_path);
+  //   os << "background-image:url(data:image/png;base64," << base64_str << ");";
+  // }
 
   os << "margin-top:" << mt << "pt;";
   os << "margin-bottom:" << mb << "pt;";

@@ -1,8 +1,6 @@
 vertical.align.styles <- c( "top", "center", "bottom" )
 text.directions <- c( "lrtb", "tbrl", "btlr" )
 
-#' @importFrom gdtools raster_str
-
 #' @title Cell formatting properties
 #'
 #' @description Create a \code{fp_cell} object that describes cell formatting properties.

@@ -1,5 +1,6 @@
-#' @importFrom dplyr bind_cols lag rowwise do
-unfold_row_xml <- function(node, row_id){
+#' @importFrom dplyr lag
+#' @importFrom purrr pmap_df
+unfold_row_wml <- function(node, row_id){
   is_header_1 <- !inherits(xml_child(node, "w:trPr/w:tblHeader"), "xml_missing")
   is_header_2 <- !inherits(xml_child(node, "w:trPr/w:cnfStyle[@w:firstRow='1']"), "xml_missing")
   is_header <- is_header_1 | is_header_2
@@ -26,23 +27,29 @@ unfold_row_xml <- function(node, row_id){
   out <- tibble(row_id = row_id, is_header = is_header,
                 cell_id = 1 + dplyr::lag( cumsum(col_span), default=0 ),
                 text = txt, col_span = col_span) %>%
-    bind_cols(row_span)
+    cbind(row_span)
 
 
-  out_add <- rowwise(out[out$col_span > 1, ])
-  out_add <- do(out_add, {
-      row_data <- .
-      reps_ <- row_data$col_span - 1
-      out <- map_df( seq_len(reps_), function(x, df) {
-        out <- df
-        out$col_span <- 0
-        out$text <- NA
-        out
-      }, row_data)
-      out$cell_id <- seq_len(reps_) + row_data$cell_id
-      out
-    })
-  out <- bind_rows(out, out_add)
+  out_add_ <- out[out$col_span > 1, ]
+  out_add_ <- pmap_df(out_add_, function(row_id, is_header, cell_id, text, col_span, row_merge, first, row_span){
+    reps_ <- col_span - 1
+    row_id_ <- rep( row_id, reps_)
+    is_header_ <- rep( is_header, reps_)
+    cell_id_ <- rep( cell_id, reps_)
+    text_ <- rep( NA, reps_)
+    col_span_ <- rep( 0, reps_)
+    row_merge_ <- rep( row_merge, reps_)
+    first_ <- rep( first, reps_)
+    row_span_ <- rep( row_span, reps_)
+    out <- data.frame(row_id = row_id_, is_header = is_header_, cell_id = cell_id_,
+               text = text_, col_span = col_span_, row_merge = row_merge_,
+               first = first_, row_span = row_span_,
+               stringsAsFactors = FALSE)
+    out$cell_id <- seq_len(reps_) + cell_id
+    out
+  })
+
+  out <- rbind(out, out_add_)
   out[order(out$cell_id),]
 }
 
@@ -53,7 +60,7 @@ docxtable_as_tibble <- function( node, styles ){
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
 
-  row_details <- map2_df( rows, seq_along(rows), unfold_row_xml )
+  row_details <- map2_df( rows, seq_along(rows), unfold_row_wml )
   out <- split(row_details, row_details$cell_id)
   out <- map_df(out, function(dat){
     rle_ <- rle(dat$row_merge)
