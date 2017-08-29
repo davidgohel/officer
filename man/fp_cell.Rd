@@ -18,7 +18,7 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
 
 \method{update}{fp_cell}(object, border, border.bottom, border.left, border.top,
   border.right, vertical.align, margin = 0, margin.bottom, margin.top,
-  margin.left, margin.right, text.direction, ...)
+  margin.left, margin.right, background.color, text.direction, ...)
 }
 \arguments{
 \item{border}{shortcut for all borders.}

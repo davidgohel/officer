@@ -138,6 +138,7 @@ update.fp_cell <- function(object, border,
                            border.bottom,border.left,border.top,border.right,
                            vertical.align, margin = 0,
                            margin.bottom, margin.top, margin.left, margin.right,
+                           background.color,
                            text.direction, ...) {
 
   if( !missing(border) )
