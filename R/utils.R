@@ -202,4 +202,3 @@ section_dimensions <- function(node){
                     header = mar_h, footer = mar_f) )
 
 }
-

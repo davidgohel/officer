@@ -13,8 +13,6 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @param margin.bottom,margin.top,margin.left,margin.right cell margins - 0 or positive integer value.
 #' @param background.color cell background color - a single character value specifying a
 #' valid color (e.g. "#000000" or "black").
-#' @param background.img.id id of the background image in the relation file.
-#' @param background.img.src path of the background image
 #' @param text.direction cell text rotation - a single character value, expected
 #' value is one of "lrtb", "tbrl", "btlr".
 #' @export
@@ -25,8 +23,6 @@ fp_cell = function(
   margin = 0,
 	margin.bottom, margin.top, margin.left, margin.right,
   background.color = "transparent",
-  background.img.id = "rId1",
-  background.img.src = NULL,
   text.direction = "lrtb"
 ){
 
@@ -47,11 +43,6 @@ if( !missing(border.right) )
 
 # background-color checking
 out <- check_set_color(out, background.color)
-
-if( !is.null( background.img.src ) ){
-  out <- check_set_pic(out, background.img.id)
-  out <- check_set_file(out, background.img.src)
-}
 
 out <- check_set_choice( obj = out, value = vertical.align,
                          choices = vertical.align.styles )
@@ -98,17 +89,6 @@ format.fp_cell = function (x, type = "wml", ...){
   widths <- map_dbl( btlr_list, "width" )
   shading <- col2rgb(x$background.color, alpha = TRUE )[,1]
 
-  if( !is.null( x$background.img.id )){
-    do_bg_img <- TRUE
-    img_id <- x$background.img.id
-    img_src <- x$background.img.src
-  } else {
-    do_bg_img <- FALSE
-    img_id <- ""
-    img_src <- ""
-  }
-
-
   if( type == "wml"){
 
     w_tcpr(vertical_align = x$vertical.align,
@@ -116,7 +96,6 @@ format.fp_cell = function (x, type = "wml", ...){
       mb = x$margin.bottom, mt = x$margin.top,
       ml = x$margin.left, mr = x$margin.right,
       shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-      do_bg_img, img_id, img_src,
       colmat[,1], colmat[,2], colmat[,3], colmat[,4],
       type = types, width = widths )
 
@@ -127,7 +106,6 @@ format.fp_cell = function (x, type = "wml", ...){
            mb = x$margin.bottom, mt = x$margin.top,
            ml = x$margin.left, mr = x$margin.right,
            shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-           do_bg_img, img_id, img_src,
            colmat[,1], colmat[,2], colmat[,3], colmat[,4],
            type = types, width = widths )
 
@@ -138,7 +116,6 @@ format.fp_cell = function (x, type = "wml", ...){
            mb = x$margin.bottom, mt = x$margin.top,
            ml = x$margin.left, mr = x$margin.right,
            shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-           do_bg_img, img_id, img_src,
            colmat[,1], colmat[,2], colmat[,3], colmat[,4],
            type = types, width = widths )
   } else stop("unimplemented")
@@ -161,7 +138,6 @@ update.fp_cell <- function(object, border,
                            border.bottom,border.left,border.top,border.right,
                            vertical.align, margin = 0,
                            margin.bottom, margin.top, margin.left, margin.right,
-                           background.color, background.img.id, background.img.src,
                            text.direction, ...) {
 
   if( !missing(border) )
@@ -180,11 +156,6 @@ update.fp_cell <- function(object, border,
   # background-color checking
   if( !missing(background.color) )
     object <- check_set_color(object, background.color)
-  # background-img checking
-  if( !missing(background.img.id) )
-    object <- check_set_pic(object, background.img.id)
-  if( !missing(background.img.src) )
-    object <- check_set_file(object, background.img.src)
 
   if( !missing(vertical.align) )
     object <- check_set_choice( obj = object, value = vertical.align,

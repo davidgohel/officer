@@ -10,7 +10,6 @@
 fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
   border.right, vertical.align = "center", margin = 0, margin.bottom,
   margin.top, margin.left, margin.right, background.color = "transparent",
-  background.img.id = "rId1", background.img.src = NULL,
   text.direction = "lrtb")
 
 \method{format}{fp_cell}(x, type = "wml", ...)
@@ -19,8 +18,7 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
 
 \method{update}{fp_cell}(object, border, border.bottom, border.left, border.top,
   border.right, vertical.align, margin = 0, margin.bottom, margin.top,
-  margin.left, margin.right, background.color, background.img.id,
-  background.img.src, text.direction, ...)
+  margin.left, margin.right, text.direction, ...)
 }
 \arguments{
 \item{border}{shortcut for all borders.}
@@ -36,10 +34,6 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
 
 \item{background.color}{cell background color - a single character value specifying a
 valid color (e.g. "#000000" or "black").}
-
-\item{background.img.id}{id of the background image in the relation file.}
-
-\item{background.img.src}{path of the background image}
 
 \item{text.direction}{cell text rotation - a single character value, expected
 value is one of "lrtb", "tbrl", "btlr".}

@@ -5,6 +5,11 @@
 * function `ph_empty_at` can now make new shapes inherit
   properties from template
 
+## Changes
+
+* drop gdtools dependency
+
+
 # officer 0.1.5
 
 ## Enhancement

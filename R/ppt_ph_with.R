@@ -119,10 +119,6 @@ ph_with_table <- function( x, value, type = "title", index = 1,
 #' if( file.exists(img.file) ){
 #'   doc <- ph_with_img(x = doc, type = "body", src = img.file, height = 1.06, width = 1.39 )
 #' }
-#' if( require("ionicons") ){
-#'   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
-#'   doc <- ph_with_img(x = doc, type = "dt", src = calendar_src )
-#' }
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove

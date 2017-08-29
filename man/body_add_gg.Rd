@@ -30,7 +30,8 @@ doc <- read_docx()
 gg_plot <- ggplot(data = iris ) +
   geom_point(mapping = aes(Sepal.Length, Petal.Length))
 
-doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
+if( capabilities(what = "png") )
+  doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 
 print(doc, target = "body_add_gg.docx" )
 }

@@ -32,10 +32,6 @@ body_add_break <- function( x, pos = "after"){
 #' if( file.exists(img.file) ){
 #'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
 #' }
-#' if( require("ionicons") ){
-#'   calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
-#'   doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
-#' }
 #'
 #' print(doc, target = "body_add_img.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
@@ -79,12 +75,14 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' gg_plot <- ggplot(data = iris ) +
 #'   geom_point(mapping = aes(Sepal.Length, Petal.Length))
 #'
-#' doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
+#' if( capabilities(what = "png") )
+#'   doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 #'
 #' print(doc, target = "body_add_gg.docx" )
 body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
   png(filename = file, width = width, height = height, units = "in", res = 300, ...)
   print(value)
   dev.off()

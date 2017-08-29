@@ -71,19 +71,12 @@ test_that("pml fp_border", {
   node <- pml_cell_node(fp_cell(vertical.align = "bottom"))
   expect_equal(xml_attr(node, "anchor"), "b")
 
-  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
-  x <- fp_cell(background.img.src = img.file, background.img.id = "rId2")
-  node <- pml_cell_node(x)
-  rid <- xml_find_all(node, "a:blipFill/a:blip") %>% xml_attr("embed")
-  expect_equal(rid, "rId2")
-
   x <- fp_cell(text.direction = "btlr")
   node <- pml_cell_node(x)
   expect_equal(xml_attr(node, "vert"), "vert270")
   x <- fp_cell(text.direction = "tbrl")
   node <- pml_cell_node(x)
   expect_equal(xml_attr(node, "vert"), "vert")
-
 })
 
 

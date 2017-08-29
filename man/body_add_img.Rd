@@ -30,10 +30,6 @@ img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
 if( file.exists(img.file) ){
   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
 }
-if( require("ionicons") ){
-  calendar_src = as_png(name = "calendar", fill = "#FFE64D", width = 144, height = 144)
-  doc <- body_add_img(x = doc, src = calendar_src, height = 2, width = 2 )
-}
 
 print(doc, target = "body_add_img.docx" )
 }
