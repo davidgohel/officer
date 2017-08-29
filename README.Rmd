@@ -18,7 +18,7 @@ The officer package lets R users manipulate Word (`.docx`) and PowerPoint (`*.pp
 
 *This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require `rJava` (but `xml2`) and has less functions that will make it easier to maintain.*
 
-
+<p><a href="https://travis-ci.org/davidgohel/officer"><img src="https://travis-ci.org/davidgohel/officer.svg?branch=master" alt="Travis-CI Build Status" data-canonical-src="https://travis-ci.org/davidgohel/officer.svg?branch=master" style="max-width:100%;"></a> <a href="http://cran.rstudio.com/web/packages/officer/index.html"><img src="https://www.r-pkg.org/badges/version/officer" alt="CRAN version" data-canonical-src="https://www.r-pkg.org/badges/version/officer" style="max-width:100%;"></a> <img src="https://cranlogs.r-pkg.org/badges/officer" alt="cranlogs" data-canonical-src="https://cranlogs.r-pkg.org./badges/officer" style="max-width:100%;"></p>
 
 ## Word documents
 
