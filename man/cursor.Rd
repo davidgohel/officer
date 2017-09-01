@@ -26,7 +26,7 @@ cursor_backward(x)
 
 \item{id}{bookmark id}
 
-\item{keyword}{keyword to look for}
+\item{keyword}{keyword to look for as a regular expression}
 }
 \description{
 a set of functions is available to manipulate
