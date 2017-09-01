@@ -80,7 +80,7 @@ cursor_end <- function( x ){
 
 #' @export
 #' @rdname cursor
-#' @param keyword keyword to look for
+#' @param keyword keyword to look for as a regular expression
 #' @section cursor_reach:
 #' Set the cursor on the first element of the document
 #' that contains text specified in argument \code{keyword}.
