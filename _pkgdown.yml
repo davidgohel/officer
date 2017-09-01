@@ -17,6 +17,7 @@ reference:
   - title: Navigate into Word documents
     contents:
     - starts_with("cursor_")
+    - docx_bookmarks
   - title: Add content to Word documents
     contents:
     - body_add_img

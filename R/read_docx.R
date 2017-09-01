@@ -192,3 +192,29 @@ docx_dim <- function(x){
   sd
 
 }
+
+
+#' @export
+#' @title List Word bookmarks
+#' @description List bookmarks id that can be found in an \code{rdocx}
+#' object.
+#' @param x a \code{rdocx} object
+#' @examples
+#' library(magrittr)
+#'
+#' doc <- read_docx() %>%
+#'   body_add_par("centered text", style = "centered") %>%
+#'   body_bookmark("text_to_replace") %>% body_add_par("centered text", style = "centered") %>%
+#'   body_bookmark("text_to_replace2")
+#'
+#' docx_bookmarks(doc)
+#'
+#' docx_bookmarks(read_docx())
+docx_bookmarks <- function(x){
+  stopifnot(inherits(x, "rdocx"))
+
+  doc_ <- xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
+  setdiff(xml_attr(doc_, "name"), "_GoBack")
+}
+
+
