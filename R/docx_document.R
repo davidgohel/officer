@@ -1,7 +1,7 @@
 #' @importFrom xml2 xml_find_all xml_attr read_xml
 #' @import magrittr
 #' @importFrom tibble tibble
-#' @importFrom xml2 xml_ns read_xml xml_find_all xml_name xml_text
+#' @importFrom xml2 xml_ns read_xml xml_find_all xml_name xml_text xml_text<-
 docx_document <- R6Class(
   "docx_document",
   inherit = openxml_document,
@@ -86,6 +86,21 @@ docx_document <- R6Class(
 
       cursor <- cursor
       private$cursor <- cursor
+      self
+    },
+
+    cursor_replace_first_text = function( id, text ){
+
+      xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
+      bm_start <- xml_find_first(self$get(), xpath_)
+      if( inherits(bm_start, "xml_missing") )
+        stop("cannot find bookmark ", shQuote(id), call. = FALSE)
+
+      xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r/w:t", id)
+      text_elt <- xml_find_first(self$get(), xpath_)
+      text_ <- strsplit(xml_text(text_elt), split = " ")[[1]]
+      text_[1] <- text
+      xml_text(text_elt) <- paste0(text_, collapse = " ")
       self
     },
 

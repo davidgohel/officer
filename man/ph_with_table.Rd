@@ -5,11 +5,13 @@
 \alias{ph_with_table_at}
 \title{add table}
 \usage{
-ph_with_table(x, value, type = "title", index = 1, first_row = TRUE,
-  first_column = FALSE, last_row = FALSE, last_column = FALSE)
+ph_with_table(x, value, type = "title", index = 1, header = TRUE,
+  first_row = TRUE, first_column = FALSE, last_row = FALSE,
+  last_column = FALSE)
 
-ph_with_table_at(x, value, left, top, width, height, first_row = TRUE,
-  first_column = FALSE, last_row = FALSE, last_column = FALSE)
+ph_with_table_at(x, value, left, top, width, height, header = TRUE,
+  first_row = TRUE, first_column = FALSE, last_row = FALSE,
+  last_column = FALSE)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -20,6 +22,8 @@ ph_with_table_at(x, value, left, top, width, height, first_row = TRUE,
 
 \item{index}{placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.}
+
+\item{header}{display header if TRUE}
 
 \item{first_row, last_row, first_column, last_column}{logical for PowerPoint table options}
 

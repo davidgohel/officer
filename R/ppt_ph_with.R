@@ -72,6 +72,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 #' @description add a table as a new shape in the current slide.
 #' @inheritParams ph_empty
 #' @param value data.frame
+#' @param header display header if TRUE
 #' @param first_row,last_row,first_column,last_column logical for PowerPoint table options
 #' @examples
 #' library(magrittr)
@@ -83,6 +84,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 #'
 #' print(doc, target = "ph_with_table.pptx")
 ph_with_table <- function( x, value, type = "title", index = 1,
+                           header = TRUE,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE ){
   stopifnot(is.data.frame(value))
@@ -94,7 +96,7 @@ ph_with_table <- function( x, value, type = "title", index = 1,
 
   xml_elt <- table_shape(x = x, value = value, left = xfrm_df$offx, top = xfrm_df$offy, width = xfrm_df$cx, height = xfrm_df$cy,
                           first_row = first_row, first_column = first_column,
-                          last_row = last_row, last_column = last_column )
+                          last_row = last_row, last_column = last_column, header = header )
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
   slide$save()

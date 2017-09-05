@@ -4,9 +4,9 @@
 \alias{body_add_table}
 \title{add table}
 \usage{
-body_add_table(x, value, style = NULL, pos = "after", first_row = TRUE,
-  first_column = FALSE, last_row = FALSE, last_column = FALSE,
-  no_hband = FALSE, no_vband = TRUE)
+body_add_table(x, value, style = NULL, pos = "after", header = TRUE,
+  first_row = TRUE, first_column = FALSE, last_row = FALSE,
+  last_column = FALSE, no_hband = FALSE, no_vband = TRUE)
 }
 \arguments{
 \item{x}{a docx device}
@@ -17,6 +17,8 @@ body_add_table(x, value, style = NULL, pos = "after", first_row = TRUE,
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
+
+\item{header}{display header if TRUE}
 
 \item{first_row, last_row, first_column, last_column, no_hband, no_vband}{logical for Word table options}
 }

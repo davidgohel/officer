@@ -1,6 +1,6 @@
 table_shape <- function(x, value, left, top, width, height,
                         first_row = TRUE, first_column = FALSE,
-                        last_row = FALSE, last_column = FALSE ){
+                        last_row = FALSE, last_column = FALSE, header = TRUE ){
   stopifnot(is.data.frame(value))
 
   slide <- x$slide$get_slide(x$cursor)
@@ -15,7 +15,7 @@ table_shape <- function(x, value, left, top, width, height,
                        col_width = as.integer(def_width),
                        row_height = as.integer(def_height),
                        first_row = first_row, last_row = last_row,
-                       first_column = first_column, last_column = last_column )
+                       first_column = first_column, last_column = last_column, header = header )
 
   xml_elt <- paste0(
     "<p:graphicFrame ",

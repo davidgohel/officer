@@ -16,7 +16,7 @@ using namespace Rcpp;
 String pml_table(DataFrame x, std::string style_id,
                  int col_width, int row_height,
                  int first_row = true, int last_row = false,
-                 int first_column = false, int last_column = false) {
+                 int first_column = false, int last_column = false, int header = true) {
   int nrow = x.nrows();
   int ncol = x.size();
 
@@ -39,14 +39,16 @@ String pml_table(DataFrame x, std::string style_id,
   }
   os << "</a:tblGrid>";
 
-  os << "<a:tr h=\"" << row_height << "\">";
-  CharacterVector names_ = x.names();
-  for(int j = 0 ; j < ncol ; j++){
-    os << "<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>";
-    os << names_[j];
-    os << "</a:t></a:r></a:p></a:txBody></a:tc>";
+  if( header ){
+    os << "<a:tr h=\"" << row_height << "\">";
+    CharacterVector names_ = x.names();
+    for(int j = 0 ; j < ncol ; j++){
+      os << "<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>";
+      os << names_[j];
+      os << "</a:t></a:r></a:p></a:txBody></a:tc>";
+    }
+    os << "</a:tr>";
   }
-  os << "</a:tr>";
 
   for(int i = 0 ; i < nrow ; i++){
     os << "<a:tr h=\"" << row_height << "\">";
@@ -72,7 +74,7 @@ String pml_table(DataFrame x, std::string style_id,
 String wml_table(DataFrame x, std::string style_id,
                  int first_row = true, int last_row = false,
                  int first_column = false, int last_column = false,
-                 int no_hband = false, int no_vband = false) {
+                 int no_hband = false, int no_vband = false, int header = false) {
   int nrow = x.nrows();
   int ncol = x.size();
 
@@ -94,14 +96,16 @@ String wml_table(DataFrame x, std::string style_id,
             "\" w:noVBand=\"" << no_vband << "\"/>";
   os << "</w:tblPr>";
 
-  os << "<w:tr><w:trPr><w:tblHeader/></w:trPr>";
-  CharacterVector names_ = x.names();
-  for(int j = 0 ; j < ncol ; j++){
-    os << "<w:tc><w:trPr/><w:p><w:r><w:t>" <<
-      names_[j] <<
-        "</w:t></w:r></w:p></w:tc>";
+  if( header ){
+    os << "<w:tr><w:trPr><w:tblHeader/></w:trPr>";
+    CharacterVector names_ = x.names();
+    for(int j = 0 ; j < ncol ; j++){
+      os << "<w:tc><w:trPr/><w:p><w:r><w:t>" <<
+        names_[j] <<
+          "</w:t></w:r></w:p></w:tc>";
+    }
+    os << "</w:tr>";
   }
-  os << "</w:tr>";
 
   for(int i = 0 ; i < nrow ; i++){
     os << "<w:tr>";

@@ -121,6 +121,7 @@ ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 #'
 #' print(doc, target = "ph_with_table2.pptx")
 ph_with_table_at <- function( x, value, left, top, width, height,
+                              header = TRUE,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE ){
   stopifnot(is.data.frame(value))
@@ -129,7 +130,7 @@ ph_with_table_at <- function( x, value, left, top, width, height,
 
   xml_elt <- table_shape(x = x, value = value, left = left, top = top, width = width, height = height,
                          first_row = first_row, first_column = first_column,
-                         last_row = last_row, last_column = last_column )
+                         last_row = last_row, last_column = last_column, header = header )
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
   slide$save()

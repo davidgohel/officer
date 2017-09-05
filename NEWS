@@ -1,3 +1,10 @@
+# officer 0.1.7
+
+## Enhancement
+
+* new function `body_replace_at` to replace text at a bookmark starting position.
+* argument header for `body_add_table` and `ph_with_table`.
+
 # officer 0.1.6
 
 ## Enhancement

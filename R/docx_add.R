@@ -172,6 +172,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @param style table style
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
+#' @param header display header if TRUE
 #' @param first_row,last_row,first_column,last_column,no_hband,no_vband logical for Word table options
 #' @examples
 #' library(magrittr)
@@ -181,7 +182,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #'
 #' print(doc, target = "body_add_table.docx" )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-body_add_table <- function( x, value, style = NULL, pos = "after",
+body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
                             first_row = TRUE, first_column = FALSE,
                             last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
@@ -198,7 +199,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after",
   xml_elt <- wml_table(value, style_id,
             first_row, last_row,
             first_column, last_column,
-            no_hband, no_vband)
+            no_hband, no_vband, header)
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -355,6 +356,27 @@ body_remove <- function(x){
   new_cursor_elt <- x$doc_obj$get_at_cursor()
   xml_remove(cursor_elt)
   x$doc_obj$set_cursor(xml_path(new_cursor_elt))
+  x
+}
+
+#' @export
+#' @importFrom purrr is_scalar_character
+#' @title replace text at a bookmark location
+#' @description replace first word found enclosed in a bookmark
+#' by a text.
+#' @param x a docx device
+#' @param bookmark bookmark id
+#' @param value a character
+#' @examples
+#' library(magrittr)
+#' doc <- read_docx() %>%
+#'   body_add_par("centered text", style = "centered") %>%
+#'   slip_in_text(". How are you", style = "strong") %>%
+#'   body_bookmark("text_to_replace") %>%
+#'   body_replace_at("text_to_replace", "not left aligned")
+body_replace_at <- function( x, bookmark, value ){
+  stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
+  x$doc_obj$cursor_replace_first_text(bookmark, value)
   x
 }
 
