@@ -248,7 +248,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   } else if( !is.null(layout) && is.null(master) ){
     data <- data[data$name == layout,]
   }
-  data <- data[,c("master_name", "name", "type", "id", "offx", "offy", "cx", "cy")]
+  data <- data[,c("master_name", "name", "type", "id", "ph_label", "offx", "offy", "cx", "cy")]
 
   data
 }

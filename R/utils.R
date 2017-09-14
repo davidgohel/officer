@@ -49,6 +49,7 @@ read_xfrm <- function(nodeset, file, name){
   if( length(nodeset) < 1 ){
     return(tibble( type = character(0),
                    id = character(0),
+                   ph_label = character(0),
                    ph = character(0),
                    file = character(0),
                    offx = integer(0),
@@ -62,9 +63,11 @@ read_xfrm <- function(nodeset, file, name){
   type <- xml_attr(ph, "type")
   type[is.na(type)] <- "body"
   id <- xml_attr(xml_child(nodeset, "/p:cNvPr"), "id")
+  label <- xml_attr(xml_child(nodeset, "/p:cNvPr"), "name")
   off <- xml_child(nodeset, "p:spPr/a:xfrm/a:off")
   ext <- xml_child(nodeset, "p:spPr/a:xfrm/a:ext")
   tibble( type = type, id = id,
+          ph_label = label,
           ph = as.character(ph),
           file = basename(file),
           offx = as.integer(xml_attr(off, "x")),
