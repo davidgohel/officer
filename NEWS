@@ -6,6 +6,10 @@
 * argument header for `body_add_table` and `ph_with_table`.
 * `layout_properties` now returns placeholder id when available.
 
+## Issues
+
+* an error is now occurring when an incorrect index is used with ph_with_* functions.
+
 # officer 0.1.6
 
 ## Enhancement
