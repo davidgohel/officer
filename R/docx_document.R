@@ -1,7 +1,7 @@
 #' @importFrom xml2 xml_find_all xml_attr read_xml
 #' @import magrittr
 #' @importFrom tibble tibble
-#' @importFrom xml2 xml_ns read_xml xml_find_all xml_name xml_text xml_text<-
+#' @importFrom xml2 xml_ns read_xml xml_find_all xml_name xml_text xml_text<- xml_remove
 docx_document <- R6Class(
   "docx_document",
   inherit = openxml_document,
@@ -96,11 +96,21 @@ docx_document <- R6Class(
       if( inherits(bm_start, "xml_missing") )
         stop("cannot find bookmark ", shQuote(id), call. = FALSE)
 
-      xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r/w:t", id)
-      text_elt <- xml_find_first(self$get(), xpath_)
-      text_ <- strsplit(xml_text(text_elt), split = " ")[[1]]
-      text_[1] <- text
-      xml_text(text_elt) <- paste0(text_, collapse = " ")
+      str_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r", id )
+      following_start <- map_chr( xml_find_all(self$get(), str_), xml_path )
+      str_ <- sprintf("//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r", xml_attr(bm_start, "id") )
+      preceding_end <- map_chr( xml_find_all(self$get(), str_), xml_path )
+
+      match_path <- base::intersect(following_start, preceding_end)
+      if( length(match_path) < 1 )
+        stop("could not find any bookmark ", id, " located INSIDE a single paragraph" )
+
+      run_nodes <- xml_find_all(self$get(), paste0( match_path, collapse = "|" ) )
+
+      for(node in run_nodes[setdiff(seq_along(run_nodes), 1)])
+        xml_remove(node)
+
+      xml_text(run_nodes[[1]] ) <- text
       self
     },
 

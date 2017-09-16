@@ -2,7 +2,7 @@
 
 ## Enhancement
 
-* new function `body_replace_at` to replace text at a bookmark starting position.
+* new function `body_replace_at` to replace text inside bookmark
 * argument header for `body_add_table` and `ph_with_table`.
 * `layout_properties` now returns placeholder id when available.
 

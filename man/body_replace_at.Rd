@@ -14,8 +14,11 @@ body_replace_at(x, bookmark, value)
 \item{value}{a character}
 }
 \description{
-replace first word found enclosed in a bookmark
-by a text.
+replace text content enclosed in a bookmark
+by another text. A bookmark will be considered as valid if enclosing words
+within a paragraph, i.e. a bookmark along two or more paragraphs is invalid,
+a bookmark set on a whole paragraph is also invalid, bookmarking few words inside a paragraph
+is valid.
 }
 \examples{
 library(magrittr)
