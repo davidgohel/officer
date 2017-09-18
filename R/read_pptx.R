@@ -113,8 +113,8 @@ add_slide <- function( x, layout, master ){
   xml_attr(xml_doc, "type" ) <- NULL
   xml_attr(xml_doc, "preserve" ) <- NULL
 
-  map(xml_find_all(xml_doc, "//p:sp"), xml_remove)
-
+  node_to_delete <- xml_find_all(xml_doc, "//*[self::p:sp or self::p:pic or self::p:grpSp or self::p:graphicFrame or self::p:cxnSp]")
+  map(node_to_delete, xml_remove)
 
   write_xml(xml_doc, xml_file)
 
