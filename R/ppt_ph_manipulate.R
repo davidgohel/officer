@@ -68,7 +68,7 @@ ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
   xml_add_child(cnvpr, as_xml_document(str_) )
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 
@@ -111,7 +111,7 @@ ph_hyperlink <- function( x, type = NULL, id_chr = NULL, href ){
   xml_add_child(cnvpr, as_xml_document(str_) )
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 

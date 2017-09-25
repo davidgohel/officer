@@ -28,7 +28,7 @@ ph_empty <- function( x, type = "title", index = 1 ){
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 
@@ -62,7 +62,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 
@@ -100,7 +100,7 @@ ph_with_table <- function( x, value, type = "title", index = 1,
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 
@@ -150,7 +150,7 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 
   xml_add_child(xml_find_first(xmlslide, "p:cSld/p:spTree"), doc)
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 
 }
@@ -193,7 +193,7 @@ ph_from_xml <- function( x, value, type = "body", index = 1 ){
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
 
   slide$fortify_id()$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 
@@ -216,7 +216,7 @@ ph_from_xml_at <- function( x, value, left, top, width, height ){
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
 
   slide$fortify_id()$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
   x
 }
 

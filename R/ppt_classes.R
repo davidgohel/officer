@@ -247,9 +247,46 @@ slide_layout <- R6Class(
       else data$master_file <- character(0)
       data
     },
+    write_template = function(new_file){
+
+      xml_file <- self$file_name()
+
+      rel_filename <- file.path(
+        dirname(new_file), "_rels",
+        paste0(basename(new_file), ".rels") )
+
+      xml_doc <- read_xml(xml_file)
+      xml_name(xml_doc) <- "sld"
+      ns <- xml_ns(xml_doc)
+      xml_attr(xml_doc, "type" ) <- NULL
+      xml_attr(xml_doc, "preserve" ) <- NULL
+
+      node_to_delete <- xml_find_all(xml_doc, "//p:sp")
+      map(node_to_delete, xml_remove)
+
+      rel_df <- self$rel_df()
+      rel_df <- rel_df[!basename(rel_df$type) %in% "slideMaster",]
+
+      newrel <- relationship$new()$add(
+        id = "rId1", type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout",
+        target = file.path("../slideLayouts", basename(self$file_name())) )
+
+      for(i in seq_len(nrow(rel_df))){
+        next_id <- newrel$get_next_id()
+        new_rid <- sprintf("rId%.0f", next_id)
+        imges <- xml_find_all(xml_doc,
+                              sprintf("//*[@r:embed='%s']",
+                                      rel_df[i,"id"]) )
+        xml_attr(imges, "r:embed") <- new_rid
+        newrel$add( id = new_rid, type = rel_df[i,"type"], target = rel_df[i,"target"] )
+      }
+      newrel$write(path = rel_filename)
+      write_xml(xml_doc, new_file)
+      self
+    },
+
     name = function(){
-      xmldoc <- read_xml(self$file_name())
-      csld <- xml_find_first(xmldoc, "//p:cSld")
+      csld <- xml_find_first(self$get(), "//p:cSld")
       xml_attr(csld, "name")
     }
 
@@ -366,8 +403,13 @@ dir_collection <- R6Class(
       private$collection <- map( filenames, function(x, container){
         container$clone()$feed(x)
       }, container = container)
-
+      names(private$collection) <- basename(filenames)
     },
+
+    collection_get = function(name){
+      private$collection[[name]]
+    },
+
     get_metadata = function(){
       map_df(private$collection, function(x) x$get_metadata())
     },
@@ -478,6 +520,18 @@ dir_slide <- R6Class(
       private$slides_path <- file.path(private$package_dir, "ppt/slides")
       private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
       names(private$collection) <- basename(filenames)
+      self
+    },
+    update_slide = function( index ){
+      dir_ <- file.path(private$package_dir, "ppt/slides")
+      filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
+
+      # order matter here, so lets order file regarding their index
+      sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", basename(filenames) ) )
+      filenames <- filenames[order(sl_id)]
+
+      private$collection[[index]] <- slide$new("ppt/slides")$feed(filenames[index])$fortify_id()
+      private$collection[[index]]$set_xfrm(private$slide_layouts$get_xfrm_data())
       self
     },
     remove = function(index ){

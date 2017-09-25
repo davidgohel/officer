@@ -57,7 +57,7 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
   xml_add_child(current_p, new_node, .where = where_ )
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
 
   x
 }
@@ -111,7 +111,7 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
 
   x
 }
@@ -173,7 +173,7 @@ ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
   }
 
   slide$save()
-  x$slide$update()
+  x$slide$update_slide(x$cursor)
 
   x
 }
