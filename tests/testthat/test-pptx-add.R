@@ -71,8 +71,8 @@ test_that("add img into placeholder", {
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
-  expect_equal(sm$cx, 1.39*914400)
-  expect_equal(sm$cy, 1.06*914400)
+  expect_equal(sm$cx, 1.39)
+  expect_equal(sm$cy, 1.06)
 
 
 })

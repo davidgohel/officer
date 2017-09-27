@@ -41,10 +41,10 @@ test_that("slide summary", {
   expect_true( all( c("id", "type", "offx", "offy", "cx", "cy") %in% names(sm)) )
   expect_is( sm$id, "character" )
   expect_is( sm$type, "character" )
-  expect_is( sm$offx, "integer" )
-  expect_is( sm$offy, "integer" )
-  expect_is( sm$cx, "integer" )
-  expect_is( sm$cy, "integer" )
+  expect_true( is.double(sm$offx) )
+  expect_true( is.double(sm$offy) )
+  expect_true( is.double(sm$cx) )
+  expect_true( is.double(sm$cy) )
 })
 
 test_that("color scheme", {

@@ -5,8 +5,8 @@ table_shape <- function(x, value, left, top, width, height,
 
   slide <- x$slide$get_slide(x$cursor)
 
-  def_height <- height*914400 / (nrow(value) + 1)
-  def_width <- width*914400 / (ncol(value))
+  def_height <- height / (nrow(value) + 1)
+  def_width <- width / (ncol(value))
 
   value <- characterise_df(value)
 
@@ -28,8 +28,8 @@ table_shape <- function(x, value, left, top, width, height,
     "<p:nvPr/>",
     "</p:nvGraphicFramePr>",
     "<p:xfrm rot=\"0\">",
-    sprintf( "<a:off x=\"%.0f\" y=\"%.0f\"/>", left*914400, top*914400 ),
-    sprintf( "<a:ext cx=\"%.0f\" cy=\"%.0f\"/>", width*914400, height*914400 ),
+    sprintf( "<a:off x=\"%.0f\" y=\"%.0f\"/>", left, top ),
+    sprintf( "<a:ext cx=\"%.0f\" cy=\"%.0f\"/>", width, height ),
     "</p:xfrm>",
     "<a:graphic>",
     "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">",

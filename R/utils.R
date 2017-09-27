@@ -13,13 +13,18 @@ pml_run_str <- function(str, style) {
   sprintf(str_, format(style, type = "pml"), htmlEscape(str))
 }
 
-pml_shape_str <- function(str, ph) {
-  str_ <- paste0( pml_with_ns("p:sp"),
-                  "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>",
-                  "<p:spPr/>",
-                  "<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>%s</a:t></a:r></a:p></p:txBody></p:sp>"
+pml_shape_str <- function(str, ph, offx, offy, cx, cy, ...) {
+
+  sp_pr <- "<p:spPr><a:xfrm><a:off x=\"0\" y=\"0\"/><a:ext cx=\"0\" cy=\"0\"/></a:xfrm></p:spPr>"
+  # sp_pr <- "<p:spPr/>"
+  nv_sp_pr <- "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>"
+  nv_sp_pr <- sprintf( nv_sp_pr, ifelse(!is.na(ph), ph, "") )
+  paste0( pml_with_ns("p:sp"),
+                  nv_sp_pr, sp_pr,
+                  "<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>",
+                  htmlEscape(str),
+                  "</a:t></a:r></a:p></p:txBody></p:sp>"
                   )
-  sprintf( str_, ph, htmlEscape(str) )
 }
 
 
@@ -64,8 +69,10 @@ read_xfrm <- function(nodeset, file, name){
   type[is.na(type)] <- "body"
   id <- xml_attr(xml_child(nodeset, "/p:cNvPr"), "id")
   label <- xml_attr(xml_child(nodeset, "/p:cNvPr"), "name")
+
   off <- xml_child(nodeset, "p:spPr/a:xfrm/a:off")
   ext <- xml_child(nodeset, "p:spPr/a:xfrm/a:ext")
+
   tibble( type = type, id = id,
           ph_label = label,
           ph = as.character(ph),
@@ -93,7 +100,7 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
   names(master_xfrm) <- tmp_names
   master_xfrm$id <- NULL
   master_xfrm$ph <- NULL
-
+  master_xfrm$ph_label <- NULL
   slide_key_id <- paste0(slide_xfrm$master_file, slide_xfrm$type)
   master_key_id <- paste0(master_xfrm$file, master_xfrm$type)
 
@@ -106,10 +113,10 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
     by = c("master_file"="file", "type" = "type")
   )
 
-  slide_xfrm$offx <- ifelse( !is.finite(slide_xfrm$offx), slide_xfrm$offx_ref, slide_xfrm$offx ) / 914400
-  slide_xfrm$offy <- ifelse( !is.finite(slide_xfrm$offy), slide_xfrm$offy_ref, slide_xfrm$offy ) / 914400
-  slide_xfrm$cx <- ifelse( !is.finite(slide_xfrm$cx), slide_xfrm$cx_ref, slide_xfrm$cx ) / 914400
-  slide_xfrm$cy <- ifelse( !is.finite(slide_xfrm$cy), slide_xfrm$cy_ref, slide_xfrm$cy ) / 914400
+  slide_xfrm$offx <- ifelse( !is.finite(slide_xfrm$offx), slide_xfrm$offx_ref, slide_xfrm$offx )
+  slide_xfrm$offy <- ifelse( !is.finite(slide_xfrm$offy), slide_xfrm$offy_ref, slide_xfrm$offy )
+  slide_xfrm$cx <- ifelse( !is.finite(slide_xfrm$cx), slide_xfrm$cx_ref, slide_xfrm$cx )
+  slide_xfrm$cy <- ifelse( !is.finite(slide_xfrm$cy), slide_xfrm$cy_ref, slide_xfrm$cy )
   slide_xfrm$offx_ref <- NULL
   slide_xfrm$offy_ref <- NULL
   slide_xfrm$cx_ref <- NULL
@@ -122,10 +129,10 @@ set_xfrm_attr <- function( node, offx, offy, cx, cy ){
   off <- xml_child(node, "p:xfrm/a:off")
   ext <- xml_child(node, "p:xfrm/a:ext")
 
-  xml_attr( off, "x") <- sprintf( "%.0f", offx * 914400 )
-  xml_attr( off, "y") <- sprintf( "%.0f", offy * 914400 )
-  xml_attr( ext, "cx") <- sprintf( "%.0f", cx * 914400 )
-  xml_attr( ext, "cy") <- sprintf( "%.0f", cy * 914400 )
+  xml_attr( off, "x") <- sprintf( "%.0f", offx )
+  xml_attr( off, "y") <- sprintf( "%.0f", offy )
+  xml_attr( ext, "cx") <- sprintf( "%.0f", cx )
+  xml_attr( ext, "cy") <- sprintf( "%.0f", cy )
 
   cnvpr <- xml_child(node, "*/p:cNvPr")
   xml_attr( cnvpr, "id") <- ""

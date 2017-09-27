@@ -57,9 +57,20 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
 
   slide <- x$slide$get_slide(x$cursor)
-  xfrm_df <- slide$get_xfrm(type = type, index = index)
-  xml_elt <- pml_shape_str(str = str, ph = xfrm_df$ph )
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
+  sh_pr_df <- slide$get_xfrm(type = type, index = index)
+
+  sh_pr_df$str <- str
+  xml_elt <- do.call(pml_shape_str, sh_pr_df)
+  node <- as_xml_document(xml_elt)
+
+  off <- xml_child(node, "p:spPr/a:xfrm/a:off")
+  ext <- xml_child(node, "p:spPr/a:xfrm/a:ext")
+  xml_attr( off, "x") <- sprintf( "%.0f", sh_pr_df$offx )
+  xml_attr( off, "y") <- sprintf( "%.0f", sh_pr_df$offy )
+  xml_attr( ext, "cx") <- sprintf( "%.0f", sh_pr_df$cx )
+  xml_attr( ext, "cy") <- sprintf( "%.0f", sh_pr_df$cy )
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
 
   slide$save()
   x$slide$update_slide(x$cursor)
@@ -130,9 +141,10 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
   xfrm <- slide$get_xfrm(type = type, index = index)
 
   if( is.null(width)) width <- xfrm$cx
+  else width <- width * 914400
   if( is.null(height)) height <- xfrm$cy
-
-  ext_img <- external_img(src, width = width, height = height)
+  else height <- height * 914400
+  ext_img <- external_img(src, width = width / 914400, height = height / 914400)
   xml_elt <- format(ext_img, type = "pml")
 
   slide$reference_img(src = src, dir_name = file.path(x$package_dir, "ppt/media"))
@@ -142,8 +154,8 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 
   node <- xml_find_first( doc, "p:spPr")
   off <- xml_child(node, "a:xfrm/a:off")
-  xml_attr( off, "x") <- sprintf( "%.0f", xfrm$offx * 914400 )
-  xml_attr( off, "y") <- sprintf( "%.0f", xfrm$offy * 914400 )
+  xml_attr( off, "x") <- sprintf( "%.0f", xfrm$offx )
+  xml_attr( off, "y") <- sprintf( "%.0f", xfrm$offy )
 
   xmlslide <- slide$get()
 

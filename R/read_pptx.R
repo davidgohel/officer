@@ -249,6 +249,10 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
     data <- data[data$name == layout,]
   }
   data <- data[,c("master_name", "name", "type", "id", "ph_label", "offx", "offy", "cx", "cy")]
+  data[["offx"]] <- data[["offx"]] / 914400
+  data[["offy"]] <- data[["offy"]] / 914400
+  data[["cx"]] <- data[["cx"]] / 914400
+  data[["cy"]] <- data[["cy"]] / 914400
 
   data
 }
@@ -291,6 +295,11 @@ slide_summary <- function( x, index = NULL ){
   nodes <- xml_find_all(slide$get(), str)
   data <- read_xfrm(nodes, file = "slide", name = "" )
   data$text <- map_chr(nodes, xml_text )
+  data[["offx"]] <- data[["offx"]] / 914400
+  data[["offy"]] <- data[["offy"]] / 914400
+  data[["cx"]] <- data[["cx"]] / 914400
+  data[["cy"]] <- data[["cy"]] / 914400
+
   data$name <- NULL
   data$file <- NULL
   data$ph <- NULL
