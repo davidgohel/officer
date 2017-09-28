@@ -106,25 +106,8 @@ add_slide <- function( x, layout, master ){
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
   xml_layout <- file.path(x$package_dir, "ppt/slideLayouts", slide_info$filename)
-
-  xml_doc <- read_xml(xml_layout)
-  xml_name(xml_doc) <- "sld"
-  ns <- xml_ns(xml_doc)
-  xml_attr(xml_doc, "type" ) <- NULL
-  xml_attr(xml_doc, "preserve" ) <- NULL
-
-  node_to_delete <- xml_find_all(xml_doc, "//*[self::p:sp or self::p:pic or self::p:grpSp or self::p:graphicFrame or self::p:cxnSp]")
-  map(node_to_delete, xml_remove)
-
-  write_xml(xml_doc, xml_file)
-
-  rel_filename <- file.path(
-    dirname(xml_file), "_rels",
-    paste0(basename(xml_file), ".rels") )
-  newrel <- relationship$new()$add(
-    id = "rId1", type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout",
-    target = file.path("../slideLayouts", basename(slide_info$filename)) )
-  newrel$write(path = rel_filename)
+  layout_obj <- x$slideLayouts$collection_get(slide_info$filename)
+  layout_obj$write_template(xml_file)
 
   # update presentation elements
   x$presentation$add_slide(target = file.path( "slides", new_slidename) )
@@ -291,8 +274,8 @@ slide_summary <- function( x, index = NULL ){
   }
 
   slide <- x$slide$get_slide(index)
-  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
-  nodes <- xml_find_all(slide$get(), str)
+
+  nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/") )
   data <- read_xfrm(nodes, file = "slide", name = "" )
   data$text <- map_chr(nodes, xml_text )
   data[["offx"]] <- data[["offx"]] / 914400
