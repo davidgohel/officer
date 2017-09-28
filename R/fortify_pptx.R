@@ -106,7 +106,7 @@ pptx_summary <- function( x ){
 
   map_df(slide_index, function(i, x){
     slide <- x$slide$get_slide(i)
-    str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+    str = as_xpath_content_sel("p:cSld/p:spTree/")
     nodes <- xml_find_all(slide$get(), str)
     data <- read_xfrm(nodes, file = "slide", name = "" )
     content <- map2_df(nodes, data$id, function(node, id, slide_id){

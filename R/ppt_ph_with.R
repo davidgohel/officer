@@ -199,7 +199,7 @@ ph_from_xml <- function( x, value, type = "body", index = 1 ){
   xfrm <- slide$get_xfrm(type = type, index = index)
 
   doc <- as_xml_document(value)
-  node <- xml_find_first( doc, "//*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+  node <- xml_find_first( doc, as_xpath_content_sel("//") )
   node <- set_xfrm_attr(node, offx = xfrm$offx, offy = xfrm$offy,
                         cx = xfrm$cx, cy = xfrm$cy)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
@@ -219,7 +219,8 @@ ph_from_xml_at <- function( x, value, left, top, width, height ){
   slide <- x$slide$get_slide(x$cursor)
 
   doc <- as_xml_document(value)
-  node <- xml_find_first( doc, "//*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+
+  node <- xml_find_first( doc, as_xpath_content_sel("//") )
   node <- set_xfrm_attr(node,
                         offx = left,
                         offy = top,

@@ -207,7 +207,7 @@ slide_master <- R6Class(
     },
 
     xfrm = function(){
-      nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+      nodeset <- xml_find_all( self$get(), as_xpath_content_sel("p:cSld/p:spTree/") )
       read_xfrm(nodeset, self$file_name(), self$name())
     }
 
@@ -240,7 +240,7 @@ slide_layout <- R6Class(
       rels <- self$rel_df()
       rels <- rels[basename( rels$type ) == "slideMaster", ]
 
-      nodeset <- xml_find_all( self$get(), "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]")
+      nodeset <- xml_find_all( self$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
       data <- read_xfrm(nodeset, self$file_name(), self$name())
       if( nrow(data))
         data$master_file <- basename(rels$target)
@@ -249,39 +249,17 @@ slide_layout <- R6Class(
     },
     write_template = function(new_file){
 
-      xml_file <- self$file_name()
+      path <- system.file(package = "officer", "template/slide.xml")
 
       rel_filename <- file.path(
         dirname(new_file), "_rels",
         paste0(basename(new_file), ".rels") )
 
-      xml_doc <- read_xml(xml_file)
-      xml_name(xml_doc) <- "sld"
-      ns <- xml_ns(xml_doc)
-      xml_attr(xml_doc, "type" ) <- NULL
-      xml_attr(xml_doc, "preserve" ) <- NULL
-
-      node_to_delete <- xml_find_all(xml_doc, "//p:sp")
-      map(node_to_delete, xml_remove)
-
-      rel_df <- self$rel_df()
-      rel_df <- rel_df[!basename(rel_df$type) %in% "slideMaster",]
-
       newrel <- relationship$new()$add(
         id = "rId1", type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout",
         target = file.path("../slideLayouts", basename(self$file_name())) )
-
-      for(i in seq_len(nrow(rel_df))){
-        next_id <- newrel$get_next_id()
-        new_rid <- sprintf("rId%.0f", next_id)
-        imges <- xml_find_all(xml_doc,
-                              sprintf("//*[@r:embed='%s']",
-                                      rel_df[i,"id"]) )
-        xml_attr(imges, "r:embed") <- new_rid
-        newrel$add( id = new_rid, type = rel_df[i,"type"], target = rel_df[i,"target"] )
-      }
       newrel$write(path = rel_filename)
-      write_xml(xml_doc, new_file)
+      file.copy(path, to = new_file)
       self
     },
 

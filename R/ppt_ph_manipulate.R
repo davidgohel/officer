@@ -20,7 +20,7 @@ ph_remove <- function( x, type = NULL, id_chr = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
-  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+  str = as_xpath_content_sel("p:cSld/p:spTree/")
   xml_remove(xml_find_all(slide$get(), str)[[shape_id]])
 
   slide$save()
@@ -52,7 +52,7 @@ ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
-  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+  str = as_xpath_content_sel("p:cSld/p:spTree/")
   node <- xml_find_all(slide$get(), str)[[shape_id]]
 
   # declare slide ref in relationships
@@ -96,7 +96,7 @@ ph_hyperlink <- function( x, type = NULL, id_chr = NULL, href ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
-  str = "p:cSld/p:spTree/*[self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+  str = as_xpath_content_sel("p:cSld/p:spTree/")
   node <- xml_find_all(slide$get(), str)[[shape_id]]
 
   # declare link in relationships

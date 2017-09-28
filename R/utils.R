@@ -212,3 +212,12 @@ section_dimensions <- function(node){
                     header = mar_h, footer = mar_f) )
 
 }
+
+xpath_content_selector <- "*[self::p:cxnSp or self::p:sp or self::p:graphicFrame or self::p:grpSp or self::p:pic]"
+
+as_xpath_content_sel <- function(prefix){
+  paste0(prefix, xpath_content_selector)
+}
+
+
+
