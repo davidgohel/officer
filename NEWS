@@ -3,6 +3,12 @@
 ## Issues
 
 * decrease execution time necessary to add elements into big slide deck
+* fix an issue with complex slide layouts (there is still an issue left but
+  don't know how to manage it for now)
+
+## Changes
+
+* Functions slide_summary and layout_properties now return inches.
 
 # officer 0.1.7
 
