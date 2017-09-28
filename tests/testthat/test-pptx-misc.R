@@ -85,9 +85,6 @@ test_that("cursor is incremented as expected", {
     x <- add_slide(x, "Title Slide", "Office Theme")
     x <- ph_with_text(x, i, type = "ctrTitle")
   }
-  slide_summary(x, 11)
-  print(x, target = "xxx.pptx") %>% browseURL()
-
   expect_equal(nrow( slide_summary(x, 11) ), 1 )
   expect_equal(x$slide$get_slide(11)$name(), "slide11.xml" )
 
