@@ -44,7 +44,7 @@ String pml_table(DataFrame x, std::string style_id,
     CharacterVector names_ = x.names();
     for(int j = 0 ; j < ncol ; j++){
       os << "<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>";
-      os << names_[j];
+      os << Rf_translateCharUTF8(names_[j]);
       os << "</a:t></a:r></a:p></a:txBody></a:tc>";
     }
     os << "</a:tr>";
@@ -55,7 +55,7 @@ String pml_table(DataFrame x, std::string style_id,
     for(int j = 0 ; j < ncol ; j++){
       CharacterVector tmp=x[j];
       os << "<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>";
-      os << tmp[i];
+      os << Rf_translateCharUTF8(tmp[i]);
       os << "</a:t></a:r></a:p></a:txBody></a:tc>";
     }
     os << "</a:tr>";
@@ -101,7 +101,7 @@ String wml_table(DataFrame x, std::string style_id,
     CharacterVector names_ = x.names();
     for(int j = 0 ; j < ncol ; j++){
       os << "<w:tc><w:trPr/><w:p><w:r><w:t>" <<
-        names_[j] <<
+        Rf_translateCharUTF8(names_[j]) <<
           "</w:t></w:r></w:p></w:tc>";
     }
     os << "</w:tr>";
@@ -112,7 +112,7 @@ String wml_table(DataFrame x, std::string style_id,
     for(int j = 0 ; j < ncol ; j++){
       CharacterVector tmp=x[j];
       os << "<w:tc><w:trPr/><w:p><w:r><w:t>";
-      os << tmp[i];
+      os << Rf_translateCharUTF8(tmp[i]);
       os << "</w:t></w:r></w:p></w:tc>";
     }
     os << "</w:tr>";

@@ -179,6 +179,7 @@ get_shape_id <- function(x, type = NULL, id_chr = NULL ){
 
 
 characterise_df <- function(x){
+  names(x) <- htmlEscape(names(x))
   x <- lapply(x, function( x ) {
     if( is.character(x) ) htmlEscape(x)
     else if( is.factor(x) ) htmlEscape(as.character(x))
