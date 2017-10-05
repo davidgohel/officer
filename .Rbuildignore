@@ -9,3 +9,4 @@ _pkgdown\.yml
 ^inst/tools$
 ^vignettes/offcran/untitled\.Rmd$
 ^cran-comments\.md$
+^revdep$
