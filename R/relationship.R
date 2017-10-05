@@ -23,8 +23,8 @@ relationship <- R6Class(
       self
     },
     write = function(path) {
-
-      str <- paste0("<Relationship Id=\"", private$id,
+      if( length(private$id) )
+        str <- paste0("<Relationship Id=\"", private$id,
                     "\" Type=\"", private$type,
                     "\" Target=\"", private$target,
                     ifelse(
@@ -32,8 +32,10 @@ relationship <- R6Class(
                           "",
                           "\" TargetMode=\"External" ),
                     "\"/>", collapse = "")
+      else str <- ""
       str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
              "\n<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">", str, "</Relationships>")
+      dir.create(dirname(path), showWarnings = FALSE, recursive = FALSE)
       cat(str, file = path)
       self
     },
