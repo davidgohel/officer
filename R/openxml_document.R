@@ -12,8 +12,10 @@ openxml_document <- R6Class(
       private$doc <- read_xml(file)
 
       private$rels_filename <- file.path( dirname(file), "_rels", paste0(basename(file), ".rels") )
+
       if( file.exists(private$rels_filename) )
         private$rels_doc <- relationship$new()$feed_from_xml(private$rels_filename)
+      else private$rels_doc <- relationship$new()
 
       self
     },

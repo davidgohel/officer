@@ -13,7 +13,7 @@ read_docx(path = NULL)
 \method{length}{rdocx}(x)
 }
 \arguments{
-\item{path}{path to the docx file to use a base document.}
+\item{path}{path to the docx file to use as base document.}
 
 \item{x}{a rdocx object}
 

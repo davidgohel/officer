@@ -15,10 +15,11 @@ relationship <- R6Class(
       doc <- read_xml( x = path )
       children <- xml_children( doc )
       ns <- xml_ns( doc )
-      private$id <- c( private$id, sapply( children, xml_attr, attr = "Id", ns) )
-      private$type <- c( private$type, sapply( children, xml_attr, attr = "Type", ns) )
-      private$target <- c( private$target, sapply( children, xml_attr, attr = "Target", ns) )
-      private$target_mode <- c( private$target_mode, sapply( children, xml_attr, attr = "TargetMode", ns) )
+
+      private$id <- c( private$id, map_chr(children, xml_attr, attr = "Id", ns) )
+      private$type <- c( private$type, map_chr( children, xml_attr, attr = "Type", ns) )
+      private$target <- c( private$target, map_chr( children, xml_attr, attr = "Target", ns) )
+      private$target_mode <- c( private$target_mode, map_chr( children, xml_attr, attr = "TargetMode", ns) )
       private$ext_src <- c( private$ext_src, character(length(children)) )
       self
     },
@@ -40,7 +41,7 @@ relationship <- R6Class(
       self
     },
     get_next_id = function(){
-      max(private$get_int_id()) + 1
+      max(c(0, private$get_int_id() ), na.rm = TRUE ) + 1
     },
     get_data = function() {
       data <- data.frame(id = private$id,
@@ -59,9 +60,10 @@ relationship <- R6Class(
       targets
     },
     add_img = function( src, root_target ) {
+
       src <- setdiff(src, private$ext_src)
       if( !length(src) ) return(self)
-      last_id <- max( private$get_int_id() )
+      last_id <- max( c(0, private$get_int_id() ), na.rm = TRUE )
 
       id <- paste0("rId", seq_along(src) + last_id)
       type <- rep("http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
@@ -73,6 +75,25 @@ relationship <- R6Class(
       private$target <- c( private$target, target )
       private$target_mode <- c( private$target_mode, rep(NA, length(id) ) )
       private$ext_src <- c( private$ext_src, src )
+
+      self
+    },
+    add_drawing = function( src, root_target ) {
+
+      src <- setdiff(src, private$ext_src)
+      if( !length(src) ) return(self)
+      last_id <- max( c(0, private$get_int_id()), na.rm = TRUE )
+
+      id <- paste0("rId", seq_along(src) + last_id)
+      type <- rep("http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing",
+                 length(src))
+      target <- file.path(root_target, basename(src) )
+
+      private$id <- c( private$id, id )
+      private$type <- c( private$type, type )
+      private$target <- c( private$target, target )
+      private$target_mode <- c( private$target_mode, rep(NA, length(id) ) )
+      private$ext_src <- c( private$ext_src, rep(NA, length(id) ) )
 
       self
     },
@@ -104,7 +125,9 @@ relationship <- R6Class(
     target_mode = NA,
     ext_src = NA,
     get_int_id = function(){
-      as.integer(gsub("rId([0-9]+)", "\\1", private$id))
+      if( length(private$id) > 0 )
+        as.integer(gsub("rId([0-9]+)", "\\1", private$id))
+      else integer(0)
     }
   )
 )

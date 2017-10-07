@@ -2,7 +2,7 @@
 #' @title open a connexion to a 'Word' file
 #' @description read and import a docx file as an R object
 #' representing the document.
-#' @param path path to the docx file to use a base document.
+#' @param path path to the docx file to use as base document.
 #' @param x a rdocx object
 #' @examples
 #' # create a rdocx object with default template ---

@@ -13,7 +13,7 @@ read_pptx(path = NULL)
 \method{length}{rpptx}(x)
 }
 \arguments{
-\item{path}{path to the pptx file to use a base document.}
+\item{path}{path to the pptx file to use as base document.}
 
 \item{x}{an rpptx object}
 

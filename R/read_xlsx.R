@@ -21,13 +21,11 @@ worksheets <- R6Class(
 
     add_sheet = function(target, label){
 
-
       private$rels_doc$add(id = paste0("rId", private$rels_doc$get_next_id() ),
                            type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
                            target = target )
       rels <- private$rels_doc$get_data()
       rid <- rels[rels$target %in% target, "id"]
-
 
       ids <- private$sheet_id
       new_id <- max(ids) + 1
@@ -102,7 +100,18 @@ sheet <- R6Class(
   public = list(
 
     feed = function( file ) {
-      super$feed(file)
+      private$filename <- file
+      private$doc <- read_xml(file)
+
+      private$rels_filename <- file.path( dirname(file), "_rels", paste0(basename(file), ".rels") )
+
+      if( file.exists(private$rels_filename) ){
+        private$rels_doc <- relationship$new()$feed_from_xml(private$rels_filename)
+      } else {
+        new_rel <- relationship$new()
+        new_rel$write(private$rels_filename)
+        private$rels_doc <- new_rel
+      }
       self
     }
 
@@ -175,6 +184,13 @@ dir_sheet <- R6Class(
 
 # read_xlsx ----
 #' @export
+#' @title open a connexion to an 'Excel' file
+#' @description read and import an xlsx file as an R object
+#' representing the document.
+#' @param path path to the xlsx file to use as base document.
+#' @param x an rpptx object
+#' @examples
+#' read_xlsx()
 read_xlsx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
@@ -199,6 +215,13 @@ read_xlsx <- function( path = NULL ){
 }
 
 #' @export
+#' @title add a sheet
+#' @description add a sheet into an xlsx worksheet
+#' @param x rxlsx object
+#' @param label sheet label
+#' @examples
+#' my_ws <- read_xlsx()
+#' my_pres <- add_sheet(my_ws, label = "new sheet")
 add_sheet <- function( x, label ){
 
   new_slidename <- x$worksheets$get_new_sheetname()
@@ -208,13 +231,12 @@ add_sheet <- function( x, label ){
   template_file <- system.file(package = "officer", "template/sheet.xml")
   file.copy(template_file, xml_file)
 
-
   rel_filename <- file.path(
     dirname(xml_file), "_rels",
     paste0(basename(xml_file), ".rels") )
-
-  newrel <- relationship$new()
-  newrel$write(path = rel_filename)
+  dir.create(dirname(rel_filename), showWarnings = FALSE)
+  template_rel_file <- system.file(package = "officer", "template/sheet.xml.rels")
+  file.copy(template_rel_file, rel_filename)
 
   # update presentation elements
   x$worksheets$add_sheet(target = file.path( "worksheets", new_slidename), label = label )
@@ -229,11 +251,22 @@ add_sheet <- function( x, label ){
 }
 
 #' @export
+#' @rdname read_xlsx
 length.rxlsx <- function( x ){
   x$sheets$length()
 }
 
 #' @export
+#' @param target path to the xlsx file to write
+#' @param ... unused
+#' @rdname read_xlsx
+#' @examples
+#' # write a rdocx object in a docx file ----
+#' if( require(magrittr) ){
+#'   read_xlsx() %>% print(target = "out.xlsx")
+#'   # full path of produced file is returned
+#'   print(.Last.value)
+#' }
 print.rxlsx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
