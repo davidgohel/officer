@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>concatenate formatted text — fpar • officer package</title>
+<title>List Word bookmarks — docx_bookmarks • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,72 +89,42 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>concatenate formatted text</h1>
+    <h1>List Word bookmarks</h1>
     </div>
 
     
-    <p>Create a paragraph representation by concatenating
-formatted text or images. Modify default text and paragraph
-formatting properties with update.</p>
+    <p>List bookmarks id that can be found in an <code>rdocx</code>
+object.</p>
     
 
-    <pre class="usage"><span class='fu'>fpar</span>(<span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='fu'>fortify_fpar</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>as.data.frame</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>format</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"pml"</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>docx_bookmarks</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
-    </tr>
-    <tr>
-      <th>fp_p</th>
-      <td><p>paragraph formatting properties</p></td>
-    </tr>
-    <tr>
-      <th>fp_t</th>
-      <td><p>default text formatting properties</p></td>
-    </tr>
-    <tr>
-      <th>x, object</th>
-      <td><p>fpar object</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>a string value ("pml", "wml" or "html").</p></td>
+      <th>x</th>
+      <td><p>a <code>rdocx</code> object</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>fortify_fpar</code>, <code>as.data.frame</code> are used internally and
-are not supposed to be used by end user.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fpar</span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()))</div><div class='output co'>#&gt; {text:{hello}}</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
+
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"centered text"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"centered"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_bookmark.html'>body_bookmark</a></span>(<span class='st'>"text_to_replace"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"centered text"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"centered"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_bookmark.html'>body_bookmark</a></span>(<span class='st'>"text_to_replace2"</span>)
+
+<span class='fu'>docx_bookmarks</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; [1] "text_to_replace"  "text_to_replace2"</div><div class='input'>
+<span class='fu'>docx_bookmarks</span>(<span class='fu'><a href='read_docx.html'>read_docx</a></span>())</div><div class='output co'>#&gt; character(0)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
