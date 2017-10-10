@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>concatenate formatted text — fpar • officer package</title>
+<title>officer: Manipulate Microsoft Word and PowerPoint Documents — officer • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,74 +89,47 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>concatenate formatted text</h1>
+    <h1>officer: Manipulate Microsoft Word and PowerPoint Documents</h1>
     </div>
 
     
-    <p>Create a paragraph representation by concatenating
-formatted text or images. Modify default text and paragraph
-formatting properties with update.</p>
+    <p>The officer package facilitates access to and manipulation of
+'Microsoft Word' and 'Microsoft PowerPoint' documents from R.</p>
     
 
-    <pre class="usage"><span class='fu'>fpar</span>(<span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>update</span>(<span class='no'>object</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='fu'>fortify_fpar</span>(<span class='no'>x</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>as.data.frame</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>format</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"pml"</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
-    </tr>
-    <tr>
-      <th>fp_p</th>
-      <td><p>paragraph formatting properties</p></td>
-    </tr>
-    <tr>
-      <th>fp_t</th>
-      <td><p>default text formatting properties</p></td>
-    </tr>
-    <tr>
-      <th>x, object</th>
-      <td><p>fpar object</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>a string value ("pml", "wml" or "html").</p></td>
-    </tr>
-    </table>
-    
+        
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>fortify_fpar</code>, <code>as.data.frame</code> are used internally and
-are not supposed to be used by end user.</p>
+    <ul>
+<li><p>read Word and PowerPoint files into data objects</p></li>
+<li><p>add/edit/remove image, table and text content from documents and slides</p></li>
+<li><p>write updated content back to Word and PowerPoint files</p></li>
+</ul>
+    <p>To learn more about officer, start with the vignettes:
+`browseVignettes(package = "officer")`</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Useful links:</p><ul>
+<li><p><a href='https://davidgohel.github.io/officer'>https://davidgohel.github.io/officer</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/davidgohel/officer/issues'>https://github.com/davidgohel/officer/issues</a></p></li>
+</ul>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fpar</span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()))</div><div class='output co'>#&gt; {text:{hello}}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    
+<strong>Maintainer</strong>: David Gohel <a href='mailto:david.gohel@ardata.fr'>david.gohel@ardata.fr</a>
+
 
   </div>
 </div>
