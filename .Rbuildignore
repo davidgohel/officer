@@ -4,9 +4,9 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^README\.Rmd$
-_pkgdown\.yml
 ^docs$
 ^inst/tools$
 ^vignettes/offcran/untitled\.Rmd$
 ^cran-comments\.md$
 ^revdep$
+^_pkgdown\.yml$
