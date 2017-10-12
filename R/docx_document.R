@@ -114,6 +114,25 @@ docx_document <- R6Class(
       self
     },
 
+    replace_all_text = function( oldValue, newValue ) {
+      
+      # Loads all text nodes in the document, no matter where they appear.
+      xpath_ = "/w:document/w:body//w:t"
+
+      # Load all text nodes matching the xpath
+      run_nodes <- xml_find_all(self$get(), paste0( xpath_, collapse = "|" ) )
+
+      # For each matching node...
+      for(node in run_nodes[setdiff(seq_along(run_nodes), 1)]) {
+        # ...if it contains the oldValue...
+        if (grepl(oldValue, xml_text(node), fixed=TRUE)) {
+          # Replace the node text with the newValue.
+          xml_text(node) <- gsub(oldValue, newValue, xml_text(node), fixed=TRUE)
+        }
+      }
+      self
+    },
+
     cursor_reach = function( keyword ){
       nodes_with_text <- xml_find_all(self$get(),"/w:document/w:body/*[.//*/text()]")
 

@@ -383,6 +383,22 @@ body_replace_at <- function( x, bookmark, value ){
   x
 }
 
+#' @export
+#' @importFrom purrr is_scalar_character
+#' @title replace text anywhere in the document
+#' @description replace all occurrences of oldValue with newValue
+#' @param x a docx device
+#' @param oldValue a string to replace
+#' @param newValue the string to replace it with
+#' library(magrittr)
+#' doc <- read_docx() %>%
+#'   body_replace_all_text("my_placeholder_text", "new text")
+body_replace_all_text <- function( x, oldValue, newValue ){
+  stopifnot(is_scalar_character(oldValue), is_scalar_character(newValue))
+  x$doc_obj$replace_all_text(oldValue, newValue)
+  x
+}
+
 
 #' @export
 #' @title add section
