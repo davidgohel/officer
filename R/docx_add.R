@@ -188,6 +188,8 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
                             no_hband = FALSE, no_vband = TRUE ){
 
   stopifnot(is.data.frame(value))
+  if(inherits(value, "tbl_df")) value <-
+      as.data.frame(value, check.names = FALSE, stringsAsFactors = FALSE )
 
   if( is.null(style) )
     style <- x$default_styles$table
