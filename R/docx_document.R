@@ -116,20 +116,45 @@ docx_document <- R6Class(
 
     replace_all_text = function( oldValue, newValue ) {
       
-      # Loads all text nodes in the document, no matter where they appear.
-      xpath_ = "/w:document/w:body//w:t"
+      replacement_count <- 0
 
-      # Load all text nodes matching the xpath
-      run_nodes <- xml_find_all(self$get(), paste0( xpath_, collapse = "|" ) )
+      # Selects all paragraphs in the document, no matter where they appear
+      xpath_ <- "/w:document/w:body//w:p"
 
-      # For each matching node...
-      for(node in run_nodes[setdiff(seq_along(run_nodes), 1)]) {
-        # ...if it contains the oldValue...
-        if (grepl(oldValue, xml_text(node), fixed=TRUE)) {
-          # Replace the node text with the newValue.
-          xml_text(node) <- gsub(oldValue, newValue, xml_text(node), fixed=TRUE)
+      # Find all runs matching the xpath
+      paragraph_nodes <- xml_find_all(self$get(), xpath_)
+
+      # For each matching paragraph...
+      for (node in paragraph_nodes) {
+        # ...select all runs under the current node (hence ".//")...
+        run_nodes <- xml_find_all(node, ".//w:r")
+
+        # ...and concatenate the text of all the run nodes.
+        run_node_text <- paste0(lapply(run_nodes, xml_text), collapse="")
+
+        # If the concatenated text contains oldValue:
+        if (grepl(oldValue, run_node_text, fixed=TRUE)) {
+          replacement_count <- replacement_count + 1
+
+          # 1. Keep the first node;
+          node_to_keep <- run_nodes[[1]]
+
+          # 2. Delete the rest;
+          run_nodes[[1]] <- NULL
+          lapply(run_nodes, xml_remove)
+
+          # 3. Set the text of the run node to the complete text, gsubbed to
+          #    replace oldValue with newValue.
+          xml_text(node_to_keep) <- gsub(oldValue, newValue, run_node_text, fixed=TRUE)
         }
       }
+
+      if (replacement_count == 0) {
+        stop("Could not find the text '", oldValue, "' in any document paragraphs.")
+      } else {
+        message("Replaced '", oldValue, "' with '", newValue, "' in ", replacement_count, " document paragraphs.")
+      }
+
       self
     },
 
