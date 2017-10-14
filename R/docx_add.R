@@ -384,12 +384,14 @@ body_replace_at <- function( x, bookmark, value ){
 }
 
 #' @export
-#' @importFrom purrr is_scalar_character
-#' @title replace text anywhere in the document
+#' @importFrom purrr is_scalar_character is_scalar_logical
+#' @title replace text anywhere in the document, or at a cursor
 #' @description replace all occurrences of oldValue with newValue
 #' @param x a docx device
 #' @param oldValue a string to replace
 #' @param newValue the string to replace it with
+#' @param onlyAtCursor only search-and-replace at the current cursor
+#' @param mergeRuns merge runs before trying search-and-replace
 #' library(magrittr)
 #' doc <- read_docx() %>%
 #'   body_replace_all_text("my_placeholder_text", "new text")
@@ -399,6 +401,18 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, me
             is_scalar_logical(onlyAtCursor),
             is_scalar_logical(mergeRuns))
   x$doc_obj$replace_all_text(oldValue, newValue, onlyAtCursor, mergeRuns)
+  x
+}
+
+#' @export
+#' @title show underlying text tag structure
+#' @description show the structure of text tags at the current cursor
+#' @param x a docx device
+#' library(magrittr)
+#' doc <- read_docx() %>%
+#'   docx_show_chunk(doc)
+docx_show_chunk <- function( x ){
+  x$doc_obj$docx_show_chunk()
   x
 }
 
