@@ -7,11 +7,13 @@
 docx_show_chunk(x)
 }
 \arguments{
-\item{x}{a docx device
-library(magrittr)
-doc <- read_docx() %>%
-  docx_show_chunk(doc)}
+\item{x}{a docx device}
 }
 \description{
 show the structure of text tags at the current cursor
+}
+\examples{
+library(magrittr)
+doc <- read_docx() \%>\%
+  docx_show_chunk(doc)
 }

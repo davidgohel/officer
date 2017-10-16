@@ -5,7 +5,7 @@
 \title{replace text anywhere in the document, or at a cursor}
 \usage{
 body_replace_all_text(x, oldValue, newValue, onlyAtCursor = FALSE,
-  mergeRuns = FALSE)
+  mergeRuns = FALSE, ...)
 }
 \arguments{
 \item{x}{a docx device}
@@ -14,13 +14,46 @@ body_replace_all_text(x, oldValue, newValue, onlyAtCursor = FALSE,
 
 \item{newValue}{the string to replace it with}
 
-\item{onlyAtCursor}{only search-and-replace at the current cursor}
+\item{onlyAtCursor}{if `TRUE`, only search-and-replace at the current cursor;
+if `FALSE` (default), search-and-replace in the entire document (this can
+be slow on large documents!)}
 
-\item{mergeRuns}{merge runs before trying search-and-replace
-library(magrittr)
-doc <- read_docx() %>%
-  body_replace_all_text("my_placeholder_text", "new text")}
+\item{mergeRuns}{if `TRUE`, merge runs before trying search-and-replace; if
+`FALSE` (default), do not merge runs. See the description for more details.}
+
+\item{...}{optional arguments to grepl/gsub (e.g. `fixed=TRUE`)}
 }
 \description{
-replace all occurrences of oldValue with newValue
+Replace all occurrences of oldValue with newValue. Behind the
+scenes, this method uses grepl/gsub for pattern matching; you may supply
+arguments as required (and therefore use regex features) using the optional
+... argument.
+
+## Merging runs of text
+
+Note that the behind-the-scenes representation of text in a Word document is
+frequently not what you might expect! Sometimes a paragraph of text is broken
+up (or "chunked") into several "runs," as a result of style changes, pauses
+in text entry, later revisiosn and edits, etc. The most accurate way to find
+text is to merge these runs of text within a paragraph, and then search-and-
+replace the merged text. However, this method has two downsides: first, it
+can be much slower, especially on large docuemnts; second, finding a match
+and replacing it will destroy all styling in the paragraph (e.g. bold or
+italic text).
+
+By default, `body_replace_all_text()` will NOT merge runs. If you have not
+styled the text, and have entered it in an "all-at-once" fashion, e.g. by
+pasting it or by outputting it programmatically into your Word document, then
+this will likely not be a problem. If you are working with a manually-edited
+document, however, this can lead to unexpected failures to find text.
+
+You can use the function `docx_show_chunks()` to show how the paragraph of
+text at the current cursor has been chunked into runs, and what text is in
+each chunk. This can help troubleshoot unexpected search-and-replace
+failures.
+}
+\examples{
+library(magrittr)
+doc <- read_docx() \%>\%
+  body_replace_all_text("my_placeholder_text", "new text")
 }
