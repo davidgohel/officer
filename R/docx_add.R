@@ -442,7 +442,7 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, me
 #' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>%
-#'   docx_show_chunk(doc)
+#'   docx_show_chunk()
 docx_show_chunk <- function( x ){
   x$doc_obj$docx_show_chunk()
   x
