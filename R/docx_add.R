@@ -386,21 +386,52 @@ body_replace_at <- function( x, bookmark, value ){
 #' @export
 #' @importFrom purrr is_scalar_character is_scalar_logical
 #' @title replace text anywhere in the document, or at a cursor
-#' @description replace all occurrences of oldValue with newValue
+#' @description Replace all occurrences of oldValue with newValue. Behind the
+#' scenes, this method uses grepl/gsub for pattern matching; you may supply
+#' arguments as required (and therefore use regex features) using the optional
+#' ... argument.
+#'
+#' ## Merging runs of text
+#'
+#' Note that the behind-the-scenes representation of text in a Word document is
+#' frequently not what you might expect! Sometimes a paragraph of text is broken
+#' up (or "chunked") into several "runs," as a result of style changes, pauses
+#' in text entry, later revisiosn and edits, etc. The most accurate way to find
+#' text is to merge these runs of text within a paragraph, and then search-and-
+#' replace the merged text. However, this method has two downsides: first, it
+#' can be much slower, especially on large docuemnts; second, finding a match
+#' and replacing it will destroy all styling in the paragraph (e.g. bold or
+#' italic text).
+#' 
+#' By default, `body_replace_all_text()` will NOT merge runs. If you have not
+#' styled the text, and have entered it in an "all-at-once" fashion, e.g. by
+#' pasting it or by outputting it programmatically into your Word document, then
+#' this will likely not be a problem. If you are working with a manually-edited
+#' document, however, this can lead to unexpected failures to find text.
+#'
+#' You can use the function `docx_show_chunks()` to show how the paragraph of
+#' text at the current cursor has been chunked into runs, and what text is in
+#' each chunk. This can help troubleshoot unexpected search-and-replace
+#' failures.
 #' @param x a docx device
 #' @param oldValue a string to replace
 #' @param newValue the string to replace it with
-#' @param onlyAtCursor only search-and-replace at the current cursor
-#' @param mergeRuns merge runs before trying search-and-replace
+#' @param onlyAtCursor if `TRUE`, only search-and-replace at the current cursor;
+#' if `FALSE` (default), search-and-replace in the entire document (this can
+#' be slow on large documents!)
+#' @param mergeRuns if `TRUE`, merge runs before trying search-and-replace; if
+#' `FALSE` (default), do not merge runs. See the description for more details.
+#' @param ... optional arguments to grepl/gsub (e.g. `fixed=TRUE`)
+#' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>%
 #'   body_replace_all_text("my_placeholder_text", "new text")
-body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, mergeRuns=FALSE ){
+body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, mergeRuns=FALSE, ... ){
   stopifnot(is_scalar_character(oldValue),
             is_scalar_character(newValue),
             is_scalar_logical(onlyAtCursor),
             is_scalar_logical(mergeRuns))
-  x$doc_obj$replace_all_text(oldValue, newValue, onlyAtCursor, mergeRuns)
+  x$doc_obj$replace_all_text(oldValue, newValue, onlyAtCursor, mergeRuns, ...)
   x
 }
 
@@ -408,6 +439,7 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, me
 #' @title show underlying text tag structure
 #' @description show the structure of text tags at the current cursor
 #' @param x a docx device
+#' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>%
 #'   docx_show_chunk(doc)
