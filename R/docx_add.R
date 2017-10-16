@@ -168,12 +168,21 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @title add table
 #' @description add a table into an rdocx object
 #' @param x a docx device
-#' @param value a data.frame
+#' @param value a data.frame to add as a table
 #' @param style table style
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @param header display header if TRUE
-#' @param first_row,last_row,first_column,last_column,no_hband,no_vband logical for Word table options
+#' @param first_row Specifies that the first column conditional formatting should be
+#' applied. Details for this and other conditional formatting options can be found in
+#' \link{http://officeopenxml.com/WPtblLook.php}.
+#' @param last_row Specifies that the first column conditional formatting should be applied.
+#' @param first_column Specifies that the first column conditional formatting should
+#' be applied.
+#' @param last_column Specifies that the first column conditional formatting should be
+#' applied.
+#' @param no_hband Specifies that the first column conditional formatting should be applied.
+#' @param no_vband Specifies that the first column conditional formatting should be applied.
 #' @examples
 #' library(magrittr)
 #'
@@ -203,8 +212,6 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
-
-
 
 #' @export
 #' @title add table of content
@@ -242,8 +249,6 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 
 }
 
-
-
 #' @export
 #' @title add an xml string as document element
 #' @description Add an xml string as document element in the document. This function
@@ -280,9 +285,6 @@ body_add_xml <- function(x, str, pos){
   x
 }
 
-
-
-
 #' @export
 #' @importFrom uuid UUIDgenerate
 #' @title add bookmark
@@ -313,8 +315,6 @@ body_bookmark <- function(x, id){
 
   x
 }
-
-
 
 #' @export
 #' @title remove an element
@@ -363,13 +363,13 @@ body_remove <- function(x){
 #' @importFrom purrr is_scalar_character
 #' @title replace text at a bookmark location
 #' @description replace text content enclosed in a bookmark
-#' by another text. A bookmark will be considered as valid if enclosing words
-#' within a paragraph, i.e. a bookmark along two or more paragraphs is invalid,
-#' a bookmark set on a whole paragraph is also invalid, bookmarking few words inside a paragraph
-#' is valid.
+#' with different text. A bookmark will be considered as valid if enclosing words
+#' within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
+#' a bookmark set on a whole paragraph is also invalid, but bookmarking few words
+#' inside a paragraph is valid.
 #' @param x a docx device
 #' @param bookmark bookmark id
-#' @param value a character
+#' @param value the replacement string, of type character
 #' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>%
@@ -383,25 +383,24 @@ body_replace_at <- function( x, bookmark, value ){
   x
 }
 
-
 #' @export
 #' @title add section
-#' @description add a section in a Word document. A section has effect
-#' on preceding paragraphs or tables.
+#' @description add a section in a Word document. A section affects
+#' preceding paragraphs or tables.
 #'
 #' @details
-#' A section start at the end of the previous section (or the beginning of
-#' the document if no preceding section exists), it stops where the section is declared.
+#' A section starts at the end of the previous section (or the beginning of
+#' the document if no preceding section exists), and stops where the section is declared.
 #' The function \code{body_end_section()} is reflecting that Word concept.
 #' The function \code{body_default_section()} is only modifying the default section of
 #' the document.
 #' @importFrom xml2 xml_remove
 #' @param x an rdocx object
 #' @param landscape landscape orientation
-#' @param colwidths columns widths in percent, if 3 values, 3 columns will be produced.
-#' Sum of this argument should be 1.
+#' @param colwidths columns widths as percentages, summing to 1. If 3 values, 3 columns
+#' will be produced.
 #' @param space space in percent between columns.
-#' @param sep if TRUE a line is sperating columns.
+#' @param sep if TRUE a line is separating columns.
 #' @param continuous TRUE for a continuous section break.
 #' @examples
 #' library(magrittr)
