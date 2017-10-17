@@ -16,13 +16,13 @@ body_add_table(x, value, style = NULL, pos = "after", header = TRUE,
 \item{style}{table style}
 
 \item{pos}{where to add the new element relative to the cursor,
-one of "after", "before", "on".}
+one of after", "before", "on".}
 
 \item{header}{display header if TRUE}
 
 \item{first_row}{Specifies that the first column conditional formatting should be
-applied. Details for this and other conditional formatting options can be found in
-\link{http://officeopenxml.com/WPtblLook.php}.}
+applied. Details for this and other conditional formatting options can be found
+\href{here}{http://officeopenxml.com/WPtblLook.php}.}
 
 \item{first_column}{Specifies that the first column conditional formatting should
 be applied.}

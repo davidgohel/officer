@@ -4,7 +4,9 @@ Title: Manipulation of Microsoft Word and PowerPoint Documents
 Version: 0.1.8
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr"))
+    email = "david.gohel@ardata.fr"),
+    person("Liz", "Sander", role = "ctb",
+    email = 'lsander@civisanalytics.com'))
 Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
   The package focuses on tabular and graphical reporting from R; it also provides two functions
   that let users get document content into data objects. A set of functions 
