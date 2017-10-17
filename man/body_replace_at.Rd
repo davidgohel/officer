@@ -11,14 +11,14 @@ body_replace_at(x, bookmark, value)
 
 \item{bookmark}{bookmark id}
 
-\item{value}{a character}
+\item{value}{the replacement string, of type character}
 }
 \description{
 replace text content enclosed in a bookmark
-by another text. A bookmark will be considered as valid if enclosing words
-within a paragraph, i.e. a bookmark along two or more paragraphs is invalid,
-a bookmark set on a whole paragraph is also invalid, bookmarking few words inside a paragraph
-is valid.
+with different text. A bookmark will be considered as valid if enclosing words
+within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
+a bookmark set on a whole paragraph is also invalid, but bookmarking few words
+inside a paragraph is valid.
 }
 \examples{
 library(magrittr)

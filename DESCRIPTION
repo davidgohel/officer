@@ -4,15 +4,17 @@ Title: Manipulation of Microsoft Word and PowerPoint Documents
 Version: 0.2.0.0002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr"))
+    email = "david.gohel@ardata.fr"),
+    person("Liz", "Sander", role = "ctb",
+    email = 'lsander@civisanalytics.com'))
 Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
-  The package focus on tabular and graphical reporting from R; it also provides two functions 
+  The package focuses on tabular and graphical reporting from R; it also provides two functions
   that let users get document content into data objects. A set of functions 
   lets add and remove images, tables and paragraphs of text in new or existing documents. 
   When working with 'PowerPoint' presentations, slides can be added or removed; shapes inside 
   slides can also be added or removed. When working with 'Word' documents, a cursor can be 
   used to help insert or delete content at a specific location in the document. The package 
-  does not require any installation of Microsoft product to be able to write Microsoft files.
+  does not require any installation of Microsoft products to be able to write Microsoft files.
 License: GPL-3
 LazyData: TRUE
 LinkingTo: Rcpp

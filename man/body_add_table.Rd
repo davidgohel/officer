@@ -11,16 +11,30 @@ body_add_table(x, value, style = NULL, pos = "after", header = TRUE,
 \arguments{
 \item{x}{a docx device}
 
-\item{value}{a data.frame}
+\item{value}{a data.frame to add as a table}
 
 \item{style}{table style}
 
 \item{pos}{where to add the new element relative to the cursor,
-one of "after", "before", "on".}
+one of after", "before", "on".}
 
 \item{header}{display header if TRUE}
 
-\item{first_row, last_row, first_column, last_column, no_hband, no_vband}{logical for Word table options}
+\item{first_row}{Specifies that the first column conditional formatting should be
+applied. Details for this and other conditional formatting options can be found
+\href{here}{http://officeopenxml.com/WPtblLook.php}.}
+
+\item{first_column}{Specifies that the first column conditional formatting should
+be applied.}
+
+\item{last_row}{Specifies that the first column conditional formatting should be applied.}
+
+\item{last_column}{Specifies that the first column conditional formatting should be
+applied.}
+
+\item{no_hband}{Specifies that the first column conditional formatting should be applied.}
+
+\item{no_vband}{Specifies that the first column conditional formatting should be applied.}
 }
 \description{
 add a table into an rdocx object
