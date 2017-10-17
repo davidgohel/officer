@@ -29,15 +29,18 @@ scenes, this method uses grepl/gsub for pattern matching; you may supply
 arguments as required (and therefore use regex features) using the optional
 ... argument.
 
-## Merging runs of text
+Note that by default, grepl/gsub will use fixed=FALSE, which means that
+oldValue and newValue will be interepreted as regular expressions.
+
+Merging runs of text
 
 Note that the behind-the-scenes representation of text in a Word document is
 frequently not what you might expect! Sometimes a paragraph of text is broken
 up (or "chunked") into several "runs," as a result of style changes, pauses
-in text entry, later revisiosn and edits, etc. The most accurate way to find
+in text entry, later revisions and edits, etc. The most accurate way to find
 text is to merge these runs of text within a paragraph, and then search-and-
 replace the merged text. However, this method has two downsides: first, it
-can be much slower, especially on large docuemnts; second, finding a match
+can be much slower, especially on large documents; second, finding a match
 and replacing it will destroy all styling in the paragraph (e.g. bold or
 italic text).
 
@@ -47,10 +50,11 @@ pasting it or by outputting it programmatically into your Word document, then
 this will likely not be a problem. If you are working with a manually-edited
 document, however, this can lead to unexpected failures to find text.
 
-You can use the function `docx_show_chunks()` to show how the paragraph of
-text at the current cursor has been chunked into runs, and what text is in
-each chunk. This can help troubleshoot unexpected search-and-replace
-failures.
+If setting mergeRuns=TRUE isn't an option for you (e.g. you would like to
+retain styling information within a paragraph), you can use the officer 
+function `docx_show_chunk()` to show how the paragraph of text at the current
+cursor has been chunked into runs, and what text is in each chunk. This can
+help troubleshoot unexpected search-and-replace failures.
 }
 \examples{
 library(magrittr)
