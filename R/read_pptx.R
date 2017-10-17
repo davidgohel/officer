@@ -2,7 +2,7 @@
 #' @title open a connexion to a 'PowerPoint' file
 #' @description read and import a pptx file as an R object
 #' representing the document.
-#' @param path path to the pptx file to use a base document.
+#' @param path path to the pptx file to use as base document.
 #' @param x an rpptx object
 #' @examples
 #' read_pptx()

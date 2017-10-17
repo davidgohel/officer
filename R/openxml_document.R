@@ -9,10 +9,14 @@ openxml_document <- R6Class(
 
     feed = function( file ) {
       private$filename <- file
+      private$doc <- read_xml(file)
+
       private$rels_filename <- file.path( dirname(file), "_rels", paste0(basename(file), ".rels") )
 
-      private$doc <- read_xml(file)
-      private$rels_doc <- relationship$new()$feed_from_xml(private$rels_filename)
+      if( file.exists(private$rels_filename) )
+        private$rels_doc <- relationship$new()$feed_from_xml(private$rels_filename)
+      else private$rels_doc <- relationship$new()
+
       self
     },
     file_name = function(){
@@ -29,12 +33,14 @@ openxml_document <- R6Class(
     },
     save = function() {
       write_xml(private$doc, file = private$filename)
-      private$rels_doc$write(private$rels_filename)
+      if( file.exists(private$rels_filename) )
+        private$rels_doc$write(private$rels_filename)
       self
     },
     remove = function() {
       unlink(private$filename)
-      unlink(private$rels_filename)
+      if( file.exists(private$rels_filename) )
+        unlink(private$rels_filename)
       private$filename
     },
     rel_df = function(){
