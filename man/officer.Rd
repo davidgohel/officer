@@ -31,4 +31,9 @@ Useful links:
 \author{
 \strong{Maintainer}: David Gohel \email{david.gohel@ardata.fr}
 
+Other contributors:
+\itemize{
+  \item Frank Hangler \email{frank@plotandscatter.com} [contributor]
+}
+
 }
