@@ -7,7 +7,7 @@
 styles_info(x)
 }
 \arguments{
-\item{x}{a rdocx object}
+\item{x}{an rdocx object}
 }
 \description{
 read Word styles and get results in

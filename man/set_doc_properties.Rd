@@ -8,7 +8,7 @@ set_doc_properties(x, title = NULL, subject = NULL, creator = NULL,
   description = NULL, created = NULL)
 }
 \arguments{
-\item{x}{a rdocx or rpptx object}
+\item{x}{an rdocx or rpptx object}
 
 \item{title, subject, creator, description}{text fields}
 
@@ -19,8 +19,8 @@ set Word or PowerPoint document properties. These are not visible
 in the document but are available as metadata of the document.
 }
 \note{
-Fields "last modified" and "last modified by" will be automatically be updated
-when file will be written.
+The "last modified" and "last modified by" fields will be automatically be updated
+when the file is written.
 }
 \examples{
 library(magrittr)

@@ -7,7 +7,7 @@
 fp_sign(x)
 }
 \arguments{
-\item{x}{a formatting set of properties}
+\item{x}{a set of formatting properties}
 }
 \description{
 Get unique signature for a formatting properties

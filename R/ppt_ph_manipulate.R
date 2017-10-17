@@ -77,7 +77,7 @@ ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
 #' @title hyperlink a placeholder
 #' @description add hyperlink to a placeholder in the current slide.
 #' @inheritParams ph_remove
-#' @param href hyperlink (do not forget prefix http or https)
+#' @param href hyperlink (do not forget http or https prefix)
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()

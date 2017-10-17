@@ -4,7 +4,7 @@
 \alias{read_docx}
 \alias{print.rdocx}
 \alias{length.rdocx}
-\title{open a connexion to a 'Word' file}
+\title{open a connection to a 'Word' file}
 \usage{
 read_docx(path = NULL)
 
@@ -15,7 +15,7 @@ read_docx(path = NULL)
 \arguments{
 \item{path}{path to the docx file to use as base document.}
 
-\item{x}{a rdocx object}
+\item{x}{an rdocx object}
 
 \item{target}{path to the docx file to write}
 
@@ -26,7 +26,7 @@ read and import a docx file as an R object
 representing the document.
 }
 \examples{
-# create a rdocx object with default template ---
+# create an rdocx object with default template ---
 read_docx()
 
 print(read_docx())
@@ -37,7 +37,7 @@ if( require(magrittr) ){
   print(.Last.value)
 }
 
-# how many element are there in the document ----
+# how many elements are there in the document ----
 length( read_docx() )
 
 }

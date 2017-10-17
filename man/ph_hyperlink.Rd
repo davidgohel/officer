@@ -15,7 +15,7 @@ ph_hyperlink(x, type = NULL, id_chr = NULL, href)
 is not unique in the current slide, e.g. two placeholders with type 'body'.
 Values can be read from \code{\link{slide_summary}}.}
 
-\item{href}{hyperlink (do not forget prefix http or https)}
+\item{href}{hyperlink (do not forget http or https prefix)}
 }
 \description{
 add hyperlink to a placeholder in the current slide.

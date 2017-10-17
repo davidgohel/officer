@@ -7,8 +7,8 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #'
 #' @param border shortcut for all borders.
 #' @param border.bottom,border.left,border.top,border.right \code{\link{fp_border}} for borders.
-#' @param vertical.align cell content vertical alignment - a single character value
-#' , expected value is one of "center" or "top" or "bottom"
+#' @param vertical.align cell content vertical alignment - a single character value,
+#' expected value is one of "center" or "top" or "bottom"
 #' @param margin shortcut for all margins.
 #' @param margin.bottom,margin.top,margin.left,margin.right cell margins - 0 or positive integer value.
 #' @param background.color cell background color - a single character value specifying a
@@ -71,7 +71,7 @@ out
 
 #' @export
 #' @rdname fp_cell
-#' @param x,object object \code{fp_cell}
+#' @param x,object \code{fp_cell} object
 #' @param type output type - one of 'wml', 'pml', 'html'.
 #' @param ... further arguments - not used
 #' @importFrom purrr map_dbl
