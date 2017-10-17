@@ -15,5 +15,5 @@ show the structure of text tags at the current cursor
 \examples{
 library(magrittr)
 doc <- read_docx() \%>\%
-  docx_show_chunk(doc)
+  docx_show_chunk()
 }

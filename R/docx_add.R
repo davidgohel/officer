@@ -391,7 +391,7 @@ body_replace_at <- function( x, bookmark, value ){
 #' arguments as required (and therefore use regex features) using the optional
 #' ... argument.
 #'
-#' ## Merging runs of text
+#' Merging runs of text
 #'
 #' Note that the behind-the-scenes representation of text in a Word document is
 #' frequently not what you might expect! Sometimes a paragraph of text is broken
@@ -409,7 +409,7 @@ body_replace_at <- function( x, bookmark, value ){
 #' this will likely not be a problem. If you are working with a manually-edited
 #' document, however, this can lead to unexpected failures to find text.
 #'
-#' You can use the function `docx_show_chunks()` to show how the paragraph of
+#' You can use the function `docx_show_chunk()` to show how the paragraph of
 #' text at the current cursor has been chunked into runs, and what text is in
 #' each chunk. This can help troubleshoot unexpected search-and-replace
 #' failures.
