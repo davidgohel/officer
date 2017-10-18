@@ -457,6 +457,8 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ..
 #' @seealso \code{\link{body_replace_all_text}}
 #' @param x a docx device
 #' @examples
+#' library(magrittr)
+#'
 #' doc <- read_docx() %>%
 #'   body_add_par("Placeholder one") %>%
 #'   body_add_par("Placeholder two")

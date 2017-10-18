@@ -16,8 +16,13 @@ using \code{\link{body_replace_all_text}}.
 }
 \examples{
 library(magrittr)
+
 doc <- read_docx() \%>\%
-  docx_show_chunk()
+  body_add_par("Placeholder one") \%>\%
+  body_add_par("Placeholder two")
+
+# Show text chunk at cursor
+docx_show_chunk(doc)  # Output is 'Placeholder two'
 }
 \seealso{
 \code{\link{body_replace_all_text}}
