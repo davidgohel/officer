@@ -8,6 +8,27 @@ test_that("default template", {
   expect_true(file.exists(x$doc_obj$package_dirname()))
 })
 
+test_that("docx dim", {
+  x <- read_docx()
+  dims <- docx_dim(x)
+
+  expect_equal( names(dims), c("page", "landscape", "margins") )
+  expect_length( dims$page, 2 )
+  expect_length( dims$landscape, 1 )
+  expect_length( dims$margins, 6 )
+
+  expect_equal( dims$page, c(width=8.263889, height=11.694444), tolerance = .001 )
+
+})
+
+test_that("list bookmarks", {
+  template_file <- system.file(package = "officer", "doc_examples/example.docx")
+  x <- read_docx(path = template_file)
+  bookmarks <- docx_bookmarks(x)
+
+  expect_equal( bookmarks, c("bmk_1", "bmk_2") )
+})
+
 test_that("console printing", {
   x <- read_docx()
   x <- body_add_par(x, "Hello world", style = "Normal")
@@ -104,7 +125,7 @@ test_that("cursor behavior", {
 
 })
 
-test_that("cursor remove", {
+test_that("body remove", {
   doc <- read_docx() %>%
     body_add_par("paragraph 1", style = "Normal") %>%
     body_add_par("paragraph 2", style = "Normal") %>%
@@ -119,6 +140,10 @@ test_that("cursor remove", {
   ds_ <- docx_summary(doc)
 
   expect_equal( ds_$text, c("paragraph 1", "new 1", "paragraph 2", "new 2") )
+
+  doc <- read_docx()
+  doc <- body_remove(doc)
+  expect_warning(body_remove(doc), "There is nothing left to remove in the document")
 
 })
 

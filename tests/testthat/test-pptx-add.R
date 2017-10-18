@@ -105,10 +105,12 @@ test_that("add xml into placeholder", {
 
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_from_xml(type = "body", value = xml_str)
+    ph_from_xml(type = "body", value = xml_str) %>%
+    ph_from_xml_at(left = 1, top = 1, width = 3, height = 3, value = xml_str)
   sm <- slide_summary(doc)
-  expect_equal(nrow(sm), 1)
+  expect_equal(nrow(sm), 2)
   expect_equal(sm[1,]$text, "Hello world 1")
+  expect_equal(sm[2,]$text, "Hello world 1")
 })
 
 test_that("hyperlink shape", {
