@@ -4,6 +4,7 @@
 \name{officer}
 \alias{officer}
 \alias{officer-package}
+\alias{officer-package}
 \title{officer: Manipulate Microsoft Word and PowerPoint Documents}
 \description{
 The officer package facilitates access to and manipulation of
@@ -32,6 +33,7 @@ Useful links:
 
 Other contributors:
 \itemize{
+  \item Frank Hangler \email{frank@plotandscatter.com} [contributor]
   \item Liz Sander \email{lsander@civisanalytics.com} [contributor]
 }
 

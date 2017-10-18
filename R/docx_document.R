@@ -114,6 +114,43 @@ docx_document <- R6Class(
       self
     },
 
+    replace_all_text = function( oldValue, newValue, onlyAtCursor=TRUE, ... ) {
+
+      replacement_count <- 0
+
+      base_node <- if (onlyAtCursor) self$get_at_cursor() else self$get()
+
+      # For each matching text node...
+      for (text_node in xml_find_all(base_node, ".//w:t")) {
+        # ...if it contains the oldValue...
+        if (grepl(oldValue, xml_text(text_node), ...)) {
+          replacement_count <- replacement_count + 1
+          # Replace the node text with the newValue.
+          xml_text(text_node) <- gsub(oldValue, newValue, xml_text(text_node), ...)
+        }
+      }
+
+      # Alert the user if no replacements were made.
+      if (replacement_count == 0) {
+        search_zone_text <- if (onlyAtCursor) "at the cursor." else "in the document."
+        warning("Found 0 instances of '", oldValue, "' ", search_zone_text)
+      }
+
+      self
+    },
+
+    docx_show_chunk = function() {
+      # Show the structure of how the text is split along `<w:t>` tags at the
+      # current cursor.
+      text_nodes <- xml_find_all(self$get_at_cursor(), ".//w:t")
+      message(length(text_nodes), " text nodes found at this cursor.")
+      for (text_node in text_nodes) {
+        message("  <w:t>: '", xml_text(text_node), "'")
+      }
+
+      self
+    },
+
     cursor_reach = function( keyword ){
       nodes_with_text <- xml_find_all(self$get(),"/w:document/w:body/*[.//*/text()]")
 

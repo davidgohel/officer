@@ -5,6 +5,7 @@ Version: 0.2.0.0004
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
+    person("Frank", "Hangler", role = "ctb", email = "frank@plotandscatter.com"),
     person("Liz", "Sander", role = "ctb",
     email = 'lsander@civisanalytics.com'))
 Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
