@@ -63,7 +63,17 @@ test_that("body_add_toc", {
 
 })
 
-test_that("image add ", {
+test_that("body_add_img", {
+
+  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  x <- read_docx() %>%
+    body_add_img(img.file, width=2.5, height=1.3)
+
+  node <- x$doc_obj$get_at_cursor()
+  getncheck(node, "w:r/w:drawing")
+})
+
+test_that("slip_in_img", {
   img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
   x <- read_docx() %>%
     body_add_par("") %>%

@@ -316,7 +316,7 @@ my_pres <- my_pres %>%
   ph_add_text(str = "A small red text!", style = text_prop ) %>% 
   ph_add_text(str = "Blue text first... ", pos = "before", style = text_blue_prop ) %>% 
   ph_add_par(level = 2) %>%
-  ph_add_text(str = "additionnal paragraph")
+  ph_add_text(str = "additional paragraph")
 
 print(my_pres, target = "assets/pptx/ph_add_text_2.pptx") %>% 
   invisible()

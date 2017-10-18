@@ -48,6 +48,8 @@ cursor_begin <- function( x ){
 
 #' @rdname cursor
 #' @param id bookmark id
+#' @section cursor_bookmark:
+#' Set the cursor at a bookmark that has previously been set.
 #' @export
 #' @examples
 #'

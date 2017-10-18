@@ -7,7 +7,7 @@
 docx_dim(x)
 }
 \arguments{
-\item{x}{a \code{rdocx} object}
+\item{x}{an \code{rdocx} object}
 }
 \description{
 get page width, page height and margins (in inches). The return values

@@ -244,9 +244,9 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Remove content
 
-The function `body_remove` let remove content from a Word document. This function used with `cursor_*` functions is a convenient tool to update an existing document. 
+The function `body_remove` lets you remove content from a Word document. This function used with `cursor_*` functions is a convenient tool to update an existing document. 
 
-For illustration purpose, we will generate a document that will be used as initial document later when showing how to use `body_remove`.
+For illustration purposes, we will generate a document that will be used as initial document later when showing how to use `body_remove`.
 
 ```{r}
 library(officer)
@@ -284,7 +284,7 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Replace content
 
-Functions `body_add_*` let replace content in a Word document. 
+Functions `body_add_*` let you replace content in a Word document. 
 
 For illustration purpose, we will generate a document that will be used as initial document later.
 

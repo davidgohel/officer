@@ -185,7 +185,7 @@ characterise_df <- function(x){
     else if( is.factor(x) ) htmlEscape(as.character(x))
     else gsub("(^ | $)+", "", htmlEscape(format(x)))
   })
-  data.frame(x, stringsAsFactors = FALSE)
+  data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
 }
 
 section_dimensions <- function(node){

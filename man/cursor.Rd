@@ -39,6 +39,11 @@ Set the cursor at the beginning of the document, on the first element
 of the document (usually a paragraph or a table).
 }
 
+\section{cursor_bookmark}{
+
+Set the cursor at a bookmark that has previously been set.
+}
+
 \section{cursor_end}{
 
 Set the cursor at the end of the document, on the last element

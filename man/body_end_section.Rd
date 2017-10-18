@@ -18,22 +18,22 @@ break_column_before(x)
 
 \item{landscape}{landscape orientation}
 
-\item{colwidths}{columns widths in percent, if 3 values, 3 columns will be produced.
-Sum of this argument should be 1.}
+\item{colwidths}{columns widths as percentages, summing to 1. If 3 values, 3 columns
+will be produced.}
 
 \item{space}{space in percent between columns.}
 
-\item{sep}{if TRUE a line is sperating columns.}
+\item{sep}{if TRUE a line is separating columns.}
 
 \item{continuous}{TRUE for a continuous section break.}
 }
 \description{
-add a section in a Word document. A section has effect
-on preceding paragraphs or tables.
+add a section in a Word document. A section affects
+preceding paragraphs or tables.
 }
 \details{
-A section start at the end of the previous section (or the beginning of
-the document if no preceding section exists), it stops where the section is declared.
+A section starts at the end of the previous section (or the beginning of
+the document if no preceding section exists), and stops where the section is declared.
 The function \code{body_end_section()} is reflecting that Word concept.
 The function \code{body_default_section()} is only modifying the default section of
 the document.

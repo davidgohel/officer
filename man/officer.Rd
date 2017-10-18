@@ -34,6 +34,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Frank Hangler \email{frank@plotandscatter.com} [contributor]
+  \item Liz Sander \email{lsander@civisanalytics.com} [contributor]
 }
 
 }

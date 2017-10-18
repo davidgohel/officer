@@ -25,8 +25,8 @@ fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
 
 \item{border.bottom, border.left, border.top, border.right}{\code{\link{fp_border}} for borders.}
 
-\item{vertical.align}{cell content vertical alignment - a single character value
-, expected value is one of "center" or "top" or "bottom"}
+\item{vertical.align}{cell content vertical alignment - a single character value,
+expected value is one of "center" or "top" or "bottom"}
 
 \item{margin}{shortcut for all margins.}
 
@@ -38,7 +38,7 @@ valid color (e.g. "#000000" or "black").}
 \item{text.direction}{cell text rotation - a single character value, expected
 value is one of "lrtb", "tbrl", "btlr".}
 
-\item{x, object}{object \code{fp_cell}}
+\item{x, object}{\code{fp_cell} object}
 
 \item{type}{output type - one of 'wml', 'pml', 'html'.}
 

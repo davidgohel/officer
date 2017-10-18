@@ -1,11 +1,11 @@
 #' @export
-#' @title open a connexion to a 'Word' file
+#' @title open a connection to a 'Word' file
 #' @description read and import a docx file as an R object
 #' representing the document.
 #' @param path path to the docx file to use as base document.
-#' @param x a rdocx object
+#' @param x an rdocx object
 #' @examples
-#' # create a rdocx object with default template ---
+#' # create an rdocx object with default template ---
 #' read_docx()
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first as_list
@@ -102,7 +102,7 @@ print.rdocx <- function(x, target = NULL, ...){
 
 #' @export
 #' @examples
-#' # how many element are there in the document ----
+#' # how many elements are there in the document ----
 #' length( read_docx() )
 #'
 #' @importFrom xml2 read_xml xml_length xml_find_first
@@ -116,7 +116,7 @@ length.rdocx <- function( x ){
 #' @title read Word styles
 #' @description read Word styles and get results in
 #' a tidy data.frame.
-#' @param x a rdocx object
+#' @param x an rdocx object
 #' @examples
 #' library(magrittr)
 #' read_docx() %>% styles_info()
@@ -146,9 +146,9 @@ doc_properties <- function( x ){
 #' @description set Word or PowerPoint document properties. These are not visible
 #' in the document but are available as metadata of the document.
 #' @note
-#' Fields "last modified" and "last modified by" will be automatically be updated
-#' when file will be written.
-#' @param x a rdocx or rpptx object
+#' The "last modified" and "last modified by" fields will be automatically be updated
+#' when the file is written.
+#' @param x an rdocx or rpptx object
 #' @param title,subject,creator,description text fields
 #' @param created a date object
 #' @examples
@@ -179,7 +179,7 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 #' @title Word page layout
 #' @description get page width, page height and margins (in inches). The return values
 #' are those corresponding to the section where the cursor is.
-#' @param x a \code{rdocx} object
+#' @param x an \code{rdocx} object
 #' @examples
 #' docx_dim(read_docx())
 docx_dim <- function(x){
@@ -198,7 +198,7 @@ docx_dim <- function(x){
 #' @title List Word bookmarks
 #' @description List bookmarks id that can be found in an \code{rdocx}
 #' object.
-#' @param x a \code{rdocx} object
+#' @param x an \code{rdocx} object
 #' @examples
 #' library(magrittr)
 #'
