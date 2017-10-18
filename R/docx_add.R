@@ -385,16 +385,17 @@ body_replace_at <- function( x, bookmark, value ){
 
 #' @export
 #' @importFrom purrr is_scalar_character is_scalar_logical
-#' @title replace text anywhere in the document, or at a cursor
-#' @description Replace all occurrences of oldValue with newValue. Behind the
-#' scenes, this method uses grepl/gsub for pattern matching; you may supply
-#' arguments as required (and therefore use regex features) using the optional
-#' ... argument.
+#' @title Replace text anywhere in the document, or at a cursor
+#' @description Replace all occurrences of oldValue with newValue. This method
+#' uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
+#' supply arguments as required (and therefore use \code{\link{regex}} features)
+#' using the optional \code{...} argument.
 #'
-#' Note that by default, grepl/gsub will use fixed=FALSE, which means that
-#' oldValue and newValue will be interepreted as regular expressions.
+#' Note that by default, grepl/gsub will use \code{fixed=FALSE}, which means
+#' that \code{oldValue} and \code{newValue} will be interepreted as regular
+#' expressions.
 #'
-#' Chunking of text
+#' \strong{Chunking of text}
 #'
 #' Note that the behind-the-scenes representation of text in a Word document is
 #' frequently not what you might expect! Sometimes a paragraph of text is broken
@@ -405,22 +406,33 @@ body_replace_at <- function( x, bookmark, value ){
 #' likely not be a problem. If you are working with a manually-edited document,
 #' however, this can lead to unexpected failures to find text.
 #'
-#' You can use the officer function `docx_show_chunk()` to show how the
-#' paragraph of text at the current cursor has been chunked into runs, and what
-#' text is in each chunk. This can help troubleshoot unexpected failures to
-#' find text.
+#' You can use the officer function \code{\link{docx_show_chunk}} to
+#' show how the paragraph of text at the current cursor has been chunked into
+#' runs, and what text is in each chunk. This can help troubleshoot unexpected
+#' failures to find text.
+#' @seealso \code{\link{grep}}, \code{\link{regex}}, \code{\link{docx_show_chunk}}
 #' @author Frank Hangler, \email{frank@plotandscatter.com}
 #' @param x a docx device
 #' @param oldValue the value to replace
 #' @param newValue the value to replace it with
-#' @param onlyAtCursor if `TRUE`, only search-and-replace at the current cursor;
-#' if `FALSE` (default), search-and-replace in the entire document (this can
-#' be slow on large documents!)
-#' @param ... optional arguments to grepl/gsub (e.g. `fixed=TRUE`)
+#' @param onlyAtCursor if \code{TRUE}, only search-and-replace at the current
+#' cursor; if \code{FALSE} (default), search-and-replace in the entire document
+#' (this can be slow on large documents!)
+#' @param ... optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})
 #' @examples
 #' library(magrittr)
+#' 
+#' # Simple search-and-replace in entire document, with regex turned off
 #' doc <- read_docx() %>%
-#'   body_replace_all_text("my_placeholder_text", "new text")
+#'   body_replace_all_text("placeholder", "new", fixed=TRUE)
+#'
+#' # Do the same, but only at the current cursor
+#' doc <- read_docx() %>%
+#'   body_replace_all_text("placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+#'
+#' # Use regex : replace all words starting with "m" with the word "example"
+#' doc <- read_docx() %>%
+#'   body_replace_all_text("m.*\b", "example")
 body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ... ){
   stopifnot(is_scalar_character(oldValue),
             is_scalar_character(newValue),
@@ -430,8 +442,11 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ..
 }
 
 #' @export
-#' @title show underlying text tag structure
-#' @description show the structure of text tags at the current cursor
+#' @title Show underlying text tag structure
+#' @description Show the structure of text tags at the current cursor. This is
+#' most useful when trying to troubleshoot search-and-replace functionality
+#' using \code{\link{body_replace_all_text}}.
+#' @seealso \code{\link{body_replace_all_text}}
 #' @param x a docx device
 #' @examples
 #' library(magrittr)

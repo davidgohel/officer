@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{docx_show_chunk}
 \alias{docx_show_chunk}
-\title{show underlying text tag structure}
+\title{Show underlying text tag structure}
 \usage{
 docx_show_chunk(x)
 }
@@ -10,10 +10,15 @@ docx_show_chunk(x)
 \item{x}{a docx device}
 }
 \description{
-show the structure of text tags at the current cursor
+Show the structure of text tags at the current cursor. This is
+most useful when trying to troubleshoot search-and-replace functionality
+using \code{\link{body_replace_all_text}}.
 }
 \examples{
 library(magrittr)
 doc <- read_docx() \%>\%
   docx_show_chunk()
+}
+\seealso{
+\code{\link{body_replace_all_text}}
 }

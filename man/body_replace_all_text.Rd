@@ -2,62 +2,67 @@
 % Please edit documentation in R/docx_add.R
 \name{body_replace_all_text}
 \alias{body_replace_all_text}
-\title{replace text anywhere in the document, or at a cursor}
+\title{Replace text anywhere in the document, or at a cursor}
 \usage{
-body_replace_all_text(x, oldValue, newValue, onlyAtCursor = FALSE,
-  mergeRuns = FALSE, ...)
+body_replace_all_text(x, oldValue, newValue, onlyAtCursor = FALSE, ...)
 }
 \arguments{
 \item{x}{a docx device}
 
-\item{oldValue}{a string to replace}
+\item{oldValue}{the value to replace}
 
-\item{newValue}{the string to replace it with}
+\item{newValue}{the value to replace it with}
 
-\item{onlyAtCursor}{if `TRUE`, only search-and-replace at the current cursor;
-if `FALSE` (default), search-and-replace in the entire document (this can
-be slow on large documents!)}
+\item{onlyAtCursor}{if \code{TRUE}, only search-and-replace at the current
+cursor; if \code{FALSE} (default), search-and-replace in the entire document
+(this can be slow on large documents!)}
 
-\item{mergeRuns}{if `TRUE`, merge runs before trying search-and-replace; if
-`FALSE` (default), do not merge runs. See the description for more details.}
-
-\item{...}{optional arguments to grepl/gsub (e.g. `fixed=TRUE`)}
+\item{...}{optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})}
 }
 \description{
-Replace all occurrences of oldValue with newValue. Behind the
-scenes, this method uses grepl/gsub for pattern matching; you may supply
-arguments as required (and therefore use regex features) using the optional
-... argument.
+Replace all occurrences of oldValue with newValue. This method
+uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
+supply arguments as required (and therefore use \code{\link{regex}} features)
+using the optional \code{...} argument.
 
-Note that by default, grepl/gsub will use fixed=FALSE, which means that
-oldValue and newValue will be interepreted as regular expressions.
+Note that by default, grepl/gsub will use \code{fixed=FALSE}, which means
+that \code{oldValue} and \code{newValue} will be interepreted as regular
+expressions.
 
-Merging runs of text
+\strong{Chunking of text}
 
 Note that the behind-the-scenes representation of text in a Word document is
 frequently not what you might expect! Sometimes a paragraph of text is broken
 up (or "chunked") into several "runs," as a result of style changes, pauses
-in text entry, later revisions and edits, etc. The most accurate way to find
-text is to merge these runs of text within a paragraph, and then search-and-
-replace the merged text. However, this method has two downsides: first, it
-can be much slower, especially on large documents; second, finding a match
-and replacing it will destroy all styling in the paragraph (e.g. bold or
-italic text).
+in text entry, later revisions and edits, etc. If you have not styled the
+text, and have entered it in an "all-at-once" fashion, e.g. by pasting it or
+by outputing it programmatically into your Word document, then this will
+likely not be a problem. If you are working with a manually-edited document,
+however, this can lead to unexpected failures to find text.
 
-By default, `body_replace_all_text()` will NOT merge runs. If you have not
-styled the text, and have entered it in an "all-at-once" fashion, e.g. by
-pasting it or by outputting it programmatically into your Word document, then
-this will likely not be a problem. If you are working with a manually-edited
-document, however, this can lead to unexpected failures to find text.
-
-If setting mergeRuns=TRUE isn't an option for you (e.g. you would like to
-retain styling information within a paragraph), you can use the officer 
-function `docx_show_chunk()` to show how the paragraph of text at the current
-cursor has been chunked into runs, and what text is in each chunk. This can
-help troubleshoot unexpected search-and-replace failures.
+You can use the officer function \code{\link{docx_show_chunk}} to
+show how the paragraph of text at the current cursor has been chunked into
+runs, and what text is in each chunk. This can help troubleshoot unexpected
+failures to find text.
 }
 \examples{
 library(magrittr)
+
+# Simple search-and-replace in entire document, with regex turned off
 doc <- read_docx() \%>\%
-  body_replace_all_text("my_placeholder_text", "new text")
+  body_replace_all_text("placeholder", "new", fixed=TRUE)
+
+# Do the same, but only at the current cursor
+doc <- read_docx() \%>\%
+  body_replace_all_text("placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+
+# Use regex : replace all words starting with "m" with the word "example"
+doc <- read_docx() \%>\%
+  body_replace_all_text("m.*\\b", "example")
+}
+\seealso{
+\code{\link{grep}}, \code{\link{regex}}, \code{\link{docx_show_chunk}}
+}
+\author{
+Frank Hangler, \email{frank@plotandscatter.com}
 }
