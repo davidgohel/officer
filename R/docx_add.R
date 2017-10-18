@@ -409,7 +409,7 @@ body_replace_at <- function( x, bookmark, value ){
 #' paragraph of text at the current cursor has been chunked into runs, and what
 #' text is in each chunk. This can help troubleshoot unexpected failures to
 #' find text.
-#' @author Frank Hangler, \email{fhangler@gmail.com}
+#' @author Frank Hangler, \email{frank@plotandscatter.com}
 #' @param x a docx device
 #' @param oldValue the value to replace
 #' @param newValue the value to replace it with
