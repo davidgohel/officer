@@ -26,12 +26,6 @@ pack_folder <- function( folder, target ){
     setwd(curr_wd)
   })
 
-
-  if( !file.exists(target) ){
-    msg <- sprintf("could not zip package %s in file %s", shQuote(zip_dir), shQuote(target))
-    stop(msg, call. = FALSE)
-  }
-
   target
 }
 
