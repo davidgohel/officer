@@ -128,7 +128,7 @@ ph_with_table_at <- function( x, value, left, top, width, height,
 
   slide <- x$slide$get_slide(x$cursor)
 
-  xml_elt <- table_shape(x = x, value = value, left = left, top = top, width = width, height = height,
+  xml_elt <- table_shape(x = x, value = value, left = left*914400, top = top*914400, width = width*914400, height = height*914400,
                          first_row = first_row, first_column = first_column,
                          last_row = last_row, last_column = last_column, header = header )
 
