@@ -422,17 +422,25 @@ body_replace_at <- function( x, bookmark, value ){
 #' @examples
 #' library(magrittr)
 #' 
-#' # Simple search-and-replace in entire document, with regex turned off
 #' doc <- read_docx() %>%
-#'   body_replace_all_text("placeholder", "new", fixed=TRUE)
-#'
-#' # Do the same, but only at the current cursor
-#' doc <- read_docx() %>%
-#'   body_replace_all_text("placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
-#'
-#' # Use regex : replace all words starting with "m" with the word "example"
-#' doc <- read_docx() %>%
-#'   body_replace_all_text("m.*\b", "example")
+#'   body_add_par("Placeholder one") %>%
+#'   body_add_par("Placeholder two")
+#' 
+#' # Show text chunk at cursor
+#' docx_show_chunk(doc)  # Output is 'Placeholder two'
+#' 
+#' # Simple search-and-replace at current cursor, with regex turned off
+#' body_replace_all_text(doc, "Placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+#' docx_show_chunk(doc)  # Output is 'new two'
+#' 
+#' # Do the same, but in the entire document and ignoring case
+#' body_replace_all_text(doc, "placeholder", "new", onlyAtCursor=FALSE, ignore.case=TRUE)
+#' cursor_backward(doc)
+#' docx_show_chunk(doc) # Output is 'new one'
+#' 
+#' # Use regex : replace all words starting with "n" with the word "example"
+#' body_replace_all_text(doc, "\\bn.*?\\b", "example")
+#' docx_show_chunk(doc) # Output is 'example one'
 body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ... ){
   stopifnot(is_scalar_character(oldValue),
             is_scalar_character(newValue),
@@ -449,9 +457,12 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ..
 #' @seealso \code{\link{body_replace_all_text}}
 #' @param x a docx device
 #' @examples
-#' library(magrittr)
 #' doc <- read_docx() %>%
-#'   docx_show_chunk()
+#'   body_add_par("Placeholder one") %>%
+#'   body_add_par("Placeholder two")
+#' 
+#' # Show text chunk at cursor
+#' docx_show_chunk(doc)  # Output is 'Placeholder two'
 docx_show_chunk <- function( x ){
   x$doc_obj$docx_show_chunk()
   x

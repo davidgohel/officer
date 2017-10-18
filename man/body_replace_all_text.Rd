@@ -48,17 +48,25 @@ failures to find text.
 \examples{
 library(magrittr)
 
-# Simple search-and-replace in entire document, with regex turned off
 doc <- read_docx() \%>\%
-  body_replace_all_text("placeholder", "new", fixed=TRUE)
+  body_add_par("Placeholder one") \%>\%
+  body_add_par("Placeholder two")
 
-# Do the same, but only at the current cursor
-doc <- read_docx() \%>\%
-  body_replace_all_text("placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+# Show text chunk at cursor
+docx_show_chunk(doc)  # Output is 'Placeholder two'
 
-# Use regex : replace all words starting with "m" with the word "example"
-doc <- read_docx() \%>\%
-  body_replace_all_text("m.*\\b", "example")
+# Simple search-and-replace at current cursor, with regex turned off
+body_replace_all_text(doc, "Placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+docx_show_chunk(doc)  # Output is 'new two'
+
+# Do the same, but in the entire document and ignoring case
+body_replace_all_text(doc, "placeholder", "new", onlyAtCursor=FALSE, ignore.case=TRUE)
+cursor_backward(doc)
+docx_show_chunk(doc) # Output is 'new one'
+
+# Use regex : replace all words starting with "n" with the word "example"
+body_replace_all_text(doc, "\\\\bn.*?\\\\b", "example")
+docx_show_chunk(doc) # Output is 'example one'
 }
 \seealso{
 \code{\link{grep}}, \code{\link{regex}}, \code{\link{docx_show_chunk}}

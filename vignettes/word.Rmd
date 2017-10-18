@@ -307,7 +307,41 @@ my_doc <- read_docx(path = "assets/docx/replace_template.docx")  %>%
 print(my_doc, target = "assets/docx/replace_doc.docx")
 ```
 
-You can also use the `body_replace_*` functions to search-and-replace text. `body_replace_at` replaces text at a bookmark. `body_replace_all_text` will, depending on the options provided, replace text either at the cursor or in the entire document.
+### Search-and-replace
+
+You can also use the `body_replace_*` functions to search-and-replace text. `body_replace_at` replaces text at a bookmark:
+
+```{r results='hide'}
+doc <- read_docx() %>%
+  body_add_par("centered text", style = "centered") %>%
+  slip_in_text(". How are you", style = "strong") %>%
+  body_bookmark("text_to_replace") %>%
+  body_replace_at("text_to_replace", "not left aligned")
+```
+
+`body_replace_all_text` will, depending on the options provided, replace text either at the cursor or in the entire document:
+
+```{r results='hide'}
+doc <- read_docx() %>%
+  body_add_par("Placeholder one") %>%
+  body_add_par("Placeholder two")
+
+# Show text chunk at cursor
+docx_show_chunk(doc)  # Output is 'Placeholder two'
+
+# Simple search-and-replace at current cursor, with regex turned off
+body_replace_all_text(doc, "Placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+docx_show_chunk(doc)  # Output is 'new two'
+
+# Do the same, but in the entire document and ignoring case
+body_replace_all_text(doc, "placeholder", "new", onlyAtCursor=FALSE, ignore.case=TRUE)
+cursor_backward(doc)
+docx_show_chunk(doc) # Output is 'new one'
+
+# Use regex : replace all words starting with "n" with the word "example"
+body_replace_all_text(doc, "\\bn.*?\\b", "example")
+docx_show_chunk(doc) # Output is 'example one'
+```
 
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/replace_doc.docx" ) )
