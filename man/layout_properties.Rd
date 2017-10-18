@@ -14,7 +14,7 @@ layout_properties(x, layout = NULL, master = NULL)
 \item{master}{master layout name where \code{layout} is located}
 }
 \description{
-get informations about a particular slide layout
+get information about a particular slide layout
 into a data.frame.
 }
 \examples{

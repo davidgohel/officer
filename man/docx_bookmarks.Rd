@@ -7,7 +7,7 @@
 docx_bookmarks(x)
 }
 \arguments{
-\item{x}{a \code{rdocx} object}
+\item{x}{an \code{rdocx} object}
 }
 \description{
 List bookmarks id that can be found in an \code{rdocx}

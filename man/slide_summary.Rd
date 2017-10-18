@@ -13,7 +13,7 @@ slide_summary(x, index = NULL)
 }
 \description{
 get content and positions of current slide
-into a data.frame. If any table, image or paragraph, data is
+into a data.frame. Data for any tables, images, or paragraphs are
 imported into the resulting data.frame.
 }
 \examples{

@@ -17,6 +17,6 @@ in an xml string with their id. The wml code cannot
 be valid without this operation.
 }
 \details{
-The function is available to let the creation of valid
+The function is available to allow the creation of valid
 wml code containing references to images.
 }

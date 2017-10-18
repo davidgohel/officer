@@ -28,7 +28,7 @@ docx_reference_img <- function( x, src){
 #' in an xml string with their id. The wml code cannot
 #' be valid without this operation.
 #' @details
-#' The function is available to let the creation of valid
+#' The function is available to allow the creation of valid
 #' wml code containing references to images.
 #' @param x an rdocx object
 #' @param str wml string

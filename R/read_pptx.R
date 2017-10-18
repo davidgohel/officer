@@ -208,7 +208,7 @@ layout_summary <- function( x ){
 
 #' @export
 #' @title slide layout properties
-#' @description get informations about a particular slide layout
+#' @description get information about a particular slide layout
 #' into a data.frame.
 #' @param x rpptx object
 #' @param layout slide layout name to use
@@ -244,7 +244,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @export
 #' @title get PowerPoint slide content in a tidy format
 #' @description get content and positions of current slide
-#' into a data.frame. If any table, image or paragraph, data is
+#' into a data.frame. Data for any tables, images, or paragraphs are
 #' imported into the resulting data.frame.
 #' @param x rpptx object
 #' @param index slide index
