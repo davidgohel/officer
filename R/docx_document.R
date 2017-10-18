@@ -114,58 +114,26 @@ docx_document <- R6Class(
       self
     },
 
-    replace_all_text = function( oldValue, newValue, onlyAtCursor=FALSE, mergeRuns=FALSE, ... ) {
-
-      search_zone_text <- if (onlyAtCursor) "at the cursor." else "in the document."
-
-      message("Trying to replace '", oldValue, "' with '", newValue, "' ", search_zone_text)
-      message(if (mergeRuns) "Merging runs of text." else "Not merging runs of text. This is faster, but can lead to unexpected results!")
+    replace_all_text = function( oldValue, newValue, onlyAtCursor=FALSE, ... ) {
 
       replacement_count <- 0
 
       base_node <- if (onlyAtCursor) self$get_at_cursor() else self$get()
 
-      if (mergeRuns) { # Merge all runs to join text
-        # For each matching paragraph...
-        for (paragraph_node in xml_find_all(base_node, ".//w:p")) {
-          # ...select all runs under the current node (hence ".//")...
-          run_nodes <- xml_find_all(paragraph_node, ".//w:r")
-
-          # ...and concatenate the text of all the run nodes.
-          run_node_text <- paste0(lapply(run_nodes, xml_text), collapse="")
-
-          # If the concatenated text contains oldValue:
-          if (grepl(oldValue, run_node_text, ...)) {
-            replacement_count <- replacement_count + 1
-            node_to_keep <- run_nodes[[1]]    # 1. Keep the first node;
-            run_nodes[[1]] <- NULL            # 2. Delete the rest;
-            lapply(run_nodes, xml_remove)
-
-            # 3. Replace and set the text of the run node
-            xml_text(node_to_keep) <- gsub(oldValue, newValue, run_node_text, ...)
-          }
-        }
-      } else { # DO NOT merge runs!
-        # For each matching text node...
-        for (text_node in xml_find_all(base_node, ".//w:t")) {
-          # ...if it contains the oldValue...
-          if (grepl(oldValue, xml_text(text_node), ...)) {
-            replacement_count <- replacement_count + 1
-            # Replace the node text with the newValue.
-            xml_text(text_node) <- gsub(oldValue, newValue, xml_text(text_node), ...)
-          }
+      # For each matching text node...
+      for (text_node in xml_find_all(base_node, ".//w:t")) {
+        # ...if it contains the oldValue...
+        if (grepl(oldValue, xml_text(text_node), ...)) {
+          replacement_count <- replacement_count + 1
+          # Replace the node text with the newValue.
+          xml_text(text_node) <- gsub(oldValue, newValue, xml_text(text_node), ...)
         }
       }
 
-      # Alert the user if no replacements were made, and how many paragraphs
-      # were affected if replacements were done.
+      # Alert the user if no replacements were made.
       if (replacement_count == 0) {
-        message("Found 0 instances of '", oldValue, "' ", search_zone_text)
-        if (!mergeRuns) {
-          message("If this is unexpected, try setting mergeRuns=TRUE; read help at ?body_replace_all_text.")
-        }
-      } else {
-        message("Replaced '", oldValue, "' with '", newValue, "' in ", replacement_count, " paragraph(s) ", search_zone_text)
+        search_zone_text <- if (onlyAtCursor) "at the cursor." else "in the document."
+        warn("Found 0 instances of '", oldValue, "' ", search_zone_text)
       }
 
       self
