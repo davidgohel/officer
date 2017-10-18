@@ -12,14 +12,14 @@ vignette: >
 dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
 office_doc_link <- function(url){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
-  htmltools::tags$p(  htmltools::tags$span("Download file "),
+  htmltools::tags$p(htmltools::tags$span("Download file "),
     htmltools::tags$a(basename(url), href = url), 
     htmltools::tags$span(" - view with"),
-    htmltools::tags$a("office web viewer", target="_blank", 
+    htmltools::tags$a("office web viewer", target = "_blank", 
       href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
-      ), 
-    style="text-align:center;font-style:italic;color:gray;"
-    )
+    ), 
+    style = "text-align:center;font-style:italic;color:gray;"
+  )
 }
 ```
 
@@ -35,15 +35,18 @@ library(magrittr)
 
 ## Quick start
 
-1. Start with `read_docx`
+1. Start with `read_docx()`
 
-Use the function `read_docx` to create an r object representing a Word document.
+Use the function `read_docx()` to create an R object representing a Word 
+document.
 
-Initial Word file can be specified with argument `path`. If none is provided, 
-this file will be an empty document located in the package directory. Formats 
-and styles are defined in the initial file.
+The initial Word file can be specified with the `path` argument. If none is 
+provided, this file will be an empty document located in the package directory. 
+Formats and styles are defined in the initial file.
 
-From the initial document, we will be able to use an object containing not only paragraph styles, character styles and table styles of the original document but also its content. 
+From the initial document, we will be able to use an object containing not only 
+paragraph styles, character styles and table styles of the original document but 
+also its content.
 
 ```{r}
 my_doc <- read_docx() 
@@ -52,7 +55,9 @@ styles_info(my_doc)
 
 2. Add elements to document
 
-> By default new content is added at the end of the document. To understand how to add content at any location in the document, see section about cursor.
+> By default new content is added at the end of the document. To understand how 
+to add content at any location in the document, see the later section about 
+cursor manipulation.
 
 Let's create an image from a plot...
 
@@ -63,7 +68,8 @@ barplot(1:10, col = 1:10)
 dev.off()
 ```
 
-... and add that image in the document and some new paragraphs of text and a table. 
+...and add that image to the document along with some new text paragraphs and a 
+table.
 
 ```{r results='hide'}
 my_doc <- my_doc %>% 
@@ -75,14 +81,15 @@ my_doc <- my_doc %>%
 
 3. Write the Word file
 
-File can be generated using function `print` and argument `target`:
+An (updated) Word file can be generated using the `print()` function with the 
+`target` argument:
 
 ```{r results='hide'}
 print(my_doc, target = "assets/docx/first_example.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/first_example.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/first_example.docx"))
 ```
 
 
@@ -104,23 +111,33 @@ There are two types of functions for adding elements.
 
 ### `body_add_*` functions
 
-The paragraph is the main top container for content within a Word document. *Note that tables are top container, they are at the same level than paragraphs*. `body_add_*` functions are designed to **add content as a top container**: text as an entire paragraph, table, image, page break... 
+The paragraph is the main top container for content within a Word document. 
+*Note that tables are top container, they are at the same level as paragraphs*. 
+`body_add_*` functions are designed to **add content as a top container**: text 
+as an entire paragraph, table, image, page break...
 
-A title is a paragraph. To add a title, use `body_add_par()` with `style` argument pointing to corresponding title style. 
+A title is a paragraph. To add a title, use `body_add_par()` with the `style` 
+argument pointing to the corresponding title style.
 
-Use function `styles_info()` to see available styles:
+Use the function `styles_info()` to see available styles:
 
 ```{r message=FALSE}
 library(dplyr)
 read_docx() %>% styles_info() %>% 
-  dplyr::filter( style_type %in% "paragraph" )
+  dplyr::filter(style_type %in% "paragraph")
 ```
 
-> It is important to understand that these style names are read in the initial file provided to `read_docx`. Few comments
+> It is important to understand that these style names are read in the initial 
+file provided to `read_docx()`. A few comments:
 
-* One of the styles is *heading 1* which correspond to a level 1 title. 
-* When using `body_add_gg` in the following code, using `style = "centered"` will set *centered* paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.
-* Table templates are also defined in the initial document and can be used with `body_add_table`. For advanced tabular formatting, use package `flextable` instead ([flextable website](https://davidgohel.github.io/officer/)), it has a function `body_add_flextable()` that can be used with `officer`.
+* One of the styles is *heading 1* which corresponds to a level 1 title. 
+* When using `body_add_gg()` in the following code, using `style = "centered"` 
+will set *centered* paragraph properties (defined as centered in the initial 
+document) to the new paragraph where the plot will be added.
+* Table templates are also defined in the initial document and can be used with 
+`body_add_table()`. For advanced tabular formatting, use the `flextable` package 
+instead ([flextable website](https://davidgohel.github.io/officer/)). It has a 
+function `body_add_flextable()` that can be used with `officer`.
 
 ```{r}
 library(ggplot2)
@@ -133,10 +150,10 @@ read_docx() %>%
   body_add_break() %>% 
 
   body_add_par(value = "dataset iris", style = "heading 2") %>% 
-  body_add_table(value = head(iris), style = "table_template" ) %>% 
+  body_add_table(value = head(iris), style = "table_template") %>% 
   
   body_add_par(value = "plot examples", style = "heading 1") %>% 
-  body_add_gg(value = gg, style = "centered" ) %>% 
+  body_add_gg(value = gg, style = "centered") %>% 
 
   print(target = "assets/docx/body_add_demo.docx") %>% 
   invisible()
@@ -144,19 +161,22 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx"))
 ```
 
 ### `slip_in_*` functions
 
-`slip_in_*` functions are designed to add content **inside an existing paragraph**: text, image or seq field. Element is inserted at beginning or end of the paragraph (`pos=c('after', 'before')`). Available functions are the following:
+The `slip_in_*` functions are designed to add content 
+**inside an existing paragraph**: text, image or seq field. The element is 
+inserted either at the beginning or end of the paragraph 
+(`pos = c('after', 'before')`). Available functions are the following:
 
-- slip_in_img
-- slip_in_seqfield
-- slip_in_text
+- `slip_in_img()`
+- `slip_in_seqfield()`
+- `slip_in_text()`
 
 ```{r}
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+img.file <- file.path(Sys.getenv("R_HOME"), "doc", "html", "logo.jpg")
 read_docx() %>%
   body_add_par("R logo: ", style = "Normal") %>%
   slip_in_img(src = img.file, style = "strong", 
@@ -169,15 +189,19 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx"))
 ```
 
-These have been implemented mostly to let add Word numbering seq-fields at beginning of paragraphs used as reference entries (i.e. a table caption, a plot caption). See Section *Table and image captions*.
+These have been implemented mostly to allow the addition of Word's special 
+sequence fields (which facilitate numbering) at the beginning of paragraphs used 
+as reference entries (e.g. a table or plot caption). See the section 
+*Table and image captions*.
 
 
 ## Cursor manipulation
 
-A cursor is available and can be manipulated so that content can be added regarding to its position with `body_add_*` functions: 
+A cursor is available and can be manipulated so that content can be added 
+relative to its position with the `body_add_*` functions: 
 
 - `before` will insert a new element before the selected element in the document.
 - `after` will insert a new element after the selected element in the document.
@@ -185,14 +209,15 @@ A cursor is available and can be manipulated so that content can be added regard
 
 Cursor functions are the following:
 
-- cursor_begin
-- cursor_end
-- cursor_reach
-- cursor_backward
-- cursor_forward
-- cursor_bookmark
+- `cursor_begin()`
+- `cursor_end()`
+- `cursor_reach()`
+- `cursor_backward()`
+- `cursor_forward()`
+- `cursor_bookmark()`
 
-In order to illustrate *cursor* functions, a document made of several paragraphs will be used (let's use officer for that).
+In order to illustrate the *cursor* functions, a document made up of several 
+paragraphs will be used (let's use officer for that).
 
 ```{r}
 read_docx() %>%
@@ -208,10 +233,11 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/init_doc.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/init_doc.docx"))
 ```
 
-Now, let's use `init_doc.docx` with `read_docx` and manipulate its content with cursor functions.
+Now, let's use `init_doc.docx` with `read_docx()` and manipulate its content 
+with cursor functions.
 
 ```{r}
 doc <- read_docx(path = "assets/docx/init_doc.docx") %>%
@@ -239,14 +265,17 @@ print(doc, target = "assets/docx/cursor.docx") %>%
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx"))
 ```
 
 ## Remove content
 
-The function `body_remove` lets you remove content from a Word document. This function used with `cursor_*` functions is a convenient tool to update an existing document. 
+The function `body_remove()` lets you remove content from a Word document. This 
+function used with `cursor_*` functions is a convenient tool to update an 
+existing document.
 
-For illustration purposes, we will generate a document that will be used as initial document later when showing how to use `body_remove`.
+For illustration purposes, we will generate a document that will be used as 
+an initial document later when showing how to use `body_remove()`.
 
 ```{r}
 library(officer)
@@ -266,7 +295,9 @@ my_doc <- read_docx()  %>%
 print(my_doc, target = "assets/docx/ipsum_doc.docx") %>% invisible()
 ```
 
-File `ipsum_doc.docx` now exists and contains a paragraph containing text *that text*. In the following example, we will position the cursor on that paragraph and then delete it:
+The file `ipsum_doc.docx` now exists and contains a paragraph containing text 
+*that text*. In the following example, we will position the cursor on that 
+paragraph and then delete it:
 
 ```{r}
 my_doc <- read_docx(path = "assets/docx/ipsum_doc.docx")  %>% 
@@ -279,14 +310,15 @@ print(my_doc, target = "assets/docx/ipsum_doc.docx") %>% invisible()
 **The text search is made via `xpath 1.0` and regular expressions are not supported.**
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx"))
 ```
 
 ## Replace content
 
-Functions `body_add_*` let you replace content in a Word document. 
+The `body_add_*` functions let you replace content in a Word document.
 
-For illustration purpose, we will generate a document that will be used as initial document later.
+For illustration purposes, we will generate a document that will be used as 
+an initial document later.
 
 ```{r results='hide'}
 my_doc <- read_docx()  %>% 
@@ -297,7 +329,10 @@ my_doc <- read_docx()  %>%
 print(my_doc, target = "assets/docx/replace_template.docx")
 ```
 
-File `replace_template.docx` now exists and contains a paragraph containing text *that text*. In the following example, we will position the cursor on that paragraph and then replace it. Using `pos = "on"` will replace content where cursor is by new content. 
+The file `replace_template.docx` now exists and contains a paragraph containing 
+text *that text*. In the following example, we will position the cursor on that 
+paragraph and then replace it. Using `pos = "on"` will replace content where 
+the cursor is with new content.
 
 ```{r results='hide'}
 my_doc <- read_docx(path = "assets/docx/replace_template.docx")  %>% 
@@ -344,14 +379,17 @@ docx_show_chunk(doc) # Output is 'example one'
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/replace_doc.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/replace_doc.docx"))
 ```
 
 ## Sections
 
-Sections can be added to a document. This is possible by using function `body_end_section`. The default section can be modified with function `body_default_section`.
+Sections can be added to a document. This is possible by using the function 
+`body_end_section()`. The default section can be modified with the function 
+`body_default_section()`.
 
-> A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared. 
+> A section starts at the end of the previous section (or the beginning of the 
+document if no preceding section exists). It stops where the section is declared.
 
 
 ```{r}
@@ -371,18 +409,24 @@ print(my_doc, target = "assets/docx/section.docx") %>% invisible()
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx"))
 ```
 
-In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.
+In the previous example, the first two paragraphs will be in a 2 column section 
+and the third will be in a default section.
 
 ## Table and image captions
 
-Man can combine `slip_in_seqfield` and `slip_in_text` to prefix a paragraph with references (i.e. chapter number and graphic index in the document). However, producing a plot or a table and its caption can be verbose. 
+`slip_in_seqfield()` and `slip_in_text()` can be combined to prefix a paragraph 
+with references (i.e. chapter number and graphic index in the document). However, 
+producing a plot or a table and its caption can be verbose.
 
-Shortcuts functions are implemented in the object `shortcuts` (it will at least give you a template of code to modify if it does not fit exactly your need). `slip_in_tableref`, `slip_in_plotref` and `body_add_gg` can make life easier. 
+Shortcut functions are implemented in the object `shortcuts` (it will at least 
+give you a template of code to modify if it does not fit your needs exactly). 
+`slip_in_tableref()`, `slip_in_plotref()` and `body_add_gg()` can make life 
+easier.
 
-Below an illustration:
+Usage of these functions is illustrated below:
 
 ```{r}
 library(magrittr)
@@ -404,19 +448,19 @@ doc <- read_docx() %>%
   shortcuts$slip_in_tableref(depth = 2) %>%
   
   body_add_par(value = "dataset iris", style = "heading 2") %>% 
-  body_add_table(value = head(iris), style = "table_template" ) %>% 
+  body_add_table(value = head(iris), style = "table_template") %>% 
   body_add_par(value = "data iris", style = "table title") %>% 
   shortcuts$slip_in_tableref(depth = 2) %>%
   
-  body_end_section(continuous = FALSE, landscape = FALSE ) %>% 
+  body_end_section(continuous = FALSE, landscape = FALSE) %>% 
   
   body_add_par(value = "plot examples", style = "heading 1") %>% 
-  body_add_gg(value = gg1, style = "centered" ) %>% 
+  body_add_gg(value = gg1, style = "centered") %>% 
   body_add_par(value = "graph example 1", style = "graphic title") %>% 
   shortcuts$slip_in_plotref(depth = 1) %>%
   
   body_add_par(value = "plot 2", style = "heading 2") %>% 
-  body_add_gg(value = gg2, style = "centered" ) %>% 
+  body_add_gg(value = gg2, style = "centered") %>% 
   body_add_par(value = "graph example 2", style = "graphic title") %>% 
   shortcuts$slip_in_plotref(depth = 2) %>%
   
@@ -431,6 +475,6 @@ print(doc, target = "assets/docx/toc_and_captions.docx") %>% invisible()
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx"))
 ```
 
