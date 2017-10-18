@@ -10,7 +10,7 @@ vignette: >
 
 ## Import Word document
 
-Function `docx_summary` is returning content of a Word document. 
+The function `docx_summary()` returns the content of a Word document. 
 
 ```{r}
 library(officer)
@@ -32,9 +32,10 @@ To get all paragraphs:
 ```{r, message=FALSE, warning=FALSE}
 par_data <- content %>% filter(content_type %in% "paragraph") %>% 
   select(doc_index, style_name, text, level, num_id) %>% 
-  # let's make text shorter so it can be display in that vignette
-  mutate(text = substr(text, start = 1, 
-                       stop = ifelse(nchar(text)<30, nchar(text), 30) ))
+  # let's make text shorter so it can be displayed in the vignette
+  mutate(text = substr(
+    text, start = 1, stop = ifelse(nchar(text) < 30, nchar(text), 30)
+  ))
 
 par_data
 ```
@@ -48,7 +49,9 @@ table_cells <- content %>% filter(content_type %in% "table cell")
 print(table_cells)
 ```
 
-Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text` and `is_header` (a logical column indicating if the cell is part of header or not). Note that content (column `text`) is a character vector.
+Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text` 
+and `is_header` (a logical column indicating if the cell is part of a header or 
+not). Note that the content itself (column `text`) is a character vector.
 
 ```{r}
 table_body <- table_cells %>% 
@@ -57,17 +60,18 @@ table_body <- table_cells %>%
 table_body
 ```
 
-Reshape data with columns `row_id`, `cell_id` and `text`, it's easy to do with `tidyr` :
+Reshaping the data with columns `row_id`, `cell_id` and `text` is easy to do 
+with `tidyr`:
 
 ```{r}
-if( require("tidyr"))
-  table_body %>% spread(cell_id, text)  
+if (require("tidyr"))
+  table_body %>% spread(cell_id, text)
 ```
 
 Getting headers requires another operation:
 
 ```{r}
-if( require("tidyr"))
+if (require("tidyr"))
   table_cells %>% 
     filter(is_header) %>% 
     select(row_id, cell_id, text) %>% 
@@ -75,19 +79,10 @@ if( require("tidyr"))
 ```
 
 
-
-
-
-
-
-
-
-
-
 ## Import PowerPoint document
 
 
-Function `pptx_summary` is returning content of a PowerPoint document 
+The function `pptx_summary()` returns the content of a PowerPoint document.
 
 ```{r}
 example_pptx <- system.file(package = "officer", "doc_examples/example.pptx")
@@ -129,11 +124,12 @@ table_cells <- content %>% filter(content_type %in% "table cell")
 table_cells
 ```
 
-Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`. Note here there is no indicator for table header.
+Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`. 
+Note that here there is no indicator for the table header.
 
 ```{r}
-if( require("tidyr"))
-  table_cells %>% filter( id == 18 ) %>%  
+if ( require("tidyr"))
+  table_cells %>% filter(id == 18) %>%  
     select(row_id, cell_id, text) %>% 
     spread(cell_id, text)  
 ```
