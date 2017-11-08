@@ -172,8 +172,8 @@ void xls_table_prepare(DataFrame x, CharacterVector col_types,
   int nrow = x.nrows();
   int ncol = x.size();
   std::ofstream xsl, xml;
-  xsl.open (xsl_file, std::ofstream::out | std::ofstream::app);
-  xml.open (xml_file, std::ofstream::out);
+  xsl.open (xsl_file.c_str(), std::ofstream::out | std::ofstream::app);
+  xml.open (xml_file.c_str(), std::ofstream::out);
 
   xml << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
   xml << "<sheetData xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\n";
