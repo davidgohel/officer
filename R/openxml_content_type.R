@@ -54,7 +54,6 @@ content_type <- R6Class(
     },
 
     save = function() {
-      self$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
       self$add_ext(extension = "jpeg", type = "image/jpeg")
       self$add_ext(extension = "gif", type = "image/gif")
       self$add_ext(extension = "png", type = "image/png")

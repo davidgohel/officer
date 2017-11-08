@@ -188,6 +188,47 @@ characterise_df <- function(x){
   data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
 }
 
+xl_characterise_df <- function(x){
+  names(x) <- htmlEscape(names(x))
+  x <- lapply(x, function( x ) {
+    if( is.character(x) || is.factor(x) ){
+      htmlEscape(as.character(x))
+    } else if( inherits(x, "POSIXct") ){
+      (as.integer(x) + 2208988800) / 86400
+    } else if( inherits(x, "Date") ){
+      (as.integer(x) + 25567)
+    } else if( is.numeric(x) ){
+      x
+    }
+    else gsub("(^ | $)+", "", htmlEscape(format(x)) )
+  })
+  data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
+}
+
+
+xl_type_df <- function(x){
+  sapply(x, function( x ) {
+    if( is.character(x) || is.factor(x) ) "inlineStr"
+    else if( inherits(x, "POSIXct") ) "n"
+    else if( inherits(x, "Date") ) "n"
+    else if( is.logical(x) ) "b"
+    else if( is.numeric(x) ) "n"
+    else "inlineStr"
+  })
+}
+xl_tag_start <- function(x){
+  sapply(x, function( x ) {
+    if( is.character(x)|| is.factor(x) ) "<is><t>"
+    else "<v>"
+  })
+}
+xl_tag_end <- function(x){
+  sapply(x, function( x ) {
+    if( is.character(x)|| is.factor(x) ) "</t></is>"
+    else "</v>"
+  })
+}
+
 section_dimensions <- function(node){
   section_obj <- as_list(node)
 
