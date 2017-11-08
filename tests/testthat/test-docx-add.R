@@ -65,7 +65,7 @@ test_that("body_add_toc", {
 
 test_that("body_add_img", {
 
-  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   x <- read_docx() %>%
     body_add_img(img.file, width=2.5, height=1.3)
 
@@ -74,7 +74,7 @@ test_that("body_add_img", {
 })
 
 test_that("slip_in_img", {
-  img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   x <- read_docx() %>%
     body_add_par("") %>%
     slip_in_img(src = img.file, style = "strong", width = .3, height = .3)

@@ -68,7 +68,7 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #'
-#' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' if( file.exists(img.file) ){
 #'   doc <- ph_with_img_at(x = doc, src = img.file, height = 1.06, width = 1.39,
 #'     left = 4, top = 4, rot = 45 )

@@ -177,7 +177,7 @@ Use function `ph_with_img` to add an image into a placeholder. As for all `ph_wi
 as a new shape (`index` is to be used when an `type` is not unique in the slide layout).
 
 ```{r}
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 
 doc <- read_pptx() 
 doc <- doc %>%
@@ -198,7 +198,7 @@ Arguments `left` and `top` are specifying the top left coordinate of the new sha
 `width` and `height` are specifying the dimensions of the new shape.
 
 ```{r}
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 
 doc <- read_pptx() %>%
   add_slide(layout = "Title and Content", master = "Office Theme") %>%

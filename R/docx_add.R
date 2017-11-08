@@ -28,7 +28,7 @@ body_add_break <- function( x, pos = "after"){
 #' @examples
 #' doc <- read_docx()
 #'
-#' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' if( file.exists(img.file) ){
 #'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
 #' }
@@ -423,23 +423,23 @@ body_replace_at <- function( x, bookmark, value ){
 #' @param ... optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})
 #' @examples
 #' library(magrittr)
-#' 
+#'
 #' doc <- read_docx() %>%
 #'   body_add_par("Placeholder one") %>%
 #'   body_add_par("Placeholder two")
-#' 
+#'
 #' # Show text chunk at cursor
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
-#' 
+#'
 #' # Simple search-and-replace at current cursor, with regex turned off
 #' body_replace_all_text(doc, "Placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
 #' docx_show_chunk(doc)  # Output is 'new two'
-#' 
+#'
 #' # Do the same, but in the entire document and ignoring case
 #' body_replace_all_text(doc, "placeholder", "new", onlyAtCursor=FALSE, ignore.case=TRUE)
 #' cursor_backward(doc)
 #' docx_show_chunk(doc) # Output is 'new one'
-#' 
+#'
 #' # Use regex : replace all words starting with "n" with the word "example"
 #' body_replace_all_text(doc, "\\bn.*?\\b", "example")
 #' docx_show_chunk(doc) # Output is 'example one'
@@ -464,7 +464,7 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ..
 #' doc <- read_docx() %>%
 #'   body_add_par("Placeholder one") %>%
 #'   body_add_par("Placeholder two")
-#' 
+#'
 #' # Show text chunk at cursor
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
 docx_show_chunk <- function( x ){

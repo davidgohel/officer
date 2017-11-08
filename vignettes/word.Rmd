@@ -156,7 +156,7 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 - slip_in_text
 
 ```{r}
-img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 read_docx() %>%
   body_add_par("R logo: ", style = "Normal") %>%
   slip_in_img(src = img.file, style = "strong", 

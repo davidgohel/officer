@@ -128,7 +128,7 @@ ph_with_table <- function( x, value, type = "title", index = 1,
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #'
-#' img.file <- file.path( Sys.getenv("R_HOME"), "doc", "html", "logo.jpg" )
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' if( file.exists(img.file) ){
 #'   doc <- ph_with_img(x = doc, type = "body", src = img.file, height = 1.06, width = 1.39 )
 #' }
