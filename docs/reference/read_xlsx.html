@@ -128,13 +128,14 @@ representing the document.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>read_xlsx</span>()</div><div class='output co'>#&gt; xlsx document with 1 sheet(s)</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
+    <pre class="examples"><div class='input'><span class='fu'>read_xlsx</span>()</div><div class='output co'>#&gt; xlsx document with 1 sheet(s):
+#&gt; [1] "Feuil1"</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
 <span class='kw'>if</span>( <span class='fu'>require</span>(<span class='no'>magrittr</span>) ){
   <span class='fu'>read_xlsx</span>() <span class='kw'>%&gt;%</span> <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"out.xlsx"</span>)
   <span class='co'># full path of produced file is returned</span>
   <span class='fu'>print</span>(<span class='no'>.Last.value</span>)
-}</div><div class='output co'>#&gt;  [1] "officer"   "ggplot2"   "magrittr"  "stats"     "graphics"  "grDevices"
-#&gt;  [7] "utils"     "datasets"  "methods"   "base"     </div></pre>
+}</div><div class='output co'>#&gt; [1] "officer"   "bindrcpp"  "stats"     "graphics"  "grDevices" "utils"    
+#&gt; [7] "datasets"  "methods"   "base"     </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

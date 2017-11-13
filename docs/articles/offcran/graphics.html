@@ -73,9 +73,7 @@
     
     
 <div class="contents">
-<div id="word-documents-and-graphics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#word-documents-and-graphics" class="anchor"></a>Word documents and graphics</h2>
+<section id="word-documents-and-graphics" class="level2"><h2>Word documents and graphics</h2>
 <p>Graphics and more generally raster images and vector graphic images are added in a Word document as elements of a <strong>paragraph</strong>. <code>officer</code> provides two functions to let users add images into a Word document:</p>
 <ul>
 <li>
@@ -84,53 +82,74 @@
 <em>slip_in_img</em>: add an image inside an existing paragraph (defined by the cursor location), user can choose to insert it at beginning or end of the paragraph. This allows to mix text and images within a single paragraph.</li>
 </ul>
 <p>Those functions accept various image formats: png, jpeg and emf.</p>
-<div id="r-plots" class="section level3">
-<h3 class="hasAnchor">
-<a href="#r-plots" class="anchor"></a>R plots</h3>
+<section id="r-plots" class="level3"><h3>R plots</h3>
 <p>So far, tests has been made with outputs from <code><a href="http://www.rdocumentation.org/packages/grDevices/topics/png">grDevices::png()</a></code>, <code><a href="http://www.rdocumentation.org/packages/grDevices/topics/png">grDevices::jpeg()</a></code> and <code><a href="http://www.rdocumentation.org/packages/devEMF/topics/emf">devEMF::emf()</a></code>. Enhanced metafile graphics produced by package <code>devEMF</code> seem to be the best solution to have vector graphics within Word document.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
-<span class="kw">library</span>(devEMF)
-<span class="kw">library</span>(magrittr)
-<span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1">
+<span class="kw">library</span>(officer)</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">
+<span class="kw">library</span>(devEMF)</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">
+<span class="kw">library</span>(magrittr)</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">
+<span class="kw">library</span>(ggplot2)</div></code></pre>
 <p><code>officer</code> is not producing the image, it only provides functions to add a produced image into a Word document.</p>
 <p>Let’s first produce the image:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ggplot example</span>
-gg &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(mtcars, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> mpg , <span class="dt">y =</span> wt, <span class="dt">colour =</span> qsec)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_minimal</a></span>()
-
-<span class="co"># produce an emf file containing the ggplot</span>
-filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".emf"</span>)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/devEMF/topics/emf">emf</a></span>(<span class="dt">file =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>)
-<span class="kw">print</span>(gg)
-<span class="kw">dev.off</span>()</code></pre></div>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># ggplot example</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">gg &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(mtcars, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> mpg , <span class="dt">y =</span> wt, <span class="dt">colour =</span> qsec)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_minimal</a></span>()</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># produce an emf file containing the ggplot</span></div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".emf"</span>)</div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">
+<span class="kw"><a href="http://www.rdocumentation.org/packages/devEMF/topics/emf">emf</a></span>(<span class="dt">file =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>)</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7">
+<span class="kw">print</span>(gg)</div>
+<div class="sourceLine" id="cb2-8" data-line-number="8">
+<span class="kw">dev.off</span>()</div></code></pre>
 <p>Then add it to a new Word document:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><div class="sourceLine" id="cb3-1" data-line-number="1">
+<span class="kw"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">
 <span class="st">  </span><span class="kw"><a href="../../reference/body_add_img.html">body_add_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_emf.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4">
+<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_emf.docx">demo_emf.docx</a>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/graphics/demo_emf.docx">office web viewer</a>
 </p>
-</div>
-</div>
-<div id="powerpoint-documents-and-graphics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#powerpoint-documents-and-graphics" class="anchor"></a>PowerPoint documents and graphics</h2>
+</section></section><section id="powerpoint-documents-and-graphics" class="level2"><h2>PowerPoint documents and graphics</h2>
 <p>Raster images and vector graphic images are added in a PowerPoint document as a shape on the current slide. In PowerPoint, images and text can not be mixed in the same shape (or placeholder). <code>officer</code> provides two functions to let users add images into a Word document:</p>
 <ul>
 <li>ph_with_img: add an image as a new shape in the current slide.</li>
 <li>ph_with_img_at: add an image in the current slide at any arbitrary location.</li>
 </ul>
 <p>Again those functions accept various image formats: png, jpeg and emf.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><div class="sourceLine" id="cb4-1" data-line-number="1">
+<span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2">
 <span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../../reference/ph_with_img.html">ph_with_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>, <span class="dt">type =</span> <span class="st">"body"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4">
 <span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5">
 <span class="st">  </span><span class="kw"><a href="../../reference/ph_with_img.html">ph_with_img_at</a></span>(<span class="dt">src =</span> filename, <span class="dt">left =</span> <span class="dv">0</span>, <span class="dt">top =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_emf.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+</div>
+<div class="sourceLine" id="cb4-7" data-line-number="7">
+<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_emf.pptx">demo_emf.pptx</a>
@@ -138,19 +157,29 @@ filename &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span cl
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/graphics/demo_emf.pptx">office web viewer</a>
 </p>
 <p>Package <code>rvg</code> is providing editable vector graphics that can be used with <code>officer</code>. Function <code>ph_with_vg</code> can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function <code>ph_with_vg_at</code> is also provided to let you add a graphic at any arbitrary location in the current slide.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rvg)
+<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><div class="sourceLine" id="cb5-1" data-line-number="1">
+<span class="kw">library</span>(rvg)</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2">
 <span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/rvg/topics/ph_with_vg">ph_with_vg</a></span>(<span class="dt">code =</span> <span class="kw">print</span>(gg), <span class="dt">type =</span> <span class="st">"body"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb5-5" data-line-number="5">
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_rvg.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+</div>
+<div class="sourceLine" id="cb5-6" data-line-number="6">
+<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_rvg.pptx">demo_rvg.pptx</a>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/graphics/demo_rvg.pptx">office web viewer</a>
 </p>
-</div>
+</section>
 </div>
   </div>
 

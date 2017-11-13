@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>read Word styles — styles_info • officer package</title>
+<title>Show underlying text tag structure — docx_show_chunk • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,48 +89,70 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>read Word styles</h1>
+    <h1>Show underlying text tag structure</h1>
     </div>
 
     
-    <p>read Word styles and get results in
-a tidy data.frame.</p>
+    <p>Show the structure of text tags at the current cursor. This is
+most useful when trying to troubleshoot search-and-replace functionality
+using <code><a href='body_replace_all_text.html'>body_replace_all_text</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>styles_info</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>docx_show_chunk</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an rdocx object</p></td>
+      <td><p>a docx device</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='body_replace_all_text.html'>body_replace_all_text</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>styles_info</span>()</div><div class='output co'>#&gt; # A tibble: 21 x 5
-#&gt;    style_type       style_id             style_name is_custom is_default
-#&gt;         &lt;chr&gt;          &lt;chr&gt;                  &lt;chr&gt;     &lt;lgl&gt;      &lt;lgl&gt;
-#&gt;  1  paragraph         Normal                 Normal     FALSE       TRUE
-#&gt;  2  paragraph         Titre1              heading 1     FALSE      FALSE
-#&gt;  3  paragraph         Titre2              heading 2     FALSE      FALSE
-#&gt;  4  paragraph         Titre3              heading 3     FALSE      FALSE
-#&gt;  5  character Policepardfaut Default Paragraph Font     FALSE       TRUE
-#&gt;  6      table  TableauNormal           Normal Table     FALSE       TRUE
-#&gt;  7  numbering    Aucuneliste                No List     FALSE       TRUE
-#&gt;  8  character         strong                 strong      TRUE      FALSE
-#&gt;  9  paragraph       centered               centered      TRUE      FALSE
-#&gt; 10      table  tabletemplate         table_template      TRUE      FALSE
-#&gt; # ... with 11 more rows</div></pre>
+
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Placeholder one"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Placeholder two"</span>)
+
+<span class='co'># Show text chunk at cursor</span>
+<span class='fu'>docx_show_chunk</span>(<span class='no'>doc</span>)  <span class='co'># Output is 'Placeholder two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'Placeholder two'</span></div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id            text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;           &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA Placeholder two     Normal    paragraph</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
