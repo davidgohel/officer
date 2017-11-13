@@ -73,15 +73,14 @@
     
     
 <div class="contents">
-<div id="import-word-document" class="section level2">
-<h2 class="hasAnchor">
-<a href="#import-word-document" class="anchor"></a>Import Word document</h2>
+<section id="import-word-document" class="level2"><h2>Import Word document</h2>
 <p>Function <code>docx_summary</code> is returning content of a Word document.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
-example_docx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span>)
-doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(example_docx)
-content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/docx_summary.html">docx_summary</a></span>(doc)
-content</code></pre></div>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1">
+<span class="kw">library</span>(officer)</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">example_docx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span>)</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(example_docx)</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/docx_summary.html">docx_summary</a></span>(doc)</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">content</div></code></pre>
 <pre><code>## # A tibble: 69 x 11
 ##    doc_index content_type     style_name
 ##        &lt;int&gt;        &lt;chr&gt;          &lt;chr&gt;
@@ -99,21 +98,28 @@ content</code></pre></div>
 ## #   num_id &lt;int&gt;, row_id &lt;int&gt;, is_header &lt;lgl&gt;, cell_id &lt;dbl&gt;,
 ## #   col_span &lt;dbl&gt;, row_span &lt;dbl&gt;</code></pre>
 <p>Explore the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(content_type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">n =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span>(doc_index))</code></pre></div>
+<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><div class="sourceLine" id="cb3-1" data-line-number="1">
+<span class="kw">library</span>(dplyr)</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(content_type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">n =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span>(doc_index))</div></code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   content_type     n
 ##          &lt;chr&gt; &lt;int&gt;
 ## 1    paragraph    17
 ## 2   table cell     1</code></pre>
 <p>To get all paragraphs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">par_data &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><div class="sourceLine" id="cb5-1" data-line-number="1">par_data &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2">
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(doc_index, style_name, text, level, num_id) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">
 <span class="st">  </span><span class="co"># let's make text shorter so it can be display in that vignette</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">text =</span> <span class="kw">substr</span>(text, <span class="dt">start =</span> <span class="dv">1</span>, 
-                       <span class="dt">stop =</span> <span class="kw">ifelse</span>(<span class="kw">nchar</span>(text)<span class="op">&lt;</span><span class="dv">30</span>, <span class="kw">nchar</span>(text), <span class="dv">30</span>) ))
-
-par_data</code></pre></div>
+</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">text =</span> <span class="kw">substr</span>(text, <span class="dt">start =</span> <span class="dv">1</span>, </div>
+<div class="sourceLine" id="cb5-5" data-line-number="5">                       <span class="dt">stop =</span> <span class="kw">ifelse</span>(<span class="kw">nchar</span>(text)<span class="op">&lt;</span><span class="dv">30</span>, <span class="kw">nchar</span>(text), <span class="dv">30</span>) ))</div>
+<div class="sourceLine" id="cb5-6" data-line-number="6"></div>
+<div class="sourceLine" id="cb5-7" data-line-number="7">par_data</div></code></pre>
 <pre><code>## # A tibble: 17 x 5
 ##    doc_index     style_name                           text level num_id
 ##        &lt;int&gt;          &lt;chr&gt;                          &lt;chr&gt; &lt;dbl&gt;  &lt;int&gt;
@@ -134,12 +140,11 @@ par_data</code></pre></div>
 ## 15        15           &lt;NA&gt;                                   NA     NA
 ## 16        17           &lt;NA&gt;                                   NA     NA
 ## 17        18           &lt;NA&gt;                                   NA     NA</code></pre>
-<div id="word-tables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#word-tables" class="anchor"></a>Word tables</h3>
+<section id="word-tables" class="level3"><h3>Word tables</h3>
 <p>Tables are unstacked:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_cells &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)
-<span class="kw">print</span>(table_cells)</code></pre></div>
+<pre class="sourceCode r" id="cb7"><code class="sourceCode r"><div class="sourceLine" id="cb7-1" data-line-number="1">table_cells &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2">
+<span class="kw">print</span>(table_cells)</div></code></pre>
 <pre><code>## # A tibble: 52 x 11
 ##    doc_index content_type    style_name        text level num_id row_id
 ##        &lt;int&gt;        &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;
@@ -156,10 +161,14 @@ par_data</code></pre></div>
 ## # ... with 42 more rows, and 4 more variables: is_header &lt;lgl&gt;,
 ## #   cell_id &lt;dbl&gt;, col_span &lt;dbl&gt;, row_span &lt;dbl&gt;</code></pre>
 <p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code> and <code>is_header</code> (a logical column indicating if the cell is part of header or not). Note that content (column <code>text</code>) is a character vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_body &lt;-<span class="st"> </span>table_cells <span class="op">%&gt;%</span><span class="st"> </span>
+<pre class="sourceCode r" id="cb9"><code class="sourceCode r"><div class="sourceLine" id="cb9-1" data-line-number="1">table_body &lt;-<span class="st"> </span>table_cells <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2">
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="op">!</span>is_header) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(row_id, cell_id, text)
-table_body</code></pre></div>
+</div>
+<div class="sourceLine" id="cb9-3" data-line-number="3">
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(row_id, cell_id, text)</div>
+<div class="sourceLine" id="cb9-4" data-line-number="4">table_body</div></code></pre>
 <pre><code>## # A tibble: 48 x 3
 ##    row_id cell_id        text
 ##     &lt;int&gt;   &lt;dbl&gt;       &lt;chr&gt;
@@ -175,8 +184,9 @@ table_body</code></pre></div>
 ## 10     11       1 5,395076839
 ## # ... with 38 more rows</code></pre>
 <p>Reshape data with columns <code>row_id</code>, <code>cell_id</code> and <code>text</code>, it’s easy to do with <code>tidyr</code> :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"tidyr"</span>))
-  table_body <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread</a></span>(cell_id, text)  </code></pre></div>
+<pre class="sourceCode r" id="cb11"><code class="sourceCode r"><div class="sourceLine" id="cb11-1" data-line-number="1">
+<span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"tidyr"</span>))</div>
+<div class="sourceLine" id="cb11-2" data-line-number="2">  table_body <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread</a></span>(cell_id, text)  </div></code></pre>
 <pre><code>## Le chargement a nécessité le package : tidyr</code></pre>
 <pre><code>## # A tibble: 12 x 5
 ##    row_id         `1`         `2`                   `3`
@@ -195,25 +205,28 @@ table_body</code></pre></div>
 ## 12     13        Note        &lt;NA&gt;                  &lt;NA&gt;
 ## # ... with 1 more variables: `4` &lt;chr&gt;</code></pre>
 <p>Getting headers requires another operation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"tidyr"</span>))
-  table_cells <span class="op">%&gt;%</span><span class="st"> </span>
+<pre class="sourceCode r" id="cb14"><code class="sourceCode r"><div class="sourceLine" id="cb14-1" data-line-number="1">
+<span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"tidyr"</span>))</div>
+<div class="sourceLine" id="cb14-2" data-line-number="2">  table_cells <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb14-3" data-line-number="3">
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(is_header) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb14-4" data-line-number="4">
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(row_id, cell_id, text) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread</a></span>(cell_id, text)  </code></pre></div>
+</div>
+<div class="sourceLine" id="cb14-5" data-line-number="5">
+<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread</a></span>(cell_id, text)  </div></code></pre>
 <pre><code>## # A tibble: 1 x 5
 ##   row_id    `1`       `2`   `3`   `4`
 ## *  &lt;int&gt;  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
 ## 1      1 Petals Internode Sepal Bract</code></pre>
-</div>
-</div>
-<div id="import-powerpoint-document" class="section level2">
-<h2 class="hasAnchor">
-<a href="#import-powerpoint-document" class="anchor"></a>Import PowerPoint document</h2>
+</section></section><section id="import-powerpoint-document" class="level2"><h2>Import PowerPoint document</h2>
 <p>Function <code>pptx_summary</code> is returning content of a PowerPoint document</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">example_pptx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.pptx"</span>)
-doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>(example_pptx)
-content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pptx_summary.html">pptx_summary</a></span>(doc)
-content</code></pre></div>
+<pre class="sourceCode r" id="cb16"><code class="sourceCode r"><div class="sourceLine" id="cb16-1" data-line-number="1">example_pptx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.pptx"</span>)</div>
+<div class="sourceLine" id="cb16-2" data-line-number="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>(example_pptx)</div>
+<div class="sourceLine" id="cb16-3" data-line-number="3">content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pptx_summary.html">pptx_summary</a></span>(doc)</div>
+<div class="sourceLine" id="cb16-4" data-line-number="4">content</div></code></pre>
 <pre><code>## # A tibble: 55 x 9
 ##                 text    id content_type slide_id row_id cell_id col_span
 ##                &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
@@ -230,7 +243,7 @@ content</code></pre></div>
 ## # ... with 45 more rows, and 2 more variables: row_span &lt;dbl&gt;,
 ## #   media_file &lt;chr&gt;</code></pre>
 <p>Explore the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(content_type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">n =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span>(id))</code></pre></div>
+<pre class="sourceCode r" id="cb18"><code class="sourceCode r"><div class="sourceLine" id="cb18-1" data-line-number="1">content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(content_type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">n =</span> <span class="kw"><a href="http://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct</a></span>(id))</div></code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   content_type     n
 ##          &lt;chr&gt; &lt;int&gt;
@@ -238,10 +251,12 @@ content</code></pre></div>
 ## 2    paragraph     5
 ## 3   table cell     2</code></pre>
 <p>To get all paragraphs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">par_data &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, text)
-
-par_data</code></pre></div>
+<pre class="sourceCode r" id="cb20"><code class="sourceCode r"><div class="sourceLine" id="cb20-1" data-line-number="1">par_data &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+</div>
+<div class="sourceLine" id="cb20-2" data-line-number="2">
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, text)</div>
+<div class="sourceLine" id="cb20-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb20-4" data-line-number="4">par_data</div></code></pre>
 <pre><code>## # A tibble: 13 x 2
 ##       id               text
 ##    &lt;chr&gt;              &lt;chr&gt;
@@ -259,18 +274,15 @@ par_data</code></pre></div>
 ## 12     3 This is an ordered
 ## 13     3 list of paragraphs</code></pre>
 <p>To get an image:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">image_row &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "image"</span>)
-<span class="kw"><a href="../reference/media_extract.html">media_extract</a></span>(doc, <span class="dt">path =</span> image_row<span class="op">$</span>media_file, <span class="dt">target =</span> <span class="st">"extract.png"</span>)</code></pre></div>
+<pre class="sourceCode r" id="cb22"><code class="sourceCode r"><div class="sourceLine" id="cb22-1" data-line-number="1">image_row &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "image"</span>)</div>
+<div class="sourceLine" id="cb22-2" data-line-number="2">
+<span class="kw"><a href="../reference/media_extract.html">media_extract</a></span>(doc, <span class="dt">path =</span> image_row<span class="op">$</span>media_file, <span class="dt">target =</span> <span class="st">"extract.png"</span>)</div></code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="figure">
-<img src="extract.png">
-</div>
-<div id="powerpoint-tables" class="section level3">
-<h3 class="hasAnchor">
-<a href="#powerpoint-tables" class="anchor"></a>PowerPoint tables</h3>
+<p><img src="extract.png"></p>
+<section id="powerpoint-tables" class="level3"><h3>PowerPoint tables</h3>
 <p>Tables are unstacked :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_cells &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)
-table_cells</code></pre></div>
+<pre class="sourceCode r" id="cb24"><code class="sourceCode r"><div class="sourceLine" id="cb24-1" data-line-number="1">table_cells &lt;-<span class="st"> </span>content <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)</div>
+<div class="sourceLine" id="cb24-2" data-line-number="2">table_cells</div></code></pre>
 <pre><code>## # A tibble: 41 x 9
 ##              text    id content_type slide_id row_id cell_id col_span
 ##             &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;dbl&gt;
@@ -287,10 +299,15 @@ table_cells</code></pre></div>
 ## # ... with 31 more rows, and 2 more variables: row_span &lt;dbl&gt;,
 ## #   media_file &lt;chr&gt;</code></pre>
 <p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code>. Note here there is no indicator for table header.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"tidyr"</span>))
-  table_cells <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>( id <span class="op">==</span><span class="st"> </span><span class="dv">18</span> ) <span class="op">%&gt;%</span><span class="st">  </span>
+<pre class="sourceCode r" id="cb26"><code class="sourceCode r"><div class="sourceLine" id="cb26-1" data-line-number="1">
+<span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"tidyr"</span>))</div>
+<div class="sourceLine" id="cb26-2" data-line-number="2">  table_cells <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>( id <span class="op">==</span><span class="st"> </span><span class="dv">18</span> ) <span class="op">%&gt;%</span><span class="st">  </span>
+</div>
+<div class="sourceLine" id="cb26-3" data-line-number="3">
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(row_id, cell_id, text) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread</a></span>(cell_id, text)  </code></pre></div>
+</div>
+<div class="sourceLine" id="cb26-4" data-line-number="4">
+<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/spread">spread</a></span>(cell_id, text)  </div></code></pre>
 <pre><code>## # A tibble: 5 x 4
 ##   row_id       `1`      `2`            `3`
 ## *  &lt;int&gt;     &lt;chr&gt;    &lt;chr&gt;          &lt;chr&gt;
@@ -299,8 +316,7 @@ table_cells</code></pre></div>
 ## 3      3         B     1.23 blah blah blah
 ## 4      4         B      9.0          Salut
 ## 5      5         C        6          Hello</code></pre>
-</div>
-</div>
+</section></section>
 </div>
   </div>
 

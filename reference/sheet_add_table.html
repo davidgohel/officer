@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>read Word styles — styles_info • officer package</title>
+<title>add a data.frame — sheet_add_table • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,42 +89,41 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>read Word styles</h1>
+    <h1>add a data.frame</h1>
     </div>
 
     
-    <p>read Word styles and get results in
-a tidy data.frame.</p>
+    <p>add a data.frame into an xlsx worksheet</p>
     
 
-    <pre class="usage"><span class='fu'>styles_info</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>sheet_add_table</span>(<span class='no'>x</span>, <span class='no'>sheet</span>, <span class='no'>value</span>, <span class='kw'>at_row</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>at_col</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an rdocx object</p></td>
+      <td><p>rxlsx object</p></td>
+    </tr>
+    <tr>
+      <th>sheet</th>
+      <td><p>sheet label/name</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>data.frame</p></td>
+    </tr>
+    <tr>
+      <th>at_row, at_col</th>
+      <td><p>where to start writing</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>styles_info</span>()</div><div class='output co'>#&gt; # A tibble: 21 x 5
-#&gt;    style_type       style_id             style_name is_custom is_default
-#&gt;         &lt;chr&gt;          &lt;chr&gt;                  &lt;chr&gt;     &lt;lgl&gt;      &lt;lgl&gt;
-#&gt;  1  paragraph         Normal                 Normal     FALSE       TRUE
-#&gt;  2  paragraph         Titre1              heading 1     FALSE      FALSE
-#&gt;  3  paragraph         Titre2              heading 2     FALSE      FALSE
-#&gt;  4  paragraph         Titre3              heading 3     FALSE      FALSE
-#&gt;  5  character Policepardfaut Default Paragraph Font     FALSE       TRUE
-#&gt;  6      table  TableauNormal           Normal Table     FALSE       TRUE
-#&gt;  7  numbering    Aucuneliste                No List     FALSE       TRUE
-#&gt;  8  character         strong                 strong      TRUE      FALSE
-#&gt;  9  paragraph       centered               centered      TRUE      FALSE
-#&gt; 10      table  tabletemplate         table_template      TRUE      FALSE
-#&gt; # ... with 11 more rows</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>my_ws</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xlsx.html'>read_xlsx</a></span>()
+<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_sheet.html'>add_sheet</a></span>(<span class='no'>my_ws</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"new sheet"</span>)
+<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'>sheet_add_table</span>(<span class='no'>my_ws</span>, <span class='kw'>sheet</span> <span class='kw'>=</span> <span class='st'>"new sheet"</span>, <span class='no'>iris</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

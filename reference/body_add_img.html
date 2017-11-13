@@ -132,7 +132,7 @@ one of "after", "before", "on".</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>()
 
-<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>( <span class='fu'>Sys.getenv</span>(<span class='st'>"R_HOME"</span>), <span class='st'>"doc"</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>( <span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
 <span class='kw'>if</span>( <span class='fu'>file.exists</span>(<span class='no'>img.file</span>) ){
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add_img</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span> )
 }

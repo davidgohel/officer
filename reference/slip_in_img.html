@@ -131,7 +131,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>( <span class='fu'>Sys.getenv</span>(<span class='st'>"R_HOME"</span>), <span class='st'>"doc"</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>( <span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"R logo: "</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slip_in_img</span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"strong"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.3</span>)

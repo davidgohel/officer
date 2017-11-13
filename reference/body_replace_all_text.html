@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>open a connection to a 'Word' file — read_docx • officer package</title>
+<title>Replace text anywhere in the document, or at a cursor — body_replace_all_text • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,47 +89,76 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>open a connection to a 'Word' file</h1>
+    <h1>Replace text anywhere in the document, or at a cursor</h1>
     </div>
 
     
-    <p>read and import a docx file as an R object
-representing the document.</p>
+    <p>Replace all occurrences of oldValue with newValue. This method
+uses <code>grepl</code>/<code>gsub</code> for pattern matching; you may
+supply arguments as required (and therefore use <code>regex</code> features)
+using the optional <code>...</code> argument.</p>
+<p>Note that by default, grepl/gsub will use <code>fixed=FALSE</code>, which means
+that <code>oldValue</code> and <code>newValue</code> will be interepreted as regular
+expressions.
+
+    <strong>Chunking of text</strong></p>
+<p>Note that the behind-the-scenes representation of text in a Word document is
+frequently not what you might expect! Sometimes a paragraph of text is broken
+up (or "chunked") into several "runs," as a result of style changes, pauses
+in text entry, later revisions and edits, etc. If you have not styled the
+text, and have entered it in an "all-at-once" fashion, e.g. by pasting it or
+by outputing it programmatically into your Word document, then this will
+likely not be a problem. If you are working with a manually-edited document,
+however, this can lead to unexpected failures to find text.</p>
+<p>You can use the officer function <code><a href='docx_show_chunk.html'>docx_show_chunk</a></code> to
+show how the paragraph of text at the current cursor has been chunked into
+runs, and what text is in each chunk. This can help troubleshoot unexpected
+failures to find text.</p>
     
 
-    <pre class="usage"><span class='fu'>read_docx</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='co'># S3 method for rdocx</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for rdocx</span>
-<span class='fu'>length</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>body_replace_all_text</span>(<span class='no'>x</span>, <span class='no'>oldValue</span>, <span class='no'>newValue</span>, <span class='kw'>onlyAtCursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>path to the docx file to use as base document.</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>an rdocx object</p></td>
+      <td><p>a docx device</p></td>
     </tr>
     <tr>
-      <th>target</th>
-      <td><p>path to the docx file to write</p></td>
+      <th>oldValue</th>
+      <td><p>the value to replace</p></td>
+    </tr>
+    <tr>
+      <th>newValue</th>
+      <td><p>the value to replace it with</p></td>
+    </tr>
+    <tr>
+      <th>onlyAtCursor</th>
+      <td><p>if <code>TRUE</code>, only search-and-replace at the current
+cursor; if <code>FALSE</code> (default), search-and-replace in the entire document
+(this can be slow on large documents!)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>unused</p></td>
+      <td><p>optional arguments to grepl/gsub (e.g. <code>fixed=TRUE</code>)</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code>grep</code>, <code>regex</code>, <code><a href='docx_show_chunk.html'>docx_show_chunk</a></code></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># create an rdocx object with default template ---</span>
-<span class='fu'>read_docx</span>()</div><div class='output co'>#&gt; rdocx document with 2 element(s)
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
+
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Placeholder one"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Placeholder two"</span>)
+
+<span class='co'># Show text chunk at cursor</span>
+<span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>)  <span class='co'># Output is 'Placeholder two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'Placeholder two'</span></div><div class='output co'>#&gt; rdocx document with 4 element(s)
 #&gt; 
 #&gt; * styles:
 #&gt;                 Normal              heading 1              heading 2 
@@ -149,10 +178,11 @@ representing the document.</p>
 #&gt; 
 #&gt; * Content at cursor location:
 #&gt; # A tibble: 1 x 5
-#&gt;   level num_id  text style_name content_type
-#&gt;   &lt;dbl&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;        &lt;chr&gt;
-#&gt; 1    NA     NA               NA    paragraph</div><div class='input'>
-<span class='fu'>print</span>(<span class='fu'>read_docx</span>())</div><div class='output co'>#&gt; rdocx document with 2 element(s)
+#&gt;   level num_id            text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;           &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA Placeholder two     Normal    paragraph</div><div class='input'>
+<span class='co'># Simple search-and-replace at current cursor, with regex turned off</span>
+<span class='fu'>body_replace_all_text</span>(<span class='no'>doc</span>, <span class='st'>"Placeholder"</span>, <span class='st'>"new"</span>, <span class='kw'>onlyAtCursor</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>fixed</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
 #&gt; 
 #&gt; * styles:
 #&gt;                 Normal              heading 1              heading 2 
@@ -172,26 +202,159 @@ representing the document.</p>
 #&gt; 
 #&gt; * Content at cursor location:
 #&gt; # A tibble: 1 x 5
-#&gt;   level num_id  text style_name content_type
-#&gt;   &lt;dbl&gt;  &lt;int&gt; &lt;chr&gt;      &lt;lgl&gt;        &lt;chr&gt;
-#&gt; 1    NA     NA               NA    paragraph</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
-<span class='kw'>if</span>( <span class='fu'>require</span>(<span class='no'>magrittr</span>) ){
-  <span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span> <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"out.docx"</span>)
-  <span class='co'># full path of produced file is returned</span>
-  <span class='fu'>print</span>(<span class='no'>.Last.value</span>)
-}</div><div class='output co'>#&gt; [1] "officer"   "bindrcpp"  "stats"     "graphics"  "grDevices" "utils"    
-#&gt; [7] "datasets"  "methods"   "base"     </div><div class='input'>
-<span class='co'># how many elements are there in the document ----</span>
-<span class='fu'>length</span>( <span class='fu'>read_docx</span>() )</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-</div></pre>
+#&gt;   level num_id    text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA new two     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>)  <span class='co'># Output is 'new two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'new two'</span></div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id    text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA new two     Normal    paragraph</div><div class='input'>
+<span class='co'># Do the same, but in the entire document and ignoring case</span>
+<span class='fu'>body_replace_all_text</span>(<span class='no'>doc</span>, <span class='st'>"placeholder"</span>, <span class='st'>"new"</span>, <span class='kw'>onlyAtCursor</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>ignore.case</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id    text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA new two     Normal    paragraph</div><div class='input'><span class='fu'><a href='cursor.html'>cursor_backward</a></span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id    text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA new one     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>) <span class='co'># Output is 'new one'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'new one'</span></div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id    text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA new one     Normal    paragraph</div><div class='input'>
+<span class='co'># Use regex : replace all words starting with "n" with the word "example"</span>
+<span class='fu'>body_replace_all_text</span>(<span class='no'>doc</span>, <span class='st'>"\\bn.*?\\b"</span>, <span class='st'>"example"</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id        text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;       &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA example one     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>) <span class='co'># Output is 'example one'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'example one'</span></div><div class='output co'>#&gt; rdocx document with 4 element(s)
+#&gt; 
+#&gt; * styles:
+#&gt;                 Normal              heading 1              heading 2 
+#&gt;            "paragraph"            "paragraph"            "paragraph" 
+#&gt;              heading 3 Default Paragraph Font           Normal Table 
+#&gt;            "paragraph"            "character"                "table" 
+#&gt;                No List                 strong               centered 
+#&gt;            "numbering"            "character"            "paragraph" 
+#&gt;         table_template    Light List Accent 2            Titre 1 Car 
+#&gt;                "table"                "table"            "character" 
+#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            "character"            "character"            "paragraph" 
+#&gt;            table title     Table Professional                  toc 1 
+#&gt;            "paragraph"                "table"            "paragraph" 
+#&gt;                  toc 2           Balloon Text    Texte de bulles Car 
+#&gt;            "paragraph"            "paragraph"            "character" 
+#&gt; 
+#&gt; * Content at cursor location:
+#&gt; # A tibble: 1 x 5
+#&gt;   level num_id        text style_name content_type
+#&gt;   &lt;dbl&gt;  &lt;int&gt;       &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1    NA     NA example one     Normal    paragraph</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+Frank Hangler, <a href='mailto:frank@plotandscatter.com'>frank@plotandscatter.com</a>
 
   </div>
 </div>
