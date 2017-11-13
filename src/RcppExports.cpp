@@ -72,6 +72,24 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// xls_table_prepare_m
+void xls_table_prepare_m(CharacterMatrix x, CharacterVector col_types, CharacterVector tags_start, CharacterVector tags_end, CharacterVector col_ref, int start_at_row, std::string xsl_file, std::string xml_file, LogicalVector to_xml);
+RcppExport SEXP _officer_xls_table_prepare_m(SEXP xSEXP, SEXP col_typesSEXP, SEXP tags_startSEXP, SEXP tags_endSEXP, SEXP col_refSEXP, SEXP start_at_rowSEXP, SEXP xsl_fileSEXP, SEXP xml_fileSEXP, SEXP to_xmlSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type col_types(col_typesSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type tags_start(tags_startSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type tags_end(tags_endSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type col_ref(col_refSEXP);
+    Rcpp::traits::input_parameter< int >::type start_at_row(start_at_rowSEXP);
+    Rcpp::traits::input_parameter< std::string >::type xsl_file(xsl_fileSEXP);
+    Rcpp::traits::input_parameter< std::string >::type xml_file(xml_fileSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type to_xml(to_xmlSEXP);
+    xls_table_prepare_m(x, col_types, tags_start, tags_end, col_ref, start_at_row, xsl_file, xml_file, to_xml);
+    return R_NilValue;
+END_RCPP
+}
 // p_ph
 std::string p_ph(int offx, int offy, int cx, int cy, int rot, int r, int g, int b, int a);
 RcppExport SEXP _officer_p_ph(SEXP offxSEXP, SEXP offySEXP, SEXP cxSEXP, SEXP cySEXP, SEXP rotSEXP, SEXP rSEXP, SEXP gSEXP, SEXP bSEXP, SEXP aSEXP) {
@@ -336,6 +354,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_officer_wml_table", (DL_FUNC) &_officer_wml_table, 9},
     {"_officer_as_col_ref", (DL_FUNC) &_officer_as_col_ref, 1},
     {"_officer_xls_table_prepare", (DL_FUNC) &_officer_xls_table_prepare, 9},
+    {"_officer_xls_table_prepare_m", (DL_FUNC) &_officer_xls_table_prepare_m, 9},
     {"_officer_p_ph", (DL_FUNC) &_officer_p_ph, 9},
     {"_officer_a_border", (DL_FUNC) &_officer_a_border, 6},
     {"_officer_w_ppr", (DL_FUNC) &_officer_w_ppr, 15},

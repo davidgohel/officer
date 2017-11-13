@@ -218,4 +218,61 @@ void xls_table_prepare(DataFrame x, CharacterVector col_types,
   xsl.close();
 }
 
+// [[Rcpp::export]]
+void xls_table_prepare_m(CharacterMatrix x, CharacterVector col_types,
+                          CharacterVector tags_start,
+                          CharacterVector tags_end,
+                          CharacterVector col_ref,
+                          int start_at_row,
+                          std::string xsl_file,
+                          std::string xml_file,
+                          LogicalVector to_xml) {
+  int nrow = x.nrow();
+  int ncol = x.ncol();
+  std::ofstream xsl, xml;
+  xsl.open (xsl_file.c_str(), std::ofstream::out | std::ofstream::app);
+  xml.open (xml_file.c_str(), std::ofstream::out);
+
+  xml << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  xml << "<sheetData xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\n";
+
+  std::stringstream os_header;
+  os_header << "<row r=\"" << start_at_row << "\">";
+  CharacterVector names_ = colnames(x);
+  for(int j = 0 ; j < ncol ; j++){
+    os_header << "<c ";
+    os_header << "r=\"" << col_ref[j] << start_at_row << "\" ";
+    os_header << "t=\"inlineStr\">";
+    os_header << "<is><t>" << Rf_translateCharUTF8(names_[j]) << "</t></is>";
+    os_header << "</c>";
+  }
+  os_header << "</row>";
+  if( to_xml[0] )
+    xml << os_header.rdbuf();
+  else xsl << os_header.rdbuf();
+
+  for(int i = 0 ; i < nrow ; i++){
+    std::stringstream os;
+    os << "<row r=\"" << start_at_row + i + 1 << "\">";
+    for(int j = 0 ; j < ncol ; j++){
+      os << "<c ";
+      os << "r=\"" << col_ref[j] << start_at_row + i + 1 << "\" ";
+      os << "t=\"" << col_types[j] << "\">";
+      os << tags_start[j] << x(i, j) << tags_end[j];
+      os << "</c>";
+    }
+    os << "</row>";
+
+    if( to_xml[i+1] )
+      xml << os.rdbuf();
+    else xsl << os.rdbuf();
+  }
+
+  xml << "\n</sheetData>";
+  xsl << "\n    </sheetData>\n  </xsl:template>\n</xsl:stylesheet>";
+
+  xml.close();
+  xsl.close();
+}
+
 

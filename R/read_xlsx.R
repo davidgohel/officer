@@ -158,11 +158,11 @@ sheet <- R6Class(
 
       file.copy(from = system.file(package = "officer", "template/add_sheet_data.xsl"),
                 to = xsl_datafile)
-      xls_table_prepare(xl_characterise_df(data), as.character(col_types),
-                        col_tag_start, col_tag_end,
-                        col_ref,
-                        at_row,
-                        xsl_datafile, xml_datafile, to_xml)
+      xls_table_prepare_m(as.matrix(xl_characterise_df(data)), as.character(col_types),
+                          col_tag_start, col_tag_end,
+                          col_ref,
+                          at_row,
+                          xsl_datafile, xml_datafile, to_xml)
       references <- expand.grid(row = c(at_row, seq_len( nrow(data) ) + at_row),
                                 col = col_ref, stringsAsFactors = FALSE )
       references <- paste0(references$col, references$row)
@@ -316,6 +316,10 @@ read_xlsx <- function( path = NULL ){
 #' my_pres <- add_sheet(my_ws, label = "new sheet")
 add_sheet <- function( x, label ){
 
+  if(label %in% x$worksheets$sheet_names()){
+    stop("sheet ", shQuote(label), " already exist")
+  }
+
   new_slidename <- x$worksheets$get_new_sheetname()
 
   xml_file <- file.path(x$package_dir, "xl/worksheets", new_slidename)
@@ -351,8 +355,8 @@ add_sheet <- function( x, label ){
 #' @examples
 #' my_ws <- read_xlsx()
 #' my_pres <- add_sheet(my_ws, label = "new sheet")
-#' my_pres <- sheet_add_df(my_ws, sheet = "new sheet", iris)
-sheet_add_df <- function( x, sheet, value, at_row = 1, at_col = 1 ){
+#' my_pres <- sheet_add_table(my_ws, sheet = "new sheet", iris)
+sheet_add_table <- function( x, sheet, value, at_row = 1, at_col = 1 ){
   sheet_id <- x$worksheets$get_sheet_id(sheet)
   x$sheets$get_sheet(sheet_id)$write_data_frame(
     value, at_row = at_row, at_col = at_col )
@@ -366,7 +370,7 @@ length.rxlsx <- function( x ){
 }
 
 #' @export
-#' @title select sheet selected
+#' @title select sheet
 #' @description set a particular sheet selected when workbook will be
 #' edited.
 #' @param x rxlsx object
@@ -374,9 +378,9 @@ length.rxlsx <- function( x ){
 #' @examples
 #' my_ws <- read_xlsx()
 #' my_pres <- add_sheet(my_ws, label = "new sheet")
-#' my_pres <- sheet_view(my_ws, sheet = "new sheet")
+#' my_pres <- sheet_select(my_ws, sheet = "new sheet")
 #' print(my_ws, target = tempfile(fileext = ".xlsx") )
-sheet_view <- function( x, sheet ){
+sheet_select <- function( x, sheet ){
   x$worksheets$view_on_sheet(sheet)
   x
 }

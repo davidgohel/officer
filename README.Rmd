@@ -81,6 +81,10 @@ a tibble object. The function handles paragraphs, tables and images.
 
 The package [flextable](https://github.com/davidgohel/flextable) brings a full API to produce nice tables and use them with `officer`.
 
+### package `rvg`
+
+The package [rvg](https://github.com/davidgohel/rvg) brings an API to produce nice vector graphics that can be embedded in PowerPoint documents with `officer`.
+
 ## Installation
 
 You can get the development version from GitHub:

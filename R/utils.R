@@ -194,11 +194,11 @@ xl_characterise_df <- function(x){
     if( is.character(x) || is.factor(x) ){
       htmlEscape(as.character(x))
     } else if( inherits(x, "POSIXct") ){
-      (as.integer(x) + 2208988800) / 86400
+      as.character((as.integer(x) + 2208988800) / 86400)
     } else if( inherits(x, "Date") ){
-      (as.integer(x) + 25567)
+      as.character(as.integer(x) + 25567)
     } else if( is.numeric(x) ){
-      x
+      as.character(x)
     }
     else gsub("(^ | $)+", "", htmlEscape(format(x)) )
   })
