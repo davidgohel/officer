@@ -108,4 +108,3 @@ Or the latest version on CRAN:
 ``` r
 install.packages("officer")
 ```
-
