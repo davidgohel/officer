@@ -93,7 +93,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after" ){
 #' @title append an image
 #' @description append an image into a paragraph of an rdocx object
 #' @param x an rdocx object
-#' @param src image filename
+#' @param src image filename, the basename of the file must not contain any blank.
 #' @param style text style
 #' @param width height in inches
 #' @param height height in inches

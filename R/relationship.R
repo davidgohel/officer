@@ -63,6 +63,13 @@ relationship <- R6Class(
 
       src <- setdiff(src, private$ext_src)
       if( !length(src) ) return(self)
+
+      if( any( grepl(" ", basename(src) ) ) ){
+        stop(paste(src, collapse = ", "),
+             ": images with blanks in their basenames are not supported, please rename the file(s).",
+             call. = FALSE)
+      }
+
       last_id <- max( c(0, private$get_int_id() ), na.rm = TRUE )
 
       id <- paste0("rId", seq_along(src) + last_id)

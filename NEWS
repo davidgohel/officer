@@ -1,6 +1,15 @@
 # officer 0.2.0
 
-* start supporting xlsx files.
+## Enhancement
+
+* new function `body_replace_all_text()` to replace
+  any text in a Word document
+* new functions for xlsx files.
+
+## Issues
+
+* an error is raised when adding an image with blank(s) in
+  its basename (i.e. /home/user/bla bla.png).
 
 # officer 0.1.8
 

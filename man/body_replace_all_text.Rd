@@ -4,29 +4,29 @@
 \alias{body_replace_all_text}
 \title{Replace text anywhere in the document, or at a cursor}
 \usage{
-body_replace_all_text(x, oldValue, newValue, onlyAtCursor = FALSE, ...)
+body_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
 }
 \arguments{
 \item{x}{a docx device}
 
-\item{oldValue}{the value to replace}
+\item{old_value}{the value to replace}
 
-\item{newValue}{the value to replace it with}
+\item{new_value}{the value to replace it with}
 
-\item{onlyAtCursor}{if \code{TRUE}, only search-and-replace at the current
+\item{only_at_cursor}{if \code{TRUE}, only search-and-replace at the current
 cursor; if \code{FALSE} (default), search-and-replace in the entire document
 (this can be slow on large documents!)}
 
 \item{...}{optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})}
 }
 \description{
-Replace all occurrences of oldValue with newValue. This method
+Replace all occurrences of old_value with new_value. This method
 uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
 supply arguments as required (and therefore use \code{\link{regex}} features)
 using the optional \code{...} argument.
 
 Note that by default, grepl/gsub will use \code{fixed=FALSE}, which means
-that \code{oldValue} and \code{newValue} will be interepreted as regular
+that \code{old_value} and \code{new_value} will be interepreted as regular
 expressions.
 
 \strong{Chunking of text}
@@ -56,11 +56,11 @@ doc <- read_docx() \%>\%
 docx_show_chunk(doc)  # Output is 'Placeholder two'
 
 # Simple search-and-replace at current cursor, with regex turned off
-body_replace_all_text(doc, "Placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+body_replace_all_text(doc, "Placeholder", "new", only_at_cursor=TRUE, fixed=TRUE)
 docx_show_chunk(doc)  # Output is 'new two'
 
 # Do the same, but in the entire document and ignoring case
-body_replace_all_text(doc, "placeholder", "new", onlyAtCursor=FALSE, ignore.case=TRUE)
+body_replace_all_text(doc, "placeholder", "new", only_at_cursor=FALSE, ignore.case=TRUE)
 cursor_backward(doc)
 docx_show_chunk(doc) # Output is 'new one'
 

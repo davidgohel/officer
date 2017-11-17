@@ -121,7 +121,7 @@ ph_with_table <- function( x, value, type = "title", index = 1,
 #' @title add image
 #' @description add an image as a new shape in the current slide.
 #' @inheritParams ph_empty
-#' @param src image path
+#' @param src image filename, the basename of the file must not contain any blank.
 #' @param width,height image size in inches
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")

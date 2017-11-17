@@ -19,9 +19,9 @@ body_add_break <- function( x, pos = "after"){
 
 #' @export
 #' @title add image
-#' @description add an image into an rdocx object
+#' @description add an image into an rdocx object.
 #' @inheritParams body_add_break
-#' @param src image filename
+#' @param src image filename, the basename of the file must not contain any blank.
 #' @param style paragraph style
 #' @param width height in inches
 #' @param height height in inches
@@ -388,13 +388,13 @@ body_replace_at <- function( x, bookmark, value ){
 #' @export
 #' @importFrom purrr is_scalar_character is_scalar_logical
 #' @title Replace text anywhere in the document, or at a cursor
-#' @description Replace all occurrences of oldValue with newValue. This method
+#' @description Replace all occurrences of old_value with new_value. This method
 #' uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
 #' supply arguments as required (and therefore use \code{\link{regex}} features)
 #' using the optional \code{...} argument.
 #'
 #' Note that by default, grepl/gsub will use \code{fixed=FALSE}, which means
-#' that \code{oldValue} and \code{newValue} will be interepreted as regular
+#' that \code{old_value} and \code{new_value} will be interepreted as regular
 #' expressions.
 #'
 #' \strong{Chunking of text}
@@ -415,9 +415,9 @@ body_replace_at <- function( x, bookmark, value ){
 #' @seealso \code{\link{grep}}, \code{\link{regex}}, \code{\link{docx_show_chunk}}
 #' @author Frank Hangler, \email{frank@plotandscatter.com}
 #' @param x a docx device
-#' @param oldValue the value to replace
-#' @param newValue the value to replace it with
-#' @param onlyAtCursor if \code{TRUE}, only search-and-replace at the current
+#' @param old_value the value to replace
+#' @param new_value the value to replace it with
+#' @param only_at_cursor if \code{TRUE}, only search-and-replace at the current
 #' cursor; if \code{FALSE} (default), search-and-replace in the entire document
 #' (this can be slow on large documents!)
 #' @param ... optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})
@@ -432,22 +432,22 @@ body_replace_at <- function( x, bookmark, value ){
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
 #'
 #' # Simple search-and-replace at current cursor, with regex turned off
-#' body_replace_all_text(doc, "Placeholder", "new", onlyAtCursor=TRUE, fixed=TRUE)
+#' body_replace_all_text(doc, "Placeholder", "new", only_at_cursor=TRUE, fixed=TRUE)
 #' docx_show_chunk(doc)  # Output is 'new two'
 #'
 #' # Do the same, but in the entire document and ignoring case
-#' body_replace_all_text(doc, "placeholder", "new", onlyAtCursor=FALSE, ignore.case=TRUE)
+#' body_replace_all_text(doc, "placeholder", "new", only_at_cursor=FALSE, ignore.case=TRUE)
 #' cursor_backward(doc)
 #' docx_show_chunk(doc) # Output is 'new one'
 #'
 #' # Use regex : replace all words starting with "n" with the word "example"
 #' body_replace_all_text(doc, "\\bn.*?\\b", "example")
 #' docx_show_chunk(doc) # Output is 'example one'
-body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ... ){
-  stopifnot(is_scalar_character(oldValue),
-            is_scalar_character(newValue),
-            is_scalar_logical(onlyAtCursor))
-  x$doc_obj$replace_all_text(oldValue, newValue, onlyAtCursor, ...)
+body_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, ... ){
+  stopifnot(is_scalar_character(old_value),
+            is_scalar_character(new_value),
+            is_scalar_logical(only_at_cursor))
+  x$doc_obj$replace_all_text(old_value, new_value, only_at_cursor, ...)
   x
 }
 
@@ -469,7 +469,7 @@ body_replace_all_text <- function( x, oldValue, newValue, onlyAtCursor=FALSE, ..
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
 docx_show_chunk <- function( x ){
   x$doc_obj$docx_show_chunk()
-  x
+  invisible(x)
 }
 
 

@@ -9,7 +9,7 @@ slip_in_img(x, src, style = NULL, width, height, pos = "after")
 \arguments{
 \item{x}{an rdocx object}
 
-\item{src}{image filename}
+\item{src}{image filename, the basename of the file must not contain any blank.}
 
 \item{style}{text style}
 
