@@ -52,13 +52,20 @@ The file generation is performed with function `print`.
 
 Function `pptx_summary` read and import content of a PowerPoint document into a data.frame object. The function handles paragraphs, tables and images.
 
+Extensions
+----------
+
 ### Tables and package `flextable`
 
-The package [flextable](https://github.com/davidgohel/flextable) brings a full API to produce nice tables and use them with `officer`.
+The package [flextable](https://github.com/davidgohel/flextable) brings a full API to produce nice tables and use them with `officer`. Tables can be written in PowerPoint documents and Word documents. An option is available to render flextables in rmarkdown (HTML and Word outputs).
 
-### package `rvg`
+### Vector graphics with package `rvg`
 
-The package [rvg](https://github.com/davidgohel/rvg) brings an API to produce nice vector graphics that can be embedded in PowerPoint documents with `officer`.
+The package [rvg](https://github.com/davidgohel/rvg) brings an API to produce nice vector graphics that can be embedded in PowerPoint documents or Excel workbooks with `officer`.
+
+### Native office charts with package `mschart`
+
+The package [mschart](https://github.com/ardata-fr/mschart) combined with `officer` can produce native office charts in PowerPoint and Word documents.
 
 Installation
 ------------
