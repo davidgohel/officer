@@ -73,80 +73,100 @@
     
     
 <div class="contents">
-<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1">
-<span class="kw">library</span>(officer)</div>
-<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># Package `magrittr` makes officer usage easier.</span></div>
-<div class="sourceLine" id="cb1-3" data-line-number="3">
-<span class="kw">library</span>(magrittr)</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
+<span class="co"># Package `magrittr` makes officer usage easier.</span>
+<span class="kw">library</span>(magrittr)</code></pre></div>
 <div style="text-align:center;">
 <p><img src="data:image/png;base64,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" width="128" height="128"></p>
 </div>
-<section id="quick-start" class="level2"><h2>Quick start</h2>
-<ol type="1">
+<div id="quick-start" class="section level2">
+<h2 class="hasAnchor">
+<a href="#quick-start" class="anchor"></a>Quick start</h2>
+<ol style="list-style-type: decimal">
 <li>Start with <code>read_docx</code>
 </li>
 </ol>
 <p>Use the function <code>read_docx</code> to create an r object representing a Word document.</p>
 <p>Initial Word file can be specified with argument <code>path</code>. If none is provided, this file will be an empty document located in the package directory. Formats and styles are defined in the initial file.</p>
 <p>From the initial document, we will be able to use an object containing not only paragraph styles, character styles and table styles of the original document but also its content.</p>
-<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><div class="sourceLine" id="cb2-1" data-line-number="1">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() </div>
-<div class="sourceLine" id="cb2-2" data-line-number="2">
-<span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>(my_doc)</div></code></pre>
-<pre><code>## # A tibble: 21 x 5
-##    style_type       style_id             style_name is_custom is_default
-##         &lt;chr&gt;          &lt;chr&gt;                  &lt;chr&gt;     &lt;lgl&gt;      &lt;lgl&gt;
-##  1  paragraph         Normal                 Normal     FALSE       TRUE
-##  2  paragraph         Titre1              heading 1     FALSE      FALSE
-##  3  paragraph         Titre2              heading 2     FALSE      FALSE
-##  4  paragraph         Titre3              heading 3     FALSE      FALSE
-##  5  character Policepardfaut Default Paragraph Font     FALSE       TRUE
-##  6      table  TableauNormal           Normal Table     FALSE       TRUE
-##  7  numbering    Aucuneliste                No List     FALSE       TRUE
-##  8  character         strong                 strong      TRUE      FALSE
-##  9  paragraph       centered               centered      TRUE      FALSE
-## 10      table  tabletemplate         table_template      TRUE      FALSE
-## # ... with 11 more rows</code></pre>
-<ol start="2" type="1">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() 
+<span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>(my_doc)</code></pre></div>
+<pre><code>##    style_type            style_id             style_name is_custom
+## 1   paragraph              Normal                 Normal     FALSE
+## 2   paragraph              Titre1              heading 1     FALSE
+## 3   paragraph              Titre2              heading 2     FALSE
+## 4   paragraph              Titre3              heading 3     FALSE
+## 5   character      Policepardfaut Default Paragraph Font     FALSE
+## 6       table       TableauNormal           Normal Table     FALSE
+## 7   numbering         Aucuneliste                No List     FALSE
+## 8   character              strong                 strong      TRUE
+## 9   paragraph            centered               centered      TRUE
+## 10      table       tabletemplate         table_template      TRUE
+## 11      table Listeclaire-Accent2    Light List Accent 2     FALSE
+## 12  character           Titre1Car            Titre 1 Car      TRUE
+## 13  character           Titre2Car            Titre 2 Car      TRUE
+## 14  character           Titre3Car            Titre 3 Car      TRUE
+## 15  paragraph        graphictitle          graphic title      TRUE
+## 16  paragraph          tabletitle            table title      TRUE
+## 17      table       Professionnel     Table Professional     FALSE
+## 18  paragraph                 TM1                  toc 1     FALSE
+## 19  paragraph                 TM2                  toc 2     FALSE
+## 20  paragraph       Textedebulles           Balloon Text     FALSE
+## 21  character    TextedebullesCar    Texte de bulles Car      TRUE
+##    is_default
+## 1        TRUE
+## 2       FALSE
+## 3       FALSE
+## 4       FALSE
+## 5        TRUE
+## 6        TRUE
+## 7        TRUE
+## 8       FALSE
+## 9       FALSE
+## 10      FALSE
+## 11      FALSE
+## 12      FALSE
+## 13      FALSE
+## 14      FALSE
+## 15      FALSE
+## 16      FALSE
+## 17      FALSE
+## 18      FALSE
+## 19      FALSE
+## 20      FALSE
+## 21      FALSE</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li>Add elements to document</li>
 </ol>
 <blockquote>
 <p>By default new content is added at the end of the document. To understand how to add content at any location in the document, see section about cursor.</p>
 </blockquote>
 <p>Let’s create an image from a plot…</p>
-<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><div class="sourceLine" id="cb4-1" data-line-number="1">src &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)</div>
-<div class="sourceLine" id="cb4-2" data-line-number="2">
-<span class="kw">png</span>(<span class="dt">filename =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">'in'</span>, <span class="dt">res =</span> <span class="dv">300</span>)</div>
-<div class="sourceLine" id="cb4-3" data-line-number="3">
-<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</div>
-<div class="sourceLine" id="cb4-4" data-line-number="4">
-<span class="kw">dev.off</span>()</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">src &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)
+<span class="kw">png</span>(<span class="dt">filename =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">'in'</span>, <span class="dt">res =</span> <span class="dv">300</span>)
+<span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="kw">dev.off</span>()</code></pre></div>
 <p>… and add that image in the document and some new paragraphs of text and a table.</p>
-<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><div class="sourceLine" id="cb5-1" data-line-number="1">my_doc &lt;-<span class="st"> </span>my_doc <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb5-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span>my_doc <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_img.html">body_add_img</a></span>(<span class="dt">src =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb5-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Hello world!"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb5-4" data-line-number="4">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">""</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># blank paragraph</span>
-</div>
-<div class="sourceLine" id="cb5-5" data-line-number="5">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(iris, <span class="dt">style =</span> <span class="st">"table_template"</span>)</div></code></pre>
-<ol start="3" type="1">
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(iris, <span class="dt">style =</span> <span class="st">"table_template"</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
 <li>Write the Word file</li>
 </ol>
 <p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
-<pre class="sourceCode r" id="cb6"><code class="sourceCode r"><div class="sourceLine" id="cb6-1" data-line-number="1">
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/first_example.docx"</span>)</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/first_example.docx"</span>)</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/first_example.docx">first_example.docx</a>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/first_example.docx">office web viewer</a>
 </p>
-</section><section id="adding-elements" class="level2"><h2>Adding elements</h2>
+</div>
+<div id="adding-elements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#adding-elements" class="anchor"></a>Adding elements</h2>
 <p>There are two types of functions for adding elements.</p>
 <ul>
 <li>add content as a paragraph: images, tables, text. Use <code>body_add_*</code> functions:
@@ -167,31 +187,25 @@
 </ul>
 </li>
 </ul>
-<section id="body_add_-functions" class="level3"><h3>
-<code>body_add_*</code> functions</h3>
+<div id="body_add_-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#body_add_-functions" class="anchor"></a><code>body_add_*</code> functions</h3>
 <p>The paragraph is the main top container for content within a Word document. <em>Note that tables are top container, they are at the same level than paragraphs</em>. <code>body_add_*</code> functions are designed to <strong>add content as a top container</strong>: text as an entire paragraph, table, image, page break…</p>
 <p>A title is a paragraph. To add a title, use <code><a href="../reference/body_add_par.html">body_add_par()</a></code> with <code>style</code> argument pointing to corresponding title style.</p>
 <p>Use function <code><a href="../reference/styles_info.html">styles_info()</a></code> to see available styles:</p>
-<pre class="sourceCode r" id="cb7"><code class="sourceCode r"><div class="sourceLine" id="cb7-1" data-line-number="1">
-<span class="kw">library</span>(dplyr)</div>
-<div class="sourceLine" id="cb7-2" data-line-number="2">
-<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb7-3" data-line-number="3">
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>( style_type <span class="op">%in%</span><span class="st"> "paragraph"</span> )</div></code></pre>
-<pre><code>## # A tibble: 10 x 5
-##    style_type      style_id    style_name is_custom is_default
-##         &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;     &lt;lgl&gt;      &lt;lgl&gt;
-##  1  paragraph        Normal        Normal     FALSE       TRUE
-##  2  paragraph        Titre1     heading 1     FALSE      FALSE
-##  3  paragraph        Titre2     heading 2     FALSE      FALSE
-##  4  paragraph        Titre3     heading 3     FALSE      FALSE
-##  5  paragraph      centered      centered      TRUE      FALSE
-##  6  paragraph  graphictitle graphic title      TRUE      FALSE
-##  7  paragraph    tabletitle   table title      TRUE      FALSE
-##  8  paragraph           TM1         toc 1     FALSE      FALSE
-##  9  paragraph           TM2         toc 2     FALSE      FALSE
-## 10  paragraph Textedebulles  Balloon Text     FALSE      FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">subset</span>( style_type <span class="op">%in%</span><span class="st"> "paragraph"</span> )</code></pre></div>
+<pre><code>##    style_type      style_id    style_name is_custom is_default
+## 1   paragraph        Normal        Normal     FALSE       TRUE
+## 2   paragraph        Titre1     heading 1     FALSE      FALSE
+## 3   paragraph        Titre2     heading 2     FALSE      FALSE
+## 4   paragraph        Titre3     heading 3     FALSE      FALSE
+## 9   paragraph      centered      centered      TRUE      FALSE
+## 15  paragraph  graphictitle graphic title      TRUE      FALSE
+## 16  paragraph    tabletitle   table title      TRUE      FALSE
+## 18  paragraph           TM1         toc 1     FALSE      FALSE
+## 19  paragraph           TM2         toc 2     FALSE      FALSE
+## 20  paragraph Textedebulles  Balloon Text     FALSE      FALSE</code></pre>
 <blockquote>
 <p>It is important to understand that these style names are read in the initial file provided to <code>read_docx</code>. Few comments</p>
 </blockquote>
@@ -200,82 +214,51 @@
 <li>When using <code>body_add_gg</code> in the following code, using <code>style = "centered"</code> will set <em>centered</em> paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.</li>
 <li>Table templates are also defined in the initial document and can be used with <code>body_add_table</code>. For advanced tabular formatting, use package <code>flextable</code> instead (<a href="https://davidgohel.github.io/officer/">flextable website</a>), it has a function <code>body_add_flextable()</code> that can be used with <code>officer</code>.</li>
 </ul>
-<pre class="sourceCode r" id="cb9"><code class="sourceCode r"><div class="sourceLine" id="cb9-1" data-line-number="1">
-<span class="kw">library</span>(ggplot2)</div>
-<div class="sourceLine" id="cb9-2" data-line-number="2">gg &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length)) <span class="op">+</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-3" data-line-number="3">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()</div>
-<div class="sourceLine" id="cb9-4" data-line-number="4"></div>
-<div class="sourceLine" id="cb9-5" data-line-number="5">
-<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-6" data-line-number="6">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Table of content"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-7" data-line-number="7">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-8" data-line-number="8">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_break.html">body_add_break</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-9" data-line-number="9"></div>
-<div class="sourceLine" id="cb9-10" data-line-number="10">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"dataset iris"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-11" data-line-number="11">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(iris), <span class="dt">style =</span> <span class="st">"table_template"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-12" data-line-number="12"><span class="st">  </span></div>
-<div class="sourceLine" id="cb9-13" data-line-number="13">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"plot examples"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-14" data-line-number="14">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_gg.html">body_add_gg</a></span>(<span class="dt">value =</span> gg, <span class="dt">style =</span> <span class="st">"centered"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-15" data-line-number="15"></div>
-<div class="sourceLine" id="cb9-16" data-line-number="16">
-<span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/body_add_demo.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb9-17" data-line-number="17">
-<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){
+  gg &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()
+  
+  <span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Table of content"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_break.html">body_add_break</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"dataset iris"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(iris), <span class="dt">style =</span> <span class="st">"table_template"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"plot examples"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw"><a href="../reference/body_add_gg.html">body_add_gg</a></span>(<span class="dt">value =</span> gg, <span class="dt">style =</span> <span class="st">"centered"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>
+<span class="st">    </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/body_add_demo.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">invisible</span>()
+}</code></pre></div>
+<pre><code>## Le chargement a nécessité le package : ggplot2</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/body_add_demo.docx">body_add_demo.docx</a>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/body_add_demo.docx">office web viewer</a>
 </p>
-</section><section id="slip_in_-functions" class="level3"><h3>
-<code>slip_in_*</code> functions</h3>
+</div>
+<div id="slip_in_-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#slip_in_-functions" class="anchor"></a><code>slip_in_*</code> functions</h3>
 <p><code>slip_in_*</code> functions are designed to add content <strong>inside an existing paragraph</strong>: text, image or seq field. Element is inserted at beginning or end of the paragraph (<code>pos=c('after', 'before')</code>). Available functions are the following:</p>
 <ul>
 <li>slip_in_img</li>
 <li>slip_in_seqfield</li>
 <li>slip_in_text</li>
 </ul>
-<pre class="sourceCode r" id="cb10"><code class="sourceCode r"><div class="sourceLine" id="cb10-1" data-line-number="1">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">R.home</span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )</div>
-<div class="sourceLine" id="cb10-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">R.home</span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
 <span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb10-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"R logo: "</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb10-4" data-line-number="4">
-<span class="st">  </span><span class="kw"><a href="../reference/slip_in_img.html">slip_in_img</a></span>(<span class="dt">src =</span> img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, </div>
-<div class="sourceLine" id="cb10-5" data-line-number="5">              <span class="dt">width =</span> <span class="fl">.3</span>, <span class="dt">height =</span> <span class="fl">.3</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb10-6" data-line-number="6">
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_img.html">slip_in_img</a></span>(<span class="dt">src =</span> img.file, <span class="dt">style =</span> <span class="st">"strong"</span>, 
+              <span class="dt">width =</span> .<span class="dv">3</span>, <span class="dt">height =</span> .<span class="dv">3</span>, <span class="dt">pos =</span> <span class="st">"after"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">" - This is "</span>, <span class="dt">style =</span> <span class="st">"strong"</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb10-7" data-line-number="7">
-<span class="st">  </span><span class="kw"><a href="../reference/slip_in_seqfield.html">slip_in_seqfield</a></span>(<span class="dt">str =</span> <span class="st">"SEQ Figure \u005C* ARABIC"</span>,</div>
-<div class="sourceLine" id="cb10-8" data-line-number="8">    <span class="dt">style =</span> <span class="st">'strong'</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb10-9" data-line-number="9">
+<span class="st">  </span><span class="kw"><a href="../reference/slip_in_seqfield.html">slip_in_seqfield</a></span>(<span class="dt">str =</span> <span class="st">"SEQ Figure \u005C* ARABIC"</span>,
+    <span class="dt">style =</span> <span class="st">'strong'</span>, <span class="dt">pos =</span> <span class="st">"before"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/slip_in_demo.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb10-10" data-line-number="10">
-<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">slip_in_demo.docx</a>
@@ -283,7 +266,11 @@
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">office web viewer</a>
 </p>
 <p>These have been implemented mostly to let add Word numbering seq-fields at beginning of paragraphs used as reference entries (i.e. a table caption, a plot caption). See Section <em>Table and image captions</em>.</p>
-</section></section><section id="cursor-manipulation" class="level2"><h2>Cursor manipulation</h2>
+</div>
+</div>
+<div id="cursor-manipulation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cursor-manipulation" class="anchor"></a>Cursor manipulation</h2>
 <p>A cursor is available and can be manipulated so that content can be added regarding to its position with <code>body_add_*</code> functions:</p>
 <ul>
 <li>
@@ -303,35 +290,16 @@
 <li>cursor_bookmark</li>
 </ul>
 <p>In order to illustrate <em>cursor</em> functions, a document made of several paragraphs will be used (let’s use officer for that).</p>
-<pre class="sourceCode r" id="cb11"><code class="sourceCode r"><div class="sourceLine" id="cb11-1" data-line-number="1">
-<span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 1"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 2"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-4" data-line-number="4">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 3"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-5" data-line-number="5">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 4"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-6" data-line-number="6">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 5"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-7" data-line-number="7">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 6"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-8" data-line-number="8">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 7"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb11-9" data-line-number="9">
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">target =</span> <span class="st">"assets/docx/init_doc.docx"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb11-10" data-line-number="10">
-<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/init_doc.docx">init_doc.docx</a>
@@ -339,107 +307,61 @@
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/init_doc.docx">office web viewer</a>
 </p>
 <p>Now, let’s use <code>init_doc.docx</code> with <code>read_docx</code> and manipulate its content with cursor functions.</p>
-<pre class="sourceCode r" id="cb12"><code class="sourceCode r"><div class="sourceLine" id="cb12-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/init_doc.docx"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-2" data-line-number="2"></div>
-<div class="sourceLine" id="cb12-3" data-line-number="3">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/init_doc.docx"</span>) <span class="op">%&gt;%</span>
+
 <span class="st">  </span><span class="co"># default template contains only an empty paragraph</span>
-</div>
-<div class="sourceLine" id="cb12-4" data-line-number="4">
 <span class="st">  </span><span class="co"># Using cursor_begin and body_remove, we can delete it</span>
-</div>
-<div class="sourceLine" id="cb12-5" data-line-number="5">
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_begin</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-6" data-line-number="6"></div>
-<div class="sourceLine" id="cb12-7" data-line-number="7">
+
 <span class="st">  </span><span class="co"># Let add text at the beginning of the</span>
-</div>
-<div class="sourceLine" id="cb12-8" data-line-number="8">
 <span class="st">  </span><span class="co"># paragraph containing text "paragraph 4"</span>
-</div>
-<div class="sourceLine" id="cb12-9" data-line-number="9">
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"paragraph 4"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-10" data-line-number="10">
 <span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">"This is "</span>, <span class="dt">pos =</span> <span class="st">"before"</span>, <span class="dt">style =</span> <span class="st">"Default Paragraph Font"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-11" data-line-number="11"></div>
-<div class="sourceLine" id="cb12-12" data-line-number="12">
+
 <span class="st">  </span><span class="co"># move the cursor forward and end a section</span>
-</div>
-<div class="sourceLine" id="cb12-13" data-line-number="13">
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_forward</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-14" data-line-number="14">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"The section stop here"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-15" data-line-number="15">
 <span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">landscape =</span> <span class="ot">TRUE</span>, <span class="dt">continuous =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-16" data-line-number="16"></div>
-<div class="sourceLine" id="cb12-17" data-line-number="17">
+
 <span class="st">  </span><span class="co"># move the cursor at the end of the document</span>
-</div>
-<div class="sourceLine" id="cb12-18" data-line-number="18">
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_end</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb12-19" data-line-number="19">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"The document ends now"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>)</div>
-<div class="sourceLine" id="cb12-20" data-line-number="20"></div>
-<div class="sourceLine" id="cb12-21" data-line-number="21">
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"The document ends now"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>)
+
 <span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/docx/cursor.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb12-22" data-line-number="22">
-<span class="st">  </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/cursor.docx">cursor.docx</a>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/cursor.docx">office web viewer</a>
 </p>
-</section><section id="remove-content" class="level2"><h2>Remove content</h2>
+</div>
+<div id="remove-content" class="section level2">
+<h2 class="hasAnchor">
+<a href="#remove-content" class="anchor"></a>Remove content</h2>
 <p>The function <code>body_remove</code> lets you remove content from a Word document. This function used with <code>cursor_*</code> functions is a convenient tool to update an existing document.</p>
 <p>For illustration purposes, we will generate a document that will be used as initial document later when showing how to use <code>body_remove</code>.</p>
-<pre class="sourceCode r" id="cb13"><code class="sourceCode r"><div class="sourceLine" id="cb13-1" data-line-number="1">
-<span class="kw">library</span>(officer)</div>
-<div class="sourceLine" id="cb13-2" data-line-number="2">
-<span class="kw">library</span>(magrittr)</div>
-<div class="sourceLine" id="cb13-3" data-line-number="3"></div>
-<div class="sourceLine" id="cb13-4" data-line-number="4">str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb13-5" data-line-number="5">
-<span class="st">  </span><span class="kw">rep</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)</div>
-<div class="sourceLine" id="cb13-6" data-line-number="6">str2 &lt;-<span class="st"> "Drop that text"</span> </div>
-<div class="sourceLine" id="cb13-7" data-line-number="7">str3 &lt;-<span class="st"> "Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb13-8" data-line-number="8">
-<span class="st">  </span><span class="kw">rep</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)</div>
-<div class="sourceLine" id="cb13-9" data-line-number="9"></div>
-<div class="sourceLine" id="cb13-10" data-line-number="10">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb13-11" data-line-number="11">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
+<span class="kw">library</span>(magrittr)
+
+str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+str2 &lt;-<span class="st"> "Drop that text"</span> 
+str3 &lt;-<span class="st"> "Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+
+my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb13-12" data-line-number="12">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb13-13" data-line-number="13">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) </div>
-<div class="sourceLine" id="cb13-14" data-line-number="14"></div>
-<div class="sourceLine" id="cb13-15" data-line-number="15">
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
+
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
 <p>File <code>ipsum_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
-<pre class="sourceCode r" id="cb14"><code class="sourceCode r"><div class="sourceLine" id="cb14-1" data-line-number="1">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb14-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"that text"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb14-3" data-line-number="3">
-<span class="st">  </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>()</div>
-<div class="sourceLine" id="cb14-4" data-line-number="4"></div>
-<div class="sourceLine" id="cb14-5" data-line-number="5">
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>()
+
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
 <p><strong>The text search is made via <code>xpath 1.0</code> and regular expressions are not supported.</strong></p>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -447,87 +369,56 @@
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/ipsum_doc.docx">office web viewer</a>
 </p>
-</section><section id="replace-content" class="level2"><h2>Replace content</h2>
+</div>
+<div id="replace-content" class="section level2">
+<h2 class="hasAnchor">
+<a href="#replace-content" class="anchor"></a>Replace content</h2>
 <p>Functions <code>body_add_*</code> let you replace content in a Word document.</p>
 <p>For illustration purpose, we will generate a document that will be used as initial document later.</p>
-<pre class="sourceCode r" id="cb15"><code class="sourceCode r"><div class="sourceLine" id="cb15-1" data-line-number="1">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb15-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb15-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb15-4" data-line-number="4">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) </div>
-<div class="sourceLine" id="cb15-5" data-line-number="5"></div>
-<div class="sourceLine" id="cb15-6" data-line-number="6">
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/replace_template.docx"</span>)</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
+
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/replace_template.docx"</span>)</code></pre></div>
 <p>File <code>replace_template.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then replace it. Using <code>pos = "on"</code> will replace content where cursor is by new content.</p>
-<pre class="sourceCode r" id="cb16"><code class="sourceCode r"><div class="sourceLine" id="cb16-1" data-line-number="1">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/replace_template.docx"</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb16-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/replace_template.docx"</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"that text"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb16-3" data-line-number="3">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"This is a new paragraph."</span>, <span class="dt">style =</span> <span class="st">"centered"</span>, <span class="dt">pos =</span> <span class="st">"on"</span>)</div>
-<div class="sourceLine" id="cb16-4" data-line-number="4"></div>
-<div class="sourceLine" id="cb16-5" data-line-number="5">
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/replace_doc.docx"</span>)</div></code></pre>
-<section id="search-and-replace" class="level3"><h3>Search-and-replace</h3>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"This is a new paragraph."</span>, <span class="dt">style =</span> <span class="st">"centered"</span>, <span class="dt">pos =</span> <span class="st">"on"</span>)
+
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/replace_doc.docx"</span>)</code></pre></div>
+<div id="search-and-replace" class="section level3">
+<h3 class="hasAnchor">
+<a href="#search-and-replace" class="anchor"></a>Search-and-replace</h3>
 <p>You can also use the <code>body_replace_*</code> functions to search-and-replace text. <code>body_replace_at</code> replaces text at a bookmark:</p>
-<pre class="sourceCode r" id="cb17"><code class="sourceCode r"><div class="sourceLine" id="cb17-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb17-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"centered text"</span>, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb17-3" data-line-number="3">
 <span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">". How are you"</span>, <span class="dt">style =</span> <span class="st">"strong"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb17-4" data-line-number="4">
 <span class="st">  </span><span class="kw"><a href="../reference/body_bookmark.html">body_bookmark</a></span>(<span class="st">"text_to_replace"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb17-5" data-line-number="5">
-<span class="st">  </span><span class="kw"><a href="../reference/body_replace_at.html">body_replace_at</a></span>(<span class="st">"text_to_replace"</span>, <span class="st">"not left aligned"</span>)</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_replace_at.html">body_replace_at</a></span>(<span class="st">"text_to_replace"</span>, <span class="st">"not left aligned"</span>)</code></pre></div>
 <p><code>body_replace_all_text</code> will, depending on the options provided, replace text either at the cursor or in the entire document:</p>
-<pre class="sourceCode r" id="cb18"><code class="sourceCode r"><div class="sourceLine" id="cb18-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb18-2" data-line-number="2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder one"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb18-3" data-line-number="3">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder two"</span>)</div>
-<div class="sourceLine" id="cb18-4" data-line-number="4"></div>
-<div class="sourceLine" id="cb18-5" data-line-number="5"><span class="co"># Show text chunk at cursor</span></div>
-<div class="sourceLine" id="cb18-6" data-line-number="6">
-<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc)  <span class="co"># Output is 'Placeholder two'</span>
-</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder two"</span>)
+
+<span class="co"># Show text chunk at cursor</span>
+<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc)  <span class="co"># Output is 'Placeholder two'</span></code></pre></div>
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
 <pre><code>##   &lt;w:t&gt;: 'Placeholder two'</code></pre>
-<pre class="sourceCode r" id="cb21"><code class="sourceCode r"><div class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span></div>
-<div class="sourceLine" id="cb21-2" data-line-number="2">
-<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"Placeholder"</span>, <span class="st">"new"</span>, <span class="dt">onlyAtCursor=</span><span class="ot">TRUE</span>, <span class="dt">fixed=</span><span class="ot">TRUE</span>)</div>
-<div class="sourceLine" id="cb21-3" data-line-number="3">
-<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc)  <span class="co"># Output is 'new two'</span>
-</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span>
+<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"Placeholder"</span>, <span class="st">"new"</span>, <span class="dt">onlyAtCursor=</span><span class="ot">TRUE</span>, <span class="dt">fixed=</span><span class="ot">TRUE</span>)
+<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc)  <span class="co"># Output is 'new two'</span></code></pre></div>
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
 <pre><code>##   &lt;w:t&gt;: 'new two'</code></pre>
-<pre class="sourceCode r" id="cb24"><code class="sourceCode r"><div class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># Do the same, but in the entire document and ignoring case</span></div>
-<div class="sourceLine" id="cb24-2" data-line-number="2">
-<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"placeholder"</span>, <span class="st">"new"</span>, <span class="dt">onlyAtCursor=</span><span class="ot">FALSE</span>, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)</div>
-<div class="sourceLine" id="cb24-3" data-line-number="3">
-<span class="kw"><a href="../reference/cursor.html">cursor_backward</a></span>(doc)</div>
-<div class="sourceLine" id="cb24-4" data-line-number="4">
-<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc) <span class="co"># Output is 'new one'</span>
-</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Do the same, but in the entire document and ignoring case</span>
+<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"placeholder"</span>, <span class="st">"new"</span>, <span class="dt">onlyAtCursor=</span><span class="ot">FALSE</span>, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)
+<span class="kw"><a href="../reference/cursor.html">cursor_backward</a></span>(doc)
+<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc) <span class="co"># Output is 'new one'</span></code></pre></div>
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
 <pre><code>##   &lt;w:t&gt;: 'new one'</code></pre>
-<pre class="sourceCode r" id="cb27"><code class="sourceCode r"><div class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># Use regex : replace all words starting with "n" with the word "example"</span></div>
-<div class="sourceLine" id="cb27-2" data-line-number="2">
-<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"</span><span class="ch">\\</span><span class="st">bn.*?</span><span class="ch">\\</span><span class="st">b"</span>, <span class="st">"example"</span>)</div>
-<div class="sourceLine" id="cb27-3" data-line-number="3">
-<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc) <span class="co"># Output is 'example one'</span>
-</div></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Use regex : replace all words starting with "n" with the word "example"</span>
+<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"</span><span class="ch">\\</span><span class="st">bn.*?</span><span class="ch">\\</span><span class="st">b"</span>, <span class="st">"example"</span>)
+<span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc) <span class="co"># Output is 'example one'</span></code></pre></div>
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
 <pre><code>##   &lt;w:t&gt;: 'example one'</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
@@ -536,39 +427,28 @@
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/replace_doc.docx">office web viewer</a>
 </p>
-</section></section><section id="sections" class="level2"><h2>Sections</h2>
+</div>
+</div>
+<div id="sections" class="section level2">
+<h2 class="hasAnchor">
+<a href="#sections" class="anchor"></a>Sections</h2>
 <p>Sections can be added to a document. This is possible by using function <code>body_end_section</code>. The default section can be modified with function <code>body_default_section</code>.</p>
 <blockquote>
 <p>A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared.</p>
 </blockquote>
-<pre class="sourceCode r" id="cb30"><code class="sourceCode r"><div class="sourceLine" id="cb30-1" data-line-number="1">str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb30-2" data-line-number="2">
-<span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)</div>
-<div class="sourceLine" id="cb30-3" data-line-number="3">str2 &lt;-<span class="st"> "Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb30-4" data-line-number="4">
-<span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)</div>
-<div class="sourceLine" id="cb30-5" data-line-number="5"></div>
-<div class="sourceLine" id="cb30-6" data-line-number="6">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb30-7" data-line-number="7">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+str2 &lt;-<span class="st"> "Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
+
+my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="dt">str =</span> str1, <span class="dt">style =</span> <span class="st">"strong"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb30-8" data-line-number="8">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb30-9" data-line-number="9">
 <span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">break_column_before</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb30-10" data-line-number="10">
-<span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">continuous =</span> <span class="ot">TRUE</span>, </div>
-<div class="sourceLine" id="cb30-11" data-line-number="11">                   <span class="dt">colwidths =</span> <span class="kw">c</span>(.<span class="dv">6</span>, <span class="fl">.4</span>), <span class="dt">space =</span> <span class="fl">.05</span>, <span class="dt">sep =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb30-12" data-line-number="12">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) </div>
-<div class="sourceLine" id="cb30-13" data-line-number="13">
-<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/section.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">continuous =</span> <span class="ot">TRUE</span>, 
+                   <span class="dt">colwidths =</span> <span class="kw">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>), <span class="dt">space =</span> .<span class="dv">05</span>, <span class="dt">sep =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
+<span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/section.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/section.docx">section.docx</a>
@@ -576,114 +456,66 @@
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/section.docx">office web viewer</a>
 </p>
 <p>In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.</p>
-</section><section id="table-and-image-captions" class="level2"><h2>Table and image captions</h2>
+</div>
+<div id="table-and-image-captions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#table-and-image-captions" class="anchor"></a>Table and image captions</h2>
 <p>Man can combine <code>slip_in_seqfield</code> and <code>slip_in_text</code> to prefix a paragraph with references (i.e. chapter number and graphic index in the document). However, producing a plot or a table and its caption can be verbose.</p>
 <p>Shortcuts functions are implemented in the object <code>shortcuts</code> (it will at least give you a template of code to modify if it does not fit exactly your need). <code>slip_in_tableref</code>, <code>slip_in_plotref</code> and <code>body_add_gg</code> can make life easier.</p>
 <p>Below an illustration:</p>
-<pre class="sourceCode r" id="cb31"><code class="sourceCode r"><div class="sourceLine" id="cb31-1" data-line-number="1">
-<span class="kw">library</span>(magrittr)</div>
-<div class="sourceLine" id="cb31-2" data-line-number="2">
-<span class="kw">library</span>(officer)</div>
-<div class="sourceLine" id="cb31-3" data-line-number="3">
-<span class="kw">library</span>(ggplot2)</div>
-<div class="sourceLine" id="cb31-4" data-line-number="4"></div>
-<div class="sourceLine" id="cb31-5" data-line-number="5">gg1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()</div>
-<div class="sourceLine" id="cb31-6" data-line-number="6">gg2 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()</div>
-<div class="sourceLine" id="cb31-7" data-line-number="7"></div>
-<div class="sourceLine" id="cb31-8" data-line-number="8"></div>
-<div class="sourceLine" id="cb31-9" data-line-number="9">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-10" data-line-number="10">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<span class="kw">library</span>(officer)
+<span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){
+
+gg1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()
+gg2 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>()
+
+
+doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Table of content"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-11" data-line-number="11">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-12" data-line-number="12"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-13" data-line-number="13">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Tables"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-14" data-line-number="14">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"dataset mtcars"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-15" data-line-number="15">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(mtcars)[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">style =</span> <span class="st">"table_template"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-16" data-line-number="16">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"data mtcars"</span>, <span class="dt">style =</span> <span class="st">"table title"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-17" data-line-number="17">
 <span class="st">  </span>shortcuts<span class="op">$</span><span class="kw">slip_in_tableref</span>(<span class="dt">depth =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb31-18" data-line-number="18"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-19" data-line-number="19">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"dataset iris"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-20" data-line-number="20">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_table.html">body_add_table</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(iris), <span class="dt">style =</span> <span class="st">"table_template"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-21" data-line-number="21">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"data iris"</span>, <span class="dt">style =</span> <span class="st">"table title"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-22" data-line-number="22">
 <span class="st">  </span>shortcuts<span class="op">$</span><span class="kw">slip_in_tableref</span>(<span class="dt">depth =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb31-23" data-line-number="23"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-24" data-line-number="24">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">continuous =</span> <span class="ot">FALSE</span>, <span class="dt">landscape =</span> <span class="ot">FALSE</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-25" data-line-number="25"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-26" data-line-number="26">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"plot examples"</span>, <span class="dt">style =</span> <span class="st">"heading 1"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-27" data-line-number="27">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_gg.html">body_add_gg</a></span>(<span class="dt">value =</span> gg1, <span class="dt">style =</span> <span class="st">"centered"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-28" data-line-number="28">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"graph example 1"</span>, <span class="dt">style =</span> <span class="st">"graphic title"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-29" data-line-number="29">
 <span class="st">  </span>shortcuts<span class="op">$</span><span class="kw">slip_in_plotref</span>(<span class="dt">depth =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb31-30" data-line-number="30"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-31" data-line-number="31">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"plot 2"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-32" data-line-number="32">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_gg.html">body_add_gg</a></span>(<span class="dt">value =</span> gg2, <span class="dt">style =</span> <span class="st">"centered"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-33" data-line-number="33">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"graph example 2"</span>, <span class="dt">style =</span> <span class="st">"graphic title"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-34" data-line-number="34">
 <span class="st">  </span>shortcuts<span class="op">$</span><span class="kw">slip_in_plotref</span>(<span class="dt">depth =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb31-35" data-line-number="35"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-36" data-line-number="36">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_end_section.html">body_end_section</a></span>(<span class="dt">continuous =</span> <span class="ot">FALSE</span>, <span class="dt">landscape =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-37" data-line-number="37"><span class="st">  </span></div>
-<div class="sourceLine" id="cb31-38" data-line-number="38">
+<span class="st">  </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Table of tables"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-39" data-line-number="39">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">style =</span> <span class="st">"table title"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-40" data-line-number="40">
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"Table of graphics"</span>, <span class="dt">style =</span> <span class="st">"heading 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-</div>
-<div class="sourceLine" id="cb31-41" data-line-number="41">
-<span class="st">  </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">style =</span> <span class="st">"graphic title"</span>)</div>
-<div class="sourceLine" id="cb31-42" data-line-number="42"></div>
-<div class="sourceLine" id="cb31-43" data-line-number="43">
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/docx/toc_and_captions.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</div></code></pre>
+<span class="st">  </span><span class="kw"><a href="../reference/body_add_toc.html">body_add_toc</a></span>(<span class="dt">style =</span> <span class="st">"graphic title"</span>)
+
+<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/docx/toc_and_captions.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()
+}</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/docx/toc_and_captions.docx">toc_and_captions.docx</a>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/toc_and_captions.docx">office web viewer</a>
 </p>
-</section>
+</div>
 </div>
   </div>
 
@@ -707,7 +539,7 @@
 
 
       <footer><div class="author">
-  <p>Version 0.2.0 - Developed by David Gohel -
+  <p>Version 0.2.0.0100 - Developed by David Gohel -
   <img src="data:image/png;base64,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" height="12pt" style="vertical-align:middle;"></p>
 </div>
 
