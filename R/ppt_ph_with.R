@@ -222,10 +222,10 @@ ph_from_xml_at <- function( x, value, left, top, width, height ){
 
   node <- xml_find_first( doc, as_xpath_content_sel("//") )
   node <- set_xfrm_attr(node,
-                        offx = left,
-                        offy = top,
-                        cx = width,
-                        cy = height)
+                        offx = left*914400,
+                        offy = top*914400,
+                        cx = width*914400,
+                        cy = height*914400)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
 
   slide$fortify_id()$save()

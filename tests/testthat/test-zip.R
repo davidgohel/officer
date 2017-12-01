@@ -11,7 +11,7 @@ test_that("pack_folder does not use full path", {
   dir_ <- tempfile()
   unpack_folder(file = "test.zip", dir_ )
   expect_equal(list.files(dir_), basename(file))
-  unlink("test.zip")
+  unlink("test.zip", force = TRUE)
 })
 
 test_that("pack_folder behavior", {

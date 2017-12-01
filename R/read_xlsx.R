@@ -268,8 +268,8 @@ add_sheet <- function( x, label ){
   x$content_type$add_override(value = override)
 
   x$sheets$update()
-  x
 
+  sheet_select(x, sheet = label)
 }
 
 #' @export
