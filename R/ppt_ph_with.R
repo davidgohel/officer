@@ -167,6 +167,126 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 
 }
 
+#' @export
+#' @title add ggplot to a pptx presentation
+#' @description add a ggplot as a png image into an rpptx object
+#' @inheritParams ph_empty
+#' @param value ggplot object
+#' @param width,height image size in inches
+#' @param ... Arguments to be passed to png function.
+#' @importFrom grDevices png dev.off
+#' @examples
+#' if( require("ggplot2") ){
+#'   doc <- read_pptx()
+#'   doc <- add_slide(doc, layout = "Title and Content",
+#'     master = "Office Theme")
+#'
+#'   gg_plot <- ggplot(data = iris ) +
+#'     geom_point(mapping = aes(Sepal.Length, Petal.Length), size = 3) +
+#'     theme_minimal()
+#'
+#'   if( capabilities(what = "png") ){
+#'     doc <- ph_with_gg(doc, value = gg_plot )
+#'     doc <- ph_with_gg_at(doc, value = gg_plot,
+#'       height = 4, width = 8, left = 4, top = 4 )
+#'   }
+#'
+#'   print(doc, target = "ph_with_gg.pptx" )
+#' }
+ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height = NULL, ... ){
+
+  if( !requireNamespace("ggplot2") )
+    stop("package ggplot2 is required to use this function")
+
+  slide <- x$slide$get_slide(x$cursor)
+  xfrm_df <- slide$get_xfrm(type = type, index = index)
+  if( is.null( width ) ) width <- xfrm_df$cx / 914400
+  if( is.null( height ) ) height <- xfrm_df$cy / 914400
+
+  stopifnot(inherits(value, "gg") )
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = 300, ...)
+  print(value)
+  dev.off()
+  on.exit(unlink(file))
+  ph_with_img( x, src = file, type = type, index = index,
+               width = width, height = height )
+}
+
+#' @title add unordered list to a pptx presentation
+#' @description add an unordered list of text
+#' into an rpptx object. Each text is associated with
+#' a hierarchy level.
+#'
+#' @param x rpptx object
+#' @param type placeholder type
+#' @param index placeholder index (integer). This is to be used
+#' when a placeholder type is not unique in the current slide,
+#' e.g. two placeholders with type 'body'.
+#' @param str_list list of strings to be included in the object
+#' @param level_list list of levels for hierarchy structure
+#' @param style text style, a \code{fp_text} object list or a
+#' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
+#' inherit from default sizes of the presentation.
+#' @export
+#' @examples
+#' library(magrittr)
+#' pptx <- read_pptx()
+#' pptx <- add_slide(x = pptx, layout = "Title and Content", master = "Office Theme")
+#' pptx <- ph_with_text(x = pptx, type = "title", str = "Example title")
+#' pptx <- ph_with_ul(
+#'   x = pptx, type = "body", index = 1,
+#'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
+#'   level_list = c(1, 2, 2, 3, 3, 1),
+#'   style = fp_text(color = "red", font.size = 0) )
+#' print(pptx, target = "example2.pptx") %>%
+#'   invisible()
+ph_with_ul <- function(x, type, index = 1, str_list = character(0), level_list = integer(0),
+                       style = NULL) {
+  stopifnot(is.character(str_list))
+  stopifnot(is.numeric(level_list))
+
+  stopifnot(type %in% c("ctrTitle", "subTitle", "dt", "ftr",
+                        "sldNum", "title", "body"))
+  if (length(str_list) != length(level_list) & length(str_list) > 0) {
+    stop("str_list and level_list have different lenghts.")
+  }
+
+  if( !is.null(style)){
+    if( inherits(style, "fp_text") )
+      style <- lapply(seq_len(length(str_list)), function(x) style )
+    style_str <- sapply(style, format, type = "pml")
+    style_str <- rep_len(style_str, length.out = length(str_list))
+  } else style_str <- rep("<a:rPr/>", length(str_list))
+
+  slide <- x$slide$get_slide(x$cursor)
+  sh_pr_df <- slide$get_xfrm(type = type, index = index)
+
+  tmpl <- "<a:p><a:pPr%s/><a:r>%s<a:t>%s</a:t></a:r></a:p>"
+  lvl <- sprintf(" lvl=\"%.0f\"", level_list - 1)
+  lvl <- ifelse(level_list > 1, lvl, "")
+  p <- sprintf(tmpl, lvl, style_str, htmlEscape(str_list) )
+  p <- paste(p, collapse = "")
+
+  sh_pr_df$str <- p
+  xml_elt <- do.call(pml_shape_par, sh_pr_df)
+  node <- as_xml_document(xml_elt)
+
+  off <- xml_child(node, "p:spPr/a:xfrm/a:off")
+  ext <- xml_child(node, "p:spPr/a:xfrm/a:ext")
+  xml_attr( off, "x") <- sprintf( "%.0f", sh_pr_df$offx )
+  xml_attr( off, "y") <- sprintf( "%.0f", sh_pr_df$offy )
+  xml_attr( ext, "cx") <- sprintf( "%.0f", sh_pr_df$cx )
+  xml_attr( ext, "cy") <- sprintf( "%.0f", sh_pr_df$cy )
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+
+  slide$save()
+  x$slide$update_slide(x$cursor)
+  x
+}
+
 fortify_pml_images <- function(x, str){
 
   slide <- x$slide$get_slide(x$cursor)

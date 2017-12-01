@@ -138,3 +138,21 @@ ph_with_table_at <- function( x, value, left, top, width, height,
   x
 }
 
+#' @export
+#' @param left,top location of the new shape on the slide
+#' @importFrom grDevices png dev.off
+#' @rdname ph_with_gg
+ph_with_gg_at <- function( x, value, width, height, left, top, ... ){
+
+  if( !requireNamespace("ggplot2") )
+    stop("package ggplot2 is required to use this function")
+
+  stopifnot(inherits(value, "gg") )
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = 300, ...)
+  print(value)
+  dev.off()
+  on.exit(unlink(file))
+  ph_with_img_at( x, src = file, width = width, height = height, left = left, top = top )
+}

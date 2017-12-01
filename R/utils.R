@@ -28,6 +28,20 @@ pml_shape_str <- function(str, ph, offx, offy, cx, cy, ...) {
 }
 
 
+pml_shape_par <- function(str, ph, offx, offy, cx, cy, ...) {
+
+  sp_pr <- "<p:spPr><a:xfrm><a:off x=\"0\" y=\"0\"/><a:ext cx=\"0\" cy=\"0\"/></a:xfrm></p:spPr>"
+  nv_sp_pr <- "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>"
+  nv_sp_pr <- sprintf( nv_sp_pr, ifelse(!is.na(ph), ph, "") )
+  paste0( pml_with_ns("p:sp"),
+          nv_sp_pr, sp_pr,
+          "<p:txBody><a:bodyPr/><a:lstStyle/>",
+          str,
+          "</p:txBody></p:sp>"
+  )
+}
+
+
 is.color = function(x) {
   # http://stackoverflow.com/a/13290832/3315962
   out = sapply(x, function( x ) {
@@ -188,46 +202,6 @@ characterise_df <- function(x){
   data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
 }
 
-xl_characterise_df <- function(x){
-  names(x) <- htmlEscape(names(x))
-  x <- lapply(x, function( x ) {
-    if( is.character(x) || is.factor(x) ){
-      htmlEscape(as.character(x))
-    } else if( inherits(x, "POSIXct") ){
-      as.character((as.integer(x) + 2208988800) / 86400)
-    } else if( inherits(x, "Date") ){
-      as.character(as.integer(x) + 25567)
-    } else if( is.numeric(x) ){
-      as.character(x)
-    }
-    else gsub("(^ | $)+", "", htmlEscape(format(x)) )
-  })
-  data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
-}
-
-
-xl_type_df <- function(x){
-  sapply(x, function( x ) {
-    if( is.character(x) || is.factor(x) ) "inlineStr"
-    else if( inherits(x, "POSIXct") ) "n"
-    else if( inherits(x, "Date") ) "n"
-    else if( is.logical(x) ) "b"
-    else if( is.numeric(x) ) "n"
-    else "inlineStr"
-  })
-}
-xl_tag_start <- function(x){
-  sapply(x, function( x ) {
-    if( is.character(x)|| is.factor(x) ) "<is><t>"
-    else "<v>"
-  })
-}
-xl_tag_end <- function(x){
-  sapply(x, function( x ) {
-    if( is.character(x)|| is.factor(x) ) "</t></is>"
-    else "</v>"
-  })
-}
 
 section_dimensions <- function(node){
   section_obj <- as_list(node)
