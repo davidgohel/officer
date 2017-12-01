@@ -48,8 +48,13 @@ reference:
   - title: Add content to PowerPoint documents
     contents:
     - ph_with_img
+    - ph_with_img_at
+    - ph_with_gg
+    - ph_with_gg_at
     - ph_with_table
+    - ph_with_table_at
     - ph_with_text
+    - ph_with_ul
     - ph_empty
     - ph_add_text
     - ph_add_par
@@ -57,8 +62,6 @@ reference:
     - ph_slidelink
     - ph_hyperlink
     - ph_empty_at
-    - ph_with_table_at
-    - ph_with_img_at
   - title: Remove content from PowerPoint documents
     contents:
     - remove_slide

@@ -5,6 +5,10 @@
 * new function `body_replace_all_text()` to replace
   any text in a Word document
 * new functions for xlsx files (experimental).
+* new functions `ph_with_gg()` and `ph_with_gg_at()` to make easier
+  production of ggplot objects in PowerPoint
+* new functions `ph_with_ul()` to make easier
+  production of unordered lists of text in PowerPoint
 
 ## Issues
 
