@@ -1,4 +1,4 @@
-context("insert cot into elements of docx")
+context("insert into paragraphs of docx")
 
 
 getncheck <- function(x, str){

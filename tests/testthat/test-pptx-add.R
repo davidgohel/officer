@@ -113,29 +113,45 @@ test_that("add xml into placeholder", {
   expect_equal(sm[2,]$text, "Hello world 1")
 })
 
-test_that("hyperlink shape", {
+test_that("link to another shape", {
+  small_red <- fp_text(color = "red", font.size = 14)
 
-  href_ <- "http://www.google.fr"
   doc <- read_pptx() %>%
-    add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with_text(type = "title", str = "Un titre 1") %>%
-    ph_with_text(type = "body", str = "text 1") %>%
-    add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with_text(type = "title", str = "Un titre 2") %>%
-    on_slide( index = 1)
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "This is a ") %>%
+    ph_add_par(level = 2) %>%
+    ph_add_text(str = "test", style = small_red, slide_index = 1 )
 
-  doc <- doc %>%
-    ph_hyperlink(type = "body", href = href_ )
+  xmldoc <- doc$slide$get_slide(1)$get()
+  rel_df <- doc$slide$get_slide(1)$rel_df()
+  expect_true( "slide1.xml" %in% rel_df$target )
+  row_id_ <- which( rel_df$target %in% "slide1.xml" )
+  rid <- rel_df[row_id_, "id"]
+  xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
+  node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
+  expect_equal( xml_text(node_), "test")
+})
 
+test_that("ph_add_text with hyperlink", {
+  small_red <- fp_text(color = "red", font.size = 14)
+  href_ <- "https://cran.r-project.org"
+  doc <- read_pptx() %>%
+    add_slide("Title and Content", "Office Theme") %>%
+    ph_with_text(type = "body", str = "This is a ") %>%
+    ph_add_par(level = 2) %>%
+    ph_add_text(str = "test", style = small_red, href = href_ )
+
+  xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
   expect_true( href_ %in% rel_df$target )
   row_id_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
 
   rid <- rel_df[row_id_, "id"]
-  xpath_ <- sprintf("//p:sp[p:nvSpPr/p:cNvPr/a:hlinkClick/@r:id='%s']", rid)
+  xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
   node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
-  expect_false( inherits(node_, "xml_missing") )
+  expect_equal( xml_text(node_), "test")
 })
+
 
 
 test_that("slidelink shape", {
