@@ -9,10 +9,6 @@ wml_table <- function(x, style_id, first_row = TRUE, last_row = FALSE, first_col
     .Call(`_officer_wml_table`, x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband, header)
 }
 
-as_col_ref <- function(x) {
-    .Call(`_officer_as_col_ref`, x)
-}
-
 p_ph <- function(offx, offy, cx, cy, rot, r, g, b, a) {
     .Call(`_officer_p_ph`, offx, offy, cx, cy, rot, r, g, b, a)
 }

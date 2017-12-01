@@ -126,33 +126,3 @@ String wml_table(DataFrame x, std::string style_id,
 
 }
 
-
-
-
-
-std::string base26(unsigned long v)
-{
-  char const digits[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  size_t const base = sizeof(digits) - 1;
-  char result[sizeof(unsigned long)*CHAR_BIT + 1];
-  char* current = result + sizeof(result);
-  *--current = '\0';
-
-  while (v != 0) {
-    v--;
-    *--current = digits[v % base];
-    v /= base;
-  }
-  return current;
-}
-
-// [[Rcpp::export]]
-CharacterVector as_col_ref(IntegerVector x){
-  int n = x.size();
-  CharacterVector out(n);
-  for(int i = 0 ; i < n ; i ++ ){
-    out[i] = base26(x[i]);
-  }
-  return out;
-}
-

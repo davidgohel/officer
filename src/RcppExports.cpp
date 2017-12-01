@@ -43,17 +43,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// as_col_ref
-CharacterVector as_col_ref(IntegerVector x);
-RcppExport SEXP _officer_as_col_ref(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(as_col_ref(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // p_ph
 std::string p_ph(int offx, int offy, int cx, int cy, int rot, int r, int g, int b, int a);
 RcppExport SEXP _officer_p_ph(SEXP offxSEXP, SEXP offySEXP, SEXP cxSEXP, SEXP cySEXP, SEXP rotSEXP, SEXP rSEXP, SEXP gSEXP, SEXP bSEXP, SEXP aSEXP) {
@@ -316,7 +305,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_officer_pml_table", (DL_FUNC) &_officer_pml_table, 9},
     {"_officer_wml_table", (DL_FUNC) &_officer_wml_table, 9},
-    {"_officer_as_col_ref", (DL_FUNC) &_officer_as_col_ref, 1},
     {"_officer_p_ph", (DL_FUNC) &_officer_p_ph, 9},
     {"_officer_a_border", (DL_FUNC) &_officer_a_border, 6},
     {"_officer_w_ppr", (DL_FUNC) &_officer_w_ppr, 15},
