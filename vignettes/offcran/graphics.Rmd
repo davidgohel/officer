@@ -72,6 +72,31 @@ read_docx() %>%
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_emf.docx" ) )
 ```
 
+### Microsoft charts
+
+Package `mschart` enable to create native office charts that can be used 
+with `officer`. Function `body_add_chart` can be used to generate (from R plot
+commands) a chart object within Word. 
+
+```{r}
+library(mschart)
+
+my_barchart <- ms_barchart(data = browser_data,
+  x = "browser", y = "value", group = "serie")
+my_barchart <- chart_settings( x = my_barchart,
+  dir="vertical", grouping="clustered", gap_width = 50 )
+
+read_docx() %>% 
+  body_add_chart(chart = my_barchart, style = "centered") %>% 
+  print(target = "../assets/graphics/demo_mschart_01.docx") %>% 
+  invisible()
+```
+
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_mschart_01.docx" ) )
+```
 
 ## PowerPoint documents and graphics 
 
@@ -98,6 +123,7 @@ read_pptx() %>%
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_emf.pptx" ) )
 ```
 
+### vector graphics
 
 Package `rvg` is providing editable vector graphics that can be used with `officer`. Function `ph_with_vg` can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function `ph_with_vg_at` is also provided to let you add a graphic at any arbitrary location in the current slide.
 
@@ -114,4 +140,35 @@ read_pptx() %>%
 
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_rvg.pptx" ) )
+```
+
+
+### Microsoft charts
+
+Package `mschart` enable to create native office charts that can be used 
+with `officer`. Function `ph_with_chart` can be used to generate (from R plot
+commands) a chart object within PowerPoint. Function `ph_with_chart_at` is also provided to let you add a chart at any arbitrary location in the current slide.
+
+```{r}
+library(mschart)
+
+my_barchart <- ms_barchart(data = browser_data,
+  x = "browser", y = "value", group = "serie")
+my_barchart <- chart_settings( x = my_barchart,
+  dir="vertical", grouping="clustered", gap_width = 50 )
+
+read_pptx() %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_chart(chart = my_barchart, type = "body") %>% 
+  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
+  ph_with_chart_at(chart = my_barchart, 
+                   left = 0, top = 0, width = 4, height = 4) %>% 
+  print(target = "../assets/graphics/demo_mschart_01.pptx") %>% 
+  invisible()
+```
+
+
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/graphics/demo_mschart_01.pptx" ) )
 ```
