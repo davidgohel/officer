@@ -43,8 +43,8 @@ read_table_style <- function(path){
   file <- file.path(path, "ppt/tableStyles.xml")
   doc <- read_xml(file)
   nodes <- xml_find_all(doc, "//a:tblStyleLst")
-  data.frame(def = nodes %>% xml_attr("def"),
-             styleName = nodes %>% xml_attr("styleName"),
+  data.frame(def = xml_attr(nodes, "def"),
+             styleName = xml_attr(nodes, "styleName"),
              stringsAsFactors = FALSE )
 }
 
@@ -258,7 +258,6 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #'
 #' slide_summary(my_pres)
 #' slide_summary(my_pres, index = 1)
-#' @importFrom purrr map2_df
 slide_summary <- function( x, index = NULL ){
 
   l_ <- length(x)
@@ -277,7 +276,7 @@ slide_summary <- function( x, index = NULL ){
 
   nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/") )
   data <- read_xfrm(nodes, file = "slide", name = "" )
-  data$text <- map_chr(nodes, xml_text )
+  data$text <- sapply(nodes, xml_text )
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400

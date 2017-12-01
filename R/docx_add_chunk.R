@@ -122,7 +122,7 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   x <- docx_reference_img(x, src)
   xml_elt <- wml_link_images( x, xml_elt )
 
-  drawing_node <- as_xml_document(xml_elt) %>% xml_find_first("//w:r/w:drawing")
+  drawing_node <- xml_find_first(as_xml_document(xml_elt), "//w:r/w:drawing")
 
   wml_ <- paste0(wml_with_ns("w:r"), "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>%s</w:r>")
   xml_elt <- sprintf(wml_, style_id, as.character(drawing_node) )

@@ -21,16 +21,15 @@ LazyData: TRUE
 LinkingTo: Rcpp
 Imports:
     Rcpp (>= 0.12.12),
-    purrr,dplyr,R6,tibble,ggplot2,
-    R.utils,utils,grDevices,
+    R6,R.utils,grDevices,
     base64enc,zip,
     digest,uuid,
-    magrittr,htmltools,xslt,
+    magrittr,htmltools,
     xml2 (>= 1.1.0)
 URL: https://davidgohel.github.io/officer
 BugReports: https://github.com/davidgohel/officer/issues
 RoxygenNote: 6.0.1.9000
 Suggests: testthat, devEMF,
-    knitr,
-    rmarkdown, tidyr
+    knitr,tibble,ggplot2,
+    rmarkdown
 VignetteBuilder: knitr

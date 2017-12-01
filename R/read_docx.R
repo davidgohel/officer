@@ -53,7 +53,6 @@ read_docx <- function( path = NULL ){
 #' }
 #'
 #' @importFrom xml2 xml_attr<- xml_find_all xml_find_all
-#' @importFrom purrr walk2
 print.rdocx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
@@ -77,10 +76,10 @@ print.rdocx <- function(x, target = NULL, ...){
 
   # make all id unique
   all_uid <- xml_find_all(x$doc_obj$get(), "//*[@id]")
-  walk2(all_uid, seq_along(all_uid), function(x, z) {
-    xml_attr(x, "id") <- z
-    x
-  })
+
+  for(z in seq_along(all_uid) ){
+    xml_attr(all_uid[[z]], "id") <- z
+  }
 
   sections_ <- xml_find_all(x$doc_obj$get(), "//w:sectPr")
   last_sect <- sections_[length(sections_)]
@@ -108,8 +107,7 @@ print.rdocx <- function(x, target = NULL, ...){
 #' @importFrom xml2 read_xml xml_length xml_find_first
 #' @rdname read_docx
 length.rdocx <- function( x ){
-  xml_find_first(x$doc_obj$get(), "/w:document/w:body") %>% xml_length()
-
+  xml_length( xml_find_first(x$doc_obj$get(), "/w:document/w:body") )
 }
 
 #' @export

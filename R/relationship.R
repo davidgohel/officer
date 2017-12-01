@@ -16,10 +16,10 @@ relationship <- R6Class(
       children <- xml_children( doc )
       ns <- xml_ns( doc )
 
-      private$id <- c( private$id, map_chr(children, xml_attr, attr = "Id", ns) )
-      private$type <- c( private$type, map_chr( children, xml_attr, attr = "Type", ns) )
-      private$target <- c( private$target, map_chr( children, xml_attr, attr = "Target", ns) )
-      private$target_mode <- c( private$target_mode, map_chr( children, xml_attr, attr = "TargetMode", ns) )
+      private$id <- c( private$id, sapply(children, xml_attr, attr = "Id", ns) )
+      private$type <- c( private$type, sapply( children, xml_attr, attr = "Type", ns) )
+      private$target <- c( private$target, sapply( children, xml_attr, attr = "Target", ns) )
+      private$target_mode <- c( private$target_mode, sapply( children, xml_attr, attr = "TargetMode", ns) )
       private$ext_src <- c( private$ext_src, character(length(children)) )
       self
     },

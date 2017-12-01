@@ -9,9 +9,9 @@ core_properties <- R6Class(
     },
     get_data = function() {
       all_ <- xml_find_all(private$doc, "/cp:coreProperties/*")
-      tibble(
-        tag = all_ %>% xml_name(),
-        value = all_ %>% xml_text()
+      data.frame(stringsAsFactors = FALSE,
+        tag = xml_name(all_),
+        value = xml_text(all_)
       )
     },
     set_title = function(value){

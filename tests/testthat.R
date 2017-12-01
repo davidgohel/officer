@@ -2,7 +2,6 @@ suppressPackageStartupMessages({
   library(testthat)
   library(officer)
   library(magrittr)
-  library(dplyr)
   library(xml2)
 })
 

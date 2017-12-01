@@ -4,7 +4,7 @@
 
 * new function `body_replace_all_text()` to replace
   any text in a Word document
-* new functions for xlsx files.
+* new functions for xlsx files (experimental).
 
 ## Issues
 

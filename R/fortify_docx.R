@@ -1,37 +1,36 @@
-#' @importFrom dplyr lag
-#' @importFrom purrr pmap_df
 unfold_row_wml <- function(node, row_id){
   is_header_1 <- !inherits(xml_child(node, "w:trPr/w:tblHeader"), "xml_missing")
   is_header_2 <- !inherits(xml_child(node, "w:trPr/w:cnfStyle[@w:firstRow='1']"), "xml_missing")
   is_header <- is_header_1 | is_header_2
   children_ <- xml_children(node)
-  cell_nodes <- children_[map_lgl(children_, function(x) xml_name(x)=="tc" )]
+  cell_nodes <- children_[sapply(children_, function(x) xml_name(x)=="tc" )]
 
-  txt <- map_chr(cell_nodes, xml_text)
-  col_span <- map_int(cell_nodes, function(x) {
+  txt <- sapply(cell_nodes, xml_text)
+  col_span <- sapply(cell_nodes, function(x) {
     gs <- xml_child(x, "w:tcPr/w:gridSpan")
     as.integer(xml_attr(gs, "val"))
   })
   col_span[is.na(col_span)] <- 1
 
-  row_span <- map_df(cell_nodes, function(x) {
+  row_span <- lapply(cell_nodes, function(x) {
     node_ <- xml_child(x, "w:tcPr/w:vMerge")
-    tibble(row_merge = !inherits(node_, "xml_missing"),
+    data.frame(row_merge = !inherits(node_, "xml_missing"),
            first = xml_attr(node_, "val") %in% "restart",
-           row_span = 1
+           row_span = 1,
+           stringsAsFactors = FALSE
     )
   })
-
+  row_span <- rbind.match.columns(row_span)
   txt[row_span$row_merge & !row_span$first] <- NA
 
-  out <- tibble(row_id = row_id, is_header = is_header,
-                cell_id = 1 + dplyr::lag( cumsum(col_span), default=0 ),
-                text = txt, col_span = col_span) %>%
-    cbind(row_span)
-
+  out <- data.frame(row_id = row_id, is_header = is_header,
+                cell_id = 1 + simple_lag( cumsum(col_span), default=0 ),
+                text = txt, col_span = col_span, stringsAsFactors = FALSE)
+  out <- cbind(out, row_span)
 
   out_add_ <- out[out$col_span > 1, ]
-  out_add_ <- pmap_df(out_add_, function(row_id, is_header, cell_id, text, col_span, row_merge, first, row_span){
+
+  out_add_ <- mapply(function(row_id, is_header, cell_id, text, col_span, row_merge, first, row_span){
     reps_ <- col_span - 1
     row_id_ <- rep( row_id, reps_)
     is_header_ <- rep( is_header, reps_)
@@ -42,45 +41,41 @@ unfold_row_wml <- function(node, row_id){
     first_ <- rep( first, reps_)
     row_span_ <- rep( row_span, reps_)
     out <- data.frame(row_id = row_id_, is_header = is_header_, cell_id = cell_id_,
-               text = text_, col_span = col_span_, row_merge = row_merge_,
-               first = first_, row_span = row_span_,
-               stringsAsFactors = FALSE)
+                      text = text_, col_span = col_span_, row_merge = row_merge_,
+                      first = first_, row_span = row_span_,
+                      stringsAsFactors = FALSE)
     out$cell_id <- seq_len(reps_) + cell_id
     out
-  })
-
-  out <- rbind(out, out_add_)
+  }, out_add_$row_id, out_add_$is_header, out_add_$cell_id, out_add_$text,
+  out_add_$col_span, out_add_$row_merge, out_add_$first, out_add_$row_span,
+  SIMPLIFY = FALSE)
+  if( length(out_add_) > 0 ){
+    out_add_ <- rbind.match.columns(out_add_)
+    out <- rbind(out, out_add_)
+  }
   out[order(out$cell_id),]
 }
 
 
-#' @importFrom purrr map2_df
 docxtable_as_tibble <- function( node, styles ){
   xpath_ <- paste0( xml_path(node), "/w:tr")
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
 
-  row_details <- map2_df( rows, seq_along(rows), unfold_row_wml )
-  out <- split(row_details, row_details$cell_id)
-  out <- map_df(out, function(dat){
-    rle_ <- rle(dat$row_merge)
-    new_vals <- rle_$lengths[rle_$values]
-    dat[dat$row_merge, "row_span"] <- 0
-    dat[dat$row_merge & dat$first, "row_span"] <- new_vals
-    dat$row_merge <- NULL
-    dat$first <- NULL
-    dat
-  })
+  row_details <- mapply(unfold_row_wml, rows, seq_along(rows), SIMPLIFY = FALSE)
+  row_details <- rbind.match.columns(row_details)
+  row_details <- set_row_span(row_details)
 
   style_node <- xml_child(node, "w:tblPr/w:tblStyle")
   if( inherits(style_node, "xml_missing") ){
     style_name <- NA
   } else {
     style_id <- xml_attr( style_node, "val")
-    out$style_name <- rep( styles$style_name[styles$style_id %in% style_id], nrow(out))
+    row_details$style_name <- rep( styles$style_name[styles$style_id %in% style_id], nrow(row_details))
   }
-
-  add_column(out, content_type = "table cell")
+  row_details$content_type <- rep("table cell", nrow(row_details) )
+  row_details$text[row_details$col_span < 1 | row_details$row_span < 1] <- NA_character_
+  row_details
 }
 
 par_as_tibble <- function(node, styles){
@@ -93,12 +88,14 @@ par_as_tibble <- function(node, styles){
     style_name <- styles$style_name[styles$style_id %in% style_id]
   }
 
-  par_data <- tibble(
+  par_data <- data.frame(
     level = as.integer(xml_attr( xml_child(node, "w:pPr/w:numPr/w:ilvl"), "val")) + 1,
     num_id = as.integer(xml_attr( xml_child(node, "w:pPr/w:numPr/w:numId"), "val")),
-    text = xml_text(node), style_name = style_name )
+    text = xml_text(node), style_name = style_name,
+    stringsAsFactors = FALSE )
 
-  add_column(par_data, content_type = "paragraph")
+  par_data$content_type <- rep("paragraph", nrow(par_data) )
+  par_data
 }
 
 node_content <- function(node, x){
@@ -120,18 +117,20 @@ node_content <- function(node, x){
 #' doc <- read_docx(example_pptx)
 #' docx_summary(doc)
 #' @export
-#' @importFrom purrr map map2_df
-#' @importFrom tibble add_column
 docx_summary <- function( x ){
 
   all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*[self::w:p or self::w:tbl]")
-  data <- map(all_nodes, node_content, x)
-  data <- map2_df( data, seq_along(data), function(x, id) {
-    add_column(x, doc_index = id)
-  })
+  data <- lapply( all_nodes, node_content, x = x )
+
+  data <- mapply(function(x, id) {
+        x$doc_index <- id
+        x
+      }, data, seq_along(data), SIMPLIFY = FALSE)
+  data <- rbind.match.columns(data)
+
   colnames <- c("doc_index", "content_type", "style_name", "text",
-  "level", "num_id", "row_id", "is_header", "cell_id",
-  "col_span", "row_span")
+    "level", "num_id", "row_id", "is_header", "cell_id",
+    "col_span", "row_span")
   colnames <- intersect(colnames, names(data))
   data[, colnames]
 }

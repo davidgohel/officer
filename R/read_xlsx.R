@@ -41,7 +41,7 @@ worksheets <- R6Class(
       private$sheet_name <- c( private$sheet_name, label)
 
       children_ <- xml_children(self$get())
-      sheets_id <- which(map_lgl(children_, function(x) xml_name(x)=="sheets" ))
+      sheets_id <- which(sapply(children_, function(x) xml_name(x)=="sheets" ))
       xml_list <- xml_children(children_[[sheets_id]])
 
       xml_elt <- paste(
@@ -91,9 +91,10 @@ worksheets <- R6Class(
 
     get_sheets_df = function() {
       children_ <- xml_children(self$get())
-      sheets_id <- which(map_lgl(children_, function(x) xml_name(x)=="sheets" ))
+      sheets_id <- which(sapply(children_, function(x) xml_name(x)=="sheets" ))
       sheet_nodes <- xml_children(children_[[sheets_id]])
-      tibble( name = xml_attr(sheet_nodes, "name"),
+      data.frame(stringsAsFactors = FALSE,
+                 name = xml_attr(sheet_nodes, "name"),
               sheet_id = as.integer(xml_attr(sheet_nodes, "sheetId")),
               rid = xml_attr(sheet_nodes, "id") )
     }
@@ -113,9 +114,7 @@ worksheets <- R6Class(
 )
 
 # sheet ------------------------------------------------------------
-#' @importFrom purrr walk pmap
 #' @importFrom xml2 xml_replace xml_add_parent
-#' @importFrom xslt xml_xslt
 sheet <- R6Class(
   "sheet",
   inherit = openxml_document,
@@ -135,78 +134,6 @@ sheet <- R6Class(
         private$rels_doc <- new_rel
       }
       self
-    },
-
-
-    write_data_frame = function( data, at_row = 1, at_col = 1 ){
-
-      xml_datafile <- tempfile(fileext = ".xml")
-      xsl_datafile <- tempfile(fileext = ".xml")
-
-      doc_xml <- self$get()
-      sheet_data <- xml_find_first(doc_xml, "*[self::d1:sheetData or self::sheetData]")
-
-      col_types <- xl_type_df(data)
-      col_tag_start <- xl_tag_start(data)
-      col_tag_end <- xl_tag_end(data)
-      col_ref <- as_col_ref( seq_len( ncol(data) ) + at_col - 1 )
-
-      ex_dat <- private$grid_existing_data()
-      rows <- attr(ex_dat, "rows")
-
-      to_xml <- c(at_row, seq_len( nrow(data) ) + at_row) %in% rows
-
-      file.copy(from = system.file(package = "officer", "template/add_sheet_data.xsl"),
-                to = xsl_datafile)
-      xls_table_prepare_m(as.matrix(xl_characterise_df(data)), as.character(col_types),
-                          col_tag_start, col_tag_end,
-                          col_ref,
-                          at_row,
-                          xsl_datafile, xml_datafile, to_xml)
-      references <- expand.grid(row = c(at_row, seq_len( nrow(data) ) + at_row),
-                                col = col_ref, stringsAsFactors = FALSE )
-      references <- paste0(references$col, references$row)
-      cell_to_delete <- intersect( ex_dat$cell_ref, references )
-      cell_nodes <- xml_find_all(sheet_data, "//d1:row/d1:c")
-      xml_remove(cell_nodes[xml_attr(cell_nodes, "r") %in% cell_to_delete ])
-
-      xslt_doc <- read_xml( xsl_datafile )
-      doc_xml <- xml_xslt(doc_xml, xslt_doc, params = list(filename=xml_datafile))
-      order_xsl <- read_xml(system.file(package = "officer", "template/xsl_reorder.xslt"))
-      doc_xml <- xml_xslt(doc_xml, order_xsl)
-
-      write_xml(doc_xml, file = self$file_name() )
-      self$feed(self$file_name())
-      self
-    }
-
-  ),
-  private = list(
-
-    grid_existing_data = function(){
-
-      doc_xml <- self$get()
-      sheet_data <- xml_find_first(doc_xml, "*[self::d1:sheetData]")
-      existing_rows_id <- as.integer(xml_attr(xml_find_all(doc_xml, "//d1:row"), "r"))
-      l_existing_rows <- xml_length(xml_find_all(sheet_data, "d1:row"))
-
-      if( length(existing_rows_id) ){
-        existing_rows <- inverse.rle(
-          structure(list(lengths = l_existing_rows,
-                         values = existing_rows_id),
-                    .Names = c("lengths", "values"), class = "rle"))
-        ref_cells <- xml_attr(xml_find_all(sheet_data, "d1:row/d1:c"), "r")
-
-        out <- data.frame(row_ref = existing_rows,
-                          cell_ref = ref_cells, stringsAsFactors = FALSE)
-        attr(out, "rows") <- existing_rows_id
-      } else {
-        out <- data.frame(row_ref = integer(0),
-                          cell_ref = character(0), stringsAsFactors = FALSE)
-        attr(out, "rows") <- integer(0)
-      }
-
-      out
     }
 
   )
@@ -215,7 +142,6 @@ sheet <- R6Class(
 
 
 # dir_sheets ----
-#' @importFrom dplyr between
 dir_sheet <- R6Class(
   "dir_sheet",
   public = list(
@@ -230,11 +156,11 @@ dir_sheet <- R6Class(
       dir_ <- file.path(private$package_dir, private$sheets_path)
       filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
 
-      private$collection <- map( filenames, function(x, path){
+      private$collection <- lapply( filenames, function(x, path){
         sheet$new(path)$feed(x)
       }, private$sheets_path)
 
-      names(private$collection) <- map_chr(private$collection, function(x) x$name() )
+      names(private$collection) <- sapply(private$collection, function(x) x$name() )
       self
     },
 
@@ -344,23 +270,6 @@ add_sheet <- function( x, label ){
   x$sheets$update()
   x
 
-}
-#' @export
-#' @title add a data.frame
-#' @description add a data.frame into an xlsx worksheet
-#' @param x rxlsx object
-#' @param sheet sheet label/name
-#' @param value data.frame
-#' @param at_row,at_col where to start writing
-#' @examples
-#' my_ws <- read_xlsx()
-#' my_pres <- add_sheet(my_ws, label = "new sheet")
-#' my_pres <- sheet_add_table(my_ws, sheet = "new sheet", iris)
-sheet_add_table <- function( x, sheet, value, at_row = 1, at_col = 1 ){
-  sheet_id <- x$worksheets$get_sheet_id(sheet)
-  x$sheets$get_sheet(sheet_id)$write_data_frame(
-    value, at_row = at_row, at_col = at_col )
-  x
 }
 
 #' @export

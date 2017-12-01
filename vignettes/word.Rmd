@@ -111,9 +111,8 @@ A title is a paragraph. To add a title, use `body_add_par()` with `style` argume
 Use function `styles_info()` to see available styles:
 
 ```{r message=FALSE}
-library(dplyr)
 read_docx() %>% styles_info() %>% 
-  dplyr::filter( style_type %in% "paragraph" )
+  subset( style_type %in% "paragraph" )
 ```
 
 > It is important to understand that these style names are read in the initial file provided to `read_docx`. Few comments
@@ -123,28 +122,30 @@ read_docx() %>% styles_info() %>%
 * Table templates are also defined in the initial document and can be used with `body_add_table`. For advanced tabular formatting, use package `flextable` instead ([flextable website](https://davidgohel.github.io/officer/)), it has a function `body_add_flextable()` that can be used with `officer`.
 
 ```{r}
-library(ggplot2)
-gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
-  geom_point()
-
-read_docx() %>% 
-  body_add_par(value = "Table of content", style = "heading 1") %>% 
-  body_add_toc(level = 2) %>% 
-  body_add_break() %>% 
-
-  body_add_par(value = "dataset iris", style = "heading 2") %>% 
-  body_add_table(value = head(iris), style = "table_template" ) %>% 
+if( require("ggplot2") ){
+  gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
+    geom_point()
   
-  body_add_par(value = "plot examples", style = "heading 1") %>% 
-  body_add_gg(value = gg, style = "centered" ) %>% 
-
-  print(target = "assets/docx/body_add_demo.docx") %>% 
-  invisible()
-
+  read_docx() %>% 
+    body_add_par(value = "Table of content", style = "heading 1") %>% 
+    body_add_toc(level = 2) %>% 
+    body_add_break() %>% 
+  
+    body_add_par(value = "dataset iris", style = "heading 2") %>% 
+    body_add_table(value = head(iris), style = "table_template" ) %>% 
+    
+    body_add_par(value = "plot examples", style = "heading 1") %>% 
+    body_add_gg(value = gg, style = "centered" ) %>% 
+  
+    print(target = "assets/docx/body_add_demo.docx") %>% 
+    invisible()
+}
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
+if( require("ggplot2") ){
+  office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
+}
 ```
 
 ### `slip_in_*` functions
@@ -387,10 +388,12 @@ Below an illustration:
 ```{r}
 library(magrittr)
 library(officer)
-library(ggplot2)
+if( require("ggplot2") ){
 
-gg1 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + geom_point()
-gg2 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length, color = Species)) + geom_point()
+gg1 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
+  geom_point()
+gg2 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length, color = Species)) + 
+  geom_point()
 
 
 doc <- read_docx() %>% 
@@ -428,9 +431,12 @@ doc <- read_docx() %>%
   body_add_toc(style = "graphic title")
 
 print(doc, target = "assets/docx/toc_and_captions.docx") %>% invisible()
+}
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
+if( require("ggplot2") ){
+  office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
+}
 ```
 

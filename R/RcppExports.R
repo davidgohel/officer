@@ -13,14 +13,6 @@ as_col_ref <- function(x) {
     .Call(`_officer_as_col_ref`, x)
 }
 
-xls_table_prepare <- function(x, col_types, tags_start, tags_end, col_ref, start_at_row, xsl_file, xml_file, to_xml) {
-    invisible(.Call(`_officer_xls_table_prepare`, x, col_types, tags_start, tags_end, col_ref, start_at_row, xsl_file, xml_file, to_xml))
-}
-
-xls_table_prepare_m <- function(x, col_types, tags_start, tags_end, col_ref, start_at_row, xsl_file, xml_file, to_xml) {
-    invisible(.Call(`_officer_xls_table_prepare_m`, x, col_types, tags_start, tags_end, col_ref, start_at_row, xsl_file, xml_file, to_xml))
-}
-
 p_ph <- function(offx, offy, cx, cy, rot, r, g, b, a) {
     .Call(`_officer_p_ph`, offx, offy, cx, cy, rot, r, g, b, a)
 }

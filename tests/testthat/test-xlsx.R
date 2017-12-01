@@ -21,21 +21,5 @@ test_that("create and manipulate sheet", {
 
 
 
-test_that("add data.frame to sheet", {
-  doc <- read_xlsx()
-  doc <- add_sheet(doc, label = "sheet1")
-  doc <- sheet_select(doc, sheet = "sheet1")
-  doc <- sheet_add_table(doc, sheet = "sheet1", iris, at_row = 1, at_col = 1)
-
-  xml_sheet <- doc$sheets$get_sheet(2)$get()
-  row_data <- xml_find_all(xml_sheet, "d1:sheetData/d1:row")
-
-  expect_equal( xml_text( xml_children(row_data[[1]]) ), names(iris))
-  expect_equal( xml_find_all(xml_sheet, "d1:sheetData/d1:row") %>% length(), 151)
-})
-
-
-
-
 
 

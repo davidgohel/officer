@@ -90,7 +90,7 @@ presentation <- R6Class(
       nodes <- xml_find_all(private$doc, "//p:sldIdLst/p:sldId")
       id <- as.integer( xml_attr(nodes, "id", ns = xml_ns(private$doc)) )
       rid <- xml_attr(nodes, "r:id", ns = xml_ns(private$doc))
-      tibble(id = id, rid = rid)
+      data.frame(id = id, rid = rid, stringsAsFactors = FALSE)
     }
   )
 )
@@ -147,7 +147,7 @@ slide_layout <- R6Class(
     get_metadata = function( ){
       rels <- self$rel_df()
       rels <- rels[basename( rels$type ) == "slideMaster", ]
-      tibble(name = self$name(), filename = self$file_name(), master_file = rels$target)
+      data.frame(stringsAsFactors = FALSE, name = self$name(), filename = self$file_name(), master_file = rels$target)
     },
     xfrm = function(){
       rels <- self$rel_df()
@@ -269,7 +269,7 @@ slide <- R6Class(
     get_metadata = function( ){
       rels <- self$rel_df()
       rels <- rels[basename( rels$type ) == "slideLayout", ]
-      tibble(name = self$name(), filename = self$file_name(), layout_file = rels$target)
+      data.frame(stringsAsFactors = FALSE, name = self$name(), filename = self$file_name(), layout_file = rels$target)
     }
 
   ),
@@ -291,7 +291,7 @@ dir_collection <- R6Class(
       private$package_dir <- x$package_dir
       dir_ <- file.path(private$package_dir, container$dir_name())
       filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
-      private$collection <- map( filenames, function(x, container){
+      private$collection <- lapply( filenames, function(x, container){
         container$clone()$feed(x)
       }, container = container)
       names(private$collection) <- basename(filenames)
@@ -302,13 +302,15 @@ dir_collection <- R6Class(
     },
 
     get_metadata = function(){
-      map_df(private$collection, function(x) x$get_metadata())
+      dat <- lapply(private$collection, function(x) x$get_metadata())
+      rbind.match.columns(dat)
     },
     names = function(){
-      map_chr(private$collection, function(x) x$name())
+      sapply(private$collection, function(x) x$name())
     },
     xfrm = function( ){
-      map_df(private$collection, function(x) x$xfrm() )
+      dat <- lapply(private$collection, function(x) x$xfrm() )
+      rbind.match.columns(dat)
     }
   ),
 
@@ -331,12 +333,13 @@ dir_master <- R6Class(
   public = list(
 
     get_metadata = function( ){
-      unames <- map_chr(private$collection, function(x) x$name())
-      ufnames <- map_chr(private$collection, function(x) x$file_name())
-      tibble(master_name = unames, filename = ufnames)
+      unames <- sapply(private$collection, function(x) x$name())
+      ufnames <- sapply(private$collection, function(x) x$file_name())
+      data.frame(stringsAsFactors = FALSE, master_name = unames, filename = ufnames)
     },
     get_color_scheme = function( ){
-      map_df(private$collection, function(x) x$colors())
+      dat <- lapply(private$collection, function(x) x$colors())
+      rbind.match.columns(dat)
     }
 
   )
@@ -344,7 +347,6 @@ dir_master <- R6Class(
 
 
 # dir_layout ---------------------------------------------------------
-#' @importFrom dplyr inner_join
 dir_layout <- R6Class(
   "dir_layout",
   inherit = dir_collection,
@@ -365,7 +367,7 @@ dir_layout <- R6Class(
       data_masters$master_file <- basename(data_masters$filename)
       data_masters$filename <- NULL
       data_layouts$master_file <- basename(data_layouts$master_file)
-      out <- inner_join(data_layouts, data_masters, by = "master_file")
+      out <- merge(data_layouts, data_masters, by = "master_file", all = FALSE)
       out$filename <- basename(out$filename)
       out
     },
@@ -383,7 +385,6 @@ dir_layout <- R6Class(
 
 
 # dir_slide ---------------------------------------------------------
-#' @importFrom dplyr between
 dir_slide <- R6Class(
   "dir_slide",
   inherit = dir_collection,
@@ -393,8 +394,8 @@ dir_slide <- R6Class(
       super$initialize(x, slide$new("ppt/slides"))
       private$slides_path <- file.path(x$package_dir, "ppt/slides")
       private$slide_layouts <- dir_layout$new( x )
-      private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
-      names(private$collection) <- map_chr(private$collection, function(x) x$name() )
+      private$collection <- lapply(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
+      names(private$collection) <- sapply(private$collection, function(x) x$name() )
     },
 
     update = function( ){
@@ -405,11 +406,11 @@ dir_slide <- R6Class(
       sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", basename(filenames) ) )
       filenames <- filenames[order(sl_id)]
 
-      private$collection <- map( filenames, function(x, container){
+      private$collection <- lapply( filenames, function(x, container){
         container$clone()$feed(x)$fortify_id()
       }, container = slide$new("ppt/slides"))
       private$slides_path <- file.path(private$package_dir, "ppt/slides")
-      private$collection <- map(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
+      private$collection <- lapply(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
       names(private$collection) <- basename(filenames)
       self
     },
@@ -431,7 +432,7 @@ dir_slide <- R6Class(
       slide_obj$remove()
     },
     get_xfrm = function( ){
-      map(private$collection, function(x) x$get_xfrm() )
+      lapply(private$collection, function(x) x$get_xfrm() )
     },
 
 
@@ -480,7 +481,7 @@ dir_slide <- R6Class(
       slidename
     },
     layout_files = function(){
-      map_chr(private$collection, function(x) x$layout_name())
+      sapply(private$collection, function(x) x$layout_name())
     }
   ),
   private = list(

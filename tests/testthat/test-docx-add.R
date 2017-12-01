@@ -84,6 +84,9 @@ test_that("slip_in_img", {
 })
 
 test_that("ggplot add", {
+  testthat::skip_if_not(requireNamespace("ggplot2", quietly = TRUE))
+  library("ggplot2")
+
   gg_plot <- ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
   x <- read_docx() %>%

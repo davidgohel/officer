@@ -66,20 +66,23 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @param height height in inches
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
-#' @import ggplot2
 #' @examples
-#' library(ggplot2)
+#' if( require("ggplot2") ){
+#'   doc <- read_docx()
 #'
-#' doc <- read_docx()
+#'   gg_plot <- ggplot(data = iris ) +
+#'     geom_point(mapping = aes(Sepal.Length, Petal.Length))
 #'
-#' gg_plot <- ggplot(data = iris ) +
-#'   geom_point(mapping = aes(Sepal.Length, Petal.Length))
+#'   if( capabilities(what = "png") )
+#'     doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 #'
-#' if( capabilities(what = "png") )
-#'   doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
-#'
-#' print(doc, target = "body_add_gg.docx" )
+#'   print(doc, target = "body_add_gg.docx" )
+#' }
 body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
+
+  if( !requireNamespace("ggplot2") )
+    stop("package ggplot2 is required to use this function")
+
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
   options(bitmapType='cairo')
@@ -362,7 +365,6 @@ body_remove <- function(x){
 }
 
 #' @export
-#' @importFrom purrr is_scalar_character
 #' @title replace text at a bookmark location
 #' @description replace text content enclosed in a bookmark
 #' with different text. A bookmark will be considered as valid if enclosing words
@@ -386,7 +388,6 @@ body_replace_at <- function( x, bookmark, value ){
 }
 
 #' @export
-#' @importFrom purrr is_scalar_character is_scalar_logical
 #' @title Replace text anywhere in the document, or at a cursor
 #' @description Replace all occurrences of old_value with new_value. This method
 #' uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may

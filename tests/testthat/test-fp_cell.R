@@ -1,7 +1,5 @@
 context("fp for cells")
 
-suppressPackageStartupMessages({library(purrr)})
-
 source("utils.R")
 
 test_that("fp_cell", {
@@ -96,13 +94,13 @@ test_that("wml fp_border", {
   expect_equal(col, "00FF00")
 
   margins <- xml_child(node, "w:tcMar") %>% xml_children() %>%
-    map_chr(function(x) xml_attr(x, "w")) %>%
+    sapply(function(x) xml_attr(x, "w")) %>%
     as.integer()
   expect_equal( margins, rep(40, 4) )
 
   node <- wml_cell_node(fp_cell(margin = 2, margin.bottom = 0))
   margins <- xml_child(node, "w:tcMar") %>% xml_children() %>%
-    map_chr(function(x) xml_attr(x, "w")) %>%
+    sapply(function(x) xml_attr(x, "w")) %>%
     as.integer()
   expect_equal( margins, c(40, 0, 40, 40) )
 

@@ -52,7 +52,7 @@ attr_chunk <- function( x ){
 
 read_xfrm <- function(nodeset, file, name){
   if( length(nodeset) < 1 ){
-    return(tibble( type = character(0),
+    return(data.frame(stringsAsFactors = FALSE, type = character(0),
                    id = character(0),
                    ph_label = character(0),
                    ph = character(0),
@@ -73,7 +73,7 @@ read_xfrm <- function(nodeset, file, name){
   off <- xml_child(nodeset, "p:spPr/a:xfrm/a:off")
   ext <- xml_child(nodeset, "p:spPr/a:xfrm/a:ext")
 
-  tibble( type = type, id = id,
+  data.frame(stringsAsFactors = FALSE, type = type, id = id,
           ph_label = label,
           ph = as.character(ph),
           file = basename(file),
@@ -85,12 +85,11 @@ read_xfrm <- function(nodeset, file, name){
 }
 
 
-#' @importFrom dplyr left_join anti_join bind_rows distinct
 xfrmize <- function( slide_xfrm, master_xfrm ){
   slide_xfrm <- as.data.frame( slide_xfrm )
   master_xfrm <- as.data.frame(master_xfrm)
 
-  master_ref <- distinct( data.frame(file = master_xfrm$file,
+  master_ref <- unique( data.frame(file = master_xfrm$file,
                                      master_name = master_xfrm$name,
                                      stringsAsFactors = FALSE ) )
   tmp_names <- names(master_xfrm)
@@ -104,14 +103,15 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
   slide_key_id <- paste0(slide_xfrm$master_file, slide_xfrm$type)
   master_key_id <- paste0(master_xfrm$file, master_xfrm$type)
 
-  slide_xfrm_no_match <- slide_xfrm[!slide_key_id %in% master_key_id, ] %>%
-    inner_join( master_ref, by = c("master_file"="file") )
+  slide_xfrm_no_match <- slide_xfrm[!slide_key_id %in% master_key_id, ]
+  slide_xfrm_no_match <- merge(slide_xfrm_no_match,
+                               master_ref, by.x = "master_file", by.y = "file",
+                               all = FALSE)
 
-  slide_xfrm <- inner_join(
-    slide_xfrm,
-    master_xfrm,
-    by = c("master_file"="file", "type" = "type")
-  )
+  slide_xfrm <- merge(slide_xfrm, master_xfrm,
+                      by.x = c("master_file", "type"),
+                      by.y = c("file", "type"),
+                      all = FALSE)
 
   slide_xfrm$offx <- ifelse( !is.finite(slide_xfrm$offx), slide_xfrm$offx_ref, slide_xfrm$offx )
   slide_xfrm$offy <- ifelse( !is.finite(slide_xfrm$offy), slide_xfrm$offy_ref, slide_xfrm$offy )
@@ -121,7 +121,7 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
   slide_xfrm$offy_ref <- NULL
   slide_xfrm$cx_ref <- NULL
   slide_xfrm$cy_ref <- NULL
-  bind_rows(slide_xfrm, slide_xfrm_no_match)
+  rbind(slide_xfrm, slide_xfrm_no_match, stringsAsFactors = FALSE)
 }
 
 
@@ -150,7 +150,7 @@ read_theme_colors <- function(doc, theme){
   vals <- xml_attr(xml_children(nodes), "val")
   last_colors_ <- xml_attr(xml_children(nodes), "lastClr")
   vals <- ifelse(col_types_ == "srgbClr", paste0("#", vals), paste0("#", last_colors_) )
-  tibble(name = names_, type = col_types_, value = vals, theme = theme)
+  data.frame(stringsAsFactors = FALSE, name = names_, type = col_types_, value = vals, theme = theme)
 }
 
 
@@ -262,4 +262,48 @@ as_xpath_content_sel <- function(prefix){
 }
 
 
+between <- function(x, left, right ){
+  x >= left & x <= right
+}
 
+
+
+simple_lag <- function( x, default=0 ){
+  c(default, x[-length(x)])
+}
+
+rbind.match.columns <- function(list_df) {
+  col <- unique(unlist(sapply(list_df, names)))
+
+  list_df <- lapply(list_df, function(x, col) {
+    x[, setdiff(col, names(x))] <- NA
+    x
+  }, col = col)
+  do.call(rbind, list_df)
+}
+
+set_row_span <- function( row_details ){
+  row_details$first[!row_details$first & !row_details$row_merge] <- TRUE
+  row_details$row_merge <- NULL
+
+  row_details <- split(row_details, row_details$cell_id)
+
+  row_details <- mapply(function(dat){
+    rowspan_values_at_breaks <- rle(cumsum(dat$first))$lengths
+    rowspan_pos_at_breaks <- which(dat$first)
+    dat$row_span <- 0
+    dat$row_span[rowspan_pos_at_breaks] <- rowspan_values_at_breaks
+    dat
+  }, row_details, SIMPLIFY = FALSE)
+  row_details <- rbind.match.columns(row_details)
+  row_details$first <- NULL
+  row_details
+}
+
+
+is_scalar_character <- function( x ) {
+  is.character(x) && length(x) == 1
+}
+is_scalar_logical <- function( x ) {
+  is.logical(x) && length(x) == 1
+}

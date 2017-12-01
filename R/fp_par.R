@@ -17,7 +17,6 @@
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
 #' @export
-#' @importFrom purrr map
 fp_par = function(text.align = "left",
                   padding = 0,
                   border = fp_border(width=0),
@@ -64,18 +63,16 @@ fp_par = function(text.align = "left",
 }
 
 #' @export
-#' @importFrom purrr map_chr
-#' @importFrom purrr map_dbl map_int
 #' @importFrom grDevices col2rgb
 format.fp_par = function (x, type = "wml", ...){
   btlr_list <- list(x$border.bottom, x$border.top,
                     x$border.left, x$border.right)
 
-  btlr_cols <- map( btlr_list,
+  btlr_cols <- lapply( btlr_list,
        function(x) as.vector(col2rgb(x$color, alpha = TRUE )[,1] ) )
   colmat <- do.call( "rbind", btlr_cols )
-  types <- map_chr( btlr_list, "style" )
-  widths <- map_dbl( btlr_list, "width" )
+  types <- sapply(btlr_list, function(x) x$style )
+  widths <- sapply(btlr_list, function(x) x$width )
   shading <- col2rgb(x$shading.color, alpha = TRUE )[,1]
 
   stopifnot(length(type) == 1)
