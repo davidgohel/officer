@@ -5,7 +5,7 @@
 \title{append text}
 \usage{
 ph_add_text(x, str, type = NULL, id_chr = NULL, style = fp_text(font.size
-  = 0), pos = "after", href = NULL)
+  = 0), pos = "after", href = NULL, slide_index = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -23,7 +23,10 @@ Values can be read from \code{\link{slide_summary}}.}
 \item{pos}{where to add the new element relative to the cursor,
 "after" or "before".}
 
-\item{href}{hyperlink}
+\item{href}{hyperlink to reach when clicking the text}
+
+\item{slide_index}{slide index to reach when clicking the text.
+It will be ignored if \code{href} is not NULL.}
 }
 \description{
 append text in a placeholder
@@ -44,4 +47,19 @@ my_pres <- my_pres \%>\%
   ph_add_text(str = "Level 2")
 
 print(my_pres, target = fileout)
+
+
+fileout <- tempfile(fileext = ".pptx")
+doc <- read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with_text(type = "title", str = "Un titre 1") \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with_text(type = "title", str = "Un titre 2") \%>\%
+  on_slide(1) \%>\%
+  ph_empty(type = "body") \%>\%
+  ph_add_par(type = "body", level = 2) \%>\%
+  ph_add_text(str = "Jump here to slide 2!", type = "body",
+  slide_index = 2)
+
+print(doc, target = fileout)
 }
