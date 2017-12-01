@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get PowerPoint slide content in a tidy format — slide_summary • officer package</title>
+<title>add unordered list to a pptx presentation — ph_with_ul • officer package</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,16 +89,17 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get PowerPoint slide content in a tidy format</h1>
+    <h1>add unordered list to a pptx presentation</h1>
     </div>
 
     
-    <p>get content and positions of current slide
-into a data.frame. Data for any tables, images, or paragraphs are
-imported into the resulting data.frame.</p>
+    <p>add an unordered list of text
+into an rpptx object. Each text is associated with
+a hierarchy level.</p>
     
 
-    <pre class="usage"><span class='fu'>slide_summary</span>(<span class='no'>x</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>ph_with_ul</span>(<span class='no'>x</span>, <span class='no'>type</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'>character</span>(<span class='fl'>0</span>),
+  <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'>integer</span>(<span class='fl'>0</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -108,23 +109,44 @@ imported into the resulting data.frame.</p>
       <td><p>rpptx object</p></td>
     </tr>
     <tr>
+      <th>type</th>
+      <td><p>placeholder type</p></td>
+    </tr>
+    <tr>
       <th>index</th>
-      <td><p>slide index</p></td>
+      <td><p>placeholder index (integer). This is to be used
+when a placeholder type is not unique in the current slide,
+e.g. two placeholders with type 'body'.</p></td>
+    </tr>
+    <tr>
+      <th>str_list</th>
+      <td><p>list of strings to be included in the object</p></td>
+    </tr>
+    <tr>
+      <th>level_list</th>
+      <td><p>list of levels for hierarchy structure</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p>text style, a <code>fp_text</code> object list or a
+single <code>fp_text</code> objects. Use <code><a href='fp_text.html'>fp_text(font.size = 0, ...)</a></code> to
+inherit from default sizes of the presentation.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
-
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dt"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='fu'>format</span>(<span class='fu'>Sys.Date</span>())) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-
-<span class='fu'>slide_summary</span>(<span class='no'>my_pres</span>)</div><div class='output co'>#&gt; [1] type     id       ph_label offx     offy     cx       cy       text    
-#&gt; &lt;0 rows&gt; (or 0-length row.names)</div><div class='input'><span class='fu'>slide_summary</span>(<span class='no'>my_pres</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;   type id ph_label offx     offy       cx        cy       text
-#&gt; 1   dt  2           0.5 6.951389 2.333333 0.3993056 2017-12-02</div></pre>
+<span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Example title"</span>)
+<span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_ul</span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
+  <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )
+<span class='fu'>print</span>(<span class='no'>pptx</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"example2.pptx"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>invisible</span>()</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
