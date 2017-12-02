@@ -10,7 +10,7 @@ vignette: >
 
 ## Import Word document
 
-Function `docx_summary` is returning content of a Word document. 
+The function `docx_summary()` returns the content of a Word document.
 
 ```{r}
 library(officer)
@@ -35,8 +35,9 @@ par_data <- subset(content, content_type %in% "paragraph")
 par_data <- par_data[, c("doc_index", "style_name", 
                          "text", "level", "num_id") ]
 par_data$text <- with(par_data, {
-  substr(text, start = 1, 
-         stop = ifelse(nchar(text)<30, nchar(text), 30) )
+  substr(
+    text, start = 1, 
+    stop = ifelse(nchar(text)<30, nchar(text), 30) )
 })
 par_data
 ```
@@ -50,7 +51,9 @@ table_cells <- subset(content, content_type %in% "table cell")
 print(head( table_cells) )
 ```
 
-Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text` and `is_header` (a logical column indicating if the cell is part of header or not). Note that content (column `text`) is a character vector.
+Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`
+and `is_header` (a logical column indicating if the cell is part of a header or
+not). Note that the content itself (column `text`) is a character vector.
 
 ```{r}
 table_body <- subset(table_cells, !is_header)
@@ -58,7 +61,8 @@ table_body <- table_body[,c("row_id", "cell_id", "text")]
 head(table_body)
 ```
 
-Reshape data with columns `row_id`, `cell_id` and `text` :
+Reshaping the data with columns `row_id`, `cell_id` and `text` would display 
+something close to the orginal table: 
 
 ```{r}
 tapply(table_body$text, 
@@ -91,7 +95,7 @@ tapply(data$text,
 ## Import PowerPoint document
 
 
-Function `pptx_summary` is returning content of a PowerPoint document 
+The function `pptx_summary()` returns the content of a PowerPoint document.
 
 ```{r}
 example_pptx <- system.file(package = "officer", "doc_examples/example.pptx")
@@ -135,7 +139,8 @@ table_cells <- subset(content, content_type %in% "table cell")
 head(table_cells)
 ```
 
-Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`. Note here there is no indicator for table header.
+Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`. 
+Note that here there is no indicator for the table header.
 
 ```{r}
 data <- subset(table_cells, id == 18, c(row_id, cell_id, text) )

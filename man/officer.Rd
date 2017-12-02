@@ -32,8 +32,9 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item Frank Hangler \email{frank@plotandscatter.com} [contributor]
-  \item Liz Sander \email{lsander@civisanalytics.com} [contributor]
+  \item Frank Hangler \email{frank@plotandscatter.com} (function body_replace_all_text) [contributor]
+  \item Liz Sander \email{lsander@civisanalytics.com} (several documentation fixes) [contributor]
+  \item Jon Calder \email{jonmcalder@gmail.com} (update vignettes) [contributor]
 }
 
 }
