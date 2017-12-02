@@ -82,12 +82,12 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>Use the function <code>read_pptx</code> to create an r object representing a PowerPoint document. Initial PowerPoint file can be specified with argument <code>path</code>. If none is provided, this file will be an empty document located in the package directory. Formats and available slide layouts will be those available in the template file. Content of original document is also preserved (but can be manipulated, i.e. delete a slide).</p>
+<p>Use the function <code><a href="../reference/read_pptx.html">read_pptx()</a></code> to create an R object representing a PowerPoint document. The initial PowerPoint file can be specified with the <code>path</code> argument. If none is provided, this file will be an empty document located in the package directory. Formats and available slide layouts will be those available in the template file. The content of original document is also preserved (but can be manipulated, i.e. delete a slide).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() </code></pre></div>
 <div id="add-a-slide" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-a-slide" class="anchor"></a>Add a slide</h3>
-<p>Next thing to do is to add a new slide, use function <code>add_slide</code>. It requires 3 arguments:</p>
+<p>To add a new slide, use the function <code><a href="../reference/add_slide.html">add_slide()</a></code>. It requires 3 arguments:</p>
 <ul>
 <li>an rpptx object</li>
 <li>a slide layout name</li>
@@ -95,7 +95,7 @@
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</code></pre></div>
-<p><strong><code>layout</code> and <code>master</code> values must match values from the initial document.</strong> Layout names and master layout names can be read with function <code>layout_summary</code>.</p>
+<p><strong>Note that the <code>layout</code> and <code>master</code> values must match values from the initial document.</strong> Layout names and master layout names are not available in a tidy view within PowerPoint, but these can be read easily with the function <code><a href="../reference/layout_summary.html">layout_summary()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/layout_summary.html">layout_summary</a></span>(my_pres)</code></pre></div>
 <pre><code>##              layout       master
 ## 1       Title Slide Office Theme
@@ -108,18 +108,18 @@
 <div id="master-layouts-and-slide-layouts" class="section level4">
 <h4 class="hasAnchor">
 <a href="#master-layouts-and-slide-layouts" class="anchor"></a>master layouts and slide layouts</h4>
-<p><code>officer</code> uses a PowerPoint file as initial document. This is the original PowerPoint document where all slides layouts, shapes (placeholders) and styles come from. Major points to be aware of are:</p>
+<p><code>officer</code> uses a PowerPoint file as the initial document. This is the original PowerPoint document where all slide layouts, shapes (placeholders) and styles come from. Major points to be aware of are:</p>
 <ul>
 <li>Slide layouts are relative to a master layout. A document can contain one or more master layouts; a master layout can contain one or more slide layouts.</li>
 <li>A slide layout inherits design properties from its master layout but some properties can be overwritten.</li>
-<li>Designs and formating properties of layouts and shapes (placeholders in a layout) are defined within the initial document. There is no R function to modify these values, they must be defined in the initial document.</li>
+<li>Designs and formatting properties of layouts and shapes (placeholders in a layout) are defined within the initial document. There is no R function to modify these values - they must be defined in the initial document.</li>
 </ul>
 </div>
 </div>
 <div id="add-text-content-into-a-placeholder" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-text-content-into-a-placeholder" class="anchor"></a>Add text content into a placeholder</h3>
-<p>Use function <code>ph_with_text</code> to add text into a new shape. The type of the shape is defined in the slide layout associated to the current slide, for example, using <code>type = "title"</code> will create a title shape in the slide.</p>
+<p>Use the function <code><a href="../reference/ph_with_text.html">ph_with_text()</a></code> to add text into a new shape. The type of the shape is defined in the slide layout associated with the current slide. For example, using <code>type = "title"</code> will create a title shape in the current slide.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>, <span class="dt">str =</span> <span class="st">"A title"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>, <span class="dt">str =</span> <span class="st">"A footer"</span>) <span class="op">%&gt;%</span>
@@ -127,7 +127,7 @@
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"sldNum"</span>, <span class="dt">str =</span> <span class="st">"slide 1"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">str =</span> <span class="st">"Hello world"</span>, <span class="dt">type =</span> <span class="st">"body"</span>)</code></pre></div>
 <blockquote>
-<p>Function <code>layout_properties</code> provides details about available shapes of a slide layout.</p>
+<p>The function <code>layout_properties</code> provides details about the available shapes for a slide layout.</p>
 </blockquote>
 <p>You can use columns <code>type</code>, <code>id</code> but also <code>ph_label</code> to identify or recognize shapes. <code>ph_label</code> is the label that can be associated to a placeholder in a slide template. <code>type</code> and <code>id</code> are often required to identify which placeholder should receive a content.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/layout_properties.html">layout_properties</a></span> ( <span class="dt">x =</span> my_pres, <span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
@@ -146,10 +146,10 @@
 ## 29 6.9513889 2.333333 0.3993056
 ## 32 0.3003478 9.000000 1.2500000</code></pre>
 </div>
-<div id="write-the-powerpoint" class="section level3">
+<div id="write-the-powerpoint-file" class="section level3">
 <h3 class="hasAnchor">
-<a href="#write-the-powerpoint" class="anchor"></a>Write the PowerPoint</h3>
-<p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
+<a href="#write-the-powerpoint-file" class="anchor"></a>Write the PowerPoint file</h3>
+<p>The (updated) Powerpoint file can be generated using the <code>print()</code> function along with the <code>target</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/first_example.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
@@ -160,22 +160,22 @@
 </p>
 </div>
 </div>
-<div id="slides-selection-and-manipulation" class="section level2">
+<div id="slide-selection-and-manipulation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#slides-selection-and-manipulation" class="anchor"></a>Slides selection and manipulation</h2>
+<a href="#slide-selection-and-manipulation" class="anchor"></a>Slide selection and manipulation</h2>
 <p>There are 3 functions to let you manipulate slides: <code><a href="../reference/add_slide.html">add_slide()</a></code>, <code><a href="../reference/remove_slide.html">remove_slide()</a></code> and <code><a href="../reference/on_slide.html">on_slide()</a></code>.</p>
-<p>A slide can be added with function <code><a href="../reference/add_slide.html">add_slide()</a></code>.</p>
+<p>A slide can be added with the <code><a href="../reference/add_slide.html">add_slide()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)
 <span class="kw">length</span>(my_pres)</code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<p>A Slide can be removed with function <code>remove_slide</code>.</p>
+<p>A slide can be removed with the <code><a href="../reference/remove_slide.html">remove_slide()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/remove_slide.html">remove_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)
 <span class="kw">length</span>(my_pres)</code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<p>Selected slide can be set with function <code>on_slide</code>.</p>
+<p>A slide can be selected with the <code><a href="../reference/on_slide.html">on_slide()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)</code></pre></div>
 </div>
 <div id="add-content-into-a-placeholder" class="section level2">
@@ -184,7 +184,7 @@
 <div id="add-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-text" class="anchor"></a>Add text</h3>
-<p>Use function <code>ph_with_text</code> to add text into a new shape. Argument <code>type</code> specify which placeholder of the associated layout is to be added (<code>index</code> is to be used when a <code>type</code> is not unique in the slide layout).</p>
+<p>Use the function <code><a href="../reference/ph_with_text.html">ph_with_text()</a></code> to add text into a new shape. The <code>type</code> argument specifies which placeholder from the associated layout is to be added (<code>index</code> is to be used when a <code>type</code> is not unique in the slide layout).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
@@ -201,12 +201,12 @@
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_text.pptx">office web viewer</a>
 </p>
-<p>Again, use <code><a href="../reference/layout_properties.html">layout_properties()</a></code> to see what are available placeholders in the slide layout.</p>
+<p>Again, use <code><a href="../reference/layout_properties.html">layout_properties()</a></code> to see what placeholders are available in the slide layout.</p>
 </div>
 <div id="add-image" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-image" class="anchor"></a>Add image</h3>
-<p>Use function <code>ph_with_img</code> to add an image into a placeholder. As for all <code>ph_with_*</code> functions, argument <code>type</code> specifies the placeholder of the associated layout to be added as a new shape (<code>index</code> is to be used when an <code>type</code> is not unique in the slide layout).</p>
+<p>Use the function <code><a href="../reference/ph_with_img.html">ph_with_img()</a></code> to add an image into a placeholder. As for all <code>ph_with_*</code> functions, the <code>type</code> argument specifies the placeholder from the associated layout to be added as a new shape (and <code>index</code> is to be used when a <code>type</code> is not unique in the slide layout).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">R.home</span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
 
 doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
@@ -223,12 +223,12 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_img.pptx">office web viewer</a>
 </p>
-<p>To add an image into a new shape at arbitrary coordinates, use function <code>ph_with_img_at</code>. Arguments <code>left</code> and <code>top</code> are specifying the top left coordinate of the new shape and arguments <code>width</code> and <code>height</code> are specifying the dimensions of the new shape.</p>
+<p>To add an image into a new shape at arbitrary coordinates, use the function <code><a href="../reference/ph_with_img.html">ph_with_img_at()</a></code>. The arguments <code>left</code> and <code>top</code> specify the top left coordinate of the new shape and the <code>width</code> and <code>height</code> arguments specify the dimensions of the new shape.</p>
 </div>
 <div id="add-ggplot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-ggplot" class="anchor"></a>Add ggplot</h3>
-<p>Use function <code>ph_with_gg</code> to add a ggplot object as an image into a placeholder. As for all <code>ph_with_*</code> functions, argument <code>type</code> specifies the placeholder of the associated layout to be added as a new shape (<code>index</code> is to be used when an <code>type</code> is not unique in the slide layout).</p>
+<p>Use function <code><a href="../reference/ph_with_gg.html">ph_with_gg()</a></code> to add a ggplot object as an image into a placeholder. As for all <code>ph_with_*</code> functions, argument <code>type</code> specifies the placeholder of the associated layout to be added as a new shape (<code>index</code> is to be used when an <code>type</code> is not unique in the slide layout).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){
   doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()
   doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>,
@@ -256,7 +256,7 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <div id="add-table" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-table" class="anchor"></a>Add table</h3>
-<p>Use function <code>ph_with_table</code> to add a table into a placeholder.</p>
+<p>Use the function <code><a href="../reference/ph_with_table.html">ph_with_table()</a></code> to add a table into a placeholder.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
 doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
@@ -270,7 +270,7 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_table.pptx">office web viewer</a>
 </p>
-<p>To add a table into a new shape at arbitrary coordinates, use function <code>ph_with_table_at</code>.</p>
+<p>To add a table into a new shape at arbitrary coordinates, use the function <code><a href="../reference/ph_with_table.html">ph_with_table_at()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
 doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
@@ -290,14 +290,13 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <div id="remove-content-from-a-slide" class="section level2">
 <h2 class="hasAnchor">
 <a href="#remove-content-from-a-slide" class="anchor"></a>Remove content from a slide</h2>
-<p>Use <code>slide_summary</code> to easily identify shapes in the slide that can be removed.</p>
+<p>Use <code><a href="../reference/slide_summary.html">slide_summary()</a></code> to easily identify shapes in the slide that can be removed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/slide_summary.html">slide_summary</a></span>(doc)</code></pre></div>
 <pre><code>##   type id ph_label offx offy cx cy
 ## 1 body  2            NA   NA NA NA
 ##                                                                                                                                                                                                                                                    text
 ## 1 {5C22544A-7EE6-4342-B048-85BDC9FD1C3A}mpgcyldisphpdratwtqsecvsamgearcarb21.061601103.902.62016.46014421.061601103.902.87517.02014422.84108933.852.32018.61114121.462581103.083.21519.44103118.783601753.153.44017.02003218.162251052.763.46020.221031</code></pre>
-<p>In the following example, shape corresponding to <code>type "body"</code><br>
-will be removed from the current slide:</p>
+<p>In the following example, the shape corresponding to <code>type "body"</code> will be removed from the current slide:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_remove.html">ph_remove</a></span>(<span class="dt">x =</span> doc, <span class="dt">type =</span> <span class="st">"body"</span>)</code></pre></div>
 </div>
 <div id="append-text-sequentially-in-a-shape" class="section level2">
@@ -306,11 +305,11 @@ will be removed from the current slide:</p>
 <div id="add-to-an-empty-new-placeholder" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-to-an-empty-new-placeholder" class="anchor"></a>Add to an empty new placeholder</h3>
-<p><code>ph_empty</code> (<code>ph_empty_at</code>) will add a new empty placeholder in the current slide. When using <code>ph_with_text</code>, added text automatically inherits from the layout placeholder, <code>ph_empty</code> gives more control on format of added text and paragraphs.</p>
+<p><code><a href="../reference/ph_empty.html">ph_empty()</a></code> (and <code>ph_empty_at</code>) will add a new empty placeholder in the current slide. When using <code><a href="../reference/ph_with_text.html">ph_with_text()</a></code>, added text automatically inherits from the layout placeholder, whereas <code><a href="../reference/ph_empty.html">ph_empty()</a></code> allows for more control of the format of added text and paragraphs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_empty.html">ph_empty</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)</code></pre></div>
-<p>As there is not paragraph yet in the new shape, function <code>ph_add_par</code> will be used to add a new paragraph. Then <code>ph_add_text</code> will be used to add text into that new paragraph.</p>
+<p>As there is no paragraph in the new shape yet, the function <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add a new paragraph. Then <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> will be used to add text into that new paragraph.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_prop &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fp_text.html">fp_text</a></span>(<span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">font.size =</span> <span class="dv">20</span>)
 my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>() <span class="op">%&gt;%</span>
@@ -332,11 +331,11 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <div id="add-to-an-existing-placeholder-of-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-to-an-existing-placeholder-of-text" class="anchor"></a>Add to an existing placeholder of text</h3>
-<p>The following code produce a presentation made of one text shape containing text “A first text”.</p>
+<p>The following code produces a presentation comprised of one text shape containing the text “A first text”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>)</code></pre></div>
-<p>There is a paragraph in the new shape, <code>ph_add_par</code> will be used to add a new paragraph and <code>ph_add_text</code> has to be used to add text into the last paragraph of the shape.</p>
+<p>Since there is now a paragraph in the new shape, <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add another paragraph and <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> then has to be used to add text into the last paragraph of the shape.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_blue_prop &lt;-<span class="st"> </span><span class="kw">update</span>(text_prop, <span class="dt">color =</span> <span class="st">"blue"</span> )
 my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"A small red text!"</span>, <span class="dt">style =</span> text_prop ) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -360,7 +359,7 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <div id="external-links" class="section level3">
 <h3 class="hasAnchor">
 <a href="#external-links" class="anchor"></a>External links</h3>
-<p><code>ph_hyperlink</code> add an hyperlink to an existing placeholder in the current slide. Argument <code>href</code> should contain a valid URL (i.e. starting with <code>http(s)</code>).</p>
+<p><code><a href="../reference/ph_hyperlink.html">ph_hyperlink()</a></code> adds a hyperlink to an existing placeholder in the current slide. The argument <code>href</code> should contain a valid URL (i.e. starting with <code>http(s)</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -380,7 +379,7 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <div id="internal-links" class="section level3">
 <h3 class="hasAnchor">
 <a href="#internal-links" class="anchor"></a>Internal links</h3>
-<p><code>ph_slidelink</code> add an internal link into an existing placeholder. Argument <code>slide_index</code> should contain the index of the target slide.</p>
+<p><code><a href="../reference/ph_slidelink.html">ph_slidelink()</a></code> adds an internal link into an existing placeholder. The argument <code>slide_index</code> should contain the index of the target slide.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -401,7 +400,7 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <div id="add-text-with-links" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-text-with-links" class="anchor"></a>Add text with links</h3>
-<p>Function <code>ph_add_text</code> has an optional argument <code>href</code>, if used, the chunk of text will be an hyperlink. If <code>href</code> is not used and <code>slide_index</code> is provided, the link will point to another slide in the document.</p>
+<p>The function <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> has an optional argument <code>href</code>. If used, the chunk of text will be added as a hyperlink. If <code>href</code> is not used and <code>slide_index</code> is, the link will point to another slide in the document.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"An "</span>) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -435,7 +434,7 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#slides-selection-and-manipulation">Slides selection and manipulation</a></li>
+      <li><a href="#slide-selection-and-manipulation">Slide selection and manipulation</a></li>
       <li><a href="#add-content-into-a-placeholder">Add content into a placeholder</a></li>
       <li><a href="#remove-content-from-a-slide">Remove content from a slide</a></li>
       <li><a href="#append-text-sequentially-in-a-shape">Append text sequentially in a shape</a></li>

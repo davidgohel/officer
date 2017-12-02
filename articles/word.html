@@ -86,8 +86,8 @@
 <li>Start with <code>read_docx</code>
 </li>
 </ol>
-<p>Use the function <code>read_docx</code> to create an r object representing a Word document.</p>
-<p>Initial Word file can be specified with argument <code>path</code>. If none is provided, this file will be an empty document located in the package directory. Formats and styles are defined in the initial file.</p>
+<p>Use the function <code><a href="../reference/read_docx.html">read_docx()</a></code> to create an R object representing a Word document.</p>
+<p>The initial Word file can be specified with the <code>path</code> argument. If none is provided, this file will be an empty document located in the package directory. Formats and styles are defined in the initial file.</p>
 <p>From the initial document, we will be able to use an object containing not only paragraph styles, character styles and table styles of the original document but also its content.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() 
 <span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>(my_doc)</code></pre></div>
@@ -139,14 +139,14 @@
 <li>Add elements to document</li>
 </ol>
 <blockquote>
-<p>By default new content is added at the end of the document. To understand how to add content at any location in the document, see section about cursor.</p>
+<p>By default new content is added at the end of the document. To understand how to add content at any location in the document, see the later section about cursor manipulation.</p>
 </blockquote>
 <p>Let’s create an image from a plot…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">src &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".png"</span>)
 <span class="kw">png</span>(<span class="dt">filename =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">units =</span> <span class="st">'in'</span>, <span class="dt">res =</span> <span class="dv">300</span>)
 <span class="kw">barplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
 <span class="kw">dev.off</span>()</code></pre></div>
-<p>… and add that image in the document and some new paragraphs of text and a table.</p>
+<p>…and add that image to the document along with some new text paragraphs and a table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span>my_doc <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_img.html">body_add_img</a></span>(<span class="dt">src =</span> src, <span class="dt">width =</span> <span class="dv">5</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Hello world!"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -155,7 +155,7 @@
 <ol start="3" style="list-style-type: decimal">
 <li>Write the Word file</li>
 </ol>
-<p>File can be generated using function <code>print</code> and argument <code>target</code>:</p>
+<p>An (updated) Word file can be generated using the <code>print()</code> function with the <code>target</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/first_example.docx"</span>)</code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -190,9 +190,9 @@
 <div id="body_add_-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#body_add_-functions" class="anchor"></a><code>body_add_*</code> functions</h3>
-<p>The paragraph is the main top container for content within a Word document. <em>Note that tables are top container, they are at the same level than paragraphs</em>. <code>body_add_*</code> functions are designed to <strong>add content as a top container</strong>: text as an entire paragraph, table, image, page break…</p>
-<p>A title is a paragraph. To add a title, use <code><a href="../reference/body_add_par.html">body_add_par()</a></code> with <code>style</code> argument pointing to corresponding title style.</p>
-<p>Use function <code><a href="../reference/styles_info.html">styles_info()</a></code> to see available styles:</p>
+<p>The paragraph is the main top container for content within a Word document. <em>Note that tables are top container, they are at the same level as paragraphs</em>. <code>body_add_*</code> functions are designed to <strong>add content as a top container</strong>: text as an entire paragraph, table, image, page break…</p>
+<p>A title is a paragraph. To add a title, use <code><a href="../reference/body_add_par.html">body_add_par()</a></code> with the <code>style</code> argument pointing to the corresponding title style.</p>
+<p>Use the function <code><a href="../reference/styles_info.html">styles_info()</a></code> to see available styles:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/styles_info.html">styles_info</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">subset</span>( style_type <span class="op">%in%</span><span class="st"> "paragraph"</span> )</code></pre></div>
 <pre><code>##    style_type      style_id    style_name is_custom is_default
@@ -207,12 +207,12 @@
 ## 19  paragraph           TM2         toc 2     FALSE      FALSE
 ## 20  paragraph Textedebulles  Balloon Text     FALSE      FALSE</code></pre>
 <blockquote>
-<p>It is important to understand that these style names are read in the initial file provided to <code>read_docx</code>. Few comments</p>
+<p>It is important to understand that these style names are read in the initial file provided to <code><a href="../reference/read_docx.html">read_docx()</a></code>. A few comments:</p>
 </blockquote>
 <ul>
-<li>One of the styles is <em>heading 1</em> which correspond to a level 1 title.</li>
-<li>When using <code>body_add_gg</code> in the following code, using <code>style = "centered"</code> will set <em>centered</em> paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.</li>
-<li>Table templates are also defined in the initial document and can be used with <code>body_add_table</code>. For advanced tabular formatting, use package <code>flextable</code> instead (<a href="https://davidgohel.github.io/officer/">flextable website</a>), it has a function <code>body_add_flextable()</code> that can be used with <code>officer</code>.</li>
+<li>One of the styles is <em>heading 1</em> which corresponds to a level 1 title.</li>
+<li>When using <code><a href="../reference/body_add_gg.html">body_add_gg()</a></code> in the following code, using <code>style = "centered"</code> will set <em>centered</em> paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.</li>
+<li>Table templates are also defined in the initial document and can be used with <code><a href="../reference/body_add_table.html">body_add_table()</a></code>. For advanced tabular formatting, use the <code>flextable</code> package instead (<a href="https://davidgohel.github.io/officer/">flextable website</a>). It has a function <code>body_add_flextable()</code> that can be used with <code>officer</code>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){
   gg &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length)) <span class="op">+</span><span class="st"> </span>
@@ -243,11 +243,11 @@
 <div id="slip_in_-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#slip_in_-functions" class="anchor"></a><code>slip_in_*</code> functions</h3>
-<p><code>slip_in_*</code> functions are designed to add content <strong>inside an existing paragraph</strong>: text, image or seq field. Element is inserted at beginning or end of the paragraph (<code>pos=c('after', 'before')</code>). Available functions are the following:</p>
+<p>The <code>slip_in_*</code> functions are designed to add content <strong>inside an existing paragraph</strong>: text, image or seq field. The element is inserted either at the beginning or end of the paragraph (<code>pos = c('after', 'before')</code>). Available functions are the following:</p>
 <ul>
-<li>slip_in_img</li>
-<li>slip_in_seqfield</li>
-<li>slip_in_text</li>
+<li><code><a href="../reference/slip_in_img.html">slip_in_img()</a></code></li>
+<li><code><a href="../reference/slip_in_seqfield.html">slip_in_seqfield()</a></code></li>
+<li><code><a href="../reference/slip_in_text.html">slip_in_text()</a></code></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">R.home</span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
 <span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
@@ -265,13 +265,13 @@
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/slip_in_demo.docx">office web viewer</a>
 </p>
-<p>These have been implemented mostly to let add Word numbering seq-fields at beginning of paragraphs used as reference entries (i.e. a table caption, a plot caption). See Section <em>Table and image captions</em>.</p>
+<p>These have been implemented mostly to allow the addition of Word’s special sequence fields (which facilitate numbering) at the beginning of paragraphs used as reference entries (e.g. a table or plot caption). See the section <em>Table and image captions</em>.</p>
 </div>
 </div>
 <div id="cursor-manipulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cursor-manipulation" class="anchor"></a>Cursor manipulation</h2>
-<p>A cursor is available and can be manipulated so that content can be added regarding to its position with <code>body_add_*</code> functions:</p>
+<p>A cursor is available and can be manipulated so that content can be added relative to its position with the <code>body_add_*</code> functions:</p>
 <ul>
 <li>
 <code>before</code> will insert a new element before the selected element in the document.</li>
@@ -282,14 +282,14 @@
 </ul>
 <p>Cursor functions are the following:</p>
 <ul>
-<li>cursor_begin</li>
-<li>cursor_end</li>
-<li>cursor_reach</li>
-<li>cursor_backward</li>
-<li>cursor_forward</li>
-<li>cursor_bookmark</li>
+<li><code><a href="../reference/cursor.html">cursor_begin()</a></code></li>
+<li><code><a href="../reference/cursor.html">cursor_end()</a></code></li>
+<li><code><a href="../reference/cursor.html">cursor_reach()</a></code></li>
+<li><code><a href="../reference/cursor.html">cursor_backward()</a></code></li>
+<li><code><a href="../reference/cursor.html">cursor_forward()</a></code></li>
+<li><code><a href="../reference/cursor.html">cursor_bookmark()</a></code></li>
 </ul>
-<p>In order to illustrate <em>cursor</em> functions, a document made of several paragraphs will be used (let’s use officer for that).</p>
+<p>In order to illustrate the <em>cursor</em> functions, a document made up of several paragraphs will be used (let’s use officer for that).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 1"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"paragraph 2"</span>, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span>
@@ -306,7 +306,7 @@
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/init_doc.docx">office web viewer</a>
 </p>
-<p>Now, let’s use <code>init_doc.docx</code> with <code>read_docx</code> and manipulate its content with cursor functions.</p>
+<p>Now, let’s use <code>init_doc.docx</code> with <code><a href="../reference/read_docx.html">read_docx()</a></code> and manipulate its content with cursor functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/init_doc.docx"</span>) <span class="op">%&gt;%</span>
 
 <span class="st">  </span><span class="co"># default template contains only an empty paragraph</span>
@@ -339,8 +339,8 @@
 <div id="remove-content" class="section level2">
 <h2 class="hasAnchor">
 <a href="#remove-content" class="anchor"></a>Remove content</h2>
-<p>The function <code>body_remove</code> lets you remove content from a Word document. This function used with <code>cursor_*</code> functions is a convenient tool to update an existing document.</p>
-<p>For illustration purposes, we will generate a document that will be used as initial document later when showing how to use <code>body_remove</code>.</p>
+<p>The function <code><a href="../reference/body_remove.html">body_remove()</a></code> lets you remove content from a Word document. This function used with <code>cursor_*</code> functions is a convenient tool to update an existing document.</p>
+<p>For illustration purposes, we will generate a document that will be used as an initial document later when showing how to use <code><a href="../reference/body_remove.html">body_remove()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
 <span class="kw">library</span>(magrittr)
 
@@ -356,7 +356,7 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
 
 <span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
-<p>File <code>ipsum_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
+<p>The file <code>ipsum_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"that text"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_remove.html">body_remove</a></span>()
@@ -373,15 +373,15 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <div id="replace-content" class="section level2">
 <h2 class="hasAnchor">
 <a href="#replace-content" class="anchor"></a>Replace content</h2>
-<p>Functions <code>body_add_*</code> let you replace content in a Word document.</p>
-<p>For illustration purpose, we will generate a document that will be used as initial document later.</p>
+<p>The <code>body_add_*</code> functions let you replace content in a Word document.</p>
+<p>For illustration purposes, we will generate a document that will be used as an initial document later.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>()  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str1, <span class="dt">style =</span> <span class="st">"Normal"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str2, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> str3, <span class="dt">style =</span> <span class="st">"Normal"</span>) 
 
 <span class="kw">print</span>(my_doc, <span class="dt">target =</span> <span class="st">"assets/docx/replace_template.docx"</span>)</code></pre></div>
-<p>File <code>replace_template.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then replace it. Using <code>pos = "on"</code> will replace content where cursor is by new content.</p>
+<p>The file <code>replace_template.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then replace it. Using <code>pos = "on"</code> will replace content where the cursor is with new content.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(<span class="dt">path =</span> <span class="st">"assets/docx/replace_template.docx"</span>)  <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/cursor.html">cursor_reach</a></span>(<span class="dt">keyword =</span> <span class="st">"that text"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="dt">value =</span> <span class="st">"This is a new paragraph."</span>, <span class="dt">style =</span> <span class="st">"centered"</span>, <span class="dt">pos =</span> <span class="st">"on"</span>)
@@ -390,13 +390,13 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <div id="search-and-replace" class="section level3">
 <h3 class="hasAnchor">
 <a href="#search-and-replace" class="anchor"></a>Search-and-replace</h3>
-<p>You can also use the <code>body_replace_*</code> functions to search-and-replace text. <code>body_replace_at</code> replaces text at a bookmark:</p>
+<p>You can also use the <code>body_replace_*</code> functions to search-and-replace text. <code><a href="../reference/body_replace_at.html">body_replace_at()</a></code> replaces text at a bookmark:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"centered text"</span>, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">". How are you"</span>, <span class="dt">style =</span> <span class="st">"strong"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_bookmark.html">body_bookmark</a></span>(<span class="st">"text_to_replace"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_replace_at.html">body_replace_at</a></span>(<span class="st">"text_to_replace"</span>, <span class="st">"not left aligned"</span>)</code></pre></div>
-<p><code>body_replace_all_text</code> will, depending on the options provided, replace text either at the cursor or in the entire document:</p>
+<p><code><a href="../reference/body_replace_all_text.html">body_replace_all_text()</a></code> will, depending on the options provided, replace text either at the cursor or in the entire document:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder one"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder two"</span>)
@@ -406,12 +406,12 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
 <pre><code>##   &lt;w:t&gt;: 'Placeholder two'</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span>
-<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"Placeholder"</span>, <span class="st">"new"</span>, <span class="dt">onlyAtCursor=</span><span class="ot">TRUE</span>, <span class="dt">fixed=</span><span class="ot">TRUE</span>)
+<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"Placeholder"</span>, <span class="st">"new"</span>, <span class="dt">only_at_cursor =</span> <span class="ot">TRUE</span>, <span class="dt">fixed=</span><span class="ot">TRUE</span>)
 <span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc)  <span class="co"># Output is 'new two'</span></code></pre></div>
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
 <pre><code>##   &lt;w:t&gt;: 'new two'</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Do the same, but in the entire document and ignoring case</span>
-<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"placeholder"</span>, <span class="st">"new"</span>, <span class="dt">onlyAtCursor=</span><span class="ot">FALSE</span>, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)
+<span class="kw"><a href="../reference/body_replace_all_text.html">body_replace_all_text</a></span>(doc, <span class="st">"placeholder"</span>, <span class="st">"new"</span>, <span class="dt">only_at_cursor =</span> <span class="ot">FALSE</span>, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)
 <span class="kw"><a href="../reference/cursor.html">cursor_backward</a></span>(doc)
 <span class="kw"><a href="../reference/docx_show_chunk.html">docx_show_chunk</a></span>(doc) <span class="co"># Output is 'new one'</span></code></pre></div>
 <pre><code>## 1 text nodes found at this cursor.</code></pre>
@@ -432,9 +432,9 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <div id="sections" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sections" class="anchor"></a>Sections</h2>
-<p>Sections can be added to a document. This is possible by using function <code>body_end_section</code>. The default section can be modified with function <code>body_default_section</code>.</p>
+<p>Sections can be added to a document. This is possible by using the function <code><a href="../reference/body_end_section.html">body_end_section()</a></code>. The default section can be modified with the function <code><a href="../reference/body_end_section.html">body_default_section()</a></code>.</p>
 <blockquote>
-<p>A section start at the end of the previous section (or the beginning of the document if no preceding section exists), it stops where the section is declared.</p>
+<p>A section starts at the end of the previous section (or the beginning of the document if no preceding section exists). It stops where the section is declared.</p>
 </blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">str1 &lt;-<span class="st"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">rep</span>(<span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">""</span>)
@@ -455,14 +455,14 @@ my_doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 <span> - view with</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/docx/section.docx">office web viewer</a>
 </p>
-<p>In the previous example, first two paragraphs will be in a 2 columns section and the third will be in a default section.</p>
+<p>In the previous example, the first two paragraphs will be in a 2 column section and the third will be in a default section.</p>
 </div>
 <div id="table-and-image-captions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#table-and-image-captions" class="anchor"></a>Table and image captions</h2>
-<p>Man can combine <code>slip_in_seqfield</code> and <code>slip_in_text</code> to prefix a paragraph with references (i.e. chapter number and graphic index in the document). However, producing a plot or a table and its caption can be verbose.</p>
-<p>Shortcuts functions are implemented in the object <code>shortcuts</code> (it will at least give you a template of code to modify if it does not fit exactly your need). <code>slip_in_tableref</code>, <code>slip_in_plotref</code> and <code>body_add_gg</code> can make life easier.</p>
-<p>Below an illustration:</p>
+<p><code><a href="../reference/slip_in_seqfield.html">slip_in_seqfield()</a></code> and <code><a href="../reference/slip_in_text.html">slip_in_text()</a></code> can be combined to prefix a paragraph with references (i.e. chapter number and graphic index in the document). However, producing a plot or a table and its caption can be verbose.</p>
+<p>Shortcut functions are implemented in the object <code>shortcuts</code> (it will at least give you a template of code to modify if it does not fit your needs exactly). <code>slip_in_tableref()</code>, <code>slip_in_plotref()</code> and <code><a href="../reference/body_add_gg.html">body_add_gg()</a></code> can make life easier.</p>
+<p>Usage of these functions is illustrated below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 <span class="kw">library</span>(officer)
 <span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){
