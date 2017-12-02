@@ -6,7 +6,7 @@
 ^README\.Rmd$
 ^docs$
 ^inst/tools$
-^vignettes/offcran/untitled\.Rmd$
+^vignettes/offcran$
 ^cran-comments\.md$
 ^revdep$
 ^_pkgdown\.yml$
