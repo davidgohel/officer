@@ -180,5 +180,26 @@ test_that("slidelink shape", {
   expect_false( inherits(node_, "xml_missing") )
 })
 
+test_that("hyperlink shape", {
+
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
+  doc <- on_slide(doc, 1)
+  doc <- ph_hyperlink(x = doc, id_chr = "2", href = "https://cran.r-project.org")
+
+  rel_df <- doc$slide$get_slide(1)$rel_df()
+
+  expect_true( "https://cran.r-project.org" %in% rel_df$target )
+  row_id_ <- which( !is.na(rel_df$target_mode) & rel_df$target %in% "https://cran.r-project.org" )
+
+  rid <- rel_df[row_id_, "id"]
+  xpath_ <- sprintf("//p:sp[p:nvSpPr/p:cNvPr/a:hlinkClick/@r:id='%s']", rid)
+  node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
+  expect_false( inherits(node_, "xml_missing") )
+})
+
 unlink("*.pptx")
 
