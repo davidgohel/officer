@@ -54,8 +54,7 @@ worksheets <- R6Class(
       if( !inherits(xml_list, "xml_missing")){
         xml_replace(children_[[sheets_id]], xml_elt)
       } else{
-        browser()
-        # xml_add_sibling(xml_find_first(private$doc, "qsdsqd"), xml_elt)
+        stop("could not find sheets entity")
       }
 
       self
