@@ -2,7 +2,7 @@ officer R package
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-The officer package lets R users manipulate Word (`.docx`) and PowerPoint (`*.pptx`) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided, contents, styles and properties of the original document will then be available.
+The officer package lets R users manipulate Word (`.docx`) and PowerPoint (`*.pptx`) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available.
 
 *This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require `rJava` (but `xml2`) and has less functions that will make it easier to maintain.*
 
@@ -16,27 +16,27 @@ The officer package lets R users manipulate Word (`.docx`) and PowerPoint (`*.pp
 Word documents
 --------------
 
-Function `read_docx` will read an initial Word document (an empty one by default) and let you modify its content later.
+The `read_docx()` function will read an initial Word document (an empty one by default) and let you modify its content later.
 
 The package provides functions to add R outputs into a Word document:
 
--   images: produce your plot in png or emf files and add them into the document; as a whole paragraph or inside a paragraph.
+-   images: produce your plot in png or emf files and add them into the document, as a whole paragraph or inside a paragraph.
 -   tables: add data.frames as tables, format is defined by the associated Word table style.
 -   text: add text as paragraphs or inside an existing paragraph, format is defined by the associated Word paragraph and text styles.
--   field codes: add Word field codes inside paragraphs. Field codes is an old feature of MS Word to create calculated elements such as tables of content, automatic numbering and hyperlinks.
+-   field codes: add Word field codes inside paragraphs. Field codes is an old feature of MS Word to create calculated elements such as tables of contents, automatic numbering and hyperlinks.
 
-In a Word document, one can use cursor functions to reach the beginning of a document, its end or a particular paragraph containing a given text. This *cursor* concept has been implemented to make easier the post processing of files.
+In a Word document, one can use cursor functions to reach the beginning or end of a document, or a particular paragraph containing a given text. This *cursor* concept has been implemented to make the post processing of files easier.
 
-The file generation is performed with function `print`.
+File generation is performed with the `print` function.
 
 ### import Word document in a data.frame
 
-Function `docx_summary` read and import content of a Word document into a data.frame object. The function handles paragraphs, tables and section breaks.
+The function `docx_summary()` reads and imports content of a Word document into a tibble object. The function handles paragraphs, tables and section breaks.
 
 PowerPoint documents
 --------------------
 
-Function `read_pptx` will read an initial PowerPoint document (an empty one by default) and let you modify its content later.
+The function `read_pptx()` will read an initial PowerPoint document (an empty one by default) and let you modify its content later.
 
 The package provides functions to add R outputs into existing or new PowerPoint slides:
 
@@ -46,11 +46,11 @@ The package provides functions to add R outputs into existing or new PowerPoint 
 
 In a PowerPoint document, one can set a slide as selected and reach a particular shape (and remove it or add text).
 
-The file generation is performed with function `print`.
+ile generation is performed with the `print()` function.
 
 ### import PowerPoint document in a data.frame
 
-Function `pptx_summary` read and import content of a PowerPoint document into a data.frame object. The function handles paragraphs, tables and images.
+The `pptx_summary()` function reads and imports content of a PowerPoint document into a tibble object. The function handles paragraphs, tables and images.
 
 Extensions
 ----------
@@ -104,9 +104,9 @@ Anyone getting involved in this package agrees to our [Code of Conduct](https://
 
 When you file a [bug report](https://github.com/davidgohel/officer/issues), please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.
 
-### Package development
+### Contributing to the package development
 
-I really want people to contribute to the package. A great way to start doing this is to contribute an example or improve the documentation.
+A great way to start is to contribute an example or improve the documentation.
 
 If you want to submit a Pull Request to integrate functions of yours, please provide:
 

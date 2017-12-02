@@ -76,7 +76,7 @@
 <div id="import-word-document" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-word-document" class="anchor"></a>Import Word document</h2>
-<p>Function <code>docx_summary</code> is returning content of a Word document.</p>
+<p>The function <code><a href="../reference/docx_summary.html">docx_summary()</a></code> returns the content of a Word document.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
 example_docx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span>)
 doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(example_docx)
@@ -114,8 +114,9 @@ content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/doc
 par_data &lt;-<span class="st"> </span>par_data[, <span class="kw">c</span>(<span class="st">"doc_index"</span>, <span class="st">"style_name"</span>, 
                          <span class="st">"text"</span>, <span class="st">"level"</span>, <span class="st">"num_id"</span>) ]
 par_data<span class="op">$</span>text &lt;-<span class="st"> </span><span class="kw">with</span>(par_data, {
-  <span class="kw">substr</span>(text, <span class="dt">start =</span> <span class="dv">1</span>, 
-         <span class="dt">stop =</span> <span class="kw">ifelse</span>(<span class="kw">nchar</span>(text)<span class="op">&lt;</span><span class="dv">30</span>, <span class="kw">nchar</span>(text), <span class="dv">30</span>) )
+  <span class="kw">substr</span>(
+    text, <span class="dt">start =</span> <span class="dv">1</span>, 
+    <span class="dt">stop =</span> <span class="kw">ifelse</span>(<span class="kw">nchar</span>(text)<span class="op">&lt;</span><span class="dv">30</span>, <span class="kw">nchar</span>(text), <span class="dv">30</span>) )
 })
 par_data</code></pre></div>
 <pre><code>##    doc_index     style_name                           text level num_id
@@ -156,7 +157,7 @@ par_data</code></pre></div>
 ## 1.13     FALSE       1        1        1
 ## 1.14     FALSE       1        2        1
 ## 1.15     FALSE       1        1        1</code></pre>
-<p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code> and <code>is_header</code> (a logical column indicating if the cell is part of header or not). Note that content (column <code>text</code>) is a character vector.</p>
+<p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code> and <code>is_header</code> (a logical column indicating if the cell is part of a header or not). Note that the content itself (column <code>text</code>) is a character vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_body &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, <span class="op">!</span>is_header)
 table_body &lt;-<span class="st"> </span>table_body[,<span class="kw">c</span>(<span class="st">"row_id"</span>, <span class="st">"cell_id"</span>, <span class="st">"text"</span>)]
 <span class="kw">head</span>(table_body)</code></pre></div>
@@ -167,7 +168,7 @@ table_body &lt;-<span class="st"> </span>table_body[,<span class="kw">c</span>(<
 ## 1.14      5       1  25,9242382
 ## 1.15      6       1 6,489375001
 ## 1.16      7       1   5,7858682</code></pre>
-<p>Reshape data with columns <code>row_id</code>, <code>cell_id</code> and <code>text</code> :</p>
+<p>Reshaping the data with columns <code>row_id</code>, <code>cell_id</code> and <code>text</code> would display something close to the orginal table:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(table_body<span class="op">$</span>text, 
        <span class="kw">list</span>(<span class="dt">row_id =</span> table_body<span class="op">$</span>row_id, 
             <span class="dt">cell_id =</span> table_body<span class="op">$</span>cell_id
@@ -218,7 +219,7 @@ data &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span class=
 <div id="import-powerpoint-document" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-powerpoint-document" class="anchor"></a>Import PowerPoint document</h2>
-<p>Function <code>pptx_summary</code> is returning content of a PowerPoint document</p>
+<p>The function <code><a href="../reference/pptx_summary.html">pptx_summary()</a></code> returns the content of a PowerPoint document.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">example_pptx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.pptx"</span>)
 doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>(example_pptx)
 content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pptx_summary.html">pptx_summary</a></span>(doc)
@@ -282,7 +283,7 @@ content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ppt
 ## 1.10       &lt;NA&gt;
 ## 1.13       &lt;NA&gt;
 ## 2.2        &lt;NA&gt;</code></pre>
-<p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code>. Note here there is no indicator for table header.</p>
+<p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code>. Note that here there is no indicator for the table header.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, id <span class="op">==</span><span class="st"> </span><span class="dv">18</span>, <span class="kw">c</span>(row_id, cell_id, text) )
 <span class="kw">tapply</span>(data<span class="op">$</span>text, 
    <span class="kw">list</span>(<span class="dt">row_id =</span> data<span class="op">$</span>row_id, 
