@@ -54,9 +54,13 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL, ph_label = NULL,
     stop("Could not find any paragraph in the selected shape.")
   r_shape_ <- pml_run_str(str = str, style = style )
 
-  if( pos == "after" )
-    where_ <- length(xml_children(current_p))
-  else where_ <- 0
+  if( pos == "after" ) {
+    kids   <- xml_children(current_p)
+    where_ <- length(kids)
+    if ( xml_name(kids[length(kids)]) == "endParaRPr" ) {
+      where_ <- where_ - 1      # put this before end of paragraph mark
+    }
+  } else where_ <- 0
 
   new_node <- as_xml_document(r_shape_)
 
