@@ -168,11 +168,14 @@ read_theme_colors <- function(doc, theme){
 }
 
 
-get_shape_id <- function(x, type = NULL, id_chr = NULL ){
+get_shape_id <- function(x, type = NULL, id_chr = NULL, ph_label = NULL ){
   shape_index_data <- slide_summary(x)
   shape_index_data$shape_id <- seq_len(nrow(shape_index_data))
 
-  if( !is.null(type) && !is.null(id_chr) ){
+  if( !is.null(ph_label) ){
+    filter_v <- shape_index_data$ph_label == ph_label
+    shape_index_data <- shape_index_data[filter_v,]
+  } else if( !is.null(type) && !is.null(id_chr) ){
     filter_v <- shape_index_data$type == type & shape_index_data$id == id_chr
     shape_index_data <- shape_index_data[filter_v,]
   } else if( is.null(type) && !is.null(id_chr) ){

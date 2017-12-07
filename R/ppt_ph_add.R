@@ -41,12 +41,12 @@
 #'
 #' print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
-ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
+ph_add_text <- function( x, str, type = NULL, id_chr = NULL, ph_label = NULL,
   style = fp_text(font.size = 0), pos = "after",
   href = NULL, slide_index = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
-  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+  shape_id <- get_shape_id(x, type = type, id_chr = id_chr, ph_label = ph_label )
   nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
 
   current_p <- xml_child(nodes[[shape_id]], "/a:p[last()]")
