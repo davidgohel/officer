@@ -1,4 +1,4 @@
-rev_dep_lib <- "/Users/davidgohel/Documents/revdep_library/"
+rev_dep_lib <- "xxx"
 
 install.packages("huxtable", lib = rev_dep_lib, dependencies = c("Depends", "Imports", "LinkingTo", "Suggests") )
 
@@ -19,4 +19,10 @@ install.packages(c("officer") , lib = rev_dep_lib,
 
 
 library(devtools)
-revdep_check(libpath = rev_dep_lib, ignore = "flextable")
+revdep_check(libpath = rev_dep_lib, ignore = names(rev$results))
+
+
+library(covr)
+cov <- package_coverage()
+report(cov)
+cov

@@ -73,7 +73,7 @@ ft <- flextable(data = data) %>%
 The table will be display as below: 
 
 ```{r echo=FALSE}
-tabwid(ft)
+ft
 ```
 
 ## Add a flextable into a Word document 
