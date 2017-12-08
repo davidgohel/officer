@@ -175,8 +175,9 @@ representing the document.</p>
   <span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span> <span class='fu'>print</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"out.docx"</span>)
   <span class='co'># full path of produced file is returned</span>
   <span class='fu'>print</span>(<span class='no'>.Last.value</span>)
-}</div><div class='output co'>#&gt;  [1] "officer"   "testthat"  "magrittr"  "covr"      "ggplot2"   "stats"    
-#&gt;  [7] "graphics"  "grDevices" "utils"     "datasets"  "methods"   "base"     </div><div class='input'>
+}</div><div class='output co'>#&gt; $blogdown.author
+#&gt; NULL
+#&gt; </div><div class='input'>
 <span class='co'># how many elements are there in the document ----</span>
 <span class='fu'>length</span>( <span class='fu'>read_docx</span>() )</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
 </div></pre>
