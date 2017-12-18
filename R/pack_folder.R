@@ -15,10 +15,11 @@ pack_folder <- function( folder, target ){
   curr_wd <- getwd()
   zip_dir <- folder
   setwd(zip_dir)
-
-  tryCatch(
+  tryCatch({
     zip(zipfile = target,
-        files = list.files(all.files = TRUE, recursive = TRUE))
+        files = list.files(path = ".", all.files = FALSE),
+        recurse = TRUE)
+  }
     , error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
     }
