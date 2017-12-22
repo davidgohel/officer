@@ -1,6 +1,7 @@
 #' @export
 #' @importFrom R.utils getAbsolutePath
-#' @importFrom zip zip
+#' @importFrom utils compareVersion packageVersion
+#' @import zip
 #' @title compress a folder
 #' @description compress a folder to a target file. The
 #' function returns the complete path to target file.
@@ -12,20 +13,25 @@ pack_folder <- function( folder, target ){
 
   target <- getAbsolutePath(path.expand(target))
   folder <- getAbsolutePath(path.expand(folder))
-  curr_wd <- getwd()
-  zip_dir <- folder
-  setwd(zip_dir)
-  tryCatch({
-    zip(zipfile = target,
-        files = list.files(path = ".", all.files = FALSE),
+  if( compareVersion(as.character(packageVersion("zip")), "1.0.0") > 0 ){
+    zip::zipr(zipfile = target,
+        files = list.files(path = folder, all.files = FALSE, full.names = TRUE),
         recurse = TRUE)
+    return(target)
   }
+
+  curr_wd <- getwd()
+  setwd(folder)
+
+  tryCatch(
+    zip::zip(zipfile = target,
+        files = list.files(all.files = TRUE, recursive = TRUE))
     , error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
     }
     , finally = {
-    setwd(curr_wd)
-  })
+      setwd(curr_wd)
+    })
 
   target
 }

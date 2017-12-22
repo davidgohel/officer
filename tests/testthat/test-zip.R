@@ -20,6 +20,6 @@ test_that("pack_folder behavior", {
   file <- tempfile(tmpdir = dir_)
   cat("test", file = file)
 
-  expect_error(pack_folder(dir_, target = "dummy_dir/test.zip"), regexp = "^Could not write")
+  expect_error(pack_folder(dir_, target = "dummy_dir/test.zip"))
 })
 

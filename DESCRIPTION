@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.2.1.0001
+Version: 0.2.1.0002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -24,8 +24,8 @@ Imports:
     Rcpp (>= 0.12.12),
     R6,R.utils,grDevices,
     base64enc,
-    zip (>= 1.0.0.9000),
-    digest,uuid,
+    zip,
+    digest,uuid,utils,
     magrittr,htmltools,
     xml2 (>= 1.1.0)
 URL: https://davidgohel.github.io/officer
