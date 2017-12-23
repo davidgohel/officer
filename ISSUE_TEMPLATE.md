@@ -7,6 +7,11 @@ Stackoverflow is providing good explanations about it: https://stackoverflow.com
 
 - [ ] the results of R command `sessionInfo()`. It had to be executed after you loaded the packages used by your example. This will let me know what is your version of R and what are the versions of the packages you used in your example. 
 
+- [ ] you did checked you had the latest version of the package on CRAN (and on github if issue exists with CRAN version).
+
+- [ ] you searched in the *open* and *closed* issues on the github repository.
+
+
 ### If you are asking an enhancement or a new function
 
 Explain the value, describe the situation.
