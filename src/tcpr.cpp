@@ -76,6 +76,11 @@ std::string tcpr::css()
     os << "top;";
   else os << "bottom;";
 
+  if( text_direction == "btlr")
+    os << "transform: rotate(-90deg);";
+  else if( text_direction == "tbrl")
+    os << "transform: rotate(-270deg);";
+
   return os.str();
 }
 
