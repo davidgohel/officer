@@ -55,7 +55,9 @@ pptxtable_as_tibble <- function( node ){
 
 
 pptx_par_as_tibble <- function(node){
-  xpath_ <- paste0( xml_path( node ), "/p:txBody/a:p")
+  xpath_ <- paste0( xml_path( node ),
+                    c("/p:txBody/a:p", "/*/p:txBody/a:p"), # standard and groupedshapes
+                    collapse = "|")
   p_nodes <- xml_find_all(node, xpath_ )
   data.frame( text = xml_text(p_nodes), stringsAsFactors = FALSE )
 }

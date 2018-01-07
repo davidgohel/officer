@@ -48,5 +48,8 @@ test_that("pptx summary", {
                 c(1, 1, 1, 1, 1, 4, 0, 0, 0, 1) )
   expect_equal( table_data$col_span,
                 c(1, 0, 1, 1, 1, 1, 1, 1, 1, 0) )
+
+  slide2_data <- subset(doc_data, content_type %in% "paragraph" & slide_id == 2)
+  expect_equal( slide2_data$text, c("coco", "line of text", "blah blah blah") )
 })
 
