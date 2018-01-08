@@ -1,3 +1,10 @@
+# officer 0.2.1
+
+## Issues
+
+* fix issue #97 with function `pptx_summary()`
+
+
 # officer 0.2.0
 
 ## Enhancement

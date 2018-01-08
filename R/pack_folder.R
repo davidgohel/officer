@@ -14,9 +14,14 @@ pack_folder <- function( folder, target ){
   target <- getAbsolutePath(path.expand(target))
   folder <- getAbsolutePath(path.expand(folder))
   if( compareVersion(as.character(packageVersion("zip")), "1.0.0") > 0 ){
-    zip::zipr(zipfile = target,
-        files = list.files(path = folder, all.files = FALSE, full.names = TRUE),
-        recurse = TRUE)
+    ## replacement when zip will be greater than 1.0.0
+    # zip::zipr(zipfile = target,
+    #           files = list.files(path = folder, all.files = FALSE, full.names = TRUE),
+    #           recurse = TRUE)
+    call_ <- call("zipr", zipfile = target,
+                  files = list.files(path = folder, all.files = FALSE, full.names = TRUE),
+                  recurse = TRUE)
+    eval(call_)
     return(target)
   }
 

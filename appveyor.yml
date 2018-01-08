@@ -10,7 +10,27 @@ init:
 install:
   ps: Bootstrap
 
+cache:
+  - C:\RLibrary
+
 # Adapt as necessary starting from here
+
+environment:
+
+  matrix:
+  - R_VERSION: release
+    PKGTYPE: source
+    R_ARCH: x64
+    USE_RTOOLS: true
+    RTOOLS_VERSION: 34
+  - R_VERSION: patched
+    PKGTYPE: source
+    R_ARCH: x64
+    USE_RTOOLS: true
+    RTOOLS_VERSION: 34
+
+matrix:
+  fast_finish: true
 
 build_script:
   - travis-tool.sh install_deps
