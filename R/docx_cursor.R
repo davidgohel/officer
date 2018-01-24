@@ -86,6 +86,7 @@ cursor_end <- function( x ){
 #' @section cursor_reach:
 #' Set the cursor on the first element of the document
 #' that contains text specified in argument \code{keyword}.
+#' The argument \code{keyword} is a regexpr pattern.
 #' @importFrom xml2 xml_find_first xml_path
 cursor_reach <- function( x, keyword ){
   x$doc_obj$cursor_reach(keyword=keyword)

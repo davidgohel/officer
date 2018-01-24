@@ -54,6 +54,7 @@ of the document.
 
 Set the cursor on the first element of the document
 that contains text specified in argument \code{keyword}.
+The argument \code{keyword} is a regexpr pattern.
 }
 
 \section{cursor_forward}{
