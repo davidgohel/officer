@@ -98,15 +98,20 @@ read_xfrm <- function(nodeset, file, name){
           name = name )
 }
 
+filter_master_xfrm <- function( master_xfrm ){
+  has_type <- grepl("type=", master_xfrm$ph)
+  master_xfrm <- master_xfrm[has_type, ]
+  master_xfrm[!duplicated(master_xfrm$type),]
+}
 
 xfrmize <- function( slide_xfrm, master_xfrm ){
   slide_xfrm <- as.data.frame( slide_xfrm )
-  master_xfrm <- as.data.frame(master_xfrm)
-
+  master_xfrm <- filter_master_xfrm(as.data.frame(master_xfrm))
   master_ref <- unique( data.frame(file = master_xfrm$file,
                                      master_name = master_xfrm$name,
                                      stringsAsFactors = FALSE ) )
   tmp_names <- names(master_xfrm)
+
   old_ <- c("offx", "offy", "cx", "cy", "name")
   new_ <- c("offx_ref", "offy_ref", "cx_ref", "cy_ref", "master_name")
   tmp_names[match(old_, tmp_names)] <- new_
@@ -121,12 +126,10 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
   slide_xfrm_no_match <- merge(slide_xfrm_no_match,
                                master_ref, by.x = "master_file", by.y = "file",
                                all = FALSE)
-
   slide_xfrm <- merge(slide_xfrm, master_xfrm,
                       by.x = c("master_file", "type"),
                       by.y = c("file", "type"),
                       all = FALSE)
-
   slide_xfrm$offx <- ifelse( !is.finite(slide_xfrm$offx), slide_xfrm$offx_ref, slide_xfrm$offx )
   slide_xfrm$offy <- ifelse( !is.finite(slide_xfrm$offy), slide_xfrm$offy_ref, slide_xfrm$offy )
   slide_xfrm$cx <- ifelse( !is.finite(slide_xfrm$cx), slide_xfrm$cx_ref, slide_xfrm$cx )
