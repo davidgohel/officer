@@ -244,6 +244,8 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @title annotate PowerPoint base document
 #' @description generates a slide from each layout in the base document an identifies the layout, master and indexes of each body element.
 #' @param path path to the pptx file to use as base document or NULL to use the officer default
+#' @param output_file filename to store the annotated powerpoint file or NULL to suppress generation
+#' @return x rpptx object of the annotated PowerPoint file
 #' @examples
 #' To generate an anotation of the default base documet with officer and place the output in the file annotated_layout.pptx:
 #'   annotate_base()
@@ -252,7 +254,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #'  annotate_base(path = 'mydoc.pptx', output_file='mydoc_annotate.pptx')
 #'
 #'
-annotate_base <- function( x, path = NULL, output_file='annotated_layout.pptx' ){
+annotate_base <- function(path = NULL, output_file='annotated_layout.pptx' ){
 
   if(is.null(path)){
     ppt = read_pptx()
