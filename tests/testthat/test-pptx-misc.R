@@ -90,6 +90,10 @@ test_that("cursor is incremented as expected", {
 
 })
 
+test_that("annotate base template", {
+  annotate_base() %>% invisible()
+})
+
 unlink("*.pptx")
 unlink("*.emf")
 

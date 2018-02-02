@@ -86,6 +86,8 @@ properties can be overwritten.
 layout) are defined within the initial document. There is no R function to 
 modify these values - they must be defined in the initial document.
 
+
+
 ### Add text content into a placeholder
 
 Use the function `ph_with_text()` to add text into a new shape. The type of the 
@@ -111,6 +113,18 @@ You can use columns `type`, `id` but also `ph_label` to identify or recognize sh
 
 ```{r}
 layout_properties ( x = my_pres, layout = "Two Content", master = "Office Theme" ) %>% head()
+```
+
+#### generate an annotated file from base template
+
+The function `annotate_base()` can be used to generate a PowerPoint file from a template. The title of each slide will contain the `layout` and `master` names and each body element will have the `index` identified. This provides a visual method for linking slide elements to the relevant layout attributes. 
+
+```{r}
+annotate_base() %>% invisible()
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/annotated_layout.pptx" ) )
 ```
 
 ### Write the PowerPoint file

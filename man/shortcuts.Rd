@@ -2,6 +2,7 @@
 % Please edit documentation in R/shorcuts.R
 \name{shortcuts}
 \alias{shortcuts}
+\alias{shortcuts}
 \title{shortcuts for formatting properties}
 \usage{
 shortcuts

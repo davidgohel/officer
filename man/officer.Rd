@@ -4,6 +4,7 @@
 \name{officer}
 \alias{officer}
 \alias{officer-package}
+\alias{officer-package}
 \title{officer: Manipulate Microsoft Word and PowerPoint Documents}
 \description{
 The officer package facilitates access to and manipulation of
@@ -35,6 +36,7 @@ Other contributors:
   \item Frank Hangler \email{frank@plotandscatter.com} (function body_replace_all_text) [contributor]
   \item Liz Sander \email{lsander@civisanalytics.com} (several documentation fixes) [contributor]
   \item Jon Calder \email{jonmcalder@gmail.com} (update vignettes) [contributor]
+  \item John Harrold \email{john.m.harrold@gmail.com} (fuction annotate_base) [contributor]
 }
 
 }

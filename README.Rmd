@@ -24,7 +24,7 @@ document will then be available.
 
 ```{r results='asis', echo=FALSE}
 logo_file <- tempfile(fileext = ".png")
-rsvg::rsvg_png("/Users/davidgohel/Github/officer/inst/officerlogo.svg", file = logo_file, 
+rsvg::rsvg_png("inst/officerlogo.svg", file = logo_file, 
                width = 181, height = 209)
 
 htmltools::span( htmltools::HTML(sprintf('<img src="data:image/png;base64,%s"/>',
