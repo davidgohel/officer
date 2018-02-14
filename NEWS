@@ -3,6 +3,8 @@
 ## Issues
 
 * fix issue with duplicated lines in layout_properties(#103)
+* new argument par_default in ph_add_fpar so fpar par. properties
+  can be kept as is.
 
 # officer 0.2.1
 

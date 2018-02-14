@@ -152,6 +152,8 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 #' @inheritParams ph_remove
 #' @param value fpar object
 #' @param level paragraph level
+#' @param par_default specify if the default paragraph formatting
+#' should be used.
 #' @examples
 #' library(magrittr)
 #'
@@ -170,7 +172,7 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 #' print(doc, target = "ph_add_fpar.pptx")
 #' @importFrom xml2 xml_child xml_children xml_add_child
 #' @seealso \code{\link{fpar}}
-ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
+ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1, par_default = TRUE ){
 
   slide <- x$slide$get_slide(x$cursor)
   shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
@@ -180,9 +182,8 @@ ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1 ){
   current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
   newp_str <- format(value, type = "pml")
   newp_str <- gsub("<a:p>", pml_with_ns("a:p"), newp_str )
-
   node <- as_xml_document(newp_str)
-  {
+  if( par_default ){
     ppr <- xml_child(node, "/a:pPr")
     empty_par <- as_xml_document(paste0(pml_with_ns("a:pPr"), "</a:pPr>"))
     xml_replace(ppr, empty_par )

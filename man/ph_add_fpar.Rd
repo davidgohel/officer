@@ -4,7 +4,8 @@
 \alias{ph_add_fpar}
 \title{append fpar}
 \usage{
-ph_add_fpar(x, value, type = "body", id_chr = NULL, level = 1)
+ph_add_fpar(x, value, type = "body", id_chr = NULL, level = 1,
+  par_default = TRUE)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -18,6 +19,9 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.
 Values can be read from \code{\link{slide_summary}}.}
 
 \item{level}{paragraph level}
+
+\item{par_default}{specify if the default paragraph formatting
+should be used.}
 }
 \description{
 append \code{fpar} (a formatted paragraph) in a placeholder
