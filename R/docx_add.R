@@ -57,6 +57,45 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 }
 
 #' @export
+#' @title insert an external docx
+#' @description add content of a docx into an rdocx object.
+#' @inheritParams body_add_break
+#' @param src docx filename
+#' @examples
+#'
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' if( file.exists(img.file) ){
+#'   # create a example file to be inserted later in the final doc----
+#'   doc <- read_docx()
+#'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
+#'   print(doc, target = "external_file.docx")
+#'
+#'   # insert external_file.docx in the final doc----
+#'   final_doc <- read_docx()
+#'   doc <- body_add_docx(x = doc, src = "external_file.docx" )
+#'   print(doc, target = "final.docx")
+#' }
+#'
+#' @export
+body_add_docx <- function( x, src, pos = "after" ){
+  src <- unique( src )
+  rel <- x$doc_obj$relationship()
+  new_rid <- sprintf("rId%.0f", rel$get_next_id())
+  new_docx_file <- basename(tempfile(fileext = ".docx"))
+  file.copy(src, to = file.path(x$package_dir, new_docx_file))
+  rel$add(
+    id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
+    target = file.path("../", new_docx_file) )
+  x$content_type$add_override(
+    setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml", paste0("/", new_docx_file) )
+  )
+  x$content_type$save()
+  xml_elt <- paste0("<w:altChunk xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
+                    "r:id=\"", new_rid, "\"/>")
+  body_add_xml(x = x, str = xml_elt, pos = pos)
+}
+
+#' @export
 #' @title add ggplot
 #' @description add a ggplot as a png image into an rdocx object
 #' @inheritParams body_add_break
