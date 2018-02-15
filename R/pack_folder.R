@@ -10,9 +10,26 @@
 #' @param folder folder to compress
 #' @param target path of the archive to create
 pack_folder <- function( folder, target ){
-
   target <- getAbsolutePath(path.expand(target))
   folder <- getAbsolutePath(path.expand(folder))
+
+  target <- enc2utf8(target)
+  dir_fi <- dirname(target)
+  if( !file.exists(dir_fi) ){
+    stop("directory ", shQuote(dir_fi), " does not exist.", call. = FALSE)
+  } else if( file.access(dir_fi) < 0 ){
+    stop("can not write to directory ", shQuote(dir_fi), call. = FALSE)
+  } else if( file.exists(target) && file.access(target) < 0 ){
+    stop(shQuote(target), " already exists and is not writable", call. = FALSE)
+  } else if( !file.exists(target) ){
+    old_warn <- getOption("warn")
+    options(warn = -1)
+    x <- tryCatch({cat("", file = target);TRUE}, error = function(e) FALSE, finally = unlink(target, force = TRUE) )
+    options(warn = old_warn)
+    if( !x )
+      stop(shQuote(target), " cannot be written, please check your permissions.", call. = FALSE)
+  }
+
   if( compareVersion(as.character(packageVersion("zip")), "1.0.0") > 0 ){
     ## replacement when zip will be greater than 1.0.0
     # zip::zipr(zipfile = target,
