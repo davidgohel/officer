@@ -182,7 +182,12 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 #' docx_dim(read_docx())
 docx_dim <- function(x){
   cursor_elt <- x$doc_obj$get_at_cursor()
-  xpath_ <- file.path( xml_path(cursor_elt), "following-sibling::w:sectPr")
+  xpath_ <- paste0(
+    file.path( xml_path(cursor_elt), "following-sibling::w:sectPr"),
+    "|",
+    file.path( xml_path(cursor_elt), "following-sibling::w:p/w:pPr/w:sectPr")
+  )
+
   next_section <- xml_find_first(x$doc_obj$get(), xpath_)
   sd <- section_dimensions(next_section)
   sd$page <- sd$page / (20*72)
