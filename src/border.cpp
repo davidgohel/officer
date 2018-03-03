@@ -26,7 +26,7 @@ std::string border::w_tag(std::string side)
     os << "\"dashed\" ";
 
   os << "w:sz=\"";
-  os << std::setprecision(0) << std::fixed << width * 4;
+  os << std::setprecision(0) << std::fixed << width * 8;
   os << "\" ";
   os << "w:space=\"0\" ";
 
