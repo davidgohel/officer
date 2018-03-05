@@ -4,6 +4,10 @@
 
 * Word margins can be modified now (thanks to Jonathan Cooper)
 
+## Issues
+
+* fix issue with images when duplicated `basename()`s
+
 # officer 0.2.2
 
 ## Issues
