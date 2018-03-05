@@ -25,6 +25,7 @@ fpar <- function( ... ) {
 
 #' @export
 #' @rdname fpar
+#' @importFrom stats update
 update.fpar <- function (object, fp_p=NULL, fp_t=NULL, ...){
   if(!is.null(fp_p)){
     object$fp_p <- fp_p
