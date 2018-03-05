@@ -72,7 +72,7 @@ test_that("wml fp_border", {
   expect_equal(col, "00FF00")
 
   sz <- xml_attr(node, "sz")
-  expect_equal(sz, "8")
+  expect_equal(sz, "16")
 
   node <- wml_border_node(fp_border(style = "dotted"))
   expect_equal(xml_attr(node, "val"), "dotted")
