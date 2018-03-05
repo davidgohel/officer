@@ -1,0 +1,10 @@
+pandoc: 1.19.2.1
+pkgdown: 0.1.0.9000
+pkgdown_sha: 408dc8985028b7a95fb249ad44fad53eed198f58
+articles:
+  graphics: offcran/graphics.html
+  tables: offcran/tables.html
+  officer_reader: officer_reader.html
+  powerpoint: powerpoint.html
+  word: word.html
+

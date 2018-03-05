@@ -1,3 +1,6 @@
-$(document).ready(function() {
-  $(".tabwid > .table").removeClass("table");
-});
+if (window.jQuery){
+  $(document).ready(function() {
+    $(".tabwid > .table").removeClass("table");
+  });
+}
+
