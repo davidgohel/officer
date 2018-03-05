@@ -40,16 +40,19 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   if( is.null(style) )
     style <- x$default_styles$paragraph
 
+  new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
+  file.copy( src, to = new_src )
+
   style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
 
-  ext_img <- external_img(src, width = width, height = height)
+  ext_img <- external_img(new_src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")
   xml_elt <- paste0(wml_with_ns("w:p"),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
                     xml_elt,
                     "</w:p>")
 
-  x <- docx_reference_img(x, src)
+  x <- docx_reference_img(x, new_src)
   xml_elt <- wml_link_images( x, xml_elt )
 
 

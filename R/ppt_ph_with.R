@@ -140,14 +140,17 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm(type = type, index = index)
 
+  new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
+  file.copy( src, to = new_src )
+
   if( is.null(width)) width <- xfrm$cx
   else width <- width * 914400
   if( is.null(height)) height <- xfrm$cy
   else height <- height * 914400
-  ext_img <- external_img(src, width = width / 914400, height = height / 914400)
+  ext_img <- external_img(new_src, width = width / 914400, height = height / 914400)
   xml_elt <- format(ext_img, type = "pml")
 
-  slide$reference_img(src = src, dir_name = file.path(x$package_dir, "ppt/media"))
+  slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
   xml_elt <- fortify_pml_images(x, xml_elt)
 
   doc <- as_xml_document(xml_elt)
