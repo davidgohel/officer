@@ -22,14 +22,8 @@ document will then be available.
 
 *This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require `rJava` (but `xml2`) and has less functions that will make it easier to maintain.*
 
-```{r results='asis', echo=FALSE}
-logo_file <- tempfile(fileext = ".png")
-rsvg::rsvg_png("inst/officerlogo.svg", file = logo_file, 
-               width = 181, height = 209)
+<img src="http://www.ardata.fr/images/officerlogo.svg" width = "15%"/>
 
-htmltools::span( htmltools::HTML(sprintf('<img src="data:image/png;base64,%s"/>',
-        gdtools:::base64_file_encode(filename = logo_file) )))
-```
 
 > Make corporate reporting with minimum hassle
 

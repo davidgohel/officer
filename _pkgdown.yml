@@ -1,9 +1,6 @@
-title: officer package
-
-
 template:
   package: ardatatemplate
-  bootswatch: simplex
+  bootswatch: paper
 
 reference:
   - title: Working with Word documents
@@ -55,6 +52,7 @@ reference:
     - ph_with_table_at
     - ph_with_text
     - ph_with_ul
+    - ph_with_fpars_at
     - ph_empty
     - ph_add_text
     - ph_add_par
@@ -79,7 +77,7 @@ reference:
     - fp_cell
 
 navbar:
-  title: ~
+  title: officer
   type: default
   left:
   - text: Powerpoint
