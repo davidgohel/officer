@@ -5,7 +5,7 @@
 ^appveyor\.yml$
 ^README\.Rmd$
 ^docs$
-^inst/tools$
+^inst/zztools$
 ^vignettes/offcran$
 ^cran-comments\.md$
 ^revdep$
