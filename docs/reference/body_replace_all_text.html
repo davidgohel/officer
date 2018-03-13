@@ -184,7 +184,8 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
   <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Placeholder two"</span>)
 
 <span class='co'># Show text chunk at cursor</span>
-<span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>)  <span class='co'># Output is 'Placeholder two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'Placeholder two'</span></div><div class='input'>
+<span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>)  <span class='co'># Output is 'Placeholder two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor. </span>
+#&gt; <span class='message'>  &lt;w:t&gt;: 'Placeholder two'</span></div><div class='input'>
 <span class='co'># Simple search-and-replace at current cursor, with regex turned off</span>
 <span class='fu'>body_replace_all_text</span>(<span class='no'>doc</span>, <span class='st'>"Placeholder"</span>, <span class='st'>"new"</span>, <span class='kw'>only_at_cursor</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>fixed</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
 #&gt; 
@@ -206,7 +207,8 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
 #&gt; 
 #&gt; * Content at cursor location:
 #&gt;   level num_id    text style_name content_type
-#&gt; 1    NA     NA new two     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>)  <span class='co'># Output is 'new two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'new two'</span></div><div class='input'>
+#&gt; 1    NA     NA new two     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>)  <span class='co'># Output is 'new two'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor. </span>
+#&gt; <span class='message'>  &lt;w:t&gt;: 'new two'</span></div><div class='input'>
 <span class='co'># Do the same, but in the entire document and ignoring case</span>
 <span class='fu'>body_replace_all_text</span>(<span class='no'>doc</span>, <span class='st'>"placeholder"</span>, <span class='st'>"new"</span>, <span class='kw'>only_at_cursor</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>ignore.case</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
 #&gt; 
@@ -248,7 +250,8 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
 #&gt; 
 #&gt; * Content at cursor location:
 #&gt;   level num_id    text style_name content_type
-#&gt; 1    NA     NA new one     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>) <span class='co'># Output is 'new one'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'new one'</span></div><div class='input'>
+#&gt; 1    NA     NA new one     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>) <span class='co'># Output is 'new one'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor. </span>
+#&gt; <span class='message'>  &lt;w:t&gt;: 'new one'</span></div><div class='input'>
 <span class='co'># Use regex : replace all words starting with "n" with the word "example"</span>
 <span class='fu'>body_replace_all_text</span>(<span class='no'>doc</span>, <span class='st'>"\\bn.*?\\b"</span>, <span class='st'>"example"</span>)</div><div class='output co'>#&gt; rdocx document with 4 element(s)
 #&gt; 
@@ -270,7 +273,8 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
 #&gt; 
 #&gt; * Content at cursor location:
 #&gt;   level num_id        text style_name content_type
-#&gt; 1    NA     NA example one     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>) <span class='co'># Output is 'example one'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor.</span></div><div class='output co'>#&gt; <span class='message'>  &lt;w:t&gt;: 'example one'</span></div></pre>
+#&gt; 1    NA     NA example one     Normal    paragraph</div><div class='input'><span class='fu'><a href='docx_show_chunk.html'>docx_show_chunk</a></span>(<span class='no'>doc</span>) <span class='co'># Output is 'example one'</span></div><div class='output co'>#&gt; <span class='message'>1 text nodes found at this cursor. </span>
+#&gt; <span class='message'>  &lt;w:t&gt;: 'example one'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

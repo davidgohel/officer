@@ -80,11 +80,11 @@
 <h2 class="hasAnchor">
 <a href="#import-word-document" class="anchor"></a>Import Word document</h2>
 <p>The function <code><a href="../reference/docx_summary.html">docx_summary()</a></code> returns the content of a Word document.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
-example_docx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span>)
-doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(example_docx)
-content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/docx_summary.html">docx_summary</a></span>(doc)
-<span class="kw">head</span>(content)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(officer)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">example_docx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_docx.html">read_docx</a></span>(example_docx)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/docx_summary.html">docx_summary</a></span>(doc)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">head</span>(content)</a></code></pre></div>
 <pre><code>##   doc_index content_type     style_name
 ## 1         1    paragraph      heading 1
 ## 2         2    paragraph           &lt;NA&gt;
@@ -107,21 +107,21 @@ content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/doc
 ## 5     NA        NA      NA       NA       NA
 ## 6     NA        NA      NA       NA       NA</code></pre>
 <p>Explore the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(content<span class="op">$</span>doc_index, 
-       content<span class="op">$</span>content_type, 
-       <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">tapply</span>(content<span class="op">$</span>doc_index, </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">       content<span class="op">$</span>content_type, </a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">       <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</a></code></pre></div>
 <pre><code>##  paragraph table cell 
 ##         17          1</code></pre>
 <p>To get all paragraphs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">par_data &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>) 
-par_data &lt;-<span class="st"> </span>par_data[, <span class="kw">c</span>(<span class="st">"doc_index"</span>, <span class="st">"style_name"</span>, 
-                         <span class="st">"text"</span>, <span class="st">"level"</span>, <span class="st">"num_id"</span>) ]
-par_data<span class="op">$</span>text &lt;-<span class="st"> </span><span class="kw">with</span>(par_data, {
-  <span class="kw">substr</span>(
-    text, <span class="dt">start =</span> <span class="dv">1</span>, 
-    <span class="dt">stop =</span> <span class="kw">ifelse</span>(<span class="kw">nchar</span>(text)<span class="op">&lt;</span><span class="dv">30</span>, <span class="kw">nchar</span>(text), <span class="dv">30</span>) )
-})
-par_data</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">par_data &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>) </a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">par_data &lt;-<span class="st"> </span>par_data[, <span class="kw">c</span>(<span class="st">"doc_index"</span>, <span class="st">"style_name"</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                         <span class="st">"text"</span>, <span class="st">"level"</span>, <span class="st">"num_id"</span>) ]</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">par_data<span class="op">$</span>text &lt;-<span class="st"> </span><span class="kw">with</span>(par_data, {</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="kw">substr</span>(</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">    text, <span class="dt">start =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">    <span class="dt">stop =</span> <span class="kw">ifelse</span>(<span class="kw">nchar</span>(text)<span class="op">&lt;</span><span class="dv">30</span>, <span class="kw">nchar</span>(text), <span class="dv">30</span>) )</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">})</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">par_data</a></code></pre></div>
 <pre><code>##    doc_index     style_name                           text level num_id
 ## 1          1      heading 1                        Title 1    NA     NA
 ## 2          2           &lt;NA&gt; Lorem ipsum dolor sit amet, co    NA     NA
@@ -144,8 +144,8 @@ par_data</code></pre></div>
 <h3 class="hasAnchor">
 <a href="#word-tables" class="anchor"></a>Word tables</h3>
 <p>Tables are unstacked:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_cells &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)
-<span class="kw">print</span>(<span class="kw">head</span>( table_cells) )</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">table_cells &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">head</span>( table_cells) )</a></code></pre></div>
 <pre><code>##      doc_index content_type    style_name        text level num_id row_id
 ## 1.1         16   table cell Light Shading      Petals    NA     NA      1
 ## 1.11        16   table cell Light Shading 5,621498349    NA     NA      2
@@ -161,9 +161,9 @@ par_data</code></pre></div>
 ## 1.14     FALSE       1        2        1
 ## 1.15     FALSE       1        1        1</code></pre>
 <p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code> and <code>is_header</code> (a logical column indicating if the cell is part of a header or not). Note that the content itself (column <code>text</code>) is a character vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_body &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, <span class="op">!</span>is_header)
-table_body &lt;-<span class="st"> </span>table_body[,<span class="kw">c</span>(<span class="st">"row_id"</span>, <span class="st">"cell_id"</span>, <span class="st">"text"</span>)]
-<span class="kw">head</span>(table_body)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">table_body &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, <span class="op">!</span>is_header)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">table_body &lt;-<span class="st"> </span>table_body[,<span class="kw">c</span>(<span class="st">"row_id"</span>, <span class="st">"cell_id"</span>, <span class="st">"text"</span>)]</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">head</span>(table_body)</a></code></pre></div>
 <pre><code>##      row_id cell_id        text
 ## 1.11      2       1 5,621498349
 ## 1.12      3       1 4,994616997
@@ -172,12 +172,12 @@ table_body &lt;-<span class="st"> </span>table_body[,<span class="kw">c</span>(<
 ## 1.15      6       1 6,489375001
 ## 1.16      7       1   5,7858682</code></pre>
 <p>Reshaping the data with columns <code>row_id</code>, <code>cell_id</code> and <code>text</code> would display something close to the orginal table:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(table_body<span class="op">$</span>text, 
-       <span class="kw">list</span>(<span class="dt">row_id =</span> table_body<span class="op">$</span>row_id, 
-            <span class="dt">cell_id =</span> table_body<span class="op">$</span>cell_id
-            ), 
-       <span class="dt">FUN =</span> I
-       )</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">tapply</span>(table_body<span class="op">$</span>text, </a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">       <span class="kw">list</span>(<span class="dt">row_id =</span> table_body<span class="op">$</span>row_id, </a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">            <span class="dt">cell_id =</span> table_body<span class="op">$</span>cell_id</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">            ), </a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">       <span class="dt">FUN =</span> I</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">       )</a></code></pre></div>
 <pre><code>##       cell_id
 ## row_id 1             2             3                      
 ##     2  "5,621498349" NA            "2,46210657918,2034091"
@@ -207,13 +207,13 @@ table_body &lt;-<span class="st"> </span>table_body[,<span class="kw">c</span>(<
 ##     12 "18,95335451"                     
 ##     13 NA</code></pre>
 <p>Getting headers requires another operation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, is_header) 
-data &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span class="st">"row_id"</span>, <span class="st">"cell_id"</span>, <span class="st">"text"</span>) ] 
-
-<span class="kw">tapply</span>(data<span class="op">$</span>text, 
-   <span class="kw">list</span>(<span class="dt">row_id =</span> data<span class="op">$</span>row_id, 
-        <span class="dt">cell_id =</span> data<span class="op">$</span>cell_id
-        ), <span class="dt">FUN =</span> I )</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, is_header) </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">data &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span class="st">"row_id"</span>, <span class="st">"cell_id"</span>, <span class="st">"text"</span>) ] </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw">tapply</span>(data<span class="op">$</span>text, </a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">   <span class="kw">list</span>(<span class="dt">row_id =</span> data<span class="op">$</span>row_id, </a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">        <span class="dt">cell_id =</span> data<span class="op">$</span>cell_id</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">        ), <span class="dt">FUN =</span> I )</a></code></pre></div>
 <pre><code>##       cell_id
 ## row_id 1        2           3       4      
 ##      1 "Petals" "Internode" "Sepal" "Bract"</code></pre>
@@ -223,10 +223,10 @@ data &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span class=
 <h2 class="hasAnchor">
 <a href="#import-powerpoint-document" class="anchor"></a>Import PowerPoint document</h2>
 <p>The function <code><a href="../reference/pptx_summary.html">pptx_summary()</a></code> returns the content of a PowerPoint document.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">example_pptx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.pptx"</span>)
-doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>(example_pptx)
-content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pptx_summary.html">pptx_summary</a></span>(doc)
-<span class="kw">head</span>(content)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">example_pptx &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.pptx"</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>(example_pptx)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/pptx_summary.html">pptx_summary</a></span>(doc)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw">head</span>(content)</a></code></pre></div>
 <pre><code>##                  text id content_type slide_id row_id cell_id col_span
 ## 1               Title 12    paragraph        1     NA      NA       NA
 ## 2            A table  13    paragraph        1     NA      NA       NA
@@ -242,16 +242,16 @@ content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ppt
 ## 5         NA       &lt;NA&gt;
 ## 1.1        1       &lt;NA&gt;</code></pre>
 <p>Explore the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(content<span class="op">$</span>id, 
-       content<span class="op">$</span>content_type, 
-       <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">tapply</span>(content<span class="op">$</span>id, </a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">       content<span class="op">$</span>content_type, </a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">       <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</a></code></pre></div>
 <pre><code>##      image  paragraph table cell 
 ##          1          5          2</code></pre>
 <p>To get all paragraphs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">par_data &lt;-<span class="st"> </span><span class="kw">subset</span>(content, 
-                   content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>, 
-                   <span class="dt">select =</span> <span class="kw">c</span>(id, text) )
-<span class="kw">head</span>(par_data)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">par_data &lt;-<span class="st"> </span><span class="kw">subset</span>(content, </a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">                   content_type <span class="op">%in%</span><span class="st"> "paragraph"</span>, </a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">                   <span class="dt">select =</span> <span class="kw">c</span>(id, text) )</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="kw">head</span>(par_data)</a></code></pre></div>
 <pre><code>##    id              text
 ## 1  12             Title
 ## 2  13          A table 
@@ -260,18 +260,16 @@ content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ppt
 ## 5  13 and some list (2)
 ## 11 15            R logo</code></pre>
 <p>To get an image:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">image_row &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "image"</span>)
-<span class="kw"><a href="../reference/media_extract.html">media_extract</a></span>(doc, <span class="dt">path =</span> image_row<span class="op">$</span>media_file, <span class="dt">target =</span> <span class="st">"extract.png"</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">image_row &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "image"</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="../reference/media_extract.html">media_extract</a></span>(doc, <span class="dt">path =</span> image_row<span class="op">$</span>media_file, <span class="dt">target =</span> <span class="st">"extract.png"</span>)</a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="figure">
-<img src="extract.png">
-</div>
+<p><img src="extract.png"></p>
 <div id="powerpoint-tables" class="section level3">
 <h3 class="hasAnchor">
 <a href="#powerpoint-tables" class="anchor"></a>PowerPoint tables</h3>
 <p>Tables are unstacked :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table_cells &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)
-<span class="kw">head</span>(table_cells)</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">table_cells &lt;-<span class="st"> </span><span class="kw">subset</span>(content, content_type <span class="op">%in%</span><span class="st"> "table cell"</span>)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">head</span>(table_cells)</a></code></pre></div>
 <pre><code>##           text id content_type slide_id row_id cell_id col_span row_span
 ## 1.1  Header 1  18   table cell        1      1       1        1        1
 ## 1.4          A 18   table cell        1      2       1        1        1
@@ -287,11 +285,11 @@ content &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ppt
 ## 1.13       &lt;NA&gt;
 ## 2.2        &lt;NA&gt;</code></pre>
 <p>Cells positions and values are dispatched in columns <code>row_id</code>, <code>cell_id</code>, <code>text</code>. Note that here there is no indicator for the table header.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, id <span class="op">==</span><span class="st"> </span><span class="dv">18</span>, <span class="kw">c</span>(row_id, cell_id, text) )
-<span class="kw">tapply</span>(data<span class="op">$</span>text, 
-   <span class="kw">list</span>(<span class="dt">row_id =</span> data<span class="op">$</span>row_id, 
-        <span class="dt">cell_id =</span> data<span class="op">$</span>cell_id
-        ), <span class="dt">FUN =</span> I )</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">subset</span>(table_cells, id <span class="op">==</span><span class="st"> </span><span class="dv">18</span>, <span class="kw">c</span>(row_id, cell_id, text) )</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">tapply</span>(data<span class="op">$</span>text, </a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">   <span class="kw">list</span>(<span class="dt">row_id =</span> data<span class="op">$</span>row_id, </a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">        <span class="dt">cell_id =</span> data<span class="op">$</span>cell_id</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">        ), <span class="dt">FUN =</span> I )</a></code></pre></div>
 <pre><code>##       cell_id
 ## row_id 1           2          3               
 ##      1 "Header 1 " "Header 2" "Header 3"      
