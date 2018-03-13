@@ -83,8 +83,7 @@ To insert that table in a Word document, function `flextable::body_add_flextable
 ```{r}
 read_docx() %>% 
   body_add_flextable(ft) %>% 
-  print(target = "../assets/flextable/flextable.docx") %>% 
-  invisible()
+  print(target = "../assets/flextable/flextable.docx")
 ```
 
 
@@ -105,8 +104,7 @@ read_pptx() %>%
   ph_with_flextable(ft, type = "body") %>% 
   add_slide(layout = "Title Only", master = "Office Theme") %>% 
   ph_with_flextable_at(ft, left = 3, top = 4) %>% 
-  print(target = "../assets/flextable/flextable.pptx") %>% 
-  invisible()
+  print(target = "../assets/flextable/flextable.pptx")
 ```
 
 

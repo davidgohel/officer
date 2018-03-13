@@ -120,7 +120,7 @@ layout_properties ( x = my_pres, layout = "Two Content", master = "Office Theme"
 The function `annotate_base()` can be used to generate a PowerPoint file from a template. The title of each slide will contain the `layout` and `master` names and each body element will have the `index` identified. This provides a visual method for linking slide elements to the relevant layout attributes. 
 
 ```{r}
-annotate_base() %>% invisible()
+annotate_base(output_file = "assets/pptx/annotated_layout.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -133,8 +133,7 @@ The (updated) Powerpoint file can be generated using the `print()` function
 along with the `target` argument:
 
 ```{r}
-print(my_pres, target = "assets/pptx/first_example.pptx") %>% 
-  invisible()
+print(my_pres, target = "assets/pptx/first_example.pptx") 
 ```
 
 ```{r echo=FALSE}
@@ -188,8 +187,7 @@ doc <- read_pptx() %>%
   ph_with_text(type = "ftr", str = "Slide footer") %>%
   ph_with_text(type = "dt", str = format(Sys.Date()))
 
-print(doc, target = "assets/pptx/ph_with_text.pptx") %>% 
-  invisible()
+print(doc, target = "assets/pptx/ph_with_text.pptx") 
 ```
 
 ```{r echo=FALSE}
@@ -215,8 +213,7 @@ doc <- doc %>%
   ph_with_text(type = "body", str = "body (index 1) is text", index = 1) %>% 
   ph_with_img(type = "body", index = 2, src = img.file, height = 1.06, width = 1.39 )
 
-print(doc, target = "assets/pptx/ph_with_img.pptx") %>% 
-  invisible()
+print(doc, target = "assets/pptx/ph_with_img.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -248,8 +245,7 @@ if( require("ggplot2") ){
   if( capabilities(what = "png") )
     doc <- ph_with_gg(doc, value = gg_plot )
 
-  print(doc, target = "assets/pptx/ph_with_gg.pptx" ) %>% 
-  invisible()
+  print(doc, target = "assets/pptx/ph_with_gg.pptx" ) 
 }
 ```
 
@@ -273,8 +269,7 @@ doc <- doc %>%
   add_slide(layout = "Title and Content", master = "Office Theme") %>%
   ph_with_table(type = "body", value = head(mtcars) )
 
-print(doc, target = "assets/pptx/ph_with_table.pptx") %>% 
-  invisible()
+print(doc, target = "assets/pptx/ph_with_table.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -291,8 +286,7 @@ doc <- doc %>%
   ph_with_table_at(value = head(mtcars), left = 1, top = 3, 
                  height = 7, width = 7 )
 
-print(doc, target = "assets/pptx/ph_with_table_at.pptx") %>% 
-  invisible()
+print(doc, target = "assets/pptx/ph_with_table_at.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -344,8 +338,7 @@ my_pres <- my_pres %>%
   ph_add_par(level = 3) %>%
   ph_add_text(str = "Level 3")
 
-print(my_pres, target = "assets/pptx/ph_add_text_1.pptx") %>% 
-  invisible()
+print(my_pres, target = "assets/pptx/ph_add_text_1.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -375,8 +368,7 @@ my_pres <- my_pres %>%
   ph_add_par(level = 2) %>%
   ph_add_text(str = "additional paragraph")
 
-print(my_pres, target = "assets/pptx/ph_add_text_2.pptx") %>% 
-  invisible()
+print(my_pres, target = "assets/pptx/ph_add_text_2.pptx") 
 ```
 
 ```{r echo=FALSE}
@@ -399,8 +391,7 @@ doc <- read_pptx() %>%
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
   ph_with_text(type = "body", str = "placeholder target")
 
-print(doc, target = "assets/pptx/ph_hyperlink.pptx") %>% 
-  invisible()
+print(doc, target = "assets/pptx/ph_hyperlink.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -422,8 +413,7 @@ doc <- read_pptx() %>%
   on_slide(index = 1 ) %>% 
   ph_slidelink(type = "body", slide_index = 2)
 
-print(doc, target = "assets/pptx/ph_slidelink.pptx") %>% 
-  invisible()
+print(doc, target = "assets/pptx/ph_slidelink.pptx")
 ```
 
 ```{r echo=FALSE}
@@ -442,8 +432,7 @@ my_pres <- read_pptx() %>%
   ph_with_text(type = "body", str = "An ") %>% 
   ph_add_text(str = "hyperlink", href = "https://cran.r-project.org" )
 
-print(my_pres, target = "assets/pptx/ph_add_text_3.pptx") %>% 
-  invisible()
+print(my_pres, target = "assets/pptx/ph_add_text_3.pptx")
 ```
 
 ```{r echo=FALSE}
