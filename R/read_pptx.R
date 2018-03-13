@@ -256,26 +256,22 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' # annotate_base(path = 'mydoc.pptx', output_file='mydoc_annotate.pptx')
 #'
 #'
-annotate_base <- function(path = NULL, output_file='annotated_layout.pptx' ){
+annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 
-  if(is.null(path)){
-    ppt = read_pptx()
-  } else {
-    ppt = read_pptx(path=path)
-  }
+  ppt <- read_pptx(path=path)
 
   # Pulling out all of the layouts stored in the template
-  lay_sum = layout_summary(ppt)
+  lay_sum <- layout_summary(ppt)
 
   # Looping through each layout
   for(lidx in 1:length(lay_sum[,1])){
     # Pulling out the layout properties
-    layout = lay_sum[lidx, 1]
-    master = lay_sum[lidx, 2]
-    lp = layout_properties ( x = ppt, layout = layout, master = master)
+    layout <- lay_sum[lidx, 1]
+    master <- lay_sum[lidx, 2]
+    lp <- layout_properties ( x = ppt, layout = layout, master = master)
 
     # Adding a slide for the current layout
-    ppt =  add_slide(x=ppt, layout = layout, master = master)
+    ppt <- add_slide(x=ppt, layout = layout, master = master)
 
     # Blank slides have nothing
     if(length(lp[,1] > 0)){
@@ -287,22 +283,23 @@ annotate_base <- function(path = NULL, output_file='annotated_layout.pptx' ){
         # the type and index. If it's title we put the layout and master
         # information in there as well.
         if(lp[pidx, ]$type == "body"){
-          textstr = sprintf('type="body", index =%d', pidx)
-          ppt =ph_with_text(x=ppt, type="body", index=pidx, str=textstr)
+          textstr <- sprintf('type="body", index =%d', pidx)
+          ppt <- ph_with_text(x=ppt, type="body", index=pidx, str=textstr)
         }
         if(lp[pidx, ]$type %in% c("title", "ctrTitle", "subTitle")){
-          textstr = sprintf('layout ="%s", master = "%s", type="%s", index =%d', layout, master, lp[pidx, ]$type,  pidx)
-          ppt =ph_with_text(x=ppt, type=lp[pidx, ]$type, str=textstr)
+          textstr <- sprintf('layout ="%s", master = "%s", type="%s", index =%d', layout, master, lp[pidx, ]$type,  pidx)
+          ppt <- ph_with_text(x=ppt, type=lp[pidx, ]$type, str=textstr)
         }
       }
     }
   }
 
   if(!is.null(output_file)){
-    print(ppt, output_file)
+    print(ppt, target = output_file)
   }
 
-return(ppt)}
+  ppt
+}
 
 #' @export
 #' @title get PowerPoint slide content in a tidy format
