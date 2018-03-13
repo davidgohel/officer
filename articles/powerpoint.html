@@ -76,9 +76,9 @@
     
     
 <div class="contents">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(officer)
-<span class="co"># Package `magrittr` makes officer usage easier.</span>
-<span class="kw">library</span>(magrittr)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(officer)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># Package `magrittr` makes officer usage easier.</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(magrittr)</a></code></pre></div>
 <div style="text-align:center;">
 <p><img src="data:image/png;base64,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" width="128" height="128"></p>
 </div>
@@ -86,7 +86,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>Use the function <code><a href="../reference/read_pptx.html">read_pptx()</a></code> to create an R object representing a PowerPoint document. The initial PowerPoint file can be specified with the <code>path</code> argument. If none is provided, this file will be an empty document located in the package directory. Formats and available slide layouts will be those available in the template file. The content of original document is also preserved (but can be manipulated, i.e. delete a slide).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() </code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() </a></code></pre></div>
 <div id="add-a-slide" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-a-slide" class="anchor"></a>Add a slide</h3>
@@ -96,10 +96,10 @@
 <li>a slide layout name</li>
 <li>a master layout name</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a></code></pre></div>
 <p><strong>Note that the <code>layout</code> and <code>master</code> values must match values from the initial document.</strong> Layout names and master layout names are not available in a tidy view within PowerPoint, but these can be read easily with the function <code><a href="../reference/layout_summary.html">layout_summary()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/layout_summary.html">layout_summary</a></span>(my_pres)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/layout_summary.html">layout_summary</a></span>(my_pres)</a></code></pre></div>
 <pre><code>##              layout       master
 ## 1       Title Slide Office Theme
 ## 2 Title and Content Office Theme
@@ -123,17 +123,17 @@
 <h3 class="hasAnchor">
 <a href="#add-text-content-into-a-placeholder" class="anchor"></a>Add text content into a placeholder</h3>
 <p>Use the function <code><a href="../reference/ph_with_text.html">ph_with_text()</a></code> to add text into a new shape. The type of the shape is defined in the slide layout associated with the current slide. For example, using <code>type = "title"</code> will create a title shape in the current slide.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>, <span class="dt">str =</span> <span class="st">"A title"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>, <span class="dt">str =</span> <span class="st">"A footer"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>, <span class="dt">str =</span> <span class="kw">format</span>(<span class="kw">Sys.Date</span>())) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"sldNum"</span>, <span class="dt">str =</span> <span class="st">"slide 1"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">str =</span> <span class="st">"Hello world"</span>, <span class="dt">type =</span> <span class="st">"body"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>, <span class="dt">str =</span> <span class="st">"A title"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>, <span class="dt">str =</span> <span class="st">"A footer"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>, <span class="dt">str =</span> <span class="kw">format</span>(<span class="kw">Sys.Date</span>())) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"sldNum"</span>, <span class="dt">str =</span> <span class="st">"slide 1"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">str =</span> <span class="st">"Hello world"</span>, <span class="dt">type =</span> <span class="st">"body"</span>)</a></code></pre></div>
 <blockquote>
 <p>The function <code>layout_properties</code> provides details about the available shapes for a slide layout.</p>
 </blockquote>
 <p>You can use columns <code>type</code>, <code>id</code> but also <code>ph_label</code> to identify or recognize shapes. <code>ph_label</code> is the label that can be associated to a placeholder in a slide template. <code>type</code> and <code>id</code> are often required to identify which placeholder should receive a content.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/layout_properties.html">layout_properties</a></span> ( <span class="dt">x =</span> my_pres, <span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/layout_properties.html">layout_properties</a></span> ( <span class="dt">x =</span> my_pres, <span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span> ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a></code></pre></div>
 <pre><code>##     master_name        name   type id                   ph_label     offx
 ## 6  Office Theme Two Content   body  3      Content Placeholder 2 0.500000
 ## 7  Office Theme Two Content   body  4      Content Placeholder 3 5.083333
@@ -152,7 +152,17 @@
 <h4 class="hasAnchor">
 <a href="#generate-an-annotated-file-from-base-template" class="anchor"></a>generate an annotated file from base template</h4>
 <p>The function <code><a href="../reference/annotate_base.html">annotate_base()</a></code> can be used to generate a PowerPoint file from a template. The title of each slide will contain the <code>layout</code> and <code>master</code> names and each body element will have the <code>index</code> identified. This provides a visual method for linking slide elements to the relevant layout attributes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/annotate_base.html">annotate_base</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/annotate_base.html">annotate_base</a></span>(<span class="dt">output_file =</span> <span class="st">"assets/pptx/annotated_layout.pptx"</span>)</a></code></pre></div>
+<pre><code>## pptx document with 7 slide(s)
+## Available layouts and their associated master(s) are:
+##              layout       master
+## 1       Title Slide Office Theme
+## 2 Title and Content Office Theme
+## 3    Section Header Office Theme
+## 4       Two Content Office Theme
+## 5        Comparison Office Theme
+## 6        Title Only Office Theme
+## 7             Blank Office Theme</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/annotated_layout.pptx">annotated_layout.pptx</a>
@@ -165,8 +175,8 @@
 <h3 class="hasAnchor">
 <a href="#write-the-powerpoint-file" class="anchor"></a>Write the PowerPoint file</h3>
 <p>The (updated) Powerpoint file can be generated using the <code>print()</code> function along with the <code>target</code> argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/first_example.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/first_example.pptx"</span>) </a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/first_example.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/first_example.pptx">first_example.pptx</a>
@@ -180,18 +190,18 @@
 <a href="#slide-selection-and-manipulation" class="anchor"></a>Slide selection and manipulation</h2>
 <p>There are 3 functions to let you manipulate slides: <code><a href="../reference/add_slide.html">add_slide()</a></code>, <code><a href="../reference/remove_slide.html">remove_slide()</a></code> and <code><a href="../reference/on_slide.html">on_slide()</a></code>.</p>
 <p>A slide can be added with the <code><a href="../reference/add_slide.html">add_slide()</a></code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)
-<span class="kw">length</span>(my_pres)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw">length</span>(my_pres)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>A slide can be removed with the <code><a href="../reference/remove_slide.html">remove_slide()</a></code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/remove_slide.html">remove_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)
-<span class="kw">length</span>(my_pres)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/remove_slide.html">remove_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">length</span>(my_pres)</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>A slide can be selected with the <code><a href="../reference/on_slide.html">on_slide()</a></code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)</a></code></pre></div>
 </div>
 <div id="add-content-into-a-placeholder" class="section level2">
 <h2 class="hasAnchor">
@@ -200,16 +210,16 @@
 <h3 class="hasAnchor">
 <a href="#add-text" class="anchor"></a>Add text</h3>
 <p>Use the function <code><a href="../reference/ph_with_text.html">ph_with_text()</a></code> to add text into a new shape. The <code>type</code> argument specifies which placeholder from the associated layout is to be added (<code>index</code> is to be used when a <code>type</code> is not unique in the slide layout).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A second text"</span>, <span class="dt">index =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>, <span class="dt">str =</span> <span class="st">"A title"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>, <span class="dt">str =</span> <span class="st">"Slide footer"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>, <span class="dt">str =</span> <span class="kw">format</span>(<span class="kw">Sys.Date</span>()))
-
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_text.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A second text"</span>, <span class="dt">index =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>, <span class="dt">str =</span> <span class="st">"A title"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>, <span class="dt">str =</span> <span class="st">"Slide footer"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>, <span class="dt">str =</span> <span class="kw">format</span>(<span class="kw">Sys.Date</span>()))</a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_text.pptx"</span>) </a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_with_text.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_text.pptx">ph_with_text.pptx</a>
@@ -222,16 +232,16 @@
 <h3 class="hasAnchor">
 <a href="#add-image" class="anchor"></a>Add image</h3>
 <p>Use the function <code><a href="../reference/ph_with_img.html">ph_with_img()</a></code> to add an image into a placeholder. As for all <code>ph_with_*</code> functions, the <code>type</code> argument specifies the placeholder from the associated layout to be added as a new shape (and <code>index</code> is to be used when a <code>type</code> is not unique in the slide layout).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">R.home</span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )
-
-doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
-doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"body (index 1) is text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_img.html">ph_with_img</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">index =</span> <span class="dv">2</span>, <span class="dt">src =</span> img.file, <span class="dt">height =</span> <span class="fl">1.06</span>, <span class="dt">width =</span> <span class="fl">1.39</span> )
-
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_img.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">img.file &lt;-<span class="st"> </span><span class="kw">file.path</span>( <span class="kw">R.home</span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() </a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"body (index 1) is text"</span>, <span class="dt">index =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_img.html">ph_with_img</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">index =</span> <span class="dv">2</span>, <span class="dt">src =</span> img.file, <span class="dt">height =</span> <span class="fl">1.06</span>, <span class="dt">width =</span> <span class="fl">1.39</span> )</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_img.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_with_img.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_img.pptx">ph_with_img.pptx</a>
@@ -244,22 +254,22 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <h3 class="hasAnchor">
 <a href="#add-ggplot" class="anchor"></a>Add ggplot</h3>
 <p>Use function <code><a href="../reference/ph_with_gg.html">ph_with_gg()</a></code> to add a ggplot object as an image into a placeholder. As for all <code>ph_with_*</code> functions, argument <code>type</code> specifies the placeholder of the associated layout to be added as a new shape (<code>index</code> is to be used when an <code>type</code> is not unique in the slide layout).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){
-  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()
-  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>,
-    <span class="dt">master =</span> <span class="st">"Office Theme"</span>)
-
-  gg_plot &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris ) <span class="op">+</span>
-<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>(<span class="dt">mapping =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_minimal</a></span>()
-
-  <span class="cf">if</span>( <span class="kw">capabilities</span>(<span class="dt">what =</span> <span class="st">"png"</span>) )
-    doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with_gg.html">ph_with_gg</a></span>(doc, <span class="dt">value =</span> gg_plot )
-
-  <span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_gg.pptx"</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()
-}</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="cf">if</span>( <span class="kw">require</span>(<span class="st">"ggplot2"</span>) ){</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>,</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">    <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">  gg_plot &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="dt">data =</span> iris ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>(<span class="dt">mapping =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(Sepal.Length, Petal.Length), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_minimal</a></span>()</a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10">  <span class="cf">if</span>( <span class="kw">capabilities</span>(<span class="dt">what =</span> <span class="st">"png"</span>) )</a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">    doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with_gg.html">ph_with_gg</a></span>(doc, <span class="dt">value =</span> gg_plot )</a>
+<a class="sourceLine" id="cb22-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb22-13" data-line-number="13">  <span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_gg.pptx"</span> ) </a>
+<a class="sourceLine" id="cb22-14" data-line-number="14">}</a></code></pre></div>
 <pre><code>## Le chargement a nécessité le package : ggplot2</code></pre>
+<pre><code>## [1] "/.../assets/pptx/ph_with_gg.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_img.pptx">ph_with_img.pptx</a>
@@ -272,13 +282,13 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <h3 class="hasAnchor">
 <a href="#add-table" class="anchor"></a>Add table</h3>
 <p>Use the function <code><a href="../reference/ph_with_table.html">ph_with_table()</a></code> to add a table into a placeholder.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
-doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_table.html">ph_with_table</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">value =</span> <span class="kw">head</span>(mtcars) )
-
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_table.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() </a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_table.html">ph_with_table</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">value =</span> <span class="kw">head</span>(mtcars) )</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_table.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_with_table.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_table.pptx">ph_with_table.pptx</a>
@@ -286,14 +296,14 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_table.pptx">office web viewer</a>
 </p>
 <p>To add a table into a new shape at arbitrary coordinates, use the function <code><a href="../reference/ph_with_table.html">ph_with_table_at()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() 
-doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_table.html">ph_with_table_at</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(mtcars), <span class="dt">left =</span> <span class="dv">1</span>, <span class="dt">top =</span> <span class="dv">3</span>, 
-                 <span class="dt">height =</span> <span class="dv">7</span>, <span class="dt">width =</span> <span class="dv">7</span> )
-
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_table_at.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() </a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_table.html">ph_with_table_at</a></span>(<span class="dt">value =</span> <span class="kw">head</span>(mtcars), <span class="dt">left =</span> <span class="dv">1</span>, <span class="dt">top =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">                 <span class="dt">height =</span> <span class="dv">7</span>, <span class="dt">width =</span> <span class="dv">7</span> )</a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_table_at.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_with_table_at.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_with_table_at.pptx">ph_with_table_at.pptx</a>
@@ -306,13 +316,13 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <h2 class="hasAnchor">
 <a href="#remove-content-from-a-slide" class="anchor"></a>Remove content from a slide</h2>
 <p>Use <code><a href="../reference/slide_summary.html">slide_summary()</a></code> to easily identify shapes in the slide that can be removed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/slide_summary.html">slide_summary</a></span>(doc)</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="../reference/slide_summary.html">slide_summary</a></span>(doc)</a></code></pre></div>
 <pre><code>##   type id ph_label offx offy cx cy
 ## 1 body  2            NA   NA NA NA
 ##                                                                                                                                                                                                                                                    text
 ## 1 {5C22544A-7EE6-4342-B048-85BDC9FD1C3A}mpgcyldisphpdratwtqsecvsamgearcarb21.061601103.902.62016.46014421.061601103.902.87517.02014422.84108933.852.32018.61114121.462581103.083.21519.44103118.783601753.153.44017.02003218.162251052.763.46020.221031</code></pre>
 <p>In the following example, the shape corresponding to <code>type "body"</code> will be removed from the current slide:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_remove.html">ph_remove</a></span>(<span class="dt">x =</span> doc, <span class="dt">type =</span> <span class="st">"body"</span>)</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_remove.html">ph_remove</a></span>(<span class="dt">x =</span> doc, <span class="dt">type =</span> <span class="st">"body"</span>)</a></code></pre></div>
 </div>
 <div id="append-text-sequentially-in-a-shape" class="section level2">
 <h2 class="hasAnchor">
@@ -321,21 +331,21 @@ doc &lt;-<span class="st"> </span>doc <span class="op">%&gt;%</span>
 <h3 class="hasAnchor">
 <a href="#add-to-an-empty-new-placeholder" class="anchor"></a>Add to an empty new placeholder</h3>
 <p><code><a href="../reference/ph_empty.html">ph_empty()</a></code> (and <code>ph_empty_at</code>) will add a new empty placeholder in the current slide. When using <code><a href="../reference/ph_with_text.html">ph_with_text()</a></code>, added text automatically inherits from the layout placeholder, whereas <code><a href="../reference/ph_empty.html">ph_empty()</a></code> allows for more control of the format of added text and paragraphs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_empty.html">ph_empty</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_empty.html">ph_empty</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)</a></code></pre></div>
 <p>As there is no paragraph in the new shape yet, the function <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add a new paragraph. Then <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> will be used to add text into that new paragraph.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_prop &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fp_text.html">fp_text</a></span>(<span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">font.size =</span> <span class="dv">20</span>)
-my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"This is a red text!"</span>, <span class="dt">style =</span> text_prop ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Level 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Level 3"</span>)
-
-<span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_1.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">text_prop &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fp_text.html">fp_text</a></span>(<span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">font.size =</span> <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"This is a red text!"</span>, <span class="dt">style =</span> text_prop ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Level 2"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb33-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Level 3"</span>)</a>
+<a class="sourceLine" id="cb33-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_1.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_add_text_1.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_1.pptx">ph_add_text_1.pptx</a>
@@ -347,19 +357,19 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <h3 class="hasAnchor">
 <a href="#add-to-an-existing-placeholder-of-text" class="anchor"></a>Add to an existing placeholder of text</h3>
 <p>The following code produces a presentation comprised of one text shape containing the text “A first text”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>)</code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"A first text"</span>)</a></code></pre></div>
 <p>Since there is now a paragraph in the new shape, <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add another paragraph and <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> then has to be used to add text into the last paragraph of the shape.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_blue_prop &lt;-<span class="st"> </span><span class="kw">update</span>(text_prop, <span class="dt">color =</span> <span class="st">"blue"</span> )
-my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"A small red text!"</span>, <span class="dt">style =</span> text_prop ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Blue text first... "</span>, <span class="dt">pos =</span> <span class="st">"before"</span>, <span class="dt">style =</span> text_blue_prop ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"additional paragraph"</span>)
-
-<span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_2.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">text_blue_prop &lt;-<span class="st"> </span><span class="kw">update</span>(text_prop, <span class="dt">color =</span> <span class="st">"blue"</span> )</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"A small red text!"</span>, <span class="dt">style =</span> text_prop ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Blue text first... "</span>, <span class="dt">pos =</span> <span class="st">"before"</span>, <span class="dt">style =</span> text_blue_prop ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"additional paragraph"</span>)</a>
+<a class="sourceLine" id="cb36-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb36-8" data-line-number="8"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_2.pptx"</span>) </a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_add_text_2.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_2.pptx">ph_add_text_2.pptx</a>
@@ -375,15 +385,15 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <h3 class="hasAnchor">
 <a href="#external-links" class="anchor"></a>External links</h3>
 <p><code><a href="../reference/ph_hyperlink.html">ph_hyperlink()</a></code> adds a hyperlink to an existing placeholder in the current slide. The argument <code>href</code> should contain a valid URL (i.e. starting with <code>http(s)</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_hyperlink.html">ph_hyperlink</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"placeholder target"</span>)
-
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_hyperlink.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_hyperlink.html">ph_hyperlink</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"placeholder target"</span>)</a>
+<a class="sourceLine" id="cb38-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb38-8" data-line-number="8"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_hyperlink.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_hyperlink.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_hyperlink.pptx">ph_hyperlink.pptx</a>
@@ -395,16 +405,16 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <h3 class="hasAnchor">
 <a href="#internal-links" class="anchor"></a>Internal links</h3>
 <p><code><a href="../reference/ph_slidelink.html">ph_slidelink()</a></code> adds an internal link into an existing placeholder. The argument <code>slide_index</code> should contain the index of the target slide.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"placeholder target"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_slidelink.html">ph_slidelink</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">slide_index =</span> <span class="dv">2</span>)
-
-<span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_slidelink.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"Blah blah blah"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"placeholder target"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span> ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/ph_slidelink.html">ph_slidelink</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">slide_index =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb40-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb40-9" data-line-number="9"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_slidelink.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_slidelink.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_slidelink.pptx">ph_slidelink.pptx</a>
@@ -416,13 +426,13 @@ my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><spa
 <h3 class="hasAnchor">
 <a href="#add-text-with-links" class="anchor"></a>Add text with links</h3>
 <p>The function <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> has an optional argument <code>href</code>. If used, the chunk of text will be added as a hyperlink. If <code>href</code> is not used and <code>slide_index</code> is, the link will point to another slide in the document.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"An "</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"hyperlink"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span> )
-
-<span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_3.pptx"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">invisible</span>()</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">my_pres &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with_text.html">ph_with_text</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">str =</span> <span class="st">"An "</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb42-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"hyperlink"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span> )</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="kw">print</span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_3.pptx"</span>)</a></code></pre></div>
+<pre><code>## [1] "/.../assets/pptx/ph_add_text_3.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/pptx/ph_add_text_3.pptx">ph_add_text_3.pptx</a>

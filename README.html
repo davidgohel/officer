@@ -95,9 +95,8 @@
       <h1>/Users/davidgohel/Github/officer/README.md</h1>
     </div>
 
-<div id="officer-r-package" class="section level1">
-<h1 class="hasAnchor">
-<a href="#officer-r-package" class="anchor"></a>officer R package</h1>
+<div class="section level1">
+<h1>officer R package</h1>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <p>The officer package lets R users manipulate Word (<code>.docx</code>) and PowerPoint (<code>*.pptx</code>) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available.</p>
 <p><em>This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require <code>rJava</code> (but <code>xml2</code>) and has less functions that will make it easier to maintain.</em></p>
@@ -106,9 +105,8 @@
 <p>Make corporate reporting with minimum hassle</p>
 </blockquote>
 <p><a href="https://travis-ci.org/davidgohel/officer"><img src="https://travis-ci.org/davidgohel/officer.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://ci.appveyor.com/project/davidgohel/officer/branch/master"><img src="https://ci.appveyor.com/api/projects/status/github/davidgohel/officer?branch=master" alt="Build status"></a> <a href="https://CRAN.R-project.org/package=officer"><img src="http://www.r-pkg.org/badges/version/officer" alt="version"></a> <img src="http://cranlogs.r-pkg.org./badges/officer" alt="cranlogs"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Active"></p>
-<div id="word-documents" class="section level2">
-<h2 class="hasAnchor">
-<a href="#word-documents" class="anchor"></a>Word documents</h2>
+<div class="section level2">
+<h2>Word documents</h2>
 <p>The <code><a href="reference/read_docx.html">read_docx()</a></code> function will read an initial Word document (an empty one by default) and let you modify its content later.</p>
 <p>The package provides functions to add R outputs into a Word document:</p>
 <ul>
@@ -119,15 +117,13 @@
 </ul>
 <p>In a Word document, one can use cursor functions to reach the beginning or end of a document, or a particular paragraph containing a given text. This <em>cursor</em> concept has been implemented to make the post processing of files easier.</p>
 <p>File generation is performed with the <code>print</code> function.</p>
-<div id="import-word-document-in-a-data-frame" class="section level3">
-<h3 class="hasAnchor">
-<a href="#import-word-document-in-a-data-frame" class="anchor"></a>import Word document in a data.frame</h3>
+<div class="section level3">
+<h3>import Word document in a data.frame</h3>
 <p>The function <code><a href="reference/docx_summary.html">docx_summary()</a></code> reads and imports content of a Word document into a tibble object. The function handles paragraphs, tables and section breaks.</p>
 </div>
 </div>
-<div id="powerpoint-documents" class="section level2">
-<h2 class="hasAnchor">
-<a href="#powerpoint-documents" class="anchor"></a>PowerPoint documents</h2>
+<div class="section level2">
+<h2>PowerPoint documents</h2>
 <p>The function <code><a href="reference/read_pptx.html">read_pptx()</a></code> will read an initial PowerPoint document (an empty one by default) and let you modify its content later.</p>
 <p>The package provides functions to add R outputs into existing or new PowerPoint slides:</p>
 <ul>
@@ -137,72 +133,59 @@
 </ul>
 <p>In a PowerPoint document, one can set a slide as selected and reach a particular shape (and remove it or add text).</p>
 <p>ile generation is performed with the <code>print()</code> function.</p>
-<div id="import-powerpoint-document-in-a-data-frame" class="section level3">
-<h3 class="hasAnchor">
-<a href="#import-powerpoint-document-in-a-data-frame" class="anchor"></a>import PowerPoint document in a data.frame</h3>
+<div class="section level3">
+<h3>import PowerPoint document in a data.frame</h3>
 <p>The <code><a href="reference/pptx_summary.html">pptx_summary()</a></code> function reads and imports content of a PowerPoint document into a tibble object. The function handles paragraphs, tables and images.</p>
 </div>
 </div>
-<div id="extensions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extensions" class="anchor"></a>Extensions</h2>
-<div id="tables-and-package-flextable" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tables-and-package-flextable" class="anchor"></a>Tables and package <code>flextable</code>
+<div class="section level2">
+<h2>Extensions</h2>
+<div class="section level3">
+<h3>Tables and package <code>flextable</code>
 </h3>
 <p>The package <a href="https://github.com/davidgohel/flextable">flextable</a> brings a full API to produce nice tables and use them with <code>officer</code>. Tables can be written in PowerPoint documents and Word documents. An option is available to render flextables in rmarkdown (HTML and Word outputs).</p>
 </div>
-<div id="vector-graphics-with-package-rvg" class="section level3">
-<h3 class="hasAnchor">
-<a href="#vector-graphics-with-package-rvg" class="anchor"></a>Vector graphics with package <code>rvg</code>
+<div class="section level3">
+<h3>Vector graphics with package <code>rvg</code>
 </h3>
 <p>The package <a href="https://github.com/davidgohel/rvg">rvg</a> brings an API to produce nice vector graphics that can be embedded in PowerPoint documents or Excel workbooks with <code>officer</code>.</p>
 </div>
-<div id="native-office-charts-with-package-mschart" class="section level3">
-<h3 class="hasAnchor">
-<a href="#native-office-charts-with-package-mschart" class="anchor"></a>Native office charts with package <code>mschart</code>
+<div class="section level3">
+<h3>Native office charts with package <code>mschart</code>
 </h3>
 <p>The package <a href="https://github.com/ardata-fr/mschart">mschart</a> combined with <code>officer</code> can produce native office charts in PowerPoint and Word documents.</p>
 </div>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2>Installation</h2>
 <p>You can get the development version from GitHub:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"davidgohel/officer"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"davidgohel/officer"</span>)</a></code></pre></div>
 <p>Or the latest version on CRAN:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"officer"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"officer"</span>)</a></code></pre></div>
 </div>
-<div id="ressources" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ressources" class="anchor"></a>Ressources</h2>
-<div id="online-documentation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#online-documentation" class="anchor"></a>Online documentation</h3>
+<div class="section level2">
+<h2>Ressources</h2>
+<div class="section level3">
+<h3>Online documentation</h3>
 <p>The help pages are located at <a href="https://davidgohel.github.io/officer/" class="uri">https://davidgohel.github.io/officer/</a>.</p>
 </div>
-<div id="getting-help" class="section level3">
-<h3 class="hasAnchor">
-<a href="#getting-help" class="anchor"></a>Getting help</h3>
+<div class="section level3">
+<h3>Getting help</h3>
 <p>This project is developped and maintained on my own time. In order to help me to maintain the package, do not send me private emails if you only have questions about how to use the package. Instead, visit Stackoverflow, <code>officer</code> has its own tag <a href="http://stackoverflow.com/questions/tagged/officer">Stackoverflow link</a>! I usually read them and answer when possible.</p>
 </div>
 </div>
-<div id="contributing-to-the-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contributing-to-the-package" class="anchor"></a>Contributing to the package</h2>
-<div id="code-of-conduct" class="section level3">
-<h3 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h3>
+<div class="section level2">
+<h2>Contributing to the package</h2>
+<div class="section level3">
+<h3>Code of Conduct</h3>
 <p>Anyone getting involved in this package agrees to our <a href="https://github.com/davidgohel/officer/blob/master/CONDUCT.md">Code of Conduct</a>.</p>
 </div>
-<div id="bug-reports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-reports" class="anchor"></a>Bug reports</h3>
+<div class="section level3">
+<h3>Bug reports</h3>
 <p>When you file a <a href="https://github.com/davidgohel/officer/issues">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
 </div>
-<div id="contributing-to-the-package-development" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contributing-to-the-package-development" class="anchor"></a>Contributing to the package development</h3>
+<div class="section level3">
+<h3>Contributing to the package development</h3>
 <p>A great way to start is to contribute an example or improve the documentation.</p>
 <p>If you want to submit a Pull Request to integrate functions of yours, please provide:</p>
 <ul>
