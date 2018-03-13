@@ -142,11 +142,14 @@ docx_document <- R6Class(
       # Show the structure of how the text is split along `<w:t>` tags at the
       # current cursor.
       text_nodes <- xml_find_all(self$get_at_cursor(), ".//w:t")
-      message(length(text_nodes), " text nodes found at this cursor.")
+      msg <- paste0(length(text_nodes), " text nodes found at this cursor.")
+      msg_detail <- ""
       for (text_node in text_nodes) {
-        message("  <w:t>: '", xml_text(text_node), "'")
+        msg_detail <- paste0( msg_detail,
+                         paste0("\n  <w:t>: '",
+                                xml_text(text_node), "'") )
       }
-
+      message(paste(msg, msg_detail))
       self
     },
 
