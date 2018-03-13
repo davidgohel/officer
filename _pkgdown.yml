@@ -24,6 +24,9 @@ reference:
     - body_add_toc
     - body_add_break
     - body_end_section
+    - body_add_docx
+    - body_bookmark
+    - body_add_gg
     - slip_in_img
     - slip_in_text
     - slip_in_seqfield
@@ -36,6 +39,7 @@ reference:
     contents:
     - read_pptx
     - pptx_summary
+    - annotate_base
     - add_slide
     - on_slide
     - layout_summary

@@ -15,7 +15,8 @@ annotate_base(path = NULL, output_file = "annotated_layout.pptx")
 x rpptx object of the annotated PowerPoint file
 }
 \description{
-generates a slide from each layout in the base document an identifies the layout, master and indexes of each body element.
+generates a slide from each layout in the base document to
+identify the placeholder indexes, master names and indexes.
 }
 \examples{
 # To generate an anotation of the default base documet with officer and place
