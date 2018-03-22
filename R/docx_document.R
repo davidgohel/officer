@@ -171,13 +171,19 @@ docx_document <- R6Class(
 
     cursor_forward = function( ){
       xpath_ <- paste0(private$cursor, "/following-sibling::*" )
-      private$cursor <- xml_path( xml_find_first(self$get(), xpath_ ) )
+      node_at_cursor <- xml_find_first(self$get(), xpath_ )
+      if( inherits(node_at_cursor, "xml_missing") )
+        stop("cannot move forward the cursor as there is no more content in this area", call. = FALSE)
+      private$cursor <- xml_path( node_at_cursor )
       self
     },
 
     cursor_backward = function( ){
       xpath_ <- paste0(private$cursor, "/preceding-sibling::*[1]" )
-      private$cursor <- xml_path( xml_find_first(self$get(), xpath_ ) )
+      node_at_cursor <- xml_find_first(self$get(), xpath_ )
+      if( inherits(node_at_cursor, "xml_missing") )
+        stop("cannot move backward the cursor as there is no previous content in this area", call. = FALSE)
+      private$cursor <- xml_path( node_at_cursor )
       self
     }
 
