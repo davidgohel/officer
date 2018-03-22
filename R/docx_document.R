@@ -73,7 +73,7 @@ docx_document <- R6Class(
 
       bm_id <- xml_attr(bm_start, "id")
 
-      xpath_ <- sprintf("/w:document/w:body/*[w:bookmarkStart[@w:id='%s']]", bm_id)
+      xpath_ <- sprintf("/w:document/w:body//*[w:bookmarkStart[@w:id='%s']]", bm_id)
       par_with_bm <- xml_find_first(self$get(), xpath_)
 
       cursor <- xml_path(par_with_bm)
