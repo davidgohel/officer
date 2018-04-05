@@ -1,5 +1,4 @@
 #' @export
-#' @importFrom R.utils getAbsolutePath
 #' @importFrom utils compareVersion packageVersion
 #' @import zip
 #' @title compress a folder
@@ -10,8 +9,8 @@
 #' @param folder folder to compress
 #' @param target path of the archive to create
 pack_folder <- function( folder, target ){
-  target <- getAbsolutePath(path.expand(target))
-  folder <- getAbsolutePath(path.expand(folder))
+  target <- file_path_as_absolute2(target)
+  folder <- file_path_as_absolute2(folder)
 
   target <- enc2utf8(target)
   dir_fi <- dirname(target)
@@ -60,7 +59,6 @@ pack_folder <- function( folder, target ){
 
 #' @export
 #' @importFrom utils unzip
-#' @importFrom R.utils getAbsolutePath
 #' @title Extract files from a zip file
 #' @description Extract files from a zip file to a folder. The
 #' function returns the complete path to destination folder.
@@ -70,8 +68,10 @@ pack_folder <- function( folder, target ){
 #' @param folder folder to create
 unpack_folder <- function( file, folder ){
 
-  file <- getAbsolutePath(path.expand(file))
-  folder <- getAbsolutePath(path.expand(folder))
+  file <- file_path_as_absolute2(file)
+  folder <- file_path_as_absolute2(folder)
+
+
   stopifnot(file.exists(file))
 
   unlink(folder, recursive = TRUE, force = TRUE)
@@ -79,4 +79,11 @@ unpack_folder <- function( file, folder ){
   unzip( zipfile = file, exdir = folder )
 
   folder
+}
+
+file_path_as_absolute2 <- function(x){
+  if (length(x) != 1L)
+    stop("'x' must be a single character string")
+  epath <- path.expand(x)
+  normalizePath(epath, "/", mustWork = FALSE)
 }
