@@ -4,6 +4,10 @@ core_properties <- R6Class(
 
     initialize = function(package_dir) {
       private$filename <- file.path(package_dir, "docProps/core.xml")
+      if( !file.exists(private$filename) )
+        stop("could not find Word document properties",
+             ", please edit your document and make sure properties are existing.",
+             " This can be done by filling any field in the document properties panel.", call. = FALSE)
       private$doc <- read_xml(private$filename)
 
     },

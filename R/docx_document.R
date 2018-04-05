@@ -200,10 +200,11 @@ docx_document <- R6Class(
       doc <- read_xml(styles_file)
 
       all_styles <- xml_find_all(doc, "/w:styles/w:style")
+
       all_desc <- data.frame(stringsAsFactors = FALSE,
         style_type = xml_attr(all_styles, "type"),
         style_id = xml_attr(all_styles, "styleId"),
-        style_name = xml_attr(xml_find_all(all_styles, "w:name"), "val"),
+        style_name = xml_attr(xml_child(all_styles, "w:name"), "val"),
         is_custom = xml_attr(all_styles, "customStyle") %in% "1",
         is_default = xml_attr(all_styles, "default") %in% "1"
       )
