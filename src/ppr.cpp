@@ -63,7 +63,7 @@ std::string ppr::w_tag()
   os << r.w_tag("right");
 
   os << "<w:spacing " << "w:after=\""<< pb*20 << "\" w:before=\""<< pt*20 << "\"/>";
-  os << "<w:ind w:firstLine=\""<< pl*20 << "\" w:left=\""<< pl*20 << "\" w:right=\""<< pr*20 << "\"/>";
+  os << "<w:ind w:firstLine=\"0\" w:left=\""<< pl*20 << "\" w:right=\""<< pr*20 << "\"/>";
 
   if( !shading_.is_transparent() ) {
     os << shading_.w_shd();
