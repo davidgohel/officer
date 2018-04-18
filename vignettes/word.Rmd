@@ -105,10 +105,13 @@ There are two types of functions for adding elements.
     - body_add_break
     - body_add_toc
     - body_add_gg
+    
 - add text or image inside an existing paragraph. Use `slip_in_*` functions:
     - slip_in_img
     - slip_in_seqfield
     - slip_in_text
+    
+    The content is appened into the paragraph where the cursor is.
 
 ### `body_add_*` functions
 
@@ -353,6 +356,10 @@ doc <- read_docx() %>%
   body_replace_at("text_to_replace", "not left aligned")
 ```
 
+To do the same with headers and footers of the Word document, use functions 
+`headers_replace_at` and `footers_replace_at`.
+
+
 `body_replace_all_text()` will, depending on the options provided, replace text 
 either at the cursor or in the entire document:
 
@@ -381,6 +388,10 @@ docx_show_chunk(doc) # Output is 'example one'
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/replace_doc.docx" ) )
 ```
+
+To do the same with headers and footers of the Word document, use functions 
+`headers_replace_all_text` and `footers_replace_all_text`.
+
 
 ## Sections
 
