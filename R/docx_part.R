@@ -66,6 +66,15 @@ docx_part <- R6Class(
       self
     },
 
+    has_bookmark = function( id ){
+      xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
+      bm_start <- xml_find_first(self$get(), xpath_)
+
+      if( inherits(bm_start, "xml_missing") )
+        FALSE
+      else TRUE
+    },
+
     cursor_replace_first_text = function( id, text ){
 
       xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
