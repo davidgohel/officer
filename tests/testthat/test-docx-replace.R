@@ -22,3 +22,13 @@ test_that("docx replace_at bkm", {
   expect_equal(xml_text(lasttext), ". How are you")
 })
 
+test_that("docx replace text", {
+  doc <- read_docx() %>%
+    body_add_par("Placeholder one") %>%
+    body_add_par("Placeholder two")
+  doc <- body_replace_all_text(doc, old_value = "placeholder", new_value = "new",
+                               only_at_cursor = FALSE, ignore.case = TRUE)
+  xmldoc <- doc$doc_obj$get()
+  expect_equal(xml_text( xml_find_all(xmldoc, "//w:p") ), c("", "new one", "new two") )
+})
+
