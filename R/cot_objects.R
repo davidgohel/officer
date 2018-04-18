@@ -108,4 +108,56 @@ print.external_img = function (x, ...){
 }
 
 
+#' @export
+#' @title styled text
+#' @description Format a chunk of text with a referenced style.
+#' This will produce a simple text when used in a pptx presentation
+#' as the style concept can not be apply for this format.
+#' @param text text value
+#' @param id style name
+#' @examples
+#' stext("hello", "strong")
+stext <- function(text, id) {
+  out <- list( value = formatC(text), id = id )
+  class(out) <- c("stext", "cot")
+  out
+}
+
+
+#' @export
+#' @param type output format, one of wml, pml, html, console, text.
+#' @param ... unused
+#' @rdname stext
+format.stext = function (x, type = "console", ...){
+  stopifnot( length(type) == 1,
+             type %in% c("wml", "pml", "html", "console", "text") )
+
+  if( type == "wml" ){
+
+    out <- paste0("<w:r>",
+                  sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", x$id),
+                  "<w:t xml:space=\"preserve\">",
+                  htmlEscape(x$value), "</w:t></w:r>")
+  } else if( type == "pml" ){
+    out <- paste0("<a:r>",
+                  "<a:t>", htmlEscape(x$value), "</a:t></a:r>")
+  } else if( type == "html" ){
+    out <- paste0("<span class=\"", x$id,
+                  "\">", htmlEscape(x$value), "</span>")
+  } else if( type == "console" ){
+    out <- paste0( "{text:{", x$value, "}}" )
+  } else if( type == "text" ){
+    out <- x$value
+  } else stop("unimplemented")
+
+  out
+}
+
+#' @export
+print.stext = function (x, ...){
+  cat( format(x, type = "console"), "\n", sep = "" )
+}
+
+
+
 
