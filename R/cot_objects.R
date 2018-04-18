@@ -109,16 +109,26 @@ print.external_img = function (x, ...){
 
 
 #' @export
-#' @title styled text
+#' @title Word styled text
 #' @description Format a chunk of text with a referenced style.
-#' This will produce a simple text when used in a pptx presentation
-#' as the style concept can not be apply for this format.
 #' @param text text value
-#' @param id style name
+#' @param style_id style id
+#' @param style style name. Use only when you don't know what is the id
+#' associated with a stylename.
+#' @param doc \code{rdocx} object where the text will be inserted.
+#' This is only used to get the style id from the style name (use
+#' only when you don't know what is the id associated with a stylename).
 #' @examples
-#' stext("hello", "strong")
-stext <- function(text, id) {
-  out <- list( value = formatC(text), id = id )
+#' doc <- read_docx()
+#' stext("hello", "strong", doc)
+stext <- function(text, style_id = NULL, style, doc) {
+
+  if( is.null(style_id) ){
+    style_id <- get_style_id(
+      data = doc$styles, style = style, type = "character")
+  }
+
+  out <- list( value = formatC(text), id = style_id )
   class(out) <- c("stext", "cot")
   out
 }
@@ -127,25 +137,16 @@ stext <- function(text, id) {
 #' @export
 format.stext = function (x, type = "console", ...){
   stopifnot( length(type) == 1,
-             type %in% c("wml", "pml", "html", "console", "text") )
+             type %in% c("wml", "console") )
 
   if( type == "wml" ){
-
     out <- paste0("<w:r>",
                   sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", x$id),
                   "<w:t xml:space=\"preserve\">",
                   htmlEscape(x$value), "</w:t></w:r>")
-  } else if( type == "pml" ){
-    out <- paste0("<a:r>",
-                  "<a:t>", htmlEscape(x$value), "</a:t></a:r>")
-  } else if( type == "html" ){
-    out <- paste0("<span class=\"", x$id,
-                  "\">", htmlEscape(x$value), "</span>")
-  } else if( type == "console" ){
+  } else {
     out <- paste0( "{text:{", x$value, "}}" )
-  } else if( type == "text" ){
-    out <- x$value
-  } else stop("unimplemented")
+  }
 
   out
 }
@@ -154,7 +155,3 @@ format.stext = function (x, type = "console", ...){
 print.stext = function (x, ...){
   cat( format(x, type = "console"), "\n", sep = "" )
 }
-
-
-
-

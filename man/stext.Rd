@@ -2,20 +2,26 @@
 % Please edit documentation in R/cot_objects.R
 \name{stext}
 \alias{stext}
-\title{styled text}
+\title{Word styled text}
 \usage{
-stext(text, id)
+stext(text, style_id = NULL, style, doc)
 }
 \arguments{
 \item{text}{text value}
 
-\item{id}{style name}
+\item{style_id}{style id}
+
+\item{style}{style name. Use only when you don't know what is the id
+associated with a stylename.}
+
+\item{doc}{\code{rdocx} object where the text will be inserted.
+This is only used to get the style id from the style name (use
+only when you don't know what is the id associated with a stylename).}
 }
 \description{
 Format a chunk of text with a referenced style.
-This will produce a simple text when used in a pptx presentation
-as the style concept can not be apply for this format.
 }
 \examples{
-stext("hello", "strong")
+doc <- read_docx()
+stext("hello", "strong", doc)
 }
