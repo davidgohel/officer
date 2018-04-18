@@ -33,7 +33,35 @@ footnote_add_xml <- function(x, str, pos, refnote){
 }
 
 #' @export
-slip_in_footnote <- function( x, style = NULL, pos = "after", blocks ){
+#' @title append a footnote
+#' @description append a new footnote into a paragraph of an rdocx object
+#' @param x an rdocx object
+#' @param style text style to be used for the reference note
+#' @param blocks set of blocks to be used as footnote content returned by
+#'   function \code{\link{block_list}}.
+#' @param pos where to add the new element relative to the cursor, "after" or
+#'   "before".
+#' @examples
+#' library(magrittr)
+#'
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' bl <- block_list(
+#'   fpar(ftext("hello", shortcuts$fp_bold())),
+#'   fpar(
+#'     ftext("hello", shortcuts$fp_bold()),
+#'     stext(" world", "strong"),
+#'     external_img(src = img.file, height = 1.06, width = 1.39)
+#'   )
+#' )
+#'
+#' x <- read_docx() %>%
+#'   body_add_par("Hello ", style = "Normal") %>%
+#'   slip_in_text("world", style = "strong") %>%
+#'   slip_in_footnote(style = "reference_id", blocks = bl) %>%
+#'   slip_in_text("Message is", style = "strong", pos = "before")
+#'
+#' print(x, target = "footnote.docx")
+slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
 
   if( !inherits(blocks, "block_list") ){
     stop("blocks must be an object created by function block_list().", call. = FALSE)
@@ -63,7 +91,9 @@ slip_in_footnote <- function( x, style = NULL, pos = "after", blocks ){
       else NA_character_
     })
   })
-  new_src <- unique(na.omit(unlist(new_src)))
+  new_src <- unlist(new_src)
+  new_src <- new_src[!is.na(new_src)]
+  new_src <- unique(new_src)
 
   blocks <- sapply(blocks, format, type = "wml")
   blocks <- paste(blocks, collapse = "")
