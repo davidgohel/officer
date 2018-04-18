@@ -533,7 +533,7 @@ header_replace_all_text <- function( x, old_value, new_value, only_at_cursor = F
   x
 }
 #' @export
-#' @rdname footer_replace_all_text
+#' @rdname body_replace_all_text
 footer_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, ... ){
   stopifnot(is_scalar_character(old_value),
             is_scalar_character(new_value),

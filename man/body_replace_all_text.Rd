@@ -3,11 +3,14 @@
 \name{body_replace_all_text}
 \alias{body_replace_all_text}
 \alias{header_replace_all_text}
+\alias{footer_replace_all_text}
 \title{Replace text anywhere in the document, or at a cursor}
 \usage{
 body_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
 
 header_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
+
+footer_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
 }
 \arguments{
 \item{x}{a docx device}
