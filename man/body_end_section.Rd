@@ -3,8 +3,6 @@
 \name{body_end_section}
 \alias{body_end_section}
 \alias{body_default_section}
-\alias{break_column_before}
-\alias{break_column}
 \title{add section}
 \usage{
 body_end_section(x, landscape = FALSE, margins = c(top = NA, bottom = NA,
@@ -13,10 +11,6 @@ body_end_section(x, landscape = FALSE, margins = c(top = NA, bottom = NA,
 
 body_default_section(x, landscape = FALSE, margins = c(top = NA, bottom =
   NA, left = NA, right = NA))
-
-break_column_before(x)
-
-break_column(x, pos = "after")
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -59,7 +53,7 @@ my_doc <- read_docx() \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   # preceding paragraph is on a new column
-  break_column_before() \%>\%
+  break_column(pos = "before") \%>\%
   # add a two columns continous section
   body_end_section(colwidths = c(.6, .4),
                    space = .05, sep = FALSE, continuous = TRUE) \%>\%

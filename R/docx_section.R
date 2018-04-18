@@ -32,7 +32,7 @@
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   # preceding paragraph is on a new column
-#'   break_column_before() %>%
+#'   break_column(pos = "before") %>%
 #'   # add a two columns continous section
 #'   body_end_section(colwidths = c(.6, .4),
 #'                    space = .05, sep = FALSE, continuous = TRUE) %>%
@@ -152,12 +152,25 @@ body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bo
 }
 
 #' @export
-#' @rdname body_end_section
+#' @rdname break_column
 break_column_before <- function( x ){
+  .Deprecated(new = "break_column")
   xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = "before")
 }
 
+#' @export
+#' @title add a column break
+#' @description add a column break into a Word document. A column break
+#' is used to add a break in a multi columns section in a Word
+#' Document.
+#' @param x an rdocx object
+#' @param pos where to add the new element relative to the cursor,
+#' "after" or "before".
+break_column <- function( x, pos = "after" ){
+  xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
+  slip_in_xml(x = x, str = xml_elt, pos = pos)
+}
 
 
 
@@ -187,12 +200,6 @@ section_dimensions <- function(node){
 
 }
 
-#' @export
-#' @rdname body_end_section
-break_column <- function( x, pos = "after" ){
-  xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
-  slip_in_xml(x = x, str = xml_elt, pos = pos)
-}
 
 # new functions ----
 
