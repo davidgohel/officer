@@ -475,16 +475,18 @@ body_replace_at <- function( x, bookmark, value ){
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
 #'
 #' # Simple search-and-replace at current cursor, with regex turned off
-#' body_replace_all_text(doc, "Placeholder", "new", only_at_cursor=TRUE, fixed=TRUE)
+#' doc <- body_replace_all_text(doc, old_value = "Placeholder",
+#'   new_value = "new", only_at_cursor = TRUE, fixed = TRUE)
 #' docx_show_chunk(doc)  # Output is 'new two'
 #'
 #' # Do the same, but in the entire document and ignoring case
-#' body_replace_all_text(doc, "placeholder", "new", only_at_cursor=FALSE, ignore.case=TRUE)
-#' cursor_backward(doc)
+#' doc <- body_replace_all_text(doc, old_value = "placeholder",
+#'   new_value = "new"only_at_cursor=FALSE, ignore.case = TRUE)
+#' doc <- cursor_backward(doc)
 #' docx_show_chunk(doc) # Output is 'new one'
 #'
 #' # Use regex : replace all words starting with "n" with the word "example"
-#' body_replace_all_text(doc, "\\bn.*?\\b", "example")
+#' doc <- body_replace_all_text(doc, "\\bn.*?\\b", "example")
 #' docx_show_chunk(doc) # Output is 'example one'
 body_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, ... ){
   stopifnot(is_scalar_character(old_value),
