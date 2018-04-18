@@ -125,7 +125,7 @@ print.rdocx <- function(x, target = NULL, ...){
       as_xml_document("<w:type xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"continuous\"/>")
       )
   }
-
+  x <- process_sections(x)
   x$doc_obj$save()
   x$content_type$save()
   x$footnotes$save()

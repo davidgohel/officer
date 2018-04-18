@@ -4,6 +4,7 @@
 \alias{body_end_section}
 \alias{body_default_section}
 \alias{break_column_before}
+\alias{break_column}
 \title{add section}
 \usage{
 body_end_section(x, landscape = FALSE, margins = c(top = NA, bottom = NA,
@@ -14,6 +15,8 @@ body_default_section(x, landscape = FALSE, margins = c(top = NA, bottom =
   NA, left = NA, right = NA))
 
 break_column_before(x)
+
+break_column(x, pos = "after")
 }
 \arguments{
 \item{x}{an rdocx object}
