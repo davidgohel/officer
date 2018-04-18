@@ -12,7 +12,8 @@ body_bookmark(x, id)
 \item{id}{bookmark name}
 }
 \description{
-Add a bookmark at the cursor location.
+Add a bookmark at the cursor location. The bookmark
+is added on the first run of text in the current paragraph.
 }
 \examples{
 
