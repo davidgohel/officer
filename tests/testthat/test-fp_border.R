@@ -110,3 +110,17 @@ test_that("css fp_border", {
   rb <- regexp_border(1, "solid", "transparent", x)
   expect_true( rb )
 })
+
+test_that("format fp_border", {
+
+  col <- "#00FF00"
+  x <- fp_border(width = 2, color = col, style = "solid")
+
+  pml <- format(x, type = "pml")
+  expect_true( grepl("a:ln algn=\"ctr\" w=\"25400\"", x = pml, fixed = TRUE) )
+  expect_true( grepl("<a:srgbClr val=\"00FF00\"><a:alpha val=\"100000\"/>", x = pml, fixed = TRUE) )
+
+  expect_error(format(x, type = "wml"))
+  expect_error(format(x, type = "html"))
+
+})

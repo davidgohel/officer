@@ -14,17 +14,71 @@ test_that("body_add_break", {
   expect_is( xml_child(node, "/w:r/w:br"), "xml_node" )
 })
 
-test_that("body_add_section", {
+
+test_that("body_end_sections", {
 
   x <- read_docx() %>%
     body_add_par("paragraph 1", style = "Normal") %>%
-    body_end_section(landscape = TRUE)
+    body_end_section_landscape()
 
   node <- x$doc_obj$get_at_cursor()
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
   ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
   expect_false( inherits(ps, "xml_missing") )
   expect_equal( xml_attr(ps, "orient"), "landscape")
+
+  x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
+    body_add_par("paragraph 2", style = "Normal") %>%
+    body_end_section_columns()
+
+  node <- x$doc_obj$get_at_cursor()
+  expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
+  sect <- xml_child(node, "w:pPr/w:sectPr")
+
+  expect_false( inherits(sect, "xml_missing") )
+  expect_equal( xml_attr(xml_child(sect, "w:type"), "val"), "continuous")
+  expect_false( inherits(xml_child(sect, "w:cols"), "xml_missing") )
+
+  x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
+    body_add_par("paragraph 2", style = "Normal") %>%
+    body_end_section_columns_landscape()
+
+  node <- x$doc_obj$get_at_cursor()
+  expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
+
+  ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
+  expect_false( inherits(ps, "xml_missing") )
+  expect_equal( xml_attr(ps, "orient"), "landscape")
+
+  sect <- xml_child(node, "w:pPr/w:sectPr")
+  expect_false( inherits(sect, "xml_missing") )
+  expect_false( inherits(xml_child(sect, "w:cols"), "xml_missing") )
+
+  x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
+    body_add_par("paragraph 2", style = "Normal") %>%
+    body_end_section_portrait()
+
+  node <- x$doc_obj$get_at_cursor()
+  expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
+
+  ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
+  expect_false( inherits(ps, "xml_missing") )
+  expect_equal( xml_attr(ps, "orient"), "portrait")
+
+  xml_flags <- x$doc_obj$get() %>%
+    xml_find_all("//w:officersection")
+  expect_length(xml_flags, 4)
+  docx_file <- tempfile(fileext = ".docx")
+  docx_dir <- tempfile()
+  print(x, target = docx_file)
+  unpack_folder(docx_file, docx_dir)
+
+
+
+  xml_flags <- read_xml(file.path(docx_dir, "word/document.xml")) %>%
+    xml_find_all("//w:officersection")
+  expect_length(xml_flags, 0)
+
 })
 
 
