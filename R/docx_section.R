@@ -153,11 +153,11 @@ body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bo
 
 #' @export
 #' @rdname break_column
-break_column_before <- function( x ){
+break_column_before <- function( x ){ # nocov start
   .Deprecated(new = "break_column")
   xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = "before")
-}
+} # nocov end
 
 #' @export
 #' @title add a column break
