@@ -39,6 +39,12 @@ The function \code{body_end_section()} is reflecting that Word concept.
 The function \code{body_default_section()} is only modifying the default section of
 the document.
 }
+\note{
+This function is deprecated, use body_end_section_continuous,
+body_end_section_landscape, body_end_section_portrait,
+body_end_section_columns or body_end_section_columns_landscape
+instead.
+}
 \examples{
 library(magrittr)
 
@@ -53,7 +59,7 @@ my_doc <- read_docx() \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   # preceding paragraph is on a new column
-  break_column(pos = "before") \%>\%
+  slip_in_column_break(pos = "before") \%>\%
   # add a two columns continous section
   body_end_section(colwidths = c(.6, .4),
                    space = .05, sep = FALSE, continuous = TRUE) \%>\%

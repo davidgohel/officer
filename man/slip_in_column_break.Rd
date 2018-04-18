@@ -2,12 +2,12 @@
 % Please edit documentation in R/docx_section.R
 \name{break_column_before}
 \alias{break_column_before}
-\alias{break_column}
+\alias{slip_in_column_break}
 \title{add a column break}
 \usage{
 break_column_before(x)
 
-break_column(x, pos = "after")
+slip_in_column_break(x, pos = "before")
 }
 \arguments{
 \item{x}{an rdocx object}

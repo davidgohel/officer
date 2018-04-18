@@ -384,36 +384,128 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Sections
 
-Sections can be added to a document. This is possible by using the function 
-`body_end_section()`. The default section can be modified with the function 
-`body_default_section()`.
-
 > A section starts at the end of the previous section (or the beginning of the 
 document if no preceding section exists). It stops where the section is declared.
 
+Sections can be added to a document by using a set of functions: 
+
+* `body_end_section_landscape()`
+* `body_end_section_portrait()`
+* `body_end_section_columns()`
+* `body_end_section_columns_landscape()`
+* `body_end_section_continuous()`
+
+To add content into a **landscape section**, you will need to :
+
+1. Declare an ending section just before the content to be displayed 
+in landscape orientation. Use function `body_end_section_continuous()`. 
+2. Add the content to be displayed in landscape orientation.
+3. Declare an ending section just after the content to be displayed 
+in landscape orientation. Use function `body_end_section_landscape()`. 
 
 ```{r}
 str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " %>% 
-  rep(30) %>% paste(collapse = "")
+  rep(5) %>% paste(collapse = "")
 str2 <- "Aenean venenatis varius elit et fermentum vivamus vehicula. " %>% 
-  rep(30) %>% paste(collapse = "")
+  rep(5) %>% paste(collapse = "")
 
 my_doc <- read_docx()  %>% 
-  slip_in_text(str = str1, style = "strong") %>% 
+  body_add_par(value = str1, style = "centered") %>% 
+  body_end_section_continuous() %>% 
   body_add_par(value = str2, style = "centered") %>% 
-  break_column_before() %>% 
-  body_end_section(continuous = TRUE, 
-                   colwidths = c(.6, .4), space = .05, sep = FALSE) %>%
-  body_add_par(value = str3, style = "Normal") 
+  body_end_section_landscape() 
+print(my_doc, target = "assets/docx/landscape_section.docx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/landscape_section.docx" ) )
+```
+
+
+
+
+To add content into a **section with columns**, you will need to :
+
+1. Declare an ending section just before the content to be displayed 
+in landscape orientation. Use function `body_end_section_continuous()`. 
+2. Add the content to be displayed in landscape orientation.
+3. Declare an ending section just after the content to be displayed 
+in landscape orientation. Use function `body_end_section_columns()`. 
+
+Function `slip_in_column_break()` can be used to add a column break. As it starts a new column, 
+it has to be used on the paragraph where the break happens. By default `slip_in_column_break()` 
+insert a column break at the beginning of the paragraph where the cursor is.
+
+```{r}
+my_doc <- read_docx()  %>% 
+  body_end_section_continuous() %>% 
+  body_add_par(value = str1, style = "centered") %>% 
+  body_add_par(value = str2, style = "centered") %>% 
+  slip_in_column_break() %>%
+  body_add_par(value = str2, style = "centered") %>% 
+  body_end_section_columns(widths = c(2,2), sep = TRUE, space = 1) 
+print(my_doc, target = "assets/docx/columns_section.docx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/columns_section.docx" ) )
+```
+
+To add content into a **section with columns and landscape orientation**, you will need to :
+
+1. Declare an ending section just before the content to be displayed 
+in landscape orientation. Use function `body_end_section_continuous()`. 
+2. Add the content to be displayed in landscape orientation.
+3. Declare an ending section just after the content to be displayed 
+in landscape orientation. Use function `body_end_section_columns_landscape()`. 
+
+```{r}
+my_doc <- read_docx()  %>% 
+  body_end_section_continuous() %>% 
+  body_add_par(value = str1, style = "Normal") %>% 
+  body_add_par(value = str2, style = "Normal") %>% 
+  body_end_section_columns_landscape(widths = c(3,3), sep = TRUE, space = 1) 
+print(my_doc, target = "assets/docx/columns_landscape_section.docx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/columns_landscape_section.docx" ) )
+```
+
+
+The following example demonstrate all known usages:
+
+```{r}
+my_doc <- read_docx()  %>% 
+  body_add_par(value = "Default section", style = "heading 1") %>% 
+  body_add_par(value = str1, style = "centered") %>% 
+  body_add_par(value = str2, style = "centered") %>% 
+
+  body_end_section_continuous() %>% 
+  body_add_par(value = "Landscape section", style = "heading 1") %>% 
+  body_add_par(value = str1, style = "centered") %>% 
+  body_add_par(value = str2, style = "centered") %>% 
+  body_end_section_landscape() %>% 
+  
+  body_add_par(value = "Columns", style = "heading 1") %>% 
+  body_end_section_continuous() %>% 
+  body_add_par(value = str1, style = "centered") %>% 
+  body_add_par(value = str2, style = "centered") %>% 
+  slip_in_column_break() %>%
+  body_add_par(value = str1, style = "centered") %>% 
+  body_end_section_columns(widths = c(2,2), sep = TRUE, space = 1) %>% 
+
+  body_add_par(value = str1, style = "Normal") %>% 
+  body_add_par(value = str2, style = "Normal") %>% 
+  slip_in_column_break() %>%
+  body_end_section_columns_landscape(widths = c(3,3), sep = TRUE, space = 1)
+
 print(my_doc, target = "assets/docx/section.docx")
 ```
 
 ```{r echo=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx" ) )
 ```
-
-In the previous example, the first two paragraphs will be in a 2 column section 
-and the third will be in a default section.
 
 ## Table and image captions
 

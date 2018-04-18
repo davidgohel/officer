@@ -18,6 +18,11 @@
 #' @param space space in percent between columns.
 #' @param sep if TRUE a line is separating columns.
 #' @param continuous TRUE for a continuous section break.
+#' @note
+#' This function is deprecated, use body_end_section_continuous,
+#' body_end_section_landscape, body_end_section_portrait,
+#' body_end_section_columns or body_end_section_columns_landscape
+#' instead.
 #' @examples
 #' library(magrittr)
 #'
@@ -32,7 +37,7 @@
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   # preceding paragraph is on a new column
-#'   break_column(pos = "before") %>%
+#'   slip_in_column_break(pos = "before") %>%
 #'   # add a two columns continous section
 #'   body_end_section(colwidths = c(.6, .4),
 #'                    space = .05, sep = FALSE, continuous = TRUE) %>%
@@ -45,6 +50,8 @@
 #' print(my_doc, target = "section.docx")
 body_end_section <- function(x, landscape = FALSE, margins = c(top = NA, bottom = NA, left = NA, right = NA),
                              colwidths = c(1), space = .05, sep = FALSE, continuous = FALSE){
+
+  .Deprecated(msg = "body_end_section is deprecated. See ?sections for replacement functions.")
 
   stopifnot(all.equal( sum(colwidths), 1 ) )
 
@@ -110,6 +117,8 @@ body_end_section <- function(x, landscape = FALSE, margins = c(top = NA, bottom 
 #' @rdname body_end_section
 body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bottom = NA, left = NA, right = NA)){
 
+  .Deprecated(msg = "body_default_section is deprecated. See ?sections for replacement functions.")
+
   sdim <- x$sect_dim
   h_ref <- sdim$page["height"];w_ref <- sdim$page["width"]
   mar_t <- sdim$margins["top"];mar_b <- sdim$margins["bottom"]
@@ -152,9 +161,9 @@ body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bo
 }
 
 #' @export
-#' @rdname break_column
+#' @rdname slip_in_column_break
 break_column_before <- function( x ){ # nocov start
-  .Deprecated(new = "break_column")
+  .Deprecated(new = "slip_in_column_break")
   xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = "before")
 } # nocov end
@@ -167,45 +176,19 @@ break_column_before <- function( x ){ # nocov start
 #' @param x an rdocx object
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
-break_column <- function( x, pos = "after" ){
+slip_in_column_break <- function( x, pos = "before" ){
   xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
 
 
-section_dimensions <- function(node){
-  section_obj <- as_list(node)
-
-  landscape <- FALSE
-  if( !is.null(attr(section_obj$pgSz, "orient")) && attr(section_obj$pgSz, "orient") == "landscape" ){
-    landscape <- TRUE
-  }
-
-  h_ref <- as.integer(attr(section_obj$pgSz, "h"))
-  w_ref <- as.integer(attr(section_obj$pgSz, "w"))
-
-  mar_t <- as.integer(attr(section_obj$pgMar, "top"))
-  mar_b <- as.integer(attr(section_obj$pgMar, "bottom"))
-  mar_r <- as.integer(attr(section_obj$pgMar, "right"))
-  mar_l <- as.integer(attr(section_obj$pgMar, "left"))
-  mar_h <- as.integer(attr(section_obj$pgMar, "header"))
-  mar_f <- as.integer(attr(section_obj$pgMar, "footer"))
-
-  list( page = c("width" = w_ref, "height" = h_ref),
-        landscape = landscape,
-        margins = c(top = mar_t, bottom = mar_b,
-                    left = mar_l, right = mar_r,
-                    header = mar_h, footer = mar_f) )
-
-}
-
 
 # new functions ----
 
 #' @title section
 #'
-#' @description Add a section break.
+#' @description Add sections in a Word document.
 #'
 #' @details
 #' A section starts at the end of the previous section (or the beginning of
@@ -213,10 +196,43 @@ section_dimensions <- function(node){
 #' @param x an rdocx object
 #' @param w,h width and height in inches of the section page. This will
 #' be ignored if the default section (of the \code{reference_docx} file)
-#' already has width and height.
+#' already has a width and a height.
 #' @export
 #' @rdname sections
 #' @name sections
+#' @examples
+#' library(magrittr)
+#'
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " %>%
+#'   rep(5) %>% paste(collapse = "")
+#' str2 <- "Aenean venenatis varius elit et fermentum vivamus vehicula. " %>%
+#'   rep(5) %>% paste(collapse = "")
+#'
+#' my_doc <- read_docx()  %>%
+#'   body_add_par(value = "Default section", style = "heading 1") %>%
+#'   body_add_par(value = str1, style = "centered") %>%
+#'   body_add_par(value = str2, style = "centered") %>%
+#'
+#'   body_end_section_continuous() %>%
+#'   body_add_par(value = "Landscape section", style = "heading 1") %>%
+#'   body_add_par(value = str1, style = "centered") %>%
+#'   body_add_par(value = str2, style = "centered") %>%
+#'   body_end_section_landscape() %>%
+#'
+#'   body_add_par(value = "Columns", style = "heading 1") %>%
+#'   body_end_section_continuous() %>%
+#'   body_add_par(value = str1, style = "centered") %>%
+#'   body_add_par(value = str2, style = "centered") %>%
+#'   slip_in_column_break() %>%
+#'   body_add_par(value = str1, style = "centered") %>%
+#'   body_end_section_columns(widths = c(2,2), sep = TRUE, space = 1) %>%
+#'
+#'   body_add_par(value = str1, style = "Normal") %>%
+#'   body_add_par(value = str2, style = "Normal") %>%
+#'   slip_in_column_break() %>%
+#'   body_end_section_columns_landscape(widths = c(3,3), sep = TRUE, space = 1)
+#'
+#' print(my_doc, target = "section.docx")
 body_end_section_continuous <- function( x ){
   str <- "<w:pPr><w:sectPr><w:officersection/><w:type w:val=\"continuous\"/></w:sectPr></w:pPr>"
   str <- paste0( wml_with_ns("w:p"), str, "</w:p>")
@@ -312,6 +328,7 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
 }
 
 
+# utils ----
 process_sections <- function( x ){
 
   all_nodes <- xml_find_all(x$doc_obj$get(), "//w:sectPr[w:officersection]")
@@ -368,3 +385,32 @@ process_sections <- function( x ){
   }
   x
 }
+
+
+
+section_dimensions <- function(node){
+  section_obj <- as_list(node)
+
+  landscape <- FALSE
+  if( !is.null(attr(section_obj$pgSz, "orient")) && attr(section_obj$pgSz, "orient") == "landscape" ){
+    landscape <- TRUE
+  }
+
+  h_ref <- as.integer(attr(section_obj$pgSz, "h"))
+  w_ref <- as.integer(attr(section_obj$pgSz, "w"))
+
+  mar_t <- as.integer(attr(section_obj$pgMar, "top"))
+  mar_b <- as.integer(attr(section_obj$pgMar, "bottom"))
+  mar_r <- as.integer(attr(section_obj$pgMar, "right"))
+  mar_l <- as.integer(attr(section_obj$pgMar, "left"))
+  mar_h <- as.integer(attr(section_obj$pgMar, "header"))
+  mar_f <- as.integer(attr(section_obj$pgMar, "footer"))
+
+  list( page = c("width" = w_ref, "height" = h_ref),
+        landscape = landscape,
+        margins = c(top = mar_t, bottom = mar_b,
+                    left = mar_l, right = mar_r,
+                    header = mar_h, footer = mar_f) )
+
+}
+
