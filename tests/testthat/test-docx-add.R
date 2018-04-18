@@ -107,6 +107,26 @@ test_that("fpar add ", {
   expect_equal(xml_text(node), "This is a big text" )
 })
 
+test_that("add docx into docx", {
+
+  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+  doc <- read_docx()
+  doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
+  print(doc, target = "external_file.docx")
+
+  final_doc <- read_docx()
+  doc <- body_add_docx(x = doc, src = "external_file.docx" )
+  print(doc, target = "final.docx")
+
+  new_dir <- tempfile()
+  unpack_folder("final.docx", folder = new_dir)
+
+  doc_parts <- read_xml(file.path(new_dir, "[Content_Types].xml")) %>%
+    xml_find_all("d1:Override[@ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml']") %>%
+    xml_attr("PartName") %>% basename()
+  expect_equal(doc_parts[grepl("\\.docx$", doc_parts)], list.files(new_dir, pattern = "\\.docx$") )
+})
+
 
 unlink("*.docx")
 unlink("*.emf")
