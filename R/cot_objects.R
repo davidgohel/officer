@@ -125,9 +125,6 @@ stext <- function(text, id) {
 
 
 #' @export
-#' @param type output format, one of wml, pml, html, console, text.
-#' @param ... unused
-#' @rdname stext
 format.stext = function (x, type = "console", ...){
   stopifnot( length(type) == 1,
              type %in% c("wml", "pml", "html", "console", "text") )

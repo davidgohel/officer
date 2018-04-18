@@ -2,21 +2,14 @@
 % Please edit documentation in R/cot_objects.R
 \name{stext}
 \alias{stext}
-\alias{format.stext}
 \title{styled text}
 \usage{
 stext(text, id)
-
-\method{format}{stext}(x, type = "console", ...)
 }
 \arguments{
 \item{text}{text value}
 
 \item{id}{style name}
-
-\item{type}{output format, one of wml, pml, html, console, text.}
-
-\item{...}{unused}
 }
 \description{
 Format a chunk of text with a referenced style.
