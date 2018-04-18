@@ -7,7 +7,7 @@
 \alias{body_end_section_portrait}
 \alias{body_end_section_columns}
 \alias{body_end_section_columns_landscape}
-\title{section}
+\title{sections}
 \usage{
 body_end_section_continuous(x)
 

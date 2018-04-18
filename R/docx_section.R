@@ -186,7 +186,7 @@ slip_in_column_break <- function( x, pos = "before" ){
 
 # new functions ----
 
-#' @title section
+#' @title sections
 #'
 #' @description Add sections in a Word document.
 #'
