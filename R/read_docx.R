@@ -24,12 +24,45 @@ read_docx <- function( path = NULL ){
                    .Names = c("package_dir"),
                    class = "rdocx")
 
+  obj$doc_properties <- core_properties$new(package_dir)
   obj$content_type <- content_type$new( obj )
-  obj$doc_obj <- docx_document$new(package_dir)
+  obj$doc_obj <- docx_part$new(package_dir,
+                               main_file = "document.xml",
+                               cursor = "/w:document/w:body/*[1]",
+                               body_xpath = "/w:document/w:body")
+  obj$styles <- read_docx_styles(package_dir)
 
+  header_files <- list.files(file.path(package_dir, "word"),
+                             pattern = "^header[0-9]*.xml$")
+  headers <- lapply(header_files, function(x){
+    docx_part$new(path = package_dir, main_file = x, cursor = "/w:hdr/*[1]", body_xpath = "/w:hdr")
+  })
+  names(headers) <- header_files
+  obj$headers <- headers
 
-  default_refs <- styles_info(obj)
-  default_refs <- default_refs[default_refs$is_default,]
+  footer_files <- list.files(file.path(package_dir, "word"),
+                             pattern = "^footer[0-9]*.xml$")
+  footers <- lapply(footer_files, function(x){
+    docx_part$new(path = package_dir, main_file = x, cursor = "/w:ftr/*[1]", body_xpath = "/w:ftr")
+  })
+  names(footers) <- footer_files
+  obj$footers <- footers
+
+  if( !file.exists(file.path(package_dir, "word", "footnotes.xml")) ){
+    file.copy(system.file(package = "officer", "template", "footnotes.xml"),
+              file.path(package_dir, "word", "footnotes.xml")
+              )
+    obj$content_type$add_override(
+      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml", "/word/footnotes.xml" )
+    )
+  }
+
+  obj$footnotes <- docx_part$new(
+    package_dir, main_file = "footnotes.xml",
+    cursor = "/w:footnotes/*[last()]", body_xpath = "/w:footnotes"
+  )
+
+  default_refs <- obj$styles[obj$styles$is_default,]
   obj$default_styles <- setNames( as.list(default_refs$style_name), default_refs$style_type )
 
   last_sect <- xml_find_first(obj$doc_obj$get(), "/w:document/w:body/w:sectPr[last()]")
@@ -74,9 +107,13 @@ print.rdocx <- function(x, target = NULL, ...){
   if( !grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE) )
     stop(target , " should have '.docx' extension.")
 
-  # make all id unique
+  # make all id unique for document
   all_uid <- xml_find_all(x$doc_obj$get(), "//*[@id]")
-
+  for(z in seq_along(all_uid) ){
+    xml_attr(all_uid[[z]], "id") <- z
+  }
+  # make all id unique for footnote
+  all_uid <- xml_find_all(x$footnotes$get(), "//*[@id]")
   for(z in seq_along(all_uid) ){
     xml_attr(all_uid[[z]], "id") <- z
   }
@@ -88,15 +125,17 @@ print.rdocx <- function(x, target = NULL, ...){
       as_xml_document("<w:type xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"continuous\"/>")
       )
   }
+
   x$doc_obj$save()
   x$content_type$save()
+  x$footnotes$save()
 
   # save doc properties
-  x$doc_obj$get_doc_properties()$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
-  x$doc_obj$get_doc_properties()$set_modified_by(Sys.getenv("USER"))
-  x$doc_obj$get_doc_properties()$save()
+  x$doc_properties$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
+  x$doc_properties$set_modified_by(Sys.getenv("USER"))
+  x$doc_properties$save()
 
-  pack_folder(folder = x$doc_obj$package_dirname(), target = target )
+  pack_folder(folder = x$package_dir, target = target )
 }
 
 #' @export
@@ -119,7 +158,7 @@ length.rdocx <- function( x ){
 #' library(magrittr)
 #' read_docx() %>% styles_info()
 styles_info <- function( x ){
-  x$doc_obj$styles()
+  x$styles
 }
 
 #' @export
@@ -132,7 +171,7 @@ styles_info <- function( x ){
 #' read_docx() %>% doc_properties()
 doc_properties <- function( x ){
   if( inherits(x, "rdocx"))
-    cp <- x$doc_obj$get_doc_properties()
+    cp <- x$doc_properties
   else if( inherits(x, "rpptx")) cp <- x$core_properties
   else stop("x should be a rpptx or rdocx object.")
 
@@ -159,7 +198,7 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
                                 creator = NULL, description = NULL, created = NULL ){
 
   if( inherits(x, "rdocx"))
-    cp <- x$doc_obj$get_doc_properties()
+    cp <- x$doc_properties
   else if( inherits(x, "rpptx")) cp <- x$core_properties
   else stop("x should be a rpptx or rdocx object.")
 

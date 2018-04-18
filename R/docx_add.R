@@ -43,7 +43,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
   file.copy( src, to = new_src )
 
-  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   ext_img <- external_img(new_src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")
@@ -159,7 +159,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
   if( is.null(style) )
     style <- x$default_styles$paragraph
 
-  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   xml_elt <- paste0(wml_with_ns("w:p"),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
@@ -191,7 +191,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 
   if( is.null(style) )
     style <- x$default_styles$paragraph
-  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   xml_elt <- format(value, type = "wml")
   xml_elt <- gsub("<w:p>", wml_with_ns("w:p"), xml_elt )
@@ -248,7 +248,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
   if( is.null(style) )
     style <- x$default_styles$table
 
-  style_id <- x$doc_obj$get_style_id(style=style, type = "table")
+  style_id <- get_style_id(data = x$styles, style=style, type = "table")
 
   value <- characterise_df(value)
 

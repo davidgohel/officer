@@ -33,7 +33,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
   if( is.null(style) )
     style <- x$default_styles$character
 
-  style_id <- x$doc_obj$get_style_id(style=style, type = "character")
+  style_id <- get_style_id(data = x$styles, style=style, type = "character")
 
   xml_elt_1 <- paste0(wml_with_ns("w:r"),
                       sprintf("<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>", style_id),
@@ -81,13 +81,16 @@ slip_in_text <- function( x, str, style = NULL, pos = "after" ){
   if( is.null(style) )
     style <- x$default_styles$character
 
-  style_id <- x$doc_obj$get_style_id(style=style, type = "character")
+  style_id <- get_style_id(data = x$styles, style=style, type = "character")
   xml_elt <- paste0( wml_with_ns("w:r"),
       "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
       "<w:t xml:space=\"preserve\">%s</w:t></w:r>")
   xml_elt <- sprintf(xml_elt, style_id, str)
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
+
+
+
 
 #' @export
 #' @title append an image
@@ -116,7 +119,7 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
   file.copy( src, to = new_src )
 
-  style_id <- x$doc_obj$get_style_id(style=style, type = "character")
+  style_id <- get_style_id(data = x$styles, style=style, type = "character")
 
   ext_img <- external_img(new_src, width = width, height = height)
   xml_elt <- format(ext_img, type = "wml")

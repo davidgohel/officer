@@ -5,7 +5,7 @@ source("utils.R")
 test_that("default template", {
   x <- read_docx()
   expect_equal(length( x ), 2)
-  expect_true(file.exists(x$doc_obj$package_dirname()))
+  expect_true(file.exists(x$package_dir))
 })
 
 test_that("docx dim", {
