@@ -33,8 +33,9 @@ openxml_document <- R6Class(
     },
     save = function() {
       write_xml(private$doc, file = private$filename)
-      if( file.exists(private$rels_filename) )
+      if( nrow(self$rel_df()) > 0 ){
         private$rels_doc$write(private$rels_filename)
+      }
       self
     },
     remove = function() {
