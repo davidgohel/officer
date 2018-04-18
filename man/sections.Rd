@@ -36,7 +36,7 @@ will be produced.}
 \item{sep}{if TRUE a line is separating columns.}
 }
 \description{
-Add a section break.
+Add sections in a Word document.
 }
 \details{
 A section starts at the end of the previous section (or the beginning of

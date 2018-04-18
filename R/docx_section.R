@@ -49,7 +49,7 @@
 #'
 #' print(my_doc, target = "section.docx")
 body_end_section <- function(x, landscape = FALSE, margins = c(top = NA, bottom = NA, left = NA, right = NA),
-                             colwidths = c(1), space = .05, sep = FALSE, continuous = FALSE){
+                             colwidths = c(1), space = .05, sep = FALSE, continuous = FALSE){# nocov start
 
   .Deprecated(msg = "body_end_section is deprecated. See ?sections for replacement functions.")
 
@@ -111,11 +111,11 @@ body_end_section <- function(x, landscape = FALSE, margins = c(top = NA, bottom 
                  ifelse( continuous, "<w:type w:val=\"continuous\"/>", "" ),
                  pgsz_str, mar_str, columns_str, "</w:sectPr></w:pPr></w:p>")
   body_add_xml(x, str = str, pos = "after")
-}
+}# nocov end
 
 #' @export
 #' @rdname body_end_section
-body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bottom = NA, left = NA, right = NA)){
+body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bottom = NA, left = NA, right = NA)){# nocov start
 
   .Deprecated(msg = "body_default_section is deprecated. See ?sections for replacement functions.")
 
@@ -158,7 +158,7 @@ body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bo
   last_sect <- xml_find_first(x$doc_obj$get(), "/w:document/w:body/w:sectPr[last()]")
   xml_replace(last_sect, as_xml_document(str) )
   x
-}
+}# nocov end
 
 #' @export
 #' @rdname slip_in_column_break

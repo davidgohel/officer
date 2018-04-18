@@ -57,8 +57,7 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #' x <- read_docx() %>%
 #'   body_add_par("Hello ", style = "Normal") %>%
 #'   slip_in_text("world", style = "strong") %>%
-#'   slip_in_footnote(style = "reference_id", blocks = bl) %>%
-#'   slip_in_text("Message is", style = "strong", pos = "before")
+#'   slip_in_footnote(style = "reference_id", blocks = bl)
 #'
 #' print(x, target = "footnote.docx")
 slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
