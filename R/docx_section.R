@@ -158,3 +158,32 @@ break_column_before <- function( x ){
   slip_in_xml(x = x, str = xml_elt, pos = "before")
 }
 
+
+
+
+section_dimensions <- function(node){
+  section_obj <- as_list(node)
+
+  landscape <- FALSE
+  if( !is.null(attr(section_obj$pgSz, "orient")) && attr(section_obj$pgSz, "orient") == "landscape" ){
+    landscape <- TRUE
+  }
+
+  h_ref <- as.integer(attr(section_obj$pgSz, "h"))
+  w_ref <- as.integer(attr(section_obj$pgSz, "w"))
+
+  mar_t <- as.integer(attr(section_obj$pgMar, "top"))
+  mar_b <- as.integer(attr(section_obj$pgMar, "bottom"))
+  mar_r <- as.integer(attr(section_obj$pgMar, "right"))
+  mar_l <- as.integer(attr(section_obj$pgMar, "left"))
+  mar_h <- as.integer(attr(section_obj$pgMar, "header"))
+  mar_f <- as.integer(attr(section_obj$pgMar, "footer"))
+
+  list( page = c("width" = w_ref, "height" = h_ref),
+        landscape = landscape,
+        margins = c(top = mar_t, bottom = mar_b,
+                    left = mar_l, right = mar_r,
+                    header = mar_h, footer = mar_f) )
+
+}
+
