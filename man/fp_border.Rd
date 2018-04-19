@@ -3,14 +3,11 @@
 \name{fp_border}
 \alias{fp_border}
 \alias{update.fp_border}
-\alias{format.fp_border}
 \title{border properties object}
 \usage{
 fp_border(color = "black", style = "solid", width = 1)
 
 \method{update}{fp_border}(object, color, style, width, ...)
-
-\method{format}{fp_border}(x, type = "pml", ...)
 }
 \arguments{
 \item{color}{border color - single character value (e.g. "#000000" or "black")}
@@ -20,10 +17,6 @@ fp_border(color = "black", style = "solid", width = 1)
 \item{width}{border width - an integer value : 0>= value}
 
 \item{...}{further arguments - not used}
-
-\item{x, object}{\code{fp_border} object}
-
-\item{type}{output type - only 'pml' currently supported.}
 }
 \description{
 create a border properties object.

@@ -51,24 +51,10 @@ update.fp_border <- function(object, color, style, width, ...) {
   object
 }
 
-
 #' @export
-#' @rdname fp_border
-#' @param x,object \code{fp_border} object
-#' @param type output type - only 'pml' currently supported.
-format.fp_border = function (x, type = "pml", ...){
+print.fp_border <- function(x, ...) {
 
-
-  col_mat <- col2rgb(x$color, alpha = TRUE)
-  red <- col_mat[1,1]
-  green <- col_mat[2,1]
-  blue <- col_mat[3,1]
-  alpha <- col_mat[4,1]
-
-
-  if( type == "pml"){
-
-    a_border(r = red, g = green, b = blue, a = alpha, type = x$style, width = x$width)
-
-  } else stop("unimplemented")
+  msg <- paste0("line: color: ", x$color, ", width: ", x$width, ", style: ", x$style, "\n")
+  cat(msg)
+  invisible()
 }
