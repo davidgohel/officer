@@ -96,11 +96,11 @@ relationship <- R6Class(
                  length(src))
       target <- file.path(root_target, basename(src) )
 
-      private$id <- c( private$id, id )
-      private$type <- c( private$type, type )
-      private$target <- c( private$target, target )
-      private$target_mode <- c( private$target_mode, rep(NA, length(id) ) )
-      private$ext_src <- c( private$ext_src, rep(NA, length(id) ) )
+      private$id <- unlist( c( private$id, id ) )
+      private$type <- unlist( c( private$type, type ) )
+      private$target <- unlist( c( private$target, target ) )
+      private$target_mode <- unlist( c( private$target_mode, rep(NA, length(id) ) ) )
+      private$ext_src <- unlist( c( private$ext_src, rep(NA, length(id) ) ) )
 
       self
     },
