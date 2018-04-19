@@ -2,9 +2,9 @@
 
 ## Enhancement
 
-* function cursor_bookmark now let set the cursor in a text box thanks to Noam Ross. cursor_forward
-  and cursor_backward can now fail if cursor is on a textbox but an error message will explain it
-  to the user.
+* function cursor_bookmark now let set the cursor in a text box thanks to
+  Noam Ross. cursor_forward and cursor_backward can now fail if cursor
+  is on a textbox but an error message will explain it to the user.
 
 # officer 0.2.2
 
