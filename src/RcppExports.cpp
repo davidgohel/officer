@@ -62,22 +62,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// a_border
-std::string a_border(int r, int g, int b, int a, std::string type, double width);
-RcppExport SEXP _officer_a_border(SEXP rSEXP, SEXP gSEXP, SEXP bSEXP, SEXP aSEXP, SEXP typeSEXP, SEXP widthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type r(rSEXP);
-    Rcpp::traits::input_parameter< int >::type g(gSEXP);
-    Rcpp::traits::input_parameter< int >::type b(bSEXP);
-    Rcpp::traits::input_parameter< int >::type a(aSEXP);
-    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    rcpp_result_gen = Rcpp::wrap(a_border(r, g, b, a, type, width));
-    return rcpp_result_gen;
-END_RCPP
-}
 // w_ppr
 std::string w_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
 RcppExport SEXP _officer_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
@@ -306,7 +290,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_officer_pml_table", (DL_FUNC) &_officer_pml_table, 9},
     {"_officer_wml_table", (DL_FUNC) &_officer_wml_table, 9},
     {"_officer_p_ph", (DL_FUNC) &_officer_p_ph, 9},
-    {"_officer_a_border", (DL_FUNC) &_officer_a_border, 6},
     {"_officer_w_ppr", (DL_FUNC) &_officer_w_ppr, 15},
     {"_officer_a_ppr", (DL_FUNC) &_officer_a_ppr, 15},
     {"_officer_css_ppr", (DL_FUNC) &_officer_css_ppr, 15},

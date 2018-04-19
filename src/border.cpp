@@ -69,32 +69,6 @@ std::string border::a_tag(std::string side)
 }
 
 
-std::string border::a_tag()
-{
-  color_spec col_(this->red, this->green, this->blue, this->alpha);
-
-  std::stringstream os;
-
-  os << "<a:ln algn=\"ctr\" ";
-  os << "w=\"";
-  os << std::setprecision(0) << std::fixed << width * 12700;
-  os << "\">";
-
-  if( col_.is_transparent() || width < .001 ) {
-    os << "<a:noFill/>";
-  } else os << col_.solid_fill();
-
-  os << "<a:prstDash val=";
-  if( type == "solid")
-    os << "\"solid\"/>";
-  else if( type == "dotted")
-    os << "\"sysDot\"/>";
-  else if( type == "dashed")
-    os << "\"sysDash\"/>";
-
-  os << "</a:ln>";
-  return os.str();
-  }
 std::string border::css(std::string side)
 {
   color_spec col_(this->red, this->green, this->blue, this->alpha);
