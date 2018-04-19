@@ -16,6 +16,8 @@ fp_border(color = "black", style = "solid", width = 1)
 
 \item{width}{border width - an integer value : 0>= value}
 
+\item{object}{fp_border object}
+
 \item{...}{further arguments - not used}
 }
 \description{

@@ -25,6 +25,7 @@ fp_border = function( color = "black", style = "solid", width = 1 ){
 }
 
 
+#' @param object fp_border object
 #' @param ... further arguments - not used
 #' @rdname fp_border
 #' @examples
