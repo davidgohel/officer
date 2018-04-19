@@ -13,10 +13,6 @@ p_ph <- function(offx, offy, cx, cy, rot, r, g, b, a) {
     .Call(`_officer_p_ph`, offx, offy, cx, cy, rot, r, g, b, a)
 }
 
-a_border <- function(r, g, b, a, type, width) {
-    .Call(`_officer_a_border`, r, g, b, a, type, width)
-}
-
 w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
     .Call(`_officer_w_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
