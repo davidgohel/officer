@@ -94,7 +94,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 #'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 #'
 #' print(doc, target = "ph_with_table.pptx")
-ph_with_table <- function( x, value, type = "title", index = 1,
+ph_with_table <- function( x, value, type = "body", index = 1,
                            header = TRUE,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE ){
@@ -245,7 +245,7 @@ ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height
 #'   style = fp_text(color = "red", font.size = 0) )
 #' print(pptx, target = "example2.pptx") %>%
 #'   invisible()
-ph_with_ul <- function(x, type, index = 1, str_list = character(0), level_list = integer(0),
+ph_with_ul <- function(x, type = "body", index = 1, str_list = character(0), level_list = integer(0),
                        style = NULL) {
   stopifnot(is.character(str_list))
   stopifnot(is.numeric(level_list))

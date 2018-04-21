@@ -5,7 +5,7 @@
 \alias{ph_with_table_at}
 \title{add table}
 \usage{
-ph_with_table(x, value, type = "title", index = 1, header = TRUE,
+ph_with_table(x, value, type = "body", index = 1, header = TRUE,
   first_row = TRUE, first_column = FALSE, last_row = FALSE,
   last_column = FALSE)
 

@@ -4,7 +4,7 @@
 \alias{ph_with_ul}
 \title{add unordered list to a pptx presentation}
 \usage{
-ph_with_ul(x, type, index = 1, str_list = character(0),
+ph_with_ul(x, type = "body", index = 1, str_list = character(0),
   level_list = integer(0), style = NULL)
 }
 \arguments{
