@@ -23,6 +23,7 @@ Status](https://travis-ci.org/davidgohel/officer.svg?branch=master)](https://tra
 status](https://ci.appveyor.com/api/projects/status/github/davidgohel/officer?branch=master)](https://ci.appveyor.com/project/davidgohel/officer/branch/master)
 [![version](http://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
 ![cranlogs](http://cranlogs.r-pkg.org./badges/officer)
+[![codecov](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/officer)
 ![Active](http://www.repostatus.org/badges/latest/active.svg)
 
 ## Word documents
