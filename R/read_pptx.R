@@ -74,6 +74,7 @@ print.rpptx <- function(x, target = NULL, ...){
   x$presentation$save()
   x$content_type$save()
 
+  x$slide$save_slides()
   x$core_properties$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
   x$core_properties$set_modified_by(Sys.getenv("USER"))
   x$core_properties$save()
@@ -112,7 +113,9 @@ add_slide <- function( x, layout, master ){
   # update presentation elements
   x$presentation$add_slide(target = file.path( "slides", new_slidename) )
   x$content_type$add_slide(partname = file.path( "/ppt/slides", new_slidename) )
-  x$slide$update()
+
+  x$slide$add_slide(xml_file)
+
   x$cursor = x$slide$length()
   x
 
@@ -184,7 +187,7 @@ remove_slide <- function( x, index = NULL ){
     stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
   }
 
-  del_file <- x$slide$remove(index)
+  del_file <- x$slide$remove_slide(index)
   # update presentation elements
   x$presentation$remove_slide(del_file)
   x$content_type$remove_slide(partname = del_file )

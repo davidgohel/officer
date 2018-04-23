@@ -23,8 +23,7 @@ ph_remove <- function( x, type = NULL, id_chr = NULL ){
   str = as_xpath_content_sel("p:cSld/p:spTree/")
   xml_remove(xml_find_all(slide$get(), str)[[shape_id]])
 
-  slide$save()
-  x$slide$update()
+  # slide$save()
   x
 }
 
@@ -67,8 +66,7 @@ ph_slidelink <- function( x, type = NULL, id_chr = NULL, slide_index ){
   str_ <- sprintf(str_, id)
   xml_add_child(cnvpr, as_xml_document(str_) )
 
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  # slide$save()
   x
 }
 
@@ -110,8 +108,7 @@ ph_hyperlink <- function( x, type = NULL, id_chr = NULL, href ){
   str_ <- sprintf(str_, id)
   xml_add_child(cnvpr, as_xml_document(str_) )
 
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  # slide$save()
   x
 }
 

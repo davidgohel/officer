@@ -27,8 +27,8 @@ ph_empty <- function( x, type = "title", index = 1 ){
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
 
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
+  # x$slide$update_slide(x$cursor)
   x
 }
 
@@ -63,17 +63,9 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
   xml_elt <- do.call(pml_shape_str, sh_pr_df)
   node <- as_xml_document(xml_elt)
 
-  off <- xml_child(node, "p:spPr/a:xfrm/a:off")
-  ext <- xml_child(node, "p:spPr/a:xfrm/a:ext")
-  xml_attr( off, "x") <- sprintf( "%.0f", sh_pr_df$offx )
-  xml_attr( off, "y") <- sprintf( "%.0f", sh_pr_df$offy )
-  xml_attr( ext, "cx") <- sprintf( "%.0f", sh_pr_df$cx )
-  xml_attr( ext, "cy") <- sprintf( "%.0f", sh_pr_df$cy )
-
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
 
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()#$save()
   x
 }
 
@@ -110,8 +102,7 @@ ph_with_table <- function( x, value, type = "body", index = 1,
                           last_row = last_row, last_column = last_column, header = header )
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
   x
 }
 
@@ -164,8 +155,7 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 
 
   xml_add_child(xml_find_first(xmlslide, "p:cSld/p:spTree"), doc)
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
   x
 
 }
@@ -276,17 +266,9 @@ ph_with_ul <- function(x, type = "body", index = 1, str_list = character(0), lev
   xml_elt <- do.call(pml_shape_par, sh_pr_df)
   node <- as_xml_document(xml_elt)
 
-  off <- xml_child(node, "p:spPr/a:xfrm/a:off")
-  ext <- xml_child(node, "p:spPr/a:xfrm/a:ext")
-  xml_attr( off, "x") <- sprintf( "%.0f", sh_pr_df$offx )
-  xml_attr( off, "y") <- sprintf( "%.0f", sh_pr_df$offy )
-  xml_attr( ext, "cx") <- sprintf( "%.0f", sh_pr_df$cx )
-  xml_attr( ext, "cy") <- sprintf( "%.0f", sh_pr_df$cy )
-
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
 
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()#$save()
   x
 }
 
@@ -327,8 +309,7 @@ ph_from_xml <- function( x, value, type = "body", index = 1 ){
                         cx = xfrm$cx, cy = xfrm$cy)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
 
-  slide$fortify_id()$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()#$save()
   x
 }
 
@@ -351,8 +332,7 @@ ph_from_xml_at <- function( x, value, left, top, width, height ){
                         cy = height*914400)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
 
-  slide$fortify_id()$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()#$save()
   x
 }
 

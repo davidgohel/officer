@@ -208,7 +208,7 @@ slide <- R6Class(
       cnvpr <- xml_find_all(private$doc, "//p:cNvPr")
       for(i in seq_along(cnvpr))
         xml_attr( cnvpr[[i]], "id") <- i
-      self$save()
+      self
     },
 
     reference_img = function(src, dir_name){
@@ -396,41 +396,42 @@ dir_slide <- R6Class(
       private$slide_layouts <- dir_layout$new( x )
       private$collection <- lapply(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
       names(private$collection) <- sapply(private$collection, function(x) x$name() )
+      private$slides_list <- private$get_slide_list()
+
     },
 
-    update = function( ){
-      dir_ <- file.path(private$package_dir, "ppt/slides")
-      filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
+    add_slide = function(slide_file){
 
-      # order matter here, so lets order file regarding their index
-      sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", basename(filenames) ) )
-      filenames <- filenames[order(sl_id)]
+      slide <- slide$new("ppt/slides")
+      slide$feed(slide_file)
+      slide$set_xfrm(private$slide_layouts$get_xfrm_data())
 
-      private$collection <- lapply( filenames, function(x, container){
-        container$clone()$feed(x)$fortify_id()
-      }, container = slide$new("ppt/slides"))
-      private$slides_path <- file.path(private$package_dir, "ppt/slides")
-      private$collection <- lapply(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
-      names(private$collection) <- basename(filenames)
+      collect <- private$collection
+      new_elt <- list(slide)
+      names(new_elt) <- basename(slide_file)
+      collect <- append(collect, new_elt)
+
+      sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", names(collect) ) )
+      private$collection <- collect[order(sl_id)]
+      private$slides_list <- names(private$collection)
+
       self
     },
-    update_slide = function( index ){
-      dir_ <- file.path(private$package_dir, "ppt/slides")
-      filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
 
-      # order matter here, so lets order file regarding their index
-      sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", basename(filenames) ) )
-      filenames <- filenames[order(sl_id)]
-
-      private$collection[[index]] <- slide$new("ppt/slides")$feed(filenames[index])$fortify_id()
-      private$collection[[index]]$set_xfrm(private$slide_layouts$get_xfrm_data())
-      self
-    },
-    remove = function(index ){
+    remove_slide = function(index ){
       slide_obj <- private$collection[[index]]
       private$collection <- private$collection[-index]
+      private$slides_list <- names(private$collection)
       slide_obj$remove()
     },
+
+    save_slides = function(){
+      lapply( private$collection, function(x){
+        x$save()
+      } )
+      self
+    },
+
     get_xfrm = function( ){
       lapply(private$collection, function(x) x$get_xfrm() )
     },
@@ -441,8 +442,7 @@ dir_slide <- R6Class(
       if( is.null(id) || !between(id, 1, l_ ) ){
         stop("unvalid id ", id, " (", l_," slide(s))", call. = FALSE)
       }
-      slide_files <- self$get_slide_list()
-      index <- which( names(private$collection) == slide_files[id])
+      index <- which( names(private$collection) == private$slides_list[id])
       private$collection[[index]]
     },
 
@@ -454,25 +454,13 @@ dir_slide <- R6Class(
       length(private$collection)
     },
 
-    get_slide_list = function(){
-      slide_dir <- file.path(private$package_dir, "ppt/slides")
-      slide_files <- list.files(slide_dir, pattern = "\\.xml$")
-      slide_index <- seq_along(slide_files)
-      if( length(slide_files)){
-        slide_files <- basename( slide_files )
-        slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
-        slide_files <- slide_files[order(slide_index)]
-      }
-      slide_files#data.frame( slide_files = slide_files, slide_index = slide_index, stringsAsFactors = FALSE)
-    },
-
     get_new_slidename = function(){
       slide_dir <- file.path(private$package_dir, "ppt/slides")
       if( !file.exists(slide_dir)){
         dir.create(file.path(slide_dir, "_rels"), showWarnings = FALSE, recursive = TRUE)
       }
 
-      slide_files <- basename( list.files(slide_dir, pattern = "\\.xml$") )
+      slide_files <- names(private$collection)
       slidename <- "slide1.xml"
       if( length(slide_files)){
         slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
@@ -486,7 +474,22 @@ dir_slide <- R6Class(
   ),
   private = list(
     slides_path = NULL,
-    slide_layouts = NULL
+    slides_list = NULL,
+    slide_layouts = NULL,
+
+    get_slide_list = function(){
+      slide_dir <- file.path(private$package_dir, "ppt/slides")
+      slide_files <- list.files(slide_dir, pattern = "\\.xml$")
+      slide_index <- seq_along(slide_files)
+      if( length(slide_files)){
+        slide_files <- basename( slide_files )
+        slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
+        slide_files <- slide_files[order(slide_index)]
+      }
+      slide_files
+    }
+
+
   )
 )
 

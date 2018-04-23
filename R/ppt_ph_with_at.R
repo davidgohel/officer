@@ -52,8 +52,7 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), new_node)
 
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
   x
 }
 
@@ -103,8 +102,7 @@ ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 
 
   xml_add_child(xml_find_first(xmlslide, "p:cSld/p:spTree"), doc)
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
   x
 }
 
@@ -136,8 +134,7 @@ ph_with_table_at <- function( x, value, left, top, width, height,
                          last_row = last_row, last_column = last_column, header = header )
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
   x
 }
 
@@ -247,8 +244,7 @@ ph_with_fpars_at <- function( x, fpars = list(), fp_pars = list(),
 
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), new_node)
-  slide$save()
-  x$slide$update_slide(x$cursor)
+  slide$fortify_id()$save()
   x
 }
 
