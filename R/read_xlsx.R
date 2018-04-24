@@ -203,7 +203,7 @@ dir_sheet <- R6Class(
 #' @export
 #' @title open a connexion to an 'Excel' file
 #' @description read and import an xlsx file as an R object
-#' representing the document.
+#' representing the document. This function is experimental.
 #' @param path path to the xlsx file to use as base document.
 #' @param x an rpptx object
 #' @examples

@@ -23,7 +23,7 @@ read_xlsx(path = NULL)
 }
 \description{
 read and import an xlsx file as an R object
-representing the document.
+representing the document. This function is experimental.
 }
 \examples{
 read_xlsx()
