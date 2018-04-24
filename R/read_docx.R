@@ -25,7 +25,7 @@ read_docx <- function( path = NULL ){
                    class = "rdocx")
 
   obj$doc_properties <- core_properties$new(package_dir)
-  obj$content_type <- content_type$new( obj )
+  obj$content_type <- content_type$new( package_dir )
   obj$doc_obj <- docx_part$new(package_dir,
                                main_file = "document.xml",
                                cursor = "/w:document/w:body/*[1]",

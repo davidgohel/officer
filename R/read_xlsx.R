@@ -223,7 +223,7 @@ read_xlsx <- function( path = NULL ){
                    .Names = c("package_dir"),
                    class = "rxlsx")
 
-  obj$content_type <- content_type$new( obj )
+  obj$content_type <- content_type$new( package_dir )
   obj$worksheets <- worksheets$new(package_dir)
   obj$sheets <- dir_sheet$new( obj )
   obj$core_properties <- core_properties$new(obj$package_dir)

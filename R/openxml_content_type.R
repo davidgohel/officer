@@ -3,9 +3,9 @@ content_type <- R6Class(
   "content_type",
   public = list(
 
-    initialize = function( x ) {
+    initialize = function( package_dir ) {
 
-      private$filename <- file.path(x$package_dir, "[Content_Types].xml")
+      private$filename <- file.path(package_dir, "[Content_Types].xml")
 
       doc <- read_xml(x = private$filename )
       ns <- xml_ns(doc)

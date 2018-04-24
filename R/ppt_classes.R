@@ -6,9 +6,9 @@ presentation <- R6Class(
 
   public = list(
 
-    initialize = function( x ) {
+    initialize = function( package_dir ) {
       super$initialize(character(0))
-      presentation_filename <- file.path(x$package_dir, "ppt", "presentation.xml")
+      presentation_filename <- file.path(package_dir, "ppt", "presentation.xml")
       self$feed(presentation_filename)
 
       slide_df <- private$get_slide_df()
@@ -200,7 +200,7 @@ slide <- R6Class(
       self
     },
 
-    set_xfrm = function(xfrm_ref){
+    set_layout_xfrm = function(xfrm_ref){
       private$element_data <- xfrm_ref[xfrm_ref$file == private$layout_file,]
       self
     },
@@ -247,7 +247,6 @@ slide <- R6Class(
     },
 
     get_xfrm = function(type = NULL, index = 1){
-
       out <- private$element_data
       if( !is.null(type) ){
         if( type %in% out$type ){
@@ -281,215 +280,4 @@ slide <- R6Class(
 )
 
 
-# dir_collection ---------------------------------------------------------
-
-dir_collection <- R6Class(
-  "dir_collection",
-  public = list(
-
-    initialize = function( x, container ) {
-      private$package_dir <- x$package_dir
-      dir_ <- file.path(private$package_dir, container$dir_name())
-      filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
-      private$collection <- lapply( filenames, function(x, container){
-        container$clone()$feed(x)
-      }, container = container)
-      names(private$collection) <- basename(filenames)
-    },
-
-    collection_get = function(name){
-      private$collection[[name]]
-    },
-
-    get_metadata = function(){
-      dat <- lapply(private$collection, function(x) x$get_metadata())
-      rbind.match.columns(dat)
-    },
-    names = function(){
-      sapply(private$collection, function(x) x$name())
-    },
-    xfrm = function( ){
-      dat <- lapply(private$collection, function(x) x$xfrm() )
-      rbind.match.columns(dat)
-    }
-  ),
-
-  private = list(
-
-    collection = NULL,
-    package_dir = NULL
-
-  )
-)
-
-
-
-
-# dir_master ---------------------------------------------------------
-
-dir_master <- R6Class(
-  "dir_master",
-  inherit = dir_collection,
-  public = list(
-
-    get_metadata = function( ){
-      unames <- sapply(private$collection, function(x) x$name())
-      ufnames <- sapply(private$collection, function(x) x$file_name())
-      data.frame(stringsAsFactors = FALSE, master_name = unames, filename = ufnames)
-    },
-    get_color_scheme = function( ){
-      dat <- lapply(private$collection, function(x) x$colors())
-      rbind.match.columns(dat)
-    }
-
-  )
-)
-
-
-# dir_layout ---------------------------------------------------------
-dir_layout <- R6Class(
-  "dir_layout",
-  inherit = dir_collection,
-  public = list(
-    initialize = function( x ) {
-      super$initialize(x, slide_layout$new("ppt/slideLayouts"))
-      private$master_collection <- dir_master$new(x, slide_master$new("ppt/slideMasters") )
-      private$xfrm_data <- xfrmize(self$xfrm(), private$master_collection$xfrm())
-    },
-
-    get_xfrm_data = function(){
-      private$xfrm_data
-    },
-
-    get_metadata = function( ){
-      data_layouts <- super$get_metadata()
-      data_masters <- private$master_collection$get_metadata()
-      data_masters$master_file <- basename(data_masters$filename)
-      data_masters$filename <- NULL
-      data_layouts$master_file <- basename(data_layouts$master_file)
-      out <- merge(data_layouts, data_masters, by = "master_file", all = FALSE)
-      out$filename <- basename(out$filename)
-      out
-    },
-
-    get_master = function(){
-      private$master_collection
-    }
-
-  ),
-  private = list(
-    master_collection = NULL,
-    xfrm_data = NULL
-  )
-)
-
-
-# dir_slide ---------------------------------------------------------
-dir_slide <- R6Class(
-  "dir_slide",
-  inherit = dir_collection,
-  public = list(
-
-    initialize = function( x ) {
-      super$initialize(x, slide$new("ppt/slides"))
-      private$slides_path <- file.path(x$package_dir, "ppt/slides")
-      private$slide_layouts <- dir_layout$new( x )
-      private$collection <- lapply(private$collection, function(x, ref) x$set_xfrm(ref), ref = private$slide_layouts$get_xfrm_data() )
-      names(private$collection) <- sapply(private$collection, function(x) x$name() )
-      private$slides_list <- private$get_slide_list()
-
-    },
-
-    add_slide = function(slide_file){
-
-      slide <- slide$new("ppt/slides")
-      slide$feed(slide_file)
-      slide$set_xfrm(private$slide_layouts$get_xfrm_data())
-
-      collect <- private$collection
-      new_elt <- list(slide)
-      names(new_elt) <- basename(slide_file)
-      collect <- append(collect, new_elt)
-
-      sl_id <- as.integer( gsub( "(slide)([0-9]+)(\\.xml)$", "\\2", names(collect) ) )
-      private$collection <- collect[order(sl_id)]
-      private$slides_list <- names(private$collection)
-
-      self
-    },
-
-    remove_slide = function(index ){
-      slide_obj <- private$collection[[index]]
-      private$collection <- private$collection[-index]
-      private$slides_list <- names(private$collection)
-      slide_obj$remove()
-    },
-
-    save_slides = function(){
-      lapply( private$collection, function(x){
-        x$save()
-      } )
-      self
-    },
-
-    get_xfrm = function( ){
-      lapply(private$collection, function(x) x$get_xfrm() )
-    },
-
-
-    get_slide = function(id){
-      l_ <- self$length()
-      if( is.null(id) || !between(id, 1, l_ ) ){
-        stop("unvalid id ", id, " (", l_," slide(s))", call. = FALSE)
-      }
-      index <- which( names(private$collection) == private$slides_list[id])
-      private$collection[[index]]
-    },
-
-    get_metadata = function(){
-      super$get_metadata()
-    },
-
-    length = function(){
-      length(private$collection)
-    },
-
-    get_new_slidename = function(){
-      slide_dir <- file.path(private$package_dir, "ppt/slides")
-      if( !file.exists(slide_dir)){
-        dir.create(file.path(slide_dir, "_rels"), showWarnings = FALSE, recursive = TRUE)
-      }
-
-      slide_files <- names(private$collection)
-      slidename <- "slide1.xml"
-      if( length(slide_files)){
-        slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
-        slidename <- gsub(pattern = "[0-9]+", replacement = max(slide_index) + 1, slidename)
-      }
-      slidename
-    },
-    layout_files = function(){
-      sapply(private$collection, function(x) x$layout_name())
-    }
-  ),
-  private = list(
-    slides_path = NULL,
-    slides_list = NULL,
-    slide_layouts = NULL,
-
-    get_slide_list = function(){
-      slide_dir <- file.path(private$package_dir, "ppt/slides")
-      slide_files <- list.files(slide_dir, pattern = "\\.xml$")
-      slide_index <- seq_along(slide_files)
-      if( length(slide_files)){
-        slide_files <- basename( slide_files )
-        slide_index <- as.integer(gsub("^(slide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
-        slide_files <- slide_files[order(slide_index)]
-      }
-      slide_files
-    }
-
-
-  )
-)
 

@@ -18,24 +18,25 @@ read_pptx <- function( path = NULL ){
   package_dir <- tempfile()
   unpack_folder( file = path, folder = package_dir )
 
-  obj <- structure(list(package_dir = package_dir),
-                   .Names = c("package_dir"),
-                   class = "rpptx")
+  obj <- list(package_dir = package_dir)
+
 
   obj$table_styles <- read_table_style(package_dir)
 
-  obj$presentation <- presentation$new(obj)
-  obj$slideLayouts <- dir_layout$new(obj )
+  obj$presentation <- presentation$new(package_dir)
 
-  slide_xfrm <- obj$slideLayouts$xfrm()
-  master_xfrm <- obj$slideLayouts$get_master()$xfrm()
+  obj$masterLayouts <- dir_master$new(package_dir, slide_master$new("ppt/slideMasters") )
 
-  obj$slide <- dir_slide$new(obj )
-  obj$content_type <- content_type$new(obj )
+  obj$slideLayouts <- dir_layout$new( package_dir,
+                                      master_metadata = obj$masterLayouts$get_metadata(),
+                                      master_xfrm = obj$masterLayouts$xfrm() )
 
-  obj$core_properties <- core_properties$new(obj$package_dir)
+  obj$slide <- dir_slide$new( package_dir, obj$slideLayouts$get_xfrm_data() )
+  obj$content_type <- content_type$new( package_dir )
+  obj$core_properties <- core_properties$new(package_dir)
 
   obj$cursor = obj$slide$length()
+  class(obj) <- "rpptx"
   obj
 }
 
@@ -114,7 +115,7 @@ add_slide <- function( x, layout, master ){
   x$presentation$add_slide(target = file.path( "slides", new_slidename) )
   x$content_type$add_slide(partname = file.path( "/ppt/slides", new_slidename) )
 
-  x$slide$add_slide(xml_file)
+  x$slide$add_slide(xml_file, x$slideLayouts$get_xfrm_data() )
 
   x$cursor = x$slide$length()
   x
@@ -227,7 +228,6 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   data <- x$slideLayouts$get_xfrm_data()
 
   if( !is.null(layout) && !is.null(master) ){
-
     data <- data[data$name == layout & data$master_name == master,]
   } else if( is.null(layout) && !is.null(master) ){
     data <- data[data$master_name == master,]
@@ -365,5 +365,5 @@ slide_summary <- function( x, index = NULL ){
 #' x <- read_pptx()
 #' color_scheme ( x = x )
 color_scheme <- function( x ){
-  x$slideLayouts$get_master()$get_color_scheme()
+  x$masterLayouts$get_color_scheme()
 }
