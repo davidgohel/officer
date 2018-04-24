@@ -99,18 +99,13 @@ read_xfrm <- function(nodeset, file, name){
           name = name )
 }
 
-filter_master_xfrm <- function( master_xfrm ){
+
+fortify_master_xfrm <- function(master_xfrm){
+  master_xfrm <- as.data.frame(master_xfrm)
   has_type <- grepl("type=", master_xfrm$ph)
   master_xfrm <- master_xfrm[has_type, ]
-  master_xfrm[!duplicated(master_xfrm$type),]
-}
+  master_xfrm <- master_xfrm[!duplicated(master_xfrm$type),]
 
-xfrmize <- function( slide_xfrm, master_xfrm ){
-  slide_xfrm <- as.data.frame( slide_xfrm )
-  master_xfrm <- filter_master_xfrm(as.data.frame(master_xfrm))
-  master_ref <- unique( data.frame(file = master_xfrm$file,
-                                     master_name = master_xfrm$name,
-                                     stringsAsFactors = FALSE ) )
   tmp_names <- names(master_xfrm)
 
   old_ <- c("offx", "offy", "cx", "cy", "name")
@@ -120,13 +115,27 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
   master_xfrm$id <- NULL
   master_xfrm$ph <- NULL
   master_xfrm$ph_label <- NULL
+
+  master_xfrm
+}
+
+xfrmize <- function( slide_xfrm, master_xfrm ){
+
+  slide_xfrm <- as.data.frame( slide_xfrm )
+
+  master_ref <- unique( data.frame(file = master_xfrm$file,
+                                     master_name = master_xfrm$name,
+                                     stringsAsFactors = FALSE ) )
+  master_xfrm <- fortify_master_xfrm(master_xfrm)
+
   slide_key_id <- paste0(slide_xfrm$master_file, slide_xfrm$type)
   master_key_id <- paste0(master_xfrm$file, master_xfrm$type)
 
   slide_xfrm_no_match <- slide_xfrm[!slide_key_id %in% master_key_id, ]
   slide_xfrm_no_match <- merge(slide_xfrm_no_match,
                                master_ref, by.x = "master_file", by.y = "file",
-                               all = FALSE)
+                               all.x = TRUE, all.y = FALSE)
+
   slide_xfrm <- merge(slide_xfrm, master_xfrm,
                       by.x = c("master_file", "type"),
                       by.y = c("file", "type"),
@@ -139,7 +148,13 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
   slide_xfrm$offy_ref <- NULL
   slide_xfrm$cx_ref <- NULL
   slide_xfrm$cy_ref <- NULL
-  rbind(slide_xfrm, slide_xfrm_no_match, stringsAsFactors = FALSE)
+
+  slide_xfrm <- rbind(slide_xfrm, slide_xfrm_no_match, stringsAsFactors = FALSE)
+  slide_xfrm[
+    !is.na( slide_xfrm$offx ) &
+      !is.na( slide_xfrm$offy ) &
+      !is.na( slide_xfrm$cx ) &
+      !is.na( slide_xfrm$cy ),]
 }
 
 
