@@ -46,7 +46,7 @@ worksheets <- R6Class(
 
       xml_elt <- paste(
         sprintf("<sheet name=\"%s\" sheetId=\"%.0f\" r:id=\"%s\"/>",
-                private$sheet_name, private$sheet_id, private$sheet_rid),
+                htmlEscape(private$sheet_name), private$sheet_id, private$sheet_rid),
         collapse = "" )
       xml_elt <- paste0( pml_with_ns("sheets"),  xml_elt, "</sheets>")
       xml_elt <- as_xml_document(xml_elt)
