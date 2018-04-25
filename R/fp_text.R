@@ -81,16 +81,7 @@ format.fp_text <- function( x, type = "wml", ... ){
 #' @rdname fp_text
 #' @export
 print.fp_text = function (x, ...){
-  out <- as.data.frame(x )
-  out <- as.data.frame( t(out) )
-  names(out) <- "values"
-  print(out)
-}
-
-#' @rdname fp_text
-#' @export
-as.data.frame.fp_text = function (x, ...){
-  data.frame(
+  out <- data.frame(
     size = as.double(x$font.size),
     italic = x$italic,
     bold = x$bold,
@@ -99,6 +90,8 @@ as.data.frame.fp_text = function (x, ...){
     shading = x$shading.color,
     fontname = x$font.family,
     vertical_align = x$vertical.align, stringsAsFactors = FALSE )
+  print(out)
+  invisible()
 }
 
 
@@ -131,14 +124,4 @@ update.fp_text <- function(object, color, font.size,
 
   object
 }
-
-
-
-
-
-
-
-
-
-
 

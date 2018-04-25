@@ -3,30 +3,25 @@
 \name{fpar}
 \alias{fpar}
 \alias{update.fpar}
-\alias{fortify_fpar}
 \alias{as.data.frame.fpar}
 \alias{format.fpar}
-\alias{print.fpar}
 \title{concatenate formatted text}
 \usage{
-fpar(...)
+fpar(..., fp_p = fp_par(), fp_t = fp_text())
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
-
-fortify_fpar(x)
 
 \method{as.data.frame}{fpar}(x, ...)
 
 \method{format}{fpar}(x, type = "pml", ...)
-
-\method{print}{fpar}(x, ...)
 }
 \arguments{
 \item{...}{unused}
 
 \item{fp_p}{paragraph formatting properties}
 
-\item{fp_t}{default text formatting properties}
+\item{fp_t}{default text formatting properties. This is used as
+text formatting properties when simple text is provided as argument.}
 
 \item{x, object}{fpar object}
 
@@ -34,8 +29,14 @@ fortify_fpar(x)
 }
 \description{
 Create a paragraph representation by concatenating
-formatted text or images. Modify default text and paragraph
-formatting properties with update.
+formatted text or images.
+
+\code{fpar} supports \code{ftext}, \code{external_img} and simple strings.
+All its arguments will be concatenated to create a paragraph where chunks
+of text and images are associated with formatting properties.
+
+Default text and paragraph formatting properties can also
+be modified with update.
 }
 \details{
 \code{fortify_fpar}, \code{as.data.frame} are used internally and
@@ -43,4 +44,20 @@ are not supposed to be used by end user.
 }
 \examples{
 fpar(ftext("hello", shortcuts$fp_bold()))
+
+# mix text and image -----
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+
+bold_face <- shortcuts$fp_bold(font.size = 12)
+bold_redface <- update(bold_face, color = "red")
+fpar_1 <- fpar(
+  "Hello World, ",
+  ftext("how ", prop = bold_redface ),
+  external_img(src = img.file, height = 1.06/2, width = 1.39/2),
+  ftext(" you?", prop = bold_face ) )
+fpar_1
+
+fpar(
+  external_img(src = img.file, height = 1.06/2, width = 1.39/2),
+  fp_p = fp_par(text.align = "center") )
 }

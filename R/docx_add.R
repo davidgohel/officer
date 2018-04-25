@@ -189,21 +189,34 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #' @seealso \code{\link{fpar}}
 body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 
-  if( is.null(style) )
-    style <- x$default_styles$paragraph
-  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+  img_src <- sapply(value$chunks, function(x){
+    if( inherits(x, "external_img"))
+      as.character(x)
+    else NA_character_
+  })
+  img_src <- unique(img_src[!is.na(img_src)])
 
   xml_elt <- format(value, type = "wml")
   xml_elt <- gsub("<w:p>", wml_with_ns("w:p"), xml_elt )
+
+  x <- docx_reference_img(x, img_src)
+  xml_elt <- wml_link_images( x, xml_elt )
+
+  if( !is.null(style) ){
+    style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+    ppr <- xml_child(xml_node, "w:pPr")
+    xml_remove(xml_children(ppr))
+
+    xml_add_child(ppr,
+                  as_xml_document(
+                    paste0(
+                      "<w:pStyle xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"",
+                      style_id, "\"/>"))
+    )
+
+  }
+
   xml_node <- as_xml_document(xml_elt)
-  ppr <- xml_child(xml_node, "w:pPr")
-  xml_remove(xml_children(ppr))
-  xml_add_child(ppr,
-                as_xml_document(
-                  paste0(
-                    "<w:pStyle xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"",
-                    style_id, "\"/>"))
-                )
 
 
   body_add_xml(x = x, str = as.character(xml_node), pos = pos)

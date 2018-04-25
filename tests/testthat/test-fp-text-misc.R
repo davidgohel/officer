@@ -7,11 +7,6 @@ test_that("fp_text - print", {
   expect_output(print(fp))
 })
 
-test_that("fp_text - as.data.frame", {
-  fp <- fp_text(font.size = 10, color = "red", bold = TRUE, italic = TRUE, underlined = TRUE, font.family = "Arial", shading.color = "yellow", vertical.align = "superscript")
-  expect_is(as.data.frame(fp), class = "data.frame")
-})
-
 test_that("fp_text - update", {
 
   fp <- fp_text(font.size = 10)
