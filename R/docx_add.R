@@ -185,6 +185,16 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #' doc <- read_docx() %>% body_add_fpar(fpar_)
 #'
 #' print(doc, target = "body_add_fpar.docx" )
+#'
+#' # a way of using fpar to center an image in a Word doc ----
+#' rlogo <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' img_in_par <- fpar(
+#'   external_img(src = rlogo, height = 1.06/2, width = 1.39/2),
+#'   fp_p = fp_par(text.align = "center") )
+#'
+#' read_docx() %>% body_add_fpar(img_in_par) %>%
+#'   print(target = "img_in_par.docx" )
+#'
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @seealso \code{\link{fpar}}
 body_add_fpar <- function( x, value, style = NULL, pos = "after" ){

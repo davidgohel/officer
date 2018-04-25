@@ -57,7 +57,7 @@ fpar_1 <- fpar(
   ftext(" you?", prop = bold_face ) )
 fpar_1
 
-fpar(
+img_in_par <- fpar(
   external_img(src = img.file, height = 1.06/2, width = 1.39/2),
   fp_p = fp_par(text.align = "center") )
 }

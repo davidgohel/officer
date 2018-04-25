@@ -29,6 +29,15 @@ fpar_ <- fpar(ftext("Hello ", prop = bold_face),
 doc <- read_docx() \%>\% body_add_fpar(fpar_)
 
 print(doc, target = "body_add_fpar.docx" )
+
+rlogo <- file.path( R.home("doc"), "html", "logo.jpg" )
+img_in_par <- fpar(
+  external_img(src = rlogo, height = 1.06/2, width = 1.39/2),
+  fp_p = fp_par(text.align = "center") )
+
+read_docx() \%>\% body_add_fpar(img_in_par) \%>\%
+  print(target = "img_in_par.docx" )
+
 }
 \seealso{
 \code{\link{fpar}}
