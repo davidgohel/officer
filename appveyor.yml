@@ -28,11 +28,6 @@ environment:
     R_ARCH: x64
     USE_RTOOLS: true
     RTOOLS_VERSION: 34
-  - R_VERSION: patched
-    PKGTYPE: source
-    R_ARCH: x64
-    USE_RTOOLS: true
-    RTOOLS_VERSION: 34
 
 matrix:
   fast_finish: true
