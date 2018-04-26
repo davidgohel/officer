@@ -14,16 +14,72 @@
 #'   body_add_par("centered text", style = "centered") %>%
 #'   slip_in_text(". How are you", style = "strong") %>%
 #'   body_bookmark("text_to_replace") %>%
-#'   body_replace_at("text_to_replace", "not left aligned")
-body_replace_at <- function( x, bookmark, value ){
+#'   body_replace_text_at_bkm("text_to_replace", "not left aligned")
+body_replace_text_at_bkm <- function( x, bookmark, value ){
+
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
   x$doc_obj$cursor_replace_first_text(bookmark, value)
   x
 }
 
 #' @export
-#' @rdname body_replace_at
-headers_replace_at <- function( x, bookmark, value ){
+#' @rdname body_replace_text_at_bkm
+body_replace_at <- function( x, bookmark, value ){
+  .Deprecated(new = "body_replace_text_at_bkm")
+  body_replace_text_at_bkm( x, bookmark, value )
+}
+
+#' @export
+#' @rdname body_replace_text_at_bkm
+#' @examples
+#'
+#'
+#' # demo usage of bookmark and images ----
+#' template <- system.file(package = "officer", "doc_examples/example.docx")
+#'
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#'
+#' doc <- read_docx(path = template)
+#' doc <- headers_replace_img_at_bkm(x = doc, bookmark = "bmk_header",
+#'                                   value = external_img(src = img.file, width = .53, height = .7))
+#' doc <- footers_replace_img_at_bkm(x = doc, bookmark = "bmk_footer",
+#'                                   value = external_img(src = img.file, width = .53, height = .7))
+#' print(doc, target = "test_replacement_img.docx")
+#'
+body_replace_img_at_bkm <- function( x, bookmark, value ){
+
+  stopifnot(inherits(x, "rdocx"),
+            is_scalar_character(bookmark),
+            inherits(value, "external_img"))
+
+  width <- attr(value, "dims")$width
+  height <- attr(value, "dims")$height
+  x$doc_obj$cursor_replace_first_img(bookmark, as.character(value), width, height)
+
+  x
+}
+
+docxpart_replace_img_at_bkm <- function( x, bookmark, value, part ){
+
+  stopifnot(inherits(x, "rdocx"))
+  stopifnot(is_scalar_character(bookmark))
+  stopifnot(inherits(value, "external_img"))
+
+  width <- attr(value, "dims")$width
+  height <- attr(value, "dims")$height
+
+  for(docpart in x[[part]]){
+    if( docpart$has_bookmark(bookmark) )
+      docpart$cursor_replace_first_img(bookmark, value, width, height)
+  }
+  x
+}
+
+
+
+#' @export
+#' @rdname body_replace_text_at_bkm
+headers_replace_text_at_bkm <- function( x, bookmark, value ){
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
   for(header in x$headers){
     if( header$has_bookmark(bookmark) )
@@ -34,8 +90,16 @@ headers_replace_at <- function( x, bookmark, value ){
 }
 
 #' @export
-#' @rdname body_replace_at
-footers_replace_at <- function( x, bookmark, value ){
+#' @rdname body_replace_text_at_bkm
+headers_replace_img_at_bkm <- function( x, bookmark, value ){
+  docxpart_replace_img_at_bkm(x = x, bookmark = bookmark, value = value, part = "headers")
+}
+
+
+
+#' @export
+#' @rdname body_replace_text_at_bkm
+footers_replace_text_at_bkm <- function( x, bookmark, value ){
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
   for(footer in x$footers){
     if( footer$has_bookmark(bookmark) )
@@ -43,6 +107,13 @@ footers_replace_at <- function( x, bookmark, value ){
   }
   x
 }
+
+#' @export
+#' @rdname body_replace_text_at_bkm
+footers_replace_img_at_bkm <- function( x, bookmark, value ){
+  docxpart_replace_img_at_bkm(x = x, bookmark = bookmark, value = value, part = "footers")
+}
+
 
 #' @export
 #' @title Replace text anywhere in the document, or at a cursor

@@ -346,18 +346,18 @@ print(my_doc, target = "assets/docx/replace_doc.docx")
 ### Search-and-replace
 
 You can also use the `body_replace_*` functions to search-and-replace text. 
-`body_replace_at()` replaces text at a bookmark:
+`body_replace_text_at_bkm()` replaces text at a bookmark:
 
 ```{r results='hide'}
 doc <- read_docx() %>%
   body_add_par("centered text", style = "centered") %>%
   slip_in_text(". How are you", style = "strong") %>%
   body_bookmark("text_to_replace") %>%
-  body_replace_at("text_to_replace", "not left aligned")
+  body_replace_text_at_bkm("text_to_replace", "not left aligned")
 ```
 
 To do the same with headers and footers of the Word document, use functions 
-`headers_replace_at` and `footers_replace_at`.
+`headers_replace_text_at_bkm` and `footers_replace_text_at_bkm`.
 
 
 `body_replace_all_text()` will, depending on the options provided, replace text 

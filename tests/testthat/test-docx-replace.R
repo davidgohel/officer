@@ -12,7 +12,7 @@ test_that("replace bkm in body", {
   bm_start <- xml_find_first(xmldoc, xpath_)
   expect_false( inherits(bm_start, "xml_missing"))
 
-  doc <- body_replace_at(doc, "text_to_replace", "not left aligned")
+  doc <- body_replace_text_at_bkm(doc, "text_to_replace", "not left aligned")
   xmldoc <- doc$doc_obj$get()
   newtext <- xml_find_first(xmldoc, "w:body/w:p[2]/w:r")
   expect_equal(xml_text(newtext), "not left aligned")
@@ -24,8 +24,8 @@ test_that("replace bkm in body", {
 test_that("replace bkm in headers and footers", {
 
   doc <- read_docx(path = "docs_dir/table-complex.docx" )
-  doc <- headers_replace_at(doc, "hello1", "salut")
-  doc <- footers_replace_at(doc, "hello2", "salut")
+  doc <- headers_replace_text_at_bkm(doc, "hello1", "salut")
+  doc <- footers_replace_text_at_bkm(doc, "hello2", "salut")
 
   xmldoc <- doc$headers[[1]]$get()
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", "hello1")

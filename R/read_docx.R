@@ -117,6 +117,25 @@ print.rdocx <- function(x, target = NULL, ...){
   for(z in seq_along(all_uid) ){
     xml_attr(all_uid[[z]], "id") <- z
   }
+  # make all id unique for headers
+  for(docpart in x[["headers"]]){
+    all_uid <- xml_find_all(docpart$get(), "//*[@id]")
+    for(z in seq_along(all_uid) ){
+      xml_attr(all_uid[[z]], "id") <- z
+    }
+  }
+  # make all id unique for footers
+  for(docpart in x[["footers"]]){
+    all_uid <- xml_find_all(docpart$get(), "//*[@id]")
+    for(z in seq_along(all_uid) ){
+      xml_attr(all_uid[[z]], "id") <- z
+    }
+  }
+
+  all_uid <- xml_find_all(x$footnotes$get(), "//*[@id]")
+  for(z in seq_along(all_uid) ){
+    xml_attr(all_uid[[z]], "id") <- z
+  }
 
   sections_ <- xml_find_all(x$doc_obj$get(), "//w:sectPr")
   last_sect <- sections_[length(sections_)]

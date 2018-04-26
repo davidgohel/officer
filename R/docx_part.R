@@ -100,6 +100,43 @@ docx_part <- R6Class(
       self
     },
 
+    cursor_replace_first_img = function( id, src, width, height ){
+
+      xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
+      bm_start <- xml_find_first(self$get(), xpath_)
+      if( inherits(bm_start, "xml_missing") )
+        stop("cannot find bookmark ", shQuote(id), call. = FALSE)
+
+      str_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r", id )
+      following_start <- sapply( xml_find_all(self$get(), str_), xml_path )
+      str_ <- sprintf("//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r", xml_attr(bm_start, "id") )
+      preceding_end <- sapply( xml_find_all(self$get(), str_), xml_path )
+
+      match_path <- base::intersect(following_start, preceding_end)
+      if( length(match_path) < 1 )
+        stop("could not find any bookmark ", id, " located INSIDE a single paragraph" )
+
+      run_nodes <- xml_find_all(self$get(), paste0( match_path, collapse = "|" ) )
+
+      for(node in run_nodes[setdiff(seq_along(run_nodes), 1)])
+        xml_remove(node)
+
+      new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
+      file.copy( src, to = new_src )
+
+      blip_id <- self$relationship()$get_next_id()
+      self$relationship()$add_img(new_src, root_target = "media")
+
+      img_path <- file.path(private$package_dir, "word", "media")
+      dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
+      file.copy(from = new_src, to = file.path(private$package_dir, "word", "media", basename(new_src)))
+
+      out <- wml_image(paste0("rId", blip_id), width = width*72, height = height*72)
+
+      xml_replace(run_nodes[[1]], as_xml_document(out) )
+      self
+    },
+
     replace_all_text = function( oldValue, newValue, onlyAtCursor=TRUE, ... ) {
 
       replacement_count <- 0
