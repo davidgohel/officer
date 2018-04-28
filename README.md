@@ -74,7 +74,7 @@ PowerPoint slides:
 In a PowerPoint document, one can set a slide as selected and reach a
 particular shape (and remove it or add text).
 
-ile generation is performed with the `print()` function.
+File generation is performed with the `print()` function.
 
 ### import PowerPoint document in a data.frame
 
@@ -117,7 +117,7 @@ Or the latest version on CRAN:
 install.packages("officer")
 ```
 
-## Ressources
+## Resources
 
 ### Online documentation
 
@@ -125,7 +125,7 @@ The help pages are located at <https://davidgohel.github.io/officer/>.
 
 ### Getting help
 
-This project is developped and maintained on my own time. In order to
+This project is developed and maintained on my own time. In order to
 help me to maintain the package, do not send me private emails if you
 only have questions about how to use the package. Instead, visit
 Stackoverflow, `officer` has its own tag [Stackoverflow
