@@ -105,11 +105,13 @@ relationship <- R6Class(
       self
     },
     add = function(id, type, target, target_mode = NA ) {
-      private$id <- c( private$id, id )
-      private$type <- c( private$type, type )
-      private$target <- c( private$target, target )
-      private$target_mode <- c( private$target_mode, target_mode )
-      private$ext_src <- c( private$ext_src, "" )
+      if( !target %in% private$target ){
+        private$id <- c( private$id, id )
+        private$type <- c( private$type, type )
+        private$target <- c( private$target, target )
+        private$target_mode <- c( private$target_mode, target_mode )
+        private$ext_src <- c( private$ext_src, "" )
+      }
       self
     },
     remove = function( target ) {
