@@ -16,7 +16,7 @@ footnote_add_xml <- function(x, str, pos, refnote){
   }
 
   if( pos %in% "before" && x$footnotes$length() > 2 ){
-    xml_add_sibling(cursor_elt, xml_elt, .where = "before")
+    xml_add_sibling(cursor_elt, xml_elt, .where = "after")
     x$footnotes$cursor_end()
   } else if( x$footnotes$length() == 2){
     xml_add_sibling(cursor_elt, xml_elt, .where = "after")
