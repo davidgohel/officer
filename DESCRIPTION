@@ -23,7 +23,7 @@ LazyData: TRUE
 LinkingTo: Rcpp
 Imports:
     Rcpp (>= 0.12.12),
-    R6,grDevices,
+    R6,R.utils,grDevices,
     base64enc,
     zip,
     digest,uuid,utils,stats,

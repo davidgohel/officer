@@ -1,5 +1,6 @@
 #' @export
 #' @importFrom utils compareVersion packageVersion
+#' @importFrom R.utils getAbsolutePath
 #' @import zip
 #' @title compress a folder
 #' @description compress a folder to a target file. The
@@ -9,8 +10,8 @@
 #' @param folder folder to compress
 #' @param target path of the archive to create
 pack_folder <- function( folder, target ){
-  target <- file_path_as_absolute2(target)
-  folder <- file_path_as_absolute2(folder)
+  target <- getAbsolutePath(path.expand(target))
+  folder <- getAbsolutePath(path.expand(folder))
 
   target <- enc2utf8(target)
   dir_fi <- dirname(target)
@@ -68,8 +69,8 @@ pack_folder <- function( folder, target ){
 #' @param folder folder to create
 unpack_folder <- function( file, folder ){
 
-  file <- file_path_as_absolute2(file)
-  folder <- file_path_as_absolute2(folder)
+  file <- getAbsolutePath(path.expand(file))
+  folder <- getAbsolutePath(path.expand(folder))
 
 
   stopifnot(file.exists(file))
@@ -81,9 +82,9 @@ unpack_folder <- function( file, folder ){
   folder
 }
 
-file_path_as_absolute2 <- function(x){
-  if (length(x) != 1L)
-    stop("'x' must be a single character string")
-  epath <- path.expand(x)
-  normalizePath(epath, "/", mustWork = FALSE)
-}
+# file_path_as_absolute2 <- function(x){
+#   if (length(x) != 1L)
+#     stop("'x' must be a single character string")
+#   epath <- path.expand(x)
+#   normalizePath(epath, "/", mustWork = FALSE)
+# }

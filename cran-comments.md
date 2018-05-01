@@ -13,10 +13,10 @@ There were no ERROR, WARNING or NOTE.
 There were no ERROR, no WARNING and no NOTE. 
 
 Checked flextable      : 0 errors | 0 warnings | 0 notes
+Checked mschart        : 0 errors | 0 warnings | 0 notes
+Checked rvg            : 0 errors | 0 warnings | 0 notes
+Checked SWMPrExtension : 0 errors | 0 warnings | 0 notes
+Checked WordR          : 0 errors | 0 warnings | 0 notes
 Checked huxtable       : 0 errors | 0 warnings | 0 notes
 Checked jtools         : 0 errors | 0 warning  | 0 notes
-Checked mschart        : 0 errors | 0 warnings | 0 notes
-Checked SWMPrExtension : 0 errors | 0 warnings | 0 notes
-Checked rvg            : 0 errors | 0 warnings | 0 notes
-Checked WordR          : 0 errors | 0 warnings | 0 notes
 
