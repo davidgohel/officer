@@ -149,6 +149,7 @@ footers_replace_img_at_bkm <- function( x, bookmark, value ){
 #' @param only_at_cursor if \code{TRUE}, only search-and-replace at the current
 #' cursor; if \code{FALSE} (default), search-and-replace in the entire document
 #' (this can be slow on large documents!)
+#' @param warn warn if \code{old_value} could not be found.
 #' @param ... optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})
 #' @examples
 #' library(magrittr)
@@ -174,11 +175,13 @@ footers_replace_img_at_bkm <- function( x, bookmark, value ){
 #' # Use regex : replace all words starting with "n" with the word "example"
 #' doc <- body_replace_all_text(doc, "\\bn.*?\\b", "example")
 #' docx_show_chunk(doc) # Output is 'example one'
-body_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, ... ){
+body_replace_all_text <- function( x, old_value, new_value,
+                                   only_at_cursor = FALSE,
+                                   warn = TRUE, ... ){
   stopifnot(is_scalar_character(old_value),
             is_scalar_character(new_value),
             is_scalar_logical(only_at_cursor))
-  x$doc_obj$replace_all_text(old_value, new_value, only_at_cursor, ...)
+  x$doc_obj$replace_all_text(old_value, new_value, only_at_cursor, warn = warn, ...)
   x
 }
 
@@ -210,13 +213,13 @@ docx_show_chunk <- function( x ){
 #' @rdname body_replace_all_text
 #' @section header_replace_all_text:
 #' Replacements will be performed in each header of all sections.
-headers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, ... ){
+headers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, warn = TRUE,  ... ){
   stopifnot(is_scalar_character(old_value),
             is_scalar_character(new_value),
             is_scalar_logical(only_at_cursor))
 
   for(header in x$headers){
-    header$replace_all_text(old_value, new_value, only_at_cursor, ...)
+    header$replace_all_text(old_value, new_value, only_at_cursor, warn = warn, ...)
   }
 
   x
@@ -225,13 +228,13 @@ headers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
 #' @rdname body_replace_all_text
 #' @section header_replace_all_text:
 #' Replacements will be performed in each footer of all sections.
-footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, ... ){
+footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, warn = TRUE, ... ){
   stopifnot(is_scalar_character(old_value),
             is_scalar_character(new_value),
             is_scalar_logical(only_at_cursor))
 
   for(footer in x$footers){
-    footer$replace_all_text(old_value, new_value, only_at_cursor, ...)
+    footer$replace_all_text(old_value, new_value, only_at_cursor, warn = warn, ...)
   }
 
   x

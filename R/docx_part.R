@@ -137,7 +137,7 @@ docx_part <- R6Class(
       self
     },
 
-    replace_all_text = function( oldValue, newValue, onlyAtCursor=TRUE, ... ) {
+    replace_all_text = function( oldValue, newValue, onlyAtCursor=TRUE, warn = TRUE, ... ) {
 
       replacement_count <- 0
 
@@ -154,7 +154,7 @@ docx_part <- R6Class(
       }
 
       # Alert the user if no replacements were made.
-      if (replacement_count == 0) {
+      if (replacement_count == 0 && warn) {
         search_zone_text <- if (onlyAtCursor) "at the cursor." else "in the document."
         warning("Found 0 instances of '", oldValue, "' ", search_zone_text)
       }

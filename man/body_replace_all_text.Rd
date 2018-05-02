@@ -6,11 +6,14 @@
 \alias{footers_replace_all_text}
 \title{Replace text anywhere in the document, or at a cursor}
 \usage{
-body_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
+body_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE,
+  warn = TRUE, ...)
 
-headers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
+headers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE,
+  warn = TRUE, ...)
 
-footers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
+footers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE,
+  warn = TRUE, ...)
 }
 \arguments{
 \item{x}{a docx device}
@@ -22,6 +25,8 @@ footers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE, ...)
 \item{only_at_cursor}{if \code{TRUE}, only search-and-replace at the current
 cursor; if \code{FALSE} (default), search-and-replace in the entire document
 (this can be slow on large documents!)}
+
+\item{warn}{warn if \code{old_value} could not be found.}
 
 \item{...}{optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})}
 }
