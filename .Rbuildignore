@@ -5,7 +5,8 @@
 ^appveyor\.yml$
 ^README\.Rmd$
 ^docs$
-^inst/zztools$
+^inst\/zztools$
+^inst\/officerlogo\.svg$
 ^vignettes/offcran$
 ^cran-comments\.md$
 ^revdep$
