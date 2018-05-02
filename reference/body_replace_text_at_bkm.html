@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>compress a folder — pack_folder • officer</title>
+<title>replace text at a bookmark location — body_replace_text_at_bkm • officer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,10 +27,13 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="compress a folder — pack_folder" />
+<meta property="og:title" content="replace text at a bookmark location — body_replace_text_at_bkm" />
 
-<meta property="og:description" content="compress a folder to a target file. The
-function returns the complete path to target file." />
+<meta property="og:description" content="replace text content enclosed in a bookmark
+with different text. A bookmark will be considered as valid if enclosing words
+within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
+a bookmark set on a whole paragraph is also invalid, but bookmarking few words
+inside a paragraph is valid." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -96,42 +99,78 @@ function returns the complete path to target file." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>compress a folder</h1>
+    <h1>replace text at a bookmark location</h1>
     </div>
 
     
-    <p>compress a folder to a target file. The
-function returns the complete path to target file.</p>
+    <p>replace text content enclosed in a bookmark
+with different text. A bookmark will be considered as valid if enclosing words
+within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
+a bookmark set on a whole paragraph is also invalid, but bookmarking few words
+inside a paragraph is valid.</p>
     
 
-    <pre class="usage"><span class='fu'>pack_folder</span>(<span class='no'>folder</span>, <span class='no'>target</span>)</pre>
+    <pre class="usage"><span class='fu'>body_replace_text_at_bkm</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)
+
+<span class='fu'>body_replace_at</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)
+
+<span class='fu'>body_replace_img_at_bkm</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)
+
+<span class='fu'>headers_replace_text_at_bkm</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)
+
+<span class='fu'>headers_replace_img_at_bkm</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)
+
+<span class='fu'>footers_replace_text_at_bkm</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)
+
+<span class='fu'>footers_replace_img_at_bkm</span>(<span class='no'>x</span>, <span class='no'>bookmark</span>, <span class='no'>value</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>folder</th>
-      <td><p>folder to compress</p></td>
+      <th>x</th>
+      <td><p>a docx device</p></td>
     </tr>
     <tr>
-      <th>target</th>
-      <td><p>path of the archive to create</p></td>
+      <th>bookmark</th>
+      <td><p>bookmark id</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>the replacement string, of type character</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function is using <a href='http://www.rdocumentation.org/packages/utils/topics/zip'>zip</a>, it needs a zip program.</p>
-    
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"centered text"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"centered"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span>(<span class='st'>". How are you"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"strong"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='body_bookmark.html'>body_bookmark</a></span>(<span class='st'>"text_to_replace"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>body_replace_text_at_bkm</span>(<span class='st'>"text_to_replace"</span>, <span class='st'>"not left aligned"</span>)
 
+
+<span class='co'># demo usage of bookmark and images ----</span>
+<span class='no'>template</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"officer"</span>, <span class='st'>"doc_examples/example.docx"</span>)
+
+<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>( <span class='fu'>R.home</span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>template</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>headers_replace_img_at_bkm</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>bookmark</span> <span class='kw'>=</span> <span class='st'>"bmk_header"</span>,
+                                  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.53</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.7</span>))
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>footers_replace_img_at_bkm</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>bookmark</span> <span class='kw'>=</span> <span class='st'>"bmk_footer"</span>,
+                                  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.53</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>.7</span>))
+<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"test_replacement_img.docx"</span>)</div><div class='output co'>#&gt; [1] "/.../test_replacement_img.docx"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-          </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
