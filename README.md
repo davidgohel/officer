@@ -10,8 +10,8 @@ contents, styles and properties of the original document will then be
 available.
 
 *This package is close to ReporteRs as it produces Word and PowerPoint
-files but it is faster, do not require `rJava` (but `xml2`) and has less
-functions that will make it easier to maintain.*
+files but it is faster, do not require `rJava` and is easier to
+maintain.*
 
 <img src="http://www.ardata.fr/images/officerlogo.svg" width = "15%"/>
 
