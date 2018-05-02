@@ -136,6 +136,47 @@ body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
 }
 
 #' @export
+#' @title add a list of blocks into a document
+#' @description add a list of blocks produced by \code{block_list} into
+#' into an rdocx object
+#' @inheritParams body_add_break
+#' @param blocks set of blocks to be used as footnote content returned by
+#'   function \code{\link{block_list}}.
+#' @examples
+#' library(magrittr)
+#'
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' bl <- block_list(
+#'   fpar(ftext("hello", shortcuts$fp_bold())),
+#'   fpar(
+#'     ftext("hello", shortcuts$fp_bold()),
+#'     stext(" world", "strong"),
+#'     external_img(src = img.file, height = 1.06, width = 1.39)
+#'   )
+#' )
+#'
+#' x <- read_docx() %>%
+#'   body_add_blocks( blocks = bl ) %>%
+#'   print(target = "body_add_bl.docx")
+body_add_blocks <- function( x, blocks, pos = "after" ){
+
+  stopifnot(inherits(blocks, "block_list"))
+
+  if( length(blocks) > 0 ){
+    pos_vector <- rep("after", length(blocks))
+    pos_vector[1] <- pos
+    for(i in seq_along(blocks) ){
+      x <- body_add_fpar(x, value = blocks[[i]], pos = pos_vector[i])
+    }
+  }
+
+  x
+}
+
+
+
+
+#' @export
 #' @title add paragraph of text
 #' @description add a paragraph of text into an rdocx object
 #' @param x a docx device
