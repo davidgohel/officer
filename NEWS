@@ -5,9 +5,15 @@
 * function cursor_bookmark now let set the cursor in a text box thanks to
   Noam Ross. cursor_forward and cursor_backward can now fail if cursor
   is on a textbox but an error message will explain it to the user.
-* Word documents support now footnotes and text replacement in headers
-  and footers.
+* Word documents support now footnotes.
 * Word section functions have been refactored.
+* New functions for replacement in headers and footers in Word documents.
+  See functions `headers_replace*` and `footers_replace*`
+* PowerPoint processing optimisation when generating more than few slides.
+
+## Issues
+
+* fix an issue with `layout_properties` when master layout is empty.
 
 # officer 0.2.2
 
