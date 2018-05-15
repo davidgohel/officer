@@ -149,7 +149,7 @@ test_that("ggplot add", {
   getncheck(node, "w:r/w:drawing")
 })
 
-test_that("fpar add ", {
+test_that("fpar add", {
   bold_face <- shortcuts$fp_bold(font.size = 20)
   bold_redface <- update(bold_face, color = "red")
   fpar_ <- fpar(ftext("This is a big ", prop = bold_face),
@@ -159,6 +159,11 @@ test_that("fpar add ", {
 
   node <- x$doc_obj$get_at_cursor()
   expect_equal(xml_text(node), "This is a big text" )
+
+  x <- read_docx()
+  try({x <- body_add_fpar(x, fpar_, style = "centered")}, silent = TRUE)
+  expect_is(x, "rdocx")
+
 })
 
 test_that("add docx into docx", {
