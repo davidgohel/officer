@@ -253,6 +253,8 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
   x <- docx_reference_img(x, img_src)
   xml_elt <- wml_link_images( x, xml_elt )
 
+  xml_node <- as_xml_document(xml_elt)
+
   if( !is.null(style) ){
     style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
     ppr <- xml_child(xml_node, "w:pPr")
@@ -264,10 +266,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
                       "<w:pStyle xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:val=\"",
                       style_id, "\"/>"))
     )
-
   }
-
-  xml_node <- as_xml_document(xml_elt)
 
 
   body_add_xml(x = x, str = as.character(xml_node), pos = pos)
