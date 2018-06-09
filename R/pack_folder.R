@@ -5,8 +5,6 @@
 #' @title compress a folder
 #' @description compress a folder to a target file. The
 #' function returns the complete path to target file.
-#' @details
-#' The function is using \link[utils]{zip}, it needs a zip program.
 #' @param folder folder to compress
 #' @param target path of the archive to create
 pack_folder <- function( folder, target ){

@@ -56,8 +56,9 @@ pptxtable_as_tibble <- function( node ){
 
 pptx_par_as_tibble <- function(node){
   xpath_ <- paste0( xml_path( node ),
-                    c("/p:txBody/a:p", "/*/p:txBody/a:p"), # standard and groupedshapes
+                    c("/p:txBody/a:p", "//*/p:txBody/a:p"), # standard and groupedshapes
                     collapse = "|")
+
   p_nodes <- xml_find_all(node, xpath_ )
   data.frame( text = xml_text(p_nodes), stringsAsFactors = FALSE )
 }
@@ -114,6 +115,7 @@ pptx_summary <- function( x ){
     data <- read_xfrm(nodes, file = "slide", name = "" )
 
     content <- mapply(function(node, id, slide_id){
+
       is_table <- !inherits( xml_child(node, "/a:graphic/a:graphicData/a:tbl"), "xml_missing")
       is_par <- !inherits( xml_child(node, "/p:txBody/a:p"), "xml_missing")
       is_img <- xml_name(node) == "pic"

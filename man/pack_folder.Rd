@@ -15,6 +15,3 @@ pack_folder(folder, target)
 compress a folder to a target file. The
 function returns the complete path to target file.
 }
-\details{
-The function is using \link[utils]{zip}, it needs a zip program.
-}
