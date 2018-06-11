@@ -44,14 +44,25 @@ relationship <- R6Class(
       max(c(0, private$get_int_id() ), na.rm = TRUE ) + 1
     },
     get_data = function() {
-      data <- data.frame(id = private$id,
-                         int_id = as.integer(gsub("rId([0-9]+)", "\\1", private$id)),
-                         type = private$type,
-                         target = private$target,
-                         target_mode = private$target_mode,
-                         ext_src = private$ext_src,
-                         stringsAsFactors = FALSE )
-      data[order(data$id),]
+      if( length(private$id) ){
+        data <- data.frame(id = private$id,
+                           int_id = as.integer(gsub("rId([0-9]+)", "\\1", private$id)),
+                           type = private$type,
+                           target = private$target,
+                           target_mode = private$target_mode,
+                           ext_src = private$ext_src,
+                           stringsAsFactors = FALSE )
+        data[order(data$id),]
+      } else {
+        data <- data.frame(id = character(0),
+                        int_id = integer(0),
+                        type = character(0),
+                        target = character(0),
+                        target_mode = character(0),
+                        ext_src = character(0),
+                        stringsAsFactors = FALSE )
+      }
+      data
     },
     get_images_path = function() {
       is_img <- basename( private$type ) %in% "image"
