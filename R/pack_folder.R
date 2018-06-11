@@ -10,7 +10,6 @@ pack_folder <- function( folder, target ){
 
   target <- absolute_path(target)
 
-  target <- enc2utf8(target)
   dir_fi <- dirname(target)
   if( !file.exists(dir_fi) ){
     stop("directory ", shQuote(dir_fi), " does not exist.", call. = FALSE)
@@ -41,7 +40,8 @@ pack_folder <- function( folder, target ){
 
   curr_wd <- getwd()
   setwd(folder)
-
+  if( .Platform$OS.type %in% "windows")
+    target <- enc2native(target)
   tryCatch(
     zip::zip(zipfile = target,
         files = list.files(all.files = TRUE, recursive = TRUE))
