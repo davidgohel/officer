@@ -84,6 +84,9 @@ absolute_path <- function(x){
   if( file.exists(epath)){
     epath <- normalizePath(epath, "/", mustWork = TRUE)
   } else {
+    if( !dir.exists(dirname(epath)) ){
+      stop("directory of ", x, " does not exist.", call. = FALSE)
+    }
     cat("", file = epath)
     epath <- normalizePath(epath, "/", mustWork = TRUE)
     unlink(epath)
