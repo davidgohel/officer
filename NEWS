@@ -1,3 +1,11 @@
+# officer 0.3.1
+
+## Issues
+
+* fix function `body_add_fpar()` when argument `style` was used.
+* `slide_summary` was using a bad xpath query.
+* fixed character encoding issue for filename whith windows OS
+
 # officer 0.3.0
 
 ## Enhancement
