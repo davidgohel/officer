@@ -160,6 +160,26 @@ on_slide <- function( x, index ){
   x
 }
 
+#' @export
+move_slide <- function( x, index, to ){
+
+  x$presentation$slide_data()
+  l_ <- length(x)
+  if( l_ < 1 ){
+    stop("presentation contains no slide", call. = FALSE)
+  }
+  if( !between(index, 1, l_ ) ){
+    stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
+  }
+  if( !between(to, 1, l_ ) ){
+    stop("unvalid 'to' ", to, " (", l_," slide(s))", call. = FALSE)
+  }
+
+  x$presentation$move_slide(from = index, to = to)
+  x$cursor <- to
+  x
+}
+
 
 
 #' @export
@@ -187,8 +207,10 @@ remove_slide <- function( x, index = NULL ){
   if( !between(index, 1, l_ ) ){
     stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
   }
+  filename <- basename( x$presentation$slide_data()$target[index])
+  location <- which( x$slide$get_metadata()$name %in% filename )
 
-  del_file <- x$slide$remove_slide(index)
+  del_file <- x$slide$remove_slide(location)
   # update presentation elements
   x$presentation$remove_slide(del_file)
   x$content_type$remove_slide(partname = del_file )

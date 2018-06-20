@@ -35,18 +35,31 @@ presentation <- R6Class(
       private$slide_id <- c( private$slide_id, new_id)
       private$slide_rid <- c( private$slide_rid, rid)
 
-      xml_list <- xml_find_first(private$doc, "//p:sldIdLst")
-      xml_elt <- paste(
-        sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
-        collapse = "" )
-      xml_elt <- paste0( pml_with_ns("p:sldIdLst"),  xml_elt, "</p:sldIdLst>")
-      xml_elt <- as_xml_document(xml_elt)
+      private$update_xml()
 
-      if( !inherits(xml_list, "xml_missing")){
-        xml_replace(xml_list, xml_elt)
-      } else{ ## needs to be after sldMasterIdLst...
-        xml_add_sibling(xml_find_first(private$doc, "//p:sldMasterIdLst"), xml_elt)
-      }
+      self
+    },
+    slide_data = function(){
+      rel_df <- self$rel_df()
+      rel_df <- rel_df[, c("id", "target")]
+      names(rel_df) <- c("slide_rid", "target")
+      ref <- data.frame(slide_id = private$slide_id,
+                 slide_rid = private$slide_rid,
+                 stringsAsFactors = FALSE)
+      base::merge(x = ref, y = rel_df, by = "slide_rid", all.x = TRUE, all.y = FALSE)
+    },
+
+    move_slide = function(from, to){
+
+      slide_list <- self$slide_data()
+      slide_list_from <- slide_list[from,,drop = FALSE]
+      slide_list <- slide_list[-from,,drop = FALSE]
+      slide_list[seq(to+1,nrow(slide_list)+1),] <- slide_list[seq(to,nrow(slide_list)),]
+      slide_list[to,] <- slide_list_from
+      private$slide_id <- slide_list$slide_id
+      private$slide_rid <- slide_list$slide_rid
+
+      private$update_xml()
 
       self
     },
@@ -63,19 +76,7 @@ presentation <- R6Class(
       private$slide_id <- private$slide_id[-dropid]
       private$slide_rid <- private$slide_rid[-dropid]
 
-      xml_list <- xml_find_first(private$doc, "//p:sldIdLst")
-      xml_elt <- paste(
-        sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
-        collapse = "" )
-
-      xml_elt <- paste0(pml_with_ns("p:sldIdLst"), xml_elt, "</p:sldIdLst>")
-      xml_elt <- as_xml_document(xml_elt)
-
-      if( !inherits(xml_list, "xml_missing")){
-        xml_replace(xml_list, xml_elt)
-      } else{ ## needs to be after sldMasterIdLst...
-        xml_add_sibling(xml_find_first(private$doc, "//p:sldMasterIdLst"), xml_elt)
-      }
+      private$update_xml()
 
       self
     }
@@ -91,6 +92,23 @@ presentation <- R6Class(
       id <- as.integer( xml_attr(nodes, "id", ns = xml_ns(private$doc)) )
       rid <- xml_attr(nodes, "r:id", ns = xml_ns(private$doc))
       data.frame(id = id, rid = rid, stringsAsFactors = FALSE)
+    },
+    update_xml = function(){
+      xml_list <- xml_find_first(private$doc, "//p:sldIdLst")
+      xml_elt <- paste(
+        sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
+        collapse = "" )
+
+      xml_elt <- paste0(pml_with_ns("p:sldIdLst"), xml_elt, "</p:sldIdLst>")
+      xml_elt <- as_xml_document(xml_elt)
+
+      if( !inherits(xml_list, "xml_missing")){
+        xml_replace(xml_list, xml_elt)
+      } else{ ## needs to be after sldMasterIdLst...
+        xml_add_sibling(xml_find_first(private$doc, "//p:sldMasterIdLst"), xml_elt)
+      }
+
+      self
     }
   )
 )
