@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 inst/doc
+inst/vtests.html
 revdep
