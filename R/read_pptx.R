@@ -165,10 +165,30 @@ on_slide <- function( x, index ){
 }
 
 #' @export
+#' @title move a slide
+#' @description move a slide from in a pptx presentation
+#' @param x rpptx object
+#' @param index slide index, default to current slide position.
+#' @param to new slide index.
+#' @note cursor is set on the last slide.
+#' @examples
+#' x <- read_pptx()
+#' x <- add_slide(x, layout = "Title and Content",
+#'   master = "Office Theme")
+#' x <- ph_with_text(x, type = "body", str = "Hello world 1")
+#' x <- add_slide(x, layout = "Title and Content",
+#'   master = "Office Theme")
+#' x <- ph_with_text(x, type = "body", str = "Hello world 2")
+#' x <- move_slide(x, index = 1, to = 2)
 move_slide <- function( x, index, to ){
 
   x$presentation$slide_data()
+
+  if( is.null(index) )
+    index <- x$cursor
+
   l_ <- length(x)
+
   if( l_ < 1 ){
     stop("presentation contains no slide", call. = FALSE)
   }
