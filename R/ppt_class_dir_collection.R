@@ -106,6 +106,9 @@ dir_slide <- R6Class(
 
       self
     },
+    slide_index = function( name ){
+      which( private$slides_list %in% name )
+    },
 
     remove_slide = function(index ){
       slide_obj <- private$collection[[index]]

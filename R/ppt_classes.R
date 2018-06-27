@@ -46,7 +46,8 @@ presentation <- R6Class(
       ref <- data.frame(slide_id = private$slide_id,
                  slide_rid = private$slide_rid,
                  stringsAsFactors = FALSE)
-      base::merge(x = ref, y = rel_df, by = "slide_rid", all.x = TRUE, all.y = FALSE)
+      base::merge(x = ref, y = rel_df, sort = FALSE,
+                  by = "slide_rid", all.x = TRUE, all.y = FALSE)
     },
 
     move_slide = function(from, to){
