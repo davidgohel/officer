@@ -68,7 +68,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' inserted in the main document.
 #'
 #' This feature is unlikely to work as expected if the
-#' resulting document is edited by other software.
+#' resulting document is edited by another software.
 #' @inheritParams body_add_break
 #' @param src docx filename
 #' @examples
