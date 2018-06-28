@@ -62,23 +62,30 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @export
 #' @title insert an external docx
 #' @description add content of a docx into an rdocx object.
+#' @note
+#' The function is using a 'Microsoft Word' feature: when the
+#' document will be edited, the content of the file will be
+#' inserted in the main document.
+#'
+#' This feature is unlikely to work as expected if the
+#' resulting document is edited by other software.
 #' @inheritParams body_add_break
 #' @param src docx filename
 #' @examples
 #'
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' if( file.exists(img.file) ){
-#'   # create a example file to be inserted later in the final doc----
-#'   doc <- read_docx()
-#'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
-#'   print(doc, target = "external_file.docx")
+#' library(magrittr)
 #'
-#'   # insert external_file.docx in the final doc----
-#'   final_doc <- read_docx()
-#'   doc <- body_add_docx(x = doc, src = "external_file.docx" )
-#'   print(doc, target = "final.docx")
-#' }
+#' read_docx() %>%
+#'   body_add_par("hello world 1", style = "Normal") %>%
+#'   print(target = "doc1.docx")
+#' read_docx() %>%
+#'   body_add_par("hello world 2", style = "Normal") %>%
+#'   print(target = "doc2.docx")
 #'
+#' read_docx(path = "doc1.docx") %>%
+#'   body_add_break() %>%
+#'   body_add_docx(src="doc2.docx") %>%
+#'   print(target = "doc3.docx")
 #' @export
 body_add_docx <- function( x, src, pos = "after" ){
   src <- unique( src )
