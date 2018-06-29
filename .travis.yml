@@ -5,7 +5,16 @@ cache: packages
 
 r_github_packages:
   - jimhester/covr
-  - r-lib/zip
+
+matrix:
+  include:
+    - os: linux
+    - os: osx
+      osx_image: xcode9.2
+      brew_packages: cairo
+    - os: osx
+      osx_image: xcode7.3
+      disable_homebrew: true # Simulates CRAN builder, don't remove
 
 r:
  - oldrel
