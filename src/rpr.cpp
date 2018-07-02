@@ -60,7 +60,7 @@ std::string rpr::w_tag()
 
   if( this->italic ) os << "<w:i/>";
   if( this->bold ) os << "<w:b/>";
-  if( this->underlined ) os << "<w:u/>";
+  if( this->underlined ) os << "<w:u w:val=\"single\"/>";
 
   if( this->vertical_align == "superscript")
     os << "<w:vertAlign w:val=\"superscript\"/>";
