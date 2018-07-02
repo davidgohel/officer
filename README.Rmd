@@ -60,7 +60,7 @@ File generation is performed with the `print` function.
 ### import Word document in a data.frame
 
 The function `docx_summary()` reads and imports content of a Word 
-document into a tibble object. The function handles paragraphs, 
+document into a data.frame. The function handles paragraphs, 
 tables and section breaks.
 
 
