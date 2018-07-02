@@ -24,6 +24,7 @@ test_that("pack_folder behavior", {
 })
 
 test_that("test filename with accent", {
+  skip_on_os("mac")
   pp <- read_pptx()
   fn <- "filenameäüöß.pptx"
   print(pp, file.path(tempdir(), fn))
