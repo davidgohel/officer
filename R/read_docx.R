@@ -287,4 +287,54 @@ docx_bookmarks <- function(x){
   setdiff(xml_attr(doc_, "name"), "_GoBack")
 }
 
+#' @export
+#' @title replace paragraphs styles
+#' @description Replace styles with others in a Word document.
+#' @param x an rdocx object
+#' @param mapstyles a named list, names are the replacement style,
+#' content (as a character vector) are the styles to be replaced.
+#' @examples
+#' library(magrittr)
+#'
+#' mapstyles <- list( "centered" = c("Normal"),
+#'     "heading 3" = c("heading 1", "heading 2") )
+#' doc <- read_docx() %>%
+#'   body_add_par("A title", style = "heading 1") %>%
+#'   body_add_par("Another title", style = "heading 2") %>%
+#'   body_add_par("Hello world!", style = "Normal") %>%
+#'   change_styles( mapstyles = mapstyles )
+#'
+#' print(doc, target = "change_styles.docx" )
+change_styles <- function( x, mapstyles ){
+  styles_table <- styles_info(x)
 
+  from_styles <- unique( as.character( unlist(mapstyles) ) )
+  to_styles <- unique( names( mapstyles) )
+
+  if( any( is.na( mfrom <- match( from_styles, styles_table$style_name ) ) ) ){
+    stop("could not find style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
+  }
+  if( any( is.na( mto <- match( to_styles, styles_table$style_name ) ) ) ){
+    stop("could not find style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
+  }
+
+  mapping <- mapply(function(from, to) {
+    id_to <- which( styles_table$style_type %in% "paragraph" & styles_table$style_name %in% to )
+    id_to <- styles_table$style_id[id_to]
+
+    id_from <- which( styles_table$style_type %in% "paragraph" & styles_table$style_name %in% from )
+    id_from <- styles_table$style_id[id_from]
+
+    data.frame( from = id_from, to = rep(id_to, length(from)), stringsAsFactors = FALSE )
+  }, mapstyles, names(mapstyles), SIMPLIFY = FALSE)
+
+  mapping <- do.call(rbind, mapping)
+  row.names(mapping) <- NULL
+
+  for(i in seq_len( nrow(mapping) )){
+    all_nodes <- xml_find_all(x$doc_obj$get(), sprintf("//w:pStyle[@w:val='%s']", mapping$from[i]))
+    xml_attr(all_nodes, "w:val") <- rep(mapping$to[i], length(all_nodes) )
+  }
+
+  x
+}

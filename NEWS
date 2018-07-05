@@ -1,5 +1,10 @@
 # officer 0.3.2
 
+## Enhancement
+
+* new function `change_styles()` to change paragraph styles in
+  a Word document.
+
 ## Issues
 
 * fix issue with text underlined in Word.
