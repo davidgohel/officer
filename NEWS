@@ -4,6 +4,8 @@
 
 * new function `change_styles()` to change paragraph styles in
   a Word document.
+* new function `move_slide()`: move a slide in a presentation.
+* fix body_add_docx examples
 
 ## Issues
 

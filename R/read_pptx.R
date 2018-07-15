@@ -166,7 +166,7 @@ on_slide <- function( x, index ){
 
 #' @export
 #' @title move a slide
-#' @description move a slide from in a pptx presentation
+#' @description move a slide in a pptx presentation
 #' @param x rpptx object
 #' @param index slide index, default to current slide position.
 #' @param to new slide index.

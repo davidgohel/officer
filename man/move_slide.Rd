@@ -14,7 +14,7 @@ move_slide(x, index, to)
 \item{to}{new slide index.}
 }
 \description{
-move a slide from in a pptx presentation
+move a slide in a pptx presentation
 }
 \note{
 cursor is set on the last slide.
