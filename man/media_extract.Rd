@@ -23,5 +23,6 @@ doc <- read_pptx(example_pptx)
 content <- pptx_summary(doc)
 image_row <- content[content$content_type \%in\% "image", ]
 media_file <- image_row$media_file
-media_extract(doc, path = media_file, target = "extract.png")
+png_file <- tempfile(fileext = ".png")
+media_extract(doc, path = media_file, target = png_file)
 }

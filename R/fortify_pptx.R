@@ -88,7 +88,8 @@ embed_img_raster  <- function(node, img_src ){
 #' content <- pptx_summary(doc)
 #' image_row <- content[content$content_type %in% "image", ]
 #' media_file <- image_row$media_file
-#' media_extract(doc, path = media_file, target = "extract.png")
+#' png_file <- tempfile(fileext = ".png")
+#' media_extract(doc, path = media_file, target = png_file)
 media_extract <- function( x, path, target ){
   media <- file.path(x$package_dir, path )
   stopifnot(file.exists(media))
