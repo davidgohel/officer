@@ -39,6 +39,5 @@ pptx <- ph_with_ul(
   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
   level_list = c(1, 2, 2, 3, 3, 1),
   style = fp_text(color = "red", font.size = 0) )
-print(pptx, target = "example2.pptx") \%>\%
-  invisible()
+print(pptx, target = tempfile(fileext = ".pptx"))
 }

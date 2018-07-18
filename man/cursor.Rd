@@ -98,8 +98,7 @@ doc <- read_docx() \%>\%
   cursor_end() \%>\%
   body_add_par("The document ends now", style = "Normal")
 
-print(doc, target = "cursor.docx")
-
+print(doc, target = tempfile(fileext = ".docx"))
 
 # cursor_bookmark ----
 library(magrittr)
@@ -112,5 +111,5 @@ doc <- read_docx() \%>\%
   cursor_bookmark("text_to_replace") \%>\%
   body_add_table(value = iris, style = "table_template")
 
-print(doc, target = "bookmark.docx")
+print(doc, target = tempfile(fileext = ".docx"))
 }

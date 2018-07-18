@@ -32,7 +32,7 @@ read_docx()
 print(read_docx())
 # write a rdocx object in a docx file ----
 if( require(magrittr) ){
-  read_docx() \%>\% print(target = "out.docx")
+  read_docx() \%>\% print(target = tempfile(fileext = ".docx"))
   # full path of produced file is returned
   print(.Last.value)
 }

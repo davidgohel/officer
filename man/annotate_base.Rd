@@ -19,13 +19,11 @@ generates a slide from each layout in the base document to
 identify the placeholder indexes, master names and indexes.
 }
 \examples{
-# To generate an anotation of the default base documet with officer and place
-# the output in the file annotated_layout.pptx:
-  annotate_base()
+# To generate an anotation of the default base document with officer:
+annotate_base(tempfile(fileext = ".pptx"))
 
 # To generate an annotation of the base document 'mydoc.pptx' and place the
 # annotated output in 'mydoc_annotate.pptx'
 # annotate_base(path = 'mydoc.pptx', output_file='mydoc_annotate.pptx')
-
 
 }

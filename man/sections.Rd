@@ -74,5 +74,5 @@ my_doc <- read_docx()  \%>\%
   slip_in_column_break() \%>\%
   body_end_section_columns_landscape(widths = c(3,3), sep = TRUE, space = 1)
 
-print(my_doc, target = "section.docx")
+print(my_doc, target = tempfile(fileext = ".docx"))
 }

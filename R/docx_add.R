@@ -7,7 +7,7 @@
 #' @examples
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_break()
-#' print(doc, target = "body_add_break.docx" )
+#' print(doc, target = tempfile(fileext = ".docx"))
 body_add_break <- function( x, pos = "after"){
 
   str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
@@ -33,7 +33,7 @@ body_add_break <- function( x, pos = "after"){
 #'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
 #' }
 #'
-#' print(doc, target = "body_add_img.docx" )
+#' print(doc, target = tempfile(fileext = ".docx"))
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
@@ -74,18 +74,20 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @examples
 #'
 #' library(magrittr)
-#'
+#' file1 <- tempfile(fileext = ".docx")
+#' file2 <- tempfile(fileext = ".docx")
+#' file3 <- tempfile(fileext = ".docx")
 #' read_docx() %>%
 #'   body_add_par("hello world 1", style = "Normal") %>%
-#'   print(target = "doc1.docx")
+#'   print(target = file1)
 #' read_docx() %>%
 #'   body_add_par("hello world 2", style = "Normal") %>%
-#'   print(target = "doc2.docx")
+#'   print(target = file2)
 #'
-#' read_docx(path = "doc1.docx") %>%
+#' read_docx(path = file1) %>%
 #'   body_add_break() %>%
-#'   body_add_docx(src="doc2.docx") %>%
-#'   print(target = "doc3.docx")
+#'   body_add_docx(src = file2) %>%
+#'   print(target = file3)
 #' @export
 body_add_docx <- function( x, src, pos = "after" ){
   src <- unique( src )
@@ -125,7 +127,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'   if( capabilities(what = "png") )
 #'     doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 #'
-#'   print(doc, target = "body_add_gg.docx" )
+#'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
 body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
 
@@ -164,7 +166,7 @@ body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
 #'
 #' x <- read_docx() %>%
 #'   body_add_blocks( blocks = bl ) %>%
-#'   print(target = "body_add_bl.docx")
+#'   print(target = tempfile(fileext = ".docx"))
 body_add_blocks <- function( x, blocks, pos = "after" ){
 
   stopifnot(inherits(blocks, "block_list"))
@@ -199,7 +201,7 @@ body_add_blocks <- function( x, blocks, pos = "after" ){
 #'   body_add_par("Hello world!", style = "Normal") %>%
 #'   body_add_par("centered text", style = "centered")
 #'
-#' print(doc, target = "body_add_par.docx" )
+#' print(doc, target = tempfile(fileext = ".docx") )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @importFrom htmltools htmlEscape
 body_add_par <- function( x, value, style = NULL, pos = "after" ){
@@ -232,7 +234,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #'               ftext(", how are you?", prop = bold_face ) )
 #' doc <- read_docx() %>% body_add_fpar(fpar_)
 #'
-#' print(doc, target = "body_add_fpar.docx" )
+#' print(doc, target = tempfile(fileext = ".docx"))
 #'
 #' # a way of using fpar to center an image in a Word doc ----
 #' rlogo <- file.path( R.home("doc"), "html", "logo.jpg" )
@@ -241,7 +243,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #'   fp_p = fp_par(text.align = "center") )
 #'
 #' read_docx() %>% body_add_fpar(img_in_par) %>%
-#'   print(target = "img_in_par.docx" )
+#'   print(target = tempfile(fileext = ".docx") )
 #'
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @seealso \code{\link{fpar}}
@@ -304,7 +306,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' doc <- read_docx() %>%
 #'   body_add_table(iris, style = "table_template")
 #'
-#' print(doc, target = "body_add_table.docx" )
+#' print(doc, target = tempfile(fileext = ".docx") )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
                             first_row = TRUE, first_column = FALSE,
@@ -343,7 +345,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_toc()
 #'
-#' print(doc, target = "body_add_toc.docx" )
+#' print(doc, target = tempfile(fileext = ".docx") )
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
@@ -454,13 +456,14 @@ body_bookmark <- function(x, id){
 #'   body_add_par(value = str2, style = "centered") %>%
 #'   body_add_par(value = str3, style = "Normal")
 #'
-#' print(my_doc, target = "init_doc.docx")
+#' new_doc_file <- print(my_doc,
+#'   target = tempfile(fileext = ".docx"))
 #'
-#' my_doc <- read_docx(path = "init_doc.docx")  %>%
+#' my_doc <- read_docx(path = new_doc_file)  %>%
 #'   cursor_reach(keyword = "that text") %>%
 #'   body_remove()
 #'
-#' print(my_doc, target = "result_doc.docx")
+#' print(my_doc, target = tempfile(fileext = ".docx"))
 body_remove <- function(x){
 
   cursor_elt <- x$doc_obj$get_at_cursor()

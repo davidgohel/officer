@@ -28,16 +28,18 @@ resulting document is edited by another software.
 \examples{
 
 library(magrittr)
-
+file1 <- tempfile(fileext = ".docx")
+file2 <- tempfile(fileext = ".docx")
+file3 <- tempfile(fileext = ".docx")
 read_docx() \%>\%
   body_add_par("hello world 1", style = "Normal") \%>\%
-  print(target = "doc1.docx")
+  print(target = file1)
 read_docx() \%>\%
   body_add_par("hello world 2", style = "Normal") \%>\%
-  print(target = "doc2.docx")
+  print(target = file2)
 
-read_docx(path = "doc1.docx") \%>\%
+read_docx(path = file1) \%>\%
   body_add_break() \%>\%
-  body_add_docx(src="doc2.docx") \%>\%
-  print(target = "doc3.docx")
+  body_add_docx(src = file2) \%>\%
+  print(target = file3)
 }

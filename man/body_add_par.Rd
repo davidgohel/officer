@@ -27,5 +27,5 @@ doc <- read_docx() \%>\%
   body_add_par("Hello world!", style = "Normal") \%>\%
   body_add_par("centered text", style = "centered")
 
-print(doc, target = "body_add_par.docx" )
+print(doc, target = tempfile(fileext = ".docx") )
 }

@@ -45,6 +45,6 @@ if( require("ggplot2") ){
       height = 4, width = 8, left = 4, top = 4 )
   }
 
-  print(doc, target = "ph_with_gg.pptx" )
+  print(doc, target = tempfile(fileext = ".pptx"))
 }
 }

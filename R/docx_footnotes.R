@@ -59,7 +59,7 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #'   slip_in_text("world", style = "strong") %>%
 #'   slip_in_footnote(style = "reference_id", blocks = bl)
 #'
-#' print(x, target = "footnote.docx")
+#' print(x, target = tempfile(fileext = ".docx"))
 slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
 
   if( !inherits(blocks, "block_list") ){

@@ -40,5 +40,5 @@ x <- read_docx() \%>\%
   slip_in_seqfield(str = "SYMBOL 100 \\u005Cf Wingdings",
     style = 'strong')
 
-print(x, target = "seqfield.docx")
+print(x, target = tempfile(fileext = ".docx"))
 }

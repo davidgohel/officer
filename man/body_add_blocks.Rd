@@ -34,5 +34,5 @@ bl <- block_list(
 
 x <- read_docx() \%>\%
   body_add_blocks( blocks = bl ) \%>\%
-  print(target = "body_add_bl.docx")
+  print(target = tempfile(fileext = ".docx"))
 }

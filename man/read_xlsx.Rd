@@ -29,7 +29,7 @@ representing the document. This function is experimental.
 read_xlsx()
 # write a rdocx object in a docx file ----
 if( require(magrittr) ){
-  read_xlsx() \%>\% print(target = "out.xlsx")
+  read_xlsx() \%>\% print(target = tempfile(fileext = ".xlsx"))
   # full path of produced file is returned
   print(.Last.value)
 }

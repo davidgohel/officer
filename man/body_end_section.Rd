@@ -69,5 +69,5 @@ my_doc <- read_docx() \%>\%
   body_add_par(value = str1, style = "Normal") \%>\%
   body_default_section(landscape = TRUE, margins = c(top = 0.5, bottom = 0.5))
 
-print(my_doc, target = "section.docx")
+print(my_doc, target = tempfile(fileext = ".docx"))
 }

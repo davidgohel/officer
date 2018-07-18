@@ -26,5 +26,5 @@ doc <- read_docx() \%>\%
   body_add_par("Hello world!", style = "Normal") \%>\%
   change_styles( mapstyles = mapstyles )
 
-print(doc, target = "change_styles.docx" )
+print(doc, target = tempfile(fileext = ".docx"))
 }

@@ -24,5 +24,6 @@ doc <- ph_with_text(x = doc, type = "title", str = "First title")
 doc <- on_slide( doc, index = 3)
 doc <- ph_with_text(x = doc, type = "title", str = "Third title")
 
-print(doc, target = "on_slide.pptx" )
+file <- tempfile(fileext = ".pptx")
+print(doc, target = file )
 }

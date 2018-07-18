@@ -30,5 +30,5 @@ x <- read_docx() \%>\%
   body_add_par("R logo: ", style = "Normal") \%>\%
   slip_in_img(src = img.file, style = "strong", width = .3, height = .3)
 
-print(x, target = "append_img.docx")
+print(x, target = tempfile(fileext = ".docx"))
 }

@@ -25,5 +25,5 @@ add a table of content into an rdocx object
 library(magrittr)
 doc <- read_docx() \%>\% body_add_toc()
 
-print(doc, target = "body_add_toc.docx" )
+print(doc, target = tempfile(fileext = ".docx") )
 }

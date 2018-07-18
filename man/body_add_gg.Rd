@@ -32,6 +32,6 @@ if( require("ggplot2") ){
   if( capabilities(what = "png") )
     doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
 
-  print(doc, target = "body_add_gg.docx" )
+  print(doc, target = tempfile(fileext = ".docx") )
 }
 }

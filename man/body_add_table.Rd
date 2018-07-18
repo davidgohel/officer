@@ -45,5 +45,5 @@ library(magrittr)
 doc <- read_docx() \%>\%
   body_add_table(iris, style = "table_template")
 
-print(doc, target = "body_add_table.docx" )
+print(doc, target = tempfile(fileext = ".docx") )
 }

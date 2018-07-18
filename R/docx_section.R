@@ -47,7 +47,7 @@
 #'   body_add_par(value = str1, style = "Normal") %>%
 #'   body_default_section(landscape = TRUE, margins = c(top = 0.5, bottom = 0.5))
 #'
-#' print(my_doc, target = "section.docx")
+#' print(my_doc, target = tempfile(fileext = ".docx"))
 body_end_section <- function(x, landscape = FALSE, margins = c(top = NA, bottom = NA, left = NA, right = NA),
                              colwidths = c(1), space = .05, sep = FALSE, continuous = FALSE){# nocov start
 
@@ -232,7 +232,7 @@ slip_in_column_break <- function( x, pos = "before" ){
 #'   slip_in_column_break() %>%
 #'   body_end_section_columns_landscape(widths = c(3,3), sep = TRUE, space = 1)
 #'
-#' print(my_doc, target = "section.docx")
+#' print(my_doc, target = tempfile(fileext = ".docx"))
 body_end_section_continuous <- function( x ){
   str <- "<w:pPr><w:sectPr><w:officersection/><w:type w:val=\"continuous\"/></w:sectPr></w:pPr>"
   str <- paste0( wml_with_ns("w:p"), str, "</w:p>")

@@ -39,8 +39,7 @@
 #'   cursor_end() %>%
 #'   body_add_par("The document ends now", style = "Normal")
 #'
-#' print(doc, target = "cursor.docx")
-#'
+#' print(doc, target = tempfile(fileext = ".docx"))
 cursor_begin <- function( x ){
   x$doc_obj$cursor_begin()
   x
@@ -64,7 +63,7 @@ cursor_begin <- function( x ){
 #'   cursor_bookmark("text_to_replace") %>%
 #'   body_add_table(value = iris, style = "table_template")
 #'
-#' print(doc, target = "bookmark.docx")
+#' print(doc, target = tempfile(fileext = ".docx"))
 cursor_bookmark <- function( x, id ){
   x$doc_obj$cursor_bookmark(id)
   x

@@ -84,7 +84,7 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 #'   ph_with_table(value = mtcars[1:6,], type = "body",
 #'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 #'
-#' print(doc, target = "ph_with_table.pptx")
+#' print(doc, target = tempfile(fileext = ".pptx"))
 ph_with_table <- function( x, value, type = "body", index = 1,
                            header = TRUE,
                            first_row = TRUE, first_column = FALSE,
@@ -183,7 +183,7 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 #'       height = 4, width = 8, left = 4, top = 4 )
 #'   }
 #'
-#'   print(doc, target = "ph_with_gg.pptx" )
+#'   print(doc, target = tempfile(fileext = ".pptx"))
 #' }
 ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height = NULL, ... ){
 
@@ -232,8 +232,7 @@ ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height
 #'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
 #'   level_list = c(1, 2, 2, 3, 3, 1),
 #'   style = fp_text(color = "red", font.size = 0) )
-#' print(pptx, target = "example2.pptx") %>%
-#'   invisible()
+#' print(pptx, target = tempfile(fileext = ".pptx"))
 ph_with_ul <- function(x, type = "body", index = 1, str_list = character(0), level_list = integer(0),
                        style = NULL) {
   stopifnot(is.character(str_list))

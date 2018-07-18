@@ -27,7 +27,7 @@
 #'   slip_in_seqfield(str = "SYMBOL 100 \u005Cf Wingdings",
 #'     style = 'strong')
 #'
-#' print(x, target = "seqfield.docx")
+#' print(x, target = tempfile(fileext = ".docx"))
 slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 
   if( is.null(style) )
@@ -75,7 +75,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #'   slip_in_text("world", style = "strong") %>%
 #'   slip_in_text("Message is", style = "strong", pos = "before")
 #'
-#' print(x, target = "append_run.docx")
+#' print(x, target = tempfile(fileext = ".docx"))
 slip_in_text <- function( x, str, style = NULL, pos = "after" ){
 
   if( is.null(style) )
@@ -110,7 +110,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after" ){
 #'   body_add_par("R logo: ", style = "Normal") %>%
 #'   slip_in_img(src = img.file, style = "strong", width = .3, height = .3)
 #'
-#' print(x, target = "append_img.docx")
+#' print(x, target = tempfile(fileext = ".docx"))
 slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
   if( is.null(style) )

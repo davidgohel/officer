@@ -28,7 +28,7 @@ fpar_ <- fpar(ftext("Hello ", prop = bold_face),
               ftext(", how are you?", prop = bold_face ) )
 doc <- read_docx() \%>\% body_add_fpar(fpar_)
 
-print(doc, target = "body_add_fpar.docx" )
+print(doc, target = tempfile(fileext = ".docx"))
 
 # a way of using fpar to center an image in a Word doc ----
 rlogo <- file.path( R.home("doc"), "html", "logo.jpg" )
@@ -37,7 +37,7 @@ img_in_par <- fpar(
   fp_p = fp_par(text.align = "center") )
 
 read_docx() \%>\% body_add_fpar(img_in_par) \%>\%
-  print(target = "img_in_par.docx" )
+  print(target = tempfile(fileext = ".docx") )
 
 }
 \seealso{

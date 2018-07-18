@@ -38,5 +38,5 @@ x <- read_docx() \%>\%
   slip_in_text("world", style = "strong") \%>\%
   slip_in_footnote(style = "reference_id", blocks = bl)
 
-print(x, target = "footnote.docx")
+print(x, target = tempfile(fileext = ".docx"))
 }

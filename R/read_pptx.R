@@ -56,7 +56,8 @@ read_table_style <- function(path){
 #' @examples
 #' # write a rdocx object in a docx file ----
 #' if( require(magrittr) ){
-#'   read_pptx() %>% print(target = "out.pptx")
+#'   file <- tempfile(fileext = ".pptx")
+#'   read_pptx() %>% print(target = file)
 #'   # full path of produced file is returned
 #'   print(.Last.value)
 #' }
@@ -145,7 +146,8 @@ length.rpptx <- function( x ){
 #' doc <- on_slide( doc, index = 3)
 #' doc <- ph_with_text(x = doc, type = "title", str = "Third title")
 #'
-#' print(doc, target = "on_slide.pptx" )
+#' file <- tempfile(fileext = ".pptx")
+#' print(doc, target = file )
 on_slide <- function( x, index ){
 
   l_ <- length(x)
@@ -299,14 +301,12 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @param output_file filename to store the annotated powerpoint file or NULL to suppress generation
 #' @return x rpptx object of the annotated PowerPoint file
 #' @examples
-#' # To generate an anotation of the default base documet with officer and place
-#' # the output in the file annotated_layout.pptx:
-#'   annotate_base()
+#' # To generate an anotation of the default base document with officer:
+#' annotate_base(tempfile(fileext = ".pptx"))
 #'
 #' # To generate an annotation of the base document 'mydoc.pptx' and place the
 #' # annotated output in 'mydoc_annotate.pptx'
 #' # annotate_base(path = 'mydoc.pptx', output_file='mydoc_annotate.pptx')
-#'
 #'
 annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 

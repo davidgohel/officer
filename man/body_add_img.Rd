@@ -31,5 +31,5 @@ if( file.exists(img.file) ){
   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
 }
 
-print(doc, target = "body_add_img.docx" )
+print(doc, target = tempfile(fileext = ".docx"))
 }

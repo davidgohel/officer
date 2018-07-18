@@ -120,7 +120,7 @@ ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 #'     height = 4, width = 8, left = 4, top = 4,
 #'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 #'
-#' print(doc, target = "ph_with_table2.pptx")
+#' print(doc, target = tempfile(fileext = ".pptx"))
 ph_with_table_at <- function( x, value, left, top, width, height,
                               header = TRUE,
                            first_row = TRUE, first_column = FALSE,

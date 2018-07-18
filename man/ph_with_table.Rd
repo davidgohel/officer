@@ -42,7 +42,7 @@ doc <- read_pptx() \%>\%
   ph_with_table(value = mtcars[1:6,], type = "body",
     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 
-print(doc, target = "ph_with_table.pptx")
+print(doc, target = tempfile(fileext = ".pptx"))
 
 library(magrittr)
 
@@ -52,5 +52,5 @@ doc <- read_pptx() \%>\%
     height = 4, width = 8, left = 4, top = 4,
     last_row = FALSE, last_column = FALSE, first_row = TRUE)
 
-print(doc, target = "ph_with_table2.pptx")
+print(doc, target = tempfile(fileext = ".pptx"))
 }

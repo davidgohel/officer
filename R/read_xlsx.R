@@ -300,7 +300,7 @@ sheet_select <- function( x, sheet ){
 #' @examples
 #' # write a rdocx object in a docx file ----
 #' if( require(magrittr) ){
-#'   read_xlsx() %>% print(target = "out.xlsx")
+#'   read_xlsx() %>% print(target = tempfile(fileext = ".xlsx"))
 #'   # full path of produced file is returned
 #'   print(.Last.value)
 #' }

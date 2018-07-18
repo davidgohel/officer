@@ -27,11 +27,12 @@ my_doc <- read_docx()  \%>\%
   body_add_par(value = str2, style = "centered") \%>\%
   body_add_par(value = str3, style = "Normal")
 
-print(my_doc, target = "init_doc.docx")
+new_doc_file <- print(my_doc,
+  target = tempfile(fileext = ".docx"))
 
-my_doc <- read_docx(path = "init_doc.docx")  \%>\%
+my_doc <- read_docx(path = new_doc_file)  \%>\%
   cursor_reach(keyword = "that text") \%>\%
   body_remove()
 
-print(my_doc, target = "result_doc.docx")
+print(my_doc, target = tempfile(fileext = ".docx"))
 }

@@ -167,7 +167,7 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 #'   ph_empty(type = "body") %>%
 #'   ph_add_fpar(value = fpar_, type = "body", level = 2)
 #'
-#' print(doc, target = "ph_add_fpar.pptx")
+#' print(doc, target = tempfile(fileext = ".pptx"))
 #' @importFrom xml2 xml_child xml_children xml_add_child
 #' @seealso \code{\link{fpar}}
 ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1, par_default = TRUE ){
