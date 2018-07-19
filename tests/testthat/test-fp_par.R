@@ -96,7 +96,7 @@ test_that("wml text align", {
   expect_true( is_align(x, align = "right") )
 
   x <- update(x, text.align = "justify")
-  expect_true( is_align(x, align = "justify") )
+  expect_true( is_align(x, align = "both") )
 })
 
 
