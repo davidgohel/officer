@@ -14,6 +14,8 @@ std::string ppr::a_tag()
     os << " algn=\"l\"";
   else if (this->text_align == "center" )
     os << " algn=\"ctr\"";
+  else if (this->text_align == "justify" )
+    os << " algn=\"just\"";
   else
     os << " algn=\"r\"";
   os << " marL=\""<< pl*12700 << "\" marR=\""<< pr*12700 << "\">";
@@ -56,7 +58,13 @@ std::string ppr::w_tag()
 
   std::stringstream os;
   os << "<w:pPr>";
-  os << "<w:jc w:val=\"" << text_align << "\"/>";
+
+  if (this->text_align == "justify" )
+    os << "<w:jc w:val=\"both\"/>";
+  else os << "<w:jc w:val=\"" << this->text_align << "\"/>";
+
+
+
   os << b.w_tag("bottom");
   os << t.w_tag("top");
   os << l.w_tag("left");
