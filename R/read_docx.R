@@ -306,6 +306,9 @@ docx_bookmarks <- function(x){
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 change_styles <- function( x, mapstyles ){
+
+  if( is.null(mapstyles) || length(mapstyles) < 1 ) return(x)
+
   styles_table <- styles_info(x)
 
   from_styles <- unique( as.character( unlist(mapstyles) ) )
