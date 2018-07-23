@@ -341,3 +341,32 @@ change_styles <- function( x, mapstyles ){
 
   x
 }
+
+
+
+#' @export
+#' @title body xml document
+#' @description Get the body document as xml. This function
+#' is not to be used by end users, it has been implemented
+#' to allow other packages to work with officer.
+#' @param x an rdocx object
+#' @examples
+#' doc <- read_docx()
+#' docx_body_xml(doc)
+docx_body_xml <- function( x ){
+  x$doc_obj$get()
+}
+
+#' @export
+#' @title body xml document
+#' @description Get the body document as xml. This function
+#' is not to be used by end users, it has been implemented
+#' to allow other packages to work with officer.
+#' @param x an rdocx object
+#' @examples
+#' doc <- read_docx()
+#' docx_body_relationship(doc)
+docx_body_relationship <- function( x ){
+  x$doc_obj$relationship()
+}
+
