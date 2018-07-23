@@ -9,7 +9,9 @@
 
 ## Issues
 
-* fix issue with text underlined in Word.
+* fix issue with text underlined  and justified paragraphs in Word.
+* skip errored test on macOS that can be read on CRAN check page.
+* all examples are now generated in `tempdir()`.
 
 # officer 0.3.1
 
