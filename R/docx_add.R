@@ -190,7 +190,7 @@ body_add_blocks <- function( x, blocks, pos = "after" ){
 #' @description add a paragraph of text into an rdocx object
 #' @param x a docx device
 #' @param value a character
-#' @param style paragraph style
+#' @param style paragraph style name
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @examples
