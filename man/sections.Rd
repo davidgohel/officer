@@ -18,8 +18,8 @@ body_end_section_portrait(x, w = 21/2.54, h = 29.7/2.54)
 body_end_section_columns(x, widths = c(2.5, 2.5), space = 0.25,
   sep = FALSE)
 
-body_end_section_columns_landscape(x, widths = c(2.5, 2.5), space = 0.25,
-  sep = FALSE, w = 21/2.54, h = 29.7/2.54)
+body_end_section_columns_landscape(x, widths = c(2.5, 2.5),
+  space = 0.25, sep = FALSE, w = 21/2.54, h = 29.7/2.54)
 }
 \arguments{
 \item{x}{an rdocx object}

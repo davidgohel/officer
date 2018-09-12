@@ -7,17 +7,18 @@
 \alias{update.fp_par}
 \title{Paragraph formatting properties}
 \usage{
-fp_par(text.align = "left", padding = 0, border = fp_border(width = 0),
-  padding.bottom, padding.top, padding.left, padding.right, border.bottom,
-  border.left, border.top, border.right, shading.color = "transparent")
+fp_par(text.align = "left", padding = 0, border = fp_border(width =
+  0), padding.bottom, padding.top, padding.left, padding.right,
+  border.bottom, border.left, border.top, border.right,
+  shading.color = "transparent")
 
 \method{dim}{fp_par}(x)
 
 \method{print}{fp_par}(x, ...)
 
-\method{update}{fp_par}(object, text.align, padding, border, padding.bottom,
-  padding.top, padding.left, padding.right, border.bottom, border.left,
-  border.top, border.right, shading.color, ...)
+\method{update}{fp_par}(object, text.align, padding, border,
+  padding.bottom, padding.top, padding.left, padding.right, border.bottom,
+  border.left, border.top, border.right, shading.color, ...)
 }
 \arguments{
 \item{text.align}{text alignment - a single character value, expected value

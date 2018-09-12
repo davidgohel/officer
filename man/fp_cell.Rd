@@ -7,18 +7,19 @@
 \alias{update.fp_cell}
 \title{Cell formatting properties}
 \usage{
-fp_cell(border = fp_border(width = 0), border.bottom, border.left, border.top,
-  border.right, vertical.align = "center", margin = 0, margin.bottom,
-  margin.top, margin.left, margin.right, background.color = "transparent",
-  text.direction = "lrtb")
+fp_cell(border = fp_border(width = 0), border.bottom, border.left,
+  border.top, border.right, vertical.align = "center", margin = 0,
+  margin.bottom, margin.top, margin.left, margin.right,
+  background.color = "transparent", text.direction = "lrtb")
 
 \method{format}{fp_cell}(x, type = "wml", ...)
 
 \method{print}{fp_cell}(x, ...)
 
-\method{update}{fp_cell}(object, border, border.bottom, border.left, border.top,
-  border.right, vertical.align, margin = 0, margin.bottom, margin.top,
-  margin.left, margin.right, background.color, text.direction, ...)
+\method{update}{fp_cell}(object, border, border.bottom, border.left,
+  border.top, border.right, vertical.align, margin = 0, margin.bottom,
+  margin.top, margin.left, margin.right, background.color, text.direction,
+  ...)
 }
 \arguments{
 \item{border}{shortcut for all borders.}

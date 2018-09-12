@@ -5,12 +5,12 @@
 \alias{body_default_section}
 \title{add section}
 \usage{
-body_end_section(x, landscape = FALSE, margins = c(top = NA, bottom = NA,
-  left = NA, right = NA), colwidths = c(1), space = 0.05, sep = FALSE,
-  continuous = FALSE)
+body_end_section(x, landscape = FALSE, margins = c(top = NA, bottom =
+  NA, left = NA, right = NA), colwidths = c(1), space = 0.05,
+  sep = FALSE, continuous = FALSE)
 
-body_default_section(x, landscape = FALSE, margins = c(top = NA, bottom =
-  NA, left = NA, right = NA))
+body_default_section(x, landscape = FALSE, margins = c(top = NA, bottom
+  = NA, left = NA, right = NA))
 }
 \arguments{
 \item{x}{an rdocx object}

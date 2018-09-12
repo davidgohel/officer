@@ -11,7 +11,7 @@ body_add_par(x, value, style = NULL, pos = "after")
 
 \item{value}{a character}
 
-\item{style}{paragraph style}
+\item{style}{paragraph style name}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}

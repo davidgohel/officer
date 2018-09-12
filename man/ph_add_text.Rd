@@ -4,8 +4,9 @@
 \alias{ph_add_text}
 \title{append text}
 \usage{
-ph_add_text(x, str, type = NULL, id_chr = NULL, style = fp_text(font.size
-  = 0), pos = "after", href = NULL, slide_index = NULL)
+ph_add_text(x, str, type = NULL, id_chr = NULL,
+  style = fp_text(font.size = 0), pos = "after", href = NULL,
+  slide_index = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
