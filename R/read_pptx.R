@@ -316,8 +316,10 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
   lay_sum <- layout_summary(ppt)
 
   # Looping through each layout
-  for(lidx in 1:length(lay_sum[,1])){
+
+  for(lidx in seq_len(nrow(lay_sum))){
     # Pulling out the layout properties
+
     layout <- lay_sum[lidx, 1]
     master <- lay_sum[lidx, 2]
     lp <- layout_properties ( x = ppt, layout = layout, master = master)
@@ -328,15 +330,24 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
     # Blank slides have nothing
     if(length(lp[,1] > 0)){
 
+
+
       # Now we go through each placholder
-      for(pidx in 1:length(lp[,1])){
+      for(pidx in seq_len(nrow(lp))){
 
         # If it's a text placeholder "body" or "title" we add text indicating
         # the type and index. If it's title we put the layout and master
         # information in there as well.
+        ss <- slide_summary(ppt)
+
+        index <- 1
+        existing_id <- which( lp[pidx, ]$type %in% ss$type )
+        if( length(existing_id) ) index <- sum(ss$type %in% lp[pidx, ]$type) + 1
+
         if(lp[pidx, ]$type == "body"){
-          textstr <- sprintf('type="body", index =%d', pidx)
-          ppt <- ph_with_text(x=ppt, type="body", index=pidx, str=textstr)
+
+          textstr <- sprintf('type="body", index =%d', index)
+          ppt <- ph_with_text(x=ppt, type="body", index=index, str=textstr)
         }
         if(lp[pidx, ]$type %in% c("title", "ctrTitle", "subTitle")){
           textstr <- sprintf('layout ="%s", master = "%s", type="%s", index =%d', layout, master, lp[pidx, ]$type,  pidx)
