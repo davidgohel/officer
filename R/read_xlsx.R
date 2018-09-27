@@ -205,7 +205,7 @@ dir_sheet <- R6Class(
 #' @description read and import an xlsx file as an R object
 #' representing the document. This function is experimental.
 #' @param path path to the xlsx file to use as base document.
-#' @param x an rpptx object
+#' @param x an rxlsx object
 #' @examples
 #' read_xlsx()
 read_xlsx <- function( path = NULL ){

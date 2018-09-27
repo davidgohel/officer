@@ -15,7 +15,7 @@ read_xlsx(path = NULL)
 \arguments{
 \item{path}{path to the xlsx file to use as base document.}
 
-\item{x}{an rpptx object}
+\item{x}{an rxlsx object}
 
 \item{target}{path to the xlsx file to write}
 
