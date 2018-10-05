@@ -252,7 +252,7 @@ if( require("ggplot2") ){
 ```{r echo=FALSE}
 if( file.exists("assets/pptx/ph_with_gg.pptx"))
   office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
-                                 "assets/pptx/ph_with_img.pptx" ) )
+                                 "assets/pptx/ph_with_gg.pptx" ) )
 ```
 
 To add a ggplot object into a new shape at arbitrary coordinates, use function `ph_with_gg_at`. 
