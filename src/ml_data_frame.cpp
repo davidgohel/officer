@@ -96,6 +96,7 @@ String wml_table(DataFrame x, std::string style_id,
           "\" w:noHBand=\"" << no_hband <<
             "\" w:noVBand=\"" << no_vband << "\"/>";
   os << "</w:tblPr>";
+  os << "<w:tblGrid/>";
 
   if( header ){
     os << "<w:tr><w:trPr><w:tblHeader/></w:trPr>";
