@@ -88,7 +88,7 @@ String wml_table(DataFrame x, std::string style_id,
           " xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\">";
 
   os << "<w:tblPr>";
-  os << "<w:tblStyle w:val=\"" << style_id << "\"/><w:tblW/>";
+  os << "<w:tblStyle w:val=\"" << style_id << "\"/>";
   os << "<w:tblLook w:firstRow=\"" << first_row <<
     "\" w:lastRow=\"" << last_row <<
       "\" w:firstColumn=\"" << first_column <<
