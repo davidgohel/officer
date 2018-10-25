@@ -105,8 +105,8 @@ presentation <- R6Class(
 
       if( !inherits(xml_list, "xml_missing")){
         xml_replace(xml_list, xml_elt)
-      } else{ ## needs to be after sldMasterIdLst...
-        xml_add_sibling(xml_find_first(private$doc, "//p:sldMasterIdLst"), xml_elt)
+      } else{ ## needs to be after all MasterIdLst elements. placing it before sldSz seems to be the safest option.
+        xml_add_sibling(xml_find_first(private$doc, "//p:sldSz"), xml_elt, .where = "before")
       }
 
       self
