@@ -1,12 +1,13 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.3.3.001
+Version: 0.3.3.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("Frank", "Hangler", role = "ctb", email = "frank@plotandscatter.com", comment = "function body_replace_all_text"),
     person("Liz", "Sander", role = "ctb", email = 'lsander@civisanalytics.com', comment = "several documentation fixes"),
+    person("Anton", "Victorson", role = "ctb", comment = "fixes xml structures"),
     person("Jon", "Calder", role = "ctb", email = 'jonmcalder@gmail.com', comment = "update vignettes"),
     person("John", "Harrold", role = "ctb", email = 'john.m.harrold@gmail.com', comment = "fuction annotate_base")
     )
