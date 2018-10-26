@@ -174,8 +174,10 @@ my_pres <- my_pres %>% on_slide(index = 1)
 ### Add text
 
 Use the function `ph_with_text()` to add text into a new shape. The `type` 
-argument specifies which placeholder from the associated layout is to be added 
-(`index` is to be used when a `type` is not unique in the slide layout).
+argument specifies which placeholder from the associated layout is to be added.
+`index` is to be used when a `type` is not unique in the slide layout.
+
+You may need to provide an index (default to 1). e.g. if your template has 2 body placeholder, you will need to specify that your content is to be positioned as the 2nd body of your layout (then use index 2). 
 
 
 ```{r}
