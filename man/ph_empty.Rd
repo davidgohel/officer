@@ -16,7 +16,8 @@ ph_empty_at(x, left, top, width, height, bg = "transparent", rot = 0,
 \item{type}{placeholder type}
 
 \item{index}{placeholder index (integer). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.}
+is not unique in the current slide, e.g. two placeholders with type 'body', the first
+one will be added with index 1 and the second one with index 2.}
 
 \item{left, top}{location of the new shape on the slide}
 
