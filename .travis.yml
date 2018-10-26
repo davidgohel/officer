@@ -3,8 +3,8 @@
 language: R
 cache: packages
 
-r_github_packages:
-  - jimhester/covr
+r_packages:
+  - covr
 
 matrix:
   include:
