@@ -284,7 +284,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   } else if( !is.null(layout) && is.null(master) ){
     data <- data[data$name == layout,]
   }
-  data <- data[,c("master_name", "name", "type", "ph_label", "offx", "offy", "cx", "cy")]
+  data <- data[,c("master_name", "name", "type", "id", "ph_label", "offx", "offy", "cx", "cy")]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400
@@ -369,6 +369,11 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 #' @description get content and positions of current slide
 #' into a data.frame. Data for any tables, images, or paragraphs are
 #' imported into the resulting data.frame.
+#' @note
+#' The column \code{id} of the result is not to be used by users.
+#' This is a technical string id whose value will be used by office
+#' when the document will be rendered. This is not related to argument
+#' \code{index} required by functions \code{ph_with_zzz}.
 #' @param x rpptx object
 #' @param index slide index
 #' @examples
@@ -408,7 +413,6 @@ slide_summary <- function( x, index = NULL ){
   data$name <- NULL
   data$file <- NULL
   data$ph <- NULL
-  data$id <- NULL
   data
 }
 

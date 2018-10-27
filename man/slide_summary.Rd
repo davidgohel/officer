@@ -16,6 +16,12 @@ get content and positions of current slide
 into a data.frame. Data for any tables, images, or paragraphs are
 imported into the resulting data.frame.
 }
+\note{
+The column \code{id} of the result is not to be used by users.
+This is a technical string id whose value will be used by office
+when the document will be rendered. This is not related to argument
+\code{index} required by functions \code{ph_with_zzz}.
+}
 \examples{
 library(magrittr)
 
