@@ -6,13 +6,6 @@ cache: packages
 r_packages:
   - covr
 
-matrix:
-  include:
-    - os: linux
-    - os: osx
-      osx_image: xcode9.2
-      brew_packages: cairo
-
 r:
  - oldrel
  - release
