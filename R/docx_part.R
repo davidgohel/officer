@@ -77,6 +77,8 @@ docx_part <- R6Class(
 
     cursor_replace_first_text = function( id, text ){
 
+      text <- enc2utf8(text)
+
       xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
       bm_start <- xml_find_first(self$get(), xpath_)
       if( inherits(bm_start, "xml_missing") )
@@ -138,6 +140,9 @@ docx_part <- R6Class(
     },
 
     replace_all_text = function( oldValue, newValue, onlyAtCursor=TRUE, warn = TRUE, ... ) {
+
+      oldValue <- enc2utf8(oldValue)
+      newValue <- enc2utf8(newValue)
 
       replacement_count <- 0
 
