@@ -16,7 +16,6 @@ pml_run_str <- function(str, style) {
 pml_shape_str <- function(str, ph, offx, offy, cx, cy, ...) {
 
   sp_pr <- sprintf("<p:spPr><a:xfrm><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm></p:spPr>", offx, offy, cx, cy)
-  # sp_pr <- "<p:spPr/>"
   nv_sp_pr <- "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>"
   nv_sp_pr <- sprintf( nv_sp_pr, ifelse(!is.na(ph), ph, "") )
   paste0( pml_with_ns("p:sp"),
