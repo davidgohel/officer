@@ -4,6 +4,7 @@
 \alias{read_pptx}
 \alias{print.rpptx}
 \alias{length.rpptx}
+\alias{slide_size}
 \title{open a connexion to a 'PowerPoint' file}
 \usage{
 read_pptx(path = NULL)
@@ -11,6 +12,8 @@ read_pptx(path = NULL)
 \method{print}{rpptx}(x, target = NULL, ...)
 
 \method{length}{rpptx}(x)
+
+slide_size(x)
 }
 \arguments{
 \item{path}{path to the pptx file to use as base document.}
@@ -28,6 +31,11 @@ representing the document.
 \section{number of slides}{
 
 Function \code{length} will return the number of slides.
+}
+
+\section{slides width and height}{
+
+Function \code{slide_size} will return the size of slides.
 }
 
 \examples{

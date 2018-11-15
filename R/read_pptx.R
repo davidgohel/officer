@@ -132,6 +132,20 @@ length.rpptx <- function( x ){
 }
 
 #' @export
+#' @rdname read_pptx
+#' @section slides width and height:
+#' Function \code{slide_size} will return the size of slides.
+#' @importFrom xml2 xml_attrs xml_find_first
+slide_size <- function(x) {
+  pres <- ref_pptx$presentation$get()
+  dimensions <- xml_attrs(xml_find_first(pres, "p:sldSz"))
+  dimensions <- as.list(as.integer(dimensions[c("cx", "cy")]) / 914400)
+  names(dimensions) <- c("width", "height")
+  dimensions
+}
+
+
+#' @export
 #' @title change current slide
 #' @description change current slide index of an rpptx object.
 #' @param x rpptx object
