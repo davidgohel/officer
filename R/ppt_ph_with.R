@@ -20,7 +20,6 @@ ph_empty <- function( x, type = "title", index = 1 ){
 
   slide <- x$slide$get_slide(x$cursor)
   xfrm_df <- slide$get_xfrm(type = type, index = index)
-
   empty_shape <- paste0(pml_with_ns("p:sp"),
                         "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/></p:sp>")
 
@@ -55,7 +54,6 @@ ph_empty <- function( x, type = "title", index = 1 ){
 ph_with_text <- function( x, str, type = "title", index = 1 ){
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
-
   slide <- x$slide$get_slide(x$cursor)
   sh_pr_df <- slide$get_xfrm(type = type, index = index)
 
@@ -212,11 +210,7 @@ ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height
 #' into an rpptx object. Each text is associated with
 #' a hierarchy level.
 #'
-#' @param x rpptx object
-#' @param type placeholder type
-#' @param index placeholder index (integer). This is to be used
-#' when a placeholder type is not unique in the current slide,
-#' e.g. two placeholders with type 'body'.
+#' @inheritParams ph_empty
 #' @param str_list list of strings to be included in the object
 #' @param level_list list of levels for hierarchy structure
 #' @param style text style, a \code{fp_text} object list or a

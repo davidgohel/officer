@@ -8,13 +8,13 @@ ph_with_ul(x, type = "body", index = 1, str_list = character(0),
   level_list = integer(0), style = NULL)
 }
 \arguments{
-\item{x}{rpptx object}
+\item{x}{a pptx device}
 
 \item{type}{placeholder type}
 
-\item{index}{placeholder index (integer). This is to be used
-when a placeholder type is not unique in the current slide,
-e.g. two placeholders with type 'body'.}
+\item{index}{placeholder index (integer). This is to be used when a placeholder type
+is not unique in the current slide, e.g. two placeholders with type 'body', the first
+one will be added with index 1 and the second one with index 2.}
 
 \item{str_list}{list of strings to be included in the object}
 
