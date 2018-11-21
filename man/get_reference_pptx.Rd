@@ -12,3 +12,6 @@ being used as a template in an R Markdown document
 render as PowerPoint presentation. It requires
 packages rmarkdown >= 1.10.14 and knitr.
 }
+\author{
+Noam Ross
+}

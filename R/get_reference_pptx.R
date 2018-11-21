@@ -14,6 +14,7 @@ get_default_pandoc_pptx <- function(outfile = tempfile(fileext = ".pptx")) {
 #' being used as a template in an R Markdown document
 #' render as PowerPoint presentation. It requires
 #' packages rmarkdown >= 1.10.14 and knitr.
+#' @author Noam Ross
 get_reference_pptx <- function() {
 
   if( !requireNamespace("rmarkdown") )
