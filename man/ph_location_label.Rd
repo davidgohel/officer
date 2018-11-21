@@ -26,23 +26,31 @@ within a presentation slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:
 
 \describe{
-  \item{offx}{left coordinate of the bounding box}
-  \item{offy}{top coordinate of the bounding box}
-  \item{width}{width of the bounding box}
-  \item{height}{height of the bounding box}
+\item{left}{left coordinate of the bounding box}
+\item{top}{top coordinate of the bounding box}
+\item{width}{width of the bounding box}
+\item{height}{height of the bounding box}
 }
 
 In addition to these attributes, there is also an attribute \code{ph_label}
-that can be associated with the shape (shapes, text boxes, images and other objects
+associated with the shape (shapes, text boxes, images and other objects
 will be identified with that label in the Selection Pane of PowerPoint).
-
-This result can then be used to position new elements in the slides with
-functions \code{ph_with_*}.
+This label can then be reused by other functions such as \code{ph_add_fpar},
+or \code{ph_add_text}.
 }
 \examples{
 x <- read_pptx()
 ph_location_label(x, layout = "Title and Content",
   ph_label = "Content Placeholder 2")
+
+library(magrittr)
+my_pres <- read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme")
+body_location <- ph_location_label(my_pres, layout = "Title and Content",
+                                   ph_label = "Content Placeholder 2")
+my_pres \%>\%
+  ph_with("Hello world", location = body_location ) \%>\%
+  print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

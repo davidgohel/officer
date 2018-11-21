@@ -6,6 +6,9 @@
 #' @param index placeholder index (integer). This is to be used when a placeholder type
 #' is not unique in the current slide, e.g. two placeholders with type 'body', the first
 #' one will be added with index 1 and the second one with index 2.
+#' @param location a placeholder location object. This is a convenient
+#' argument that can replace usage of arguments \code{type} and \code{index}.
+#' See section \code{see also}.
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
@@ -14,16 +17,25 @@
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
-ph_empty <- function( x, type = "title", index = 1 ){
+#' @seealso [ph_location_type], [ph_location], [ph_location_label],
+#' [ph_location_left], [ph_location_right], [ph_location_fullsize]
+ph_empty <- function( x, type = "body", index = 1, location = NULL ){
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
-
   slide <- x$slide$get_slide(x$cursor)
-  xfrm_df <- slide$get_xfrm(type = type, index = index)
-  empty_shape <- paste0(pml_with_ns("p:sp"),
-                        "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/></p:sp>")
 
-  xml_elt <- sprintf( empty_shape, xfrm_df$ph )
+  if( is.null(location) ){
+    empty_shape <- paste0(pml_with_ns("p:sp"),
+                          "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/></p:sp>")
+    xfrm_df <- slide$get_xfrm(type = type, index = index)
+    xml_elt <- sprintf( empty_shape, xfrm_df$ph )
+  } else {
+    empty_shape <- paste0(pml_with_ns("p:sp"),
+                          "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/>",
+                          "<p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr>",
+                          "<p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s</p:spPr></p:sp>")
+    xml_elt <- sprintf( empty_shape, location$ph, xfrm_str(location) )
+  }
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
 
@@ -51,14 +63,29 @@ ph_empty <- function( x, type = "title", index = 1 ){
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
-ph_with_text <- function( x, str, type = "title", index = 1 ){
+#' @inherit ph_empty seealso
+ph_with_text <- function( x, str, type = "title", index = 1, location = NULL ){
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
   slide <- x$slide$get_slide(x$cursor)
-  sh_pr_df <- slide$get_xfrm(type = type, index = index)
 
-  sh_pr_df$str <- str
-  xml_elt <- do.call(pml_shape_str, sh_pr_df)
+  txt_body <- paste0("<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>",
+                     htmlEscape(str),
+                     "</a:t></a:r></a:p></p:txBody>")
+  str_shape <- paste0(pml_with_ns("p:sp"),
+                      "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/>",
+                      "<p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr>",
+                      "<p:nvPr>%s</p:nvPr></p:nvSpPr>",
+                      "<p:spPr>%s</p:spPr>",
+                      "%s",#txBody content
+                      "</p:sp>")
+
+  if( is.null(location) ){
+    sh_pr_df <- slide$get_location(type = type, index = index)
+    location <- as_ph_location(sh_pr_df)
+  }
+  xml_elt <- sprintf( str_shape, location$ph, xfrm_str(location), txt_body )
+
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
@@ -87,17 +114,24 @@ ph_with_text <- function( x, str, type = "title", index = 1 ){
 ph_with_table <- function( x, value, type = "body", index = 1,
                            header = TRUE,
                            first_row = TRUE, first_column = FALSE,
-                           last_row = FALSE, last_column = FALSE ){
+                           last_row = FALSE, last_column = FALSE,
+                           location = NULL ){
   stopifnot(is.data.frame(value))
 
   stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
 
   slide <- x$slide$get_slide(x$cursor)
-  xfrm_df <- slide$get_xfrm(type = type, index = index)
+  if( is.null(location) ){
+    sh_pr_df <- slide$get_location(type = type, index = index)
+    location <- as_ph_location(sh_pr_df)
+  }
 
-  xml_elt <- table_shape(x = x, value = value, left = xfrm_df$offx, top = xfrm_df$offy, width = xfrm_df$cx, height = xfrm_df$cy,
-                          first_row = first_row, first_column = first_column,
-                          last_row = last_row, last_column = last_column, header = header )
+  xml_elt <- table_shape(x = x, value = value, left = location$left*914400, top = location$top*914400,
+                         width = location$width*914400, height = location$height*914400,
+                         first_row = first_row, first_column = first_column,
+                         last_row = last_row, last_column = last_column,
+                         header = header )
+
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
   slide$fortify_id()
@@ -124,19 +158,23 @@ ph_with_table <- function( x, value, type = "body", index = 1,
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
-ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height = NULL ){
+ph_with_img <- function( x, src, type = "body", index = 1,
+                         width = NULL, height = NULL,
+                         location = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
-  xfrm <- slide$get_xfrm(type = type, index = index)
+  if( is.null(location) ){
+    sh_pr_df <- slide$get_location(type = type, index = index)
+    location <- as_ph_location(sh_pr_df)
+  }
 
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
   file.copy( src, to = new_src )
 
-  if( is.null(width)) width <- xfrm$cx
-  else width <- width * 914400
-  if( is.null(height)) height <- xfrm$cy
-  else height <- height * 914400
-  ext_img <- external_img(new_src, width = width / 914400, height = height / 914400)
+  if( is.null(width)) width <- location$width
+  if( is.null(height)) height <- location$height
+  # else height <- height * 914400
+  ext_img <- external_img(new_src, width = width, height = height)
   xml_elt <- format(ext_img, type = "pml")
 
   slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
@@ -146,8 +184,8 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 
   node <- xml_find_first( doc, "p:spPr")
   off <- xml_child(node, "a:xfrm/a:off")
-  xml_attr( off, "x") <- sprintf( "%.0f", xfrm$offx )
-  xml_attr( off, "y") <- sprintf( "%.0f", xfrm$offy )
+  xml_attr( off, "x") <- sprintf( "%.0f", location$left * 914400 )
+  xml_attr( off, "y") <- sprintf( "%.0f", location$top * 914400 )
 
   xmlslide <- slide$get()
 
@@ -184,15 +222,19 @@ ph_with_img <- function( x, src, type = "body", index = 1, width = NULL, height 
 #'
 #'   print(doc, target = tempfile(fileext = ".pptx"))
 #' }
-ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height = NULL, ... ){
+ph_with_gg <- function( x, value, type = "body", index = 1,
+                        width = NULL, height = NULL, location = NULL, ... ){
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
 
   slide <- x$slide$get_slide(x$cursor)
-  xfrm_df <- slide$get_xfrm(type = type, index = index)
-  if( is.null( width ) ) width <- xfrm_df$cx / 914400
-  if( is.null( height ) ) height <- xfrm_df$cy / 914400
+  if( is.null(location) ){
+    sh_pr_df <- slide$get_location(type = type, index = index)
+    location <- as_ph_location(sh_pr_df)
+  }
+  if( is.null( width ) ) width <- location$width
+  if( is.null( height ) ) height <- location$height
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
@@ -229,7 +271,8 @@ ph_with_gg <- function( x, value, type = "body", index = 1, width = NULL, height
 #'   style = fp_text(color = "red", font.size = 0) )
 #' print(pptx, target = tempfile(fileext = ".pptx"))
 ph_with_ul <- function(x, type = "body", index = 1, str_list = character(0), level_list = integer(0),
-                       style = NULL) {
+                       style = NULL,
+                       location = NULL) {
   stopifnot(is.character(str_list))
   stopifnot(is.numeric(level_list))
 
@@ -247,7 +290,11 @@ ph_with_ul <- function(x, type = "body", index = 1, str_list = character(0), lev
   } else style_str <- rep("<a:rPr/>", length(str_list))
 
   slide <- x$slide$get_slide(x$cursor)
-  sh_pr_df <- slide$get_xfrm(type = type, index = index)
+  if( is.null(location) ){
+    sh_pr_df <- slide$get_location(type = type, index = index)
+    location <- as_ph_location(sh_pr_df)
+  }
+  # sh_pr_df <- slide$get_xfrm(type = type, index = index)
 
   tmpl <- "<a:p><a:pPr%s/><a:r>%s<a:t>%s</a:t></a:r></a:p>"
   lvl <- sprintf(" lvl=\"%.0f\"", level_list - 1)
@@ -255,8 +302,8 @@ ph_with_ul <- function(x, type = "body", index = 1, str_list = character(0), lev
   p <- sprintf(tmpl, lvl, style_str, htmlEscape(str_list) )
   p <- paste(p, collapse = "")
 
-  sh_pr_df$str <- p
-  xml_elt <- do.call(pml_shape_par, sh_pr_df)
+  location$str <- p
+  xml_elt <- do.call(pml_shape_par, location)
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)

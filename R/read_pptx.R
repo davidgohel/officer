@@ -137,7 +137,7 @@ length.rpptx <- function( x ){
 #' Function \code{slide_size} will return the size of slides.
 #' @importFrom xml2 xml_attrs xml_find_first
 slide_size <- function(x) {
-  pres <- ref_pptx$presentation$get()
+  pres <- x$presentation$get()
   dimensions <- xml_attrs(xml_find_first(pres, "p:sldSz"))
   dimensions <- as.list(as.integer(dimensions[c("cx", "cy")]) / 914400)
   names(dimensions) <- c("width", "height")
@@ -298,7 +298,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   } else if( !is.null(layout) && is.null(master) ){
     data <- data[data$name == layout,]
   }
-  data <- data[,c("master_name", "name", "type", "id", "ph_label", "offx", "offy", "cx", "cy")]
+  data <- data[,c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy")]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400

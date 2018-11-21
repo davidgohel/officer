@@ -7,7 +7,7 @@
 \usage{
 ph_with_table(x, value, type = "body", index = 1, header = TRUE,
   first_row = TRUE, first_column = FALSE, last_row = FALSE,
-  last_column = FALSE)
+  last_column = FALSE, location = NULL)
 
 ph_with_table_at(x, value, left, top, width, height, header = TRUE,
   first_row = TRUE, first_column = FALSE, last_row = FALSE,
@@ -27,6 +27,10 @@ one will be added with index 1 and the second one with index 2.}
 \item{header}{display header if TRUE}
 
 \item{first_row, last_row, first_column, last_column}{logical for PowerPoint table options}
+
+\item{location}{a placeholder location object. This is a convenient
+argument that can replace usage of arguments \code{type} and \code{index}.
+See section \code{see also}.}
 
 \item{left, top}{location of the new shape on the slide}
 

@@ -6,7 +6,7 @@
 \title{add image}
 \usage{
 ph_with_img(x, src, type = "body", index = 1, width = NULL,
-  height = NULL)
+  height = NULL, location = NULL)
 
 ph_with_img_at(x, src, left, top, width, height, rot = 0)
 }
@@ -22,6 +22,10 @@ is not unique in the current slide, e.g. two placeholders with type 'body', the 
 one will be added with index 1 and the second one with index 2.}
 
 \item{width, height}{image size in inches}
+
+\item{location}{a placeholder location object. This is a convenient
+argument that can replace usage of arguments \code{type} and \code{index}.
+See section \code{see also}.}
 
 \item{left, top}{location of the new shape on the slide}
 

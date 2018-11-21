@@ -1,18 +1,17 @@
+#' @importFrom grDevices rgb
 ph <- function( left = 0, top = 0, width = 3, height = 3, bg = "transparent", rot = 0){
 
   if( !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
-  cols <- as.integer( col2rgb(bg, alpha = TRUE)[,1] )
+  cols <- col2rgb(bg, alpha = TRUE)[,1]
+  hexcol <- rgb(red = cols[1], green = cols[2], blue = cols[3], maxColorValue = 255)
 
-  p_ph(offx=as.integer( left * 914400 ),
-    offy = as.integer( top * 914400 ),
-    cx = as.integer( width * 914400 ),
-    cy = as.integer( height * 914400 ),
-    rot = as.integer(-rot * 60000),
-    r = cols[1],
-    g = cols[2],
-    b = cols[3],
-    a = cols[4] )
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr><p:ph/></p:nvPr></p:nvSpPr><p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"100000\"/></a:srgbClr></a:solidFill></p:spPr>"
+  sprintf(str, -rot * 60000,
+          left * 914400, top * 914400,
+          width * 914400, height * 914400,
+          gsub("#", "", hexcol), (cols[4] / 255.0 * 100000)
+          )
 }
 
 #' @rdname ph_empty

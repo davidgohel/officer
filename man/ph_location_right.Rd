@@ -17,6 +17,14 @@ is existing.
 \examples{
 x <- read_pptx()
 ph_location_right(x)
+
+library(magrittr)
+my_pres <- read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme")
+my_pres \%>\%
+  ph_with("Hello", location = ph_location_left(my_pres) ) \%>\%
+  ph_with("world", location = ph_location_right(my_pres) ) \%>\%
+  print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

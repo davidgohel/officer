@@ -19,7 +19,7 @@ Examples of manipulations are:
 }
 
 To learn more about officer, start with the vignettes:
-`browseVignettes(package = "officer")`
+\code{browseVignettes(package = "officer")}
 }
 \seealso{
 \url{https://davidgohel.github.io/officer/}

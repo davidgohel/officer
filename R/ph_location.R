@@ -1,9 +1,11 @@
 #' @export
 #' @title create a location for a placeholder
 #' @description The function will return a list that complies with
-#' expected format for argument \code{location} of functions \code{ph_with_*}.
-#' @param x an rpptx object
-#' @param ph_label a label for the placeholder.
+#' expected format for argument \code{location} of functions \code{ph_with_*}
+#' and \code{ph_with} methods.
+#' @param left,top,width,height place holder coordinates
+#' in inches.
+#' @param label a label for the placeholder. See section details.
 #' @family functions for placeholder location
 #' @details
 #' The location of the bounding box associated to a placeholder
@@ -11,29 +13,38 @@
 #' the width and the height. These are defined in inches:
 #'
 #' \describe{
-#'   \item{offx}{left coordinate of the bounding box}
-#'   \item{offy}{top coordinate of the bounding box}
+#'   \item{left}{left coordinate of the bounding box}
+#'   \item{top}{top coordinate of the bounding box}
 #'   \item{width}{width of the bounding box}
 #'   \item{height}{height of the bounding box}
 #' }
 #'
 #' In addition to these attributes, there is also an attribute \code{ph_label}
-#' that can be associated with the shape (shapes, text boxes, images and other objects
+#' associated with the shape (shapes, text boxes, images and other objects
 #' will be identified with that label in the Selection Pane of PowerPoint).
+#' This label can then be reused by other functions such as \code{ph_add_fpar},
+#' or \code{ph_add_text}.
 #'
-#' This result can then be used to position new elements in the slides with
-#' functions \code{ph_with_*}.
 #' @examples
-#' x <- read_pptx()
-#' ph_location_fullsize(x)
-ph_location <- function(left, top, width, height, label){
+#' library(magrittr)
+#' ph_location(left = 1, top = 3, width = 4,
+#'   height = 4, label = "my placeholder")
+#' my_pres <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme")
+#' free_location <- ph_location(left = 1, top = 1,
+#'                              width = 4, height = 3, label = "")
+#' my_pres %>%
+#'   ph_with("Hello world", location = free_location ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
+ph_location <- function(left = 1, top = 1, width = 4, height = 3, label = ""){
 
   x <- list(
-    offx = offx,
-    offy = offy,
+    left = left,
+    top = top,
     width = width,
     height = height,
-    ph_label = label
+    ph_label = label,
+    ph = ""
   )
   x
 }
@@ -60,6 +71,20 @@ ph_location <- function(left, top, width, height, label){
 #' @examples
 #' x <- read_pptx()
 #' ph_location_type(x)
+#'
+#' # left side location of 'Two Content'
+#' ph_location_type(x, layout = "Two Content",
+#'   type = "body", position_right = FALSE)
+#'
+#' library(magrittr)
+#' my_pres <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme")
+#' body_location <- ph_location_type(my_pres, type = "body",
+#'                                   layout = "Title and Content")
+#' my_pres %>%
+#'   ph_with("Hello world", location = body_location ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
+#'
 ph_location_type <- function( x, layout = "Title and Content",
                                 master = "Office Theme",
                                 type = "body",
@@ -71,8 +96,6 @@ ph_location_type <- function( x, layout = "Title and Content",
 
   if( nrow(props) < 1) {
     stop("no selected row")
-  } else if( nrow(props) == 1) {
-    return(props)
   }
 
   if(position_right){
@@ -89,7 +112,9 @@ ph_location_type <- function( x, layout = "Title and Content",
   if( nrow(props) > 1) {
     warning("more than a row have been selected")
   }
-  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "type")]
+
+  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type")]
+  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type")
   as_ph_location(props)
 
 }
@@ -109,6 +134,15 @@ ph_location_type <- function( x, layout = "Title and Content",
 #' x <- read_pptx()
 #' ph_location_label(x, layout = "Title and Content",
 #'   ph_label = "Content Placeholder 2")
+#'
+#' library(magrittr)
+#' my_pres <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme")
+#' body_location <- ph_location_label(my_pres, layout = "Title and Content",
+#'                                    ph_label = "Content Placeholder 2")
+#' my_pres %>%
+#'   ph_with("Hello world", location = body_location ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
 ph_location_label <- function( x, layout = NULL,
                                  master = "Office Theme",
                                  ph_label){
@@ -124,7 +158,8 @@ ph_location_label <- function( x, layout = NULL,
     warning("more than a row have been selected")
   }
 
-  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "type")]
+  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type")]
+  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type")
   row.names(props) <- NULL
   as_ph_location(props)
 }
@@ -139,14 +174,23 @@ ph_location_label <- function( x, layout = NULL,
 #' @examples
 #' x <- read_pptx()
 #' ph_location_fullsize(x)
+#'
+#' library(magrittr)
+#' my_pres <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme")
+#' fullsize_location <- ph_location_fullsize(my_pres)
+#' my_pres %>%
+#'   ph_with("Hello world", location = fullsize_location ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
 ph_location_fullsize <- function( x, label = "" ){
   layout_data <- slide_size(x)
-  layout_data$offx <- 0L
-  layout_data$offy <- 0L
+  layout_data$left <- 0L
+  layout_data$top <- 0L
   layout_data$ph_label <- label
+  layout_data$ph <- NA_character_
   layout_data$type <- "body"
 
-  as_ph_location(as.data.frame(props, stringsAsFactors = FALSE))
+  as_ph_location(as.data.frame(layout_data, stringsAsFactors = FALSE))
 }
 
 #' @export
@@ -159,6 +203,14 @@ ph_location_fullsize <- function( x, label = "" ){
 #' @examples
 #' x <- read_pptx()
 #' ph_location_left(x)
+#'
+#' library(magrittr)
+#' my_pres <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme")
+#' my_pres %>%
+#'   ph_with("Hello", location = ph_location_left(my_pres) ) %>%
+#'   ph_with("world", location = ph_location_right(my_pres) ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
 ph_location_left <- function( x ){
   ph_location_type( x, layout = "Two Content",
                                 master = "Office Theme",
@@ -177,6 +229,14 @@ ph_location_left <- function( x ){
 #' @examples
 #' x <- read_pptx()
 #' ph_location_right(x)
+#'
+#' library(magrittr)
+#' my_pres <- read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme")
+#' my_pres %>%
+#'   ph_with("Hello", location = ph_location_left(my_pres) ) %>%
+#'   ph_with("world", location = ph_location_right(my_pres) ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
 ph_location_right <- function( x ){
   ph_location_type( x, layout = "Two Content",
                                 master = "Office Theme",
@@ -192,20 +252,13 @@ as_ph_location <- function(x){
   if( !is.data.frame(x) ){
     stop("x should be a data.frame")
   }
-  ref_names <- c( cx = "width", cy = "height", offx = "left", offy = "top",
-                 ph_label = "ph_label", "type" = "type")
-
-  if (!(setequal(names(x), names(ref_names)))) {
-    stop("missing column values:", paste0(names(ref_names), collapse = ","))
+  ref_names <- c( "width", "height", "left", "top",
+                 "ph_label", "ph", "type")
+  if (!all(is.element(ref_names, names(x) ))) {
+    stop("missing column values:", paste0(setdiff(ref_names, names(x)), collapse = ","))
   }
 
-  x <- x[names(ref_names)]
-  names(x) <- as.character(ref_names)
-
-  if( x$type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title") ){
-    x$ph <- sprintf('<p:ph type="%s"/>', x$type)
-  } else x$ph <- ""
-  x$type <- NULL
-  as.list(x)
+  out <- x[ref_names]
+  as.list(out)
 }
 

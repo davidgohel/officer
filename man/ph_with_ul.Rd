@@ -5,7 +5,7 @@
 \title{add unordered list to a pptx presentation}
 \usage{
 ph_with_ul(x, type = "body", index = 1, str_list = character(0),
-  level_list = integer(0), style = NULL)
+  level_list = integer(0), style = NULL, location = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -23,6 +23,10 @@ one will be added with index 1 and the second one with index 2.}
 \item{style}{text style, a \code{fp_text} object list or a
 single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
 inherit from default sizes of the presentation.}
+
+\item{location}{a placeholder location object. This is a convenient
+argument that can replace usage of arguments \code{type} and \code{index}.
+See section \code{see also}.}
 }
 \description{
 add an unordered list of text

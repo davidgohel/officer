@@ -4,16 +4,18 @@
 \alias{ph_location}
 \title{create a location for a placeholder}
 \usage{
-ph_location(left, top, width, height, label)
+ph_location(left = 1, top = 1, width = 4, height = 3, label = "")
 }
 \arguments{
-\item{x}{an rpptx object}
+\item{left, top, width, height}{place holder coordinates
+in inches.}
 
-\item{ph_label}{a label for the placeholder.}
+\item{label}{a label for the placeholder. See section details.}
 }
 \description{
 The function will return a list that complies with
-expected format for argument \code{location} of functions \code{ph_with_*}.
+expected format for argument \code{location} of functions \code{ph_with_*}
+and \code{ph_with} methods.
 }
 \details{
 The location of the bounding box associated to a placeholder
@@ -21,22 +23,29 @@ within a presentation slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:
 
 \describe{
-  \item{offx}{left coordinate of the bounding box}
-  \item{offy}{top coordinate of the bounding box}
-  \item{width}{width of the bounding box}
-  \item{height}{height of the bounding box}
+\item{left}{left coordinate of the bounding box}
+\item{top}{top coordinate of the bounding box}
+\item{width}{width of the bounding box}
+\item{height}{height of the bounding box}
 }
 
 In addition to these attributes, there is also an attribute \code{ph_label}
-that can be associated with the shape (shapes, text boxes, images and other objects
+associated with the shape (shapes, text boxes, images and other objects
 will be identified with that label in the Selection Pane of PowerPoint).
-
-This result can then be used to position new elements in the slides with
-functions \code{ph_with_*}.
+This label can then be reused by other functions such as \code{ph_add_fpar},
+or \code{ph_add_text}.
 }
 \examples{
-x <- read_pptx()
-ph_location_fullsize(x)
+library(magrittr)
+ph_location(left = 1, top = 3, width = 4,
+  height = 4, label = "my placeholder")
+my_pres <- read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme")
+free_location <- ph_location(left = 1, top = 1,
+                             width = 4, height = 3, label = "")
+my_pres \%>\%
+  ph_with("Hello world", location = free_location ) \%>\%
+  print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

@@ -18,6 +18,14 @@ to a full size display.
 \examples{
 x <- read_pptx()
 ph_location_fullsize(x)
+
+library(magrittr)
+my_pres <- read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme")
+fullsize_location <- ph_location_fullsize(my_pres)
+my_pres \%>\%
+  ph_with("Hello world", location = fullsize_location ) \%>\%
+  print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_label}},

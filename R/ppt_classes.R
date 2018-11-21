@@ -279,6 +279,24 @@ slide <- R6Class(
       }
       out
     },
+    get_location = function(type = NULL, index = 1){
+      out <- private$element_data
+      if( !is.null(type) ){
+        if( type %in% out$type ){
+          type_matches <- which( out$type == type )
+          if( index <= length(type_matches) )
+            id <- type_matches[index]
+          else stop(type, " can only have ", length(type_matches), " element(s) but index is set to ", index)
+
+        } else stop("type ", type, " is not available in the slide layout")
+        out <- out[id, ]
+      }
+
+      out[c("offx", "offy", "cx", "cy")] <- lapply( out[c("offx", "offy", "cx", "cy")], function(x) x / 914400 )
+      out <- out[c("offx", "offy", "cx", "cy", "ph_label", "type", "ph")]
+      names(out) <- c("left", "top", "width", "height", "ph_label", "type", "ph")
+      out
+    },
 
     layout_name = function(){
       private$layout_file
