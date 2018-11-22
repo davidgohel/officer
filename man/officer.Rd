@@ -34,7 +34,6 @@ Other contributors:
   \item Anton Victorson \email{anton@victorson.se} (fixes xml structures) [contributor]
   \item Jon Calder \email{jonmcalder@gmail.com} (update vignettes) [contributor]
   \item John Harrold \email{john.m.harrold@gmail.com} (fuction annotate_base) [contributor]
-  \item Noam Ross \email{noam.ross@gmail.com} (fuction get_reference_pptx) [contributor]
 }
 
 }

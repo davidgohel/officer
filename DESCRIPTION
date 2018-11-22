@@ -9,8 +9,7 @@ Authors@R: c(
     person("Liz", "Sander", role = "ctb", email = 'lsander@civisanalytics.com', comment = "several documentation fixes"),
     person("Anton", "Victorson", role = "ctb", email = 'anton@victorson.se',comment = "fixes xml structures"),
     person("Jon", "Calder", role = "ctb", email = 'jonmcalder@gmail.com', comment = "update vignettes"),
-    person("John", "Harrold", role = "ctb", email = 'john.m.harrold@gmail.com', comment = "fuction annotate_base"),
-    person("Noam", "Ross", role = "ctb", email = 'noam.ross@gmail.com', comment = "fuction get_reference_pptx")
+    person("John", "Harrold", role = "ctb", email = 'john.m.harrold@gmail.com', comment = "fuction annotate_base")
     )
 Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
   The package focuses on tabular and graphical reporting from R; it also provides two functions
