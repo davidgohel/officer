@@ -22,7 +22,7 @@ document will then be available.
 
 *This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, do not require `rJava` and is easier to maintain.*
 
-<img src="http://www.ardata.fr/images/officerlogo.svg" width = "15%"/>
+<img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
 
 
 > Make corporate reporting with minimum hassle
