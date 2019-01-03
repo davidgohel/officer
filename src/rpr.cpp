@@ -55,6 +55,7 @@ std::string rpr::w_tag()
   os << "<w:rFonts";
   os << " w:ascii=\"" << this->fontname << "\"";
   os << " w:hAnsi=\"" << this->fontname << "\"";
+  os << " w:eastAsia=\"" << this->fontname << "\"";
   os << " w:cs=\"" << this->fontname << "\"";
   os << "/>";
 

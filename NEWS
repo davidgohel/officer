@@ -1,3 +1,10 @@
+# officer 0.3.3
+
+
+## Issues
+
+* fix issue with fonts when east asian characters are used in Word.
+
 # officer 0.3.2
 
 ## Enhancement
