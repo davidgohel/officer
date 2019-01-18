@@ -13,7 +13,7 @@ available.
 files but it is faster, do not require `rJava` and is easier to
 maintain.*
 
-<img src="http://www.ardata.fr/images/officerlogo.svg" width = "15%"/>
+<img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
 
 > Make corporate reporting with minimum hassle
 
@@ -53,8 +53,8 @@ File generation is performed with the `print` function.
 ### import Word document in a data.frame
 
 The function `docx_summary()` reads and imports content of a Word
-document into a tibble object. The function handles paragraphs, tables
-and section breaks.
+document into a data.frame. The function handles paragraphs, tables and
+section breaks.
 
 ## PowerPoint documents
 
