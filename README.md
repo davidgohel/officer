@@ -13,14 +13,14 @@ available.
 files but it is faster, do not require `rJava` and is easier to
 maintain.*
 
-<img src="http://www.ardata.fr/images/officerlogo.svg" width = "15%"/>
+<img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
 
 > Make corporate reporting with minimum hassle
 
 [![Travis-CI Build
 Status](https://travis-ci.org/davidgohel/officer.svg?branch=master)](https://travis-ci.org/davidgohel/officer)
 [![Build
-status](https://ci.appveyor.com/api/projects/status/github/davidgohel/officer?branch=master)](https://ci.appveyor.com/project/davidgohel/officer/branch/master)
+status](https://ci.appveyor.com/api/projects/status/github/davidgohel/officer?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/officer/branch/master)
 [![version](http://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
 ![cranlogs](http://cranlogs.r-pkg.org./badges/officer)
 [![codecov](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/officer)
@@ -53,8 +53,8 @@ File generation is performed with the `print` function.
 ### import Word document in a data.frame
 
 The function `docx_summary()` reads and imports content of a Word
-document into a tibble object. The function handles paragraphs, tables
-and section breaks.
+document into a data.frame. The function handles paragraphs, tables and
+section breaks.
 
 ## PowerPoint documents
 
