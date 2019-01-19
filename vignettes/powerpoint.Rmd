@@ -441,12 +441,13 @@ print(my_pres, target = "assets/pptx/ph_add_text_3.pptx")
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_add_text_3.pptx" ) )
 ```
 
-## Ressources
+## Resources
 
 Len Kiefer wrote two very good blog posts about officer, he is providing nice examples with the corresponding R code:
 
 * http://lenkiefer.com/2017/09/23/crafting-a-powerpoint-presentation-with-r/
 * http://lenkiefer.com/2017/09/27/use-purrr/
 
+[Eric Nanz](https://r-podcast.org) gave a short presentation about using officer in the Advanced R Markdown workshop held at the 2019 RStudio conference:
 
-
+* https://rpodcast.github.io/officer-advrmarkdown/
