@@ -4,6 +4,7 @@
 
 * new generic function `ph_with()` and function `ph_location*()` to ease insertion
   of elements.
+* new function `slide_size()` provide size of slides.
 
 ## Issues
 

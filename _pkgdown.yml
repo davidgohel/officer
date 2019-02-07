@@ -1,6 +1,8 @@
+title: officer
+
 template:
-  package: ardatatemplate
-  bootswatch: paper
+  package: ardown
+  bootswatch: simplex
 
 reference:
   - title: Working with Word documents
@@ -52,6 +54,7 @@ reference:
     - layout_summary
     - layout_properties
     - slide_summary
+    - move_slide
     - color_scheme
   - title: Add content to PowerPoint documents
     contents:
@@ -79,6 +82,7 @@ reference:
   - title: Create formatted paragraphs
     contents:
     - fpar
+    - block_list
     - ftext
     - external_img
   - title: Formatting properties

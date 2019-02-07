@@ -81,8 +81,6 @@ read_docx <- function( path = NULL ){
 #' # write a rdocx object in a docx file ----
 #' if( require(magrittr) ){
 #'   read_docx() %>% print(target = tempfile(fileext = ".docx"))
-#'   # full path of produced file is returned
-#'   print(.Last.value)
 #' }
 #'
 #' @importFrom xml2 xml_attr<- xml_find_all xml_find_all
