@@ -21,21 +21,31 @@
 #'       size = 3) +
 #'     theme_minimal()
 #'   doc <- ph_with(x = doc, value = gg_plot,
-#'                  location = ph_location_fullsize(doc) )
+#'                  location = ph_location_fullsize() )
 #' }
 #'
 #' doc <- ph_with(x = doc, value = c("Un titre", "Deux titre"),
-#'                location = ph_location_left(doc) )
+#'                location = ph_location_left() )
 #' doc <- ph_with(x = doc, value = iris[1:4, 3:5],
-#'                location = ph_location_right(doc) )
+#'                location = ph_location_right() )
 #'
 #' print(doc, target = fileout )
 #' @seealso [ph_location_type], [ph_location], [ph_location_label],
 #' [ph_location_left], [ph_location_right], [ph_location_fullsize]
-ph_with <- function(x, value, location, ...){
+#' @importFrom rlang eval_tidy enquo call_modify
+ph_with <- function(x, value, ...){
   UseMethod("ph_with", value)
 }
 
+loc_call <- function(call, x){
+  slide <- x$slide$get_slide(x$cursor)
+  xfrm <- slide$get_xfrm()
+  call <- rlang::call_modify(call, x = x,
+                             layout = unique( xfrm$name ),
+                             master = unique(xfrm$master_name)
+  )
+  eval_tidy(call, data = x)
+}
 
 #' @export
 #' @section with character:
@@ -43,9 +53,44 @@ ph_with <- function(x, value, location, ...){
 #' added as a paragraph.
 #' @rdname ph_with
 ph_with.character <- function(x, value, location, ...){
-
   slide <- x$slide$get_slide(x$cursor)
+
+  location <- loc_call(rlang::enquo(location), x)
+
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscape(value), "</a:t></a:r></a:p>", collapse = "")
+  sp_pr <- sprintf("<p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm></p:spPr>",
+                   ifelse(is.null(location$rotation), 0, -location$rotation) * 60000,
+                   location$left * 914400, location$top * 914400,
+                   location$width * 914400, location$height * 914400)
+
+  nv_sp_pr <- "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>"
+  nv_sp_pr <- sprintf( nv_sp_pr, ifelse(!is.null(location$ph) && !is.na(location$ph), location$ph, "") )
+  xml_elt <- paste0( pml_with_ns("p:sp"),
+                     nv_sp_pr, sp_pr,
+                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                     pars,
+                     "</p:txBody></p:sp>"
+  )
+  node <- as_xml_document(xml_elt)
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+
+  slide$fortify_id()
+  x
+}
+
+#' @export
+#' @section with block_list:
+#' When value is a block_list object, each value will be
+#' added as a paragraph.
+#' @rdname ph_with
+ph_with.block_list <- function(x, value, location, ...){
+  slide <- x$slide$get_slide(x$cursor)
+
+  location <- loc_call(rlang::enquo(location), x)
+
+  pars <- sapply(value, format, type = "pml")
+  pars <- paste0(pars, collapse = "")
   sp_pr <- sprintf("<p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm></p:spPr>",
                    ifelse(is.null(location$rotation), 0, -location$rotation) * 60000,
                    location$left * 914400, location$top * 914400,
@@ -78,6 +123,7 @@ ph_with.character <- function(x, value, location, ...){
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                first_row = TRUE, first_column = FALSE,
                                last_row = FALSE, last_column = FALSE, ...){
+  location <- loc_call(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
   xml_elt <- table_shape(x = x, value = value, left = location$left*914400, top = location$top*914400,
@@ -99,6 +145,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' instead for more advanced graphical features.
 #' @rdname ph_with
 ph_with.gg <- function(x, value, location, ...){
+  location <- loc_call(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
@@ -116,4 +163,37 @@ ph_with.gg <- function(x, value, location, ...){
   dev.off()
   on.exit(unlink(file))
   ph_with_img( x, src = file, location = location )
+}
+
+
+
+
+#' @export
+ph_with.fpar <- function( x, value, location, bg = "transparent", rot = 0,
+                              template_type = NULL, template_index = 1, ... ){
+
+  location <- loc_call(rlang::enquo(location), x)
+  slide <- x$slide$get_slide(x$cursor)
+
+  new_ph <- ph(left = location$left, top = location$top,
+               width = location$width, height = location$height, rot = rot, bg = bg)
+  new_ph <- paste0( pml_with_ns("p:sp"), new_ph,"</p:sp>")
+  if( !is.null( template_type ) ){
+    stopifnot( template_type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
+    xfrm_df <- slide$get_xfrm(type = template_type, index = template_index)
+    new_ph <- gsub("<p:ph/>", xfrm_df$ph, new_ph)
+  }
+
+  new_node <- as_xml_document(new_ph)
+
+  p_ <- format( value, type = "pml")
+
+  simple_shape <- paste0( pml_with_ns("p:txBody"),
+                          "<a:bodyPr/><a:lstStyle/>",
+                          p_, "</p:txBody>")
+  xml_add_child(new_node, as_xml_document(simple_shape) )
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), new_node)
+  slide$fortify_id()$save()
+  x
 }

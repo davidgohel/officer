@@ -4,17 +4,10 @@
 \alias{ph_location_type}
 \title{location of a placeholder type}
 \usage{
-ph_location_type(x, layout = "Title and Content",
-  master = "Office Theme", type = "body", position_right = TRUE,
-  position_top = TRUE)
+ph_location_type(type = "body", position_right = TRUE,
+  position_top = TRUE, ...)
 }
 \arguments{
-\item{x}{an rpptx object}
-
-\item{layout}{slide layout name to use}
-
-\item{master}{master layout name where \code{layout} is located}
-
 \item{type}{placeholder type to look for in the slide layout, one
 of 'body', 'title', 'ctrTitle', 'subTitle', 'dt', 'ftr', 'sldNum'.}
 
@@ -26,6 +19,8 @@ otherwise the element the most on the left side will be selected.}
 
 \item{position_top}{same than \code{position_right} but applied
 to top versus bottom.}
+
+\item{...}{unused arguments}
 }
 \description{
 The function will use the type name of the placeholder (e.g. body, title),
@@ -50,22 +45,11 @@ This label can then be reused by other functions such as \code{ph_add_fpar},
 or \code{ph_add_text}.
 }
 \examples{
-x <- read_pptx()
-ph_location_type(x)
-
-# left side location of 'Two Content'
-ph_location_type(x, layout = "Two Content",
-  type = "body", position_right = FALSE)
-
 library(magrittr)
-my_pres <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme")
-body_location <- ph_location_type(my_pres, type = "body",
-                                  layout = "Title and Content")
-my_pres \%>\%
-  ph_with("Hello world", location = body_location ) \%>\%
+read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with("Hello world", location = ph_location_type(type = "body") ) \%>\%
   print(target = tempfile(fileext = ".pptx") )
-
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

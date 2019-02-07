@@ -4,27 +4,22 @@
 \alias{ph_location_fullsize}
 \title{location of a full size element}
 \usage{
-ph_location_fullsize(x, label = "")
+ph_location_fullsize(label = "", ...)
 }
 \arguments{
-\item{x}{an rpptx object}
-
 \item{label}{a label to associate with the placeholder.}
+
+\item{...}{unused arguments}
 }
 \description{
 The function will return the location corresponding
 to a full size display.
 }
 \examples{
-x <- read_pptx()
-ph_location_fullsize(x)
-
 library(magrittr)
 my_pres <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme")
-fullsize_location <- ph_location_fullsize(my_pres)
-my_pres \%>\%
-  ph_with("Hello world", location = fullsize_location ) \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with("Hello world", location = ph_location_fullsize() ) \%>\%
   print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{

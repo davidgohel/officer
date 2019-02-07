@@ -4,17 +4,13 @@
 \alias{ph_location_label}
 \title{location of a named placeholder}
 \usage{
-ph_location_label(x, layout = NULL, master = "Office Theme", ph_label)
+ph_location_label(ph_label, ...)
 }
 \arguments{
-\item{x}{an rpptx object}
-
-\item{layout}{slide layout name to use}
-
-\item{master}{master layout name where \code{layout} is located}
-
 \item{ph_label}{placeholder label. It can be read in PowerPoint or
 with function \code{layout_properties()} in column \code{ph_label}.}
+
+\item{...}{unused arguments}
 }
 \description{
 The function will use the label of a placeholder
@@ -39,17 +35,11 @@ This label can then be reused by other functions such as \code{ph_add_fpar},
 or \code{ph_add_text}.
 }
 \examples{
-x <- read_pptx()
-ph_location_label(x, layout = "Title and Content",
-  ph_label = "Content Placeholder 2")
-
 library(magrittr)
-my_pres <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme")
-body_location <- ph_location_label(my_pres, layout = "Title and Content",
-                                   ph_label = "Content Placeholder 2")
-my_pres \%>\%
-  ph_with("Hello world", location = body_location ) \%>\%
+read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with("Hello world",
+    location = ph_location_label(ph_label = "Content Placeholder 2") ) \%>\%
   print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{

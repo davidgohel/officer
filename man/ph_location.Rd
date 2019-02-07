@@ -4,13 +4,16 @@
 \alias{ph_location}
 \title{create a location for a placeholder}
 \usage{
-ph_location(left = 1, top = 1, width = 4, height = 3, label = "")
+ph_location(left = 1, top = 1, width = 4, height = 3, label = "",
+  ...)
 }
 \arguments{
 \item{left, top, width, height}{place holder coordinates
 in inches.}
 
 \item{label}{a label for the placeholder. See section details.}
+
+\item{...}{unused arguments}
 }
 \description{
 The function will return a list that complies with
@@ -37,14 +40,10 @@ or \code{ph_add_text}.
 }
 \examples{
 library(magrittr)
-ph_location(left = 1, top = 3, width = 4,
-  height = 4, label = "my placeholder")
-my_pres <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme")
-free_location <- ph_location(left = 1, top = 1,
-                             width = 4, height = 3, label = "")
-my_pres \%>\%
-  ph_with("Hello world", location = free_location ) \%>\%
+read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with("Hello world",
+    location = ph_location(width = 4, height = 3, label = "hello") ) \%>\%
   print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{

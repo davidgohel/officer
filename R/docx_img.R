@@ -48,7 +48,6 @@ wml_part_link_images <- function(x, str, part){
 
   doc <- as_xml_document(str)
   for(id in seq_along(ref$ext_src) ){
-
     xpth <- paste0("//w:drawing",
                    "[wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip",
                    sprintf( "[contains(@r:embed,'%s')]", ref$ext_src[id]),

@@ -29,7 +29,7 @@ Imports:
     base64enc,
     zip,
     digest,uuid,utils,stats,
-    magrittr,htmltools,
+    magrittr,htmltools,rlang,
     xml2 (>= 1.1.0)
 URL: https://davidgohel.github.io/officer
 Encoding: UTF-8

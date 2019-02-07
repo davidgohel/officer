@@ -3,13 +3,16 @@
 \name{ph_with}
 \alias{ph_with}
 \alias{ph_with.character}
+\alias{ph_with.block_list}
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
 \title{add object into a new shape}
 \usage{
-ph_with(x, value, location, ...)
+ph_with(x, value, ...)
 
 \method{ph_with}{character}(x, value, location, ...)
+
+\method{ph_with}{block_list}(x, value, location, ...)
 
 \method{ph_with}{data.frame}(x, value, location, header = TRUE,
   first_row = TRUE, first_column = FALSE, last_row = FALSE,
@@ -22,11 +25,11 @@ ph_with(x, value, location, ...)
 
 \item{value}{object to add as a new shape.}
 
+\item{...}{Arguments to be passed to methods}
+
 \item{location}{a placeholder location object. This is a convenient
 argument that can replace usage of arguments \code{type} and \code{index}.
 See section \code{see also}.}
-
-\item{...}{Arguments to be passed to methods}
 
 \item{header}{display header if TRUE}
 
@@ -38,6 +41,12 @@ add object into a new shape in a slide.
 \section{with character}{
 
 When value is a character vector, each value will be
+added as a paragraph.
+}
+
+\section{with block_list}{
+
+When value is a block_list object, each value will be
 added as a paragraph.
 }
 
@@ -69,13 +78,13 @@ if( require("ggplot2") ){
       size = 3) +
     theme_minimal()
   doc <- ph_with(x = doc, value = gg_plot,
-                 location = ph_location_fullsize(doc) )
+                 location = ph_location_fullsize() )
 }
 
 doc <- ph_with(x = doc, value = c("Un titre", "Deux titre"),
-               location = ph_location_left(doc) )
+               location = ph_location_left() )
 doc <- ph_with(x = doc, value = iris[1:4, 3:5],
-               location = ph_location_right(doc) )
+               location = ph_location_right() )
 
 print(doc, target = fileout )
 }

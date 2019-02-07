@@ -20,6 +20,7 @@ reference:
     - body_add_img
     - body_add_par
     - body_add_table
+    - body_add_blocks
     - body_add_fpar
     - body_add_toc
     - body_add_break
@@ -47,12 +48,14 @@ reference:
     - annotate_base
     - add_slide
     - on_slide
+    - starts_with("ph_location")
     - layout_summary
     - layout_properties
     - slide_summary
     - color_scheme
   - title: Add content to PowerPoint documents
     contents:
+    - ph_with
     - ph_with_img
     - ph_with_img_at
     - ph_with_gg

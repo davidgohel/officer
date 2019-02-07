@@ -4,10 +4,10 @@
 \alias{ph_location_left}
 \title{location of a left body element}
 \usage{
-ph_location_left(x)
+ph_location_left(...)
 }
 \arguments{
-\item{x}{an rpptx object}
+\item{...}{unused arguments}
 }
 \description{
 The function will return the location corresponding
@@ -15,15 +15,11 @@ to a left bounding box. The function assume the layout 'Two Content'
 is existing.
 }
 \examples{
-x <- read_pptx()
-ph_location_left(x)
-
 library(magrittr)
-my_pres <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme")
-my_pres \%>\%
-  ph_with("Hello", location = ph_location_left(my_pres) ) \%>\%
-  ph_with("world", location = ph_location_right(my_pres) ) \%>\%
+read_pptx() \%>\%
+  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
+  ph_with("Hello", location = ph_location_left() ) \%>\%
+  ph_with("world", location = ph_location_right() ) \%>\%
   print(target = tempfile(fileext = ".pptx") )
 }
 \seealso{
