@@ -13,7 +13,7 @@ std::string rpr::a_tag()
 
   std::stringstream os;
 
-  os << "<a:rPr";
+  os << "<a:rPr cap=\"none\"";
   if( this->size > 0 ){
     os << " sz=\"";
     os << (int)(this->size*100);
