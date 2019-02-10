@@ -3,14 +3,12 @@ ph <- function( left = 0, top = 0, width = 3, height = 3, bg = "transparent", ro
 
   if( !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
-  cols <- col2rgb(bg, alpha = TRUE)[,1]
-  hexcol <- rgb(red = cols[1], green = cols[2], blue = cols[3], maxColorValue = 255)
 
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr><p:ph/></p:nvPr></p:nvSpPr><p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"100000\"/></a:srgbClr></a:solidFill></p:spPr>"
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr><p:ph/></p:nvPr></p:nvSpPr><p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></p:spPr>"
   sprintf(str, -rot * 60000,
           left * 914400, top * 914400,
           width * 914400, height * 914400,
-          gsub("#", "", hexcol), (cols[4] / 255.0 * 100000)
+          colcode0(bg), colalpha(bg)
           )
 }
 

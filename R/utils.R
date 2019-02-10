@@ -43,19 +43,6 @@ pml_shape_par <- function(str, ph, left, top, width, height, ...) {
 }
 
 
-is.color = function(x) {
-  # http://stackoverflow.com/a/13290832/3315962
-  out = sapply(x, function( x ) {
-    tryCatch( is.matrix( col2rgb( x ) ), error = function( e ) F )
-  })
-
-  nout <- names(out)
-  if( !is.null(nout) && any( is.na( nout ) ) )
-    out[is.na( nout )] = FALSE
-
-  out
-}
-
 
 attr_chunk <- function( x ){
   if( !is.null(x) && length( x ) > 0){
