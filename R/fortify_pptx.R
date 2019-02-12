@@ -39,7 +39,7 @@ unfold_row_pml <- function(node, row_id){
   out
 }
 
-globalVariables(c("."))
+globalVariables(c(".", "src", "width", "height"))
 
 pptxtable_as_tibble <- function( node ){
   xpath_ <- paste0( xml_path(node), "/a:graphic/a:graphicData/a:tbl/a:tr")

@@ -1,4 +1,6 @@
 # openxml_document --------------------------------------------------------
+# This class handle basic operations on a openxml document:
+# - initialize
 openxml_document <- R6Class(
   "openxml_document",
   public = list(

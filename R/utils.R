@@ -27,23 +27,6 @@ pml_shape_str <- function(str, ph, offx, offy, cx, cy, ...) {
 }
 
 
-pml_shape_par <- function(str, ph, left, top, width, height, ...) {
-
-  sp_pr <- sprintf("<p:spPr><a:xfrm><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm></p:spPr>",
-                   left * 914400, top * 914400, width * 914400, height * 914400)
-
-  nv_sp_pr <- "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr>"
-  nv_sp_pr <- sprintf( nv_sp_pr, ifelse(!is.na(ph), ph, "") )
-  paste0( pml_with_ns("p:sp"),
-          nv_sp_pr, sp_pr,
-          "<p:txBody><a:bodyPr/><a:lstStyle/>",
-          str,
-          "</p:txBody></p:sp>"
-  )
-}
-
-
-
 attr_chunk <- function( x ){
   if( !is.null(x) && length( x ) > 0){
     attribs <- paste0(names(x), "=", shQuote(x, type = "cmd"), collapse = " " )
@@ -86,6 +69,23 @@ read_xfrm <- function(nodeset, file, name){
           name = name )
 }
 
+fortify_pml_images <- function(x, str){
+
+  slide <- x$slide$get_slide(x$cursor)
+  ref <- slide$rel_df()
+
+  ref <- ref[ref$ext_src != "",]
+  doc <- as_xml_document(str)
+  for(id in seq_along(ref$ext_src) ){
+    xpth <- paste0("//p:pic/p:blipFill/a:blip",
+                   sprintf( "[contains(@r:embed,'%s')]", ref$ext_src[id]),
+                   "")
+
+    src_nodes <- xml_find_all(doc, xpth)
+    xml_attr(src_nodes, "r:embed") <- ref$id[id]
+  }
+  as.character(doc)
+}
 
 fortify_master_xfrm <- function(master_xfrm){
   master_xfrm <- as.data.frame(master_xfrm)
@@ -260,11 +260,6 @@ is_scalar_character <- function( x ) {
 }
 is_scalar_logical <- function( x ) {
   is.logical(x) && length(x) == 1
-}
-
-xfrm_str <- function( location ){
-  sprintf('<a:xfrm><a:off x="%.0f" y="%.0f"/><a:ext cx="%.0f" cy="%.0f"/></a:xfrm>',
-          location$left * 914400, location$top * 914400, location$width * 914400, location$height * 914400 )
 }
 
 

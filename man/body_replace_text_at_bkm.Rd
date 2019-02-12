@@ -2,7 +2,6 @@
 % Please edit documentation in R/docx_replace.R
 \name{body_replace_text_at_bkm}
 \alias{body_replace_text_at_bkm}
-\alias{body_replace_at}
 \alias{body_replace_img_at_bkm}
 \alias{headers_replace_text_at_bkm}
 \alias{headers_replace_img_at_bkm}
@@ -11,8 +10,6 @@
 \title{replace text at a bookmark location}
 \usage{
 body_replace_text_at_bkm(x, bookmark, value)
-
-body_replace_at(x, bookmark, value)
 
 body_replace_img_at_bkm(x, bookmark, value)
 

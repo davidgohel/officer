@@ -28,7 +28,7 @@ the width and the height. These are defined in inches:
 \item{height}{height of the bounding box}
 }
 
-In addition to these attributes, there is also an attribute \code{ph_label}
+In addition to these attributes, there is attribute \code{ph_label}
 associated with the shape (shapes, text boxes, images and other objects
 will be identified with that label in the Selection Pane of PowerPoint).
 This label can then be reused by other functions such as \code{ph_add_fpar},

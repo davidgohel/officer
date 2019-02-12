@@ -4,8 +4,10 @@
 \alias{ph_with}
 \alias{ph_with.character}
 \alias{ph_with.block_list}
+\alias{ph_with.unordered_list}
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
+\alias{ph_with.external_img}
 \title{add object into a new shape}
 \usage{
 ph_with(x, value, ...)
@@ -14,11 +16,15 @@ ph_with(x, value, ...)
 
 \method{ph_with}{block_list}(x, value, location, ...)
 
+\method{ph_with}{unordered_list}(x, value, location, ...)
+
 \method{ph_with}{data.frame}(x, value, location, header = TRUE,
   first_row = TRUE, first_column = FALSE, last_row = FALSE,
   last_column = FALSE, ...)
 
 \method{ph_with}{gg}(x, value, location, ...)
+
+\method{ph_with}{external_img}(x, value, location, ...)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -50,6 +56,12 @@ When value is a block_list object, each value will be
 added as a paragraph.
 }
 
+\section{with unordered_list}{
+
+When value is a unordered_list object, each value will be
+added as a paragraph.
+}
+
 \section{with data.frame}{
 
 When value is a data.frame, a simple table
@@ -64,15 +76,27 @@ is produced and added, use package \code{rvg}
 instead for more advanced graphical features.
 }
 
+\section{with a external_img object}{
+
+When value is a external_img object, image will be copied
+into the PowerPoint presentation.
+}
+
 \examples{
 library(magrittr)
 
 fileout <- tempfile(fileext = ".pptx")
 doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content",
+doc <- add_slide(doc, layout = "Two Content",
   master = "Office Theme")
+doc <- ph_with(x = doc, value = c("Un titre", "Deux titre"),
+               location = ph_location_left() )
+doc <- ph_with(x = doc, value = iris[1:4, 3:5],
+               location = ph_location_right() )
 
 if( require("ggplot2") ){
+  doc <- add_slide(doc, layout = "Title and Content",
+    master = "Office Theme")
   gg_plot <- ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length),
       size = 3) +
@@ -81,10 +105,21 @@ if( require("ggplot2") ){
                  location = ph_location_fullsize() )
 }
 
-doc <- ph_with(x = doc, value = c("Un titre", "Deux titre"),
-               location = ph_location_left() )
-doc <- ph_with(x = doc, value = iris[1:4, 3:5],
+doc <- add_slide(doc, layout = "Title and Content",
+  master = "Office Theme")
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+doc <- ph_with(x = doc, external_img(img.file, 100/72, 76/72),
                location = ph_location_right() )
+
+# unordered_list ----
+ul <- unordered_list(
+  level_list = c(1, 2, 2, 3, 3, 1),
+  str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
+  style = fp_text(color = "red", font.size = 0) )
+doc <- add_slide(doc, layout = "Title and Content",
+                 master = "Office Theme")
+doc <- ph_with(x = doc, value = ul,
+               location = ph_location_fullsize() )
 
 print(doc, target = fileout )
 }

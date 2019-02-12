@@ -5,13 +5,21 @@
 \title{create a location for a placeholder}
 \usage{
 ph_location(left = 1, top = 1, width = 4, height = 3, label = "",
-  ...)
+  ph = "<p:ph/>", bg = NULL, rotation = NULL, ...)
 }
 \arguments{
 \item{left, top, width, height}{place holder coordinates
 in inches.}
 
 \item{label}{a label for the placeholder. See section details.}
+
+\item{ph}{openxml string value for tag. This is not meant to be used
+by end users (unless they understand openxml placeholder and
+\code{p:ph} tag).}
+
+\item{bg}{background color}
+
+\item{rotation}{rotation angle}
 
 \item{...}{unused arguments}
 }
@@ -32,7 +40,7 @@ the width and the height. These are defined in inches:
 \item{height}{height of the bounding box}
 }
 
-In addition to these attributes, there is also an attribute \code{ph_label}
+In addition to these attributes, there is attribute \code{ph_label}
 associated with the shape (shapes, text boxes, images and other objects
 will be identified with that label in the Selection Pane of PowerPoint).
 This label can then be reused by other functions such as \code{ph_add_fpar},

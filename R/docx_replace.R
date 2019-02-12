@@ -22,12 +22,6 @@ body_replace_text_at_bkm <- function( x, bookmark, value ){
   x
 }
 
-#' @export
-#' @rdname body_replace_text_at_bkm
-body_replace_at <- function( x, bookmark, value ){
-  .Deprecated(new = "body_replace_text_at_bkm")
-  body_replace_text_at_bkm( x, bookmark, value )
-}
 
 #' @export
 #' @rdname body_replace_text_at_bkm

@@ -62,6 +62,11 @@ as_ph_location <- function(x, ...){
 #' @param left,top,width,height place holder coordinates
 #' in inches.
 #' @param label a label for the placeholder. See section details.
+#' @param ph openxml string value for tag. This is not meant to be used
+#' by end users (unless they understand openxml placeholder and
+#' \code{p:ph} tag).
+#' @param bg background color
+#' @param rotation rotation angle
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @details
@@ -76,7 +81,7 @@ as_ph_location <- function(x, ...){
 #'   \item{height}{height of the bounding box}
 #' }
 #'
-#' In addition to these attributes, there is also an attribute \code{ph_label}
+#' In addition to these attributes, there is attribute \code{ph_label}
 #' associated with the shape (shapes, text boxes, images and other objects
 #' will be identified with that label in the Selection Pane of PowerPoint).
 #' This label can then be reused by other functions such as \code{ph_add_fpar},
@@ -89,7 +94,9 @@ as_ph_location <- function(x, ...){
 #'   ph_with("Hello world",
 #'     location = ph_location(width = 4, height = 3, label = "hello") ) %>%
 #'   print(target = tempfile(fileext = ".pptx") )
-ph_location <- function(left = 1, top = 1, width = 4, height = 3, label = "", ...){
+ph_location <- function(left = 1, top = 1, width = 4, height = 3,
+                        label = "", ph = "<p:ph/>",
+                        bg = NULL, rotation = NULL, ...){
 
   x <- list(
     left = left,
@@ -97,7 +104,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3, label = "", ..
     width = width,
     height = height,
     ph_label = label,
-    ph = ""
+    ph = ph, bg = bg, rotation = rotation
   )
   x
 }
@@ -126,6 +133,11 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3, label = "", ..
 #'   print(target = tempfile(fileext = ".pptx") )
 ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, ...){
 
+  ph_types <- c("ctrTitle", "subTitle", "dt", "ftr",
+                "sldNum", "title", "body")
+  if(!type %in% ph_types){
+    stop("argument type must be a value of ", paste0(shQuote(ph_types), collapse = ", ", "."))
+  }
   x <- get_doc(...)
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm()
@@ -200,7 +212,7 @@ ph_location_fullsize <- function( label = "", ... ){
   layout_data$left <- 0L
   layout_data$top <- 0L
   layout_data$ph_label <- label
-  layout_data$ph <- NA_character_
+  layout_data$ph <- ""
   layout_data$type <- "body"
 
   as_ph_location(as.data.frame(layout_data, stringsAsFactors = FALSE))
