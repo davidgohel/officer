@@ -39,6 +39,8 @@ library(magrittr)
 
 ## Introduction
 
+![officer pptx functions](https://www.ardata.fr/img/illustrations/officer_pptx_functions.svg)
+
 Use the function `read_pptx()` to create an R object representing a PowerPoint 
 document. The initial PowerPoint file can be specified with the `path` argument. 
 If none is provided, this file will be an empty document located in the package 
