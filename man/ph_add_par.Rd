@@ -4,7 +4,8 @@
 \alias{ph_add_par}
 \title{append paragraph}
 \usage{
-ph_add_par(x, type = NULL, id_chr = NULL, level = 1)
+ph_add_par(x, type = NULL, id_chr = NULL, level = 1,
+  ph_label = NULL)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -16,6 +17,10 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.
 Values can be read from \code{\link{slide_summary}}.}
 
 \item{level}{paragraph level}
+
+\item{ph_label}{label associated to the placeholder. Use column
+\code{ph_label} of result returned by \code{\link{slide_summary}}.
+This should be used instead of using \code{type} and \code{id_chr}.}
 }
 \description{
 append a new empty paragraph in a placeholder

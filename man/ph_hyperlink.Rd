@@ -4,7 +4,7 @@
 \alias{ph_hyperlink}
 \title{hyperlink a placeholder}
 \usage{
-ph_hyperlink(x, type = NULL, id_chr = NULL, href)
+ph_hyperlink(x, type = NULL, id_chr = NULL, ph_label = NULL, href)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -14,6 +14,10 @@ ph_hyperlink(x, type = NULL, id_chr = NULL, href)
 \item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.
 Values can be read from \code{\link{slide_summary}}.}
+
+\item{ph_label}{label associated to the placeholder. Use column
+\code{ph_label} of result returned by \code{\link{slide_summary}}.
+This should be used instead of using \code{type} and \code{id_chr}.}
 
 \item{href}{hyperlink (do not forget http or https prefix)}
 }
@@ -25,11 +29,8 @@ fileout <- tempfile(fileext = ".pptx")
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
-doc <- on_slide(doc, 1)
-slide_summary(doc) # read column id here
-doc <- ph_hyperlink(x = doc, id_chr = "2",
+slide_summary(doc) # read column ph_label here
+doc <- ph_hyperlink(x = doc, ph_label = "Title 1",
   href = "https://cran.r-project.org")
 
 print(doc, target = fileout )

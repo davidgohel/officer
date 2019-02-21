@@ -4,8 +4,8 @@
 \alias{ph_add_fpar}
 \title{append fpar}
 \usage{
-ph_add_fpar(x, value, type = "body", id_chr = NULL, level = 1,
-  par_default = TRUE)
+ph_add_fpar(x, value, type = "body", id_chr = NULL, ph_label = NULL,
+  level = 1, par_default = TRUE)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -17,6 +17,10 @@ ph_add_fpar(x, value, type = "body", id_chr = NULL, level = 1,
 \item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.
 Values can be read from \code{\link{slide_summary}}.}
+
+\item{ph_label}{label associated to the placeholder. Use column
+\code{ph_label} of result returned by \code{\link{slide_summary}}.
+This should be used instead of using \code{type} and \code{id_chr}.}
 
 \item{level}{paragraph level}
 

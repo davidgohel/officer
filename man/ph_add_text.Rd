@@ -4,7 +4,7 @@
 \alias{ph_add_text}
 \title{append text}
 \usage{
-ph_add_text(x, str, type = NULL, id_chr = NULL,
+ph_add_text(x, str, type = NULL, id_chr = NULL, ph_label = NULL,
   style = fp_text(font.size = 0), pos = "after", href = NULL,
   slide_index = NULL)
 }
@@ -18,6 +18,10 @@ ph_add_text(x, str, type = NULL, id_chr = NULL,
 \item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body'.
 Values can be read from \code{\link{slide_summary}}.}
+
+\item{ph_label}{label associated to the placeholder. Use column
+\code{ph_label} of result returned by \code{\link{slide_summary}}.
+This should be used instead of using \code{type} and \code{id_chr}.}
 
 \item{style}{text style, a \code{\link{fp_text}} object}
 

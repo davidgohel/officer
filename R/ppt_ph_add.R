@@ -41,15 +41,23 @@
 #'
 #' print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
-ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
+ph_add_text <- function( x, str, type = NULL, id_chr = NULL, ph_label = NULL,
   style = fp_text(font.size = 0), pos = "after",
   href = NULL, slide_index = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
-  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
-  nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
 
-  current_p <- xml_child(nodes[[shape_id]], "/a:p[last()]")
+  if( is.null(ph_label) ){
+    shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+    nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
+    current_elt <- nodes[[shape_id]]
+  } else {
+    slsmry <- slide_summary(x)
+    id_chr <- slsmry$id[slsmry$ph_label %in% ph_label]# care if multiple ""
+    current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", id_chr) )
+  }
+
+  current_p <- xml_child(current_elt, "/a:p[last()]")
   if( inherits(current_p, "xml_missing") )
     stop("Could not find any paragraph in the selected shape.")
   r_shape_ <- pml_run_str(str = str, style = style )
@@ -111,13 +119,21 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL,
 #'
 #' print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
-ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
+ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1, ph_label = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
-  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
 
-  nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
-  current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
+  if( is.null(ph_label) ){
+    shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+    nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
+    current_elt <- nodes[[shape_id]]
+  } else {
+    slsmry <- slide_summary(x)
+    id_chr <- slsmry$id[slsmry$ph_label %in% ph_label]
+
+    current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", id_chr) )
+  }
+  current_p <- xml_child(current_elt, "/p:txBody")
 
   if( inherits(current_p, "xml_missing") ){
     if( level > 1 )
@@ -127,7 +143,7 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 
     simple_shape <- paste0( pml_with_ns("p:txBody"), "<a:bodyPr/><a:lstStyle/>",
                             p_shape, "</p:txBody>")
-    xml_add_child(nodes[[shape_id]], as_xml_document(simple_shape) )
+    xml_add_child(current_elt, as_xml_document(simple_shape) )
   } else {
     if( level > 1 ){
       simple_shape <- sprintf(paste0( pml_with_ns("a:p"), "<a:pPr lvl=\"%.0f\"/></a:p>" ), level - 1)
@@ -135,10 +151,6 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
       simple_shape <- paste0(pml_with_ns("a:p"), "</a:p>")
     xml_add_child(current_p, as_xml_document(simple_shape) )
   }
-
-
-  slide$fortify_id()$save()
-
   x
 }
 
@@ -170,14 +182,22 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1 ){
 #' print(doc, target = tempfile(fileext = ".pptx"))
 #' @importFrom xml2 xml_child xml_children xml_add_child
 #' @seealso \code{\link{fpar}}
-ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1, par_default = TRUE ){
+ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, ph_label = NULL,
+                         level = 1, par_default = TRUE ){
 
   slide <- x$slide$get_slide(x$cursor)
-  shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
 
-  nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
+  if( is.null(ph_label) ){
+    shape_id <- get_shape_id(x, type = type, id_chr = id_chr )
+    nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
+    current_elt <- nodes[[shape_id]]
+  } else {
+    slsmry <- slide_summary(x)
+    id_chr <- slsmry$id[slsmry$ph_label %in% ph_label]# care if multiple ""
+    current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", id_chr) )
+  }
 
-  current_p <- xml_child(nodes[[shape_id]], "/p:txBody")
+  current_p <- xml_child(current_elt, "/p:txBody")
   newp_str <- format(value, type = "pml")
   newp_str <- gsub("<a:p>", pml_with_ns("a:p"), newp_str )
   node <- as_xml_document(newp_str)
@@ -194,12 +214,10 @@ ph_add_fpar <- function( x, value, type = "body", id_chr = NULL, level = 1, par_
     simple_shape <- paste0( pml_with_ns("p:txBody"), "<a:bodyPr/><a:lstStyle/></p:txBody>")
     newnode <- as_xml_document(simple_shape)
     xml_add_child(newnode, node)
-    xml_add_child(nodes[[shape_id]], newnode )
+    xml_add_child(current_elt, newnode )
   } else {
     xml_add_child(current_p, node )
   }
-
-  slide$fortify_id()$save()
 
   x
 }

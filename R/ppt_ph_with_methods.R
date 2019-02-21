@@ -356,13 +356,13 @@ ph_empty <- function( x, type = "body", index = 1, location = NULL ){
     xml_elt <- sprintf( empty_shape, xfrm_df$ph )
   } else {
     empty_shape <- paste0(pml_with_ns("p:sp"),
-                          "<p:nvSpPr><p:cNvPr id=\"\" name=\"\"/>",
+                          "<p:nvSpPr><p:cNvPr id=\"\" name=\"%s\"/>",
                           "<p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr>",
                           "<p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s</p:spPr></p:sp>")
     xfrm <- sprintf('<a:xfrm><a:off x="%.0f" y="%.0f"/><a:ext cx="%.0f" cy="%.0f"/></a:xfrm>',
             location$left * 914400, location$top * 914400, location$width * 914400, location$height * 914400 )
 
-    xml_elt <- sprintf( empty_shape, location$ph, xfrm )
+    xml_elt <- sprintf( empty_shape, location$ph_label, location$ph, xfrm )
   }
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
