@@ -32,11 +32,10 @@ std::string rpr::a_tag()
 
   os << ">";
   os << col_.solid_fill();
-  os << "<a:latin typeface=\"" << this->fontname << "\"/>";
-  os << "<a:cs typeface=\"" << this->fontname << "\"/>";
-
   if( shading_.is_visible() > 0 )
     os << shading_.highlight();
+  os << "<a:latin typeface=\"" << this->fontname << "\"/>";
+  os << "<a:cs typeface=\"" << this->fontname << "\"/>";
 
   os << "</a:rPr>";
 
