@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Word page layout — docx_dim • officer</title>
+<title>unordered list — unordered_list • officer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="Word page layout — docx_dim" />
+<meta property="og:title" content="unordered list — unordered_list" />
 
-<meta property="og:description" content="get page width, page height and margins (in inches). The return values
-are those corresponding to the section where the cursor is." />
+<meta property="og:description" content="unordered list of text for PowerPoint
+presentations. Each text is associated with
+a hierarchy level." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,48 +110,65 @@ are those corresponding to the section where the cursor is." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Word page layout</h1>
+    <h1>unordered list</h1>
     
-    <div class="hidden name"><code>docx_dim.Rd</code></div>
+    <div class="hidden name"><code>unordered_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>get page width, page height and margins (in inches). The return values
-are those corresponding to the section where the cursor is.</p>
+    <p>unordered list of text for PowerPoint
+presentations. Each text is associated with
+a hierarchy level.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>docx_dim</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>unordered_list</span>(<span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>(<span class='fl'>0</span>),
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>an <code>rdocx</code> object</p></td>
+      <th>str_list</th>
+      <td><p>list of strings to be included in the object</p></td>
+    </tr>
+    <tr>
+      <th>level_list</th>
+      <td><p>list of levels for hierarchy structure</p></td>
+    </tr>
+    <tr>
+      <th>style</th>
+      <td><p>text style, a <code>fp_text</code> object list or a
+single <code>fp_text</code> objects. Use <code><a href='fp_text.html'>fp_text(font.size = 0, ...)</a></code> to
+inherit from default sizes of the presentation.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ph_with.html'>ph_with</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>docx_dim</span>(<span class='fu'><a href='read_docx.html'>read_docx</a></span>())</div><div class='output co'>#&gt; $page
-#&gt;     width    height 
-#&gt;  8.263889 11.694444 
-#&gt; 
-#&gt; $landscape
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $margins
-#&gt;       top    bottom      left     right    header    footer 
-#&gt; 0.9840278 0.9840278 0.9840278 0.9840278 0.4916667 0.4916667 
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>unordered_list</span>(
+<span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
+<span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
+<span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )</div><div class='output co'>#&gt;      str lvl
+#&gt; 1 Level1   1
+#&gt; 2 Level2   2
+#&gt; 3 Level2   2
+#&gt; 4 Level3   3
+#&gt; 5 Level3   3
+#&gt; 6 Level1   1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

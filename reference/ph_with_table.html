@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -140,13 +140,15 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>placeholder type</p></td>
+      <td><p>placeholder type (i.e. 'body', 'title')</p></td>
     </tr>
     <tr>
       <th>index</th>
       <td><p>placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body', the first
-one will be added with index 1 and the second one with index 2.</p></td>
+one will be added with index 1 and the second one with index 2.
+It is recommanded to use argument <code>location</code> instead of <code>type</code> and
+<code>index</code>.</p></td>
     </tr>
     <tr>
       <th>header</th>
@@ -160,7 +162,8 @@ one will be added with index 1 and the second one with index 2.</p></td>
       <th>location</th>
       <td><p>a placeholder location object. This is a convenient
 argument that can replace usage of arguments <code>type</code> and <code>index</code>.
-See section <code>see also</code>.</p></td>
+See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
+<a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a>.</p></td>
     </tr>
     <tr>
       <th>left, top</th>
@@ -181,7 +184,7 @@ See section <code>see also</code>.</p></td>
   <span class='fu'>ph_with_table</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>6</span>,], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
     <span class='kw'>last_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>first_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpCZRqgK/file253b7d83f91b.pptx"</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c39306ad4.pptx"</div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
@@ -190,7 +193,7 @@ See section <code>see also</code>.</p></td>
     <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>4</span>,
     <span class='kw'>last_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>first_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpCZRqgK/file253bcc231ff.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c63865e36.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -206,7 +209,7 @@ See section <code>see also</code>.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -124,7 +124,19 @@
 <span class='co'># S3 method for character</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>format_fun</span> <span class='kw'>=</span> <span class='no'>format</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for factor</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for logical</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>format_fun</span> <span class='kw'>=</span> <span class='no'>format</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for block_list</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for unordered_list</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
@@ -133,6 +145,9 @@
   <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for gg</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for external_img</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -157,6 +172,10 @@ argument that can replace usage of arguments <code>type</code> and <code>index</
 See section <code>see also</code>.</p></td>
     </tr>
     <tr>
+      <th>format_fun</th>
+      <td><p>format function for non character vectors</p></td>
+    </tr>
+    <tr>
       <th>header</th>
       <td><p>display header if TRUE</p></td>
     </tr>
@@ -172,10 +191,22 @@ See section <code>see also</code>.</p></td>
     <p>When value is a character vector, each value will be
 added as a paragraph.</p>
     
+    <h2 class="hasAnchor" id="with-vector"><a class="anchor" href="#with-vector"></a>with vector</h2>
+
+    
+    <p>When value is a vector, the values will be first formatted and
+then add as text, each value will be added as a paragraph.</p>
+    
     <h2 class="hasAnchor" id="with-block-list"><a class="anchor" href="#with-block-list"></a>with block_list</h2>
 
     
     <p>When value is a block_list object, each value will be
+added as a paragraph.</p>
+    
+    <h2 class="hasAnchor" id="with-unordered-list"><a class="anchor" href="#with-unordered-list"></a>with unordered_list</h2>
+
+    
+    <p>When value is a unordered_list object, each value will be
 added as a paragraph.</p>
     
     <h2 class="hasAnchor" id="with-data-frame"><a class="anchor" href="#with-data-frame"></a>with data.frame</h2>
@@ -192,6 +223,12 @@ for more advanced formattings.</p>
 is produced and added, use package <code>rvg</code>
 instead for more advanced graphical features.</p>
     
+    <h2 class="hasAnchor" id="with-a-external-img-object"><a class="anchor" href="#with-a-external-img-object"></a>with a external_img object</h2>
+
+    
+    <p>When value is a external_img object, image will be copied
+into the PowerPoint presentation.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
@@ -203,10 +240,16 @@ instead for more advanced graphical features.</p>
 
 <span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span>,
   <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Un titre"</span>, <span class='st'>"Deux titre"</span>),
+               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_left.html'>ph_location_left</a></span>() )
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>3</span>:<span class='fl'>5</span>],
+               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() )
 
 <span class='kw'>if</span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2"</span>) ){
+  <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+    <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
   <span class='no'>gg_plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span> ) +
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='no'>Petal.Length</span>),
       <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>) +
@@ -215,12 +258,23 @@ instead for more advanced graphical features.</p>
                  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
 }
 
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Un titre"</span>, <span class='st'>"Deux titre"</span>),
-               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_left.html'>ph_location_left</a></span>() )
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>3</span>:<span class='fl'>5</span>],
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+  <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='no'>img.file</span>, <span class='fl'>100</span>/<span class='fl'>72</span>, <span class='fl'>76</span>/<span class='fl'>72</span>),
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() )
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpCZRqgK/file253b5bb95dac.pptx"</div></pre>
+<span class='co'># unordered_list ----</span>
+<span class='no'>ul</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='unordered_list.html'>unordered_list</a></span>(
+  <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
+  <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ul</span>,
+               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c3d863f86.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -229,11 +283,17 @@ instead for more advanced graphical features.</p>
       
       <li><a href="#with-character">with character</a></li>
 
+      <li><a href="#with-vector">with vector</a></li>
+
       <li><a href="#with-block-list">with block_list</a></li>
+
+      <li><a href="#with-unordered-list">with unordered_list</a></li>
 
       <li><a href="#with-data-frame">with data.frame</a></li>
 
       <li><a href="#with-a-ggplot-object">with a ggplot object</a></li>
+
+      <li><a href="#with-a-external-img-object">with a external_img object</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
@@ -246,7 +306,7 @@ instead for more advanced graphical features.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
