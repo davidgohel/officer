@@ -1,6 +1,5 @@
 #' @export
-#' @importFrom utils compareVersion packageVersion
-#' @import zip
+#' @importFrom zip zip
 #' @title compress a folder
 #' @description compress a folder to a target file. The
 #' function returns the complete path to target file.
@@ -26,18 +25,6 @@ pack_folder <- function( folder, target ){
       stop(shQuote(target), " cannot be written, please check your permissions.", call. = FALSE)
   }
 
-  if( compareVersion(as.character(packageVersion("zip")), "1.0.0") > 0 ){
-    ## replacement when zip will be greater than 1.0.0
-    # zip::zipr(zipfile = target,
-    #           files = list.files(path = folder, all.files = FALSE, full.names = TRUE),
-    #           recurse = TRUE)
-    call_ <- call("zipr", zipfile = target,
-                  files = list.files(path = folder, all.files = FALSE, full.names = TRUE),
-                  recurse = TRUE)
-    eval(call_)
-    return(target)
-  }
-
   curr_wd <- getwd()
   setwd(folder)
   if( .Platform$OS.type %in% "windows")
@@ -56,7 +43,7 @@ pack_folder <- function( folder, target ){
 }
 
 #' @export
-#' @importFrom utils unzip
+#' @importFrom zip unzip
 #' @title Extract files from a zip file
 #' @description Extract files from a zip file to a folder. The
 #' function returns the complete path to destination folder.
@@ -70,7 +57,7 @@ unpack_folder <- function( file, folder ){
 
   unlink(folder, recursive = TRUE, force = TRUE)
 
-  unzip( zipfile = file, exdir = folder )
+  zip::unzip( zipfile = file, exdir = folder )
 
   absolute_path(folder)
 }
