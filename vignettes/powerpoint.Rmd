@@ -10,6 +10,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
 dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
@@ -37,9 +40,8 @@ library(magrittr)
 </div>
 
 
-## Introduction
+## How to start
 
-![officer pptx functions](https://www.ardata.fr/img/illustrations/officer_pptx_functions.svg)
 
 Use the function `read_pptx()` to create an R object representing a PowerPoint 
 document. The initial PowerPoint file can be specified with the `path` argument. 
@@ -51,6 +53,13 @@ manipulated, i.e. delete a slide).
 ```{r}
 my_pres <- read_pptx() 
 ```
+
+The main functions are presented below: 
+
+![officer pptx functions](https://www.ardata.fr/img/illustrations/officer_pptx_functions.svg)
+
+> Note that `ph_with` is new and should replace `ph_with_*` and `ph_with_*_at`.
+
 
 ### Add a slide
 
@@ -66,9 +75,8 @@ my_pres <- my_pres %>%
 ```
 
 **Note that the `layout` and `master` values must match values from the initial document.** 
-Layout names and master layout names are not available in a tidy view within
+Layout names and master layout names are not easily *readable* within
 PowerPoint, but these can be read easily with the function `layout_summary()`.
-
 
 ```{r}
 layout_summary(my_pres)
@@ -89,45 +97,23 @@ layout) are defined within the initial document. There is no R function to
 modify these values - they must be defined in the initial document.
 
 
+### Add content in a slide
 
-### Add text content into a placeholder
-
-Use the function `ph_with_text()` to add text into a new shape. The type of the 
-shape is defined in the slide layout associated with the current slide. For 
-example, using `type = "title"` will create a title shape in the current slide.
+Use the function `ph_with()` to add content into a new shape. The location of the 
+shape is defined with argument `location` with a call to one of the `ph_location*`functions. 
 
 
 ```{r}
 my_pres <- my_pres %>% 
-  ph_with_text(type = "title", str = "A title") %>%
-  ph_with_text(type = "ftr", str = "A footer") %>%
-  ph_with_text(type = "dt", str = format(Sys.Date())) %>%
-  ph_with_text(type = "sldNum", str = "slide 1") %>%
-  ph_with_text(str = "Hello world", type = "body")
+  ph_with(value = "Hello world", location = ph_location_type(type = "title")) %>%
+  ph_with(value = "A footer", location = ph_location_type(type = "ftr")) %>%
+  ph_with(value = format(Sys.Date()), location = ph_location_type(type = "dt")) %>%
+  ph_with(value = "slide 1", location = ph_location_type(type = "sldNum")) %>%
+  ph_with(value = mtcars, location = ph_location_type(type = "body")) 
 ```
 
-> The function `layout_properties` provides details about the available shapes 
-for a slide layout.
+There are several `ph_location*`functions: `ph_location_type()`, `ph_location_fullsize()`, `ph_location_label()`, `ph_location_left()`, `ph_location_right()` and `ph_location()`.
 
-You can use columns `type`, `id` but also `ph_label` to identify or recognize shapes.
-`ph_label` is the label that can be associated to a placeholder in a slide template. 
-`type` and `id` are often required to identify which placeholder should receive a content.
-
-```{r}
-layout_properties ( x = my_pres, layout = "Two Content", master = "Office Theme" ) %>% head()
-```
-
-#### generate an annotated file from base template
-
-The function `annotate_base()` can be used to generate a PowerPoint file from a template. The title of each slide will contain the `layout` and `master` names and each body element will have the `index` identified. This provides a visual method for linking slide elements to the relevant layout attributes. 
-
-```{r}
-annotate_base(output_file = "assets/pptx/annotated_layout.pptx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/annotated_layout.pptx" ) )
-```
 
 ### Write the PowerPoint file
 
@@ -144,8 +130,8 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Slide selection and manipulation
 
-There are 3 functions to let you manipulate slides: `add_slide()`, 
-`remove_slide()` and `on_slide()`.
+There are functions to let you manipulate slides: `add_slide()`, 
+`remove_slide()`, `move_slide()`  and `on_slide()`.
 
 A slide can be added with the `add_slide()` function.
 
@@ -171,130 +157,137 @@ my_pres <- my_pres %>% on_slide(index = 1)
 ```
 
 
-## Add content into a placeholder
+## Add content in a placeholder
 
-### Add text
+### the location
 
-Use the function `ph_with_text()` to add text into a new shape. The `type` 
-argument specifies which placeholder from the associated layout is to be added.
-`index` is to be used when a `type` is not unique in the slide layout.
+Use the function `ph_with()` to add an element into a new shape. The function is expecting 
+an argument `location` that will be used to specify the location of the new shape. This 
+location can be defined with a call to one of the `ph_location*`functions. 
 
-You may need to provide an index (default to 1). e.g. if your template has 2 body placeholder, you will need to specify that your content is to be positioned as the 2nd body of your layout (then use index 2). 
+The following example will add text "Hello world" in a new shape. That shape will 
+inherit its properties from the placeholder that has type `body`. This is defined 
+in the slide layout used by the slide, i.e. `Title and Content` in our example.
+
+```{r}
+doc <- read_pptx() %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") %>%
+  ph_with("Hello world", location = ph_location_type(type = "body") ) 
+
+print(doc, target = "assets/pptx/ph_with_location_type.pptx") 
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_location_type.pptx" ) )
+```
+
+The following example will print few rows of `iris` data.frame in a new shape. That shape will 
+inherit its properties from the placeholder that has label `Content Placeholder 2`. This is defined 
+in the slide layout used by the slide, i.e. `Title and Content` in our example. This is the 
+same location that is used in the previous example.
+
+```{r}
+mypres <- read_pptx() %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") 
+layout_properties ( x = mypres, layout = "Title and Content", master = "Office Theme" )
+ph_with(mypres, head(iris), 
+        location = ph_location_label(ph_label = "Content Placeholder 2") )
+
+print(mypres, target = "assets/pptx/ph_with_location_label.pptx") 
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_location_label.pptx" ) )
+```
+
+The following example will print two paragraphs of text in two new shapes, one representing the 
+left side and one representing the right side.
 
 
 ```{r}
 doc <- read_pptx() %>%
   add_slide(layout = "Two Content", master = "Office Theme") %>%
-  ph_with_text(type = "body", str = "A first text", index = 1) %>%
-  ph_with_text(type = "body", str = "A second text", index = 2) %>%
-  ph_with_text(type = "title", str = "A title") %>%
-  ph_with_text(type = "ftr", str = "Slide footer") %>%
-  ph_with_text(type = "dt", str = format(Sys.Date()))
+  ph_with(value = "A first text", location = ph_location_left()) %>%
+  ph_with(value = "A second text", location = ph_location_right()) 
 
-print(doc, target = "assets/pptx/ph_with_text.pptx") 
+print(doc, target = "assets/pptx/ph_with_location_left_right.pptx") 
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_text.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_location_left_right.pptx" ) )
 ```
 
-Again, use `layout_properties()` to see what placeholders are available in the 
-slide layout.
 
-### Add image
+### Supported contents
 
-Use the function `ph_with_img()` to add an image into a placeholder. As for all 
-`ph_with_*` functions, the `type` argument specifies the placeholder from the 
-associated layout to be added as a new shape (and `index` is to be used when a 
-`type` is not unique in the slide layout).
+The following types of content are supported: 
+
+* `data.frame`
+* `ggplot` objects
+* images, see wrapper function named `external_img()`
+* vectors (`character`, `numeric`, `factor`, `logical`)
+* multiple paragraphs, see wrapper function named `block_list()`
+* single paragraph, see wrapper function named `fpar()` (a `block_list` is 
+ made of `fpar` objects)
+* unordered lists, see wrapper function named `unordered_list()`
 
 ```{r}
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+doc <- read_pptx()
 
-doc <- read_pptx() 
-doc <- doc %>%
-  add_slide(layout = "Two Content", master = "Office Theme") %>%
-  ph_with_text(type = "body", str = "body (index 1) is text", index = 1) %>% 
-  ph_with_img(type = "body", index = 2, src = img.file, height = 1.06, width = 1.39 )
+# add a "Two Content" slide and then content ----
+doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
+doc <- ph_with(x = doc, value = pi, location = ph_location_type(type = "title") )
+doc <- ph_with(x = doc, value = as.factor(letters[1:2]), location = ph_location_type(type = "ftr") )
+doc <- ph_with(x = doc, value = c("Un titre", "Deux titre"), location = ph_location_left() )
+doc <- ph_with(x = doc, value = iris[1:4, 3:5], location = ph_location_right() )
 
-print(doc, target = "assets/pptx/ph_with_img.pptx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_img.pptx" ) )
-```
-
-To add an image into a new shape at arbitrary coordinates, use the function 
-`ph_with_img_at()`. The arguments `left` and `top` specify the top left 
-coordinate of the new shape and the `width` and `height` arguments specify the 
-dimensions of the new shape.
-
-### Add ggplot
-
-Use function `ph_with_gg()` to add a ggplot object as an image into a placeholder. 
-As for all `ph_with_*` functions, argument `type` specifies the placeholder of 
-the associated layout to be added as a new shape (`index` is to be used when 
-an `type` is not unique in the slide layout).
-
-```{r}
+# add a "Title and Content" slide and then a ggplot object ----
 if( require("ggplot2") ){
-  doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content",
-    master = "Office Theme")
-
+                   master = "Office Theme")
   gg_plot <- ggplot(data = iris ) +
-    geom_point(mapping = aes(Sepal.Length, Petal.Length), size = 3) +
-    theme_minimal()
-
-  if( capabilities(what = "png") )
-    doc <- ph_with_gg(doc, value = gg_plot )
-
-  print(doc, target = "assets/pptx/ph_with_gg.pptx" ) 
+    geom_point(mapping = aes(Sepal.Length, Petal.Length),
+               size = 3) + theme_minimal()
+  doc <- ph_with(x = doc, value = gg_plot, location = ph_location_fullsize() )
 }
+
+# add an image ----
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+doc <- ph_with(x = doc, external_img(img.file, 100/72, 76/72), 
+  location = ph_location_type(type = "body") )
+
+# add an unordered_list at a specific location ----
+ul <- unordered_list(
+  level_list = c(1, 2, 2, 3, 3, 1),
+  str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
+  style = fp_text(color = "red", font.size = 0) )
+
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with(x = doc, value = ul, 
+               location = ph_location_type(type = "body") )
+
+# add an block_list at a specific location ----
+bl <- block_list(
+  fpar(ftext("hello world", fp_text(bold = TRUE))),
+  fpar(
+    ftext("hello", fp_text(bold = TRUE, font.size = 30)),
+    ftext(" world", prop = fp_text(color = "red", font.size = 30) )
+  )
+)
+
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with(x = doc, value = bl, 
+               location = ph_location(label = "my_name",
+                 left = 2, top = 3, width = 4, height = 4, 
+                 bg = "wheat", rotation = 90) 
+       )
+
+print(doc, target = "assets/pptx/ph_with_demo.pptx")
 ```
 
 ```{r echo=FALSE}
-if( file.exists("assets/pptx/ph_with_gg.pptx"))
-  office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
-                                 "assets/pptx/ph_with_gg.pptx" ) )
-```
-
-To add a ggplot object into a new shape at arbitrary coordinates, use function `ph_with_gg_at`. 
-Arguments `left` and `top` are specifying the top left coordinate of the new shape 
-and arguments `width` and `height` are specifying the dimensions of the new shape.
-
-### Add table
-
-Use the function `ph_with_table()` to add a table into a placeholder.
-
-```{r}
-doc <- read_pptx() 
-doc <- doc %>%
-  add_slide(layout = "Title and Content", master = "Office Theme") %>%
-  ph_with_table(type = "body", value = head(mtcars) )
-
-print(doc, target = "assets/pptx/ph_with_table.pptx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_table.pptx" ) )
-```
-
-To add a table into a new shape at arbitrary coordinates, use the 
-function `ph_with_table_at()`. 
-
-```{r}
-doc <- read_pptx() 
-doc <- doc %>%
-  add_slide(layout = "Title and Content", master = "Office Theme") %>%
-  ph_with_table_at(value = head(mtcars), left = 1, top = 3, 
-                 height = 7, width = 7 )
-
-print(doc, target = "assets/pptx/ph_with_table_at.pptx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_table_at.pptx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/pptx/ph_with_demo.pptx" ) )
 ```
 
 
@@ -310,22 +303,21 @@ In the following example, the shape corresponding to `type "body"` will be
 removed from the current slide:
 
 ```{r}
-doc <- ph_remove(x = doc, type = "body")
+doc <- ph_remove(x = doc, ph_label = "my_name")
 ```
 
 ## Append text sequentially in a shape
 
 ### Add to an empty new placeholder
 
-`ph_empty()` (and `ph_empty_at`) will add a new empty placeholder in the current 
-slide. When using `ph_with_text()`, added text automatically inherits from the 
-layout placeholder, whereas `ph_empty()` allows for more control of the format 
-of added text and paragraphs.
+`ph_empty()` will add a new empty placeholder in the current 
+slide. 
 
 ```{r}
 my_pres <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_empty(type = "body")
+  ph_empty(location = ph_location_right())
+slide_summary(my_pres)
 ```
 
 As there is no paragraph in the new shape yet, the function `ph_add_par()` will 
@@ -333,14 +325,14 @@ be used to add a new paragraph. Then `ph_add_text()` will be used to add text
 into that new paragraph.
 
 ```{r}
-text_prop <- fp_text(color = "red", font.size = 20)
+text_prop <- fp_text(color = "red", font.size = 40)
 my_pres <- my_pres %>% 
-  ph_add_par() %>%
-  ph_add_text(str = "This is a red text!", style = text_prop ) %>% 
-  ph_add_par(level = 2) %>%
-  ph_add_text(str = "Level 2") %>% 
-  ph_add_par(level = 3) %>%
-  ph_add_text(str = "Level 3")
+  ph_add_par(ph_label = "Content Placeholder 3") %>%
+  ph_add_text(str = "This is a red text!", style = text_prop, ph_label = "Content Placeholder 3") %>% 
+  ph_add_par(level = 2, ph_label = "Content Placeholder 3") %>%
+  ph_add_text(str = "Level 2", ph_label = "Content Placeholder 3") %>% 
+  ph_add_par(level = 3, ph_label = "Content Placeholder 3") %>%
+  ph_add_text(str = "Level 3", ph_label = "Content Placeholder 3")
 
 print(my_pres, target = "assets/pptx/ph_add_text_1.pptx")
 ```
@@ -357,7 +349,8 @@ containing the text "A first text".
 ```{r}
 my_pres <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_text(type = "body", str = "A first text")
+  ph_with(value = "A first text", location = ph_location_type(type = "body"))
+slide_summary(my_pres)
 ```
 
 Since there is now a paragraph in the new shape, `ph_add_par()` will be used to 
@@ -367,10 +360,10 @@ the last paragraph of the shape.
 ```{r}
 text_blue_prop <- update(text_prop, color = "blue" )
 my_pres <- my_pres %>% 
-  ph_add_text(str = "A small red text!", style = text_prop ) %>% 
-  ph_add_text(str = "Blue text first... ", pos = "before", style = text_blue_prop ) %>% 
-  ph_add_par(level = 2) %>%
-  ph_add_text(str = "additional paragraph")
+  ph_add_text(str = "A small red text!", style = text_prop, ph_label = "Content Placeholder 2" ) %>% 
+  ph_add_text(str = "Blue text first... ", pos = "before", style = text_blue_prop, ph_label = "Content Placeholder 2" ) %>% 
+  ph_add_par(level = 2, ph_label = "Content Placeholder 2") %>%
+  ph_add_text(str = "additional paragraph", ph_label = "Content Placeholder 2")
 
 print(my_pres, target = "assets/pptx/ph_add_text_2.pptx") 
 ```
