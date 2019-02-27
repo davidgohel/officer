@@ -38,8 +38,8 @@ reference:
     - slip_in_footnote
   - title: Replace content in Word documents
     contents:
-    - ends_with("_replace_at")
-    - ends_with("_replace_all_text")
+    - ends_with("at_bkm")
+    - ends_with("all_text")
   - title: Remove content from Word documents
     contents:
     - body_remove

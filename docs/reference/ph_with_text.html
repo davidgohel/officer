@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -134,26 +134,24 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>placeholder type</p></td>
+      <td><p>placeholder type (i.e. 'body', 'title')</p></td>
     </tr>
     <tr>
       <th>index</th>
       <td><p>placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body', the first
-one will be added with index 1 and the second one with index 2.</p></td>
+one will be added with index 1 and the second one with index 2.
+It is recommanded to use argument <code>location</code> instead of <code>type</code> and
+<code>index</code>.</p></td>
     </tr>
     <tr>
       <th>location</th>
       <td><p>a placeholder location object. This is a convenient
 argument that can replace usage of arguments <code>type</code> and <code>index</code>.
-See section <code>see also</code>.</p></td>
+See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
+<a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a>.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
-<a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -169,15 +167,13 @@ See section <code>see also</code>.</p></td>
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_text</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"subTitle"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un sous titre"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_text</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ctrTitle"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre"</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpCZRqgK/file253b20f5cbaf.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c2cf07b98.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -187,7 +183,7 @@ See section <code>see also</code>.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

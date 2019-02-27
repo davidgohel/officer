@@ -65,7 +65,7 @@ and ph_with methods." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@ and <code>ph_with</code> methods.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_location</span>(<span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='no'>...</span>)</pre>
+  <span class='kw'>ph</span> <span class='kw'>=</span> <span class='st'>"&lt;p:ph/&gt;"</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,6 +137,20 @@ in inches.</p></td>
     <tr>
       <th>label</th>
       <td><p>a label for the placeholder. See section details.</p></td>
+    </tr>
+    <tr>
+      <th>ph</th>
+      <td><p>openxml string value for tag. This is not meant to be used
+by end users (unless they understand openxml placeholder and
+<code>p:ph</code> tag).</p></td>
+    </tr>
+    <tr>
+      <th>bg</th>
+      <td><p>background color</p></td>
+    </tr>
+    <tr>
+      <th>rotation</th>
+      <td><p>rotation angle</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -155,7 +169,7 @@ the width and the height. These are defined in inches:</p>
 <dt>width</dt><dd><p>width of the bounding box</p></dd>
 <dt>height</dt><dd><p>height of the bounding box</p></dd>
 </dl>
-    <p>In addition to these attributes, there is also an attribute <code>ph_label</code>
+    <p>In addition to these attributes, there is attribute <code>ph_label</code>
 associated with the shape (shapes, text boxes, images and other objects
 will be identified with that label in the Selection Pane of PowerPoint).
 This label can then be reused by other functions such as <code>ph_add_fpar</code>,
@@ -176,7 +190,7 @@ or <code>ph_add_text</code>.</p>
   <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"Hello world"</span>,
     <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"hello"</span>) ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpCZRqgK/file253b2d48892e.pptx"</div></pre>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c40efa8e8.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -196,7 +210,7 @@ or <code>ph_add_text</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

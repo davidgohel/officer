@@ -19,6 +19,9 @@
 .tabwid thead {
     background-color: transparent;
 }
+.tabwid tfoot {
+    background-color: transparent;
+}
 .tabwid table tr {
 background-color: transparent;
 }

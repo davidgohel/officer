@@ -65,7 +65,7 @@ a hierarchy level." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -135,13 +135,15 @@ a hierarchy level.</p>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>placeholder type</p></td>
+      <td><p>placeholder type (i.e. 'body', 'title')</p></td>
     </tr>
     <tr>
       <th>index</th>
       <td><p>placeholder index (integer). This is to be used when a placeholder type
 is not unique in the current slide, e.g. two placeholders with type 'body', the first
-one will be added with index 1 and the second one with index 2.</p></td>
+one will be added with index 1 and the second one with index 2.
+It is recommanded to use argument <code>location</code> instead of <code>type</code> and
+<code>index</code>.</p></td>
     </tr>
     <tr>
       <th>str_list</th>
@@ -161,7 +163,8 @@ inherit from default sizes of the presentation.</p></td>
       <th>location</th>
       <td><p>a placeholder location object. This is a convenient
 argument that can replace usage of arguments <code>type</code> and <code>index</code>.
-See section <code>see also</code>.</p></td>
+See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
+<a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a>.</p></td>
     </tr>
     </table>
     
@@ -172,11 +175,11 @@ See section <code>see also</code>.</p></td>
 <span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
 <span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Example title"</span>)
 <span class='no'>pptx</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_ul</span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>pptx</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>),
   <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
   <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
   <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pptx</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpCZRqgK/file253b3c56e196.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pptx</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c4b8bd196.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -192,7 +195,7 @@ See section <code>see also</code>.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3.8 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

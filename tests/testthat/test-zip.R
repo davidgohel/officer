@@ -23,10 +23,10 @@ test_that("pack_folder behavior", {
   expect_error(pack_folder(dir_, target = "dummy_dir/test.zip"))
 })
 
-test_that("test filename with accent", {
-  skip_on_os("mac")
-  pp <- read_pptx()
-  fn <- "filenameäüöß.pptx"
-  print(pp, file.path(tempdir(), fn))
-  testthat::expect_true("filenameäüöß.pptx" %in% list.files(tempdir(), pattern="^filename.*\\.pptx$"))
-})
+# test_that("test filename with accent", {
+#   skip_on_os("mac")
+#   pp <- read_pptx()
+#   fn <- "filenameäüöß.pptx"
+#   print(pp, file.path(tempdir(), fn))
+#   testthat::expect_true("filenameäüöß.pptx" %in% list.files(tempdir(), pattern="^filename.*\\.pptx$"))
+# })
