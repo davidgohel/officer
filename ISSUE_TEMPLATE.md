@@ -22,5 +22,7 @@ Any suggestions to make the documentation better is really appriciated.
 
 ### If you are asking a question
 
-Don't, this is not the place where to put questions. If you are looking for help on how to use the package correctly, please visit Stackoverflow and tag your question with `[r]` and `[package_name]`. I usually read them and answer when possible.
+This is not the best place where to put questions. If you are looking for help on how to use 
+the package correctly, please visit Stackoverflow and tag your question with `[r]` 
+and `[package_name]`. I usually read them and answer when possible.
 

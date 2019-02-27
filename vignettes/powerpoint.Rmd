@@ -383,10 +383,8 @@ slide. The argument `href` should contain a valid URL (i.e. starting with
 ```{r}
 doc <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_text(type = "body", str = "Blah blah blah") %>% 
-  ph_hyperlink(type = "body", href = "https://cran.r-project.org") %>% 
-  add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_text(type = "body", str = "placeholder target")
+  ph_with("Blah blah blah", location = ph_location_type(type = "body")) %>% 
+  ph_hyperlink(ph_label = "Content Placeholder 2", href = "https://cran.r-project.org") 
 
 print(doc, target = "assets/pptx/ph_hyperlink.pptx")
 ```
@@ -404,11 +402,11 @@ argument `slide_index` should contain the index of the target slide.
 ```{r}
 doc <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_text(type = "body", str = "Blah blah blah") %>% 
+  ph_with("Blah blah blah", location = ph_location_type(type = "body")) %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_text(type = "body", str = "placeholder target") %>% 
+  ph_with("placeholder target", location = ph_location_type(type = "title")) %>% 
   on_slide(index = 1 ) %>% 
-  ph_slidelink(type = "body", slide_index = 2)
+  ph_slidelink(ph_label = "Content Placeholder 2", slide_index = 2)
 
 print(doc, target = "assets/pptx/ph_slidelink.pptx")
 ```
@@ -426,8 +424,9 @@ the link will point to another slide in the document.
 ```{r}
 my_pres <- read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_text(type = "body", str = "An ") %>% 
-  ph_add_text(str = "hyperlink", href = "https://cran.r-project.org" )
+  ph_with(value = "An ", location = ph_location_type(type = "body")) %>% 
+  ph_add_text(str = "hyperlink", href = "https://cran.r-project.org", 
+              ph_label = "Content Placeholder 2", )
 
 print(my_pres, target = "assets/pptx/ph_add_text_3.pptx")
 ```
