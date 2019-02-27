@@ -13,7 +13,7 @@
 #' level_list = c(1, 2, 2, 3, 3, 1),
 #' str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
 #' style = fp_text(color = "red", font.size = 0) )
-#' @seealso \code{\link{ph_with.unordered_list}}
+#' @seealso \code{\link{ph_with}}
 unordered_list <- function(str_list = character(0), level_list = integer(0), style = NULL){
   stopifnot(is.character(str_list))
   stopifnot(is.numeric(level_list))

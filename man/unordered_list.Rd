@@ -28,5 +28,5 @@ str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
 style = fp_text(color = "red", font.size = 0) )
 }
 \seealso{
-\code{\link{ph_with.unordered_list}}
+\code{\link{ph_with}}
 }

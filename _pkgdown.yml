@@ -50,7 +50,6 @@ reference:
     - annotate_base
     - add_slide
     - on_slide
-    - starts_with("ph_location")
     - layout_summary
     - layout_properties
     - slide_summary
@@ -59,22 +58,13 @@ reference:
   - title: Add content to PowerPoint documents
     contents:
     - ph_with
-    - ph_with_img
-    - ph_with_img_at
-    - ph_with_gg
-    - ph_with_gg_at
-    - ph_with_table
-    - ph_with_table_at
-    - ph_with_text
-    - ph_with_ul
-    - ph_with_fpars_at
+    - starts_with("ph_location")
     - ph_empty
     - ph_add_text
     - ph_add_par
     - ph_add_fpar
     - ph_slidelink
     - ph_hyperlink
-    - ph_empty_at
   - title: Remove content from PowerPoint documents
     contents:
     - remove_slide
