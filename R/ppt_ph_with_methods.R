@@ -109,6 +109,61 @@ ph_with.character <- function(x, value, location, ...){
 }
 
 #' @export
+#' @param format_fun format function for non character vectors
+#' @section with vector:
+#' When value is a vector, the values will be first formatted and
+#' then add as text, each value will be added as a paragraph.
+#' @rdname ph_with
+ph_with.numeric <- function(x, value, location, format_fun = format, ...){
+  slide <- x$slide$get_slide(x$cursor)
+  value <- format_fun(value, ...)
+  location <- loc_call(rlang::enquo(location), x)
+
+  new_ph <- ph(left = location$left, top = location$top,
+               width = location$width, height = location$height,
+               label = location$ph_label, ph = location$ph,
+               rot = location$rotation, bg = location$bg)
+
+  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscape(value), "</a:t></a:r></a:p>", collapse = "")
+  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                     pars, "</p:txBody></p:sp>" )
+  node <- as_xml_document(xml_elt)
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+
+  slide$fortify_id()
+  x
+}
+
+#' @export
+#' @rdname ph_with
+ph_with.factor <- function(x, value, location, ...){
+  slide <- x$slide$get_slide(x$cursor)
+  value <- as.character(value)
+  location <- loc_call(rlang::enquo(location), x)
+
+  new_ph <- ph(left = location$left, top = location$top,
+               width = location$width, height = location$height,
+               label = location$ph_label, ph = location$ph,
+               rot = location$rotation, bg = location$bg)
+
+  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscape(value), "</a:t></a:r></a:p>", collapse = "")
+  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                     pars, "</p:txBody></p:sp>" )
+  node <- as_xml_document(xml_elt)
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+
+  slide$fortify_id()
+  x
+}
+#' @export
+#' @rdname ph_with
+ph_with.logical <- ph_with.numeric
+
+#' @export
 #' @section with block_list:
 #' When value is a block_list object, each value will be
 #' added as a paragraph.

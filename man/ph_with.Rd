@@ -3,6 +3,9 @@
 \name{ph_with}
 \alias{ph_with}
 \alias{ph_with.character}
+\alias{ph_with.numeric}
+\alias{ph_with.factor}
+\alias{ph_with.logical}
 \alias{ph_with.block_list}
 \alias{ph_with.unordered_list}
 \alias{ph_with.data.frame}
@@ -13,6 +16,12 @@
 ph_with(x, value, ...)
 
 \method{ph_with}{character}(x, value, location, ...)
+
+\method{ph_with}{numeric}(x, value, location, format_fun = format, ...)
+
+\method{ph_with}{factor}(x, value, location, ...)
+
+\method{ph_with}{logical}(x, value, location, format_fun = format, ...)
 
 \method{ph_with}{block_list}(x, value, location, ...)
 
@@ -37,6 +46,8 @@ ph_with(x, value, ...)
 argument that can replace usage of arguments \code{type} and \code{index}.
 See section \code{see also}.}
 
+\item{format_fun}{format function for non character vectors}
+
 \item{header}{display header if TRUE}
 
 \item{first_row, last_row, first_column, last_column}{logical for PowerPoint table options}
@@ -48,6 +59,12 @@ add object into a new shape in a slide.
 
 When value is a character vector, each value will be
 added as a paragraph.
+}
+
+\section{with vector}{
+
+When value is a vector, the values will be first formatted and
+then add as text, each value will be added as a paragraph.
 }
 
 \section{with block_list}{
