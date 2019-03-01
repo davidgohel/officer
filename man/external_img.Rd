@@ -29,7 +29,7 @@ external_img(src, width = 0.5, height = 0.2)
 \item{type}{output format}
 }
 \description{
-This function is used to insert images into flextable with function \code{display}
+This function is used to insert images
 }
 \examples{
 # external_img("example.png")

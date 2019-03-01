@@ -49,7 +49,7 @@ print.ftext = function (x, ...){
 
 #' @export
 #' @title external image
-#' @description This function is used to insert images into flextable with function \code{display}
+#' @description This function is used to insert images
 #' @param src image file path
 #' @param width height in inches
 #' @param height height in inches
@@ -84,15 +84,13 @@ as.data.frame.external_img <- function( x, ... ){
 #' @export
 #' @rdname external_img
 format.external_img = function (x, type = "console", ...){
-  # r <- as.raster(c(0.5, 1, 0.5))
-  # plot(r)
   stopifnot( length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html", "console") )
   dims <- dim(x)
   if( type == "pml" ){
-    out <- pml_run_pic(as.character(x), width = dims$width*72, height = dims$height*72)
+    out <- pml_image(as.character(x), width = dims$width, height = dims$height)
   } else if( type == "wml" ){
-    out <- wml_run_pic(as.character(x), width = dims$width*72, height = dims$height*72)
+    out <- wml_image(src=as.character(x), width = dims$width, height = dims$height)
   } else if( type == "html" ){
     out <- sprintf("<img src=\"%s\" width=\"%.0f\" height=\"%.0f\"/>",
                    dataURI(file = as.character(x), mime="image/png"),

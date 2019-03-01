@@ -240,32 +240,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// wml_run_pic
-std::string wml_run_pic(std::string src, double width, double height);
-RcppExport SEXP _officer_wml_run_pic(SEXP srcSEXP, SEXP widthSEXP, SEXP heightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type src(srcSEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    rcpp_result_gen = Rcpp::wrap(wml_run_pic(src, width, height));
-    return rcpp_result_gen;
-END_RCPP
-}
-// pml_run_pic
-std::string pml_run_pic(std::string src, double width, double height);
-RcppExport SEXP _officer_pml_run_pic(SEXP srcSEXP, SEXP widthSEXP, SEXP heightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type src(srcSEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    rcpp_result_gen = Rcpp::wrap(pml_run_pic(src, width, height));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_officer_pml_table", (DL_FUNC) &_officer_pml_table, 9},
@@ -280,8 +254,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_officer_w_tcpr", (DL_FUNC) &_officer_w_tcpr, 16},
     {"_officer_a_tcpr", (DL_FUNC) &_officer_a_tcpr, 16},
     {"_officer_css_tcpr", (DL_FUNC) &_officer_css_tcpr, 16},
-    {"_officer_wml_run_pic", (DL_FUNC) &_officer_wml_run_pic, 3},
-    {"_officer_pml_run_pic", (DL_FUNC) &_officer_pml_run_pic, 3},
     {NULL, NULL, 0}
 };
 

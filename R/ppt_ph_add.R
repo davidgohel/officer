@@ -60,7 +60,10 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL, ph_label = NULL,
   current_p <- xml_child(current_elt, "/a:p[last()]")
   if( inherits(current_p, "xml_missing") )
     stop("Could not find any paragraph in the selected shape.")
-  r_shape_ <- pml_run_str(str = str, style = style )
+
+  r_shape_ <- sprintf(paste0( pml_with_ns("a:r"), "%s<a:t>%s</a:t></a:r>" ),
+          format(style, type = "pml"),
+          htmlEscape(str))
 
   if( pos == "after" )
     where_ <- length(xml_children(current_p))

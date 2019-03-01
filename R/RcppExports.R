@@ -49,11 +49,3 @@ css_tcpr <- function(vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_
     .Call(`_officer_css_tcpr`, vertical_align, text_direction, mb, mt, ml, mr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
-wml_run_pic <- function(src, width, height) {
-    .Call(`_officer_wml_run_pic`, src, width, height)
-}
-
-pml_run_pic <- function(src, width, height) {
-    .Call(`_officer_pml_run_pic`, src, width, height)
-}
-
