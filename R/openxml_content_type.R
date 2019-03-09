@@ -59,6 +59,7 @@ content_type <- R6Class(
       self$add_ext(extension = "png", type = "image/png")
       self$add_ext(extension = "bmp", type = "image/bmp")
       self$add_ext(extension = "emf", type = "image/x-emf")
+      self$add_ext(extension = "wmf", type = "image/x-wmf")
       self$add_ext(extension = "tiff", type = "image/tiff")
       self$add_ext(extension = "jpg", type = "application/octet-stream")
       attribs <- attr_chunk(c(xmlns = "http://schemas.openxmlformats.org/package/2006/content-types"))
