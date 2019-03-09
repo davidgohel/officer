@@ -25,7 +25,7 @@ fp_text <- function( color = "black", font.size = 10,
 
   out <- list()
 
-  out <- check_set_integer( obj = out, font.size)
+  out <- check_set_numeric( obj = out, font.size)
   out <- check_set_bool( obj = out, bold)
   out <- check_set_bool( obj = out, italic)
   out <- check_set_bool( obj = out, underlined)
@@ -104,7 +104,7 @@ update.fp_text <- function(object, color, font.size,
                            font.family, vertical.align, shading.color, ...) {
 
   if( !missing( font.size ) )
-    object <- check_set_integer( obj = object, font.size)
+    object <- check_set_numeric( obj = object, font.size)
   if( !missing( bold) )
     object <- check_set_bool( obj = object, bold)
   if( !missing( italic) )
