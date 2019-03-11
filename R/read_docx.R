@@ -169,10 +169,10 @@ print.rdocx <- function(x, target = NULL, ...){
 #' # how many elements are there in the document ----
 #' length( read_docx() )
 #'
-#' @importFrom xml2 read_xml xml_length xml_find_first
+#' @importFrom xml2 read_xml xml_length xml_find_first xml_child
 #' @rdname read_docx
 length.rdocx <- function( x ){
-  xml_length( xml_find_first(x$doc_obj$get(), "/w:document/w:body") )
+  length(xml_child(x$doc_obj$get(), "w:body"))
 }
 
 #' @export
