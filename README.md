@@ -10,7 +10,7 @@ contents, styles and properties of the original document will then be
 available.
 
 *This package is close to ReporteRs as it produces Word and PowerPoint
-files but it is faster, do not require `rJava` and is easier to
+files but it is faster, does not require `rJava` and is easier to
 maintain.*
 
 <img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
@@ -29,7 +29,7 @@ status](https://ci.appveyor.com/api/projects/status/github/davidgohel/officer?br
 ## Word documents
 
 The `read_docx()` function will read an initial Word document (an empty
-one by default) and let you modify its content later.
+one by default) and lets you modify its content later.
 
 The package provides functions to add R outputs into a Word document:
 
