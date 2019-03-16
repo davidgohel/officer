@@ -127,10 +127,10 @@ The help pages are located at <https://davidgohel.github.io/officer/>.
 
 This project is developed and maintained on my own time. In order to
 help me to maintain the package, do not send me private emails if you
-only have questions about how to use the package. Instead, visit
-Stackoverflow, `officer` has its own tag [Stackoverflow
-link](http://stackoverflow.com/questions/tagged/officer)\! I usually
-read them and answer when possible.
+only have questions about how to use the package. Instead, [visit Stack
+Overflow’s `officer`
+tag](http://stackoverflow.com/questions/tagged/officer) and post your
+question there. I usually read them and answer when possible.
 
 ## Contributing to the package
 
