@@ -30,12 +30,16 @@ pack_folder <- function( folder, target ){
   if( .Platform$OS.type %in% "windows")
     target <- enc2native(target)
   tryCatch(
-    zip::zip(zipfile = target,
+      zip::zip(zipfile = target,
         files = list.files(all.files = TRUE, recursive = TRUE))
     , error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
-    }
-    , finally = {
+    },
+    deprecated = function(e) {
+      if( !grepl("zip::zipr", e))
+        warning(e)
+    },
+    finally = {
       setwd(curr_wd)
     })
 
