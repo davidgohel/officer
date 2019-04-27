@@ -51,8 +51,6 @@ pack_folder <- function( folder, target ){
 #' @title Extract files from a zip file
 #' @description Extract files from a zip file to a folder. The
 #' function returns the complete path to destination folder.
-#' @details
-#' The function is using \link[utils]{unzip}, it needs an unzip program.
 #' @param file path of the archive to unzip
 #' @param folder folder to create
 unpack_folder <- function( file, folder ){
