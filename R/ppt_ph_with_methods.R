@@ -303,15 +303,17 @@ ph_with.gg <- function(x, value, location, ...){
 #' @export
 #' @section with a external_img object:
 #' When value is a external_img object, image will be copied
-#' into the PowerPoint presentation.
+#' into the PowerPoint presentation. The width and height
+#' specified in call to \code{\link{external_img}} will be
+#' ignored, their values will be those of the location.
 #' @rdname ph_with
 ph_with.external_img <- function(x, value, location, ...){
   location <- loc_call(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
+  width <- location$width
+  height <- location$height
 
-  width <- attr(value, "dims")$width
-  height <- attr(value, "dims")$height
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)) )
   file.copy( as.character(value), to = new_src )
   ext_img <- external_img(new_src, width = width, height = height)

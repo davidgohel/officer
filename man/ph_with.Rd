@@ -96,7 +96,9 @@ instead for more advanced graphical features.
 \section{with a external_img object}{
 
 When value is a external_img object, image will be copied
-into the PowerPoint presentation.
+into the PowerPoint presentation. The width and height
+specified in call to \code{\link{external_img}} will be
+ignored, their values will be those of the location.
 }
 
 \examples{

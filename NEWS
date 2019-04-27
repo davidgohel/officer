@@ -1,3 +1,9 @@
+# officer 0.3.4
+
+## Issues
+
+* fix `external_img` size issue with method `ph_with`.
+
 # officer 0.3.3
 
 ## Enhancement
