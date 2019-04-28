@@ -6,11 +6,6 @@ getncheck <- function(x, str){
   child_
 }
 
-# workaround to avoid weird error with new testthat version 2.1.1 ----
-x <- read_docx()
-print(x, target = tempfile(fileext = ".docx"))
-
-
 test_that("body_add_break", {
   x <- read_docx()
   x <- body_add_break(x)
