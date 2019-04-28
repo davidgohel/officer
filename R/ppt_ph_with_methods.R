@@ -57,17 +57,22 @@ ph_with <- function(x, value, ...){
 ph <- function( left = 0, top = 0, width = 3, height = 3,
                 bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
 
-  if( is.null(bg)) bg <- "transparent"
   if( is.null(rot)) rot <- 0
 
-  if( !is.color( bg ) )
+  if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></p:spPr>"
+  bg_str <- ""
+  if( !is.null(bg)){
+    bg_str <- sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
+            colcode0(bg), colalpha(bg) )
+  }
+
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr><a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>%s</p:spPr>"
   sprintf(str, label, ph, -rot * 60000,
           left * 914400, top * 914400,
           width * 914400, height * 914400,
-          colcode0(bg), colalpha(bg)
+          bg_str
   )
 }
 
