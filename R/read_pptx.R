@@ -33,7 +33,7 @@ read_pptx <- function( path = NULL ){
 
   obj$slide <- dir_slide$new( package_dir, obj$slideLayouts$get_xfrm_data() )
   obj$content_type <- content_type$new( package_dir )
-  obj$core_properties <- core_properties$new(package_dir)
+  obj$core_properties <- read_core_properties(package_dir)
 
   obj$cursor = obj$slide$length()
   class(obj) <- "rpptx"
@@ -77,9 +77,10 @@ print.rpptx <- function(x, target = NULL, ...){
   x$content_type$save()
 
   x$slide$save_slides()
-  x$core_properties$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
-  x$core_properties$set_modified_by(Sys.getenv("USER"))
-  x$core_properties$save()
+
+  x$core_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  x$core_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
+  write_core_properties(x$core_properties, x$package_dir)
 
   pack_folder(folder = x$package_dir, target = target )
 }

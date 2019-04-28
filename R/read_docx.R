@@ -24,7 +24,7 @@ read_docx <- function( path = NULL ){
                    .Names = c("package_dir"),
                    class = "rdocx")
 
-  obj$doc_properties <- core_properties$new(package_dir)
+  obj$doc_properties <- read_core_properties(package_dir)
   obj$content_type <- content_type$new( package_dir )
   obj$doc_obj <- docx_part$new(package_dir,
                                main_file = "document.xml",
@@ -105,34 +105,41 @@ print.rdocx <- function(x, target = NULL, ...){
   if( !grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE) )
     stop(target , " should have '.docx' extension.")
 
+  int_id <- 1 # unique id identifier
+
   # make all id unique for document
   all_uid <- xml_find_all(x$doc_obj$get(), "//*[@id]")
   for(z in seq_along(all_uid) ){
-    xml_attr(all_uid[[z]], "id") <- z
+    xml_attr(all_uid[[z]], "id") <- int_id
+    int_id <- int_id + 1
   }
   # make all id unique for footnote
   all_uid <- xml_find_all(x$footnotes$get(), "//*[@id]")
   for(z in seq_along(all_uid) ){
-    xml_attr(all_uid[[z]], "id") <- z
+    xml_attr(all_uid[[z]], "id") <- int_id
+    int_id <- int_id + 1
   }
   # make all id unique for headers
   for(docpart in x[["headers"]]){
     all_uid <- xml_find_all(docpart$get(), "//*[@id]")
     for(z in seq_along(all_uid) ){
-      xml_attr(all_uid[[z]], "id") <- z
+      xml_attr(all_uid[[z]], "id") <- int_id
+      int_id <- int_id + 1
     }
   }
   # make all id unique for footers
   for(docpart in x[["footers"]]){
     all_uid <- xml_find_all(docpart$get(), "//*[@id]")
     for(z in seq_along(all_uid) ){
-      xml_attr(all_uid[[z]], "id") <- z
+      xml_attr(all_uid[[z]], "id") <- int_id
+      int_id <- int_id + 1
     }
   }
 
   all_uid <- xml_find_all(x$footnotes$get(), "//*[@id]")
   for(z in seq_along(all_uid) ){
-    xml_attr(all_uid[[z]], "id") <- z
+    xml_attr(all_uid[[z]], "id") <- int_id
+    int_id <- int_id + 1
   }
 
   sections_ <- xml_find_all(x$doc_obj$get(), "//w:sectPr")
@@ -157,10 +164,9 @@ print.rdocx <- function(x, target = NULL, ...){
   x$footnotes$save()
 
   # save doc properties
-  x$doc_properties$set_last_modified(format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ"))
-  x$doc_properties$set_modified_by(Sys.getenv("USER"))
-  x$doc_properties$save()
-
+  x$doc_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  x$doc_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
+  write_core_properties(x$doc_properties, x$package_dir)
   pack_folder(folder = x$package_dir, target = target )
 }
 
@@ -190,7 +196,7 @@ styles_info <- function( x ){
 #' @export
 #' @title read document properties
 #' @description read Word or PowerPoint document properties
-#' and get results in a tidy data.frame.
+#' and get results in a data.frame.
 #' @param x an \code{rdocx} or \code{rpptx} object
 #' @examples
 #' library(magrittr)
@@ -201,7 +207,9 @@ doc_properties <- function( x ){
   else if( inherits(x, "rpptx")) cp <- x$core_properties
   else stop("x should be a rpptx or rdocx object.")
 
-  cp$get_data()
+  out <- data.frame(tag = cp[, 'name'], value = cp[, 'value'], stringsAsFactors = FALSE)
+  row.names(out) <- NULL
+  out
 }
 
 #' @export
@@ -228,11 +236,15 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
   else if( inherits(x, "rpptx")) cp <- x$core_properties
   else stop("x should be a rpptx or rdocx object.")
 
-  if( !is.null(title) ) cp$set_title(title)
-  if( !is.null(subject) ) cp$set_subject(subject)
-  if( !is.null(creator) ) cp$set_creator(creator)
-  if( !is.null(description) ) cp$set_description(description)
-  if( !is.null(created) ) cp$set_created(format( created, "%Y-%m-%dT%H:%M:%SZ"))
+  if( !is.null(title) ) cp['title','value'] <- title
+  if( !is.null(subject) ) cp['subject','value'] <- subject
+  if( !is.null(creator) ) cp['creator','value'] <- creator
+  if( !is.null(description) ) cp['description','value'] <- description
+  if( !is.null(created) ) cp['created','value'] <- format( created, "%Y-%m-%dT%H:%M:%SZ")
+
+  if( inherits(x, "rdocx"))
+    x$doc_properties <- cp
+  else x$core_properties <- cp
 
   x
 }

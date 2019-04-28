@@ -1,85 +1,49 @@
-core_properties <- R6Class(
-  "core_properties",
-  public = list(
+read_core_properties <- function( package_dir ){
+  filename <- file.path(package_dir, "docProps/core.xml")
+  if( !file.exists(filename) )
+    stop("could not find Word document properties",
+         ", please edit your document and make sure properties are existing.",
+         " This can be done by filling any field in the document properties panel.", call. = FALSE)
+  doc <- read_xml(filename)
+  ns_ <- xml_ns(doc)
 
-    initialize = function(package_dir) {
-      private$filename <- file.path(package_dir, "docProps/core.xml")
-      if( !file.exists(private$filename) )
-        stop("could not find Word document properties",
-             ", please edit your document and make sure properties are existing.",
-             " This can be done by filling any field in the document properties panel.", call. = FALSE)
-      private$doc <- read_xml(private$filename)
+  all_ <- xml_find_all(doc, "/cp:coreProperties/*")
 
-    },
-    get_data = function() {
-      all_ <- xml_find_all(private$doc, "/cp:coreProperties/*")
-      data.frame(stringsAsFactors = FALSE,
-        tag = xml_name(all_),
-        value = xml_text(all_)
-      )
-    },
-    set_title = function(value){
-      private$set_core_property( "title", "dc", value )
-      self
-    },
-    set_subject = function(value){
-      private$set_core_property( "subject", "dc", value )
-      self
-    },
-    set_creator = function(value){
-      private$set_core_property( "creator", "dc", value )
-      self
-    },
-    set_keywords = function(value){
-      private$set_core_property( "keywords", "cp", value )
-      self
-    },
-    set_description = function(value){
-      private$set_core_property( "description", "dc", value )
-      self
-    },
-    set_modified_by = function(value){
-      private$set_core_property( "lastModifiedBy", "cp", value )
-      self
-    },
-    set_last_modified = function(value){
-      private$set_core_property( "modified", "dcterms", value, c("xsi:type"="dcterms:W3CDTF") )
-      self
-    },
-    set_created = function(value){
-      private$set_core_property( "created", "dcterms", value, c("xsi:type"="dcterms:W3CDTF") )
-      self
-    },
-    save = function() {
-      write_xml(private$doc, file = private$filename)
-      self
-    }
-  ),
-  private = list(
-    filename = NULL,
-    doc = NULL,
+  names_ <- sapply(all_, xml_name, ns = ns_)
+  names_ <- strsplit(names_, ":")
 
-    set_core_property = function( tag, ns, value, attrs = NULL ) {
-      ns_list <- c(cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
-                   dc="http://purl.org/dc/elements/1.1/",
-                   dcterms="http://purl.org/dc/terms/",
-                   dcmitype="http://purl.org/dc/dcmitype/"
-                   )
-      stopifnot(ns %in% names(ns_list) )
-      if(is.null(attrs))
-        str <- sprintf("<%s:%s xmlns:%s=\"%s\">%s</%s:%s>", ns, tag, ns, ns_list[ns], value, ns, tag)
-      else
-        str <- sprintf("<%s:%s %s xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:%s=\"%s\">%s</%s:%s>", ns, tag,
-                       paste0(names(attrs), "=", shQuote(attrs, type = "cmd"), collapse = " "),
-                       ns, ns_list[ns], value, ns, tag)
-      obj <- as_xml_document(str)
-      node <- xml_find_first(private$doc, sprintf("/cp:coreProperties/%s:%s", ns, tag))
-      if( !inherits(node, "xml_missing"))
-        xml_replace(node, obj)
-      else
-        xml_add_child(xml_find_first(private$doc, "/cp:coreProperties"), obj)
-      self
-    }
+  # concat all attrs in single chars
+  attrs <- sapply( xml_attrs(all_), function(ns_) {
+    paste0('xsi:', names(ns_), '=\"', ns_, '\"', collapse = " ")
+  })
+  attrs <- ifelse(sapply( xml_attrs(all_), length )<1, "", paste0(" ", attrs))
+
+  propnames <- sapply(names_, function(x) x[2] )
+
+  props <- matrix(c(sapply(names_, function(x) x[1] ), propnames, attrs, xml_text(all_)), ncol = 4 )
+  colnames(props) <- c("ns", "name", "attrs", "value")
+  rownames(props) <- propnames
+  attr(props, "ns") <- unclass(ns_)
+  props
+}
+
+write_core_properties <- function(core_matrix, package_dir){
+  if(!is.matrix(core_matrix)){
+    stop("core_properties should be stored in a character matrix.")
+  }
+
+  ns_ <- attr(core_matrix, "ns")
+  ns_ <- paste0('xmlns:', names(ns_), '=\"', ns_, '\"', collapse = " ")
+  xml_ <- paste0('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', '\n',
+                 '<cp:coreProperties ', ns_, '>')
+  properties <- sprintf("<%s:%s%s>%s</%s:%s>",
+                        core_matrix[, "ns"], core_matrix[, "name"],
+                        core_matrix[, "attrs"],
+                        core_matrix[, "value"],
+                        core_matrix[, "ns"], core_matrix[, "name"]
   )
-)
-
+  xml_ <- paste0(xml_, paste0(properties, collapse = ""), "</cp:coreProperties>" )
+  filename <- file.path(package_dir, "docProps/core.xml")
+  writeLines(enc2utf8(xml_), filename, useBytes=T)
+  invisible()
+}

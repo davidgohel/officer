@@ -11,7 +11,7 @@ doc_properties(x)
 }
 \description{
 read Word or PowerPoint document properties
-and get results in a tidy data.frame.
+and get results in a data.frame.
 }
 \examples{
 library(magrittr)
