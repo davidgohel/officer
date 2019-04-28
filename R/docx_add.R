@@ -40,7 +40,20 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   if( is.null(style) )
     style <- x$default_styles$paragraph
 
-  new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src)
+
+  if( file_type %in% ".svg" ){
+    if (!requireNamespace("rsvg")){
+      stop("package 'rsvg' is required to convert svg file to rasters")
+    }
+
+    file <- tempfile(fileext = ".png")
+    rsvg::rsvg_png(src, file = file)
+    src <- file
+    file_type <- ".png"
+  }
+
+  new_src <- tempfile( fileext = file_type )
   file.copy( src, to = new_src )
 
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")

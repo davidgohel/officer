@@ -33,7 +33,8 @@ ph_with(x, value, ...)
 
 \method{ph_with}{gg}(x, value, location, ...)
 
-\method{ph_with}{external_img}(x, value, location, ...)
+\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE,
+  ...)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -51,6 +52,9 @@ See section \code{see also}.}
 \item{header}{display header if TRUE}
 
 \item{first_row, last_row, first_column, last_column}{logical for PowerPoint table options}
+
+\item{use_loc_size}{if set to FALSE, external_img width and height will
+be used.}
 }
 \description{
 add object into a new shape in a slide.
@@ -98,7 +102,8 @@ instead for more advanced graphical features.
 When value is a external_img object, image will be copied
 into the PowerPoint presentation. The width and height
 specified in call to \code{\link{external_img}} will be
-ignored, their values will be those of the location.
+ignored, their values will be those of the location,
+unless use_loc_size is set to FALSE.
 }
 
 \examples{
@@ -128,7 +133,16 @@ doc <- add_slide(doc, layout = "Title and Content",
   master = "Office Theme")
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 doc <- ph_with(x = doc, external_img(img.file, 100/72, 76/72),
-               location = ph_location_right() )
+               location = ph_location_right(), use_loc_size = FALSE )
+
+svg_file <- file.path(R.home(component = "doc"), "html/Rlogo.svg")
+if( require("rsvg") ){
+  doc <- ph_with(x = doc, external_img(svg_file),
+    location = ph_location_left(),
+    use_loc_size = TRUE )
+}
+
+
 
 # unordered_list ----
 ul <- unordered_list(
