@@ -60,16 +60,18 @@ unpack_folder <- function( file, folder ){
 
   file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", file)
 
-  # unable to unzip a file with accent when on windows
-  newfile <- tempfile(fileext = file_type)
-  file.copy(from = file, to = newfile)
-
   # force deletion if already existing
   unlink(folder, recursive = TRUE, force = TRUE)
 
-  zip::unzip( zipfile = newfile, exdir = folder )
-
-  unlink(newfile, force = TRUE)
+  if( l10n_info()$`UTF-8` ){
+    zip::unzip( zipfile = file, exdir = folder )
+  } else {
+    # unable to unzip a file with accent when on windows
+    newfile <- tempfile(fileext = file_type)
+    file.copy(from = file, to = newfile)
+    zip::unzip( zipfile = newfile, exdir = folder )
+    unlink(newfile, force = TRUE)
+  }
 
   absolute_path(folder)
 }
