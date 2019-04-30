@@ -1,8 +1,14 @@
 # officer 0.3.4
 
+## Enhancement
+
+* new function `sanitize_images` to avoid file size inflation when replacing images
+* svg support (will require rsvg package)
+
 ## Issues
 
 * fix `external_img` size issue with method `ph_with`.
+* fix bg inheritance when using `ph_with functions.
 
 # officer 0.3.3
 
