@@ -11,6 +11,7 @@
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
 \alias{ph_with.external_img}
+\alias{ph_with.xml_document}
 \title{add object into a new shape}
 \usage{
 ph_with(x, value, ...)
@@ -35,6 +36,8 @@ ph_with(x, value, ...)
 
 \method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE,
   ...)
+
+\method{ph_with}{xml_document}(x, value, location, ...)
 }
 \arguments{
 \item{x}{a pptx device}
@@ -104,6 +107,13 @@ into the PowerPoint presentation. The width and height
 specified in call to \code{\link{external_img}} will be
 ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.
+}
+
+\section{with xml_document}{
+
+When value is an xml_document object, its content will be
+added as a new shape in the current slide. This function
+is to be used to add custom openxml code.
 }
 
 \examples{

@@ -85,14 +85,28 @@ ph <- function( left = 0, top = 0, width = 3, height = 3,
   )
 }
 
-loc_call <- function(call, x){
+#' @export
+#' @title eval a location on the current slide
+#' @description Eval a shape location against the current slide.
+#' This function is to be used to add custom openxml code.
+#' @param location a location for a placeholder. It has to be a
+#' quosure.
+#' @param x an rpptx object
+#' @examples
+#' library(rlang)
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content",
+#'   master = "Office Theme")
+#' location_eval(quo(ph_location_fullsize()), doc)
+#' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
+location_eval <- function(location, x){
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm()
-  call <- rlang::call_modify(call, x = x,
+  location <- rlang::call_modify(location, x = x,
                              layout = unique( xfrm$name ),
                              master = unique(xfrm$master_name)
   )
-  eval_tidy(call, data = x)
+  eval_tidy(location, data = x)
 }
 
 #' @export
@@ -103,7 +117,7 @@ loc_call <- function(call, x){
 ph_with.character <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   new_ph <- ph(left = location$left, top = location$top,
                width = location$width, height = location$height,
@@ -131,7 +145,7 @@ ph_with.character <- function(x, value, location, ...){
 ph_with.numeric <- function(x, value, location, format_fun = format, ...){
   slide <- x$slide$get_slide(x$cursor)
   value <- format_fun(value, ...)
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   new_ph <- ph(left = location$left, top = location$top,
                width = location$width, height = location$height,
@@ -155,7 +169,7 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
 ph_with.factor <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
   value <- as.character(value)
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   new_ph <- ph(left = location$left, top = location$top,
                width = location$width, height = location$height,
@@ -185,7 +199,7 @@ ph_with.logical <- ph_with.numeric
 ph_with.block_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   pars <- sapply(value, format, type = "pml")
   pars <- paste0(pars, collapse = "")
@@ -214,7 +228,7 @@ ph_with.block_list <- function(x, value, location, ...){
 #' @rdname ph_with
 ph_with.unordered_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   if( !is.null(value$style)){
     style_str <- sapply(value$style, format, type = "pml")
@@ -253,7 +267,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                first_row = TRUE, first_column = FALSE,
                                last_row = FALSE, last_column = FALSE, ...){
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
   xml_elt <- table_shape(x = x, value = value, left = location$left*914400, top = location$top*914400,
@@ -275,7 +289,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' instead for more advanced graphical features.
 #' @rdname ph_with
 ph_with.gg <- function(x, value, location, ...){
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
@@ -325,7 +339,7 @@ ph_with.gg <- function(x, value, location, ...){
 #' be used.
 #' @rdname ph_with
 ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
 
@@ -379,7 +393,7 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 ph_with.fpar <- function( x, value, location,
                           template_type = NULL, template_index = 1, ... ){
 
-  location <- loc_call(rlang::enquo(location), x)
+  location <- location_eval(rlang::enquo(location), x)
 
   slide <- x$slide$get_slide(x$cursor)
 
@@ -440,7 +454,7 @@ ph_empty <- function( x, type = "body", index = 1, location = NULL ){
 
 
   if( !is.null( rlang::get_expr(rlang::enquo(location)) ) )
-    location <- loc_call(rlang::enquo(location), x)
+    location <- location_eval(rlang::enquo(location), x)
 
   if( is.null(location) ){
     empty_shape <- paste0(pml_with_ns("p:sp"),
@@ -464,6 +478,25 @@ ph_empty <- function( x, type = "body", index = 1, location = NULL ){
   x
 }
 
+
+#' @export
+#' @section with xml_document:
+#' When value is an xml_document object, its content will be
+#' added as a new shape in the current slide. This function
+#' is to be used to add custom openxml code.
+#' @rdname ph_with
+ph_with.xml_document <- function( x, value, location, ... ){
+  slide <- x$slide$get_slide(x$cursor)
+
+  location <- location_eval(rlang::enquo(location), x)
+  node <- xml_find_first( value, as_xpath_content_sel("//") )
+  node <- set_xfrm_attr(node, offx = location$left*914400, offy = location$top*914400,
+                        cx = location$width*914400, cy = location$height*914400)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
+
+  slide$fortify_id()
+  x
+}
 
 #' @export
 #' @title add an xml string as new shape
