@@ -1,7 +1,7 @@
 read_core_properties <- function( package_dir ){
   filename <- file.path(package_dir, "docProps/core.xml")
   if( !file.exists(filename) )
-    stop("could not find Word document properties",
+    stop("could not find office document properties",
          ", please edit your document and make sure properties are existing.",
          " This can be done by filling any field in the document properties panel.", call. = FALSE)
   doc <- read_xml(filename)

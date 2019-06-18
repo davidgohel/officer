@@ -204,8 +204,8 @@ styles_info <- function( x ){
 doc_properties <- function( x ){
   if( inherits(x, "rdocx"))
     cp <- x$doc_properties
-  else if( inherits(x, "rpptx")) cp <- x$core_properties
-  else stop("x should be a rpptx or rdocx object.")
+  else if( inherits(x, "rpptx") || inherits(x, "rxlsx") ) cp <- x$core_properties
+  else stop("x should be a rpptx or a rdocx or a rxlsx object.")
 
   out <- data.frame(tag = cp[, 'name'], value = cp[, 'value'], stringsAsFactors = FALSE)
   row.names(out) <- NULL
