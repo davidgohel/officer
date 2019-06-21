@@ -5,7 +5,7 @@
 \title{create a location for a placeholder}
 \usage{
 ph_location(left = 1, top = 1, width = 4, height = 3, label = "",
-  ph = "<p:ph/>", bg = NULL, rotation = NULL, ...)
+  bg = NULL, rotation = NULL, ...)
 }
 \arguments{
 \item{left, top, width, height}{place holder coordinates
@@ -13,15 +13,15 @@ in inches.}
 
 \item{label}{a label for the placeholder. See section details.}
 
-\item{ph}{openxml string value for tag. This is not meant to be used
-by end users (unless they understand openxml placeholder and
-\code{p:ph} tag).}
-
 \item{bg}{background color}
 
 \item{rotation}{rotation angle}
 
 \item{...}{unused arguments}
+
+\item{ph}{openxml string value for tag. This is not meant to be used
+by end users (unless they understand openxml placeholder and
+\code{p:ph} tag).}
 }
 \description{
 The function will return a list that complies with

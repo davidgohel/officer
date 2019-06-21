@@ -10,6 +10,7 @@ get_doc <- function(...){
 }
 
 get_ph_loc <- function(x, layout, master, type, position_right, position_top){
+
   props <- layout_properties( x, layout = layout, master = master )
   props <- props[props$type %in% type, , drop = FALSE]
 
@@ -95,7 +96,7 @@ as_ph_location <- function(x, ...){
 #'     location = ph_location(width = 4, height = 3, label = "hello") ) %>%
 #'   print(target = tempfile(fileext = ".pptx") )
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
-                        label = "", ph = "<p:ph/>",
+                        label = "",
                         bg = NULL, rotation = NULL, ...){
 
   x <- list(
@@ -104,7 +105,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
     width = width,
     height = height,
     ph_label = label,
-    ph = ph, bg = bg, rotation = rotation
+    ph = NA_character_, bg = bg, rotation = rotation
   )
   x
 }
@@ -141,7 +142,6 @@ ph_location_type <- function( type = "body", position_right = TRUE, position_top
   x <- get_doc(...)
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm()
-
   args <- list(...)
   layout <- ifelse(is.null(args$layout), unique( xfrm$name ), args$layout)
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
