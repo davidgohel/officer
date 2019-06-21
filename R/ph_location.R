@@ -63,9 +63,6 @@ as_ph_location <- function(x, ...){
 #' @param left,top,width,height place holder coordinates
 #' in inches.
 #' @param label a label for the placeholder. See section details.
-#' @param ph openxml string value for tag. This is not meant to be used
-#' by end users (unless they understand openxml placeholder and
-#' \code{p:ph} tag).
 #' @param bg background color
 #' @param rotation rotation angle
 #' @param ... unused arguments

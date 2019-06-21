@@ -18,10 +18,6 @@ in inches.}
 \item{rotation}{rotation angle}
 
 \item{...}{unused arguments}
-
-\item{ph}{openxml string value for tag. This is not meant to be used
-by end users (unless they understand openxml placeholder and
-\code{p:ph} tag).}
 }
 \description{
 The function will return a list that complies with
