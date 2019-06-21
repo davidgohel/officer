@@ -12,8 +12,8 @@ test_that("layout summary", {
 test_that("layout properties", {
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")
-  x <- ph_with_text(x, type = "body", str = "Hello world")
-  x <- ph_with_text(x, type = "title", str = "my title")
+  x <- ph_with(x, "Hello world", location = ph_location_type(type = "body"))
+  x <- ph_with(x, "my title", location = ph_location_type(type = "title"))
 
   laypr <- layout_properties(x, layout = "Title and Content", master = "Office Theme")
 
@@ -31,8 +31,8 @@ test_that("layout properties", {
 test_that("slide summary", {
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")
-  x <- ph_with_text(x, type = "body", str = "Hello world")
-  x <- ph_with_text(x, type = "title", str = "my title")
+  x <- ph_with(x, "Hello world", location = ph_location_type(type = "body"))
+  x <- ph_with(x, "my title", location = ph_location_type(type = "title"))
 
   sm <- slide_summary(x)
 

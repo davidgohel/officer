@@ -39,8 +39,8 @@ test_that("add img into placeholder", {
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_with_img_at(src = img.file, left = 1, top = 1,
-                height = 1.06, width = 1.39 )
+    ph_with(value = external_img(img.file), location = ph_location(left = 1, top = 1,
+                height = 1.06, width = 1.39) )
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)

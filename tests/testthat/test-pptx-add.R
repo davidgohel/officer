@@ -27,7 +27,7 @@ test_that("ph_add_par append when text alrady exists", {
   small_red <- fp_text(color = "red", font.size = 14)
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_with_text(type = "body", str = "This is a ") %>%
+    ph_with("This is a ", location = ph_location_type(type = "body")) %>%
     ph_add_par(level = 2)
   doc <- doc %>%
     ph_add_text(str = "test", style = small_red )
@@ -46,7 +46,7 @@ test_that("ph_add_text with hyperlink", {
   href_ <- "https://cran.r-project.org"
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_with_text(type = "body", str = "This is a ") %>%
+    ph_with("This is a ", location = ph_location_type(type = "body")) %>%
     ph_add_par(level = 2) %>%
     ph_add_text(str = "test", style = small_red, href = href_ )
 
@@ -66,8 +66,8 @@ test_that("add img into placeholder", {
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_with_img(type = "body", src = img.file,
-                height = 1.06, width = 1.39 )
+    ph_with(external_img(img.file, height = 1.06, width = 1.39), location = ph_location_type(type = "body"),
+                use_loc_size = FALSE )
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
@@ -87,7 +87,7 @@ test_that("add formatted par into placeholder", {
 
   doc <- read_pptx() %>%
     add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_empty(type = "body") %>%
+    ph_empty(location = ph_location_type(type = "body")) %>%
     ph_add_fpar(value = fpar_, type = "body", level = 2)
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 1)
@@ -102,11 +102,11 @@ test_that("add formatted par into placeholder", {
 
 test_that("add xml into placeholder", {
   xml_str <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\"><p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr><p:ph type=\"title\"/></p:nvPr></p:nvSpPr><p:spPr/>\n<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>Hello world 1</a:t></a:r></a:p></p:txBody></p:sp>"
-
+  library(xml2)
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_from_xml(type = "body", value = xml_str) %>%
-    ph_from_xml_at(left = 1, top = 1, width = 3, height = 3, value = xml_str)
+    ph_with(value = as_xml_document(xml_str), location = ph_location_type(type = "body")) %>%
+    ph_with(value = as_xml_document(xml_str), location = ph_location(left = 1, top = 1, width = 3, height = 3))
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 2)
   expect_equal(sm[1,]$text, "Hello world 1")
@@ -118,7 +118,7 @@ test_that("link to another shape", {
 
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_with_text(type = "body", str = "This is a ") %>%
+    ph_with(location = ph_location_type(type = "body"), value = "This is a ") %>%
     ph_add_par(level = 2) %>%
     ph_add_text(str = "test", style = small_red, slide_index = 1 )
 
@@ -137,7 +137,7 @@ test_that("ph_add_text with hyperlink", {
   href_ <- "https://cran.r-project.org"
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_with_text(type = "body", str = "This is a ") %>%
+    ph_with(location = ph_location_type(type = "body"), value = "This is a ") %>%
     ph_add_par(level = 2) %>%
     ph_add_text(str = "test", style = small_red, href = href_ )
 
@@ -158,12 +158,12 @@ test_that("slidelink shape", {
 
   doc <- read_pptx() %>%
     add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with_text(type = "title", str = "Un titre 1") %>%
-    ph_with_text(type = "body", str = "text 1") %>%
+    ph_with("Un titre 1", location = ph_location_type(type = "title")) %>%
+    ph_with("text 1", location = ph_location_type(type = "body")) %>%
     add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with_text(type = "title", str = "Un titre 2") %>%
+    ph_with("Un titre 2", location = ph_location_type(type = "title")) %>%
     on_slide( index = 1)
-
+  slide_summary(doc)
   doc <- doc %>%
     ph_slidelink(type = "body", slide_index = 2 )
 
@@ -184,9 +184,9 @@ test_that("hyperlink shape", {
 
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
+  doc <- ph_with(x = doc, location = ph_location_type(type = "title"), value = "Un titre 1")
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
+  doc <- ph_with(x = doc, location = ph_location_type(type = "title"), value = "Un titre 2")
   doc <- on_slide(doc, 1)
   doc <- ph_hyperlink(x = doc, id_chr = "2", href = "https://cran.r-project.org")
 
