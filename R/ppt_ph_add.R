@@ -14,7 +14,7 @@
 #' fileout <- tempfile(fileext = ".pptx")
 #' my_pres <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_empty(type = "body")
+#'   ph_empty(location = ph_location_type(type = "body"))
 #'
 #' small_red <- fp_text(color = "red", font.size = 14)
 #'
@@ -26,18 +26,17 @@
 #'
 #' print(my_pres, target = fileout)
 #'
-#'
+#' # another example ----
 #' fileout <- tempfile(fileext = ".pptx")
+#'
 #' doc <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with_text(type = "title", str = "Un titre 1") %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with_text(type = "title", str = "Un titre 2") %>%
-#'   on_slide(1) %>%
-#'   ph_empty(type = "body") %>%
-#'   ph_add_par(type = "body", level = 2) %>%
-#'   ph_add_text(str = "Jump here to slide 2!", type = "body",
-#'   slide_index = 2)
+#'   ph_with("Un titre 2",
+#'     location = ph_location_type(type = "title")) %>%
+#'   ph_empty(location = ph_location(rotation = 90, bg = "red",
+#'     label = "myph")) %>%
+#'   ph_add_par(ph_label = "myph", level = 2) %>%
+#'   ph_add_text(str = "Jump here to slide 2!", ph_label = "myph")
 #'
 #' print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
@@ -113,12 +112,12 @@ ph_add_text <- function( x, str, type = NULL, id_chr = NULL, ph_label = NULL,
 #'
 #' doc <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with_text(type = "body", str = "A text") %>%
+#'   ph_with("A text", location = ph_location_type(type = "body")) %>%
 #'   ph_add_par(level = 2) %>%
 #'   ph_add_text(str = "and another, ", style = default_text ) %>%
 #'   ph_add_par(level = 3) %>%
 #'   ph_add_text(str = "and another!",
-#'     style = update(default_text, color = "blue"))
+#'               style = update(default_text, color = "blue"))
 #'
 #' print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
@@ -174,13 +173,13 @@ ph_add_par <- function( x, type = NULL, id_chr = NULL, level = 1, ph_label = NUL
 #' bold_redface <- update(bold_face, color = "red")
 #'
 #' fpar_ <- fpar(ftext("Hello ", prop = bold_face),
-#'   ftext("World", prop = bold_redface ),
-#'   ftext(", how are you?", prop = bold_face ) )
+#'               ftext("World", prop = bold_redface ),
+#'               ftext(", how are you?", prop = bold_face ) )
 #'
 #' doc <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_empty(type = "body") %>%
-#'   ph_add_fpar(value = fpar_, type = "body", level = 2)
+#'   ph_empty(location = ph_location(bg = "wheat", label = "myph")) %>%
+#'   ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
 #'
 #' print(doc, target = tempfile(fileext = ".pptx"))
 #' @importFrom xml2 xml_child xml_children xml_add_child

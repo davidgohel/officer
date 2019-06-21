@@ -41,6 +41,8 @@ See \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
 }
 \description{
 add a table as a new shape in the current slide.
+This function will be deprecated in favor of \code{\link{ph_with}}
+in the next release.
 }
 \examples{
 library(magrittr)

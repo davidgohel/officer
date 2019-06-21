@@ -35,6 +35,8 @@ See \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
 add an unordered list of text
 into an rpptx object. Each text is associated with
 a hierarchy level.
+This function will be deprecated in favor of \code{\link{ph_with}}
+in the next release.
 }
 \examples{
 library(magrittr)

@@ -26,6 +26,8 @@ See \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
 }
 \description{
 add text into a new shape in a slide.
+This function will be deprecated in favor of \code{\link{ph_with}}
+in the next release.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")

@@ -41,7 +41,7 @@ library(magrittr)
 fileout <- tempfile(fileext = ".pptx")
 my_pres <- read_pptx() \%>\%
   add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_empty(type = "body")
+  ph_empty(location = ph_location_type(type = "body"))
 
 small_red <- fp_text(color = "red", font.size = 14)
 
@@ -53,18 +53,17 @@ my_pres <- my_pres \%>\%
 
 print(my_pres, target = fileout)
 
-
+# another example ----
 fileout <- tempfile(fileext = ".pptx")
+
 doc <- read_pptx() \%>\%
   add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with_text(type = "title", str = "Un titre 1") \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with_text(type = "title", str = "Un titre 2") \%>\%
-  on_slide(1) \%>\%
-  ph_empty(type = "body") \%>\%
-  ph_add_par(type = "body", level = 2) \%>\%
-  ph_add_text(str = "Jump here to slide 2!", type = "body",
-  slide_index = 2)
+  ph_with("Un titre 2",
+    location = ph_location_type(type = "title")) \%>\%
+  ph_empty(location = ph_location(rotation = 90, bg = "red",
+    label = "myph")) \%>\%
+  ph_add_par(ph_label = "myph", level = 2) \%>\%
+  ph_add_text(str = "Jump here to slide 2!", ph_label = "myph")
 
 print(doc, target = fileout)
 }

@@ -36,6 +36,8 @@ See \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
 }
 \description{
 add a ggplot as a png image into an rpptx object
+This function will be deprecated in favor of \code{\link{ph_with}}
+in the next release.
 }
 \examples{
 if( require("ggplot2") ){
