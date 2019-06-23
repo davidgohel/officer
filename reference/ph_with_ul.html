@@ -34,7 +34,9 @@
 
 <meta property="og:description" content="add an unordered list of text
 into an rpptx object. Each text is associated with
-a hierarchy level." />
+a hierarchy level.
+This function will be deprecated in favor of ph_with
+in the next release." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +67,7 @@ a hierarchy level." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -119,7 +121,9 @@ a hierarchy level." />
     
     <p>add an unordered list of text
 into an rpptx object. Each text is associated with
-a hierarchy level.</p>
+a hierarchy level.
+This function will be deprecated in favor of <code><a href='ph_with.html'>ph_with</a></code>
+in the next release.</p>
     
     </div>
 
@@ -179,7 +183,7 @@ See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.h
   <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
   <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
   <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pptx</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c4b8bd196.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>pptx</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb0864ed8e174.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -195,7 +199,7 @@ See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.h
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

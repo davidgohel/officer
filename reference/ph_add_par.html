@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -160,14 +160,14 @@ This should be used instead of using <code>type</code> and <code>id_chr</code>.<
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"A text"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"A text"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>ph_add_par</span>(<span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='ph_add_text.html'>ph_add_text</a></span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"and another, "</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='no'>default_text</span> ) <span class='kw'>%&gt;%</span>
   <span class='fu'>ph_add_par</span>(<span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='ph_add_text.html'>ph_add_text</a></span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"and another!"</span>,
-    <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>default_text</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>))
+              <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>default_text</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>))
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c68ae0284.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb08660182401.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -183,7 +183,7 @@ This should be used instead of using <code>type</code> and <code>id_chr</code>.<
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

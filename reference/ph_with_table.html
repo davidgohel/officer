@@ -32,7 +32,9 @@
 
 <meta property="og:title" content="add table — ph_with_table" />
 
-<meta property="og:description" content="add a table as a new shape in the current slide." />
+<meta property="og:description" content="add a table as a new shape in the current slide.
+This function will be deprecated in favor of ph_with
+in the next release." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -115,7 +117,9 @@
 
     <div class="ref-description">
     
-    <p>add a table as a new shape in the current slide.</p>
+    <p>add a table as a new shape in the current slide.
+This function will be deprecated in favor of <code><a href='ph_with.html'>ph_with</a></code>
+in the next release.</p>
     
     </div>
 
@@ -184,7 +188,7 @@ See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.h
   <span class='fu'>ph_with_table</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>6</span>,], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
     <span class='kw'>last_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>first_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c39306ad4.pptx"</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb0867485dd27.pptx"</div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
@@ -193,7 +197,7 @@ See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.h
     <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>4</span>,
     <span class='kw'>last_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>first_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c63865e36.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb086640dc8d1.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -209,7 +213,7 @@ See <a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.h
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

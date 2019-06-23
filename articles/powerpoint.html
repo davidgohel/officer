@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -354,8 +354,8 @@
 <a class="sourceLine" id="cb29-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb29-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_empty.html">ph_empty</a></span>(<span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_right.html">ph_location_right</a></span>())</a>
 <a class="sourceLine" id="cb29-4" title="4"><span class="kw"><a href="../reference/slide_summary.html">slide_summary</a></span>(my_pres)</a></code></pre></div>
-<pre><code>##   type id              ph_label     offx offy       cx       cy text
-## 1 body  2 Content Placeholder 3 5.083333 1.75 4.416667 4.949653</code></pre>
+<pre><code>##   type id              ph_label offx offy cx cy text
+## 1 body  2 Content Placeholder 3   NA   NA NA NA</code></pre>
 <p>As there is no paragraph in the new shape yet, the function <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add a new paragraph. Then <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> will be used to add text into that new paragraph.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">text_prop &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fp_text.html">fp_text</a></span>(<span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">font.size =</span> <span class="dv">40</span>)</a>
 <a class="sourceLine" id="cb31-2" title="2">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -383,8 +383,8 @@
 <a class="sourceLine" id="cb33-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb33-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="st">"A first text"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>))</a>
 <a class="sourceLine" id="cb33-4" title="4"><span class="kw"><a href="../reference/slide_summary.html">slide_summary</a></span>(my_pres)</a></code></pre></div>
-<pre><code>##   type id              ph_label offx offy cx       cy         text
-## 1 body  2 Content Placeholder 2  0.5 1.75  9 4.949653 A first text</code></pre>
+<pre><code>##   type id              ph_label offx offy cx cy         text
+## 1 body  2 Content Placeholder 2   NA   NA NA NA A first text</code></pre>
 <p>Since there is now a paragraph in the new shape, <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add another paragraph and <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> then has to be used to add text into the last paragraph of the shape.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">text_blue_prop &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/update">update</a></span>(text_prop, <span class="dt">color =</span> <span class="st">"blue"</span> )</a>
 <a class="sourceLine" id="cb35-2" title="2">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -501,7 +501,7 @@
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
