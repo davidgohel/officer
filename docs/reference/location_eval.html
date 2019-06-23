@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add paragraph of text — body_add_par • officer</title>
+<title>eval a location on the current slide — location_eval • officer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="add paragraph of text — body_add_par" />
+<meta property="og:title" content="eval a location on the current slide — location_eval" />
 
-<meta property="og:description" content="add a paragraph of text into an rdocx object" />
+<meta property="og:description" content="Eval a shape location against the current slide.
+This function is to be used to add custom openxml code." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,57 +109,77 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add paragraph of text</h1>
+    <h1>eval a location on the current slide</h1>
     
-    <div class="hidden name"><code>body_add_par.Rd</code></div>
+    <div class="hidden name"><code>location_eval.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>add a paragraph of text into an rdocx object</p>
+    <p>Eval a shape location against the current slide.
+This function is to be used to add custom openxml code.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>body_add_par</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>)</pre>
+    <pre class="usage"><span class='fu'>location_eval</span>(<span class='no'>location</span>, <span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>location</th>
+      <td><p>a location for a placeholder. It has to be a
+quosure.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>a docx device</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>a character</p></td>
-    </tr>
-    <tr>
-      <th>style</th>
-      <td><p>paragraph style name</p></td>
-    </tr>
-    <tr>
-      <th>pos</th>
-      <td><p>where to add the new element relative to the cursor,
-one of "after", "before", "on".</p></td>
+      <td><p>an rpptx object</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ph_location.html'>ph_location</a></code>, <code><a href='ph_with.html'>ph_with</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)
-
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>body_add_par</span>(<span class='st'>"A title"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"heading 1"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>body_add_par</span>(<span class='st'>"Hello world!"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>body_add_par</span>(<span class='st'>"centered text"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"centered"</span>)
-
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb08668be9c20.docx"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>rlang</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attachement du package : ‘rlang’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:magrittr’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    set_names</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    is_false, is_null, is_true</span></div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+  <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='fu'>location_eval</span>(<span class='fu'><a href='https://rlang.r-lib.org/reference/quotation.html'>quo</a></span>(<span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>()), <span class='no'>doc</span>)</div><div class='output co'>#&gt; $width
+#&gt; [1] 10
+#&gt; 
+#&gt; $height
+#&gt; [1] 7.5
+#&gt; 
+#&gt; $left
+#&gt; [1] 0
+#&gt; 
+#&gt; $top
+#&gt; [1] 0
+#&gt; 
+#&gt; $ph_label
+#&gt; [1] ""
+#&gt; 
+#&gt; $ph
+#&gt; [1] ""
+#&gt; 
+#&gt; $type
+#&gt; [1] "body"
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

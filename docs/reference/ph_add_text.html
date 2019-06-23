@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@ It will be ignored if <code>href</code> is not NULL.</p></td>
 <span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
 <span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_empty.html'>ph_empty</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+  <span class='fu'><a href='ph_empty.html'>ph_empty</a></span>(<span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>))
 
 <span class='no'>small_red</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>14</span>)
 
@@ -186,21 +186,20 @@ It will be ignored if <code>href</code> is not NULL.</p></td>
   <span class='fu'><a href='ph_add_par.html'>ph_add_par</a></span>(<span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>ph_add_text</span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Level 2"</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>my_pres</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90cc1a0ac1.pptx"</div><div class='input'>
-
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>my_pres</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb0862a956809.pptx"</div><div class='input'>
+<span class='co'># another example ----</span>
 <span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre 1"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre 2"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='on_slide.html'>on_slide</a></span>(<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_empty.html'>ph_empty</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_add_par.html'>ph_add_par</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>ph_add_text</span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Jump here to slide 2!"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
-  <span class='kw'>slide_index</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"Un titre 2"</span>,
+    <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='ph_empty.html'>ph_empty</a></span>(<span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span>(<span class='kw'>rotation</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+    <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='ph_add_par.html'>ph_add_par</a></span>(<span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>ph_add_text</span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Jump here to slide 2!"</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpXIYvn5/filef90c59e15c25.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYvI03F/fileb0867d58ecdf.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -216,7 +215,7 @@ It will be ignored if <code>href</code> is not NULL.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.3 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
