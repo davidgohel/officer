@@ -22,7 +22,7 @@ one of after", "before", "on".}
 
 \item{first_row}{Specifies that the first column conditional formatting should be
 applied. Details for this and other conditional formatting options can be found
-\href{here}{http://officeopenxml.com/WPtblLook.php}.}
+at http://officeopenxml.com/WPtblLook.php.}
 
 \item{first_column}{Specifies that the first column conditional formatting should
 be applied.}

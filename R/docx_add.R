@@ -305,7 +305,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @param header display header if TRUE
 #' @param first_row Specifies that the first column conditional formatting should be
 #' applied. Details for this and other conditional formatting options can be found
-#' \href{here}{http://officeopenxml.com/WPtblLook.php}.
+#' at http://officeopenxml.com/WPtblLook.php.
 #' @param last_row Specifies that the first column conditional formatting should be applied.
 #' @param first_column Specifies that the first column conditional formatting should
 #' be applied.
