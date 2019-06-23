@@ -92,6 +92,30 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
   sprintf(str, label, ph, xfrm_str, bg_str )
 
 }
+gen_ph_str_old <- function( left = 0, top = 0, width = 3, height = 3,
+                bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
+
+  if( is.null(rot)) rot <- 0
+
+  if( !is.null(bg) && !is.color( bg ) )
+    stop("bg must be a valid color.", call. = FALSE )
+
+  bg_str <- ""
+  if( !is.null(bg)){
+    bg_str <- sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
+            colcode0(bg), colalpha(bg) )
+  }
+
+  xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
+  xfrm_str <- sprintf(xfrm_str, -rot * 60000,
+                      left * 914400, top * 914400,
+                      width * 914400, height * 914400)
+
+
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
+  sprintf(str, label, ph, xfrm_str, bg_str )
+
+}
 
 #' @export
 #' @title eval a location on the current slide
@@ -510,8 +534,6 @@ ph_with.xml_document <- function( x, value, location, ... ){
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 ph_from_xml <- function( x, value, type = "body", index = 1 ){
 
-  .Deprecated("ph_with.xml_document")
-
   slide <- x$slide$get_slide(x$cursor)
   xfrm <- slide$get_xfrm(type = type, index = index)
 
@@ -531,7 +553,6 @@ ph_from_xml <- function( x, value, type = "body", index = 1 ){
 #' @param left,top location of the new shape on the slide
 #' @param width,height shape size in inches
 ph_from_xml_at <- function( x, value, left, top, width, height ){
-  .Deprecated("ph_with.xml_document")
 
   slide <- x$slide$get_slide(x$cursor)
 
@@ -786,23 +807,29 @@ ph_with_ul <- function(x, type = "body", index = 1,
 ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
                          template_type = NULL, template_index = 1 ){
 
-  ph <- ""
+  ph <- NA_character_
   label <- ""
+  type <- "body"
+  slide <- x$slide$get_slide(x$cursor)
+
   if( !is.null( template_type ) ){
-    slide <- x$slide$get_slide(x$cursor)
     xfrm_df <- slide$get_xfrm(type = template_type, index = template_index)
     ph <- xfrm_df$ph
-    label <- xfrm_df$ph_label
+  } else {
+    ph <- sprintf('<p:ph type="%s"/>', type)
   }
+  new_ph <- gen_ph_str_old(left = left, top = top,
+                           width = width, height = height,
+                           label = "", ph = ph,
+                           rot = rot, bg = bg)
 
-  ph_empty(
-    x,
-    location = ph_location(
-      ph = ph,
-      label = label,
-      left = left, top = top,
-      width = width, height = height)
-  )
+
+  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph, "</p:sp>" )
+  node <- as_xml_document(xml_elt)
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+  slide$fortify_id()
+  x
 
 }
 
