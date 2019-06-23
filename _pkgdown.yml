@@ -4,6 +4,11 @@ template:
   package: ardown
   bootswatch: simplex
 
+home:
+  links:
+  - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
+    href: https://www.ardata.fr
+
 reference:
   - title: Working with Word documents
     contents:
