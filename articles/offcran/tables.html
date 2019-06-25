@@ -254,16 +254,12 @@
 <div id="add-a-flextable-into-a-powerpoint-document" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-a-flextable-into-a-powerpoint-document" class="anchor"></a>Add a flextable into a PowerPoint document</h2>
-<p>To insert that table in a PowerPoint document, functions <code><a href="https://www.rdocumentation.org/packages/flextable/topics/ph_with_flextable">flextable::ph_with_flextable()</a></code> or <code><a href="https://www.rdocumentation.org/packages/flextable/topics/ph_with_flextable">flextable::ph_with_flextable_at()</a></code> are to be used:</p>
-<ul>
-<li>ph_with_flextable add the flextable into an available shape of the chosen layout</li>
-<li>ph_with_flextable_at add the flextable at any arbitrary location in the current slide</li>
-</ul>
+<p>To insert that table in a PowerPoint document, use function <code>flextable::ph_with()</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/ph_with_flextable">ph_with_flextable</a></span>(ft, <span class="dt">type =</span> <span class="st">"body"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(ft, <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/ph_with_flextable">ph_with_flextable_at</a></span>(ft, <span class="dt">left =</span> <span class="dv">3</span>, <span class="dt">top =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(ft, <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location.html">ph_location</a></span>(<span class="dt">left =</span> <span class="dv">3</span>, <span class="dt">top =</span> <span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/flextable/flextable.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../flextable/flextable.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
