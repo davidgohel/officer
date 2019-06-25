@@ -98,19 +98,21 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## PowerPoint documents and graphics 
 
-Raster images and vector graphic images are added in a PowerPoint document as a shape on the current slide. In PowerPoint, images and text can not be mixed in the same shape (or placeholder). `officer` provides two functions to let users add images into a Word document:
-
-* ph_with_img: add an image as a new shape in the current slide.
-* ph_with_img_at: add an image in the current slide at any arbitrary location.
+Raster images and vector graphic images are added in a PowerPoint document as a 
+shape on the current slide. In PowerPoint, images and text can not be mixed in 
+the same shape (or placeholder). `officer` provides a function `ph_with` to let users add 
+images into a PowerPoint document:
 
 Again those functions accept various image formats: png, jpeg and emf.
 
 ```{r}
 read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_img(src = filename, width = 6, height = 7, type = "body") %>% 
+  ph_with(external_img(src = filename, width = 6, height = 7), 
+          location = ph_location_type(type = "body"), use_loc_size = FALSE ) %>% 
   add_slide(layout = "Title Only", master = "Office Theme") %>% 
-  ph_with_img_at(src = filename, left = 0, top = 0, width = 6, height = 7) %>% 
+  ph_with(external_img(src = filename, width = 6, height = 7), 
+                 location = ph_location(left = 0, top = 0, width = 6, height = 7) ) %>% 
   print(target = "../assets/graphics/demo_emf.pptx")
 ```
 
@@ -128,7 +130,7 @@ Package `rvg` is providing editable vector graphics that can be used with `offic
 library(rvg)
 read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_vg(code = print(gg), type = "body") %>% 
+  ph_with(dml(ggobj = gg), location = ph_location_type(type = "body")) %>% 
   print(target = "../assets/graphics/demo_rvg.pptx")
 ```
 

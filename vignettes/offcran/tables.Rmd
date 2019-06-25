@@ -93,17 +93,14 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/",
 
 ## Add a flextable into a PowerPoint document 
 
-To insert that table in a PowerPoint document, functions `flextable::ph_with_flextable()` or `flextable::ph_with_flextable_at()` are to be used:
-
-- ph_with_flextable add the flextable into an available shape of the chosen layout
-- ph_with_flextable_at add the flextable at any arbitrary location in the current slide
+To insert that table in a PowerPoint document, use function `flextable::ph_with()`:
 
 ```{r}
 read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
-  ph_with_flextable(ft, type = "body") %>% 
+  ph_with(ft, location = ph_location_type(type = "body")) %>% 
   add_slide(layout = "Title Only", master = "Office Theme") %>% 
-  ph_with_flextable_at(ft, left = 3, top = 4) %>% 
+  ph_with(ft, location = ph_location(left = 3, top = 3)) %>% 
   print(target = "../assets/flextable/flextable.pptx")
 ```
 
