@@ -1,9 +1,10 @@
 read_core_properties <- function( package_dir ){
   filename <- file.path(package_dir, "docProps/core.xml")
-  if( !file.exists(filename) )
-    stop("could not find office document properties",
-         ", please edit your document and make sure properties are existing.",
-         " This can be done by filling any field in the document properties panel.", call. = FALSE)
+  if( !file.exists(filename) ) {
+    # docx and pptx files exported from Google Docs or Slides do not have properties set. Use one from the template to get by
+    warning("No properties found. Using properties from template file in officer.")
+    filename <- system.file(package = "officer", "template/core.xml")
+  }
   doc <- read_xml(filename)
   ns_ <- xml_ns(doc)
 
