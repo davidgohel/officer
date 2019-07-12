@@ -105,6 +105,7 @@ media_extract <- function( x, path, target ){
 #'   "doc_examples/example.pptx")
 #' doc <- read_pptx(example_pptx)
 #' pptx_summary(doc)
+#' pptx_summary(example_pptx)
 #' @export
 pptx_summary <- function( x ){
   if (is.character(x)) {
