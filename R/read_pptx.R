@@ -42,6 +42,10 @@ read_pptx <- function( path = NULL ){
 
 read_table_style <- function(path){
   file <- file.path(path, "ppt/tableStyles.xml")
+  if (!file.exists(file)) {
+    warning("tableStyles.xml file does not exist in PPTX")
+    return(NULL)
+  }
   doc <- read_xml(file)
   nodes <- xml_find_all(doc, "//a:tblStyleLst")
   data.frame(def = xml_attr(nodes, "def"),
