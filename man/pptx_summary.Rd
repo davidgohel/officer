@@ -18,4 +18,5 @@ example_pptx <- system.file(package = "officer",
   "doc_examples/example.pptx")
 doc <- read_pptx(example_pptx)
 pptx_summary(doc)
+pptx_summary(example_pptx)
 }

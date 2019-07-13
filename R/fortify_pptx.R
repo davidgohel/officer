@@ -105,9 +105,12 @@ media_extract <- function( x, path, target ){
 #'   "doc_examples/example.pptx")
 #' doc <- read_pptx(example_pptx)
 #' pptx_summary(doc)
+#' pptx_summary(example_pptx)
 #' @export
 pptx_summary <- function( x ){
-
+  if (is.character(x)) {
+    x = read_pptx(x)
+  }
   list_content <- list()
   for( i in seq_len( length(x) )){
     slide <- x$slide$get_slide(i)
