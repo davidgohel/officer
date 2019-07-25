@@ -53,3 +53,11 @@ test_that("pptx summary", {
   expect_equal( slide2_data$text, c("coco", "line of text", "blah blah blah") )
 })
 
+
+test_that("empty slide summary", {
+  example_pptx <- "docs_dir/test_empty.pptx"
+  doc <- read_pptx(path = example_pptx)
+  run <- try(pptx_summary(doc), silent = TRUE)
+  expect_false(inherits(run, "try-error"))
+})
+
