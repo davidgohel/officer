@@ -30,11 +30,8 @@ pack_folder <- function( folder, target ){
   if( .Platform$OS.type %in% "windows")
     target <- enc2native(target)
   tryCatch(
-    suppressMessages(
-      zip::zip(zipfile = target,
-        files = list.files(all.files = TRUE, recursive = TRUE)) )
-      # zip::zipr(zipfile = target, include_directories = FALSE,
-      #           files = list.files(path = ".", all.files = FALSE), recurse = TRUE)
+      zip::zipr(zipfile = target, include_directories = FALSE,
+                files = list.files(path = ".", all.files = FALSE), recurse = TRUE)
     , error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
     },
