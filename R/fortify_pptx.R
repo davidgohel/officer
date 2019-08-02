@@ -116,13 +116,19 @@ pptx_summary <- function( x ){
     slide <- x$slide$get_slide(i)
     str = as_xpath_content_sel("p:cSld/p:spTree/")
     nodes <- xml_find_all(slide$get(), str)
-    data <- read_xfrm(nodes, file = "slide", name = "" )
 
-    content <- mapply(function(node, id, slide_id){
+    if( length(nodes) < 1 ) { # when slide is empty
+      list_content[[length(list_content)+1]] <- data.frame( id = character(0), content_type = character(0), slide_id = integer(0),
+                                                            stringsAsFactors = FALSE)
+      next
+    }
+
+    content <- mapply(function(node, slide_id){
 
       is_table <- !inherits( xml_child(node, "/a:graphic/a:graphicData/a:tbl"), "xml_missing")
       is_par <- !inherits( xml_child(node, "/p:txBody/a:p"), "xml_missing")
       is_img <- xml_name(node) == "pic"
+      id <- xml_attr(xml_child(node, "/p:cNvPr"), "id")
 
       if( is_table ){
         ppt_tab <- pptxtable_as_tibble(node)
@@ -151,7 +157,7 @@ pptx_summary <- function( x ){
         data.frame( id = id, content_type = "unknown", slide_id = slide_id,
                     stringsAsFactors = FALSE)
       }
-    }, nodes, data$id, slide_id = i, SIMPLIFY = FALSE)
+    }, nodes, slide_id = i, SIMPLIFY = FALSE)
     list_content[[length(list_content)+1]] <- rbind.match.columns(content)
   }
   rbind.match.columns(list_content)
