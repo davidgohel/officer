@@ -4,6 +4,11 @@
 
 * support now for template generated from google docs thanks to Adam Lyon
 
+## Changes
+
+* `id_chr` is now depreacted in favor of `id` in function `ph_remove`, `ph_slidelink`, `ph_hyperlink`,
+  `ph_add_text`, `ph_add_par`, `ph_add_fpar`.
+
 ## Issues
 
 * fix underline text issue when used with powerpoint (#229).

@@ -43,14 +43,12 @@ test_that("check errors", {
 })
 
 test_that("get shape id", {
-
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
     ph_with("hello", location = ph_location_type(type = "body"))
-  expect_equal(officer:::get_shape_id(doc, type = "body", id_chr = "2"), 1)
-  expect_equal(officer:::get_shape_id(doc, type = "body"), 1)
-  expect_equal(officer:::get_shape_id(doc, id_chr = "2"), 1)
-  expect_error(officer:::get_shape_id(doc, type = "body", id_chr = "1") )
+  expect_equal(officer:::get_shape_id(doc, type = "body", id = 1), "2")
+  expect_equal(officer:::get_shape_id(doc, ph_label = "Content Placeholder 2", id = 1), "2")
+  expect_error(officer:::get_shape_id(doc, type = "body", id = 4) )
 })
 
 

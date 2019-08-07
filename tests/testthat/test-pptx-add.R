@@ -188,7 +188,7 @@ test_that("hyperlink shape", {
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
   doc <- ph_with(x = doc, location = ph_location_type(type = "title"), value = "Un titre 2")
   doc <- on_slide(doc, 1)
-  doc <- ph_hyperlink(x = doc, id_chr = "2", href = "https://cran.r-project.org")
+  doc <- ph_hyperlink(x = doc, type = "title", href = "https://cran.r-project.org")
 
   rel_df <- doc$slide$get_slide(1)$rel_df()
 

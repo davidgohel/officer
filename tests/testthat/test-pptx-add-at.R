@@ -5,7 +5,7 @@ source("utils.R")
 test_that("add text into placeholder", {
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_empty_at(left = 1, top = 1, width = 3, height = 2)
+    ph_empty(location = ph_location(left = 1, top = 1, width = 3, height = 2))
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
@@ -13,12 +13,12 @@ test_that("add text into placeholder", {
   small_red <- fp_text(color = "red", font.size = 14)
   doc <- doc %>%
     ph_add_par(level = 2, type = "body") %>%
-    ph_add_text(str = "chunk 1", style = small_red )
+    ph_add_text(str = "chunk 1", style = small_red, type = "body" )
   sm <- slide_summary(doc)
   expect_equal(sm[1, ]$text, "chunk 1")
 
   doc <- doc %>%
-    ph_add_text(str = "this is ", style = small_red, pos = "before" )
+    ph_add_text(str = "this is ", style = small_red, pos = "before", type = "body" )
   sm <- slide_summary(doc)
   expect_equal(sm[1, ]$text, "this is chunk 1")
 

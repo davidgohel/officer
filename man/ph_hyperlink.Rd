@@ -4,20 +4,23 @@
 \alias{ph_hyperlink}
 \title{hyperlink a placeholder}
 \usage{
-ph_hyperlink(x, type = NULL, id_chr = NULL, ph_label = NULL, href)
+ph_hyperlink(x, type = "body", id = 1, id_chr = NULL,
+  ph_label = NULL, href)
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{type}{placeholder type}
 
-\item{id_chr}{placeholder id (a string). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.
+\item{id}{placeholder index for a duplicated type(integer). This is to be used when a placeholder
+type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
+add onto the first, use \code{id = 1} and \code{id = 1} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
 
+\item{id_chr}{deprecated.}
+
 \item{ph_label}{label associated to the placeholder. Use column
-\code{ph_label} of result returned by \code{\link{slide_summary}}.
-This should be used instead of using \code{type} and \code{id_chr}.}
+\code{ph_label} of result returned by \code{\link{slide_summary}}.}
 
 \item{href}{hyperlink (do not forget http or https prefix)}
 }
