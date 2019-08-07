@@ -22,7 +22,7 @@ std::string rpr::a_tag()
 
   if( this->italic ) os << " i=\"1\"";
   if( this->bold ) os << " b=\"1\"";
-  if( this->underlined ) os << " u=\"1\"";
+  if( this->underlined ) os << " u=\"sng\"";
 
   if( this->vertical_align == "superscript")
     os << " baseline=\"40000\"";

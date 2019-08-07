@@ -4,6 +4,11 @@
 
 * support now for template generated from google docs thanks to Adam Lyon
 
+## Issues
+
+* fix underline text issue when used with powerpoint (#229).
+
+
 # officer 0.3.5
 
 ## Enhancement
