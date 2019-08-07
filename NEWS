@@ -7,6 +7,7 @@
 ## Issues
 
 * fix underline text issue when used with powerpoint (#229).
+* fix slip_in_text issue by escaping HTML entities (#234).
 
 
 # officer 0.3.5

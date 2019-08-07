@@ -85,7 +85,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after" ){
   xml_elt <- paste0( wml_with_ns("w:r"),
       "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
       "<w:t xml:space=\"preserve\">%s</w:t></w:r>")
-  xml_elt <- sprintf(xml_elt, style_id, str)
+  xml_elt <- sprintf(xml_elt, style_id, htmlEscape(str))
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
