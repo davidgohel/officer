@@ -112,6 +112,10 @@ pml_has_true_attr <- function(doc_, what = "b"){
   val <- xml_attr(rpr, what)
   !is.na( val ) && val == "1"
 }
+pml_attr <- function(doc_, what = "u"){
+  rpr <- xml_find_first(doc_, "/a:document/a:rPr")
+  xml_attr(rpr, what)
+}
 
 
 test_that("pml - font size", {
@@ -154,7 +158,7 @@ test_that("pml - bold italic underlined", {
 
   expect_equal(pml_has_true_attr(doc_underline_, "b"), FALSE)
   expect_equal(pml_has_true_attr(doc_underline_, "i"), FALSE)
-  expect_equal(pml_has_true_attr(doc_underline_, "u"), TRUE)
+  expect_equal(pml_attr(doc_underline_, "u"), "sng")
 
 
 })
