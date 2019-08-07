@@ -313,9 +313,15 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 }
 
 #' @export
-#' @title annotate PowerPoint base document
+#' @title PowerPoint placeholder parameters annotation
 #' @description generates a slide from each layout in the base document to
-#' identify the placeholder indexes, master names and indexes.
+#' identify the placeholder indexes, types, names, master names and layout names.
+#'
+#' This is to be used when need to know what parameters should be used with
+#' \code{ph_location*} calls. The parameters are printed in their corresponding shapes.
+#'
+#' Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label}.
+#'
 #' @param path path to the pptx file to use as base document or NULL to use the officer default
 #' @param output_file filename to store the annotated powerpoint file or NULL to suppress generation
 #' @return x rpptx object of the annotated PowerPoint file
@@ -342,36 +348,32 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
     layout <- lay_sum[lidx, 1]
     master <- lay_sum[lidx, 2]
     lp <- layout_properties ( x = ppt, layout = layout, master = master)
+    lp <- lp[order(lp$type, as.integer(lp$id)),]
+
+    id <- unlist( lapply(rle( lp$type)$lengths, function(x){
+      seq_len(x)
+    }) )
+    textstr <- sprintf('type="%s", index =%d, ph_label="%s"',
+                       lp$type, id, lp$ph_label)
 
     # Adding a slide for the current layout
     ppt <- add_slide(x=ppt, layout = layout, master = master)
+    size <- slide_size(ppt)
+    ppt <- ph_empty(x=ppt,
+                   location = ph_location(left = 0, top = -0.5, width = size$width, height = 1,
+                                          bg = "transparent", label = "layout_ph") )
+    fpar_ <- fpar(sprintf('layout ="%s", master = "%s"', layout, master),
+                  fp_t = fp_text(color = "orange", font.size = 20),
+                  fp_p = fp_par(text.align = "right", padding = 5)
+                  )
+    ppt <- ph_add_fpar(x = ppt, value = fpar_, ph_label = "layout_ph", par_default = FALSE)
+
 
     # Blank slides have nothing
     if(length(lp[,1] > 0)){
-
-
-
       # Now we go through each placholder
       for(pidx in seq_len(nrow(lp))){
-
-        # If it's a text placeholder "body" or "title" we add text indicating
-        # the type and index. If it's title we put the layout and master
-        # information in there as well.
-        ss <- slide_summary(ppt)
-
-        index <- 1
-        existing_id <- which( lp[pidx, ]$type %in% ss$type )
-        if( length(existing_id) ) index <- sum(ss$type %in% lp[pidx, ]$type) + 1
-
-        if(lp[pidx, ]$type == "body"){
-
-          textstr <- sprintf('type="body", index =%d', index)
-          ppt <- ph_with_text(x=ppt, type="body", index=index, str=textstr)
-        }
-        if(lp[pidx, ]$type %in% c("title", "ctrTitle", "subTitle")){
-          textstr <- sprintf('layout ="%s", master = "%s", type="%s", index =%d', layout, master, lp[pidx, ]$type,  pidx)
-          ppt <- ph_with_text(x=ppt, type=lp[pidx, ]$type, str=textstr)
-        }
+        ppt <- ph_with(x=ppt, value = textstr[pidx], location = ph_location_type(type = lp$type[pidx], id = id[pidx]))
       }
     }
   }

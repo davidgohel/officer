@@ -9,7 +9,7 @@ get_doc <- function(...){
   x
 }
 
-get_ph_loc <- function(x, layout, master, type, position_right, position_top){
+get_ph_loc <- function(x, layout, master, type, position_right, position_top, id = NULL){
 
   props <- layout_properties( x, layout = layout, master = master )
   props <- props[props$type %in% type, , drop = FALSE]
@@ -17,17 +17,21 @@ get_ph_loc <- function(x, layout, master, type, position_right, position_top){
   if( nrow(props) < 1) {
     stop("no selected row")
   }
+  if( !is.null(id) ){
+    props <- props[id,, drop = FALSE]
+  } else {
+    if(position_right){
+      props <- props[props$offx + 0.0001 > max(props$offx),]
+    } else {
+      props <- props[props$offx - 0.0001 < min(props$offx),]
+    }
+    if(position_top){
+      props <- props[props$offy - 0.0001 < min(props$offy),]
+    } else {
+      props <- props[props$offy + 0.0001 > max(props$offy),]
+    }
+  }
 
-  if(position_right){
-    props <- props[props$offx + 0.0001 > max(props$offx),]
-  } else {
-    props <- props[props$offx - 0.0001 < min(props$offx),]
-  }
-  if(position_top){
-    props <- props[props$offy - 0.0001 < min(props$offy),]
-  } else {
-    props <- props[props$offy + 0.0001 > max(props$offy),]
-  }
 
   if( nrow(props) > 1) {
     warning("more than a row have been selected")
@@ -120,6 +124,10 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
 #' otherwise the element the most on the left side will be selected.
 #' @param position_top same than \code{position_right} but applied
 #' to top versus bottom.
+#' @param id index of the placeholder. If two body placeholder, there can be
+#' two different index: 1 and 2 for the first and second body placeholders defined
+#' in the layout. If this argument is used, \code{position_right} and \code{position_top}
+#' will be ignored.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @inherit ph_location details
@@ -129,7 +137,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
 #'   ph_with("Hello world", location = ph_location_type(type = "body") ) %>%
 #'   print(target = tempfile(fileext = ".pptx") )
-ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, ...){
+ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, id = NULL, ...){
 
   ph_types <- c("ctrTitle", "subTitle", "dt", "ftr",
                 "sldNum", "title", "body")
@@ -144,7 +152,7 @@ ph_location_type <- function( type = "body", position_right = TRUE, position_top
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
   get_ph_loc(x, layout = layout, master = master,
              type = type, position_right = position_right,
-             position_top = position_top)
+             position_top = position_top, id = id)
 }
 
 #' @export

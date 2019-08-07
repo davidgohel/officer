@@ -5,7 +5,7 @@
 \title{location of a placeholder type}
 \usage{
 ph_location_type(type = "body", position_right = TRUE,
-  position_top = TRUE, ...)
+  position_top = TRUE, id = NULL, ...)
 }
 \arguments{
 \item{type}{placeholder type to look for in the slide layout, one
@@ -19,6 +19,11 @@ otherwise the element the most on the left side will be selected.}
 
 \item{position_top}{same than \code{position_right} but applied
 to top versus bottom.}
+
+\item{id}{index of the placeholder. If two body placeholder, there can be
+two different index: 1 and 2 for the first and second body placeholders defined
+in the layout. If this argument is used, \code{position_right} and \code{position_top}
+will be ignored.}
 
 \item{...}{unused arguments}
 }

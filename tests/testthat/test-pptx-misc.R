@@ -91,7 +91,7 @@ test_that("cursor is incremented as expected", {
 })
 
 test_that("annotate base template", {
-  annotate_base() %>% invisible()
+  expect_s3_class(try(annotate_base(), silent = TRUE), "rpptx")
 })
 
 unlink("*.pptx")

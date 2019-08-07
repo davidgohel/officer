@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pptx.R
 \name{annotate_base}
 \alias{annotate_base}
-\title{annotate PowerPoint base document}
+\title{PowerPoint placeholder parameters annotation}
 \usage{
 annotate_base(path = NULL, output_file = "annotated_layout.pptx")
 }
@@ -16,7 +16,12 @@ x rpptx object of the annotated PowerPoint file
 }
 \description{
 generates a slide from each layout in the base document to
-identify the placeholder indexes, master names and indexes.
+identify the placeholder indexes, types, names, master names and layout names.
+
+This is to be used when need to know what parameters should be used with
+\code{ph_location*} calls. The parameters are printed in their corresponding shapes.
+
+Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label}.
 }
 \examples{
 # To generate an anotation of the default base document with officer:
