@@ -209,10 +209,11 @@ simple_lag <- function( x, default=0 ){
 }
 
 rbind.match.columns <- function(list_df) {
-  col <- unique(unlist(sapply(list_df, names)))
 
+  col <- unique(unlist(lapply(list_df, colnames)))
+  list_df <- Filter(function(x) nrow(x)>0, list_df)
   list_df <- lapply(list_df, function(x, col) {
-    x[, setdiff(col, names(x))] <- NA
+    x[, setdiff(col, colnames(x))] <- NA
     x
   }, col = col)
   do.call(rbind, list_df)
