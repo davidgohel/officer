@@ -11,6 +11,7 @@
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
 \alias{ph_with.external_img}
+\alias{ph_with.fpar}
 \alias{ph_with.xml_document}
 \title{add object into a new shape}
 \usage{
@@ -36,6 +37,8 @@ ph_with(x, value, ...)
 
 \method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE,
   ...)
+
+\method{ph_with}{fpar}(x, value, location, ...)
 
 \method{ph_with}{xml_document}(x, value, location, ...)
 }
@@ -109,6 +112,12 @@ ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.
 }
 
+\section{with fpar}{
+
+When value is an fpar object, it will be
+added as a single paragraph in a block_list.
+}
+
 \section{with xml_document}{
 
 When value is an xml_document object, its content will be
@@ -151,9 +160,24 @@ if( require("rsvg") ){
     location = ph_location_left(),
     use_loc_size = TRUE )
 }
+# block list ------
+bl <- block_list(
+  fpar(ftext("hello world", shortcuts$fp_bold(color = "pink"))),
+  fpar(
+    ftext("hello", shortcuts$fp_bold()),
+    ftext("hello", shortcuts$fp_italic(color="red"))
+  ))
+doc <- add_slide(doc, layout = "Title and Content",
+                 master = "Office Theme")
+doc <- ph_with(x = doc, value = bl,
+               location = ph_location_type(type="body") )
 
-
-
+# block list ------
+hw <- fpar(ftext("hello world", shortcuts$fp_bold(color = "pink")))
+doc <- add_slide(doc, layout = "Title and Content",
+                 master = "Office Theme")
+doc <- ph_with(x = doc, value = hw,
+               location = ph_location_type(type="body") )
 # unordered_list ----
 ul <- unordered_list(
   level_list = c(1, 2, 2, 3, 3, 1),

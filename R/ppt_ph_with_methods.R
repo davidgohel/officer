@@ -42,9 +42,26 @@
 #'     location = ph_location_left(),
 #'     use_loc_size = TRUE )
 #' }
+#' # block list ------
+#' bl <- block_list(
+#'   fpar(ftext("hello world", shortcuts$fp_bold(color = "pink"))),
+#'   fpar(
+#'     ftext("hello", shortcuts$fp_bold()),
+#'     ftext("hello", shortcuts$fp_italic(color="red"))
+#'   ))
+#' doc <- add_slide(doc, layout = "Title and Content",
+#'                  master = "Office Theme")
+#' doc <- ph_with(x = doc, value = bl,
+#'                location = ph_location_type(type="body") )
 #'
-#'
-#'
+#' # block list ------
+#' hw <- fpar(ftext("hello world", shortcuts$fp_bold(color = "pink")))
+#' doc <- add_slide(doc, layout = "Title and Content",
+#'                  master = "Office Theme")
+#' doc <- ph_with(x = doc, value = hw,
+#'                location = ph_location_type(type="body") )
+
+
 #' # unordered_list ----
 #' ul <- unordered_list(
 #'   level_list = c(1, 2, 2, 3, 3, 1),
@@ -421,34 +438,14 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 
 
 #' @export
-ph_with.fpar <- function( x, value, location,
-                          template_type = NULL, template_index = 1, ... ){
+#' @section with fpar:
+#' When value is an fpar object, it will be
+#' added as a single paragraph in a block_list.
+#' @rdname ph_with
+ph_with.fpar <- function( x, value, location, ... ){
 
-  location <- location_eval(rlang::enquo(location), x)
+  ph_with.block_list(x, value = block_list(value), location = {{location}})
 
-  slide <- x$slide$get_slide(x$cursor)
-
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
-               width = location$width, height = location$height, label = location$label,
-               rot = location$rotation, bg = location$bg, ph = location$ph)
-  new_ph <- paste0( pml_with_ns("p:sp"), new_ph,"</p:sp>")
-  if( !is.null( template_type ) ){
-    stopifnot( template_type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
-    xfrm_df <- slide$get_xfrm(type = template_type, index = template_index)
-    new_ph <- gsub("<p:ph/>", xfrm_df$ph, new_ph)
-  }
-
-  new_node <- as_xml_document(new_ph)
-
-  p_ <- format( value, type = "pml")
-
-  simple_shape <- paste0( pml_with_ns("p:txBody"),
-                          "<a:bodyPr/><a:lstStyle/>",
-                          p_, "</p:txBody>")
-  xml_add_child(new_node, as_xml_document(simple_shape) )
-
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), new_node)
-  slide$fortify_id()$save()
   x
 }
 
