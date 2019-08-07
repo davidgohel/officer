@@ -5,3 +5,4 @@
 inst/doc
 inst/vtests.html
 revdep
+src/*.o.tmp

@@ -73,7 +73,9 @@ write_core_properties <- function(core_matrix, package_dir){
                         core_matrix[, "ns"], core_matrix[, "name"]
   )
   xml_ <- paste0(xml_, paste0(properties, collapse = ""), "</cp:coreProperties>" )
-  filename <- file.path(package_dir, "docProps/core.xml")
-  writeLines(enc2utf8(xml_), filename, useBytes=T)
+  props_dir = file.path(package_dir, "docProps")
+  dir.create(props_dir, recursive = TRUE, showWarnings = FALSE)
+  filename <- file.path(props_dir, "core.xml")
+  writeLines(enc2utf8(xml_), filename, useBytes=TRUE)
   invisible()
 }
