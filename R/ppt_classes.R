@@ -51,12 +51,13 @@ presentation <- R6Class(
     },
 
     move_slide = function(from, to){
-
       slide_list <- self$slide_data()
-      slide_list_from <- slide_list[from,,drop = FALSE]
-      slide_list <- slide_list[-from,,drop = FALSE]
-      slide_list[seq(to+1,nrow(slide_list)+1),] <- slide_list[seq(to,nrow(slide_list)),]
-      slide_list[to,] <- slide_list_from
+
+      ord <- seq_len(nrow(slide_list))
+      if( from < to ) to <- to+1
+      ord[ord >= to] <- ord[ord >= to] + 1L
+      ord[from] <- to
+      slide_list <- slide_list[order(ord),,drop = FALSE]
       private$slide_id <- slide_list$slide_id
       private$slide_rid <- slide_list$slide_rid
 
