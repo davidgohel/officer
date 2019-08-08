@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
       </span>
     </div>
 
@@ -150,6 +150,9 @@
 <span class='co'># S3 method for external_img</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>use_loc_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>...</span>)
+
+<span class='co'># S3 method for fpar</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for xml_document</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)</pre>
@@ -241,6 +244,12 @@ specified in call to <code><a href='external_img.html'>external_img</a></code> w
 ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.</p>
     
+    <h2 class="hasAnchor" id="with-fpar"><a class="anchor" href="#with-fpar"></a>with fpar</h2>
+
+    
+    <p>When value is an fpar object, it will be
+added as a single paragraph in a block_list.</p>
+    
     <h2 class="hasAnchor" id="with-xml-document"><a class="anchor" href="#with-xml-document"></a>with xml_document</h2>
 
     
@@ -288,9 +297,24 @@ is to be used to add custom openxml code.</p>
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='no'>svg_file</span>),
     <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_left.html'>ph_location_left</a></span>(),
     <span class='kw'>use_loc_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span> )
-}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : rsvg</span></div><div class='input'>
+}</div><div class='output co'>#&gt; <span class='message'>Le chargement a nécessité le package : rsvg</span></div><div class='input'><span class='co'># block list ------</span>
+<span class='no'>bl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='block_list.html'>block_list</a></span>(
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"pink"</span>))),
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(
+    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()),
+    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_italic</span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"red"</span>))
+  ))
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>bl</span>,
+               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>) )
 
-
+<span class='co'># block list ------</span>
+<span class='no'>hw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)))
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
+                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>hw</span>,
+               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>) )
 <span class='co'># unordered_list ----</span>
 <span class='no'>ul</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='unordered_list.html'>unordered_list</a></span>(
   <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
@@ -301,7 +325,7 @@ is to be used to add custom openxml code.</p>
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ul</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp2P0y1Z/file136f524734c5b.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp5JR7GI/file9d0a34035e41.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -322,6 +346,8 @@ is to be used to add custom openxml code.</p>
 
       <li><a href="#with-a-external-img-object">with a external_img object</a></li>
 
+      <li><a href="#with-fpar">with fpar</a></li>
+
       <li><a href="#with-xml-document">with xml_document</a></li>
 
       <li><a href="#see-also">See also</a></li>
@@ -335,7 +361,7 @@ is to be used to add custom openxml code.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

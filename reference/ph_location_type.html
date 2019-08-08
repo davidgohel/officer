@@ -64,7 +64,7 @@ the layout name and few other criterias to find the corresponding location." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ the layout name and few other criterias to find the corresponding location.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>position_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>position_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>position_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,6 +144,13 @@ otherwise the element the most on the left side will be selected.</p></td>
       <th>position_top</th>
       <td><p>same than <code>position_right</code> but applied
 to top versus bottom.</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>index of the placeholder. If two body placeholder, there can be
+two different index: 1 and 2 for the first and second body placeholders defined
+in the layout. If this argument is used, <code>position_right</code> and <code>position_top</code>
+will be ignored.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -182,7 +189,7 @@ or <code>ph_add_text</code>.</p>
 <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"Hello world"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>) ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp2P0y1Z/file136f532cbf6bf.pptx"</div></pre>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp5JR7GI/file9d0a4b6a518e.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -202,7 +209,7 @@ or <code>ph_add_text</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
