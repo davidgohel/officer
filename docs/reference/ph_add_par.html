@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ph_add_par</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <pre class="usage"><span class='fu'>ph_add_par</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -134,10 +134,15 @@
       <td><p>placeholder type</p></td>
     </tr>
     <tr>
-      <th>id_chr</th>
-      <td><p>placeholder id (a string). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.
+      <th>id</th>
+      <td><p>placeholder index for a duplicated type(integer). This is to be used when a placeholder
+type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
+add onto the first, use <code>id = 1</code> and <code>id = 1</code> for the second one.
 Values can be read from <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>id_chr</th>
+      <td><p>deprecated.</p></td>
     </tr>
     <tr>
       <th>level</th>
@@ -146,8 +151,7 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
     <tr>
       <th>ph_label</th>
       <td><p>label associated to the placeholder. Use column
-<code>ph_label</code> of result returned by <code><a href='slide_summary.html'>slide_summary</a></code>.
-This should be used instead of using <code>type</code> and <code>id_chr</code>.</p></td>
+<code>ph_label</code> of result returned by <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
     </tr>
     </table>
     
@@ -167,7 +171,7 @@ This should be used instead of using <code>type</code> and <code>id_chr</code>.<
   <span class='fu'><a href='ph_add_text.html'>ph_add_text</a></span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"and another!"</span>,
               <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/update'>update</a></span>(<span class='no'>default_text</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>))
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp2P0y1Z/file136f539d34656.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp5JR7GI/file9d0acb03469.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -183,7 +187,7 @@ This should be used instead of using <code>type</code> and <code>id_chr</code>.<
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

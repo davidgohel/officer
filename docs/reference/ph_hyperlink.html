@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
       </span>
     </div>
 
@@ -119,7 +119,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ph_hyperlink</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>href</span>)</pre>
+    <pre class="usage"><span class='fu'>ph_hyperlink</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>href</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,16 +134,20 @@
       <td><p>placeholder type</p></td>
     </tr>
     <tr>
-      <th>id_chr</th>
-      <td><p>placeholder id (a string). This is to be used when a placeholder type
-is not unique in the current slide, e.g. two placeholders with type 'body'.
+      <th>id</th>
+      <td><p>placeholder index for a duplicated type(integer). This is to be used when a placeholder
+type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
+add onto the first, use <code>id = 1</code> and <code>id = 1</code> for the second one.
 Values can be read from <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>id_chr</th>
+      <td><p>deprecated.</p></td>
     </tr>
     <tr>
       <th>ph_label</th>
       <td><p>label associated to the placeholder. Use column
-<code>ph_label</code> of result returned by <code><a href='slide_summary.html'>slide_summary</a></code>.
-This should be used instead of using <code>type</code> and <code>id_chr</code>.</p></td>
+<code>ph_label</code> of result returned by <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
     </tr>
     <tr>
       <th>href</th>
@@ -160,7 +165,7 @@ This should be used instead of using <code>type</code> and <code>id_chr</code>.<
 #&gt; 1 body  2  Title 1  0.5 0.3003478  9 1.25 Un titre 1</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_hyperlink</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Title 1"</span>,
   <span class='kw'>href</span> <span class='kw'>=</span> <span class='st'>"https://cran.r-project.org"</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp2P0y1Z/file136f577fcd9cc.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp5JR7GI/file9d0a31f5910f.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -176,7 +181,7 @@ This should be used instead of using <code>type</code> and <code>id_chr</code>.<
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.5 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
