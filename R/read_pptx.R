@@ -252,12 +252,11 @@ remove_slide <- function( x, index = NULL ){
   if( !between(index, 1, l_ ) ){
     stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
   }
-
   filename <- basename( x$presentation$slide_data()$target[index])
   location <- which( x$slide$get_metadata()$name %in% filename )
 
-  slide_col_id <- x$slide$slide_index(filename)
-  del_file <- x$slide$remove_slide(slide_col_id)
+  del_file <- x$slide$remove_slide(location)
+
   # update presentation elements
   x$presentation$remove_slide(del_file)
   x$content_type$remove_slide(partname = del_file )
