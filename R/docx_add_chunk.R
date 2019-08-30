@@ -68,24 +68,42 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' @param style text style
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
+#' @param hyperlink turn the text into an external hyperlink
 #' @examples
 #' library(magrittr)
 #' x <- read_docx() %>%
 #'   body_add_par("Hello ", style = "Normal") %>%
 #'   slip_in_text("world", style = "strong") %>%
-#'   slip_in_text("Message is", style = "strong", pos = "before")
+#'   slip_in_text("Message is", style = "strong", pos = "before") %>%
+#'   slip_in_text("with a link", style = "strong", pos = "after", hyperlink = "https://davidgohel.github.io/officer/")
 #'
 #' print(x, target = tempfile(fileext = ".docx"))
-slip_in_text <- function( x, str, style = NULL, pos = "after" ){
+slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL ){
 
   if( is.null(style) )
     style <- x$default_styles$character
 
   style_id <- get_style_id(data = x$styles, style=style, type = "character")
-  xml_elt <- paste0( wml_with_ns("w:r"),
-      "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
-      "<w:t xml:space=\"preserve\">%s</w:t></w:r>")
-  xml_elt <- sprintf(xml_elt, style_id, htmlEscape(str))
+
+  if( is.null(hyperlink) ) {
+    xml_elt <- paste0( wml_with_ns("w:r"),
+                       "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
+                       "<w:t xml:space=\"preserve\">%s</w:t></w:r>")
+    xml_elt <- sprintf(xml_elt, style_id, htmlEscape(str))
+  } else {
+    hyperlink_id <- paste0("rId", x$doc_obj$relationship()$get_next_id())
+    x$doc_obj$relationship()$add(
+      id = hyperlink_id,
+      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+      target = hyperlink,
+      target_mode = "External" )
+
+    xml_elt <- paste0( wml_with_ns("w:hyperlink r:id=\"%s\""),
+                       "<w:r><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
+                       "<w:t xml:space=\"preserve\">%s</w:t></w:r></w:hyperlink>")
+    xml_elt <- sprintf(xml_elt, hyperlink_id, style_id, htmlEscape(str))
+  }
+
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
