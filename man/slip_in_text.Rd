@@ -4,7 +4,7 @@
 \alias{slip_in_text}
 \title{append text}
 \usage{
-slip_in_text(x, str, style = NULL, pos = "after")
+slip_in_text(x, str, style = NULL, pos = "after", hyperlink = NULL)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -15,6 +15,8 @@ slip_in_text(x, str, style = NULL, pos = "after")
 
 \item{pos}{where to add the new element relative to the cursor,
 "after" or "before".}
+
+\item{hyperlink}{turn the text into an external hyperlink}
 }
 \description{
 append text into a paragraph of an rdocx object
@@ -24,7 +26,8 @@ library(magrittr)
 x <- read_docx() \%>\%
   body_add_par("Hello ", style = "Normal") \%>\%
   slip_in_text("world", style = "strong") \%>\%
-  slip_in_text("Message is", style = "strong", pos = "before")
+  slip_in_text("Message is", style = "strong", pos = "before") \%>\%
+  slip_in_text("with a link", style = "strong", pos = "after", hyperlink = "https://davidgohel.github.io/officer/")
 
 print(x, target = tempfile(fileext = ".docx"))
 }

@@ -31,3 +31,20 @@ test_that("seqfield add ", {
   expect_equal( xml_text(node), "Figure: SEQ Figure \\* roman - This is a figure title" )
 })
 
+
+
+test_that("hyperlink add ", {
+  href_ <- "https://github.com/davidgohel"
+  x <- read_docx() %>%
+    body_add_par("Here is a link: ", style = "Normal") %>%
+    slip_in_text(str = "the link", style = "strong", hyperlink = href_)
+
+  rel_df <- x$doc_obj$rel_df()
+  expect_true( href_  %in% rel_df$target )
+  expect_equal( rel_df[ rel_df$target == href_, ]$target_mode, "External" )
+  expect_match( rel_df[ rel_df$target == href_, ]$type, "^http://schemas(.*)hyperlink$" )
+
+  node <- x$doc_obj$get_at_cursor()
+  child_ <- getncheck(node, "w:hyperlink/w:r/w:t")
+  expect_equal( xml_text(child_), "the link" )
+})
