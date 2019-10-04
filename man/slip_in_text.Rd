@@ -27,7 +27,8 @@ x <- read_docx() \%>\%
   body_add_par("Hello ", style = "Normal") \%>\%
   slip_in_text("world", style = "strong") \%>\%
   slip_in_text("Message is", style = "strong", pos = "before") \%>\%
-  slip_in_text("with a link", style = "strong", pos = "after", hyperlink = "https://davidgohel.github.io/officer/")
+  slip_in_text("with a link", style = "strong",
+    pos = "after", hyperlink = "https://davidgohel.github.io/officer/")
 
 print(x, target = tempfile(fileext = ".docx"))
 }
