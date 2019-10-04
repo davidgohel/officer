@@ -17,7 +17,10 @@ slip_in_seqfield(x, str, style = NULL, pos = "after")
 "after" or "before".}
 }
 \description{
-append seq field into a paragraph of an rdocx object
+append seq field into a paragraph of an rdocx object.
+This feature is only available when document are edited with Word,
+when edited with Libre Office or another program, seq field will not
+be calculated and not displayed.
 }
 \examples{
 library(magrittr)

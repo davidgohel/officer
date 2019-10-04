@@ -200,6 +200,9 @@ sequence fields (which facilitate numbering) at the beginning of paragraphs used
 as reference entries (e.g. a table or plot caption). See the section 
 *Table and image captions*.
 
+Note that usage of SEQ field require usage of Word to edit the content and 
+replace the code by its value.
+
 ## Cursor manipulation
 
 A cursor is available and can be manipulated so that content can be added 

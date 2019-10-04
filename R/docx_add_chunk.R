@@ -1,6 +1,9 @@
 #' @export
 #' @title append seq field
-#' @description append seq field into a paragraph of an rdocx object
+#' @description append seq field into a paragraph of an rdocx object.
+#' This feature is only available when document are edited with Word,
+#' when edited with Libre Office or another program, seq field will not
+#' be calculated and not displayed.
 #' @param x an rdocx object
 #' @param str seq field value
 #' @param style text style
