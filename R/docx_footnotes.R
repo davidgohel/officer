@@ -48,8 +48,7 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #' bl <- block_list(
 #'   fpar(ftext("hello", shortcuts$fp_bold())),
 #'   fpar(
-#'     ftext("hello", shortcuts$fp_bold()),
-#'     stext(" world", "strong"),
+#'     ftext("hello world", shortcuts$fp_bold()),
 #'     external_img(src = img.file, height = 1.06, width = 1.39)
 #'   )
 #' )

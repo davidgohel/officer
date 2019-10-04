@@ -11,8 +11,7 @@ test_that("add footnotes", {
   bl1 <- block_list(
     fpar(ftext("hello", normal_fp), ftext(" world!", bold_fp)),
     fpar(
-      ftext("Do you enjoy", bold_fp),
-      stext(" with ", "strong"),
+      ftext("Do you enjoy with ", bold_fp),
       external_img(src = img.file, height = 1.06/3, width = 1.39/3)
     )
   )
