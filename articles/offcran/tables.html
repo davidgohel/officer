@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Officer and tables • officer</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><meta property="og:title" content="Officer and tables">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
       </span>
     </div>
 
@@ -71,6 +72,7 @@
 <!--/.navbar -->
 
       
+
       </header><link href="tables_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
 <script src="tables_files/tabwid-1.0.0/tabwid.js"></script><div class="row">
   <div class="col-md-9 contents">
@@ -88,24 +90,24 @@
 <blockquote>
 <p>Use package <code>flextable</code> to create tables with advanced formatting and layouts.</p>
 </blockquote>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(officer)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(flextable)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(officer)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(flextable)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(magrittr)</a></code></pre></div>
 <div id="package-flextable" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-flextable" class="anchor"></a>Package flextable</h2>
 <p>Documentation can be found here: <a href="https://davidgohel.github.io/flextable/" class="uri">https://davidgohel.github.io/flextable/</a>.</p>
 <p>The flextable package has been written to enable production of tabular reporting; it is working very well with <code>officer</code>.</p>
 <p>You can install it from CRAN:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"flextable"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"flextable"</span>)</a></code></pre></div>
 <p>The development version is available on Github:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"davidgohel/flextable"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"davidgohel/flextable"</span>)</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>Data used for illustrations is shown below:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">data =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/structure">structure</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">Status =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Alive"</span>, <span class="st">"Alive"</span>, <span class="st">"Alive"</span>, <span class="st">"Alive"</span>,<span class="st">"Melanoma"</span>, <span class="st">"Melanoma"</span>,<span class="st">"Melanoma"</span>, <span class="st">"Melanoma"</span>, <span class="st">"Non-melanoma"</span>,<span class="st">"Non-melanoma"</span>, <span class="st">"Non-melanoma"</span>, <span class="st">"Non-melanoma"</span>), <span class="dt">Gender =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Female"</span>,<span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>,<span class="st">"Female"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>), <span class="dt">Ulceration =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Absent"</span>,<span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>,<span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>), <span class="dt">n =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(68L,23L, 24L, 19L, 8L, 20L, 8L, 21L, 3L, 4L, 4L, 3L), <span class="dt">Mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">1.693</span>,<span class="fl">2.972</span>, <span class="fl">1.468</span>, <span class="fl">4.319</span>, <span class="fl">2.139</span>, <span class="fl">4.724</span>, <span class="fl">3.266</span>, <span class="fl">5.143</span>, <span class="fl">1.667</span>, <span class="fl">3.302</span>,<span class="fl">2.42</span>, <span class="fl">8.053</span>), <span class="dt">SD =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">2.004</span>, <span class="fl">2.593</span>, <span class="fl">1.719</span>, <span class="fl">2.423</span>, <span class="fl">1.184</span>, <span class="fl">4.128</span>,<span class="fl">4.681</span>, <span class="fl">2.862</span>, <span class="fl">1.141</span>, <span class="fl">3.713</span>, <span class="fl">2.499</span>, <span class="fl">4.019</span>)), <span class="dt">class =</span> <span class="st">"data.frame"</span>, <span class="dt">.Names =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Status"</span>,<span class="st">"Gender"</span>, <span class="st">"Ulceration"</span>, <span class="st">"n"</span>, <span class="st">"Mean"</span>, <span class="st">"SD"</span>), <span class="dt">row.names =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">NA</span>,<span class="op">-</span>12L))</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">data =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/structure.html">structure</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">Status =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Alive"</span>, <span class="st">"Alive"</span>, <span class="st">"Alive"</span>, <span class="st">"Alive"</span>,<span class="st">"Melanoma"</span>, <span class="st">"Melanoma"</span>,<span class="st">"Melanoma"</span>, <span class="st">"Melanoma"</span>, <span class="st">"Non-melanoma"</span>,<span class="st">"Non-melanoma"</span>, <span class="st">"Non-melanoma"</span>, <span class="st">"Non-melanoma"</span>), <span class="dt">Gender =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Female"</span>,<span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>,<span class="st">"Female"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>), <span class="dt">Ulceration =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Absent"</span>,<span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>,<span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>, <span class="st">"Absent"</span>, <span class="st">"Present"</span>), <span class="dt">n =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(68L,23L, 24L, 19L, 8L, 20L, 8L, 21L, 3L, 4L, 4L, 3L), <span class="dt">Mean =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.693</span>,<span class="fl">2.972</span>, <span class="fl">1.468</span>, <span class="fl">4.319</span>, <span class="fl">2.139</span>, <span class="fl">4.724</span>, <span class="fl">3.266</span>, <span class="fl">5.143</span>, <span class="fl">1.667</span>, <span class="fl">3.302</span>,<span class="fl">2.42</span>, <span class="fl">8.053</span>), <span class="dt">SD =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2.004</span>, <span class="fl">2.593</span>, <span class="fl">1.719</span>, <span class="fl">2.423</span>, <span class="fl">1.184</span>, <span class="fl">4.128</span>,<span class="fl">4.681</span>, <span class="fl">2.862</span>, <span class="fl">1.141</span>, <span class="fl">3.713</span>, <span class="fl">2.499</span>, <span class="fl">4.019</span>)), <span class="dt">class =</span> <span class="st">"data.frame"</span>, <span class="dt">.Names =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Status"</span>,<span class="st">"Gender"</span>, <span class="st">"Ulceration"</span>, <span class="st">"n"</span>, <span class="st">"Mean"</span>, <span class="st">"SD"</span>), <span class="dt">row.names =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="ot">NA</span>,<span class="op">-</span>12L))</a>
 <a class="sourceLine" id="cb4-2" title="2">data</a></code></pre></div>
 <pre><code>##          Status Gender Ulceration  n  Mean    SD
 ## 1         Alive Female     Absent 68 1.693 2.004
@@ -121,11 +123,11 @@
 ## 11 Non-melanoma   Male     Absent  4 2.420 2.499
 ## 12 Non-melanoma   Male    Present  3 8.053 4.019</code></pre>
 <p>From these data, let’s create a simple <code>flextable</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/flextable">flextable</a></span>(<span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/theme_booktabs">theme_booktabs</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/set_header_labels">set_header_labels</a></span>( <span class="dt">n =</span> <span class="st">"#"</span>, <span class="dt">Mean =</span> <span class="st">"\u03D1"</span>, <span class="dt">SD =</span> <span class="st">"\u03C3"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/color">color</a></span>(<span class="dt">i =</span> <span class="op">~</span><span class="st"> </span>n <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>, <span class="dt">color =</span> <span class="st">"wheat"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/autofit">autofit</a></span>() </a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">ft &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/flextable/man/flextable.html">flextable</a></span>(<span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/flextable/man/theme_booktabs.html">theme_booktabs</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/flextable/man/set_header_labels.html">set_header_labels</a></span>( <span class="dt">n =</span> <span class="st">"#"</span>, <span class="dt">Mean =</span> <span class="st">"\u03D1"</span>, <span class="dt">SD =</span> <span class="st">"\u03C3"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/flextable/man/color.html">color</a></span>(<span class="dt">i =</span> <span class="op">~</span><span class="st"> </span>n <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>, <span class="dt">color =</span> <span class="st">"wheat"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/flextable/man/autofit.html">autofit</a></span>() </a></code></pre></div>
 <p>The table will be display as below:</p>
 <div class="tabwid"><table class="table">
 <thead><tr>
@@ -239,10 +241,10 @@
 <div id="add-a-flextable-into-a-word-document" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-a-flextable-into-a-word-document" class="anchor"></a>Add a flextable into a Word document</h2>
-<p>To insert that table in a Word document, function <code><a href="https://www.rdocumentation.org/packages/flextable/topics/body_add_flextable">flextable::body_add_flextable</a></code> is to be used.</p>
+<p>To insert that table in a Word document, function <code><a href="https://rdrr.io/pkg/flextable/man/body_add_flextable.html">flextable::body_add_flextable</a></code> is to be used.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/flextable/topics/body_add_flextable">body_add_flextable</a></span>(ft) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/flextable/flextable.docx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/flextable/man/body_add_flextable.html">body_add_flextable</a></span>(ft) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/flextable/flextable.docx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../flextable/flextable.docx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -260,7 +262,7 @@
 <a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(ft, <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(ft, <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location.html">ph_location</a></span>(<span class="dt">left =</span> <span class="dv">3</span>, <span class="dt">top =</span> <span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/flextable/flextable.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/flextable/flextable.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../flextable/flextable.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -272,6 +274,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -287,13 +290,14 @@
 </div>
 
 
+
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
 <script>
@@ -308,6 +312,7 @@
 </div>
 
   
+
 
   </body>
 </html>

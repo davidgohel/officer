@@ -8,21 +8,25 @@
 
 <title>add object into a new shape — ph_with • officer</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +34,14 @@
 
 
 
-<meta property="og:title" content="add object into a new shape — ph_with" />
 
-<meta property="og:description" content="add object into a new shape in a slide." />
+<meta property="og:title" content="add object into a new shape — ph_with" />
+<meta property="og:description" content="add object into a new shape in a slide. This
+function is able to add all supported outputs to a presentation
+and should replace calls to older functions starting with
+ph_with_*." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -45,6 +53,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
       </span>
     </div>
 
@@ -88,7 +97,6 @@
   <a href="../reference/index.html">Function reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidgohel/officer">
@@ -103,6 +111,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -114,9 +123,10 @@
     </div>
 
     <div class="ref-description">
-    
-    <p>add object into a new shape in a slide.</p>
-    
+    <p>add object into a new shape in a slide. This
+function is able to add all supported outputs to a presentation
+and should replace calls to older functions starting with
+<code>ph_with_*</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>...</span>)
@@ -156,7 +166,7 @@
 
 <span class='co'># S3 method for xml_document</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -196,86 +206,85 @@ See section <code>see also</code>.</p></td>
 be used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="with-character"><a class="anchor" href="#with-character"></a>with character</h2>
 
     
-    <p>When value is a character vector, each value will be
+
+<p>When value is a character vector, each value will be
 added as a paragraph.</p>
-    
     <h2 class="hasAnchor" id="with-vector"><a class="anchor" href="#with-vector"></a>with vector</h2>
 
     
-    <p>When value is a vector, the values will be first formatted and
+
+<p>When value is a vector, the values will be first formatted and
 then add as text, each value will be added as a paragraph.</p>
-    
     <h2 class="hasAnchor" id="with-block-list"><a class="anchor" href="#with-block-list"></a>with block_list</h2>
 
     
-    <p>When value is a block_list object, each value will be
+
+<p>When value is a block_list object, each value will be
 added as a paragraph.</p>
-    
     <h2 class="hasAnchor" id="with-unordered-list"><a class="anchor" href="#with-unordered-list"></a>with unordered_list</h2>
 
     
-    <p>When value is a unordered_list object, each value will be
+
+<p>When value is a unordered_list object, each value will be
 added as a paragraph.</p>
-    
     <h2 class="hasAnchor" id="with-data-frame"><a class="anchor" href="#with-data-frame"></a>with data.frame</h2>
 
     
-    <p>When value is a data.frame, a simple table
+
+<p>When value is a data.frame, a simple table
 is added, use package <code>flextable</code> instead
 for more advanced formattings.</p>
-    
     <h2 class="hasAnchor" id="with-a-ggplot-object"><a class="anchor" href="#with-a-ggplot-object"></a>with a ggplot object</h2>
 
     
-    <p>When value is a ggplot object, a raster plot
+
+<p>When value is a ggplot object, a raster plot
 is produced and added, use package <code>rvg</code>
 instead for more advanced graphical features.</p>
-    
     <h2 class="hasAnchor" id="with-a-external-img-object"><a class="anchor" href="#with-a-external-img-object"></a>with a external_img object</h2>
 
     
-    <p>When value is a external_img object, image will be copied
+
+<p>When value is a external_img object, image will be copied
 into the PowerPoint presentation. The width and height
 specified in call to <code><a href='external_img.html'>external_img</a></code> will be
 ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.</p>
-    
     <h2 class="hasAnchor" id="with-fpar"><a class="anchor" href="#with-fpar"></a>with fpar</h2>
 
     
-    <p>When value is an fpar object, it will be
+
+<p>When value is an fpar object, it will be
 added as a single paragraph in a block_list.</p>
-    
     <h2 class="hasAnchor" id="with-xml-document"><a class="anchor" href="#with-xml-document"></a>with xml_document</h2>
 
     
-    <p>When value is an xml_document object, its content will be
+
+<p>When value is an xml_document object, its content will be
 added as a new shape in the current slide. This function
 is to be used to add custom openxml code.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
 <a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>magrittr</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
 
-<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span>,
   <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Un titre"</span>, <span class='st'>"Deux titre"</span>),
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Un titre"</span>, <span class='st'>"Deux titre"</span>),
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_left.html'>ph_location_left</a></span>() )
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>3</span>:<span class='fl'>5</span>],
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() )
 
-<span class='kw'>if</span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2"</span>) ){
+<span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2"</span>) ){
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
     <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
   <span class='no'>gg_plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span> ) +
@@ -288,12 +297,12 @@ is to be used to add custom openxml code.</p>
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
   <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='no'>img.file</span>, <span class='fl'>100</span>/<span class='fl'>72</span>, <span class='fl'>76</span>/<span class='fl'>72</span>),
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>(), <span class='kw'>use_loc_size</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
 
-<span class='no'>svg_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Rhome'>R.home</a></span>(<span class='kw'>component</span> <span class='kw'>=</span> <span class='st'>"doc"</span>), <span class='st'>"html/Rlogo.svg"</span>)
-<span class='kw'>if</span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"rsvg"</span>) ){
+<span class='no'>svg_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='kw'>component</span> <span class='kw'>=</span> <span class='st'>"doc"</span>), <span class='st'>"html/Rlogo.svg"</span>)
+<span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"rsvg"</span>) ){
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='no'>svg_file</span>),
     <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_left.html'>ph_location_left</a></span>(),
     <span class='kw'>use_loc_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span> )
@@ -317,55 +326,45 @@ is to be used to add custom openxml code.</p>
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>) )
 <span class='co'># unordered_list ----</span>
 <span class='no'>ul</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='unordered_list.html'>unordered_list</a></span>(
-  <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
-  <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
+  <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
+  <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
   <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
                  <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ul</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmp5JR7GI/file9d0a34035e41.pptx"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb3644baf47ad.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#with-character">with character</a></li>
-
       <li><a href="#with-vector">with vector</a></li>
-
       <li><a href="#with-block-list">with block_list</a></li>
-
       <li><a href="#with-unordered-list">with unordered_list</a></li>
-
       <li><a href="#with-data-frame">with data.frame</a></li>
-
       <li><a href="#with-a-ggplot-object">with a ggplot object</a></li>
-
       <li><a href="#with-a-external-img-object">with a external_img object</a></li>
-
       <li><a href="#with-fpar">with fpar</a></li>
-
       <li><a href="#with-xml-document">with xml_document</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
 
+
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
 <script>
@@ -377,11 +376,14 @@ is to be used to add custom openxml code.</p>
   ga('create', 'UA-48354045-1', 'auto');
   ga('send', 'pageview');
 </script>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

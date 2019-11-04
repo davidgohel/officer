@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PowerPoint presentations generation • officer</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="PowerPoint presentations generation">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
       </span>
     </div>
 
@@ -71,6 +72,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -84,9 +86,9 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(officer)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(officer)</a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="co"># Package `magrittr` makes officer usage easier.</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(magrittr)</a></code></pre></div>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(magrittr)</a></code></pre></div>
 <div style="text-align:center;">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3gIRDQIZKADtdAAAChpJREFUeNrtnX1sE/cZx793fo+dN8JrILwktkOb4NhOk4DYHyzkhbRCCmhV22nZ6LppRS1IbGW0QiKrpq5dKWPr1o6+jPVlazfKNI1BIWEJUA11NNOKHVMWnJBCeWsDScir7dj32x+5EJMlTgKxc3d+PhLCds7x3e/53PM89zvfBSAIgiAIgiAIAji9OitutpWL90Db61rCn88A4ARgB0Oh+Pg9e33LDqWOgTqOg18AwHF6dZYTgANA4RiLCkoeB8UL4CoxZzIgH8B9YHCKe/UMgFGtk7MArlIz8o42hwd6KH07ARSI/2cO1TkKt4IEcJWaCwE4XKXmofRdECnCFHyZCuAus5gBOMSGzA4gnwGpFFKZC9BYbsWymnPDgS63zASDA4O1eiiFL6bwKEyAxnIrxG47v7Hc6gCYU2zQIhdqKuLyE6BxjdUs7s2FYhp3AkihQi1zATwV2cg93BT23DoLDE52ewe+iIZWYQJ4KrK5ofTtqch2AGwo4JSllSCA5/5sLvfDJiYG2zLieNoJIDlOx0j2XrvLLLDVesdsrxAmwXUAaRPbbPZ/D9mkh5ENv8wm9nFsrIUnMg/AJhFX8cccx53gVNxxGcefB9AA4Kit1usbTwA2ce/jRACeA8cr5pzZFlut95cj7SDih93uMks5CRDfbI3JPIBSMNoKYbIvl28DoNXh6p7nwGl1Qy+tJgEmgclWhDlVm2S9DZdf3gHVsACgEkCQAAQJQJAABAlAAhAkAEECEFGASf9EIk0ERROOw3/sRugWW6BLXwy9+R4kFa5C0tfKSYC4SbHGRAj9fehv+Qz9LZ+h/dCfASYgdc2DmP9kNfgEE5UAJSH09YIF/GMnBbUanEaLzrq/wfNADq69+SIJIGe6Gz7CFzt/jLMPr8DplfPQuMaKL//4ysQqhFaHtn1v4EylHf6LzVQC5LOX9+Dqa8/jxoE/ADwPTq0BAKhMieJerplUnyD09+G/3y5G5ovvILFwFWUAKfPV+7+F54EctB/5AJxWN7lgRwqETo/zW6vQfeoYCSDJI7qBALyPr8W1vS+Fn1uf2mDoDWh9egP8F5pJAMkEHkCopwtnH1kJX2sTOF4V3SNHrQ7Nm79BAkhnz/ejaUMJQt03Y9dj+Ppwafd2EkAKtL2/B6Huzph/7o2/vo1gexsJMO3w0zNEvCEBV994QTmHgULAD4RCg2k1FATHq6BNXwAhFII+IwssGIQuIwssFIQuIxNgAgY6riN4ow39zWfg+9wLlT5h2gIyHXTU/AUZ23bJXwChvxfZ756AOmUmwAEq0+SvMhP6etB+ZD+u7t0F5u8HuDi4wRnHo+tkLZJWlsm7BDAhBF1GFlSJyXcUfADgE0yYuX4Dlh1sRErxWrDggPLjr1aj6+N66gFGsvCZ3Zi5/lEwsaQomf4mFwkwGvOfrIbJXqR4AfxXLiijCYwGi3a8Cs/aXPD6BMmuY6in6677JxJgrJVPTkVqyTrc/GeNNFeQMeS7+qbk90Sr6ZWEAN3//gihmx2D2woG7ez5MC4rmNB7Z1ZWofPY38GptRLs4jhp/R6pCtD8RCVUSWG3/xNC4FRqZGzbiZSSdRHfa7QVDc4rSEiAXvcn+PLdX9/5Dh8MYO6jP4pNFpXEjqLV3n6SRTX4+MJPN4M3mJC0sjTi+/VLliJw5aKEBDiFXvepuzhsFmImgKSPAni9AZd2PT3ucrqMTEV1/pqUGbEbY6kPxsCNr+C/1BpxGVWisu5fpVtoIQFulQe1Br7WJsQNjMGYV0QChHfAkb5lqzSEgB9JK4pJgPA9YryvYHEKOjGkmTUPBksuCXAr/qEg9EuyIy4TuHZJIbu/gDnf3BjbRlvqY6IyJUG3YEnEZfq9HkXEnzcYkbZuAwkQvvfP+97WiMuEujoR7Lgh/94v4EfGtpdiL51ks2F/L2bc/xDSKr8TcbmO+gPg9Ybo9aAqdfSv8mUMKSWV4054RQNJzAQa780HbzAOTgUzAYaleUgtWw+DOWfc917f/7vBr4lFKUZzqjah8/jBqF66pVtkwcLtv5qWsZeEAJbXDt3R+26erIX/8gVwGk3U1k0IBmF9/RC8G9fCd75pak/MMAbdYiusrx+atrGX9Tcsv/j51qgGHxDvps1xsOw5iOSvr4UQ8E3d8f7KsmkNvqwFaNnyMARfX0w/c+Ezv8CS598Cr9MDwp39QVEWCkGdmobMF97GoupXpn0cZSlA6/bH0NvYMC2fnbS8GDkH3Eh/ohrqpFQIft/4TSJjEPw+qBKTseCHP8M9f/oYiUWrJDGWsvpGUKirE97NDyJwuXXarw9Iq6xCWmUV+pvPoPtf9ehxnYL/YgsG2tsg9PWATzBBM2MWdAuzYLQVIWlF8YSaWhJgFIKd7Wh771W0ffAmoNFK6poAgzkHBnMOZn9LnjeUloQAHbX7B6+zD8ukgq8PvtZz6G44Ad/5JvAGIziNlv4wlRIF+Lx6I1SmpNsE4DjuVprnE4z0J8mULACnVkX9untCgfMABAlAkABRLk9Ruh8Q9QAy4eqe53DlN9WSW6+5jz2Fud99igSIRQbg9XrprZdmajITlQDqAQiaByDGhAX8EIIB6a3XgJ8EiAXzHt+O2Y/8gEpAPGcAKgF327Gq1PC1nIUQ8EEzax44jRbq5LALIGmeX9kC8PoEeL9fMRhrQQAYAxNCAAtBPTsdKmMiRULpTeDQjNrtZ/IZhL7ewfP7lAWoByBIAILmAaRFj/sUcBf3+4kWprxCGG1FJEC06XV/gj5PgwTXbNOUCEAlgHoAggQgqAkkRsdoK4TJvlySTSAJEIuBthVhTtUmxW4flQDqAQgSgCABCBKAIAEIEoAgAYj4gSaCxkGqp4MnvIdrdeAjXN9IAoyDdE8HT5wRF7jWUQmIb3aSAPHLFlutt4ZKwGRgOAHguMwb/QYAR221Xh/1AJONP2PH8mqbn5XzNrjLLLDVeukw8E57KLlvwFjBHy0DPATADgY7gHwAsyn+cTQPkPth0z4A+8Jf81RkOwA4RCGcAAopcyhUgNHIPdz0qaci+9Pcw017w6RIDBOiAICDAdk0nHFW3zwVVuQePnfreeMaa4aYIRyiHA4Ac8VuetQWmw0/HK8bD/uPjfnzCG8dsQyb0OcBeNZe3/ITEuAuaFxjzQODU5TiPvGfmgSQQQmYCpYdOedqLLe6ltWc+/0tKcqtJrGM5IeVk6WUlOPsEMddboGtxht+zLpA7CuGMoYdQDplgDg/xnWXWmwAnAxwAKxALCMaEkAGJWBKJjOOet2uUos776j3raHXXKVm44i+gsqIUjNAJFwlZuT9ozn8+YKw3sLBBsVIpwygUAEmyunVZpvYUzgBVigKoqUSECfY65rdp1eb3fa65neGpcgyiCIMlREHgHvBIS7uWxRXGSBydsiCva5l+Hlx1nzxaKTNXt9ykkaIIAiCIAiCIAhl8D/AWSwsKJ7coAAAAABJRU5ErkJggg==" width="128" height="128"></p>
 </div>
@@ -141,7 +143,7 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="st">"Hello world"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="st">"A footer"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/format">format</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.time">Sys.Date</a></span>()), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>()), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"dt"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="st">"slide 1"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"sldNum"</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-6" title="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> mtcars, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)) </a></code></pre></div>
 <p>There are several <code>ph_location*</code>functions: <code><a href="../reference/ph_location_type.html">ph_location_type()</a></code>, <code><a href="../reference/ph_location_fullsize.html">ph_location_fullsize()</a></code>, <code><a href="../reference/ph_location_label.html">ph_location_label()</a></code>, <code><a href="../reference/ph_location_left.html">ph_location_left()</a></code>, <code><a href="../reference/ph_location_right.html">ph_location_right()</a></code> and <code><a href="../reference/ph_location.html">ph_location()</a></code>.</p>
@@ -149,8 +151,8 @@
 <div id="write-the-powerpoint-file" class="section level3">
 <h3 class="hasAnchor">
 <a href="#write-the-powerpoint-file" class="anchor"></a>Write the PowerPoint file</h3>
-<p>The (updated) Powerpoint file can be generated using the <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print()</a></code> function along with the <code>target</code> argument:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/first_example.pptx"</span>) </a></code></pre></div>
+<p>The (updated) Powerpoint file can be generated using the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> function along with the <code>target</code> argument:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/first_example.pptx"</span>) </a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/first_example.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -169,11 +171,11 @@
 <a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(my_pres)</a></code></pre></div>
+<a class="sourceLine" id="cb9-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(my_pres)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>A slide can be removed with the <code><a href="../reference/remove_slide.html">remove_slide()</a></code> function.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/remove_slide.html">remove_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(my_pres)</a></code></pre></div>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(my_pres)</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>A slide can be selected with the <code><a href="../reference/on_slide.html">on_slide()</a></code> function.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span>)</a></code></pre></div>
@@ -196,7 +198,7 @@
 <a class="sourceLine" id="cb15-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="st">"Hello world"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>) ) </a>
 <a class="sourceLine" id="cb15-4" title="4"></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_location_type.pptx"</span>) </a></code></pre></div>
+<a class="sourceLine" id="cb15-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_location_type.pptx"</span>) </a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_location_type.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -226,7 +228,7 @@
 ## 21 0.3993056
 ## 25 0.3993056
 ## 31 1.2500000</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(mypres, <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(iris), </a>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(mypres, <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(iris), </a>
 <a class="sourceLine" id="cb19-2" title="2">        <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_label.html">ph_location_label</a></span>(<span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span>) )</a></code></pre></div>
 <pre><code>## pptx document with 1 slide(s)
 ## Available layouts and their associated master(s) are:
@@ -238,7 +240,7 @@
 ## 5        Comparison Office Theme
 ## 6        Title Only Office Theme
 ## 7             Blank Office Theme</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(mypres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_location_label.pptx"</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(mypres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_location_label.pptx"</span>) </a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_location_label.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -252,7 +254,7 @@
 <a class="sourceLine" id="cb23-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="st">"A first text"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_left.html">ph_location_left</a></span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb23-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">value =</span> <span class="st">"A second text"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_right.html">ph_location_right</a></span>()) </a>
 <a class="sourceLine" id="cb23-5" title="5"></a>
-<a class="sourceLine" id="cb23-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_location_left_right.pptx"</span>) </a></code></pre></div>
+<a class="sourceLine" id="cb23-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_location_left_right.pptx"</span>) </a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_location_left_right.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -270,11 +272,11 @@
 </ul>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb25-2" title="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb25-3" title="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(iris), </a>
+<a class="sourceLine" id="cb25-3" title="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(iris), </a>
 <a class="sourceLine" id="cb25-4" title="4">   <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">position_right =</span> <span class="ot">FALSE</span>) )</a>
-<a class="sourceLine" id="cb25-5" title="5">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(mtcars), </a>
+<a class="sourceLine" id="cb25-5" title="5">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(mtcars), </a>
 <a class="sourceLine" id="cb25-6" title="6">   <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>, <span class="dt">position_right =</span> <span class="ot">TRUE</span>) )</a>
-<a class="sourceLine" id="cb25-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_df.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb25-7" title="7"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_df.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_df.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -288,13 +290,13 @@
 </ul>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb27-2" title="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb27-3" title="3"><span class="cf">if</span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"ggplot2"</span>) ){</a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="cf">if</span>( <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"ggplot2"</span>) ){</a>
 <a class="sourceLine" id="cb27-4" title="4">  gg_plot &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="dt">data =</span> iris ) <span class="op">+</span></a>
 <a class="sourceLine" id="cb27-5" title="5"><span class="st">    </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="dt">mapping =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(Sepal.Length, Petal.Length),</a>
 <a class="sourceLine" id="cb27-6" title="6">               <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>()</a>
 <a class="sourceLine" id="cb27-7" title="7">  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> gg_plot, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_fullsize.html">ph_location_fullsize</a></span>() )</a>
 <a class="sourceLine" id="cb27-8" title="8">}</a>
-<a class="sourceLine" id="cb27-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_gg.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb27-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_gg.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_gg.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -308,11 +310,11 @@
 </ul>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb29-2" title="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb29-3" title="3">img.file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>( <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Rhome">R.home</a></span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )</a>
+<a class="sourceLine" id="cb29-3" title="3">img.file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/Rhome.html">R.home</a></span>(<span class="st">"doc"</span>), <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> )</a>
 <a class="sourceLine" id="cb29-4" title="4">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="kw"><a href="../reference/external_img.html">external_img</a></span>(img.file, <span class="dv">100</span><span class="op">/</span><span class="dv">72</span>, <span class="dv">76</span><span class="op">/</span><span class="dv">72</span>),</a>
 <a class="sourceLine" id="cb29-5" title="5">               <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>), </a>
 <a class="sourceLine" id="cb29-6" title="6">               <span class="dt">use_loc_size =</span> <span class="ot">FALSE</span> )</a>
-<a class="sourceLine" id="cb29-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_img.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb29-7" title="7"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_img.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_img.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -327,10 +329,10 @@
 <a class="sourceLine" id="cb31-2" title="2"></a>
 <a class="sourceLine" id="cb31-3" title="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Two Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
 <a class="sourceLine" id="cb31-4" title="4">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> pi, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>) )</a>
-<a class="sourceLine" id="cb31-5" title="5">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">as.factor</a></span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>) )</a>
-<a class="sourceLine" id="cb31-6" title="6">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"one blah"</span>, <span class="st">"two blah"</span>), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_left.html">ph_location_left</a></span>() )</a>
-<a class="sourceLine" id="cb31-7" title="7">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"three blah"</span>, <span class="st">"four blah"</span>), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_right.html">ph_location_right</a></span>() )</a>
-<a class="sourceLine" id="cb31-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_text.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb31-5" title="5">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"ftr"</span>) )</a>
+<a class="sourceLine" id="cb31-6" title="6">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"one blah"</span>, <span class="st">"two blah"</span>), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_left.html">ph_location_left</a></span>() )</a>
+<a class="sourceLine" id="cb31-7" title="7">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"three blah"</span>, <span class="st">"four blah"</span>), <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_right.html">ph_location_right</a></span>() )</a>
+<a class="sourceLine" id="cb31-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_text.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_text.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -359,7 +361,7 @@
 <a class="sourceLine" id="cb33-15" title="15">                 <span class="dt">bg =</span> <span class="st">"wheat"</span>, <span class="dt">rotation =</span> <span class="dv">90</span>) </a>
 <a class="sourceLine" id="cb33-16" title="16">       )</a>
 <a class="sourceLine" id="cb33-17" title="17"></a>
-<a class="sourceLine" id="cb33-18" title="18"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_block_list.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb33-18" title="18"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_block_list.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_block_list.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -382,7 +384,7 @@
 <a class="sourceLine" id="cb35-10" title="10">               <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"title"</span>) </a>
 <a class="sourceLine" id="cb35-11" title="11">       )</a>
 <a class="sourceLine" id="cb35-12" title="12"></a>
-<a class="sourceLine" id="cb35-13" title="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_fpar.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb35-13" title="13"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_fpar.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_fpar.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -397,15 +399,15 @@
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_pptx.html">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb37-2" title="2"></a>
 <a class="sourceLine" id="cb37-3" title="3">ul &lt;-<span class="st"> </span><span class="kw"><a href="../reference/unordered_list.html">unordered_list</a></span>(</a>
-<a class="sourceLine" id="cb37-4" title="4">  <span class="dt">level_list =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb37-5" title="5">  <span class="dt">str_list =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Level1"</span>, <span class="st">"Level2"</span>, <span class="st">"Level2"</span>, <span class="st">"Level3"</span>, <span class="st">"Level3"</span>, <span class="st">"Level1"</span>),</a>
+<a class="sourceLine" id="cb37-4" title="4">  <span class="dt">level_list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb37-5" title="5">  <span class="dt">str_list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Level1"</span>, <span class="st">"Level2"</span>, <span class="st">"Level2"</span>, <span class="st">"Level3"</span>, <span class="st">"Level3"</span>, <span class="st">"Level1"</span>),</a>
 <a class="sourceLine" id="cb37-6" title="6">  <span class="dt">style =</span> <span class="kw"><a href="../reference/fp_text.html">fp_text</a></span>(<span class="dt">color =</span> <span class="st">"red"</span>, <span class="dt">font.size =</span> <span class="dv">0</span>) )</a>
 <a class="sourceLine" id="cb37-7" title="7"></a>
 <a class="sourceLine" id="cb37-8" title="8">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_slide.html">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
 <a class="sourceLine" id="cb37-9" title="9">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="dt">x =</span> doc, <span class="dt">value =</span> ul, </a>
 <a class="sourceLine" id="cb37-10" title="10">               <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>) )</a>
 <a class="sourceLine" id="cb37-11" title="11"></a>
-<a class="sourceLine" id="cb37-12" title="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_ul.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb37-12" title="12"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_with_ul.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_with_ul.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -453,7 +455,7 @@
 <a class="sourceLine" id="cb44-7" title="7"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">3</span>, <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 3"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb44-8" title="8"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Level 3"</span>, <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 3"</span>)</a>
 <a class="sourceLine" id="cb44-9" title="9"></a>
-<a class="sourceLine" id="cb44-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_1.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb44-10" title="10"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_1.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_add_text_1.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -473,14 +475,14 @@
 <pre><code>##   type id              ph_label offx offy cx cy         text
 ## 1 body  2 Content Placeholder 2   NA   NA NA NA A first text</code></pre>
 <p>Since there is now a paragraph in the new shape, <code><a href="../reference/ph_add_par.html">ph_add_par()</a></code> will be used to add another paragraph and <code><a href="../reference/ph_add_text.html">ph_add_text()</a></code> then has to be used to add text into the last paragraph of the shape.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1">text_blue_prop &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/update">update</a></span>(text_prop, <span class="dt">color =</span> <span class="st">"blue"</span> )</a>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1">text_blue_prop &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/update.html">update</a></span>(text_prop, <span class="dt">color =</span> <span class="st">"blue"</span> )</a>
 <a class="sourceLine" id="cb48-2" title="2">my_pres &lt;-<span class="st"> </span>my_pres <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb48-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"A small red text!"</span>, <span class="dt">style =</span> text_prop, <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span> ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb48-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"Blue text first... "</span>, <span class="dt">pos =</span> <span class="st">"before"</span>, <span class="dt">style =</span> text_blue_prop, <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span> ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb48-5" title="5"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_par.html">ph_add_par</a></span>(<span class="dt">level =</span> <span class="dv">2</span>, <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb48-6" title="6"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"additional paragraph"</span>, <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span>)</a>
 <a class="sourceLine" id="cb48-7" title="7"></a>
-<a class="sourceLine" id="cb48-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_2.pptx"</span>) </a></code></pre></div>
+<a class="sourceLine" id="cb48-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_2.pptx"</span>) </a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_add_text_2.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -502,7 +504,7 @@
 <a class="sourceLine" id="cb50-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ph_with.html">ph_with</a></span>(<span class="st">"Blah blah blah"</span>, <span class="dt">location =</span> <span class="kw"><a href="../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb50-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_hyperlink.html">ph_hyperlink</a></span>(<span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span>) </a>
 <a class="sourceLine" id="cb50-5" title="5"></a>
-<a class="sourceLine" id="cb50-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_hyperlink.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb50-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_hyperlink.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_hyperlink.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -523,7 +525,7 @@
 <a class="sourceLine" id="cb52-6" title="6"><span class="st">  </span><span class="kw"><a href="../reference/on_slide.html">on_slide</a></span>(<span class="dt">index =</span> <span class="dv">1</span> ) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb52-7" title="7"><span class="st">  </span><span class="kw"><a href="../reference/ph_slidelink.html">ph_slidelink</a></span>(<span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span>, <span class="dt">slide_index =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb52-8" title="8"></a>
-<a class="sourceLine" id="cb52-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_slidelink.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb52-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_slidelink.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_slidelink.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -542,7 +544,7 @@
 <a class="sourceLine" id="cb54-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ph_add_text.html">ph_add_text</a></span>(<span class="dt">str =</span> <span class="st">"hyperlink"</span>, <span class="dt">href =</span> <span class="st">"https://cran.r-project.org"</span>, </a>
 <a class="sourceLine" id="cb54-5" title="5">              <span class="dt">ph_label =</span> <span class="st">"Content Placeholder 2"</span>, )</a>
 <a class="sourceLine" id="cb54-6" title="6"></a>
-<a class="sourceLine" id="cb54-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_3.pptx"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb54-7" title="7"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(my_pres, <span class="dt">target =</span> <span class="st">"assets/pptx/ph_add_text_3.pptx"</span>)</a></code></pre></div>
 <pre><code>## [1] "/.../assets/pptx/ph_add_text_3.pptx"</code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -568,6 +570,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -586,13 +589,14 @@
 </div>
 
 
+
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
 <script>
@@ -607,6 +611,7 @@
 </div>
 
   
+
 
   </body>
 </html>
