@@ -7,15 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manipulation of Microsoft Word and PowerPoint Documents • officer</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Manipulation of Microsoft Word and PowerPoint Documents">
-<meta property="og:description" content="Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
+<meta property="og:description" content="Access and manipulate Microsoft Word and Microsoft PowerPoint documents from R. 
   The package focuses on tabular and graphical reporting from R; it also provides two functions
   that let users get document content into data objects. A set of functions 
   lets add and remove images, tables and paragraphs of text in new or existing documents. 
-  When working with 'PowerPoint' presentations, slides can be added or removed; shapes inside 
-  slides can also be added or removed. When working with 'Word' documents, a cursor can be 
+  When working with PowerPoint presentations, slides can be added or removed; shapes inside 
+  slides can also be added or removed. When working with Word documents, a cursor can be 
   used to help insert or delete content at a specific location in the document. The package 
   does not require any installation of Microsoft products to be able to write Microsoft files.">
 <meta name="twitter:card" content="summary">
@@ -25,7 +26,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
       </span>
     </div>
 
@@ -78,12 +79,12 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
+      </header><div class="row">
+  <div class="contents col-md-9">
+<div id="officer-r-package" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#officer-r-package" class="anchor"></a>officer R package</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <p>The officer package lets R users manipulate Word (<code>.docx</code>) and PowerPoint (<code>*.pptx</code>) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available.</p>
 <p><em>This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, does not require <code>rJava</code> and is easier to maintain.</em></p>
@@ -105,9 +106,9 @@
 </ul>
 <p>In a Word document, one can use cursor functions to reach the beginning or end of a document, or a particular paragraph containing a given text. This <em>cursor</em> concept has been implemented to make the post processing of files easier.</p>
 <p>File generation is performed with the <code>print</code> function.</p>
-<div id="import-word-document-in-a-data-frame" class="section level3">
+<div id="import-word-document-in-a-dataframe" class="section level3">
 <h3 class="hasAnchor">
-<a href="#import-word-document-in-a-data-frame" class="anchor"></a>import Word document in a data.frame</h3>
+<a href="#import-word-document-in-a-dataframe" class="anchor"></a>import Word document in a data.frame</h3>
 <p>The function <code><a href="reference/docx_summary.html">docx_summary()</a></code> reads and imports content of a Word document into a data.frame. The function handles paragraphs, tables and section breaks.</p>
 </div>
 </div>
@@ -122,10 +123,10 @@
 <li>text: add text as paragraphs or inside an existing paragraph, format is defined in the corresponding layout of the slide.</li>
 </ul>
 <p>In a PowerPoint document, one can set a slide as selected and reach a particular shape (and remove it or add text).</p>
-<p>File generation is performed with the <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print()</a></code> function.</p>
-<div id="import-powerpoint-document-in-a-data-frame" class="section level3">
+<p>File generation is performed with the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> function.</p>
+<div id="import-powerpoint-document-in-a-dataframe" class="section level3">
 <h3 class="hasAnchor">
-<a href="#import-powerpoint-document-in-a-data-frame" class="anchor"></a>import PowerPoint document in a data.frame</h3>
+<a href="#import-powerpoint-document-in-a-dataframe" class="anchor"></a>import PowerPoint document in a data.frame</h3>
 <p>The <code><a href="reference/pptx_summary.html">pptx_summary()</a></code> function reads and imports content of a PowerPoint document into a tibble object. The function handles paragraphs, tables and images.</p>
 </div>
 </div>
@@ -155,9 +156,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can get the development version from GitHub:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"davidgohel/officer"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"davidgohel/officer"</span>)</a></code></pre></div>
 <p>Or the latest version on CRAN:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"officer"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"officer"</span>)</a></code></pre></div>
 </div>
 <div id="resources" class="section level2">
 <h2 class="hasAnchor">
@@ -170,7 +171,7 @@
 <div id="getting-help" class="section level3">
 <h3 class="hasAnchor">
 <a href="#getting-help" class="anchor"></a>Getting help</h3>
-<p>If you have questions about how to use the package, <a href="http://stackoverflow.com/questions/tagged/officer">visit Stack Overflow’s <code>officer</code> tag</a> and post your question there. I usually read them and answer when possible.</p>
+<p>This project is developed and maintained on my own time. In order to help me to maintain the package, do not send me private emails if you only have questions about how to use the package. Instead, <a href="http://stackoverflow.com/questions/tagged/officer">visit Stack Overflow’s <code>officer</code> tag</a> and post your question there. I usually read them and answer when possible.</p>
 </div>
 </div>
 <div id="contributing-to-the-package" class="section level2">
@@ -197,6 +198,7 @@
 <li>add corresponding tests in directory <code>tests/testthat</code>.</li>
 </ul>
 <p>By using rhub (run <code><a href="https://r-hub.github.io/rhub/reference/check_for_cran.html">rhub::check_for_cran()</a></code>), you will see if everything is ok. When submitted, the PR will be evaluated automatically on travis and appveyor and you will be able to see if something broke.</p>
+</div>
 </div>
 </div>
   </div>
@@ -227,18 +229,17 @@
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
 
 
       <footer><link href="ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.6.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
 <script>
@@ -253,6 +254,7 @@
 </div>
 
   
+
 
   </body>
 </html>
