@@ -63,7 +63,10 @@ See section \code{see also}.}
 be used.}
 }
 \description{
-add object into a new shape in a slide.
+add object into a new shape in a slide. This
+function is able to add all supported outputs to a presentation
+and should replace calls to older functions starting with
+\code{ph_with_*}.
 }
 \section{with character}{
 

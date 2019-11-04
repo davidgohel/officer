@@ -1,6 +1,9 @@
 #' @export
 #' @title add object into a new shape
-#' @description add object into a new shape in a slide.
+#' @description add object into a new shape in a slide. This
+#' function is able to add all supported outputs to a presentation
+#' and should replace calls to older functions starting with
+#' \code{ph_with_*}.
 #' @param x a pptx device
 #' @param value object to add as a new shape.
 #' @param location a placeholder location object. This is a convenient
