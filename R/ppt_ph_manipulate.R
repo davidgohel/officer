@@ -25,7 +25,7 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 #' @param type placeholder type
 #' @param id placeholder index for a duplicated type(integer). This is to be used when a placeholder
 #' type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
-#' add onto the first, use \code{id = 1} and \code{id = 1} for the second one.
+#' add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 #' Values can be read from \code{\link{slide_summary}}.
 #' @param ph_label label associated to the placeholder. Use column
 #' \code{ph_label} of result returned by \code{\link{slide_summary}}.
