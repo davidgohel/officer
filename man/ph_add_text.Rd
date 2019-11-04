@@ -17,7 +17,7 @@ ph_add_text(x, str, type = "body", id = 1, id_chr = NULL,
 
 \item{id}{placeholder index for a duplicated type(integer). This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
-add onto the first, use \code{id = 1} and \code{id = 1} for the second one.
+add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
 
 \item{id_chr}{deprecated.}
