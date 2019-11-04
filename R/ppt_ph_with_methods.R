@@ -80,6 +80,16 @@ ph_with <- function(x, value, ...){
   UseMethod("ph_with", value)
 }
 
+gen_bg_str <- function(bg){
+  bg_str <- ""
+  if( !is.null(bg)){
+    bg_str <- sprintf("%s<a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
+                      pml_with_ns("a:solidFill") , colcode0(bg), colalpha(bg) )
+  }
+  bg_str
+}
+
+
 gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
                 bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
 
@@ -88,11 +98,7 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
-  bg_str <- ""
-  if( !is.null(bg)){
-    bg_str <- sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
-            colcode0(bg), colalpha(bg) )
-  }
+  bg_str <- gen_bg_str(bg)
 
   if( is.na(ph)){
     xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
@@ -324,7 +330,9 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
                          last_row = last_row, last_column = last_column,
                          header = header )
 
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), as_xml_document(xml_elt))
+  value <- as_xml_document(xml_elt)
+  xml_to_slide(slide, location, value)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
 }
@@ -360,16 +368,9 @@ ph_with.gg <- function(x, value, location, ...){
   slide$reference_img(src = file, dir_name = file.path(x$package_dir, "ppt/media"))
   xml_elt <- fortify_pml_images(x, xml_elt)
 
-  doc <- as_xml_document(xml_elt)
-
-  node <- xml_find_first( doc, "p:spPr")
-  off <- xml_child(node, "a:xfrm/a:off")
-  xml_attr( off, "x") <- sprintf( "%.0f", location$left * 914400 )
-  xml_attr( off, "y") <- sprintf( "%.0f", location$top * 914400 )
-
-  xmlslide <- slide$get()
-
-  xml_add_child(xml_find_first(xmlslide, "p:cSld/p:spTree"), doc)
+  value <- as_xml_document(xml_elt)
+  xml_to_slide(slide, location, value)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
 
@@ -391,13 +392,12 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 
   slide <- x$slide$get_slide(x$cursor)
 
-  if( use_loc_size ){
-    width <- location$width
-    height <- location$height
-  } else {
-    width <- attr(value, "dims")$width
-    height <- attr(value, "dims")$height
+  if( !use_loc_size ){
+    location$width <- attr(value, "dims")$width
+    location$height <- attr(value, "dims")$height
   }
+  width <- location$width
+  height <- location$height
 
   file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", value)
 
@@ -419,16 +419,9 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
   slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
   xml_elt <- fortify_pml_images(x, xml_elt)
 
-  doc <- as_xml_document(xml_elt)
-
-  node <- xml_find_first( doc, "p:spPr")
-  off <- xml_child(node, "a:xfrm/a:off")
-  xml_attr( off, "x") <- sprintf( "%.0f", location$left * 914400 )
-  xml_attr( off, "y") <- sprintf( "%.0f", location$top * 914400 )
-
-  xmlslide <- slide$get()
-
-  xml_add_child(xml_find_first(xmlslide, "p:cSld/p:spTree"), doc)
+  value <- as_xml_document(xml_elt)
+  xml_to_slide(slide, location, value)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
 
@@ -502,6 +495,64 @@ ph_empty <- function( x, type = "body", index = 1, location = NULL ){
   x
 }
 
+xml_to_slide <- function(slide, location, value){
+  node <- xml_find_first( value, as_xpath_content_sel("//") )
+  if(xml_name(node) == "grpSp"){
+    node_sppr <- xml_child(node, "p:grpSpPr")
+    node_xfrm <- xml_child(node, "p:grpSpPr/a:xfrm")
+    node_name <- xml_child(node, "p:nvGrpSpPr/p:cNvPr")
+  } else if(xml_name(node) == "graphicFrame") {
+    node_xfrm <- xml_child(node, "p:xfrm")
+    node_name <- xml_child(node, "p:nvGraphicFramePr/p:cNvPr")
+    node_sppr <- xml_missing()
+  } else if(xml_name(node) == "pic"){
+    node_sppr <- xml_child(node, "p:spPr")
+    node_xfrm <- xml_child(node, "p:spPr/a:xfrm")
+    node_name <- xml_child(node, "p:nvPicPr/p:cNvPr")
+  } else if(xml_name(node) == "sp"){
+    node_sppr <- xml_child(node, "p:spPr")
+    node_xfrm <- xml_child(node, "p:spPr/a:xfrm")
+    node_name <- xml_child(node, "p:nvSpPr/p:cNvPr")
+  } else {
+    node_xfrm <- xml_missing()
+    node_name <- xml_missing()
+    node_sppr <- xml_missing()
+  }
+
+
+  if( !inherits(node_name, "xml_missing") ){
+    xml_attr( node_name, "name") <- location$ph_label
+  }
+
+  if( !inherits(node_xfrm, "xml_missing") ){
+    off <- xml_child(node_xfrm, "a:off")
+    ext <- xml_child(node_xfrm, "a:ext")
+    chOff <- xml_child(node_xfrm, "a:chOff")
+    chExt <- xml_child(node_xfrm, "a:chExt")
+    xml_attr( off, "x") <- sprintf( "%.0f", location$left*914400 )
+    xml_attr( off, "y") <- sprintf( "%.0f", location$top*914400 )
+    xml_attr( ext, "cx") <- sprintf( "%.0f", location$width*914400 )
+    xml_attr( ext, "cy") <- sprintf( "%.0f", location$height*914400 )
+    xml_attr( chOff, "x") <- sprintf( "%.0f", location$left*914400 )
+    xml_attr( chOff, "y") <- sprintf( "%.0f", location$top*914400 )
+    xml_attr( chExt, "cx") <- sprintf( "%.0f", location$width*914400 )
+    xml_attr( chExt, "cy") <- sprintf( "%.0f", location$height*914400 )
+
+    # add location$rotation to cNvPr:name
+    if( !is.null(location$rotation) && is.numeric(location$rotation) ) {
+      xml_set_attr(node_xfrm, "rot", sprintf("%.0f", -location$rotation * 60000))
+    }
+  }
+
+  if( !inherits(node_sppr, "xml_missing") ){
+    # add location$bg to SpPr
+    if( !is.null(location$bg) ) {
+      bg_str <- gen_bg_str(location$bg)
+      xml_add_child(node_sppr, as_xml_document(bg_str))
+    }
+  }
+  value
+}
 
 #' @export
 #' @section with xml_document:
@@ -509,13 +560,14 @@ ph_empty <- function( x, type = "body", index = 1, location = NULL ){
 #' added as a new shape in the current slide. This function
 #' is to be used to add custom openxml code.
 #' @rdname ph_with
+#' @importFrom xml2 xml_child xml_set_attr xml_missing
 ph_with.xml_document <- function( x, value, location, ... ){
   slide <- x$slide$get_slide(x$cursor)
 
   location <- location_eval(rlang::enquo(location), x)
-  node <- xml_find_first( value, as_xpath_content_sel("//") )
-  node <- set_xfrm_attr(node, offx = location$left*914400, offy = location$top*914400,
-                        cx = location$width*914400, cy = location$height*914400)
+
+  xml_to_slide(slide, location, value)
+
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
 
   slide$fortify_id()

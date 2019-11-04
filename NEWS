@@ -11,6 +11,7 @@
 
 ## Issues
 
+* fix ph_with.xml_document so that placeholders' labels are not forgotten (for rvg, flextable, etc.)
 * fix underline text issue when used with powerpoint (#229).
 * fix slip_in_text issue by escaping HTML entities (#234).
 * fix issue with move_slide (#223).
