@@ -193,7 +193,12 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
                          href = NULL, slide_index = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
-  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
+  if( !is.null(id_chr)) {
+    office_id <- id_chr
+  } else {
+    office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
+  }
+
   current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id) )
 
   current_p <- xml_child(current_elt, "/a:p[last()]")
@@ -265,7 +270,11 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
 
   slide <- x$slide$get_slide(x$cursor)
 
-  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
+  if( !is.null(id_chr)) {
+    office_id <- id_chr
+  } else {
+    office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
+  }
   current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id) )
   current_p <- xml_child(current_elt, "/p:txBody")
 
@@ -320,7 +329,12 @@ ph_add_fpar <- function( x, value, type = "body", id = 1, id_chr = NULL, ph_labe
                          level = 1, par_default = TRUE ){
 
   slide <- x$slide$get_slide(x$cursor)
-  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
+
+  if( !is.null(id_chr)) {
+    office_id <- id_chr
+  } else {
+    office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
+  }
   current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id) )
 
   current_p <- xml_child(current_elt, "/p:txBody")
