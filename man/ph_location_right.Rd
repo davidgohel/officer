@@ -4,9 +4,11 @@
 \alias{ph_location_right}
 \title{location of a right body element}
 \usage{
-ph_location_right(...)
+ph_location_right(label = NULL, ...)
 }
 \arguments{
+\item{label}{a label to associate with the placeholder.}
+
 \item{...}{unused arguments}
 }
 \description{
@@ -26,6 +28,7 @@ read_pptx() \%>\%
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},
   \code{\link{ph_location_label}},
   \code{\link{ph_location_left}},
+  \code{\link{ph_location_template}},
   \code{\link{ph_location_type}}, \code{\link{ph_location}}
 }
 \concept{functions for placeholder location}

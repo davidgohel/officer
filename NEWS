@@ -3,6 +3,8 @@
 ## Enhancement
 
 * support now for template generated from google docs thanks to Adam Lyon
+* ph_location results can now be assigned and used as normal objetcs (and not only
+as quosures).
 
 ## Changes
 

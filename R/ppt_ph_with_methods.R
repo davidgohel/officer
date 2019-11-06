@@ -103,14 +103,12 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
 
   bg_str <- gen_bg_str(bg)
 
-  if( is.na(ph)){
-    xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
-    xfrm_str <- sprintf(xfrm_str, -rot * 60000,
-                        left * 914400, top * 914400,
-                        width * 914400, height * 914400)
+  xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
+  xfrm_str <- sprintf(xfrm_str, -rot * 60000,
+                      left * 914400, top * 914400,
+                      width * 914400, height * 914400)
+  if( is.null(ph) || is.na(ph)){
     ph = "<p:ph/>"
-  } else {
-    xfrm_str <- ""
   }
 
 
@@ -140,7 +138,6 @@ gen_ph_str_old <- function( left = 0, top = 0, width = 3, height = 3,
 
   str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
   sprintf(str, label, ph, xfrm_str, bg_str )
-
 }
 
 #' @export
@@ -158,13 +155,11 @@ gen_ph_str_old <- function( left = 0, top = 0, width = 3, height = 3,
 #' location_eval(quo(ph_location_fullsize()), doc)
 #' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
 location_eval <- function(location, x){
-  slide <- x$slide$get_slide(x$cursor)
-  xfrm <- slide$get_xfrm()
-  location <- rlang::call_modify(location, x = x,
-                             layout = unique( xfrm$name ),
-                             master = unique(xfrm$master_name)
-  )
-  eval_tidy(location, data = x)
+  if(inherits(location, "quosure")){
+    fortify_location(eval_tidy(location), x)
+  } else {
+    fortify_location(location, x)
+  }
 }
 
 #' @export
@@ -175,8 +170,7 @@ location_eval <- function(location, x){
 ph_with.character <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
-  location <- location_eval(rlang::enquo(location), x)
-
+  location <- fortify_location(location, doc = x)
   new_ph <- gen_ph_str(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
@@ -202,7 +196,7 @@ ph_with.character <- function(x, value, location, ...){
 ph_with.numeric <- function(x, value, location, format_fun = format, ...){
   slide <- x$slide$get_slide(x$cursor)
   value <- format_fun(value, ...)
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   new_ph <- gen_ph_str(left = location$left, top = location$top,
                width = location$width, height = location$height,
@@ -226,7 +220,7 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
 ph_with.factor <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
   value <- as.character(value)
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   new_ph <- gen_ph_str(left = location$left, top = location$top,
                width = location$width, height = location$height,
@@ -256,7 +250,7 @@ ph_with.logical <- ph_with.numeric
 ph_with.block_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   pars <- sapply(value, format, type = "pml")
   pars <- paste0(pars, collapse = "")
@@ -285,7 +279,7 @@ ph_with.block_list <- function(x, value, location, ...){
 #' @rdname ph_with
 ph_with.unordered_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   if( !is.null(value$style)){
     style_str <- sapply(value$style, format, type = "pml")
@@ -324,7 +318,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                first_row = TRUE, first_column = FALSE,
                                last_row = FALSE, last_column = FALSE, ...){
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
   xml_elt <- table_shape(x = x, value = value, left = location$left*914400, top = location$top*914400,
@@ -348,8 +342,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' instead for more advanced graphical features.
 #' @rdname ph_with
 ph_with.gg <- function(x, value, location, ...){
-  location <- location_eval(rlang::enquo(location), x)
-
+  location <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
@@ -391,7 +384,7 @@ ph_with.gg <- function(x, value, location, ...){
 #' be used.
 #' @rdname ph_with
 ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
 
@@ -440,7 +433,7 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 #' @rdname ph_with
 ph_with.fpar <- function( x, value, location, ... ){
 
-  ph_with.block_list(x, value = block_list(value), location = {{location}})
+  ph_with.block_list(x, value = block_list(value), location = location)
 
   x
 }
@@ -472,30 +465,16 @@ ph_with.fpar <- function( x, value, location, ... ){
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_empty <- function( x, type = "body", index = 1, location = NULL ){
-
-  stopifnot( type %in% c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body") )
-  slide <- x$slide$get_slide(x$cursor)
-
-  if( !is.null( rlang::get_expr(rlang::enquo(location)) ) ){
-    location <- location_eval(rlang::enquo(location), x)
-  } else {
-    slide <- x$slide$get_slide(x$cursor)
-    sh_pr_df <- slide$get_location(type = type, index = index)
-    location <- ph_location(ph = sh_pr_df$ph, label = sh_pr_df$ph_label,
-                            left = sh_pr_df$left, top = sh_pr_df$top,
-                            width = sh_pr_df$width, height = sh_pr_df$height)
+  if( is.null( location ) ){
+    location <- ph_location_type(type = type, id = index)
   }
-
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
-                       width = location$width, height = location$height,
-                       label = location$ph_label, ph = location$ph,
-                       rot = location$rotation, bg = location$bg)
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph, "</p:sp>" )
+  new_ph <- gen_ph_str(left = 0, top = 0,
+                       width = 3, height = 3)
+  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+                     "<p:txBody><a:bodyPr/><a:lstStyle/></p:txBody></p:sp>" )
   node <- as_xml_document(xml_elt)
 
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-  slide$fortify_id()
-  x
+  ph_with(x, node, location = location)
 }
 
 xml_to_slide <- function(slide, location, value){
@@ -567,7 +546,7 @@ xml_to_slide <- function(slide, location, value){
 ph_with.xml_document <- function( x, value, location, ... ){
   slide <- x$slide$get_slide(x$cursor)
 
-  location <- location_eval(rlang::enquo(location), x)
+  location <- fortify_location(location, doc = x)
 
   xml_to_slide(slide, location, value)
 
@@ -576,6 +555,8 @@ ph_with.xml_document <- function( x, value, location, ... ){
   slide$fortify_id()
   x
 }
+
+# old functions -----------
 
 #' @export
 #' @title add an xml string as new shape
@@ -622,9 +603,6 @@ ph_from_xml_at <- function( x, value, left, top, width, height ){
   x
 }
 
-
-# old functions -----------
-
 #' @export
 #' @title add text into a new shape
 #' @description add text into a new shape in a slide.
@@ -652,15 +630,10 @@ ph_with_text <- function( x, str, type = "title", index = 1, location = NULL ){
 
   if(!is.character(str))
     str <- format(str)
-
-  if( !is.null( rlang::get_expr(rlang::enquo(location)) ) ){
-    ph_with(x, external_img(src=src, width = width, height = height), location = !!rlang::enexpr( location ))
-  } else {
-    slide <- x$slide$get_slide(x$cursor)
-    sh_pr_df <- slide$get_location(type = type, index = index)
-    ph_with(x, str, location = ph_location(ph = sh_pr_df$ph, label = sh_pr_df$ph_label, left = sh_pr_df$left, top = sh_pr_df$top,
-                                           width = sh_pr_df$width, height = sh_pr_df$height))
+  if( is.null( location ) ){
+    location <- ph_location_type(type = type, id = index)
   }
+  ph_with(x, str, location = location)
 }
 
 
@@ -689,19 +662,12 @@ ph_with_table <- function( x, value, type = "body", index = 1,
                            location = NULL ){
   stopifnot(is.data.frame(value))
 
-  if( !is.null( rlang::get_expr(rlang::enquo(location)) ) ){
-    ph_with(x, value, location = !!rlang::enexpr( location ), header = header,
-            first_row = first_row, first_column = first_column,
-            last_row = last_row, last_column = last_column)
-  } else {
-    slide <- x$slide$get_slide(x$cursor)
-    sh_pr_df <- slide$get_location(type = type, index = index)
-    ph_with(x, value, location = ph_location(ph = sh_pr_df$ph, label = sh_pr_df$ph_label, left = sh_pr_df$left, top = sh_pr_df$top,
-                                             width = sh_pr_df$width, height = sh_pr_df$height),
-            header = header,
-            first_row = first_row, first_column = first_column,
-            last_row = last_row, last_column = last_column)
+  if( is.null( location ) ){
+    location <- ph_location_type(type = type, id = index)
   }
+  ph_with(x, value, location = location, header = header,
+          first_row = first_row, first_column = first_column,
+          last_row = last_row, last_column = last_column)
 }
 
 
@@ -729,18 +695,10 @@ ph_with_table <- function( x, value, type = "body", index = 1,
 ph_with_img <- function( x, src, type = "body", index = 1,
                          width = NULL, height = NULL,
                          location = NULL ){
-
-  if( !is.null( rlang::get_expr(rlang::enquo(location)) ) )
-    ph_with(x, external_img(src=src, width = width, height = height), location = !!rlang::enexpr( location ))
-  else {
-    slide <- x$slide$get_slide(x$cursor)
-    sh_pr_df <- slide$get_location(type = type, index = index)
-    if( is.null( width ) ) width <- sh_pr_df$width
-    if( is.null( height ) ) height <- sh_pr_df$height
-    ph_with(x, external_img(src=src, width = width, height = height),
-            location = ph_location(ph = sh_pr_df$ph, label = sh_pr_df$ph_label, left = sh_pr_df$left, top = sh_pr_df$top,
-                                   width = width, height = height))
+  if( is.null( location ) ){
+    location <- ph_location_type(type = type, id = index)
   }
+  ph_with(x, external_img(src=src, width = width, height = height), location = location)
 }
 
 #' @export
@@ -774,17 +732,12 @@ ph_with_img <- function( x, src, type = "body", index = 1,
 ph_with_gg <- function( x, value, type = "body", index = 1,
                         width = NULL, height = NULL, location = NULL, ... ){
 
-
-  if( !is.null( rlang::get_expr(rlang::enquo(location)) ) )
-    ph_with(x, value, location = !!rlang::enexpr( location ))
-  else {
-    slide <- x$slide$get_slide(x$cursor)
-    sh_pr_df <- slide$get_location(type = type, index = index)
-    if( is.null( width ) ) width <- sh_pr_df$width
-    if( is.null( height ) ) height <- sh_pr_df$height
-    ph_with(x, value, location = ph_location(ph = sh_pr_df$ph, label = sh_pr_df$ph_label, left = sh_pr_df$left, top = sh_pr_df$top,
-                                             width = width, height = height))
+  if( is.null( location ) ){
+    location <- ph_location_type(type = type, id = index)
+    if( !is.null( width ) ) location$width <- width
+    if( !is.null( height ) ) location$height <- height
   }
+  ph_with(x, value, location = location)
 
 }
 
@@ -820,15 +773,10 @@ ph_with_ul <- function(x, type = "body", index = 1,
     level_list = level_list,
     str_list = str_list,
     style = style )
-
-  if( !is.null( rlang::get_expr(rlang::enquo(location)) ) ){
-    ph_with(x = x, value = value, location = !!rlang::enexpr( location ) )
-  } else {
-    slide <- x$slide$get_slide(x$cursor)
-    sh_pr_df <- slide$get_location(type = type, index = index)
-    ph_with(x, value, location = ph_location(ph = sh_pr_df$ph, label = sh_pr_df$ph_label, left = sh_pr_df$left, top = sh_pr_df$top,
-                                             width = sh_pr_df$width, height = sh_pr_df$height))
+  if( is.null( location ) ){
+    location <- ph_location_type(type = type, id = index)
   }
+  ph_with(x = x, value = value, location = location )
 }
 
 
@@ -858,31 +806,9 @@ ph_with_ul <- function(x, type = "body", index = 1,
 #' print(doc, target = fileout )
 ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
                          template_type = NULL, template_index = 1 ){
-
-  ph <- NA_character_
-  label <- ""
-  type <- "body"
-  slide <- x$slide$get_slide(x$cursor)
-
-  if( !is.null( template_type ) ){
-    xfrm_df <- slide$get_xfrm(type = template_type, index = template_index)
-    ph <- xfrm_df$ph
-  } else {
-    ph <- sprintf('<p:ph type="%s"/>', type)
-  }
-  new_ph <- gen_ph_str_old(left = left, top = top,
-                           width = width, height = height,
-                           label = "", ph = ph,
-                           rot = rot, bg = bg)
-
-
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph, "</p:sp>" )
-  node <- as_xml_document(xml_elt)
-
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-  slide$fortify_id()
-  x
-
+  location <- ph_location_template(left = left, top = top, width = width, height = height,
+              label = "", type = template_type, id = template_index)
+  ph_with(x, "", location = location)
 }
 
 
@@ -906,7 +832,7 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 
   ph_with(x, external_img(src=src, width = width, height = height),
-          location = ph_location(ph = "", label = "", left = left, top = top, width = width, height = height))
+          location = ph_location(ph = "", label = "", left = left, top = top, width = width, height = height, rotation = rot))
 
 }
 
@@ -1026,20 +952,9 @@ ph_with_fpars_at <- function( x, fpars = list(), fp_pars = list(),
     fpar = fpars, fp_par = fp_pars, SIMPLIFY = FALSE )
   p_ <- do.call(block_list, p_)
 
-  ph <- ""
-  label <- ""
-  if( !is.null( template_type ) ){
-    slide <- x$slide$get_slide(x$cursor)
-    xfrm_df <- slide$get_xfrm(type = template_type, index = template_index)
-    ph <- xfrm_df$ph
-    label <- xfrm_df$ph_label
-  }
-
-  ph_with(x, p_,
-          location = ph_location(
-            ph = ph, label = label, left = left, top = top,
-            width = width, height = height))
-
+  location <- ph_location_template(left = left, top = top, width = width, height = height,
+                                   label = "", type = template_type, id = template_index)
+  ph_with(x, p_, location = location)
 }
 
 

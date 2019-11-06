@@ -1,14 +1,3 @@
-# utils ----
-get_doc <- function(...){
-  args <- list(...)
-  x <- args$x
-
-  if( is.null(args$x) ){
-    stop("you should not call this function outside of a ph_add call")
-  }
-  x
-}
-
 get_ph_loc <- function(x, layout, master, type, position_right, position_top, id = NULL){
 
   props <- layout_properties( x, layout = layout, master = master )
@@ -57,6 +46,10 @@ as_ph_location <- function(x, ...){
 }
 
 
+fortify_location <- function( x, doc, ... ){
+  UseMethod("fortify_location")
+}
+
 # main ----
 
 #' @export
@@ -98,17 +91,69 @@ as_ph_location <- function(x, ...){
 #'   print(target = tempfile(fileext = ".pptx") )
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         label = "",
-                        bg = NULL, rotation = NULL, ...){
+                        bg = NULL, rotation = NULL,
+                        ...){
 
-  x <- list(
-    left = left,
-    top = top,
-    width = width,
-    height = height,
-    ph_label = label,
-    ph = NA_character_, bg = bg, rotation = rotation
-  )
+  x <- list(left = left, top = top, width = width, height = height,
+    ph_label = label, ph = NA_character_, bg = bg, rotation = rotation)
+
+
+  class(x) <- c("location_manual", "location_str")
   x
+}
+fortify_location.location_manual <- function( x, doc, ...){
+  x
+}
+
+#' @title create a location for a placeholder based on a template
+#' @description The function will return a list that complies with
+#' expected format for argument \code{location} of functions \code{ph_with_*}
+#' and \code{ph_with} methods. A placeholder will be used as template
+#' and its positions will be updated with values `left`, `top`, `width`, `height`.
+#' @param left,top,width,height place holder coordinates
+#' in inches.
+#' @param label a label for the placeholder. See section details.
+#' @param type placeholder type to look for in the slide layout, one
+#' of 'body', 'title', 'ctrTitle', 'subTitle', 'dt', 'ftr', 'sldNum'.
+#' It will be used as a template placeholder.
+#' @param id index of the placeholder template. If two body placeholder, there can be
+#' two different index: 1 and 2 for the first and second body placeholders defined
+#' in the layout.
+#' @param ... unused arguments
+#' @family functions for placeholder location
+#' @inherit ph_location details
+#' @examples
+#' library(magrittr)
+#' read_pptx() %>%
+#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
+#'   ph_with("Title",
+#'     location = ph_location_type(type = "title") ) %>%
+#'   ph_with("Hello world",
+#'     location = ph_location_template(top = 4, type = "title") ) %>%
+#'   print(target = tempfile(fileext = ".pptx") )
+#' @export
+ph_location_template <- function(left = 1, top = 1, width = 4, height = 3,
+                        label = "", type = NULL, id = 1,
+                        ...){
+
+  x <- list(left = left, top = top, width = width, height = height,
+    ph_label = label, ph = NA_character_,
+    type = type, id = id)
+
+  class(x) <- c("location_template", "location_str")
+  x
+}
+fortify_location.location_template <- function( x, doc, ...){
+  slide <- doc$slide$get_slide(doc$cursor)
+  if( !is.null( x$type ) ){
+    ph <- slide$get_xfrm(type = x$type, index = x$id)$ph
+  } else {
+    ph <- sprintf('<p:ph type="%s"/>', "body")
+  }
+  x <- ph_location(left = x$left, top = x$top, width = x$width, height = x$height,
+              label = x$ph_label)
+  x$ph <- ph
+  fortify_location.location_manual(x)
 }
 
 #' @export
@@ -144,15 +189,20 @@ ph_location_type <- function( type = "body", position_right = TRUE, position_top
   if(!type %in% ph_types){
     stop("argument type must be a value of ", paste0(shQuote(ph_types), collapse = ", ", "."))
   }
-  x <- get_doc(...)
-  slide <- x$slide$get_slide(x$cursor)
+  x <- list(type = type, position_right = position_right, position_top = position_top, id = id)
+  class(x) <- c("location_type", "location_str")
+  x
+}
+fortify_location.location_type <- function( x, doc, ...){
+
+  slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
   args <- list(...)
   layout <- ifelse(is.null(args$layout), unique( xfrm$name ), args$layout)
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-  get_ph_loc(x, layout = layout, master = master,
-             type = type, position_right = position_right,
-             position_top = position_top, id = id)
+  get_ph_loc(doc, layout = layout, master = master,
+             type = x$type, position_right = x$position_right,
+             position_top = x$position_top, id = x$id)
 }
 
 #' @export
@@ -172,16 +222,21 @@ ph_location_type <- function( type = "body", position_right = TRUE, position_top
 #'     location = ph_location_label(ph_label = "Content Placeholder 2") ) %>%
 #'   print(target = tempfile(fileext = ".pptx") )
 ph_location_label <- function( ph_label, ...){
+  x <- list(ph_label = ph_label)
+  class(x) <- c("location_label", "location_str")
+  x
+}
 
-  x <- get_doc(...)
-  slide <- x$slide$get_slide(x$cursor)
+fortify_location.location_label <- function( x, doc, ...){
+
+  slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
 
   layout <- unique( xfrm$name )
   master <- unique(xfrm$master_name)
 
-  props <- layout_properties( x, layout = layout, master = master )
-  props <- props[props$ph_label %in% ph_label, , drop = FALSE]
+  props <- layout_properties( doc, layout = layout, master = master )
+  props <- props[props$ph_label %in% x$ph_label, , drop = FALSE]
 
   if( nrow(props) < 1) {
     stop("no selected row")
@@ -212,12 +267,19 @@ ph_location_label <- function( ph_label, ...){
 #'   print(target = tempfile(fileext = ".pptx") )
 ph_location_fullsize <- function( label = "", ... ){
 
-  x <- get_doc(...)
-  layout_data <- slide_size(x)
+  x <- list(label = label)
+  class(x) <- c("location_fullsize", "location_str")
+  x
+}
+
+fortify_location.location_fullsize <- function( x, doc, ...){
+
+  layout_data <- slide_size(doc)
   layout_data$left <- 0L
   layout_data$top <- 0L
-  layout_data$ph_label <- label
-  layout_data$ph <- ""
+  if( !is.null(x$label) )
+    layout_data$ph_label <- x$label
+  layout_data$ph <- NA_character_
   layout_data$type <- "body"
 
   as_ph_location(as.data.frame(layout_data, stringsAsFactors = FALSE))
@@ -228,6 +290,7 @@ ph_location_fullsize <- function( label = "", ... ){
 #' @description The function will return the location corresponding
 #' to a left bounding box. The function assume the layout 'Two Content'
 #' is existing.
+#' @param label a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @examples
@@ -237,17 +300,26 @@ ph_location_fullsize <- function( label = "", ... ){
 #'   ph_with("Hello", location = ph_location_left() ) %>%
 #'   ph_with("world", location = ph_location_right() ) %>%
 #'   print(target = tempfile(fileext = ".pptx") )
-ph_location_left <- function( ... ){
+ph_location_left <- function( label = NULL, ... ){
 
-  x <- get_doc(...)
-  slide <- x$slide$get_slide(x$cursor)
+  x <- list(label = label)
+  class(x) <- c("location_left", "location_str")
+  x
+}
+
+fortify_location.location_left <- function( x, doc, ...){
+
+  slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
 
   args <- list(...)
-  master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-  get_ph_loc(x, layout = "Two Content", master = master,
+  master <- if(is.null(args$master)) unique( xfrm$master_name ) else args$master
+  out <- get_ph_loc(doc, layout = "Two Content", master = master,
              type = "body", position_right = FALSE,
              position_top = TRUE)
+  if( !is.null(x$label) )
+    out$ph_label <- x$label
+  out
 }
 
 #' @export
@@ -255,6 +327,7 @@ ph_location_left <- function( ... ){
 #' @description The function will return the location corresponding
 #' to a right bounding box. The function assume the layout 'Two Content'
 #' is existing.
+#' @param label a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @examples
@@ -264,16 +337,25 @@ ph_location_left <- function( ... ){
 #'   ph_with("Hello", location = ph_location_left() ) %>%
 #'   ph_with("world", location = ph_location_right() ) %>%
 #'   print(target = tempfile(fileext = ".pptx") )
-ph_location_right <- function( ... ){
+ph_location_right <- function( label = NULL, ... ){
 
-  x <- get_doc(...)
-  slide <- x$slide$get_slide(x$cursor)
+  x <- list(label = label)
+  class(x) <- c("location_right", "location_str")
+  x
+}
+
+fortify_location.location_right <- function( x, doc, ...){
+
+  slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
 
   args <- list(...)
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-  get_ph_loc(x, layout = "Two Content", master = master,
+  out <- get_ph_loc(doc, layout = "Two Content", master = master,
              type = "body", position_right = TRUE,
              position_top = TRUE)
+  if( !is.null(x$label) )
+    out$ph_label <- x$label
+  out
 }
 

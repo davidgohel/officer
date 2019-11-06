@@ -60,24 +60,24 @@ wml_part_link_images <- function(x, str, part){
   as.character(doc)
 }
 
-wml_image <- function(blip_id, width, height){
-  str <- paste0(wml_with_ns("w:r"),
-    "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
-    sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700, height * 12700),
-    "<wp:docPr id=\"\" name=\"\"/>",
-    "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
-    "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
-    "<pic:nvPicPr>",
-    "<pic:cNvPr id=\"\" name=\"\"/>",
-    "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
-    "</pic:cNvPicPr></pic:nvPicPr>",
-    "<pic:blipFill>",
-    sprintf("<a:blip r:embed=\"%s\"/>", blip_id),
-    "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
-    "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
-    sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
-    "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
-  )
-  str
-}
+# wml_image <- function(blip_id, width, height){
+#   str <- paste0(wml_with_ns("w:r"),
+#     "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
+#     sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700, height * 12700),
+#     "<wp:docPr id=\"\" name=\"\"/>",
+#     "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
+#     "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
+#     "<pic:nvPicPr>",
+#     "<pic:cNvPr id=\"\" name=\"\"/>",
+#     "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
+#     "</pic:cNvPicPr></pic:nvPicPr>",
+#     "<pic:blipFill>",
+#     sprintf("<a:blip r:embed=\"%s\"/>", blip_id),
+#     "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
+#     "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
+#     sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
+#     "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
+#   )
+#   str
+# }
 
