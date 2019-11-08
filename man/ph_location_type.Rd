@@ -5,7 +5,7 @@
 \title{location of a placeholder type}
 \usage{
 ph_location_type(type = "body", position_right = TRUE,
-  position_top = TRUE, id = NULL, ...)
+  position_top = TRUE, newlabel = NULL, id = NULL, ...)
 }
 \arguments{
 \item{type}{placeholder type to look for in the slide layout, one
@@ -20,6 +20,8 @@ otherwise the element the most on the left side will be selected.}
 \item{position_top}{same than \code{position_right} but applied
 to top versus bottom.}
 
+\item{newlabel}{a label to associate with the placeholder.}
+
 \item{id}{index of the placeholder. If two body placeholder, there can be
 two different index: 1 and 2 for the first and second body placeholders defined
 in the layout. If this argument is used, \code{position_right} and \code{position_top}
@@ -33,7 +35,7 @@ the layout name and few other criterias to find the corresponding location.
 }
 \details{
 The location of the bounding box associated to a placeholder
-within a presentation slide is specified with the left top coordinate,
+within a slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:
 
 \describe{
@@ -43,18 +45,18 @@ the width and the height. These are defined in inches:
 \item{height}{height of the bounding box}
 }
 
-In addition to these attributes, there is attribute \code{ph_label}
-associated with the shape (shapes, text boxes, images and other objects
-will be identified with that label in the Selection Pane of PowerPoint).
-This label can then be reused by other functions such as \code{ph_add_fpar},
-or \code{ph_add_text}.
+In addition to these attributes, a label can be
+associated with the shape. Shapes, text boxes, images and other objects
+will be identified with that label in the Selection Pane of PowerPoint.
+This label can then be reused by other functions such as \code{ph_location_label()}.
+It also can be set with argument \code{newlabel}.
 }
 \examples{
-library(magrittr)
-read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with("Hello world", location = ph_location_type(type = "body") ) \%>\%
-  print(target = tempfile(fileext = ".pptx") )
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(doc, "Hello world",
+  location = ph_location_type(type = "body") )
+print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

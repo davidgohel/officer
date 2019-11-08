@@ -4,14 +4,14 @@
 \alias{ph_location}
 \title{create a location for a placeholder}
 \usage{
-ph_location(left = 1, top = 1, width = 4, height = 3, label = "",
-  bg = NULL, rotation = NULL, ...)
+ph_location(left = 1, top = 1, width = 4, height = 3,
+  newlabel = "", bg = NULL, rotation = NULL, ...)
 }
 \arguments{
 \item{left, top, width, height}{place holder coordinates
 in inches.}
 
-\item{label}{a label for the placeholder. See section details.}
+\item{newlabel}{a label for the placeholder. See section details.}
 
 \item{bg}{background color}
 
@@ -26,7 +26,7 @@ and \code{ph_with} methods.
 }
 \details{
 The location of the bounding box associated to a placeholder
-within a presentation slide is specified with the left top coordinate,
+within a slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:
 
 \describe{
@@ -36,19 +36,18 @@ the width and the height. These are defined in inches:
 \item{height}{height of the bounding box}
 }
 
-In addition to these attributes, there is attribute \code{ph_label}
-associated with the shape (shapes, text boxes, images and other objects
-will be identified with that label in the Selection Pane of PowerPoint).
-This label can then be reused by other functions such as \code{ph_add_fpar},
-or \code{ph_add_text}.
+In addition to these attributes, a label can be
+associated with the shape. Shapes, text boxes, images and other objects
+will be identified with that label in the Selection Pane of PowerPoint.
+This label can then be reused by other functions such as \code{ph_location_label()}.
+It also can be set with argument \code{newlabel}.
 }
 \examples{
-library(magrittr)
-read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with("Hello world",
-    location = ph_location(width = 4, height = 3, label = "hello") ) \%>\%
-  print(target = tempfile(fileext = ".pptx") )
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(doc, "Hello world",
+  location = ph_location(width = 4, height = 3, newlabel = "hello") )
+print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

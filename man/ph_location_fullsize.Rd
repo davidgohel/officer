@@ -4,10 +4,10 @@
 \alias{ph_location_fullsize}
 \title{location of a full size element}
 \usage{
-ph_location_fullsize(label = "", ...)
+ph_location_fullsize(newlabel = "", ...)
 }
 \arguments{
-\item{label}{a label to associate with the placeholder.}
+\item{newlabel}{a label to associate with the placeholder.}
 
 \item{...}{unused arguments}
 }
@@ -16,11 +16,10 @@ The function will return the location corresponding
 to a full size display.
 }
 \examples{
-library(magrittr)
-my_pres <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with("Hello world", location = ph_location_fullsize() ) \%>\%
-  print(target = tempfile(fileext = ".pptx") )
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(doc, "Hello world", location = ph_location_fullsize() )
+print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_label}},

@@ -59,14 +59,14 @@ fortify_location <- function( x, doc, ... ){
 #' and \code{ph_with} methods.
 #' @param left,top,width,height place holder coordinates
 #' in inches.
-#' @param label a label for the placeholder. See section details.
+#' @param newlabel a label for the placeholder. See section details.
 #' @param bg background color
 #' @param rotation rotation angle
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @details
 #' The location of the bounding box associated to a placeholder
-#' within a presentation slide is specified with the left top coordinate,
+#' within a slide is specified with the left top coordinate,
 #' the width and the height. These are defined in inches:
 #'
 #' \describe{
@@ -76,26 +76,24 @@ fortify_location <- function( x, doc, ... ){
 #'   \item{height}{height of the bounding box}
 #' }
 #'
-#' In addition to these attributes, there is attribute \code{ph_label}
-#' associated with the shape (shapes, text boxes, images and other objects
-#' will be identified with that label in the Selection Pane of PowerPoint).
-#' This label can then be reused by other functions such as \code{ph_add_fpar},
-#' or \code{ph_add_text}.
-#'
+#' In addition to these attributes, a label can be
+#' associated with the shape. Shapes, text boxes, images and other objects
+#' will be identified with that label in the Selection Pane of PowerPoint.
+#' This label can then be reused by other functions such as `ph_location_label()`.
+#' It also can be set with argument `newlabel`.
 #' @examples
-#' library(magrittr)
-#' read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Hello world",
-#'     location = ph_location(width = 4, height = 3, label = "hello") ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Hello world",
+#'   location = ph_location(width = 4, height = 3, newlabel = "hello") )
+#' print(doc, target = tempfile(fileext = ".pptx") )
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
-                        label = "",
+                        newlabel = "",
                         bg = NULL, rotation = NULL,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = label, ph = NA_character_, bg = bg, rotation = rotation)
+    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation)
 
 
   class(x) <- c("location_manual", "location_str")
@@ -112,7 +110,7 @@ fortify_location.location_manual <- function( x, doc, ...){
 #' and its positions will be updated with values `left`, `top`, `width`, `height`.
 #' @param left,top,width,height place holder coordinates
 #' in inches.
-#' @param label a label for the placeholder. See section details.
+#' @param newlabel a label for the placeholder. See section details.
 #' @param type placeholder type to look for in the slide layout, one
 #' of 'body', 'title', 'ctrTitle', 'subTitle', 'dt', 'ftr', 'sldNum'.
 #' It will be used as a template placeholder.
@@ -123,21 +121,20 @@ fortify_location.location_manual <- function( x, doc, ...){
 #' @family functions for placeholder location
 #' @inherit ph_location details
 #' @examples
-#' library(magrittr)
-#' read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Title",
-#'     location = ph_location_type(type = "title") ) %>%
-#'   ph_with("Hello world",
-#'     location = ph_location_template(top = 4, type = "title") ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Title",
+#'   location = ph_location_type(type = "title") )
+#' doc <- ph_with(doc, "Hello world",
+#'     location = ph_location_template(top = 4, type = "title") )
+#' print(doc, target = tempfile(fileext = ".pptx") )
 #' @export
 ph_location_template <- function(left = 1, top = 1, width = 4, height = 3,
-                        label = "", type = NULL, id = 1,
+                        newlabel = "", type = NULL, id = 1,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = label, ph = NA_character_,
+    ph_label = newlabel, ph = NA_character_,
     type = type, id = id)
 
   class(x) <- c("location_template", "location_str")
@@ -173,23 +170,24 @@ fortify_location.location_template <- function( x, doc, ...){
 #' two different index: 1 and 2 for the first and second body placeholders defined
 #' in the layout. If this argument is used, \code{position_right} and \code{position_top}
 #' will be ignored.
+#' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @inherit ph_location details
 #' @examples
-#' library(magrittr)
-#' read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Hello world", location = ph_location_type(type = "body") ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
-ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, id = NULL, ...){
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Hello world",
+#'   location = ph_location_type(type = "body") )
+#' print(doc, target = tempfile(fileext = ".pptx") )
+ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, newlabel = NULL, id = NULL, ...){
 
   ph_types <- c("ctrTitle", "subTitle", "dt", "ftr",
                 "sldNum", "title", "body")
   if(!type %in% ph_types){
     stop("argument type must be a value of ", paste0(shQuote(ph_types), collapse = ", ", "."))
   }
-  x <- list(type = type, position_right = position_right, position_top = position_top, id = id)
+  x <- list(type = type, position_right = position_right, position_top = position_top, id = id, label = newlabel)
   class(x) <- c("location_type", "location_str")
   x
 }
@@ -200,9 +198,13 @@ fortify_location.location_type <- function( x, doc, ...){
   args <- list(...)
   layout <- ifelse(is.null(args$layout), unique( xfrm$name ), args$layout)
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-  get_ph_loc(doc, layout = layout, master = master,
+  out <- get_ph_loc(doc, layout = layout, master = master,
              type = x$type, position_right = x$position_right,
              position_top = x$position_top, id = x$id)
+  if( !is.null(x$label) )
+    out$ph_label <- x$label
+  out
+
 }
 
 #' @export
@@ -211,18 +213,18 @@ fortify_location.location_type <- function( x, doc, ...){
 #' to find the corresponding location.
 #' @param ph_label placeholder label. It can be read in PowerPoint or
 #' with function \code{layout_properties()} in column \code{ph_label}.
+#' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @inherit ph_location details
 #' @examples
-#' library(magrittr)
-#' read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Hello world",
-#'     location = ph_location_label(ph_label = "Content Placeholder 2") ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
-ph_location_label <- function( ph_label, ...){
-  x <- list(ph_label = ph_label)
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Hello world",
+#'   location = ph_location_label(ph_label = "Content Placeholder 2") )
+#' print(doc, target = tempfile(fileext = ".pptx") )
+ph_location_label <- function( ph_label, newlabel = NULL, ...){
+  x <- list(ph_label = ph_label, label = newlabel)
   class(x) <- c("location_label", "location_str")
   x
 }
@@ -249,25 +251,28 @@ fortify_location.location_label <- function( x, doc, ...){
   props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type")]
   names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type")
   row.names(props) <- NULL
-  as_ph_location(props)
+  out <- as_ph_location(props)
+  if( !is.null(x$label) )
+    out$ph_label <- x$label
+  out
+
 }
 
 #' @export
 #' @title location of a full size element
 #' @description The function will return the location corresponding
 #' to a full size display.
-#' @param label a label to associate with the placeholder.
+#' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @examples
-#' library(magrittr)
-#' my_pres <- read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Hello world", location = ph_location_fullsize() ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
-ph_location_fullsize <- function( label = "", ... ){
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Hello world", location = ph_location_fullsize() )
+#' print(doc, target = tempfile(fileext = ".pptx") )
+ph_location_fullsize <- function( newlabel = "", ... ){
 
-  x <- list(label = label)
+  x <- list(label = newlabel)
   class(x) <- c("location_fullsize", "location_str")
   x
 }
@@ -290,19 +295,18 @@ fortify_location.location_fullsize <- function( x, doc, ...){
 #' @description The function will return the location corresponding
 #' to a left bounding box. The function assume the layout 'Two Content'
 #' is existing.
-#' @param label a label to associate with the placeholder.
+#' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @examples
-#' library(magrittr)
-#' read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Hello", location = ph_location_left() ) %>%
-#'   ph_with("world", location = ph_location_right() ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
-ph_location_left <- function( label = NULL, ... ){
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Hello left", location = ph_location_left() )
+#' doc <- ph_with(doc, "Hello right", location = ph_location_right() )
+#' print(doc, target = tempfile(fileext = ".pptx") )
+ph_location_left <- function( newlabel = NULL, ... ){
 
-  x <- list(label = label)
+  x <- list(label = newlabel)
   class(x) <- c("location_left", "location_str")
   x
 }
@@ -327,19 +331,18 @@ fortify_location.location_left <- function( x, doc, ...){
 #' @description The function will return the location corresponding
 #' to a right bounding box. The function assume the layout 'Two Content'
 #' is existing.
-#' @param label a label to associate with the placeholder.
+#' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @examples
-#' library(magrittr)
-#' read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Hello", location = ph_location_left() ) %>%
-#'   ph_with("world", location = ph_location_right() ) %>%
-#'   print(target = tempfile(fileext = ".pptx") )
-ph_location_right <- function( label = NULL, ... ){
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Hello left", location = ph_location_left() )
+#' doc <- ph_with(doc, "Hello right", location = ph_location_right() )
+#' print(doc, target = tempfile(fileext = ".pptx") )
+ph_location_right <- function( newlabel = NULL, ... ){
 
-  x <- list(label = label)
+  x <- list(label = newlabel)
   class(x) <- c("location_right", "location_str")
   x
 }

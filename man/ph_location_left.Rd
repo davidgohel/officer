@@ -4,10 +4,10 @@
 \alias{ph_location_left}
 \title{location of a left body element}
 \usage{
-ph_location_left(label = NULL, ...)
+ph_location_left(newlabel = NULL, ...)
 }
 \arguments{
-\item{label}{a label to associate with the placeholder.}
+\item{newlabel}{a label to associate with the placeholder.}
 
 \item{...}{unused arguments}
 }
@@ -17,12 +17,11 @@ to a left bounding box. The function assume the layout 'Two Content'
 is existing.
 }
 \examples{
-library(magrittr)
-read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with("Hello", location = ph_location_left() ) \%>\%
-  ph_with("world", location = ph_location_right() ) \%>\%
-  print(target = tempfile(fileext = ".pptx") )
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(doc, "Hello left", location = ph_location_left() )
+doc <- ph_with(doc, "Hello right", location = ph_location_right() )
+print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},

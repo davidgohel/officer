@@ -4,11 +4,13 @@
 \alias{ph_location_label}
 \title{location of a named placeholder}
 \usage{
-ph_location_label(ph_label, ...)
+ph_location_label(ph_label, newlabel = NULL, ...)
 }
 \arguments{
 \item{ph_label}{placeholder label. It can be read in PowerPoint or
 with function \code{layout_properties()} in column \code{ph_label}.}
+
+\item{newlabel}{a label to associate with the placeholder.}
 
 \item{...}{unused arguments}
 }
@@ -18,7 +20,7 @@ to find the corresponding location.
 }
 \details{
 The location of the bounding box associated to a placeholder
-within a presentation slide is specified with the left top coordinate,
+within a slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:
 
 \describe{
@@ -28,19 +30,18 @@ the width and the height. These are defined in inches:
 \item{height}{height of the bounding box}
 }
 
-In addition to these attributes, there is attribute \code{ph_label}
-associated with the shape (shapes, text boxes, images and other objects
-will be identified with that label in the Selection Pane of PowerPoint).
-This label can then be reused by other functions such as \code{ph_add_fpar},
-or \code{ph_add_text}.
+In addition to these attributes, a label can be
+associated with the shape. Shapes, text boxes, images and other objects
+will be identified with that label in the Selection Pane of PowerPoint.
+This label can then be reused by other functions such as \code{ph_location_label()}.
+It also can be set with argument \code{newlabel}.
 }
 \examples{
-library(magrittr)
-read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with("Hello world",
-    location = ph_location_label(ph_label = "Content Placeholder 2") ) \%>\%
-  print(target = tempfile(fileext = ".pptx") )
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(doc, "Hello world",
+  location = ph_location_label(ph_label = "Content Placeholder 2") )
+print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: \code{\link{ph_location_fullsize}},
