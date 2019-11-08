@@ -6,7 +6,7 @@
 ^README\.Rmd$
 ^docs$
 ^inst\/zztools$
-^inst\/officerlogo\.svg$
+^inst\/medias$
 ^inst\/vtests\.Rmd$
 ^inst\/vtests\.html$
 ^vignettes/offcran$
