@@ -45,7 +45,7 @@ In addition to these attributes, a label can be
 associated with the shape. Shapes, text boxes, images and other objects
 will be identified with that label in the Selection Pane of PowerPoint.
 This label can then be reused by other functions such as \code{ph_location_label()}.
-It also can be set with argument \code{newlabel}.
+It can be set with argument \code{newlabel}.
 }
 \examples{
 doc <- read_pptx()

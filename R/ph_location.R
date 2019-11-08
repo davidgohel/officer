@@ -80,7 +80,7 @@ fortify_location <- function( x, doc, ... ){
 #' associated with the shape. Shapes, text boxes, images and other objects
 #' will be identified with that label in the Selection Pane of PowerPoint.
 #' This label can then be reused by other functions such as `ph_location_label()`.
-#' It also can be set with argument `newlabel`.
+#' It can be set with argument `newlabel`.
 #' @examples
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
