@@ -1,18 +1,21 @@
 #' @export
-#' @title add object into a new shape
-#' @description add object into a new shape in a slide. This
+#' @title add objects into a new shape on the current slide
+#' @description add object into a new shape in the current slide. This
 #' function is able to add all supported outputs to a presentation
 #' and should replace calls to older functions starting with
 #' \code{ph_with_*}.
-#' @param x a pptx device
-#' @param value object to add as a new shape.
-#' @param location a placeholder location object. This is a convenient
-#' argument that can replace usage of arguments \code{type} and \code{index}.
-#' See section \code{see also}.
+#' @param x an rpptx object
+#' @param value object to add as a new shape. Supported objects
+#' are vectors, data.frame, graphics, block of formatted paragraphs,
+#' unordered list of formatted paragraphs,
+#' pretty tables with package flextable, editable graphics with
+#' package rvg, 'Microsoft' charts with package mschart.
+#' @param location a placeholder location object.
+#' It will be used to specify the location of the new shape. This location
+#' can be defined with a call to one of the ph_location functions. See
+#' section \code{see also}.
 #' @param ... Arguments to be passed to methods
 #' @examples
-#' library(magrittr)
-#'
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Two Content",
@@ -23,14 +26,15 @@
 #'                location = ph_location_right() )
 #'
 #' if( require("ggplot2") ){
-#'   doc <- add_slide(doc, layout = "Title and Content",
-#'     master = "Office Theme")
+#'   doc <- add_slide(doc)
 #'   gg_plot <- ggplot(data = iris ) +
 #'     geom_point(mapping = aes(Sepal.Length, Petal.Length),
 #'       size = 3) +
 #'     theme_minimal()
 #'   doc <- ph_with(x = doc, value = gg_plot,
 #'                  location = ph_location_fullsize() )
+#'   doc <- ph_with(x = doc, value = "graphic title",
+#'                location = ph_location_type(type="title") )
 #' }
 #'
 #' doc <- add_slide(doc, layout = "Title and Content",
@@ -52,15 +56,13 @@
 #'     ftext("hello", shortcuts$fp_bold()),
 #'     ftext("hello", shortcuts$fp_italic(color="red"))
 #'   ))
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'                  master = "Office Theme")
+#' doc <- add_slide(doc)
 #' doc <- ph_with(x = doc, value = bl,
 #'                location = ph_location_type(type="body") )
 #'
 #' # block list ------
 #' hw <- fpar(ftext("hello world", shortcuts$fp_bold(color = "pink")))
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'                  master = "Office Theme")
+#' doc <- add_slide(doc)
 #' doc <- ph_with(x = doc, value = hw,
 #'                location = ph_location_type(type="body") )
 
@@ -70,15 +72,15 @@
 #'   level_list = c(1, 2, 2, 3, 3, 1),
 #'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
 #'   style = fp_text(color = "red", font.size = 0) )
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'                  master = "Office Theme")
+#' doc <- add_slide(doc)
 #' doc <- ph_with(x = doc, value = ul,
 #'                location = ph_location_fullsize() )
 #'
 #' print(doc, target = fileout )
 #' @seealso [ph_location_type], [ph_location], [ph_location_label],
-#' [ph_location_left], [ph_location_right], [ph_location_fullsize]
-#' @importFrom rlang eval_tidy enquo call_modify
+#' [ph_location_left], [ph_location_right], [ph_location_fullsize],
+#' [ph_location_template]
+#' @importFrom rlang eval_tidy
 ph_with <- function(x, value, ...){
   UseMethod("ph_with", value)
 }
@@ -116,43 +118,17 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
   sprintf(str, label, ph, xfrm_str, bg_str )
 
 }
-gen_ph_str_old <- function( left = 0, top = 0, width = 3, height = 3,
-                bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
-
-  if( is.null(rot)) rot <- 0
-
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
-
-  bg_str <- ""
-  if( !is.null(bg)){
-    bg_str <- sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
-            colcode0(bg), colalpha(bg) )
-  }
-
-  xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
-  xfrm_str <- sprintf(xfrm_str, -rot * 60000,
-                      left * 914400, top * 914400,
-                      width * 914400, height * 914400)
-
-
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
-  sprintf(str, label, ph, xfrm_str, bg_str )
-}
-
 #' @export
 #' @title eval a location on the current slide
 #' @description Eval a shape location against the current slide.
 #' This function is to be used to add custom openxml code.
-#' @param location a location for a placeholder. It has to be a
-#' quosure.
+#' @param location a location for a placeholder.
 #' @param x an rpptx object
 #' @examples
-#' library(rlang)
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content",
 #'   master = "Office Theme")
-#' location_eval(quo(ph_location_fullsize()), doc)
+#' location_eval(ph_location_fullsize(), doc)
 #' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
 location_eval <- function(location, x){
   if(inherits(location, "quosure")){
@@ -163,10 +139,8 @@ location_eval <- function(location, x){
 }
 
 #' @export
-#' @section with character:
-#' When value is a character vector, each value will be
-#' added as a paragraph.
-#' @rdname ph_with
+#' @describeIn ph_with add a character vector to a new shape on the
+#' current slide, values will be added as paragraphs.
 ph_with.character <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
@@ -189,10 +163,9 @@ ph_with.character <- function(x, value, location, ...){
 
 #' @export
 #' @param format_fun format function for non character vectors
-#' @section with vector:
-#' When value is a vector, the values will be first formatted and
-#' then add as text, each value will be added as a paragraph.
-#' @rdname ph_with
+#' @describeIn ph_with add a numeric vector to a new shape on the
+#' current slide, values will be be first formatted then
+#' added as paragraphs.
 ph_with.numeric <- function(x, value, location, format_fun = format, ...){
   slide <- x$slide$get_slide(x$cursor)
   value <- format_fun(value, ...)
@@ -216,7 +189,9 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
 }
 
 #' @export
-#' @rdname ph_with
+#' @describeIn ph_with add a factor vector to a new shape on the
+#' current slide, values will be be converted as character and then
+#' added as paragraphs.
 ph_with.factor <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
   value <- as.character(value)
@@ -243,10 +218,8 @@ ph_with.factor <- function(x, value, location, ...){
 ph_with.logical <- ph_with.numeric
 
 #' @export
-#' @section with block_list:
-#' When value is a block_list object, each value will be
-#' added as a paragraph.
-#' @rdname ph_with
+#' @describeIn ph_with add a \code{\link{block_list}} made
+#' of \code{\link{fpar}} to a new shape on the current slide.
 ph_with.block_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
@@ -273,10 +246,8 @@ ph_with.block_list <- function(x, value, location, ...){
 
 
 #' @export
-#' @section with unordered_list:
-#' When value is a unordered_list object, each value will be
-#' added as a paragraph.
-#' @rdname ph_with
+#' @describeIn ph_with add a \code{\link{unordered_list}} made
+#' of \code{\link{fpar}} to a new shape on the current slide.
 ph_with.unordered_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
   location <- fortify_location(location, doc = x)
@@ -308,13 +279,10 @@ ph_with.unordered_list <- function(x, value, location, ...){
 
 
 #' @export
-#' @section with data.frame:
-#' When value is a data.frame, a simple table
-#' is added, use package \code{flextable} instead
-#' for more advanced formattings.
 #' @param header display header if TRUE
 #' @param first_row,last_row,first_column,last_column logical for PowerPoint table options
-#' @rdname ph_with
+#' @describeIn ph_with add a data.frame to a new shape on the current slide. Use
+#' package \code{flextable} instead for more advanced formattings.
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                first_row = TRUE, first_column = FALSE,
                                last_row = FALSE, last_column = FALSE, ...){
@@ -336,11 +304,8 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 
 
 #' @export
-#' @section with a ggplot object:
-#' When value is a ggplot object, a raster plot
-#' is produced and added, use package \code{rvg}
-#' instead for more advanced graphical features.
-#' @rdname ph_with
+#' @describeIn ph_with add a ggplot object to a new shape on the
+#' current slide. Use package \code{rvg} for more advanced graphical features.
 ph_with.gg <- function(x, value, location, ...){
   location <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
@@ -374,15 +339,16 @@ ph_with.gg <- function(x, value, location, ...){
 
 
 #' @export
-#' @section with a external_img object:
-#' When value is a external_img object, image will be copied
-#' into the PowerPoint presentation. The width and height
-#' specified in call to \code{\link{external_img}} will be
-#' ignored, their values will be those of the location,
-#' unless use_loc_size is set to FALSE.
 #' @param use_loc_size if set to FALSE, external_img width and height will
 #' be used.
-#' @rdname ph_with
+#' @describeIn ph_with add a \code{\link{external_img}} to a new shape
+#' on the current slide.
+#'
+#' When value is a external_img object, image will be copied
+#' into the PowerPoint presentation. The width and height
+#' specified in call to \code{external_img} will be
+#' ignored, their values will be those of the location,
+#' unless use_loc_size is set to FALSE.
 ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
   location <- fortify_location(location, doc = x)
 
@@ -427,10 +393,8 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 
 
 #' @export
-#' @section with fpar:
-#' When value is an fpar object, it will be
-#' added as a single paragraph in a block_list.
-#' @rdname ph_with
+#' @describeIn ph_with add an \code{\link{fpar}} to a new shape
+#' on the current slide as a single paragraph in a \code{\link{block_list}}.
 ph_with.fpar <- function( x, value, location, ... ){
 
   ph_with.block_list(x, value = block_list(value), location = location)
@@ -444,7 +408,9 @@ ph_with.fpar <- function( x, value, location, ... ){
 #' @export
 #' @title add a new empty shape
 #' @description add a new empty shape in the current slide.
-#' @param x a pptx device
+#' This function was implemented for development purpose and
+#' should not be used.
+#' @param x an pptx object
 #' @param location a placeholder location object. This is a convenient
 #' argument that can replace usage of arguments \code{type} and \code{index}.
 #' See [ph_location_type], [ph_location], [ph_location_label],
@@ -537,12 +503,9 @@ xml_to_slide <- function(slide, location, value){
 }
 
 #' @export
-#' @section with xml_document:
-#' When value is an xml_document object, its content will be
-#' added as a new shape in the current slide. This function
-#' is to be used to add custom openxml code.
-#' @rdname ph_with
 #' @importFrom xml2 xml_child xml_set_attr xml_missing
+#' @describeIn ph_with add an xml_document object to a new shape on the
+#' current slide. This function is to be used to add custom openxml code.
 ph_with.xml_document <- function( x, value, location, ... ){
   slide <- x$slide$get_slide(x$cursor)
 
@@ -611,18 +574,29 @@ ph_from_xml_at <- function( x, value, left, top, width, height ){
 #' @inheritParams ph_empty
 #' @param str text to add
 #' @examples
-#' fileout <- tempfile(fileext = ".pptx")
+#' # define locations for placeholders ----
+#' loc_title <- ph_location_type(type = "title")
+#' loc_footer <- ph_location_type(type = "ftr")
+#' loc_dt <- ph_location_type(type = "dt")
+#' loc_slidenum <- ph_location_type(type = "sldNum")
+#' loc_body <- ph_location_type(type = "body")
+#'
+#'
 #' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre")
-#' doc <- ph_with_text(x = doc, type = "ftr", str = "pied de page")
-#' doc <- ph_with_text(x = doc, type = "dt", str = format(Sys.Date()))
-#' doc <- ph_with_text(x = doc, type = "sldNum", str = "slide 1")
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc, "Un titre", location = loc_title)
+#' doc <- ph_with(x = doc, "pied de page", location = loc_footer)
+#' doc <- ph_with(x = doc, format(Sys.Date()), location = loc_dt)
+#' doc <- ph_with(x = doc, "slide 1", location = loc_slidenum)
+#' doc <- ph_with(x = doc, letters[1:10], location = loc_body)
 #'
+#' loc_subtitle <- ph_location_type(type = "subTitle")
+#' loc_ctrtitle <- ph_location_type(type = "ctrTitle")
 #' doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
-#' doc <- ph_with_text(x = doc, type = "subTitle", str = "Un sous titre")
-#' doc <- ph_with_text(x = doc, type = "ctrTitle", str = "Un titre")
+#' doc <- ph_with(x = doc, "Un sous titre", location = loc_subtitle)
+#' doc <- ph_with(x = doc, "Un titre", location = loc_ctrtitle)
 #'
+#' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 #' @inherit ph_empty seealso
@@ -646,20 +620,12 @@ ph_with_text <- function( x, str, type = "title", index = 1, location = NULL ){
 #' @param value data.frame
 #' @param header display header if TRUE
 #' @param first_row,last_row,first_column,last_column logical for PowerPoint table options
-#' @examples
-#' library(magrittr)
-#'
-#' doc <- read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with_table(value = mtcars[1:6,], type = "body",
-#'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
-#'
-#' print(doc, target = tempfile(fileext = ".pptx"))
 ph_with_table <- function( x, value, type = "body", index = 1,
                            header = TRUE,
                            first_row = TRUE, first_column = FALSE,
                            last_row = FALSE, last_column = FALSE,
                            location = NULL ){
+  .Deprecated(new = "ph_with")
   stopifnot(is.data.frame(value))
 
   if( is.null( location ) ){
@@ -695,6 +661,7 @@ ph_with_table <- function( x, value, type = "body", index = 1,
 ph_with_img <- function( x, src, type = "body", index = 1,
                          width = NULL, height = NULL,
                          location = NULL ){
+  .Deprecated(new = "ph_with")
   if( is.null( location ) ){
     location <- ph_location_type(type = type, id = index)
   }
@@ -731,7 +698,7 @@ ph_with_img <- function( x, src, type = "body", index = 1,
 #' }
 ph_with_gg <- function( x, value, type = "body", index = 1,
                         width = NULL, height = NULL, location = NULL, ... ){
-
+  .Deprecated(new = "ph_with")
   if( is.null( location ) ){
     location <- ph_location_type(type = type, id = index)
     if( !is.null( width ) ) location$width <- width
@@ -755,7 +722,6 @@ ph_with_gg <- function( x, value, type = "body", index = 1,
 #' inherit from default sizes of the presentation.
 #' @export
 #' @examples
-#' library(magrittr)
 #' pptx <- read_pptx()
 #' pptx <- add_slide(x = pptx, layout = "Title and Content", master = "Office Theme")
 #' pptx <- ph_with_text(x = pptx, type = "title", str = "Example title")
@@ -769,6 +735,7 @@ ph_with_ul <- function(x, type = "body", index = 1,
                        str_list = character(0), level_list = integer(0),
                        style = NULL,
                        location = NULL) {
+  .Deprecated(new = "ph_with")
   value <- unordered_list(
     level_list = level_list,
     str_list = str_list,
@@ -806,6 +773,7 @@ ph_with_ul <- function(x, type = "body", index = 1,
 #' print(doc, target = fileout )
 ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
                          template_type = NULL, template_index = 1 ){
+  .Deprecated(new = "ph_with")
   location <- ph_location_template(left = left, top = top, width = width, height = height,
               label = "", type = template_type, id = template_index)
   ph_with(x, "", location = location)
@@ -840,22 +808,12 @@ ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 #' @rdname ph_with_table
 #' @param left,top location of the new shape on the slide
 #' @param width,height shape size in inches
-#' @examples
-#'
-#' library(magrittr)
-#'
-#' doc <- read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with_table_at(value = mtcars[1:6,],
-#'     height = 4, width = 8, left = 4, top = 4,
-#'     last_row = FALSE, last_column = FALSE, first_row = TRUE)
-#'
-#' print(doc, target = tempfile(fileext = ".pptx"))
 ph_with_table_at <- function( x, value, left, top, width, height,
                               header = TRUE,
                               first_row = TRUE, first_column = FALSE,
                               last_row = FALSE, last_column = FALSE ){
 
+  .Deprecated(new = "ph_with")
   stopifnot(is.data.frame(value))
   ph_with(x,
           value,
@@ -937,6 +895,7 @@ ph_with_fpars_at <- function( x, fpars = list(), fp_pars = list(),
                               left, top, width, height, bg = "transparent", rot = 0,
                               template_type = NULL, template_index = 1 ){
 
+  .Deprecated(new = "ph_with")
   if( length(fp_pars) < 1 )
     fp_pars <- lapply(fpars, function(x) NULL )
   if( length(fp_pars) != length(fpars) )

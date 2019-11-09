@@ -7,11 +7,11 @@
 ph_remove(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx object}
 
 \item{type}{placeholder type}
 
-\item{id}{placeholder index for a duplicated type(integer). This is to be used when a placeholder
+\item{id}{placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
@@ -52,3 +52,10 @@ doc <- ph_remove(x = doc, type = "body", id = 1)
 
 print(doc, target = fileout )
 }
+\seealso{
+\code{\link{ph_with}}
+
+Other functions for placeholders manipulation: \code{\link{ph_hyperlink}},
+  \code{\link{ph_slidelink}}
+}
+\concept{functions for placeholders manipulation}

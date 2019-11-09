@@ -14,7 +14,7 @@ ph_with_table_at(x, value, left, top, width, height, header = TRUE,
   last_column = FALSE)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an pptx object}
 
 \item{value}{data.frame}
 
@@ -43,24 +43,4 @@ See \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
 add a table as a new shape in the current slide.
 This function will be deprecated in favor of \code{\link{ph_with}}
 in the next release.
-}
-\examples{
-library(magrittr)
-
-doc <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with_table(value = mtcars[1:6,], type = "body",
-    last_row = FALSE, last_column = FALSE, first_row = TRUE)
-
-print(doc, target = tempfile(fileext = ".pptx"))
-
-library(magrittr)
-
-doc <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with_table_at(value = mtcars[1:6,],
-    height = 4, width = 8, left = 4, top = 4,
-    last_row = FALSE, last_column = FALSE, first_row = TRUE)
-
-print(doc, target = tempfile(fileext = ".pptx"))
 }

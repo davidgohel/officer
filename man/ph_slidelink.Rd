@@ -8,11 +8,11 @@ ph_slidelink(x, type = "body", id = 1, id_chr = NULL,
   ph_label = NULL, slide_index)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx object}
 
 \item{type}{placeholder type}
 
-\item{id}{placeholder index for a duplicated type(integer). This is to be used when a placeholder
+\item{id}{placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
@@ -29,14 +29,22 @@ add slide link to a placeholder in the current slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")
+loc_title <- ph_location_type(type = "title")
 doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
+doc <- add_slide(doc)
+doc <- ph_with(x = doc, "Un titre 1", location = loc_title)
+doc <- add_slide(doc)
+doc <- ph_with(x = doc, "Un titre 2", location = loc_title)
 doc <- on_slide(doc, 1)
 slide_summary(doc) # read column ph_label here
 doc <- ph_slidelink(x = doc, ph_label = "Title 1", slide_index = 2)
 
 print(doc, target = fileout )
 }
+\seealso{
+\code{\link{ph_with}}
+
+Other functions for placeholders manipulation: \code{\link{ph_hyperlink}},
+  \code{\link{ph_remove}}
+}
+\concept{functions for placeholders manipulation}

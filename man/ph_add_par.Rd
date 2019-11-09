@@ -8,11 +8,11 @@ ph_add_par(x, type = "body", id = 1, id_chr = NULL, level = 1,
   ph_label = NULL)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx object}
 
 \item{type}{placeholder type}
 
-\item{id}{placeholder index for a duplicated type(integer). This is to be used when a placeholder
+\item{id}{placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
@@ -25,8 +25,16 @@ Values can be read from \code{\link{slide_summary}}.}
 \code{ph_label} of result returned by \code{\link{slide_summary}}.}
 }
 \description{
-append a new empty paragraph in a placeholder
+append a new empty paragraph in a placeholder.
+The function let you add a new empty paragraph to an existing
+content in an exiisting shape, existing paragraphs will be preserved.
 }
+\section{Usage}{
+
+If your goal is to add formatted text in a new shape, use \code{\link{ph_with}}
+with a \code{\link{block_list}} instead of this function.
+}
+
 \examples{
 library(magrittr)
 

@@ -2,49 +2,39 @@
 % Please edit documentation in R/read_pptx.R
 \name{read_pptx}
 \alias{read_pptx}
-\alias{print.rpptx}
-\alias{length.rpptx}
-\alias{slide_size}
 \title{open a connexion to a 'PowerPoint' file}
 \usage{
 read_pptx(path = NULL)
-
-\method{print}{rpptx}(x, target = NULL, ...)
-
-\method{length}{rpptx}(x)
-
-slide_size(x)
 }
 \arguments{
 \item{path}{path to the pptx file to use as base document.}
-
-\item{x}{an rpptx object}
-
-\item{target}{path to the pptx file to write}
-
-\item{...}{unused}
 }
 \description{
 read and import a pptx file as an R object
 representing the document.
+The function is called \code{read_pptx} because it allows you to initialize an
+object of class \code{rpptx} from an existing PowerPoint file. Content will be
+added to the existing presentation. By default, an empty document is used.
 }
-\section{number of slides}{
+\section{master layouts and slide layouts}{
 
-Function \code{length} will return the number of slides.
+\code{read_pptx()} uses a PowerPoint file as the initial document. This is the original
+PowerPoint document where all slide layouts, placeholders for shapes and
+styles come from. Major points to be aware of are:
+\itemize{
+\item Slide layouts are relative to a master layout. A document can contain one or
+more master layouts; a master layout can contain one or more slide layouts.
+\item A slide layout inherits design properties from its master layout but some
+properties can be overwritten.
+\item Designs and formatting properties of layouts and shapes (placeholders in a
+layout) are defined within the initial document. There is no R function to
+modify these values - they must be defined in the initial document.
 }
-
-\section{slides width and height}{
-
-Function \code{slide_size} will return the size of slides.
 }
 
 \examples{
 read_pptx()
-# write a rdocx object in a docx file ----
-if( require(magrittr) ){
-  file <- tempfile(fileext = ".pptx")
-  read_pptx() \%>\% print(target = file)
-  # full path of produced file is returned
-  print(.Last.value)
 }
+\seealso{
+\code{\link{print.rpptx}} \code{\link{add_slide}}
 }

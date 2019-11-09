@@ -8,7 +8,7 @@ ph_with_ul(x, type = "body", index = 1, str_list = character(0),
   level_list = integer(0), style = NULL, location = NULL)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an pptx object}
 
 \item{type}{placeholder type (i.e. 'body', 'title')}
 
@@ -39,7 +39,6 @@ This function will be deprecated in favor of \code{\link{ph_with}}
 in the next release.
 }
 \examples{
-library(magrittr)
 pptx <- read_pptx()
 pptx <- add_slide(x = pptx, layout = "Title and Content", master = "Office Theme")
 pptx <- ph_with_text(x = pptx, type = "title", str = "Example title")

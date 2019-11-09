@@ -8,13 +8,13 @@ ph_add_fpar(x, value, type = "body", id = 1, id_chr = NULL,
   ph_label = NULL, level = 1, par_default = TRUE)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx object}
 
 \item{value}{fpar object}
 
 \item{type}{placeholder type}
 
-\item{id}{placeholder index for a duplicated type(integer). This is to be used when a placeholder
+\item{id}{placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
@@ -31,7 +31,16 @@ should be used.}
 }
 \description{
 append \code{fpar} (a formatted paragraph) in a placeholder
+The function let you add a new formatted paragraph (\code{\link{fpar}})
+to an existing content in an exiisting shape, existing paragraphs
+will be preserved.
 }
+\section{Usage}{
+
+If your goal is to add formatted text in a new shape, use \code{\link{ph_with}}
+with a \code{\link{block_list}} instead of this function.
+}
+
 \examples{
 library(magrittr)
 
@@ -44,7 +53,7 @@ fpar_ <- fpar(ftext("Hello ", prop = bold_face),
 
 doc <- read_pptx() \%>\%
   add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_empty(location = ph_location(bg = "wheat", label = "myph")) \%>\%
+  ph_empty(location = ph_location(bg = "wheat", newlabel = "myph")) \%>\%
   ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
 
 print(doc, target = tempfile(fileext = ".pptx"))

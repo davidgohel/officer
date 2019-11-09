@@ -10,7 +10,7 @@ ph_from_xml(x, value, type = "body", index = 1)
 ph_from_xml_at(x, value, left, top, width, height)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an pptx object}
 
 \item{value}{a character}
 

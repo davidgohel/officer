@@ -21,8 +21,7 @@ in inches.}
 }
 \description{
 The function will return a list that complies with
-expected format for argument \code{location} of functions \code{ph_with_*}
-and \code{ph_with} methods.
+expected format for argument \code{location} of function\code{ph_with}.
 }
 \details{
 The location of the bounding box associated to a placeholder

@@ -21,9 +21,9 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 #' @export
 #' @title remove shape
 #' @description remove a shape in a slide
-#' @param x a pptx device
+#' @param x an rpptx object
 #' @param type placeholder type
-#' @param id placeholder index for a duplicated type(integer). This is to be used when a placeholder
+#' @param id placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 #' type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 #' add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 #' Values can be read from \code{\link{slide_summary}}.
@@ -58,6 +58,8 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
+#' @family functions for placeholders manipulation
+#' @seealso \code{\link{ph_with}}
 ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -78,17 +80,20 @@ ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL 
 #' @param slide_index slide index to reach
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")
+#' loc_title <- ph_location_type(type = "title")
 #' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 2")
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc, "Un titre 1", location = loc_title)
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc, "Un titre 2", location = loc_title)
 #' doc <- on_slide(doc, 1)
 #' slide_summary(doc) # read column ph_label here
 #' doc <- ph_slidelink(x = doc, ph_label = "Title 1", slide_index = 2)
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
+#' @family functions for placeholders manipulation
+#' @seealso \code{\link{ph_with}}
 ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, slide_index){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -118,15 +123,18 @@ ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #' @param href hyperlink (do not forget http or https prefix)
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")
+#' loc_manual <- ph_location(bg = "red", newlabel= "mytitle")
 #' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with_text(x = doc, type = "title", str = "Un titre 1")
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc, "Un titre 1", location = loc_manual)
 #' slide_summary(doc) # read column ph_label here
-#' doc <- ph_hyperlink(x = doc, ph_label = "Title 1",
+#' doc <- ph_hyperlink(x = doc, ph_label = "mytitle",
 #'   href = "https://cran.r-project.org")
 #'
 #' print(doc, target = fileout )
 #' @importFrom xml2 xml_remove xml_find_all
+#' @family functions for placeholders manipulation
+#' @seealso \code{\link{ph_with}}
 ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href ){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -148,7 +156,12 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 
 #' @export
 #' @title append text
-#' @description append text in a placeholder
+#' @description append text in a placeholder.
+#' The function let you add text to an existing
+#' content in an exiisting shape, existing text will be preserved.
+#' @section Usage:
+#' If your goal is to add formatted text in a new shape, use \code{\link{ph_with}}
+#' with a \code{\link{block_list}} instead of this function.
 #' @inheritParams ph_remove
 #' @param str text to add
 #' @param style text style, a \code{\link{fp_text}} object
@@ -158,33 +171,35 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #' @param slide_index slide index to reach when clicking the text.
 #' It will be ignored if \code{href} is not NULL.
 #' @examples
-#' library(magrittr)
 #' fileout <- tempfile(fileext = ".pptx")
-#' my_pres <- read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_empty(location = ph_location_type(type = "body"))
+#' my_pres <- read_pptx()
+#' my_pres <- add_slide(my_pres)
+#' my_pres <- ph_empty(my_pres,
+#'   location = ph_location_type(type = "body"))
 #'
 #' small_red <- fp_text(color = "red", font.size = 14)
 #'
-#' my_pres <- my_pres %>%
-#'   ph_add_par(level = 3) %>%
-#'   ph_add_text(str = "A small red text.", style = small_red) %>%
-#'   ph_add_par(level = 2) %>%
-#'   ph_add_text(str = "Level 2")
+#' my_pres <- ph_add_par(my_pres, level = 3)
+#' my_pres <- ph_add_text(my_pres, str = "A small red text.",
+#'   style = small_red)
+#' my_pres <- ph_add_par(my_pres, level = 2)
+#' my_pres <- ph_add_text(my_pres, str = "Level 2")
 #'
 #' print(my_pres, target = fileout)
 #'
 #' # another example ----
 #' fileout <- tempfile(fileext = ".pptx")
 #'
-#' doc <- read_pptx() %>%
-#'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_with("Un titre 2",
-#'     location = ph_location_type(type = "title")) %>%
-#'   ph_empty(location = ph_location(rotation = 90, bg = "red",
-#'     label = "myph")) %>%
-#'   ph_add_par(ph_label = "myph", level = 2) %>%
-#'   ph_add_text(str = "Jump here to slide 2!", ph_label = "myph")
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, "Un titre 2",
+#'   location = ph_location_type(type = "title"))
+#' doc <- ph_empty(doc,
+#'   location = ph_location(rotation = 90, bg = "red",
+#'       newlabel = "myph"))
+#' doc <- ph_add_par(doc, ph_label = "myph", level = 2)
+#' doc <- ph_add_text(doc, str = "Jump here to slide 2!",
+#'   ph_label = "myph")
 #'
 #' print(doc, target = fileout)
 #' @importFrom xml2 xml_child xml_children xml_add_child
@@ -246,9 +261,12 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
 
 #' @export
 #' @title append paragraph
-#' @description append a new empty paragraph in a placeholder
+#' @description append a new empty paragraph in a placeholder.
+#' The function let you add a new empty paragraph to an existing
+#' content in an exiisting shape, existing paragraphs will be preserved.
 #' @inheritParams ph_remove
 #' @param level paragraph level
+#' @inheritSection ph_add_text Usage
 #' @examples
 #' library(magrittr)
 #'
@@ -302,11 +320,15 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
 #' @export
 #' @title append fpar
 #' @description append \code{fpar} (a formatted paragraph) in a placeholder
+#' The function let you add a new formatted paragraph (\code{\link{fpar}})
+#' to an existing content in an exiisting shape, existing paragraphs
+#' will be preserved.
 #' @inheritParams ph_remove
 #' @param value fpar object
 #' @param level paragraph level
 #' @param par_default specify if the default paragraph formatting
 #' should be used.
+#' @inheritSection ph_add_text Usage
 #' @examples
 #' library(magrittr)
 #'
@@ -319,7 +341,7 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
 #'
 #' doc <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_empty(location = ph_location(bg = "wheat", label = "myph")) %>%
+#'   ph_empty(location = ph_location(bg = "wheat", newlabel = "myph")) %>%
 #'   ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
 #'
 #' print(doc, target = tempfile(fileext = ".pptx"))

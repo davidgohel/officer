@@ -25,8 +25,8 @@ in the layout.}
 }
 \description{
 The function will return a list that complies with
-expected format for argument \code{location} of functions \code{ph_with_*}
-and \code{ph_with} methods. A placeholder will be used as template
+expected format for argument \code{location} of function
+\code{ph_with}. A placeholder will be used as template
 and its positions will be updated with values \code{left}, \code{top}, \code{width}, \code{height}.
 }
 \details{

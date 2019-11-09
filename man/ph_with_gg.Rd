@@ -11,7 +11,7 @@ ph_with_gg(x, value, type = "body", index = 1, width = NULL,
 ph_with_gg_at(x, value, width, height, left, top, ...)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an pptx object}
 
 \item{value}{ggplot object}
 

@@ -11,7 +11,7 @@ ph_with_img(x, src, type = "body", index = 1, width = NULL,
 ph_with_img_at(x, src, left, top, width, height, rot = 0)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an pptx object}
 
 \item{src}{image filename, the basename of the file must not contain any blank.}
 

@@ -7,8 +7,7 @@
 location_eval(location, x)
 }
 \arguments{
-\item{location}{a location for a placeholder. It has to be a
-quosure.}
+\item{location}{a location for a placeholder.}
 
 \item{x}{an rpptx object}
 }
@@ -17,11 +16,10 @@ Eval a shape location against the current slide.
 This function is to be used to add custom openxml code.
 }
 \examples{
-library(rlang)
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content",
   master = "Office Theme")
-location_eval(quo(ph_location_fullsize()), doc)
+location_eval(ph_location_fullsize(), doc)
 }
 \seealso{
 \code{\link{ph_location}}, \code{\link{ph_with}}

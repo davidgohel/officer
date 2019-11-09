@@ -13,7 +13,7 @@
 \alias{ph_with.external_img}
 \alias{ph_with.fpar}
 \alias{ph_with.xml_document}
-\title{add object into a new shape}
+\title{add objects into a new shape on the current slide}
 \usage{
 ph_with(x, value, ...)
 
@@ -43,15 +43,20 @@ ph_with(x, value, ...)
 \method{ph_with}{xml_document}(x, value, location, ...)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx object}
 
-\item{value}{object to add as a new shape.}
+\item{value}{object to add as a new shape. Supported objects
+are vectors, data.frame, graphics, block of formatted paragraphs,
+unordered list of formatted paragraphs,
+pretty tables with package flextable, editable graphics with
+package rvg, 'Microsoft' charts with package mschart.}
 
 \item{...}{Arguments to be passed to methods}
 
-\item{location}{a placeholder location object. This is a convenient
-argument that can replace usage of arguments \code{type} and \code{index}.
-See section \code{see also}.}
+\item{location}{a placeholder location object.
+It will be used to specify the location of the new shape. This location
+can be defined with a call to one of the ph_location functions. See
+section \code{see also}.}
 
 \item{format_fun}{format function for non character vectors}
 
@@ -63,74 +68,53 @@ See section \code{see also}.}
 be used.}
 }
 \description{
-add object into a new shape in a slide. This
+add object into a new shape in the current slide. This
 function is able to add all supported outputs to a presentation
 and should replace calls to older functions starting with
 \code{ph_with_*}.
 }
-\section{with character}{
+\section{Methods (by class)}{
+\itemize{
+\item \code{character}: add a character vector to a new shape on the
+current slide, values will be added as paragraphs.
 
-When value is a character vector, each value will be
-added as a paragraph.
-}
+\item \code{numeric}: add a numeric vector to a new shape on the
+current slide, values will be be first formatted then
+added as paragraphs.
 
-\section{with vector}{
+\item \code{factor}: add a factor vector to a new shape on the
+current slide, values will be be converted as character and then
+added as paragraphs.
 
-When value is a vector, the values will be first formatted and
-then add as text, each value will be added as a paragraph.
-}
+\item \code{block_list}: add a \code{\link{block_list}} made
+of \code{\link{fpar}} to a new shape on the current slide.
 
-\section{with block_list}{
+\item \code{unordered_list}: add a \code{\link{unordered_list}} made
+of \code{\link{fpar}} to a new shape on the current slide.
 
-When value is a block_list object, each value will be
-added as a paragraph.
-}
+\item \code{data.frame}: add a data.frame to a new shape on the current slide. Use
+package \code{flextable} instead for more advanced formattings.
 
-\section{with unordered_list}{
+\item \code{gg}: add a ggplot object to a new shape on the
+current slide. Use package \code{rvg} for more advanced graphical features.
 
-When value is a unordered_list object, each value will be
-added as a paragraph.
-}
-
-\section{with data.frame}{
-
-When value is a data.frame, a simple table
-is added, use package \code{flextable} instead
-for more advanced formattings.
-}
-
-\section{with a ggplot object}{
-
-When value is a ggplot object, a raster plot
-is produced and added, use package \code{rvg}
-instead for more advanced graphical features.
-}
-
-\section{with a external_img object}{
+\item \code{external_img}: add a \code{\link{external_img}} to a new shape
+on the current slide.
 
 When value is a external_img object, image will be copied
 into the PowerPoint presentation. The width and height
-specified in call to \code{\link{external_img}} will be
+specified in call to \code{external_img} will be
 ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.
-}
 
-\section{with fpar}{
+\item \code{fpar}: add an \code{\link{fpar}} to a new shape
+on the current slide as a single paragraph in a \code{\link{block_list}}.
 
-When value is an fpar object, it will be
-added as a single paragraph in a block_list.
-}
-
-\section{with xml_document}{
-
-When value is an xml_document object, its content will be
-added as a new shape in the current slide. This function
-is to be used to add custom openxml code.
-}
+\item \code{xml_document}: add an xml_document object to a new shape on the
+current slide. This function is to be used to add custom openxml code.
+}}
 
 \examples{
-library(magrittr)
-
 fileout <- tempfile(fileext = ".pptx")
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Two Content",
@@ -141,14 +125,15 @@ doc <- ph_with(x = doc, value = iris[1:4, 3:5],
                location = ph_location_right() )
 
 if( require("ggplot2") ){
-  doc <- add_slide(doc, layout = "Title and Content",
-    master = "Office Theme")
+  doc <- add_slide(doc)
   gg_plot <- ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length),
       size = 3) +
     theme_minimal()
   doc <- ph_with(x = doc, value = gg_plot,
                  location = ph_location_fullsize() )
+  doc <- ph_with(x = doc, value = "graphic title",
+               location = ph_location_type(type="title") )
 }
 
 doc <- add_slide(doc, layout = "Title and Content",
@@ -170,15 +155,13 @@ bl <- block_list(
     ftext("hello", shortcuts$fp_bold()),
     ftext("hello", shortcuts$fp_italic(color="red"))
   ))
-doc <- add_slide(doc, layout = "Title and Content",
-                 master = "Office Theme")
+doc <- add_slide(doc)
 doc <- ph_with(x = doc, value = bl,
                location = ph_location_type(type="body") )
 
 # block list ------
 hw <- fpar(ftext("hello world", shortcuts$fp_bold(color = "pink")))
-doc <- add_slide(doc, layout = "Title and Content",
-                 master = "Office Theme")
+doc <- add_slide(doc)
 doc <- ph_with(x = doc, value = hw,
                location = ph_location_type(type="body") )
 # unordered_list ----
@@ -186,8 +169,7 @@ ul <- unordered_list(
   level_list = c(1, 2, 2, 3, 3, 1),
   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
   style = fp_text(color = "red", font.size = 0) )
-doc <- add_slide(doc, layout = "Title and Content",
-                 master = "Office Theme")
+doc <- add_slide(doc)
 doc <- ph_with(x = doc, value = ul,
                location = ph_location_fullsize() )
 
@@ -195,5 +177,6 @@ print(doc, target = fileout )
 }
 \seealso{
 \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
-\link{ph_location_left}, \link{ph_location_right}, \link{ph_location_fullsize}
+\link{ph_location_left}, \link{ph_location_right}, \link{ph_location_fullsize},
+\link{ph_location_template}
 }

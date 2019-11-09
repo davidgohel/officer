@@ -11,7 +11,7 @@ ph_empty_at(x, left, top, width, height, bg = "transparent", rot = 0,
   template_type = NULL, template_index = 1)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an pptx object}
 
 \item{type}{placeholder type (i.e. 'body', 'title')}
 
@@ -44,6 +44,8 @@ type 'body'.}
 }
 \description{
 add a new empty shape in the current slide.
+This function was implemented for development purpose and
+should not be used.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")

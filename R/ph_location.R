@@ -55,8 +55,7 @@ fortify_location <- function( x, doc, ... ){
 #' @export
 #' @title create a location for a placeholder
 #' @description The function will return a list that complies with
-#' expected format for argument \code{location} of functions \code{ph_with_*}
-#' and \code{ph_with} methods.
+#' expected format for argument \code{location} of function\code{ph_with}.
 #' @param left,top,width,height place holder coordinates
 #' in inches.
 #' @param newlabel a label for the placeholder. See section details.
@@ -105,8 +104,8 @@ fortify_location.location_manual <- function( x, doc, ...){
 
 #' @title create a location for a placeholder based on a template
 #' @description The function will return a list that complies with
-#' expected format for argument \code{location} of functions \code{ph_with_*}
-#' and \code{ph_with} methods. A placeholder will be used as template
+#' expected format for argument \code{location} of function
+#' \code{ph_with}. A placeholder will be used as template
 #' and its positions will be updated with values `left`, `top`, `width`, `height`.
 #' @param left,top,width,height place holder coordinates
 #' in inches.
