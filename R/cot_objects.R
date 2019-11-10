@@ -49,12 +49,22 @@ print.ftext = function (x, ...){
 
 #' @export
 #' @title external image
-#' @description This function is used to insert images
+#' @description This function is used to insert images in 'PowerPoint'
+#' slides.
 #' @param src image file path
 #' @param width height in inches
 #' @param height height in inches
 #' @examples
-#' # external_img("example.png")
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#'
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc,
+#'   value = external_img(img.file, width = 1.39, height = 1.06),
+#'   location = ph_location_type(type = "body"),
+#'   use_loc_size = FALSE )
+#' print(doc, target = "external_img.pptx")
+#' @seealso [ph_with]
 external_img <- function(src, width = .5, height = .2) {
   stopifnot( file.exists(src) )
   class(src) <- c("external_img", "cot")

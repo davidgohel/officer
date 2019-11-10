@@ -210,7 +210,7 @@ fortify_location.location_type <- function( x, doc, ...){
 #' @title location of a named placeholder
 #' @description The function will use the label of a placeholder
 #' to find the corresponding location.
-#' @param ph_label placeholder label. It can be read in PowerPoint or
+#' @param ph_label placeholder label of the used layout. It can be read in PowerPoint or
 #' with function \code{layout_properties()} in column \code{ph_label}.
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments

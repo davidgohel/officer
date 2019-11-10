@@ -29,8 +29,20 @@ external_img(src, width = 0.5, height = 0.2)
 \item{type}{output format}
 }
 \description{
-This function is used to insert images
+This function is used to insert images in 'PowerPoint'
+slides.
 }
 \examples{
-# external_img("example.png")
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(x = doc,
+  value = external_img(img.file, width = 1.39, height = 1.06),
+  location = ph_location_type(type = "body"),
+  use_loc_size = FALSE )
+print(doc, target = "external_img.pptx")
+}
+\seealso{
+\link{ph_with}
 }
