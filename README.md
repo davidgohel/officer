@@ -9,10 +9,6 @@ and text into documents from R. An initial document can be provided;
 contents, styles and properties of the original document will then be
 available.
 
-*This package is close to ReporteRs as it produces Word and PowerPoint
-files but it is faster, does not require `rJava` and is easier to
-maintain.*
-
 <img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
 
 > Make corporate reporting with minimum hassle
@@ -125,9 +121,7 @@ The help pages are located at <https://davidgohel.github.io/officer/>.
 
 ### Getting help
 
-This project is developed and maintained on my own time. In order to
-help me to maintain the package, do not send me private emails if you
-only have questions about how to use the package. Instead, [visit Stack
+If you have questions about how to use the package, [visit Stack
 Overflow’s `officer`
 tag](http://stackoverflow.com/questions/tagged/officer) and post your
 question there. I usually read them and answer when possible.

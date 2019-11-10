@@ -92,15 +92,15 @@ navbar:
   type: default
   left:
   - text: Powerpoint
-    href: articles/powerpoint.html
+    href: articles/offcran/powerpoint.html
   - text: Word
-    href: articles/word.html
+    href: articles/offcran/word.html
   - text: Tables
     href: articles/offcran/tables.html
   - text: Graphics
     href: articles/offcran/graphics.html
   - text: Office scraping
-    href: articles/officer_reader.html
+    href: articles/offcran/officer_reader.html
   - text: Function reference
     href: reference/index.html
   right:

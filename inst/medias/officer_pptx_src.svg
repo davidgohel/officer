@@ -21,7 +21,7 @@
   <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="350" y="33.077">Supported content</text>
   <text style="font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="350" y="48.29">vectors, data.frame, ggplot, images, </text>
   <text style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" y="63.29" x="350">block_list(), unordered_list() </text>
-  <text style="fill: rgb(235, 85, 85); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="350" y="78.29">flextable::flextable, rvg::dml</text>
+  <text style="fill: rgb(235, 85, 85); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="350" y="78.29">flextable::flextable(), rvg::dml()</text>
   <rect x="340" y="19.969" width="4" height="62" style="fill: rgb(170, 170, 170);"/>
   <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, -97.952087, -59.727192)">Slide utilities</text>
   <text transform="matrix(1, 0, 0, 0.998051, -97.952087, -59.727192)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="293.18">on_slide() </text>
@@ -52,10 +52,10 @@
   <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, -129.982697, -239.555649)">Initialise</text>
   <text transform="matrix(1, 0, 0, 0.998051, -129.982697, -245.48938)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.00799560546875" y="293.17999267578125"><tspan>read_pptx()</tspan></text>
   <rect y="20" width="4" height="30" style="fill: rgb(170, 170, 170);" x="20.017"/>
-  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, 152.046875, -59.500931)">Presentation properties</text>
+  <text style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18" transform="matrix(1, 0, 0, 0.998051, 152.046875, -59.500931)">Presentation informations</text>
   <rect x="302.047" y="200.031" width="4" height="75" style="fill: rgb(170, 170, 170);"/>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="227.028">layout_summary()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="242.028">slide_summary()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="257.028">slide_properties()</text>
-  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="272.028">annotate_base()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="227.028">layout_summary(), slide_size()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="242.028">slide_summary(), slide_properties()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="257.028">slide_properties(), pptx_summary()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="312.085" y="272.028">color_scheme(), annotate_base()</text>
 </svg>

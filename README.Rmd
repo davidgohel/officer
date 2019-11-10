@@ -20,8 +20,6 @@ tables and text into documents from R. An initial document can
 be provided; contents, styles and properties of the original 
 document will then be available.
 
-*This package is close to ReporteRs as it produces Word and PowerPoint files but it is faster, does not require `rJava` and is easier to maintain.*
-
 <img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
 
 

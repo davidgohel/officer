@@ -1,0 +1,12 @@
+---
+title: "Using officer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using officer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<meta http-equiv="refresh" content="0; URL='https://davidgohel.github.io/officer'" />
+
+<p>If not automatically redirected, please visit (<a href="https://davidgohel.github.io/officer">https://davidgohel.github.io/officer</a>) for the latest vignette.</p>
