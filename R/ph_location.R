@@ -45,7 +45,21 @@ as_ph_location <- function(x, ...){
   as.list(out)
 }
 
-
+#' @export
+#' @title eval a location on the current slide
+#' @description Eval a shape location against the current slide.
+#' This function is to be used to add custom openxml code. A
+#' list is returned, it contains informations width, height, left
+#' and top positions and other informations necessary to add a
+#' content on a slide.
+#' @param x a location for a placeholder.
+#' @param doc an rpptx object
+#' @examples
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content",
+#'   master = "Office Theme")
+#' fortify_location(ph_location_fullsize(), doc)
+#' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
 fortify_location <- function( x, doc, ... ){
   UseMethod("fortify_location")
 }
@@ -98,6 +112,8 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
   class(x) <- c("location_manual", "location_str")
   x
 }
+
+#' @export
 fortify_location.location_manual <- function( x, doc, ...){
   x
 }
@@ -139,6 +155,7 @@ ph_location_template <- function(left = 1, top = 1, width = 4, height = 3,
   class(x) <- c("location_template", "location_str")
   x
 }
+#' @export
 fortify_location.location_template <- function( x, doc, ...){
   slide <- doc$slide$get_slide(doc$cursor)
   if( !is.null( x$type ) ){
@@ -190,6 +207,7 @@ ph_location_type <- function( type = "body", position_right = TRUE, position_top
   class(x) <- c("location_type", "location_str")
   x
 }
+#' @export
 fortify_location.location_type <- function( x, doc, ...){
 
   slide <- doc$slide$get_slide(doc$cursor)
@@ -228,6 +246,7 @@ ph_location_label <- function( ph_label, newlabel = NULL, ...){
   x
 }
 
+#' @export
 fortify_location.location_label <- function( x, doc, ...){
 
   slide <- doc$slide$get_slide(doc$cursor)
@@ -276,6 +295,7 @@ ph_location_fullsize <- function( newlabel = "", ... ){
   x
 }
 
+#' @export
 fortify_location.location_fullsize <- function( x, doc, ...){
 
   layout_data <- slide_size(doc)
@@ -310,6 +330,7 @@ ph_location_left <- function( newlabel = NULL, ... ){
   x
 }
 
+#' @export
 fortify_location.location_left <- function( x, doc, ...){
 
   slide <- doc$slide$get_slide(doc$cursor)
@@ -346,6 +367,7 @@ ph_location_right <- function( newlabel = NULL, ... ){
   x
 }
 
+#' @export
 fortify_location.location_right <- function( x, doc, ...){
 
   slide <- doc$slide$get_slide(doc$cursor)

@@ -119,16 +119,13 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
 
 }
 #' @export
-#' @title eval a location on the current slide
-#' @description Eval a shape location against the current slide.
-#' This function is to be used to add custom openxml code.
+#' @title Utility to eval a location
+#' @description Eval a shape location with fortify_location.
+#' This function will be removed in the next release; it was
+#' required when location was a quosure but this is no more
+#' necessary.
 #' @param location a location for a placeholder.
 #' @param x an rpptx object
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'   master = "Office Theme")
-#' location_eval(ph_location_fullsize(), doc)
 #' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
 location_eval <- function(location, x){
   if(inherits(location, "quosure")){

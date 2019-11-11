@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_with_methods.R
 \name{location_eval}
 \alias{location_eval}
-\title{eval a location on the current slide}
+\title{Utility to eval a location}
 \usage{
 location_eval(location, x)
 }
@@ -12,14 +12,10 @@ location_eval(location, x)
 \item{x}{an rpptx object}
 }
 \description{
-Eval a shape location against the current slide.
-This function is to be used to add custom openxml code.
-}
-\examples{
-doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content",
-  master = "Office Theme")
-location_eval(ph_location_fullsize(), doc)
+Eval a shape location with fortify_location.
+This function will be removed in the next release; it was
+required when location was a quosure but this is no more
+necessary.
 }
 \seealso{
 \code{\link{ph_location}}, \code{\link{ph_with}}
