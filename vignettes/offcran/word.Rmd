@@ -105,6 +105,7 @@ There are two types of functions for adding elements.
     - body_add_break
     - body_add_toc
     - body_add_gg
+    - flextable::body_add_flextable
     
 - add text or image inside an existing paragraph. Use `slip_in_*` functions:
     - slip_in_img
@@ -143,29 +144,28 @@ instead ([flextable website](https://davidgohel.github.io/officer/)). It has a
 function `body_add_flextable()` that can be used with `officer`.
 
 ```{r}
-if( require("ggplot2") ){
-  gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
-    geom_point()
+library(ggplot2)
+library(flextable)
+
+gg <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
+  geom_point()
+ft <- qflextable(head(iris))
+read_docx() %>% 
+  body_add_par(value = "Table of content", style = "heading 1") %>% 
+  body_add_toc(level = 2) %>% 
+  body_add_break() %>% 
+
+  body_add_par(value = "dataset iris", style = "heading 2") %>% 
+  body_add_flextable(value = ft ) %>% 
   
-  read_docx() %>% 
-    body_add_par(value = "Table of content", style = "heading 1") %>% 
-    body_add_toc(level = 2) %>% 
-    body_add_break() %>% 
-  
-    body_add_par(value = "dataset iris", style = "heading 2") %>% 
-    body_add_table(value = head(iris), style = "table_template" ) %>% 
-    
-    body_add_par(value = "plot examples", style = "heading 1") %>% 
-    body_add_gg(value = gg, style = "centered" ) %>% 
-  
-    print(target = "assets/docx/body_add_demo.docx")
-}
+  body_add_par(value = "plot examples", style = "heading 1") %>% 
+  body_add_gg(value = gg, style = "centered" ) %>% 
+
+  print(target = "assets/docx/body_add_demo.docx")
 ```
 
 ```{r echo=FALSE, message=FALSE}
-if( require("ggplot2") ){
-  office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
-}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
 ```
 
 ### `slip_in_*` functions

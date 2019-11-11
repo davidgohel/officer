@@ -95,8 +95,6 @@ navbar:
     href: articles/offcran/powerpoint.html
   - text: Word
     href: articles/offcran/word.html
-  - text: Tables
-    href: articles/offcran/tables.html
   - text: Graphics
     href: articles/offcran/graphics.html
   - text: Office scraping
