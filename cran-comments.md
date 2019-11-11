@@ -18,7 +18,6 @@ bfw 0.4.0                     ─ E: 0     | W: 0     | N: 0
 augmentedRCBD 0.1.1           ─ E: 0     | W: 0     | N: 0
 clickR 0.4.32                 ─ E: 0     | W: 0     | N: 0
 ClinReport 0.9.1.14           ─ E: 0     | W: 0     | N: 1
-collector 0.1.2               ─ E: 2     | W: 0     | N: 0
 demoGraphic 0.1.0             ─ E: 0     | W: 0     | N: 0
 compareGroups 4.2.0           ─ E: 0     | W: 0     | N: 0
 customLayout 0.3.0            ─ E: 0     | W: 0     | N: 0
