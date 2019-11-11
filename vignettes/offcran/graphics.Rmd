@@ -9,7 +9,7 @@ vignette: >
 
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
-dir.create("../assets/graphics", recursive = TRUE, showWarnings = FALSE)
+dir.create("assets/graphics", recursive = TRUE, showWarnings = FALSE)
 office_doc_link <- function(url){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
   htmltools::tags$p(  htmltools::tags$span("Download file "),
@@ -63,7 +63,7 @@ Then add it to a new Word document:
 ```{r}
 read_docx() %>% 
   body_add_img(src = filename, width = 6, height = 7) %>% 
-  print(target = "../assets/graphics/demo_emf.docx")
+  print(target = "assets/graphics/demo_emf.docx")
 ```
 
 
@@ -87,7 +87,7 @@ my_barchart <- chart_settings( x = my_barchart,
 
 read_docx() %>% 
   body_add_chart(chart = my_barchart, style = "centered") %>% 
-  print(target = "../assets/graphics/demo_mschart_01.docx")
+  print(target = "assets/graphics/demo_mschart_01.docx")
 ```
 
 
@@ -113,7 +113,7 @@ read_pptx() %>%
   add_slide(layout = "Title Only", master = "Office Theme") %>% 
   ph_with(external_img(src = filename, width = 6, height = 7), 
                  location = ph_location(left = 0, top = 0, width = 6, height = 7) ) %>% 
-  print(target = "../assets/graphics/demo_emf.pptx")
+  print(target = "assets/graphics/demo_emf.pptx")
 ```
 
 
@@ -131,7 +131,7 @@ library(rvg)
 read_pptx() %>% 
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
   ph_with(dml(ggobj = gg), location = ph_location_type(type = "body")) %>% 
-  print(target = "../assets/graphics/demo_rvg.pptx")
+  print(target = "assets/graphics/demo_rvg.pptx")
 ```
 
 
@@ -161,7 +161,7 @@ read_pptx() %>%
   add_slide(layout = "Title and Content", master = "Office Theme") %>% 
   ph_with_chart_at(chart = my_barchart, 
                    left = 0, top = 0, width = 4, height = 4) %>% 
-  print(target = "../assets/graphics/demo_mschart_01.pptx")
+  print(target = "assets/graphics/demo_mschart_01.pptx")
 ```
 
 
