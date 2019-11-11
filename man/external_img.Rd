@@ -41,7 +41,7 @@ doc <- ph_with(x = doc,
   value = external_img(img.file, width = 1.39, height = 1.06),
   location = ph_location_type(type = "body"),
   use_loc_size = FALSE )
-print(doc, target = tempfile(fileext = ".pttx"))
+print(doc, target = tempfile(fileext = ".pptx"))
 }
 \seealso{
 \link{ph_with}
