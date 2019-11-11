@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{slide_summary}
 \alias{slide_summary}
-\title{get PowerPoint slide content in a tidy format}
+\title{get PowerPoint slide content in a data.frame}
 \usage{
 slide_summary(x, index = NULL)
 }

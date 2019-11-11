@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{ph_location_type}
 \alias{ph_location_type}
-\title{location of a placeholder type}
+\title{location of a placeholder based on a type}
 \usage{
 ph_location_type(type = "body", position_right = TRUE,
   position_top = TRUE, newlabel = NULL, id = NULL, ...)

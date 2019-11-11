@@ -19,7 +19,7 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 
 
 #' @export
-#' @title remove shape
+#' @title remove a shape
 #' @description remove a shape in a slide
 #' @param x an rpptx object
 #' @param type placeholder type

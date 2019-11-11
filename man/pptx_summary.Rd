@@ -2,7 +2,7 @@
 % Please edit documentation in R/fortify_pptx.R
 \name{pptx_summary}
 \alias{pptx_summary}
-\title{get PowerPoint content in a tidy format}
+\title{get PowerPoint content in a data.frame}
 \usage{
 pptx_summary(x)
 }
@@ -11,7 +11,7 @@ pptx_summary(x)
 }
 \description{
 read content of a PowerPoint document and
-return a tidy dataset representing the document.
+return a dataset representing the document.
 }
 \examples{
 example_pptx <- system.file(package = "officer",

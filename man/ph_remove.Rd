@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_manipulate.R
 \name{ph_remove}
 \alias{ph_remove}
-\title{remove shape}
+\title{remove a shape}
 \usage{
 ph_remove(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL)
 }

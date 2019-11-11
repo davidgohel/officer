@@ -158,7 +158,7 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 }
 
 #' @export
-#' @title get PowerPoint slide content in a tidy format
+#' @title get PowerPoint slide content in a data.frame
 #' @description get content and positions of current slide
 #' into a data.frame. Data for any tables, images, or paragraphs are
 #' imported into the resulting data.frame.

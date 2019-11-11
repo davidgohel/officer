@@ -153,7 +153,7 @@ fortify_location.location_template <- function( x, doc, ...){
 }
 
 #' @export
-#' @title location of a placeholder type
+#' @title location of a placeholder based on a type
 #' @description The function will use the type name of the placeholder (e.g. body, title),
 #' the layout name and few other criterias to find the corresponding location.
 #' @param type placeholder type to look for in the slide layout, one

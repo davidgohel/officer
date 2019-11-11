@@ -107,7 +107,7 @@ node_content <- function(node, x){
 }
 
 
-#' @title get Word content in a tidy format
+#' @title get Word content in a data.frame
 #' @description read content of a Word document and
 #' return a tidy dataset representing the document.
 #' @note

@@ -5,7 +5,7 @@
 \alias{update.fpar}
 \alias{as.data.frame.fpar}
 \alias{format.fpar}
-\title{concatenate formatted text}
+\title{concatenate formatted text as a paragraph}
 \usage{
 fpar(..., fp_p = fp_par(), fp_t = fp_text())
 

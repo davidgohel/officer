@@ -1,5 +1,5 @@
 #' @export
-#' @title concatenate formatted text
+#' @title concatenate formatted text as a paragraph
 #' @description Create a paragraph representation by concatenating
 #' formatted text or images.
 #'

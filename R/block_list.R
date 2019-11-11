@@ -1,9 +1,9 @@
 #' @export
-#' @title list of blocks
+#' @title create paragraph blocks
 #' @description a list of blocks can be used to gather
 #' several blocks (paragraphs or tables) into a single
 #' object. The function is to be used when adding
-#' footnotes for example.
+#' footnotes or formatted paragraphs into a new slide.
 #' @param ... a list of objects of class \code{fpar} or
 #' \code{flextable}.
 #' @examples
