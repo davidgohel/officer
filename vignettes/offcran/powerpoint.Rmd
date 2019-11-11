@@ -26,8 +26,9 @@ add_table_print <- function(){
   # register the method
   registerS3method("knit_print", "data.frame", table_print)
   registerS3method("knit_print", "grouped_df", table_print)
-
+  invisible()
 }
+add_table_print()
 
 image_html <- function(x, class = NULL){
   input <- normalizePath(x, mustWork = TRUE)
@@ -42,7 +43,6 @@ image_html <- function(x, class = NULL){
     div(class=class, tagList(img))
   else div(tagList(img))
 }
-add_table_print()
 pptx_to_image <- function( url, class = NULL ){
   file <- url
   cmd_ <- sprintf(
@@ -63,9 +63,6 @@ library(officer)
 
 
 ```{css echo=FALSE, eval=TRUE}
-.contents > .row * > pre {
-  font-size: 0.5em;
-}
 .img_slide img {
   border: gray 1px solid;
   width: 100%;
@@ -263,7 +260,8 @@ pptx_to_image("ph_with_location.pptx")
 
 <div class="col-12 col-sm-6 col-md-6">
 
-Ths example prints two paragraphs of text in two new shapes, 
+This example add a new slide with layout "Two Content" and 
+prints sets of paragraphs of text in two new shapes, 
 one representing the left side and one representing the right side.
 
 ```{r}
@@ -292,6 +290,14 @@ pptx_to_image("ph_with_location.pptx")
 ## Supported contents
 
 The following types of content are supported: 
+
+* vectors of text, numeric and factor
+* block_list, unordered_list when formatting is complex
+* data.frame
+* ggplot objects
+* external_img
+* [flextable::flextable](https://davidgohel.github.io/flextable)
+* [rvg::dml](https://cran.r-project.org/package=rvg)
 
 ### Text and vectors
 
@@ -407,6 +413,65 @@ print(doc, target = "ph_with_img.pptx")
 
 ```{r echo=FALSE}
 pptx_to_image("ph_with_img.pptx")
+```
+
+</div>
+
+</div>
+
+### flextable
+
+
+<div class="row vertical-align">
+
+<div class="col-12 col-sm-6 col-md-6">
+
+```{r}
+library(flextable)
+ft <- flextable(head(mtcars))
+ft <- autofit(ft)
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(x = doc, ft,
+   location = ph_location_type(type = "body") )
+print(doc, target = "flextable.pptx")
+```
+
+</div>
+
+<div class="col-12 col-sm-6 col-md-6">
+
+```{r echo=FALSE}
+pptx_to_image("flextable.pptx")
+```
+
+</div>
+
+</div>
+
+### Editable graphics (rvg)
+
+
+<div class="row vertical-align">
+
+<div class="col-12 col-sm-6 col-md-6">
+
+```{r}
+library(rvg)
+editable_graph <- dml(ggobj = gg_plot)
+doc <- read_pptx()
+doc <- add_slide(doc)
+doc <- ph_with(x = doc, editable_graph,
+   location = ph_location_type(type = "body") )
+print(doc, target = "rvg.pptx")
+```
+
+</div>
+
+<div class="col-12 col-sm-6 col-md-6">
+
+```{r echo=FALSE}
+pptx_to_image("rvg.pptx")
 ```
 
 </div>

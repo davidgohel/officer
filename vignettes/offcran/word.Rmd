@@ -9,6 +9,25 @@ vignette: >
 
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(openssl)
+library(htmltools)
+opts_chunk$set(echo = TRUE)
+
+add_table_print <- function(){
+  table_print = function(x, ...) {
+    if(nrow(x) > 20){
+      x <- head(x, n = 20)
+    }
+    knitr::knit_print(knitr::kable(x))
+  }
+  # register the method
+  registerS3method("knit_print", "data.frame", table_print)
+  registerS3method("knit_print", "grouped_df", table_print)
+  invisible()
+}
+add_table_print()
+
 dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
 office_doc_link <- function(url){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
@@ -537,7 +556,7 @@ Usage of these functions is illustrated below:
 ```{r}
 library(magrittr)
 library(officer)
-if( require("ggplot2") ){
+library(ggplot2)
 
 gg1 <- ggplot(data = iris, aes(Sepal.Length, Petal.Length)) + 
   geom_point()
@@ -560,7 +579,7 @@ doc <- read_docx() %>%
   body_add_par(value = "data iris", style = "table title") %>% 
   shortcuts$slip_in_tableref(depth = 2) %>%
   
-  body_end_section(continuous = FALSE, landscape = FALSE ) %>% 
+  body_end_section_portrait() %>% 
   
   body_add_par(value = "plot examples", style = "heading 1") %>% 
   body_add_gg(value = gg1, style = "centered" ) %>% 
@@ -572,7 +591,7 @@ doc <- read_docx() %>%
   body_add_par(value = "graph example 2", style = "graphic title") %>% 
   shortcuts$slip_in_plotref(depth = 2) %>%
   
-  body_end_section(continuous = FALSE, landscape = TRUE) %>% 
+  body_end_section_landscape() %>% 
   
   body_add_par(value = "Table of tables", style = "heading 2") %>% 
   body_add_toc(style = "table title") %>% 
@@ -580,12 +599,9 @@ doc <- read_docx() %>%
   body_add_toc(style = "graphic title")
 
 print(doc, target = "assets/docx/toc_and_captions.docx")
-}
 ```
 
 ```{r echo=FALSE}
-if( require("ggplot2") ){
-  office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
-}
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
 ```
 
