@@ -38,19 +38,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../../articles/powerpoint.html">Powerpoint</a>
+  <a href="../../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../../articles/offcran/tables.html">Tables</a>
+  <a href="../../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../../articles/officer_reader.html">Office scraping</a>
+  <a href="../../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../../reference/index.html">Function reference</a>
@@ -118,8 +115,7 @@
 <p>Then add it to a new Word document:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw"><a href="../../reference/body_add_img.html">body_add_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_emf.docx"</span>)</a></code></pre></div>
-<pre><code>## [1] "/.../graphics/demo_emf.docx"</code></pre>
+<a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"assets/graphics/demo_emf.docx"</span>)</a></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_emf.docx">demo_emf.docx</a>
@@ -131,17 +127,16 @@
 <h3 class="hasAnchor">
 <a href="#microsoft-charts" class="anchor"></a>Microsoft charts</h3>
 <p>Package <code>mschart</code> enable to create native office charts that can be used with <code>officer</code>. Function <code>body_add_chart</code> can be used to generate (from R plot commands) a chart object within Word.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mschart)</a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/mschart.html">ms_barchart</a></span>(<span class="dt">data =</span> browser_data,</a>
-<a class="sourceLine" id="cb5-4" title="4">  <span class="dt">x =</span> <span class="st">"browser"</span>, <span class="dt">y =</span> <span class="st">"value"</span>, <span class="dt">group =</span> <span class="st">"serie"</span>)</a>
-<a class="sourceLine" id="cb5-5" title="5">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/chart_settings.html">chart_settings</a></span>( <span class="dt">x =</span> my_barchart,</a>
-<a class="sourceLine" id="cb5-6" title="6">  <span class="dt">dir=</span><span class="st">"vertical"</span>, <span class="dt">grouping=</span><span class="st">"clustered"</span>, <span class="dt">gap_width =</span> <span class="dv">50</span> )</a>
-<a class="sourceLine" id="cb5-7" title="7"></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="kw"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/body_add_chart.html">body_add_chart</a></span>(<span class="dt">chart =</span> my_barchart, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_mschart_01.docx"</span>)</a></code></pre></div>
-<pre><code>## [1] "/.../graphics/demo_mschart_01.docx"</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mschart)</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/mschart.html">ms_barchart</a></span>(<span class="dt">data =</span> browser_data,</a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="dt">x =</span> <span class="st">"browser"</span>, <span class="dt">y =</span> <span class="st">"value"</span>, <span class="dt">group =</span> <span class="st">"serie"</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/chart_settings.html">chart_settings</a></span>( <span class="dt">x =</span> my_barchart,</a>
+<a class="sourceLine" id="cb4-6" title="6">  <span class="dt">dir=</span><span class="st">"vertical"</span>, <span class="dt">grouping=</span><span class="st">"clustered"</span>, <span class="dt">gap_width =</span> <span class="dv">50</span> )</a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/body_add_chart.html">body_add_chart</a></span>(<span class="dt">chart =</span> my_barchart, <span class="dt">style =</span> <span class="st">"centered"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"assets/graphics/demo_mschart_01.docx"</span>)</a></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_mschart_01.docx">demo_mschart_01.docx</a>
@@ -155,15 +150,14 @@
 <a href="#powerpoint-documents-and-graphics" class="anchor"></a>PowerPoint documents and graphics</h2>
 <p>Raster images and vector graphic images are added in a PowerPoint document as a shape on the current slide. In PowerPoint, images and text can not be mixed in the same shape (or placeholder). <code>officer</code> provides a function <code>ph_with</code> to let users add images into a PowerPoint document:</p>
 <p>Again those functions accept various image formats: png, jpeg and emf.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="kw"><a href="../../reference/external_img.html">external_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>), </a>
-<a class="sourceLine" id="cb7-4" title="4">          <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>), <span class="dt">use_loc_size =</span> <span class="ot">FALSE</span> ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="kw"><a href="../../reference/external_img.html">external_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>), </a>
-<a class="sourceLine" id="cb7-7" title="7">                 <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location.html">ph_location</a></span>(<span class="dt">left =</span> <span class="dv">0</span>, <span class="dt">top =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>) ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_emf.pptx"</span>)</a></code></pre></div>
-<pre><code>## [1] "/.../graphics/demo_emf.pptx"</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="kw"><a href="../../reference/external_img.html">external_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>), </a>
+<a class="sourceLine" id="cb5-4" title="4">          <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>), <span class="dt">use_loc_size =</span> <span class="ot">FALSE</span> ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title Only"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="kw"><a href="../../reference/external_img.html">external_img</a></span>(<span class="dt">src =</span> filename, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>), </a>
+<a class="sourceLine" id="cb5-7" title="7">                 <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location.html">ph_location</a></span>(<span class="dt">left =</span> <span class="dv">0</span>, <span class="dt">top =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">7</span>) ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"assets/graphics/demo_emf.pptx"</span>)</a></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_emf.pptx">demo_emf.pptx</a>
@@ -174,12 +168,11 @@
 <h3 class="hasAnchor">
 <a href="#vector-graphics" class="anchor"></a>vector graphics</h3>
 <p>Package <code>rvg</code> is providing editable vector graphics that can be used with <code>officer</code>. Function <code>ph_with_vg</code> can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function <code>ph_with_vg_at</code> is also provided to let you add a graphic at any arbitrary location in the current slide.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvg)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/rvg/man/dml.html">dml</a></span>(<span class="dt">ggobj =</span> gg), <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_rvg.pptx"</span>)</a></code></pre></div>
-<pre><code>## [1] "/.../graphics/demo_rvg.pptx"</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvg)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/rvg/man/dml.html">dml</a></span>(<span class="dt">ggobj =</span> gg), <span class="dt">location =</span> <span class="kw"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"assets/graphics/demo_rvg.pptx"</span>)</a></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_rvg.pptx">demo_rvg.pptx</a>
@@ -191,21 +184,20 @@
 <h3 class="hasAnchor">
 <a href="#microsoft-charts-1" class="anchor"></a>Microsoft charts</h3>
 <p>Package <code>mschart</code> enable to create native office charts that can be used with <code>officer</code>. Function <code>ph_with_chart</code> can be used to generate (from R plot commands) a chart object within PowerPoint. Function <code>ph_with_chart_at</code> is also provided to let you add a chart at any arbitrary location in the current slide.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mschart)</a>
-<a class="sourceLine" id="cb11-2" title="2"></a>
-<a class="sourceLine" id="cb11-3" title="3">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/mschart.html">ms_barchart</a></span>(<span class="dt">data =</span> browser_data,</a>
-<a class="sourceLine" id="cb11-4" title="4">  <span class="dt">x =</span> <span class="st">"browser"</span>, <span class="dt">y =</span> <span class="st">"value"</span>, <span class="dt">group =</span> <span class="st">"serie"</span>)</a>
-<a class="sourceLine" id="cb11-5" title="5">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/chart_settings.html">chart_settings</a></span>( <span class="dt">x =</span> my_barchart,</a>
-<a class="sourceLine" id="cb11-6" title="6">  <span class="dt">dir=</span><span class="st">"vertical"</span>, <span class="dt">grouping=</span><span class="st">"clustered"</span>, <span class="dt">gap_width =</span> <span class="dv">50</span> )</a>
-<a class="sourceLine" id="cb11-7" title="7"></a>
-<a class="sourceLine" id="cb11-8" title="8"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-9" title="9"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-10" title="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/ph_with_chart.html">ph_with_chart</a></span>(<span class="dt">chart =</span> my_barchart, <span class="dt">type =</span> <span class="st">"body"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-11" title="11"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-12" title="12"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/ph_with_chart.html">ph_with_chart_at</a></span>(<span class="dt">chart =</span> my_barchart, </a>
-<a class="sourceLine" id="cb11-13" title="13">                   <span class="dt">left =</span> <span class="dv">0</span>, <span class="dt">top =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">4</span>, <span class="dt">height =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-14" title="14"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"../assets/graphics/demo_mschart_01.pptx"</span>)</a></code></pre></div>
-<pre><code>## [1] "/.../graphics/demo_mschart_01.pptx"</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mschart)</a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/mschart.html">ms_barchart</a></span>(<span class="dt">data =</span> browser_data,</a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="dt">x =</span> <span class="st">"browser"</span>, <span class="dt">y =</span> <span class="st">"value"</span>, <span class="dt">group =</span> <span class="st">"serie"</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5">my_barchart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/chart_settings.html">chart_settings</a></span>( <span class="dt">x =</span> my_barchart,</a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="dt">dir=</span><span class="st">"vertical"</span>, <span class="dt">grouping=</span><span class="st">"clustered"</span>, <span class="dt">gap_width =</span> <span class="dv">50</span> )</a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/ph_with_chart.html">ph_with_chart</a></span>(<span class="dt">chart =</span> my_barchart, <span class="dt">type =</span> <span class="st">"body"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="st">  </span><span class="kw"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/mschart/man/ph_with_chart.html">ph_with_chart_at</a></span>(<span class="dt">chart =</span> my_barchart, </a>
+<a class="sourceLine" id="cb7-13" title="13">                   <span class="dt">left =</span> <span class="dv">0</span>, <span class="dt">top =</span> <span class="dv">0</span>, <span class="dt">width =</span> <span class="dv">4</span>, <span class="dt">height =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="dt">target =</span> <span class="st">"assets/graphics/demo_mschart_01.pptx"</span>)</a></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/assets/graphics/demo_mschart_01.pptx">demo_mschart_01.pptx</a>

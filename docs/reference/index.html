@@ -74,19 +74,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -141,7 +138,7 @@
         <td>
           <p><code><a href="docx_summary.html">docx_summary()</a></code> </p>
         </td>
-        <td><p>get Word content in a tidy format</p></td>
+        <td><p>get Word content in a data.frame</p></td>
       </tr><tr>
         
         <td>
@@ -334,29 +331,31 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-working-with-powerpoint-documents" class="hasAnchor"><a href="#section-working-with-powerpoint-documents" class="anchor"></a>Working with PowerPoint documents</h2>
+          <h2 id="section-reading-writing-powerpoint-documents" class="hasAnchor"><a href="#section-reading-writing-powerpoint-documents" class="anchor"></a>Reading/writing PowerPoint documents</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="read_pptx.html">read_pptx()</a></code> <code><a href="read_pptx.html">print(<i>&lt;rpptx&gt;</i>)</a></code> <code><a href="read_pptx.html">length(<i>&lt;rpptx&gt;</i>)</a></code> <code><a href="read_pptx.html">slide_size()</a></code> </p>
+          <p><code><a href="read_pptx.html">read_pptx()</a></code> </p>
         </td>
         <td><p>open a connexion to a 'PowerPoint' file</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pptx_summary.html">pptx_summary()</a></code> </p>
+          <p><code><a href="print.rpptx.html">print(<i>&lt;rpptx&gt;</i>)</a></code> </p>
         </td>
-        <td><p>get PowerPoint content in a tidy format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="annotate_base.html">annotate_base()</a></code> </p>
-        </td>
-        <td><p>PowerPoint placeholder parameters annotation</p></td>
-      </tr><tr>
+        <td><p>write a 'PowerPoint' file.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-manipulate-slides" class="hasAnchor"><a href="#section-manipulate-slides" class="anchor"></a>Manipulate slides</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="add_slide.html">add_slide()</a></code> </p>
@@ -371,38 +370,20 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="layout_summary.html">layout_summary()</a></code> </p>
-        </td>
-        <td><p>presentation layouts summary</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="layout_properties.html">layout_properties()</a></code> </p>
-        </td>
-        <td><p>slide layout properties</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="slide_summary.html">slide_summary()</a></code> </p>
-        </td>
-        <td><p>get PowerPoint slide content in a tidy format</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="move_slide.html">move_slide()</a></code> </p>
         </td>
         <td><p>move a slide</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="color_scheme.html">color_scheme()</a></code> </p>
+          <p><code><a href="remove_slide.html">remove_slide()</a></code> </p>
         </td>
-        <td><p>color scheme</p></td>
+        <td><p>remove a slide</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-add-content-to-powerpoint-documents" class="hasAnchor"><a href="#section-add-content-to-powerpoint-documents" class="anchor"></a>Add content to PowerPoint documents</h2>
+          <h2 id="section-slide-content" class="hasAnchor"><a href="#section-slide-content" class="anchor"></a>Slide content</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -411,7 +392,7 @@
         <td>
           <p><code><a href="ph_with.html">ph_with()</a></code> </p>
         </td>
-        <td><p>add object into a new shape</p></td>
+        <td><p>add objects into a new shape on the current slide</p></td>
       </tr><tr>
         
         <td>
@@ -445,33 +426,15 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="ph_location_template.html">ph_location_template()</a></code> </p>
+        </td>
+        <td><p>create a location for a placeholder based on a template</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="ph_location_type.html">ph_location_type()</a></code> </p>
         </td>
-        <td><p>location of a placeholder type</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ph_empty.html">ph_empty()</a></code> <code><a href="ph_empty.html">ph_empty_at()</a></code> </p>
-        </td>
-        <td><p>add a new empty shape</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ph_add_text.html">ph_add_text()</a></code> </p>
-        </td>
-        <td><p>append text</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ph_add_par.html">ph_add_par()</a></code> </p>
-        </td>
-        <td><p>append paragraph</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ph_add_fpar.html">ph_add_fpar()</a></code> </p>
-        </td>
-        <td><p>append fpar</p></td>
+        <td><p>location of a placeholder based on a type</p></td>
       </tr><tr>
         
         <td>
@@ -484,26 +447,68 @@
           <p><code><a href="ph_hyperlink.html">ph_hyperlink()</a></code> </p>
         </td>
         <td><p>hyperlink a placeholder</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ph_remove.html">ph_remove()</a></code> </p>
+        </td>
+        <td><p>remove a shape</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-remove-content-from-powerpoint-documents" class="hasAnchor"><a href="#section-remove-content-from-powerpoint-documents" class="anchor"></a>Remove content from PowerPoint documents</h2>
+          <h2 id="section-read-powerpoint-informtions" class="hasAnchor"><a href="#section-read-powerpoint-informtions" class="anchor"></a>Read PowerPoint informtions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="remove_slide.html">remove_slide()</a></code> </p>
+          <p><code><a href="pptx_summary.html">pptx_summary()</a></code> </p>
         </td>
-        <td><p>remove a slide</p></td>
+        <td><p>get PowerPoint content in a data.frame</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ph_remove.html">ph_remove()</a></code> </p>
+          <p><code><a href="slide_size.html">slide_size()</a></code> </p>
         </td>
-        <td><p>remove shape</p></td>
+        <td><p>slides width and height</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="length.rpptx.html">length(<i>&lt;rpptx&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>number of slides</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="annotate_base.html">annotate_base()</a></code> </p>
+        </td>
+        <td><p>PowerPoint placeholder parameters annotation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="layout_summary.html">layout_summary()</a></code> </p>
+        </td>
+        <td><p>presentation layouts summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="layout_properties.html">layout_properties()</a></code> </p>
+        </td>
+        <td><p>slide layout properties</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="slide_summary.html">slide_summary()</a></code> </p>
+        </td>
+        <td><p>get PowerPoint slide content in a data.frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="color_scheme.html">color_scheme()</a></code> </p>
+        </td>
+        <td><p>color scheme</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -517,13 +522,13 @@
         <td>
           <p><code><a href="fpar.html">fpar()</a></code> <code><a href="fpar.html">update(<i>&lt;fpar&gt;</i>)</a></code> <code><a href="fpar.html">as.data.frame(<i>&lt;fpar&gt;</i>)</a></code> <code><a href="fpar.html">format(<i>&lt;fpar&gt;</i>)</a></code> </p>
         </td>
-        <td><p>concatenate formatted text</p></td>
+        <td><p>concatenate formatted text as a paragraph</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="block_list.html">block_list()</a></code> </p>
         </td>
-        <td><p>list of blocks</p></td>
+        <td><p>create paragraph blocks</p></td>
       </tr><tr>
         
         <td>
@@ -581,9 +586,10 @@
       <li><a href="#section-add-content-to-word-documents">Add content to Word documents</a></li>
       <li><a href="#section-replace-content-in-word-documents">Replace content in Word documents</a></li>
       <li><a href="#section-remove-content-from-word-documents">Remove content from Word documents</a></li>
-      <li><a href="#section-working-with-powerpoint-documents">Working with PowerPoint documents</a></li>
-      <li><a href="#section-add-content-to-powerpoint-documents">Add content to PowerPoint documents</a></li>
-      <li><a href="#section-remove-content-from-powerpoint-documents">Remove content from PowerPoint documents</a></li>
+      <li><a href="#section-reading-writing-powerpoint-documents">Reading/writing PowerPoint documents</a></li>
+      <li><a href="#section-manipulate-slides">Manipulate slides</a></li>
+      <li><a href="#section-slide-content">Slide content</a></li>
+      <li><a href="#section-read-powerpoint-informtions">Read PowerPoint informtions</a></li>
       <li><a href="#section-create-formatted-paragraphs">Create formatted paragraphs</a></li>
       <li><a href="#section-formatting-properties">Formatting properties</a></li>
     </ul>

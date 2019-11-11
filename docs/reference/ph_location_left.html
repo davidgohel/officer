@@ -78,19 +78,16 @@ is existing." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -127,11 +124,15 @@ to a left bounding box. The function assume the layout 'Two Content'
 is existing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_location_left</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ph_location_left</span>(<span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>newlabel</th>
+      <td><p>a label to associate with the placeholder.</p></td>
+    </tr>
     <tr>
       <th>...</th>
       <td><p>unused arguments</p></td>
@@ -143,15 +144,15 @@ is existing.</p>
     <div class='dont-index'><p>Other functions for placeholder location: <code><a href='ph_location_fullsize.html'>ph_location_fullsize</a></code>,
   <code><a href='ph_location_label.html'>ph_location_label</a></code>,
   <code><a href='ph_location_right.html'>ph_location_right</a></code>,
+  <code><a href='ph_location_template.html'>ph_location_template</a></code>,
   <code><a href='ph_location_type.html'>ph_location_type</a></code>, <code><a href='ph_location.html'>ph_location</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
-<span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"Hello"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_left</span>() ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"world"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb364256a8052.pptx"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>"Hello left"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_left</span>() )
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>"Hello right"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() )
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

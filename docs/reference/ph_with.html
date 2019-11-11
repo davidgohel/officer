@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add object into a new shape — ph_with • officer</title>
+<title>add objects into a new shape on the current slide — ph_with • officer</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="add object into a new shape — ph_with" />
-<meta property="og:description" content="add object into a new shape in a slide. This
+<meta property="og:title" content="add objects into a new shape on the current slide — ph_with" />
+<meta property="og:description" content="add object into a new shape in the current slide. This
 function is able to add all supported outputs to a presentation
 and should replace calls to older functions starting with
 ph_with_*." />
@@ -79,19 +79,16 @@ ph_with_*." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -117,13 +114,13 @@ ph_with_*." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add object into a new shape</h1>
+    <h1>add objects into a new shape on the current slide</h1>
     
     <div class="hidden name"><code>ph_with.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>add object into a new shape in a slide. This
+    <p>add object into a new shape in the current slide. This
 function is able to add all supported outputs to a presentation
 and should replace calls to older functions starting with
 <code>ph_with_*</code>.</p>
@@ -172,11 +169,15 @@ and should replace calls to older functions starting with
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a pptx device</p></td>
+      <td><p>an rpptx object</p></td>
     </tr>
     <tr>
       <th>value</th>
-      <td><p>object to add as a new shape.</p></td>
+      <td><p>object to add as a new shape. Supported objects
+are vectors, data.frame, graphics, block of formatted paragraphs,
+unordered list of formatted paragraphs,
+pretty tables with package flextable, editable graphics with
+package rvg, 'Microsoft' charts with package mschart.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -184,9 +185,10 @@ and should replace calls to older functions starting with
     </tr>
     <tr>
       <th>location</th>
-      <td><p>a placeholder location object. This is a convenient
-argument that can replace usage of arguments <code>type</code> and <code>index</code>.
-See section <code>see also</code>.</p></td>
+      <td><p>a placeholder location object.
+It will be used to specify the location of the new shape. This location
+can be defined with a call to one of the ph_location functions. See
+section <code>see also</code>.</p></td>
     </tr>
     <tr>
       <th>format_fun</th>
@@ -207,75 +209,46 @@ be used.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="with-character"><a class="anchor" href="#with-character"></a>with character</h2>
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
     
-
-<p>When value is a character vector, each value will be
-added as a paragraph.</p>
-    <h2 class="hasAnchor" id="with-vector"><a class="anchor" href="#with-vector"></a>with vector</h2>
-
-    
-
-<p>When value is a vector, the values will be first formatted and
-then add as text, each value will be added as a paragraph.</p>
-    <h2 class="hasAnchor" id="with-block-list"><a class="anchor" href="#with-block-list"></a>with block_list</h2>
-
-    
-
-<p>When value is a block_list object, each value will be
-added as a paragraph.</p>
-    <h2 class="hasAnchor" id="with-unordered-list"><a class="anchor" href="#with-unordered-list"></a>with unordered_list</h2>
-
-    
-
-<p>When value is a unordered_list object, each value will be
-added as a paragraph.</p>
-    <h2 class="hasAnchor" id="with-data-frame"><a class="anchor" href="#with-data-frame"></a>with data.frame</h2>
-
-    
-
-<p>When value is a data.frame, a simple table
-is added, use package <code>flextable</code> instead
-for more advanced formattings.</p>
-    <h2 class="hasAnchor" id="with-a-ggplot-object"><a class="anchor" href="#with-a-ggplot-object"></a>with a ggplot object</h2>
-
-    
-
-<p>When value is a ggplot object, a raster plot
-is produced and added, use package <code>rvg</code>
-instead for more advanced graphical features.</p>
-    <h2 class="hasAnchor" id="with-a-external-img-object"><a class="anchor" href="#with-a-external-img-object"></a>with a external_img object</h2>
-
-    
-
+<ul>
+<li><p><code>character</code>: add a character vector to a new shape on the
+current slide, values will be added as paragraphs.</p></li>
+<li><p><code>numeric</code>: add a numeric vector to a new shape on the
+current slide, values will be be first formatted then
+added as paragraphs.</p></li>
+<li><p><code>factor</code>: add a factor vector to a new shape on the
+current slide, values will be be converted as character and then
+added as paragraphs.</p></li>
+<li><p><code>block_list</code>: add a <code><a href='block_list.html'>block_list</a></code> made
+of <code><a href='fpar.html'>fpar</a></code> to a new shape on the current slide.</p></li>
+<li><p><code>unordered_list</code>: add a <code><a href='unordered_list.html'>unordered_list</a></code> made
+of <code><a href='fpar.html'>fpar</a></code> to a new shape on the current slide.</p></li>
+<li><p><code>data.frame</code>: add a data.frame to a new shape on the current slide. Use
+package <code>flextable</code> instead for more advanced formattings.</p></li>
+<li><p><code>gg</code>: add a ggplot object to a new shape on the
+current slide. Use package <code>rvg</code> for more advanced graphical features.</p></li>
+<li><p><code>external_img</code>: add a <code><a href='external_img.html'>external_img</a></code> to a new shape
+on the current slide.</p>
 <p>When value is a external_img object, image will be copied
 into the PowerPoint presentation. The width and height
-specified in call to <code><a href='external_img.html'>external_img</a></code> will be
+specified in call to <code>external_img</code> will be
 ignored, their values will be those of the location,
-unless use_loc_size is set to FALSE.</p>
-    <h2 class="hasAnchor" id="with-fpar"><a class="anchor" href="#with-fpar"></a>with fpar</h2>
-
-    
-
-<p>When value is an fpar object, it will be
-added as a single paragraph in a block_list.</p>
-    <h2 class="hasAnchor" id="with-xml-document"><a class="anchor" href="#with-xml-document"></a>with xml_document</h2>
-
-    
-
-<p>When value is an xml_document object, its content will be
-added as a new shape in the current slide. This function
-is to be used to add custom openxml code.</p>
+unless use_loc_size is set to FALSE.</p></li>
+<li><p><code>fpar</code>: add an <code><a href='fpar.html'>fpar</a></code> to a new shape
+on the current slide as a single paragraph in a <code><a href='block_list.html'>block_list</a></code>.</p></li>
+<li><p><code>xml_document</code>: add an xml_document object to a new shape on the
+current slide. This function is to be used to add custom openxml code.</p></li>
+</ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
-<a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a></p></div>
+<a href='ph_location_left.html'>ph_location_left</a>, <a href='ph_location_right.html'>ph_location_right</a>, <a href='ph_location_fullsize.html'>ph_location_fullsize</a>,
+<a href='ph_location_template.html'>ph_location_template</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
-
-<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+    <pre class="examples"><div class='input'><span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Two Content"</span>,
   <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
@@ -285,14 +258,15 @@ is to be used to add custom openxml code.</p>
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() )
 
 <span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2"</span>) ){
-  <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-    <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+  <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
   <span class='no'>gg_plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span> ) +
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='no'>Petal.Length</span>),
       <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>) +
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>()
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>gg_plot</span>,
                  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
+  <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"graphic title"</span>,
+               <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"title"</span>) )
 }
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
@@ -313,15 +287,13 @@ is to be used to add custom openxml code.</p>
     <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()),
     <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_italic</span>(<span class='kw'>color</span><span class='kw'>=</span><span class='st'>"red"</span>))
   ))
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>bl</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>) )
 
 <span class='co'># block list ------</span>
 <span class='no'>hw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)))
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>hw</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>) )
 <span class='co'># unordered_list ----</span>
@@ -329,26 +301,17 @@ is to be used to add custom openxml code.</p>
   <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span>),
   <span class='kw'>str_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span>),
   <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>) )
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-                 <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>ul</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb3644baf47ad.pptx"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#with-character">with character</a></li>
-      <li><a href="#with-vector">with vector</a></li>
-      <li><a href="#with-block-list">with block_list</a></li>
-      <li><a href="#with-unordered-list">with unordered_list</a></li>
-      <li><a href="#with-data-frame">with data.frame</a></li>
-      <li><a href="#with-a-ggplot-object">with a ggplot object</a></li>
-      <li><a href="#with-a-external-img-object">with a external_img object</a></li>
-      <li><a href="#with-fpar">with fpar</a></li>
-      <li><a href="#with-xml-document">with xml_document</a></li>
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

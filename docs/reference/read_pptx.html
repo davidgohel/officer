@@ -37,7 +37,10 @@
 
 <meta property="og:title" content="open a connexion to a 'PowerPoint' file — read_pptx" />
 <meta property="og:description" content="read and import a pptx file as an R object
-representing the document." />
+representing the document.
+The function is called read_pptx because it allows you to initialize an
+object of class rpptx from an existing PowerPoint file. Content will be
+added to the existing presentation. By default, an empty document is used." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -77,19 +80,16 @@ representing the document." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -122,18 +122,13 @@ representing the document." />
 
     <div class="ref-description">
     <p>read and import a pptx file as an R object
-representing the document.</p>
+representing the document.
+The function is called <code>read_pptx</code> because it allows you to initialize an
+object of class <code>rpptx</code> from an existing PowerPoint file. Content will be
+added to the existing presentation. By default, an empty document is used.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_pptx</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='co'># S3 method for rpptx</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for rpptx</span>
-<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)
-
-<span class='fu'>slide_size</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>read_pptx</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,30 +137,27 @@ representing the document.</p>
       <th>path</th>
       <td><p>path to the pptx file to use as base document.</p></td>
     </tr>
-    <tr>
-      <th>x</th>
-      <td><p>an rpptx object</p></td>
-    </tr>
-    <tr>
-      <th>target</th>
-      <td><p>path to the pptx file to write</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="number-of-slides"><a class="anchor" href="#number-of-slides"></a>number of slides</h2>
+    <h2 class="hasAnchor" id="master-layouts-and-slide-layouts"><a class="anchor" href="#master-layouts-and-slide-layouts"></a>master layouts and slide layouts</h2>
 
     
 
-<p>Function <code>length</code> will return the number of slides.</p>
-    <h2 class="hasAnchor" id="slides-width-and-height"><a class="anchor" href="#slides-width-and-height"></a>slides width and height</h2>
+<p><code>read_pptx()</code> uses a PowerPoint file as the initial document. This is the original
+PowerPoint document where all slide layouts, placeholders for shapes and
+styles come from. Major points to be aware of are:</p><ul>
+<li><p>Slide layouts are relative to a master layout. A document can contain one or
+more master layouts; a master layout can contain one or more slide layouts.</p></li>
+<li><p>A slide layout inherits design properties from its master layout but some
+properties can be overwritten.</p></li>
+<li><p>Designs and formatting properties of layouts and shapes (placeholders in a
+layout) are defined within the initial document. There is no R function to
+modify these values - they must be defined in the initial document.</p></li>
+</ul>
 
-    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-<p>Function <code>slide_size</code> will return the size of slides.</p>
+    <div class='dont-index'><p><code><a href='print.rpptx.html'>print.rpptx</a></code> <code><a href='add_slide.html'>add_slide</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>read_pptx</span>()</div><div class='output co'>#&gt; pptx document with 0 slide(s)
@@ -177,20 +169,14 @@ representing the document.</p>
 #&gt; 4       Two Content Office Theme
 #&gt; 5        Comparison Office Theme
 #&gt; 6        Title Only Office Theme
-#&gt; 7             Blank Office Theme</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
-<span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>magrittr</span>) ){
-  <span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-  <span class='fu'>read_pptx</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>file</span>)
-  <span class='co'># full path of produced file is returned</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>.Last.value</span>)
-}</div><div class='output co'>#&gt; NULL</div></pre>
+#&gt; 7             Blank Office Theme</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#number-of-slides">number of slides</a></li>
-      <li><a href="#slides-width-and-height">slides width and height</a></li>
+      <li><a href="#master-layouts-and-slide-layouts">master layouts and slide layouts</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

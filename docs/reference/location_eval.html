@@ -77,19 +77,16 @@ This function is to be used to add custom openxml code." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -132,8 +129,7 @@ This function is to be used to add custom openxml code.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>location</th>
-      <td><p>a location for a placeholder. It has to be a
-quosure.</p></td>
+      <td><p>a location for a placeholder.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -146,13 +142,10 @@ quosure.</p></td>
     <div class='dont-index'><p><code><a href='ph_location.html'>ph_location</a></code>, <code><a href='ph_with.html'>ph_with</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rlang</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attachement du package : ‘rlang’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:magrittr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    set_names</span></div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+    <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
   <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='fu'>location_eval</span>(<span class='fu'><a href='https://rlang.r-lib.org/reference/quotation.html'>quo</a></span>(<span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>()), <span class='no'>doc</span>)</div><div class='output co'>#&gt; $width
+<span class='fu'>location_eval</span>(<span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>(), <span class='no'>doc</span>)</div><div class='output co'>#&gt; $width
 #&gt; [1] 10
 #&gt; 
 #&gt; $height
@@ -168,7 +161,7 @@ quosure.</p></td>
 #&gt; [1] ""
 #&gt; 
 #&gt; $ph
-#&gt; [1] ""
+#&gt; [1] NA
 #&gt; 
 #&gt; $type
 #&gt; [1] "body"
