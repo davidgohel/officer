@@ -7,3 +7,4 @@ inst/vtests.html
 revdep
 src/*.o.tmp
 vignettes/offcran/extract.png
+checks
