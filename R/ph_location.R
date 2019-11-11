@@ -54,6 +54,7 @@ as_ph_location <- function(x, ...){
 #' content on a slide.
 #' @param x a location for a placeholder.
 #' @param doc an rpptx object
+#' @param ... unused arguments
 #' @examples
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content",

@@ -10,6 +10,8 @@ fortify_location(x, doc, ...)
 \item{x}{a location for a placeholder.}
 
 \item{doc}{an rpptx object}
+
+\item{...}{unused arguments}
 }
 \description{
 Eval a shape location against the current slide.
