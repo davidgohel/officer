@@ -1,31 +1,10 @@
-library(purrr)
-library(stringr)
-
-# unlink("vignettes/assets", recursive = TRUE, force = TRUE)
+# unlink("vignettes/offcran/assets", recursive = TRUE, force = TRUE)
 pkgdown::build_site()
 
-# browseURL("docs/articles/assets/docx/toc_and_captions.docx")
-# browseURL("docs/articles/assets/docx/body_add_demo.docx")
-# browseURL("docs/articles/assets/docx/slip_in_demo.docx")
+browseURL("vignettes/offcran/assets/docx/toc_and_captions.docx")
+browseURL("vignettes/offcran/assets/docx/body_add_demo.docx")
+browseURL("vignettes/offcran/assets/docx/slip_in_demo.docx")
 
-all_files <- list.files(path = "docs/reference", pattern = "\\.html", full.names = TRUE)
-walk(all_files, .f = function(file){
-  content <- readLines(file, encoding = "UTF-8")
-  content <- str_replace_all(content, "/Users/davidgohel/gitprojects/officer/docs/reference/", "/.../")
-  cat(content, file = file, sep = "\n")
-})
-
-all_files <- list.files(path = "docs/articles", pattern = "\\.html", full.names = TRUE)
-walk(all_files, .f = function(file){
-  content <- readLines(file, encoding = "UTF-8")
-  content <- str_replace_all(content, "/Users/davidgohel/gitprojects/officer/vignettes/", "/.../")
-  cat(content, file = file, sep = "\n")
-})
-
-all_files <- list.files(path = "docs/articles/offcran", pattern = "\\.html", full.names = TRUE)
-walk(all_files, .f = function(file){
-  content <- readLines(file, encoding = "UTF-8")
-  content <- str_replace_all(content, "/Users/davidgohel/gitprojects/officer/vignettes/assets/", "/.../")
-  cat(content, file = file, sep = "\n")
-})
-
+file.copy("vignettes/offcran/assets", to = "docs/articles/offcran", overwrite = TRUE, recursive = TRUE)
+unlink("vignettes/offcran/assets", recursive = TRUE, force = TRUE)
+unlink("vignettes/offcran/extract.png", recursive = TRUE, force = TRUE)
