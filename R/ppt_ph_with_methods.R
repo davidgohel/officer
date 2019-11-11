@@ -60,7 +60,7 @@
 #' doc <- ph_with(x = doc, value = bl,
 #'                location = ph_location_type(type="body") )
 #'
-#' # block list ------
+#' # fpar ------
 #' hw <- fpar(ftext("hello world", shortcuts$fp_bold(color = "pink")))
 #' doc <- add_slide(doc)
 #' doc <- ph_with(x = doc, value = hw,
@@ -646,17 +646,6 @@ ph_with_table <- function( x, value, type = "body", index = 1,
 #' @inheritParams ph_empty
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param width,height image size in inches
-#' @examples
-#' fileout <- tempfile(fileext = ".pptx")
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#'
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' if( file.exists(img.file) ){
-#'   doc <- ph_with_img(x = doc, type = "body", src = img.file, height = 1.06, width = 1.39 )
-#' }
-#'
-#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_with_img <- function( x, src, type = "body", index = 1,
                          width = NULL, height = NULL,
@@ -678,24 +667,6 @@ ph_with_img <- function( x, src, type = "body", index = 1,
 #' @param width,height image size in inches
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
-#' @examples
-#' if( require("ggplot2") ){
-#'   doc <- read_pptx()
-#'   doc <- add_slide(doc, layout = "Title and Content",
-#'     master = "Office Theme")
-#'
-#'   gg_plot <- ggplot(data = iris ) +
-#'     geom_point(mapping = aes(Sepal.Length, Petal.Length), size = 3) +
-#'     theme_minimal()
-#'
-#'   if( capabilities(what = "png") ){
-#'     doc <- ph_with_gg(doc, value = gg_plot )
-#'     doc <- ph_with_gg_at(doc, value = gg_plot,
-#'       height = 4, width = 8, left = 4, top = 4 )
-#'   }
-#'
-#'   print(doc, target = tempfile(fileext = ".pptx"))
-#' }
 ph_with_gg <- function( x, value, type = "body", index = 1,
                         width = NULL, height = NULL, location = NULL, ... ){
   .Deprecated(new = "ph_with")
@@ -721,16 +692,6 @@ ph_with_gg <- function( x, value, type = "body", index = 1,
 #' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
 #' inherit from default sizes of the presentation.
 #' @export
-#' @examples
-#' pptx <- read_pptx()
-#' pptx <- add_slide(x = pptx, layout = "Title and Content", master = "Office Theme")
-#' pptx <- ph_with_text(x = pptx, type = "title", str = "Example title")
-#' pptx <- ph_with_ul(
-#'   x = pptx, location = ph_location_type(type="body"),
-#'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
-#'   level_list = c(1, 2, 2, 3, 3, 1),
-#'   style = fp_text(color = "red", font.size = 0) )
-#' print(pptx, target = tempfile(fileext = ".pptx"))
 ph_with_ul <- function(x, type = "body", index = 1,
                        str_list = character(0), level_list = integer(0),
                        style = NULL,
@@ -762,15 +723,6 @@ ph_with_ul <- function(x, type = "body", index = 1,
 #' @param template_index placeholder template index (integer). To be used when a placeholder
 #' template type is not unique in the current slide, e.g. two placeholders with
 #' type 'body'.
-#' @examples
-#'
-#' # demo ph_empty_at ------
-#' fileout <- tempfile(fileext = ".pptx")
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_empty_at(x = doc, left = 1, top = 2, width = 5, height = 4)
-#'
-#' print(doc, target = fileout )
 ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
                          template_type = NULL, template_index = 1 ){
   .Deprecated(new = "ph_with")
@@ -784,19 +736,6 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 #' @rdname ph_with_img
 #' @param left,top location of the new shape on the slide
 #' @param rot rotation angle
-#' @examples
-#'
-#' fileout <- tempfile(fileext = ".pptx")
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#'
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' if( file.exists(img.file) ){
-#'   doc <- ph_with_img_at(x = doc, src = img.file, height = 1.06, width = 1.39,
-#'     left = 4, top = 4, rot = 45 )
-#' }
-#'
-#' print(doc, target = fileout )
 ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
 
   ph_with(x, external_img(src=src, width = width, height = height),
@@ -865,32 +804,6 @@ ph_with_gg_at <- function( x, value, width, height, left, top, ... ){
 #' @param template_index placeholder template index (integer). To be used when a placeholder
 #' template type is not unique in the current slide, e.g. two placeholders with
 #' type 'body'.
-#' @examples
-#'
-#' fileout <- tempfile(fileext = ".pptx")
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'   master = "Office Theme")
-#'
-#' bold_face <- shortcuts$fp_bold(font.size = 0)
-#' bold_redface <- update(bold_face, color = "red")
-#'
-#' fpar_1 <- fpar(
-#'   ftext("Hello ", prop = bold_face), ftext("World", prop = bold_redface ),
-#'   ftext(", \r\nhow are you?", prop = bold_face ) )
-#'
-#' fpar_2 <- fpar(
-#'   ftext("Hello ", prop = bold_face), ftext("World", prop = bold_redface ),
-#'   ftext(", \r\nhow are you again?", prop = bold_face ) )
-#'
-#' doc <- ph_with_fpars_at(x = doc, fpars = list(fpar_1, fpar_2),
-#'   fp_pars = list(NULL, fp_par(text.align = "center")),
-#'   left = 1, top = 2, width = 7, height = 4)
-#' doc <- ph_with_fpars_at(x = doc, fpars = list(fpar_1, fpar_2),
-#'   template_type = "body", template_index = 1,
-#'   left = 4, top = 5, width = 4, height = 3)
-#'
-#' print(doc, target = fileout )
 ph_with_fpars_at <- function( x, fpars = list(), fp_pars = list(),
                               left, top, width, height, bg = "transparent", rot = 0,
                               template_type = NULL, template_index = 1 ){

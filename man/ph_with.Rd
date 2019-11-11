@@ -159,7 +159,7 @@ doc <- add_slide(doc)
 doc <- ph_with(x = doc, value = bl,
                location = ph_location_type(type="body") )
 
-# block list ------
+# fpar ------
 hw <- fpar(ftext("hello world", shortcuts$fp_bold(color = "pink")))
 doc <- add_slide(doc)
 doc <- ph_with(x = doc, value = hw,
