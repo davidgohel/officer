@@ -3,8 +3,8 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   graphics: offcran/graphics.html
-  tables: offcran/tables.html
-  officer_reader: officer_reader.html
-  powerpoint: powerpoint.html
-  word: word.html
+  officer_reader: offcran/officer_reader.html
+  powerpoint: offcran/powerpoint.html
+  word: offcran/word.html
+  overview: overview.html
 

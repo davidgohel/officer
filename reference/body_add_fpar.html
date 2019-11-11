@@ -76,19 +76,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -160,7 +157,8 @@ one of "after", "before", "on".</p></td>
               <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>", how are you?"</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_face</span> ) )
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>body_add_fpar</span>(<span class='no'>fpar_</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb36445ca6cdc.docx"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))
+
 <span class='co'># a way of using fpar to center an image in a Word doc ----</span>
 <span class='no'>rlogo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
 <span class='no'>img_in_par</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span>(
@@ -168,8 +166,7 @@ one of "after", "before", "on".</p></td>
   <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span>(<span class='kw'>text.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>) )
 
 <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'>body_add_fpar</span>(<span class='no'>img_in_par</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb36459506f48.docx"</div><div class='input'>
-</div></pre>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>) )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

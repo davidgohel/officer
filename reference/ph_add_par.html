@@ -36,7 +36,9 @@
 
 
 <meta property="og:title" content="append paragraph — ph_add_par" />
-<meta property="og:description" content="append a new empty paragraph in a placeholder" />
+<meta property="og:description" content="append a new empty paragraph in a placeholder.
+The function let you add a new empty paragraph to an existing
+content in an exiisting shape, existing paragraphs will be preserved." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -76,19 +78,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -120,7 +119,9 @@
     </div>
 
     <div class="ref-description">
-    <p>append a new empty paragraph in a placeholder</p>
+    <p>append a new empty paragraph in a placeholder.
+The function let you add a new empty paragraph to an existing
+content in an exiisting shape, existing paragraphs will be preserved.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_add_par</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -131,7 +132,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a pptx device</p></td>
+      <td><p>an rpptx object</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -139,7 +140,7 @@
     </tr>
     <tr>
       <th>id</th>
-      <td><p>placeholder index for a duplicated type(integer). This is to be used when a placeholder
+      <td><p>placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use <code>id = 1</code> and <code>id = 2</code> for the second one.
 Values can be read from <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
@@ -159,6 +160,12 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+
+    
+
+<p>If your goal is to add formatted text in a new shape, use <code><a href='ph_with.html'>ph_with</a></code>
+with a <code><a href='block_list.html'>block_list</a></code> instead of this function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
@@ -175,12 +182,13 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
   <span class='fu'><a href='ph_add_text.html'>ph_add_text</a></span>(<span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"and another!"</span>,
               <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>default_text</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>))
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb364672879b1.pptx"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#usage">Usage</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

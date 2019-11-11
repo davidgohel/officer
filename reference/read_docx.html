@@ -77,19 +77,16 @@ representing the document." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -205,7 +202,8 @@ representing the document.</p>
 #&gt; 1    NA     NA              NA    paragraph</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
 <span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>magrittr</span>) ){
   <span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))
-}</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb364198822f6.docx"</div><div class='input'>
+}
+
 <span class='co'># how many elements are there in the document ----</span>
 <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>( <span class='fu'>read_docx</span>() )</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
 </div></pre>

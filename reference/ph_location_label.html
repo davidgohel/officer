@@ -77,19 +77,16 @@ to find the corresponding location." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -125,15 +122,19 @@ to find the corresponding location." />
 to find the corresponding location.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_location_label</span>(<span class='no'>ph_label</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ph_location_label</span>(<span class='no'>ph_label</span>, <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ph_label</th>
-      <td><p>placeholder label. It can be read in PowerPoint or
+      <td><p>placeholder label of the used layout. It can be read in PowerPoint or
 with function <code><a href='layout_properties.html'>layout_properties()</a></code> in column <code>ph_label</code>.</p></td>
+    </tr>
+    <tr>
+      <th>newlabel</th>
+      <td><p>a label to associate with the placeholder.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -144,7 +145,7 @@ with function <code><a href='layout_properties.html'>layout_properties()</a></co
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The location of the bounding box associated to a placeholder
-within a presentation slide is specified with the left top coordinate,
+within a slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:</p>
 <dl class='dl-horizontal'>
 <dt>left</dt><dd><p>left coordinate of the bounding box</p></dd>
@@ -154,25 +155,25 @@ the width and the height. These are defined in inches:</p>
 
 </dl>
 
-<p>In addition to these attributes, there is attribute <code>ph_label</code>
-associated with the shape (shapes, text boxes, images and other objects
-will be identified with that label in the Selection Pane of PowerPoint).
-This label can then be reused by other functions such as <code>ph_add_fpar</code>,
-or <code>ph_add_text</code>.</p>
+<p>In addition to these attributes, a label can be
+associated with the shape. Shapes, text boxes, images and other objects
+will be identified with that label in the Selection Pane of PowerPoint.
+This label can then be reused by other functions such as <code>ph_location_label()</code>.
+It can be set with argument <code>newlabel</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other functions for placeholder location: <code><a href='ph_location_fullsize.html'>ph_location_fullsize</a></code>,
   <code><a href='ph_location_left.html'>ph_location_left</a></code>,
   <code><a href='ph_location_right.html'>ph_location_right</a></code>,
+  <code><a href='ph_location_template.html'>ph_location_template</a></code>,
   <code><a href='ph_location_type.html'>ph_location_type</a></code>, <code><a href='ph_location.html'>ph_location</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
-<span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>"Hello world"</span>,
-    <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_label</span>(<span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Content Placeholder 2"</span>) ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb3641a5f6016.pptx"</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>"Hello world"</span>,
+  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_label</span>(<span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Content Placeholder 2"</span>) )
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

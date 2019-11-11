@@ -36,7 +36,10 @@
 
 
 <meta property="og:title" content="append fpar — ph_add_fpar" />
-<meta property="og:description" content="append fpar (a formatted paragraph) in a placeholder" />
+<meta property="og:description" content="append fpar (a formatted paragraph) in a placeholder
+The function let you add a new formatted paragraph (fpar)
+to an existing content in an exiisting shape, existing paragraphs
+will be preserved." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -76,19 +79,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -120,7 +120,10 @@
     </div>
 
     <div class="ref-description">
-    <p>append <code>fpar</code> (a formatted paragraph) in a placeholder</p>
+    <p>append <code>fpar</code> (a formatted paragraph) in a placeholder
+The function let you add a new formatted paragraph (<code><a href='fpar.html'>fpar</a></code>)
+to an existing content in an exiisting shape, existing paragraphs
+will be preserved.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_add_fpar</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -131,7 +134,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a pptx device</p></td>
+      <td><p>an rpptx object</p></td>
     </tr>
     <tr>
       <th>value</th>
@@ -143,7 +146,7 @@
     </tr>
     <tr>
       <th>id</th>
-      <td><p>placeholder index for a duplicated type(integer). This is to be used when a placeholder
+      <td><p>placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use <code>id = 1</code> and <code>id = 2</code> for the second one.
 Values can be read from <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
@@ -168,6 +171,12 @@ should be used.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+
+    
+
+<p>If your goal is to add formatted text in a new shape, use <code><a href='ph_with.html'>ph_with</a></code>
+with a <code><a href='block_list.html'>block_list</a></code> instead of this function.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='fpar.html'>fpar</a></code></p></div>
@@ -184,15 +193,16 @@ should be used.</p></td>
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_empty.html'>ph_empty</a></span>(<span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span>(<span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"wheat"</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='ph_empty.html'>ph_empty</a></span>(<span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span>(<span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"wheat"</span>, <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='st'>"myph"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>ph_add_fpar</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>fpar_</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb3647ee8d1d6.pptx"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#usage">Usage</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

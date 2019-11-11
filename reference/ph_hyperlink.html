@@ -76,19 +76,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="../articles/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/tables.html">Tables</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
   <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="../articles/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
   <a href="../reference/index.html">Function reference</a>
@@ -131,7 +128,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a pptx device</p></td>
+      <td><p>an rpptx object</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -139,7 +136,7 @@
     </tr>
     <tr>
       <th>id</th>
-      <td><p>placeholder index for a duplicated type(integer). This is to be used when a placeholder
+      <td><p>placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use <code>id = 1</code> and <code>id = 2</code> for the second one.
 Values can be read from <code><a href='slide_summary.html'>slide_summary</a></code>.</p></td>
@@ -159,22 +156,29 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ph_with.html'>ph_with</a></code></p>
+<p>Other functions for placeholders manipulation: <code><a href='ph_remove.html'>ph_remove</a></code>,
+  <code><a href='ph_slidelink.html'>ph_slidelink</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+<span class='no'>loc_manual</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span>(<span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>newlabel</span><span class='kw'>=</span> <span class='st'>"mytitle"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_text.html'>ph_with_text</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Un titre 1"</span>)
-<span class='fu'><a href='slide_summary.html'>slide_summary</a></span>(<span class='no'>doc</span>) <span class='co'># read column ph_label here</span></div><div class='output co'>#&gt;   type id ph_label offx      offy cx   cy       text
-#&gt; 1 body  2  Title 1  0.5 0.3003478  9 1.25 Un titre 1</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_hyperlink</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Title 1"</span>,
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"Un titre 1"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_manual</span>)
+<span class='fu'><a href='slide_summary.html'>slide_summary</a></span>(<span class='no'>doc</span>) <span class='co'># read column ph_label here</span></div><div class='output co'>#&gt;   type id ph_label offx offy cx cy       text
+#&gt; 1 body  2  mytitle    1    1  4  3 Un titre 1</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_hyperlink</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"mytitle"</span>,
   <span class='kw'>href</span> <span class='kw'>=</span> <span class='st'>"https://cran.r-project.org"</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/Rtmpndo22H/fileb36445e32eb3.pptx"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
