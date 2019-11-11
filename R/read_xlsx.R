@@ -322,5 +322,5 @@ print.rxlsx <- function(x, target = NULL, ...){
   x$core_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
   write_core_properties(x$core_properties, x$package_dir)
 
-  pack_folder(folder = x$package_dir, target = target )
+  invisible(pack_folder(folder = x$package_dir, target = target ))
 }

@@ -167,7 +167,7 @@ print.rdocx <- function(x, target = NULL, ...){
   x$doc_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$doc_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
   write_core_properties(x$doc_properties, x$package_dir)
-  pack_folder(folder = x$package_dir, target = target )
+  invisible(pack_folder(folder = x$package_dir, target = target ))
 }
 
 #' @export
