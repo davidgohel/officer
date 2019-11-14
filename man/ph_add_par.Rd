@@ -4,8 +4,7 @@
 \alias{ph_add_par}
 \title{append paragraph}
 \usage{
-ph_add_par(x, type = "body", id = 1, id_chr = NULL, level = 1,
-  ph_label = NULL)
+ph_add_par(x, type = "body", id = 1, id_chr = NULL, level = 1, ph_label = NULL)
 }
 \arguments{
 \item{x}{an rpptx object}

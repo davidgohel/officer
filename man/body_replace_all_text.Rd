@@ -6,14 +6,32 @@
 \alias{footers_replace_all_text}
 \title{Replace text anywhere in the document, or at a cursor}
 \usage{
-body_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE,
-  warn = TRUE, ...)
+body_replace_all_text(
+  x,
+  old_value,
+  new_value,
+  only_at_cursor = FALSE,
+  warn = TRUE,
+  ...
+)
 
-headers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE,
-  warn = TRUE, ...)
+headers_replace_all_text(
+  x,
+  old_value,
+  new_value,
+  only_at_cursor = FALSE,
+  warn = TRUE,
+  ...
+)
 
-footers_replace_all_text(x, old_value, new_value, only_at_cursor = FALSE,
-  warn = TRUE, ...)
+footers_replace_all_text(
+  x,
+  old_value,
+  new_value,
+  only_at_cursor = FALSE,
+  warn = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a docx device}

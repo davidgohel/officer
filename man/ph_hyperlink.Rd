@@ -4,8 +4,7 @@
 \alias{ph_hyperlink}
 \title{hyperlink a placeholder}
 \usage{
-ph_hyperlink(x, type = "body", id = 1, id_chr = NULL,
-  ph_label = NULL, href)
+ph_hyperlink(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href)
 }
 \arguments{
 \item{x}{an rpptx object}
@@ -42,7 +41,8 @@ print(doc, target = fileout )
 \seealso{
 \code{\link{ph_with}}
 
-Other functions for placeholders manipulation: \code{\link{ph_remove}},
-  \code{\link{ph_slidelink}}
+Other functions for placeholders manipulation: 
+\code{\link{ph_remove}()},
+\code{\link{ph_slidelink}()}
 }
 \concept{functions for placeholders manipulation}

@@ -4,8 +4,14 @@
 \alias{set_doc_properties}
 \title{set document properties}
 \usage{
-set_doc_properties(x, title = NULL, subject = NULL, creator = NULL,
-  description = NULL, created = NULL)
+set_doc_properties(
+  x,
+  title = NULL,
+  subject = NULL,
+  creator = NULL,
+  description = NULL,
+  created = NULL
+)
 }
 \arguments{
 \item{x}{an rdocx or rpptx object}

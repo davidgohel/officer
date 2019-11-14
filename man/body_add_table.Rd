@@ -4,9 +4,19 @@
 \alias{body_add_table}
 \title{add table}
 \usage{
-body_add_table(x, value, style = NULL, pos = "after", header = TRUE,
-  first_row = TRUE, first_column = FALSE, last_row = FALSE,
-  last_column = FALSE, no_hband = FALSE, no_vband = TRUE)
+body_add_table(
+  x,
+  value,
+  style = NULL,
+  pos = "after",
+  header = TRUE,
+  first_row = TRUE,
+  first_column = FALSE,
+  last_row = FALSE,
+  last_column = FALSE,
+  no_hband = FALSE,
+  no_vband = TRUE
+)
 }
 \arguments{
 \item{x}{a docx device}

@@ -20,10 +20,12 @@ my_pres <- add_slide(my_pres,
 slide_size(my_pres)
 }
 \seealso{
-Other functions for reading presentation informations: \code{\link{annotate_base}},
-  \code{\link{color_scheme}},
-  \code{\link{layout_properties}},
-  \code{\link{layout_summary}}, \code{\link{length.rpptx}},
-  \code{\link{slide_summary}}
+Other functions for reading presentation informations: 
+\code{\link{annotate_base}()},
+\code{\link{color_scheme}()},
+\code{\link{layout_properties}()},
+\code{\link{layout_summary}()},
+\code{\link{length.rpptx}()},
+\code{\link{slide_summary}()}
 }
 \concept{functions for reading presentation informations}

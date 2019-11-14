@@ -24,10 +24,12 @@ doc <- ph_with(doc, "Hello right", location = ph_location_right() )
 print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
-Other functions for placeholder location: \code{\link{ph_location_fullsize}},
-  \code{\link{ph_location_label}},
-  \code{\link{ph_location_right}},
-  \code{\link{ph_location_template}},
-  \code{\link{ph_location_type}}, \code{\link{ph_location}}
+Other functions for placeholder location: 
+\code{\link{ph_location_fullsize}()},
+\code{\link{ph_location_label}()},
+\code{\link{ph_location_right}()},
+\code{\link{ph_location_template}()},
+\code{\link{ph_location_type}()},
+\code{\link{ph_location}()}
 }
 \concept{functions for placeholder location}

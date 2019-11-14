@@ -4,9 +4,18 @@
 \alias{ph_add_text}
 \title{append text}
 \usage{
-ph_add_text(x, str, type = "body", id = 1, id_chr = NULL,
-  ph_label = NULL, style = fp_text(font.size = 0), pos = "after",
-  href = NULL, slide_index = NULL)
+ph_add_text(
+  x,
+  str,
+  type = "body",
+  id = 1,
+  id_chr = NULL,
+  ph_label = NULL,
+  style = fp_text(font.size = 0),
+  pos = "after",
+  href = NULL,
+  slide_index = NULL
+)
 }
 \arguments{
 \item{x}{an rpptx object}

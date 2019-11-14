@@ -5,8 +5,15 @@
 \alias{ph_with_img_at}
 \title{add image}
 \usage{
-ph_with_img(x, src, type = "body", index = 1, width = NULL,
-  height = NULL, location = NULL)
+ph_with_img(
+  x,
+  src,
+  type = "body",
+  index = 1,
+  width = NULL,
+  height = NULL,
+  location = NULL
+)
 
 ph_with_img_at(x, src, left, top, width, height, rot = 0)
 }

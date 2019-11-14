@@ -4,8 +4,14 @@
 \alias{ph_location_type}
 \title{location of a placeholder based on a type}
 \usage{
-ph_location_type(type = "body", position_right = TRUE,
-  position_top = TRUE, newlabel = NULL, id = NULL, ...)
+ph_location_type(
+  type = "body",
+  position_right = TRUE,
+  position_top = TRUE,
+  newlabel = NULL,
+  id = NULL,
+  ...
+)
 }
 \arguments{
 \item{type}{placeholder type to look for in the slide layout, one
@@ -59,11 +65,12 @@ doc <- ph_with(doc, "Hello world",
 print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
-Other functions for placeholder location: \code{\link{ph_location_fullsize}},
-  \code{\link{ph_location_label}},
-  \code{\link{ph_location_left}},
-  \code{\link{ph_location_right}},
-  \code{\link{ph_location_template}},
-  \code{\link{ph_location}}
+Other functions for placeholder location: 
+\code{\link{ph_location_fullsize}()},
+\code{\link{ph_location_label}()},
+\code{\link{ph_location_left}()},
+\code{\link{ph_location_right}()},
+\code{\link{ph_location_template}()},
+\code{\link{ph_location}()}
 }
 \concept{functions for placeholder location}

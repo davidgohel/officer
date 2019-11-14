@@ -4,8 +4,16 @@
 \alias{ph_location}
 \title{create a location for a placeholder}
 \usage{
-ph_location(left = 1, top = 1, width = 4, height = 3,
-  newlabel = "", bg = NULL, rotation = NULL, ...)
+ph_location(
+  left = 1,
+  top = 1,
+  width = 4,
+  height = 3,
+  newlabel = "",
+  bg = NULL,
+  rotation = NULL,
+  ...
+)
 }
 \arguments{
 \item{left, top, width, height}{place holder coordinates
@@ -49,11 +57,12 @@ doc <- ph_with(doc, "Hello world",
 print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
-Other functions for placeholder location: \code{\link{ph_location_fullsize}},
-  \code{\link{ph_location_label}},
-  \code{\link{ph_location_left}},
-  \code{\link{ph_location_right}},
-  \code{\link{ph_location_template}},
-  \code{\link{ph_location_type}}
+Other functions for placeholder location: 
+\code{\link{ph_location_fullsize}()},
+\code{\link{ph_location_label}()},
+\code{\link{ph_location_left}()},
+\code{\link{ph_location_right}()},
+\code{\link{ph_location_template}()},
+\code{\link{ph_location_type}()}
 }
 \concept{functions for placeholder location}

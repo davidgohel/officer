@@ -4,8 +4,14 @@
 \alias{ph_slidelink}
 \title{slide link to a placeholder}
 \usage{
-ph_slidelink(x, type = "body", id = 1, id_chr = NULL,
-  ph_label = NULL, slide_index)
+ph_slidelink(
+  x,
+  type = "body",
+  id = 1,
+  id_chr = NULL,
+  ph_label = NULL,
+  slide_index
+)
 }
 \arguments{
 \item{x}{an rpptx object}
@@ -44,7 +50,8 @@ print(doc, target = fileout )
 \seealso{
 \code{\link{ph_with}}
 
-Other functions for placeholders manipulation: \code{\link{ph_hyperlink}},
-  \code{\link{ph_remove}}
+Other functions for placeholders manipulation: 
+\code{\link{ph_hyperlink}()},
+\code{\link{ph_remove}()}
 }
 \concept{functions for placeholders manipulation}

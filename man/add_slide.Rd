@@ -25,7 +25,9 @@ my_pres <- add_slide(my_pres,
 \seealso{
 \code{\link{print.rpptx}} \code{\link{read_pptx}} \code{\link{layout_summary}}
 
-Other functions slide manipulation: \code{\link{move_slide}},
-  \code{\link{on_slide}}, \code{\link{remove_slide}}
+Other functions slide manipulation: 
+\code{\link{move_slide}()},
+\code{\link{on_slide}()},
+\code{\link{remove_slide}()}
 }
 \concept{functions slide manipulation}

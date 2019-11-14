@@ -19,10 +19,12 @@ my_pres <- read_pptx()
 layout_summary ( x = my_pres )
 }
 \seealso{
-Other functions for reading presentation informations: \code{\link{annotate_base}},
-  \code{\link{color_scheme}},
-  \code{\link{layout_properties}},
-  \code{\link{length.rpptx}}, \code{\link{slide_size}},
-  \code{\link{slide_summary}}
+Other functions for reading presentation informations: 
+\code{\link{annotate_base}()},
+\code{\link{color_scheme}()},
+\code{\link{layout_properties}()},
+\code{\link{length.rpptx}()},
+\code{\link{slide_size}()},
+\code{\link{slide_summary}()}
 }
 \concept{functions for reading presentation informations}

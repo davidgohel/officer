@@ -27,7 +27,7 @@ library(magrittr)
 x <- read_docx() \%>\%
   body_add_par("Time is: ", style = "Normal") \%>\%
   slip_in_seqfield(
-    str = "TIME \\u005C@ \\"HH:mm:ss\\" \\u005C* MERGEFORMAT",
+    str = "TIME \\u005C@ \"HH:mm:ss\" \\u005C* MERGEFORMAT",
     style = 'strong') \%>\%
 
   body_add_par(" - This is a figure title", style = "centered") \%>\%

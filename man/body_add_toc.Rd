@@ -4,8 +4,7 @@
 \alias{body_add_toc}
 \title{add table of content}
 \usage{
-body_add_toc(x, level = 3, pos = "after", style = NULL,
-  separator = ";")
+body_add_toc(x, level = 3, pos = "after", style = NULL, separator = ";")
 }
 \arguments{
 \item{x}{an rdocx object}

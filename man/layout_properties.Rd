@@ -25,9 +25,12 @@ layout_properties ( x = x, layout = "Two Content" )
 layout_properties ( x = x )
 }
 \seealso{
-Other functions for reading presentation informations: \code{\link{annotate_base}},
-  \code{\link{color_scheme}}, \code{\link{layout_summary}},
-  \code{\link{length.rpptx}}, \code{\link{slide_size}},
-  \code{\link{slide_summary}}
+Other functions for reading presentation informations: 
+\code{\link{annotate_base}()},
+\code{\link{color_scheme}()},
+\code{\link{layout_summary}()},
+\code{\link{length.rpptx}()},
+\code{\link{slide_size}()},
+\code{\link{slide_summary}()}
 }
 \concept{functions for reading presentation informations}

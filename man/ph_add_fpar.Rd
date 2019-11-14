@@ -4,8 +4,16 @@
 \alias{ph_add_fpar}
 \title{append fpar}
 \usage{
-ph_add_fpar(x, value, type = "body", id = 1, id_chr = NULL,
-  ph_label = NULL, level = 1, par_default = TRUE)
+ph_add_fpar(
+  x,
+  value,
+  type = "body",
+  id = 1,
+  id_chr = NULL,
+  ph_label = NULL,
+  level = 1,
+  par_default = TRUE
+)
 }
 \arguments{
 \item{x}{an rpptx object}

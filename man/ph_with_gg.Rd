@@ -5,8 +5,16 @@
 \alias{ph_with_gg_at}
 \title{add ggplot to a pptx presentation}
 \usage{
-ph_with_gg(x, value, type = "body", index = 1, width = NULL,
-  height = NULL, location = NULL, ...)
+ph_with_gg(
+  x,
+  value,
+  type = "body",
+  index = 1,
+  width = NULL,
+  height = NULL,
+  location = NULL,
+  ...
+)
 
 ph_with_gg_at(x, value, width, height, left, top, ...)
 }

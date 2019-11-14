@@ -4,9 +4,19 @@
 \alias{ph_with_fpars_at}
 \title{add multiple formated paragraphs}
 \usage{
-ph_with_fpars_at(x, fpars = list(), fp_pars = list(), left, top, width,
-  height, bg = "transparent", rot = 0, template_type = NULL,
-  template_index = 1)
+ph_with_fpars_at(
+  x,
+  fpars = list(),
+  fp_pars = list(),
+  left,
+  top,
+  width,
+  height,
+  bg = "transparent",
+  rot = 0,
+  template_type = NULL,
+  template_index = 1
+)
 }
 \arguments{
 \item{x}{rpptx object}

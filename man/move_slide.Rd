@@ -28,7 +28,9 @@ x <- ph_with(x, "Hello world 2", location = ph_location_type())
 x <- move_slide(x, index = 1, to = 2)
 }
 \seealso{
-Other functions slide manipulation: \code{\link{add_slide}},
-  \code{\link{on_slide}}, \code{\link{remove_slide}}
+Other functions slide manipulation: 
+\code{\link{add_slide}()},
+\code{\link{on_slide}()},
+\code{\link{remove_slide}()}
 }
 \concept{functions slide manipulation}

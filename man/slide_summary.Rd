@@ -34,10 +34,12 @@ slide_summary(my_pres)
 slide_summary(my_pres, index = 1)
 }
 \seealso{
-Other functions for reading presentation informations: \code{\link{annotate_base}},
-  \code{\link{color_scheme}},
-  \code{\link{layout_properties}},
-  \code{\link{layout_summary}}, \code{\link{length.rpptx}},
-  \code{\link{slide_size}}
+Other functions for reading presentation informations: 
+\code{\link{annotate_base}()},
+\code{\link{color_scheme}()},
+\code{\link{layout_properties}()},
+\code{\link{layout_summary}()},
+\code{\link{length.rpptx}()},
+\code{\link{slide_size}()}
 }
 \concept{functions for reading presentation informations}

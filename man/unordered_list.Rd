@@ -4,8 +4,7 @@
 \alias{unordered_list}
 \title{unordered list}
 \usage{
-unordered_list(str_list = character(0), level_list = integer(0),
-  style = NULL)
+unordered_list(str_list = character(0), level_list = integer(0), style = NULL)
 }
 \arguments{
 \item{str_list}{list of strings to be included in the object}

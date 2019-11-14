@@ -7,17 +7,33 @@
 \alias{update.fp_text}
 \title{Text formatting properties}
 \usage{
-fp_text(color = "black", font.size = 10, bold = FALSE,
-  italic = FALSE, underlined = FALSE, font.family = "Arial",
-  vertical.align = "baseline", shading.color = "transparent")
+fp_text(
+  color = "black",
+  font.size = 10,
+  bold = FALSE,
+  italic = FALSE,
+  underlined = FALSE,
+  font.family = "Arial",
+  vertical.align = "baseline",
+  shading.color = "transparent"
+)
 
 \method{format}{fp_text}(x, type = "wml", ...)
 
 \method{print}{fp_text}(x, ...)
 
-\method{update}{fp_text}(object, color, font.size, bold = FALSE,
-  italic = FALSE, underlined = FALSE, font.family, vertical.align,
-  shading.color, ...)
+\method{update}{fp_text}(
+  object,
+  color,
+  font.size,
+  bold = FALSE,
+  italic = FALSE,
+  underlined = FALSE,
+  font.family,
+  vertical.align,
+  shading.color,
+  ...
+)
 }
 \arguments{
 \item{color}{font color - a single character value specifying

@@ -29,14 +29,21 @@ ph_with(x, value, ...)
 
 \method{ph_with}{unordered_list}(x, value, location, ...)
 
-\method{ph_with}{data.frame}(x, value, location, header = TRUE,
-  first_row = TRUE, first_column = FALSE, last_row = FALSE,
-  last_column = FALSE, ...)
+\method{ph_with}{data.frame}(
+  x,
+  value,
+  location,
+  header = TRUE,
+  first_row = TRUE,
+  first_column = FALSE,
+  last_row = FALSE,
+  last_column = FALSE,
+  ...
+)
 
 \method{ph_with}{gg}(x, value, location, ...)
 
-\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE,
-  ...)
+\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
 
 \method{ph_with}{fpar}(x, value, location, ...)
 

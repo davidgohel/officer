@@ -55,7 +55,8 @@ print(doc, target = fileout )
 \seealso{
 \code{\link{ph_with}}
 
-Other functions for placeholders manipulation: \code{\link{ph_hyperlink}},
-  \code{\link{ph_slidelink}}
+Other functions for placeholders manipulation: 
+\code{\link{ph_hyperlink}()},
+\code{\link{ph_slidelink}()}
 }
 \concept{functions for placeholders manipulation}

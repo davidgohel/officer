@@ -30,7 +30,9 @@ file <- tempfile(fileext = ".pptx")
 print(doc, target = file )
 }
 \seealso{
-Other functions slide manipulation: \code{\link{add_slide}},
-  \code{\link{move_slide}}, \code{\link{remove_slide}}
+Other functions slide manipulation: 
+\code{\link{add_slide}()},
+\code{\link{move_slide}()},
+\code{\link{remove_slide}()}
 }
 \concept{functions slide manipulation}

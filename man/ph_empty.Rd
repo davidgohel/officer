@@ -7,8 +7,17 @@
 \usage{
 ph_empty(x, type = "body", index = 1, location = NULL)
 
-ph_empty_at(x, left, top, width, height, bg = "transparent", rot = 0,
-  template_type = NULL, template_index = 1)
+ph_empty_at(
+  x,
+  left,
+  top,
+  width,
+  height,
+  bg = "transparent",
+  rot = 0,
+  template_type = NULL,
+  template_index = 1
+)
 }
 \arguments{
 \item{x}{an pptx object}
