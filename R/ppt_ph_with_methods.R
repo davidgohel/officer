@@ -518,50 +518,26 @@ ph_with.xml_document <- function( x, value, location, ... ){
 
 # old functions -----------
 
+#' @rdname ph_empty
 #' @export
-#' @title add an xml string as new shape
-#' @description Add an xml string as new shape in the current slide. This function
-#' is to be used to add custom openxml code.
-#' @inheritParams ph_empty
-#' @param value a character
-#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-ph_from_xml <- function( x, value, type = "body", index = 1 ){
-
-  slide <- x$slide$get_slide(x$cursor)
-  xfrm <- slide$get_xfrm(type = type, index = index)
-
-  doc <- as_xml_document(value)
-  node <- xml_find_first( doc, as_xpath_content_sel("//") )
-  node <- set_xfrm_attr(node, offx = xfrm$offx, offy = xfrm$offy,
-                        cx = xfrm$cx, cy = xfrm$cy)
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
-
-  slide$fortify_id()
-  x
-}
-
-
-#' @export
-#' @rdname ph_from_xml
 #' @param left,top location of the new shape on the slide
 #' @param width,height shape size in inches
-ph_from_xml_at <- function( x, value, left, top, width, height ){
-
-  slide <- x$slide$get_slide(x$cursor)
-
-  doc <- as_xml_document(value)
-
-  node <- xml_find_first( doc, as_xpath_content_sel("//") )
-  node <- set_xfrm_attr(node,
-                        offx = left*914400,
-                        offy = top*914400,
-                        cx = width*914400,
-                        cy = height*914400)
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), doc)
-
-  slide$fortify_id()
-  x
+#' @param bg background color
+#' @param rot rotation angle
+#' @param template_type placeholder template type. If used, the new shape will
+#' inherit the style from the placeholder template. If not used, no text
+#' property is defined and for example text lists will not be indented.
+#' @param template_index placeholder template index (integer). To be used when a placeholder
+#' template type is not unique in the current slide, e.g. two placeholders with
+#' type 'body'.
+ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
+                         template_type = NULL, template_index = 1 ){
+  .Deprecated(new = "ph_with")
+  location <- ph_location_template(left = left, top = top, width = width, height = height,
+                                   label = "", type = template_type, id = template_index)
+  ph_empty(x, location = location)
 }
+
 
 #' @export
 #' @title add text into a new shape
@@ -608,31 +584,7 @@ ph_with_text <- function( x, str, type = "title", index = 1, location = NULL ){
 }
 
 
-#' @export
-#' @title add table
-#' @description add a table as a new shape in the current slide.
-#' This function will be deprecated in favor of \code{\link{ph_with}}
-#' in the next release.
-#' @inheritParams ph_empty
-#' @param value data.frame
-#' @param header display header if TRUE
-#' @param first_row,last_row,first_column,last_column logical for PowerPoint table options
-ph_with_table <- function( x, value, type = "body", index = 1,
-                           header = TRUE,
-                           first_row = TRUE, first_column = FALSE,
-                           last_row = FALSE, last_column = FALSE,
-                           location = NULL ){
-  .Deprecated(new = "ph_with")
-  stopifnot(is.data.frame(value))
-
-  if( is.null( location ) ){
-    location <- ph_location_type(type = type, id = index)
-  }
-  ph_with(x, value, location = location, header = header,
-          first_row = first_row, first_column = first_column,
-          last_row = last_row, last_column = last_column)
-}
-
+# old functions_at -----------
 
 
 #' @export
@@ -643,16 +595,14 @@ ph_with_table <- function( x, value, type = "body", index = 1,
 #' @inheritParams ph_empty
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param width,height image size in inches
-#' @importFrom xml2 xml_find_first as_xml_document xml_remove
-ph_with_img <- function( x, src, type = "body", index = 1,
-                         width = NULL, height = NULL,
-                         location = NULL ){
-  .Deprecated(new = "ph_with")
-  if( is.null( location ) ){
-    location <- ph_location_type(type = type, id = index)
-  }
-  ph_with(x, external_img(src=src, width = width, height = height), location = location)
+#' @param left,top location of the new shape on the slide
+#' @param rot rotation angle
+ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
+  ph_with(x, external_img(src=src, width = width, height = height),
+          location = ph_location(ph = "", label = "", left = left, top = top, width = width, height = height, rotation = rot))
+
 }
+
 
 #' @export
 #' @title add ggplot to a pptx presentation
@@ -662,109 +612,9 @@ ph_with_img <- function( x, src, type = "body", index = 1,
 #' @inheritParams ph_empty
 #' @param value ggplot object
 #' @param width,height image size in inches
+#' @param left,top location of the new shape on the slide
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
-ph_with_gg <- function( x, value, type = "body", index = 1,
-                        width = NULL, height = NULL, location = NULL, ... ){
-  .Deprecated(new = "ph_with")
-  if( is.null( location ) ){
-    location <- ph_location_type(type = type, id = index)
-    if( !is.null( width ) ) location$width <- width
-    if( !is.null( height ) ) location$height <- height
-  }
-  ph_with(x, value, location = location)
-
-}
-
-#' @title add unordered list to a pptx presentation
-#' @description add an unordered list of text
-#' into an rpptx object. Each text is associated with
-#' a hierarchy level.
-#' This function will be deprecated in favor of \code{\link{ph_with}}
-#' in the next release.
-#' @inheritParams ph_empty
-#' @param str_list list of strings to be included in the object
-#' @param level_list list of levels for hierarchy structure
-#' @param style text style, a \code{fp_text} object list or a
-#' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
-#' inherit from default sizes of the presentation.
-#' @export
-ph_with_ul <- function(x, type = "body", index = 1,
-                       str_list = character(0), level_list = integer(0),
-                       style = NULL,
-                       location = NULL) {
-  .Deprecated(new = "ph_with")
-  value <- unordered_list(
-    level_list = level_list,
-    str_list = str_list,
-    style = style )
-  if( is.null( location ) ){
-    location <- ph_location_type(type = type, id = index)
-  }
-  ph_with(x = x, value = value, location = location )
-}
-
-
-
-# old functions_at -----------
-
-#' @rdname ph_empty
-#' @export
-#' @param left,top location of the new shape on the slide
-#' @param width,height shape size in inches
-#' @param bg background color
-#' @param rot rotation angle
-#' @param template_type placeholder template type. If used, the new shape will
-#' inherit the style from the placeholder template. If not used, no text
-#' property is defined and for example text lists will not be indented.
-#' @param template_index placeholder template index (integer). To be used when a placeholder
-#' template type is not unique in the current slide, e.g. two placeholders with
-#' type 'body'.
-ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 0,
-                         template_type = NULL, template_index = 1 ){
-  .Deprecated(new = "ph_with")
-  location <- ph_location_template(left = left, top = top, width = width, height = height,
-              label = "", type = template_type, id = template_index)
-  ph_with(x, "", location = location)
-}
-
-
-#' @export
-#' @rdname ph_with_img
-#' @param left,top location of the new shape on the slide
-#' @param rot rotation angle
-ph_with_img_at <- function( x, src, left, top, width, height, rot = 0 ){
-
-  ph_with(x, external_img(src=src, width = width, height = height),
-          location = ph_location(ph = "", label = "", left = left, top = top, width = width, height = height, rotation = rot))
-
-}
-
-#' @export
-#' @rdname ph_with_table
-#' @param left,top location of the new shape on the slide
-#' @param width,height shape size in inches
-ph_with_table_at <- function( x, value, left, top, width, height,
-                              header = TRUE,
-                              first_row = TRUE, first_column = FALSE,
-                              last_row = FALSE, last_column = FALSE ){
-
-  .Deprecated(new = "ph_with")
-  stopifnot(is.data.frame(value))
-  ph_with(x,
-          value,
-          location = ph_location(
-            ph = "", label = "", left = left, top = top,
-            width = width, height = height),
-          header = header,
-          first_row = first_row, first_column = first_column,
-          last_row = last_row, last_column = last_column)
-}
-
-#' @export
-#' @param left,top location of the new shape on the slide
-#' @importFrom grDevices png dev.off
-#' @rdname ph_with_gg
 ph_with_gg_at <- function( x, value, width, height, left, top, ... ){
 
   if( !requireNamespace("ggplot2") )
@@ -782,48 +632,5 @@ ph_with_gg_at <- function( x, value, width, height, left, top, ... ){
 
 
 
-
-
-#' @export
-#' @title add multiple formated paragraphs
-#' @description add several formated paragraphs in a new shape in the current slide.
-#' @param x rpptx object
-#' @param fpars list of \code{\link{fpar}} objects
-#' @param fp_pars list of \code{\link{fp_par}} objects. The list can contain
-#' NULL to keep defaults.
-#' @param left,top location of the new shape on the slide
-#' @param width,height shape size in inches
-#' @param bg background color
-#' @param rot rotation angle
-#' @param template_type placeholder template type. If used, the new shape will
-#' inherit the style from the placeholder template. If not used, no text
-#' property is defined and for example text lists will not be indented.
-#' @param template_index placeholder template index (integer). To be used when a placeholder
-#' template type is not unique in the current slide, e.g. two placeholders with
-#' type 'body'.
-ph_with_fpars_at <- function( x, fpars = list(), fp_pars = list(),
-                              left, top, width, height, bg = "transparent", rot = 0,
-                              template_type = NULL, template_index = 1 ){
-
-  .Deprecated(new = "ph_with")
-  if( length(fp_pars) < 1 )
-    fp_pars <- lapply(fpars, function(x) NULL )
-  if( length(fp_pars) != length(fpars) )
-    stop("fp_pars and fpars should have the same length")
-
-  p_ <- mapply(
-    function(fpar, fp_par) {
-      if( !is.null(fp_par) ) {
-        fpar <- update(fpar, fp_p = fp_par)
-      }
-      fpar
-    },
-    fpar = fpars, fp_par = fp_pars, SIMPLIFY = FALSE )
-  p_ <- do.call(block_list, p_)
-
-  location <- ph_location_template(left = left, top = top, width = width, height = height,
-                                   label = "", type = template_type, id = template_index)
-  ph_with(x, p_, location = location)
-}
 
 
