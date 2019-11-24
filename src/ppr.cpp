@@ -5,27 +5,6 @@
 
 using namespace Rcpp;
 
-std::string ppr::a_tag()
-{
-  std::stringstream os;
-  os << "<a:pPr";
-
-  if (this->text_align == "left" )
-    os << " algn=\"l\"";
-  else if (this->text_align == "center" )
-    os << " algn=\"ctr\"";
-  else if (this->text_align == "justify" )
-    os << " algn=\"just\"";
-  else
-    os << " algn=\"r\"";
-  os << " marL=\""<< pl*12700 << "\" marR=\""<< pr*12700 << "\">";
-  os << "<a:spcBef><a:spcPts val=\""<< pt*100 << "\" /></a:spcBef>";
-  os << "<a:spcAft><a:spcPts val=\""<< pb*100 << "\" /></a:spcAft>";
-  os << "<a:buNone/>";
-  os << "</a:pPr>";
-  return os.str();
-}
-
 
 std::string ppr::css()
 {

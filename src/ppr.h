@@ -12,7 +12,6 @@ public:
        IntegerVector, IntegerVector,
        CharacterVector, IntegerVector
        );
-  std::string a_tag();
   std::string w_tag();
   std::string css();
 

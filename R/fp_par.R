@@ -1,3 +1,26 @@
+# utils ----
+
+ppr_a_tag <- function(x){
+  align  <- " algn=\"r\""
+  if (x$text.align == "left" ){
+    align  <- " algn=\"l\"";
+  } else if(x$text_align == "center" ){
+    align  <- " algn=\"ctr\"";
+  } else if(x$text_align == "justify" ){
+    align  <- " algn=\"just\"";
+  }
+  leftright_padding <- sprintf(" marL=\"%.0f\" marR=\"%.0f\"", x$padding.left*12700, x$padding.right*12700)
+  top_padding <- sprintf("<a:spcBef><a:spcPts val=\"%.0f\" /></a:spcBef>", x$padding.top*100)
+  bottom_padding <- sprintf("<a:spcAft><a:spcPts val=\"%.0f\" /></a:spcAft>", x$padding.bottom*100)
+
+  paste0("<a:pPr", align, leftright_padding, ">",
+                top_padding, bottom_padding, "<a:buNone/>",
+         "</a:pPr>")
+}
+
+# main ----
+
+
 #' @title Paragraph formatting properties
 #'
 #' @description Create a \code{fp_par} object that describes
@@ -87,12 +110,7 @@ format.fp_par = function (x, type = "wml", ...){
         colmat[,1], colmat[,2], colmat[,3], colmat[,4],
         type = types, width = widths)
   } else if( type == "pml" ){
-    a_ppr(text_align = x$text.align,
-          pb = x$padding.bottom, pt = x$padding.top,
-          pl = x$padding.left, pr = x$padding.right,
-          shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-          colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-          type = types, width = widths)
+    ppr_a_tag(x)
   } else if( type == "html" ){
     css_ppr(text_align = x$text.align,
           pb = x$padding.bottom, pt = x$padding.top,

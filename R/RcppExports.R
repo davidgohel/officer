@@ -13,10 +13,6 @@ w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_r
     .Call(`_officer_w_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
 
-a_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(`_officer_a_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
-}
-
 css_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
     .Call(`_officer_css_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
 }
