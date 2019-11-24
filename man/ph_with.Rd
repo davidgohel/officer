@@ -25,7 +25,7 @@ ph_with(x, value, ...)
 
 \method{ph_with}{logical}(x, value, location, format_fun = format, ...)
 
-\method{ph_with}{block_list}(x, value, location, ...)
+\method{ph_with}{block_list}(x, value, location, is_list = FALSE, ...)
 
 \method{ph_with}{unordered_list}(x, value, location, ...)
 
@@ -66,6 +66,10 @@ can be defined with a call to one of the ph_location functions. See
 section \code{see also}.}
 
 \item{format_fun}{format function for non character vectors}
+
+\item{is_list}{experimental paramater to make
+block_list formated as an unordered list. This
+should evolve in the next versions.}
 
 \item{header}{display header if TRUE}
 
