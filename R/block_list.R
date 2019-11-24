@@ -4,17 +4,14 @@
 #' several blocks (paragraphs or tables) into a single
 #' object. The function is to be used when adding
 #' footnotes or formatted paragraphs into a new slide.
-#' @param ... a list of objects of class \code{fpar} or
-#' \code{flextable}.
+#' @param ... a list of objects of class \code{\link{fpar}} or
+#' \code{flextable}. When output is only for Word, objects
+#' of class \code{\link{external_img}} can also be used in
+#' fpar construction to mix text and images in a single paragraph.
 #' @examples
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' bl <- block_list(
-#'   fpar(ftext("hello world", shortcuts$fp_bold())),
-#'   fpar(
-#'     ftext("hello world", shortcuts$fp_bold()),
-#'     external_img(src = img.file, height = 1.06, width = 1.39)
-#'   )
-#' )
+#'
+#' @example examples/block_list.R
+#' @seealso [ph_with()], [body_add_blocks()]
 block_list <- function(...){
   x <- list(...)
   class(x) <- "block_list"
