@@ -192,11 +192,8 @@ fortify_location.location_template <- function( x, doc, ...){
 #' @family functions for placeholder location
 #' @inherit ph_location details
 #' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc)
-#' doc <- ph_with(doc, "Hello world",
-#'   location = ph_location_type(type = "body") )
-#' print(doc, target = tempfile(fileext = ".pptx") )
+#'
+#' @example examples/ph_location_type.R
 ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, newlabel = NULL, id = NULL, ...){
 
   ph_types <- c("ctrTitle", "subTitle", "dt", "ftr",
@@ -236,11 +233,8 @@ fortify_location.location_type <- function( x, doc, ...){
 #' @family functions for placeholder location
 #' @inherit ph_location details
 #' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc)
-#' doc <- ph_with(doc, "Hello world",
-#'   location = ph_location_label(ph_label = "Content Placeholder 2") )
-#' print(doc, target = tempfile(fileext = ".pptx") )
+#'
+#' @example examples/ph_location_label.R
 ph_location_label <- function( ph_label, newlabel = NULL, ...){
   x <- list(ph_label = ph_label, label = newlabel)
   class(x) <- c("location_label", "location_str")
