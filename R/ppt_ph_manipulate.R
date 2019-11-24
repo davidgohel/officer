@@ -174,12 +174,11 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #' fileout <- tempfile(fileext = ".pptx")
 #' my_pres <- read_pptx()
 #' my_pres <- add_slide(my_pres)
-#' my_pres <- ph_empty(my_pres,
+#' my_pres <- ph_with(my_pres, "",
 #'   location = ph_location_type(type = "body"))
 #'
 #' small_red <- fp_text(color = "red", font.size = 14)
 #'
-#' my_pres <- ph_add_par(my_pres, level = 3)
 #' my_pres <- ph_add_text(my_pres, str = "A small red text.",
 #'   style = small_red)
 #' my_pres <- ph_add_par(my_pres, level = 2)
@@ -194,10 +193,9 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #' doc <- add_slide(doc)
 #' doc <- ph_with(doc, "Un titre 2",
 #'   location = ph_location_type(type = "title"))
-#' doc <- ph_empty(doc,
+#' doc <- ph_with(doc, "",
 #'   location = ph_location(rotation = 90, bg = "red",
 #'       newlabel = "myph"))
-#' doc <- ph_add_par(doc, ph_label = "myph", level = 2)
 #' doc <- ph_add_text(doc, str = "Jump here to slide 2!",
 #'   ph_label = "myph")
 #'
@@ -341,7 +339,7 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
 #'
 #' doc <- read_pptx() %>%
 #'   add_slide(layout = "Title and Content", master = "Office Theme") %>%
-#'   ph_empty(location = ph_location(bg = "wheat", newlabel = "myph")) %>%
+#'   ph_with("", location = ph_location(bg = "wheat", newlabel = "myph")) %>%
 #'   ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
 #'
 #' print(doc, target = tempfile(fileext = ".pptx"))

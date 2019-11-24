@@ -5,7 +5,7 @@ source("utils.R")
 test_that("add text into placeholder", {
   doc <- read_pptx() %>%
     add_slide("Title and Content", "Office Theme") %>%
-    ph_empty(type = "body")
+    ph_with("", location = ph_location_fullsize())
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
@@ -87,8 +87,8 @@ test_that("add formatted par into placeholder", {
 
   doc <- read_pptx() %>%
     add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_empty(location = ph_location_type(type = "body")) %>%
-    ph_add_fpar(value = fpar_, type = "body", level = 2)
+    ph_with(fpar_, location = ph_location_type(type = "body"))
+
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 1)
   expect_equal(sm[1, ]$text, "Hello World, how are you?")

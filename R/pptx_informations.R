@@ -131,14 +131,13 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
     # Adding a slide for the current layout
     ppt <- add_slide(x=ppt, layout = layout, master = master)
     size <- slide_size(ppt)
-    ppt <- ph_empty(x=ppt,
-                    location = ph_location(left = 0, top = -0.5, width = size$width, height = 1,
-                                           bg = "transparent", newlabel = "layout_ph") )
     fpar_ <- fpar(sprintf('layout ="%s", master = "%s"', layout, master),
                   fp_t = fp_text(color = "orange", font.size = 20),
                   fp_p = fp_par(text.align = "right", padding = 5)
     )
-    ppt <- ph_add_fpar(x = ppt, value = fpar_, ph_label = "layout_ph", par_default = FALSE)
+    ppt <- ph_with(x = ppt, value = fpar_, ph_label = "layout_ph",
+                   location = ph_location(left = 0, top = -0.5, width = size$width, height = 1,
+                               bg = "transparent", newlabel = "layout_ph"))
 
 
     # Blank slides have nothing

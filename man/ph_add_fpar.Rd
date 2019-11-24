@@ -61,7 +61,7 @@ fpar_ <- fpar(ftext("Hello ", prop = bold_face),
 
 doc <- read_pptx() \%>\%
   add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_empty(location = ph_location(bg = "wheat", newlabel = "myph")) \%>\%
+  ph_with("", location = ph_location(bg = "wheat", newlabel = "myph")) \%>\%
   ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
 
 print(doc, target = tempfile(fileext = ".pptx"))

@@ -56,12 +56,3 @@ add a new empty shape in the current slide.
 This function is deprected, function \code{ph_with} should be used
 instead.
 }
-\examples{
-fileout <- tempfile(fileext = ".pptx")
-doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_empty(x = doc, type = "body", index = 1)
-doc <- ph_empty(x = doc, location = ph_location_right())
-
-print(doc, target = fileout )
-}

@@ -14,14 +14,6 @@
 #' one will be added with index 1 and the second one with index 2.
 #' It is recommanded to use argument \code{location} instead of \code{type} and
 #' \code{index}.
-#' @examples
-#' fileout <- tempfile(fileext = ".pptx")
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_empty(x = doc, type = "body", index = 1)
-#' doc <- ph_empty(x = doc, location = ph_location_right())
-#'
-#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_empty <- function( x, type = "body", index = 1, location = NULL ){
   .Deprecated(new = "ph_with")
@@ -64,31 +56,6 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 #' This function is deprecated in favor of \code{\link{ph_with}}.
 #' @inheritParams ph_empty
 #' @param str text to add
-#' @examples
-#' # define locations for placeholders ----
-#' loc_title <- ph_location_type(type = "title")
-#' loc_footer <- ph_location_type(type = "ftr")
-#' loc_dt <- ph_location_type(type = "dt")
-#' loc_slidenum <- ph_location_type(type = "sldNum")
-#' loc_body <- ph_location_type(type = "body")
-#'
-#'
-#' doc <- read_pptx()
-#' doc <- add_slide(doc)
-#' doc <- ph_with(x = doc, "Un titre", location = loc_title)
-#' doc <- ph_with(x = doc, "pied de page", location = loc_footer)
-#' doc <- ph_with(x = doc, format(Sys.Date()), location = loc_dt)
-#' doc <- ph_with(x = doc, "slide 1", location = loc_slidenum)
-#' doc <- ph_with(x = doc, letters[1:10], location = loc_body)
-#'
-#' loc_subtitle <- ph_location_type(type = "subTitle")
-#' loc_ctrtitle <- ph_location_type(type = "ctrTitle")
-#' doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
-#' doc <- ph_with(x = doc, "Un sous titre", location = loc_subtitle)
-#' doc <- ph_with(x = doc, "Un titre", location = loc_ctrtitle)
-#'
-#' fileout <- tempfile(fileext = ".pptx")
-#' print(doc, target = fileout )
 #' @importFrom xml2 xml_find_first as_xml_document xml_remove
 #' @inherit ph_empty seealso
 ph_with_text <- function( x, str, type = "title", index = 1, location = NULL ){
