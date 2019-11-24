@@ -9,14 +9,6 @@ wml_table <- function(x, style_id, first_row = TRUE, last_row = FALSE, first_col
     .Call(`_officer_wml_table`, x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband, header)
 }
 
-w_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(`_officer_w_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
-}
-
-css_ppr <- function(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width) {
-    .Call(`_officer_css_ppr`, text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width)
-}
-
 rpr_new <- function(compounds) {
     .Call(`_officer_rpr_new`, compounds)
 }

@@ -1,6 +1,58 @@
 # utils ----
 
-ppr_a_tag <- function(x){
+
+css_color <- function(color){
+  color <- as.vector(col2rgb(color, alpha = TRUE)) / c(1, 1, 1, 255)
+
+  if( !(color[4] > 0) ) "transparent"
+  else sprintf("rgba(%.0f,%.0f,%.0f,%.2f)",
+               color[1], color[2], color[3], color[4])
+}
+hex_color <- function(color){
+  color <- as.vector(col2rgb(color, alpha = TRUE)) / c(1, 1, 1, 255)
+  sprintf("%02X%02X%02X",
+          color[1], color[2], color[3])
+}
+is_transparent <- function(color){
+  if("transparent" %in% color) return(TRUE)
+  color <- as.vector(col2rgb(color, alpha = TRUE))[4] / 255
+  !(color > 0)
+}
+
+border_wml <- function(x, side){
+  tagname <- paste0("w:", side)
+  if( !x$style %in% c("dotted", "dashed", "solid") ){
+    x$style <- "solid"
+  }
+  style_ <- sprintf("w:val=\"%s\"", x$style)
+
+  width_ <- sprintf("w:sz=\"%.0f\"", x$width*8)
+  color_ <- sprintf("w:color=\"%s\"", hex_color(x$color))
+
+  paste0("<", tagname,
+         " ", style_,
+         " ", width_,
+         " ", "w:space=\"0\"",
+         " ", color_,
+         "/>")
+
+}
+border_css <- function(x, side){
+
+  color_ <- css_color(x$color)
+  if( !(x$width > 0 ) )
+    color_ <- "transparent"
+
+  width_ <- sprintf("%.02fpt", x$width)
+
+  if( !x$style %in% c("dotted", "dashed", "solid") ){
+    x$style <- "solid"
+  }
+  paste0("border-", side, ": ", width_, " ", x$style, " ", color_)
+
+}
+
+ppr_pml <- function(x){
   align  <- " algn=\"r\""
   if (x$text.align == "left" ){
     align  <- " algn=\"l\"";
@@ -14,9 +66,66 @@ ppr_a_tag <- function(x){
   bottom_padding <- sprintf("<a:spcAft><a:spcPts val=\"%.0f\" /></a:spcAft>", x$padding.bottom*100)
 
   paste0("<a:pPr", align, leftright_padding, ">",
-                top_padding, bottom_padding, "<a:buNone/>",
+         top_padding, bottom_padding, "<a:buNone/>",
          "</a:pPr>")
 }
+
+ppr_css <- function(x){
+
+  text.align  <- sprintf("text-align:%s;", x$text.align)
+  borders <- paste0(
+    border_css(x$border.bottom, "bottom"),
+    border_css(x$border.top, "top"),
+    border_css(x$border.left, "left"),
+    border_css(x$border.right, "right") )
+
+  paddings <- sprintf("padding-top:%.0fpt;padding-bottom:%.0fpt;padding-left:%.0fpt;padding-right:%.0fpt;",
+          x$padding.top, x$padding.bottom, x$padding.left, x$padding.right)
+
+  shading.color <- sprintf("background-color:%s;", css_color(x$shading.color))
+
+  paste0("margin:0pt;", text.align, borders, paddings,
+         shading.color)
+}
+
+ppr_wml <- function(x){
+
+  if("justify" %in% x$text.align ){
+    x$text.align  <- "both";
+  }
+  text_align_ <- sprintf("<w:jc w:val=\"%s\"/>", x$text.align)
+  borders_ <- paste0(
+    border_wml(x$border.bottom, "bottom"),
+    border_wml(x$border.top, "top"),
+    border_wml(x$border.left, "left"),
+    border_wml(x$border.right, "right") )
+
+  leftright_padding <- sprintf("<w:ind w:firstLine=\"0\" w:left=\"%.0f\" w:right=\"%.0f\"/>",
+                               x$padding.left*20, x$padding.right*20)
+  topbot_spacing <- sprintf("<w:spacing w:after=\"%.0f\" w:before=\"%.0f\"/>",
+                            x$padding.bottom*20, x$padding.top*20)
+  shading_ <- ""
+  if(!is_transparent(x$shading.color)){
+    shading_ <- sprintf(
+      "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>",
+      hex_color(x$shading.color))
+  }
+
+  paste0("<w:pPr>",
+         text_align_,
+         borders_,
+         topbot_spacing,
+         leftright_padding,
+         shading_,
+         "</w:pPr>")
+
+}
+
+
+
+
+
+
 
 # main ----
 
@@ -88,36 +197,16 @@ fp_par = function(text.align = "left",
 #' @export
 #' @importFrom grDevices col2rgb
 format.fp_par = function (x, type = "wml", ...){
-  btlr_list <- list(x$border.bottom, x$border.top,
-                    x$border.left, x$border.right)
-
-  btlr_cols <- lapply( btlr_list,
-       function(x) as.vector(col2rgb(x$color, alpha = TRUE )[,1] ) )
-  colmat <- do.call( "rbind", btlr_cols )
-  types <- sapply(btlr_list, function(x) x$style )
-  widths <- sapply(btlr_list, function(x) x$width )
-  shading <- col2rgb(x$shading.color, alpha = TRUE )[,1]
 
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
-
   if( type == "wml" ){
-    w_ppr(text_align = x$text.align,
-        pb = x$padding.bottom, pt = x$padding.top,
-        pl = x$padding.left, pr = x$padding.right,
-        shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-        colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-        type = types, width = widths)
+    ppr_wml(x)
   } else if( type == "pml" ){
-    ppr_a_tag(x)
+    ppr_pml(x)
   } else if( type == "html" ){
-    css_ppr(text_align = x$text.align,
-          pb = x$padding.bottom, pt = x$padding.top,
-          pl = x$padding.left, pr = x$padding.right,
-          shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-          colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-          type = types, width = widths)
+    ppr_css(x)
   } else stop("unimplemented")
 
 }

@@ -1,5 +1,3 @@
-context("fp for borders")
-
 source("utils.R")
 
 test_that("fp_border", {

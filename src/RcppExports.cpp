@@ -43,56 +43,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// w_ppr
-std::string w_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
-RcppExport SEXP _officer_w_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type text_align(text_alignSEXP);
-    Rcpp::traits::input_parameter< int >::type pb(pbSEXP);
-    Rcpp::traits::input_parameter< int >::type pt(ptSEXP);
-    Rcpp::traits::input_parameter< int >::type pl(plSEXP);
-    Rcpp::traits::input_parameter< int >::type pr(prSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_r(shd_rSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_g(shd_gSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_b(shd_bSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_a(shd_aSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_red(btlr_redSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_green(btlr_greenSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_blue(btlr_blueSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_alpha(btlr_alphaSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type type(typeSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type width(widthSEXP);
-    rcpp_result_gen = Rcpp::wrap(w_ppr(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width));
-    return rcpp_result_gen;
-END_RCPP
-}
-// css_ppr
-std::string css_ppr(std::string text_align, int pb, int pt, int pl, int pr, int shd_r, int shd_g, int shd_b, int shd_a, IntegerVector btlr_red, IntegerVector btlr_green, IntegerVector btlr_blue, IntegerVector btlr_alpha, CharacterVector type, IntegerVector width);
-RcppExport SEXP _officer_css_ppr(SEXP text_alignSEXP, SEXP pbSEXP, SEXP ptSEXP, SEXP plSEXP, SEXP prSEXP, SEXP shd_rSEXP, SEXP shd_gSEXP, SEXP shd_bSEXP, SEXP shd_aSEXP, SEXP btlr_redSEXP, SEXP btlr_greenSEXP, SEXP btlr_blueSEXP, SEXP btlr_alphaSEXP, SEXP typeSEXP, SEXP widthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type text_align(text_alignSEXP);
-    Rcpp::traits::input_parameter< int >::type pb(pbSEXP);
-    Rcpp::traits::input_parameter< int >::type pt(ptSEXP);
-    Rcpp::traits::input_parameter< int >::type pl(plSEXP);
-    Rcpp::traits::input_parameter< int >::type pr(prSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_r(shd_rSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_g(shd_gSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_b(shd_bSEXP);
-    Rcpp::traits::input_parameter< int >::type shd_a(shd_aSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_red(btlr_redSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_green(btlr_greenSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_blue(btlr_blueSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type btlr_alpha(btlr_alphaSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type type(typeSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type width(widthSEXP);
-    rcpp_result_gen = Rcpp::wrap(css_ppr(text_align, pb, pt, pl, pr, shd_r, shd_g, shd_b, shd_a, btlr_red, btlr_green, btlr_blue, btlr_alpha, type, width));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rpr_new
 SEXP rpr_new(Rcpp::List compounds);
 RcppExport SEXP _officer_rpr_new(SEXP compoundsSEXP) {
@@ -219,8 +169,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_officer_pml_table", (DL_FUNC) &_officer_pml_table, 9},
     {"_officer_wml_table", (DL_FUNC) &_officer_wml_table, 9},
-    {"_officer_w_ppr", (DL_FUNC) &_officer_w_ppr, 15},
-    {"_officer_css_ppr", (DL_FUNC) &_officer_css_ppr, 15},
     {"_officer_rpr_new", (DL_FUNC) &_officer_rpr_new, 1},
     {"_officer_rpr_w", (DL_FUNC) &_officer_rpr_w, 1},
     {"_officer_rpr_p", (DL_FUNC) &_officer_rpr_p, 1},
