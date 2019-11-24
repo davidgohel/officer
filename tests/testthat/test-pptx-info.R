@@ -1,5 +1,3 @@
-context("informations for pptx")
-
 test_that("layout summary", {
   x <- read_pptx()
   laysum <- layout_summary(x)

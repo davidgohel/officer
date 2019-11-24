@@ -1,5 +1,3 @@
-context("relationship validity")
-
 source("utils.R")
 
 check_all_types <- function(dat){

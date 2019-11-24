@@ -1,5 +1,3 @@
-context("add elements in docx")
-
 getncheck <- function(x, str){
   child_ <- xml_child(x, str)
   expect_false( inherits(child_, "xml_missing") )

@@ -1,8 +1,3 @@
-context("add footnotes in docx")
-
-
-
-
 test_that("add footnotes", {
 
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )

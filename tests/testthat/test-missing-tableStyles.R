@@ -1,5 +1,3 @@
-context("Missing tableStyles ")
-
 destfile = tempfile(fileext = ".pptx")
 download.file("https://ndownloader.figshare.com/files/16252631",
               destfile = destfile)

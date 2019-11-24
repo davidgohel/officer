@@ -1,5 +1,3 @@
-context("miscellaneous checks for xlsx")
-
 test_that("console printing", {
   x <- read_xlsx()
   expect_output(print(x), regexp = "^xlsx document with 1 sheet")

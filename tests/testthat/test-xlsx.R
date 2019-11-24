@@ -1,6 +1,3 @@
-context("xlsx document")
-
-
 test_that("create and manipulate sheet", {
   doc <- read_xlsx()
   doc <- add_sheet(doc, label = "sheet1")

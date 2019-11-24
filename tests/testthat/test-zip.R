@@ -1,6 +1,3 @@
-context("folder pack")
-
-
 test_that("pack_folder does not use full path", {
   dir_ <- tempfile()
   dir.create(dir_)

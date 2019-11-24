@@ -1,5 +1,3 @@
-context("block list")
-
 fp_bold <- shortcuts$fp_bold()
 
 test_that("block_list structure", {

@@ -1,5 +1,3 @@
-context("doc summary")
-
 test_that("docx summary", {
   example_docx <- system.file(package = "officer", "doc_examples/example.docx")
 

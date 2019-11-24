@@ -1,5 +1,3 @@
-context("fp for paragraphs")
-
 source("utils.R")
 
 test_that("fp_par", {

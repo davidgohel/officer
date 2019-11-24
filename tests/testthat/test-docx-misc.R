@@ -1,5 +1,3 @@
-context("miscellaneous check for docx")
-
 source("utils.R")
 
 test_that("default template", {

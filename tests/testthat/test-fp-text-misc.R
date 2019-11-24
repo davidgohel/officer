@@ -1,5 +1,3 @@
-context("fp for text - misc")
-
 source("utils.R")
 
 test_that("fp_text - print", {

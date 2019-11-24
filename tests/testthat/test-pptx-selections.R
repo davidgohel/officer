@@ -1,5 +1,3 @@
-context("checks selections for pptx")
-
 test_that("check slide selection", {
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")

@@ -1,5 +1,3 @@
-context("fp for cells")
-
 source("utils.R")
 
 test_that("fp_cell", {

@@ -1,5 +1,3 @@
-context("table in docx")
-
 test_that("body_add_table", {
   x <- read_docx()
   x <- body_add_table(x, value = iris, style = "table_template")

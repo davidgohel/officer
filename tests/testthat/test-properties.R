@@ -1,5 +1,3 @@
-context("doc properties")
-
 test_that("read docx properties", {
   doc <- read_docx(path = system.file(package = "officer", "doc_examples/example.docx"))
   properties <- doc_properties(doc)

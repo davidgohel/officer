@@ -1,5 +1,3 @@
-context("add elements in slides")
-
 source("utils.R")
 
 test_that("add text into placeholder", {

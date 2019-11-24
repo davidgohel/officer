@@ -1,5 +1,3 @@
-context("formatted paragraph")
-
 get_wml_node <- function(x){
   xml_ <- format(x, type = "wml")
   read_xml( wml_str(xml_) )

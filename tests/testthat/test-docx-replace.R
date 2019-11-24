@@ -1,5 +1,3 @@
-context("replace elements in an rdocx")
-
 test_that("replace bkm with text in body", {
   doc <- read_docx() %>%
     body_add_par("centered text", style = "centered") %>%

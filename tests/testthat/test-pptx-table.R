@@ -1,5 +1,3 @@
-context("table in pptx")
-
 test_that("ph_with_table", {
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", master = "Office Theme")

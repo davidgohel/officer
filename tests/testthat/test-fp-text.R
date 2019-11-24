@@ -1,5 +1,3 @@
-context("fp for text - format")
-
 source("utils.R")
 
 

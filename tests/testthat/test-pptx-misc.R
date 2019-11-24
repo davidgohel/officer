@@ -1,5 +1,3 @@
-context("miscellaneous checks for pptx")
-
 test_that("defaul template", {
   x <- read_pptx()
   expect_equal(length( x ), 0)
