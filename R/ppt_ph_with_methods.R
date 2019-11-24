@@ -25,6 +25,17 @@
 #' doc <- ph_with(x = doc, value = iris[1:4, 3:5],
 #'                location = ph_location_right() )
 #'
+#'
+#' anyplot <- plot_instr(code = {
+#'   barplot(1:5, col = 2:6)
+#' })
+#'
+#' doc <- add_slide(doc)
+#' doc <- ph_with(
+#'   doc, anyplot,
+#'   location = ph_location_fullsize(),
+#'   bg = "#00000066", pointsize = 12)
+#'
 #' if( require("ggplot2") ){
 #'   doc <- add_slide(doc)
 #'   gg_plot <- ggplot(data = iris ) +
@@ -310,6 +321,50 @@ ph_with.gg <- function(x, value, location, ...){
   print(value)
   dev.off()
   on.exit(unlink(file))
+
+  ext_img <- external_img(file, width = width, height = height)
+  xml_elt <- format(ext_img, type = "pml")
+  slide$reference_img(src = file, dir_name = file.path(x$package_dir, "ppt/media"))
+  xml_elt <- fortify_pml_images(x, xml_elt)
+
+  value <- as_xml_document(xml_elt)
+  xml_to_slide(slide, location, value)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
+  slide$fortify_id()
+  x
+
+}
+
+#' @export
+#' @describeIn ph_with add an R plot to a new shape on the
+#' current slide. Use package \code{rvg} for more advanced graphical features.
+ph_with.plot_instr <- function(x, value, location, ...){
+  location <- fortify_location(location, doc = x)
+  slide <- x$slide$get_slide(x$cursor)
+  slide <- x$slide$get_slide(x$cursor)
+  width <- location$width
+  height <- location$height
+
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+
+  dirname <- tempfile( )
+  dir.create( dirname )
+  filename <- paste( dirname, "/plot%03d.png" ,sep = "" )
+  png(filename = filename, width = width, height = height, units = "in", res = 300, ...)
+
+  tryCatch({
+    eval(value$code)
+  },
+  finally = {
+    dev.off()
+  } )
+  file = list.files( dirname , full.names = TRUE )
+  on.exit(unlink(dirname, recursive = TRUE, force = TRUE))
+
+  if( length( file ) > 1 ){
+    stop( length( file )," files have been produced. Multiple plot are not supported")
+  }
 
   ext_img <- external_img(file, width = width, height = height)
   xml_elt <- format(ext_img, type = "pml")

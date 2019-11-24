@@ -10,6 +10,7 @@
 \alias{ph_with.unordered_list}
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
+\alias{ph_with.plot_instr}
 \alias{ph_with.external_img}
 \alias{ph_with.fpar}
 \alias{ph_with.xml_document}
@@ -42,6 +43,8 @@ ph_with(x, value, location, ...)
 )
 
 \method{ph_with}{gg}(x, value, location, ...)
+
+\method{ph_with}{plot_instr}(x, value, location, ...)
 
 \method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
 
@@ -109,6 +112,9 @@ package \code{flextable} instead for more advanced formattings.
 \item \code{gg}: add a ggplot object to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
 
+\item \code{plot_instr}: add an R plot to a new shape on the
+current slide. Use package \code{rvg} for more advanced graphical features.
+
 \item \code{external_img}: add a \code{\link{external_img}} to a new shape
 on the current slide.
 
@@ -134,6 +140,17 @@ doc <- ph_with(x = doc, value = c("Un titre", "Deux titre"),
                location = ph_location_left() )
 doc <- ph_with(x = doc, value = iris[1:4, 3:5],
                location = ph_location_right() )
+
+
+anyplot <- plot_instr(code = {
+  barplot(1:5, col = 2:6)
+})
+
+doc <- add_slide(doc)
+doc <- ph_with(
+  doc, anyplot,
+  location = ph_location_fullsize(),
+  bg = "#00000066", pointsize = 12)
 
 if( require("ggplot2") ){
   doc <- add_slide(doc)
