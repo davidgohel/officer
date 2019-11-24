@@ -80,8 +80,7 @@
 #' @seealso [ph_location_type], [ph_location], [ph_location_label],
 #' [ph_location_left], [ph_location_right], [ph_location_fullsize],
 #' [ph_location_template]
-#' @importFrom rlang eval_tidy
-ph_with <- function(x, value, ...){
+ph_with <- function(x, value, location, ...){
   UseMethod("ph_with", value)
 }
 
@@ -117,22 +116,6 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
   str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
   sprintf(str, label, ph, xfrm_str, bg_str )
 
-}
-#' @export
-#' @title Utility to eval a location
-#' @description Eval a shape location with fortify_location.
-#' This function will be removed in the next release; it was
-#' required when location was a quosure but this is no more
-#' necessary.
-#' @param location a location for a placeholder.
-#' @param x an rpptx object
-#' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
-location_eval <- function(location, x){
-  if(inherits(location, "quosure")){
-    fortify_location(eval_tidy(location), x)
-  } else {
-    fortify_location(location, x)
-  }
 }
 
 #' @export

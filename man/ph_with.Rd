@@ -15,7 +15,7 @@
 \alias{ph_with.xml_document}
 \title{add objects into a new shape on the current slide}
 \usage{
-ph_with(x, value, ...)
+ph_with(x, value, location, ...)
 
 \method{ph_with}{character}(x, value, location, ...)
 
@@ -58,12 +58,12 @@ unordered list of formatted paragraphs,
 pretty tables with package flextable, editable graphics with
 package rvg, 'Microsoft' charts with package mschart.}
 
-\item{...}{Arguments to be passed to methods}
-
 \item{location}{a placeholder location object.
 It will be used to specify the location of the new shape. This location
 can be defined with a call to one of the ph_location functions. See
 section \code{see also}.}
+
+\item{...}{Arguments to be passed to methods}
 
 \item{format_fun}{format function for non character vectors}
 
