@@ -4,9 +4,9 @@ ppr_a_tag <- function(x){
   align  <- " algn=\"r\""
   if (x$text.align == "left" ){
     align  <- " algn=\"l\"";
-  } else if(x$text_align == "center" ){
+  } else if(x$text.align == "center" ){
     align  <- " algn=\"ctr\"";
-  } else if(x$text_align == "justify" ){
+  } else if(x$text.align == "justify" ){
     align  <- " algn=\"just\"";
   }
   leftright_padding <- sprintf(" marL=\"%.0f\" marR=\"%.0f\"", x$padding.left*12700, x$padding.right*12700)
