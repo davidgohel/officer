@@ -4,7 +4,7 @@
 \alias{body_add_gg}
 \title{add ggplot}
 \usage{
-body_add_gg(x, value, width = 6, height = 5, style = NULL, ...)
+body_add_gg(x, value, width = 6, height = 5, res = 300, style = NULL, ...)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -14,6 +14,8 @@ body_add_gg(x, value, width = 6, height = 5, style = NULL, ...)
 \item{width}{height in inches}
 
 \item{height}{height in inches}
+
+\item{res}{resolution of the png image in ppi}
 
 \item{style}{paragraph style}
 
