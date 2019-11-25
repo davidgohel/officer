@@ -128,6 +128,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #' @param style paragraph style
 #' @param width height in inches
 #' @param height height in inches
+#' @param res resolution of the png image in ppi 
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
 #' @examples
@@ -142,7 +143,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'
 #'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
-body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
+body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = NULL, ... ){
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
@@ -150,7 +151,7 @@ body_add_gg <- function( x, value, width = 6, height = 5, style = NULL, ... ){
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
   options(bitmapType='cairo')
-  png(filename = file, width = width, height = height, units = "in", res = 300, ...)
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
