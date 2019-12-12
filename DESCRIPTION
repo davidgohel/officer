@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.3.7.011
+Version: 0.3.7.012
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -35,7 +35,7 @@ Imports:
 URL: https://davidgohel.github.io/officer
 Encoding: UTF-8
 BugReports: https://github.com/davidgohel/officer/issues
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 Suggests: testthat, devEMF,tibble,ggplot2,
     rmarkdown,

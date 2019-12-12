@@ -339,11 +339,11 @@ ph_with.gg <- function(x, value, location, ...){
 #' @describeIn ph_with add an R plot to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
 ph_with.plot_instr <- function(x, value, location, ...){
-  location <- fortify_location(location, doc = x)
+  location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   slide <- x$slide$get_slide(x$cursor)
-  width <- location$width
-  height <- location$height
+  width <- location_$width
+  height <- location_$height
 
   file <- tempfile(fileext = ".png")
   options(bitmapType='cairo')
@@ -367,16 +367,7 @@ ph_with.plot_instr <- function(x, value, location, ...){
   }
 
   ext_img <- external_img(file, width = width, height = height)
-  xml_elt <- format(ext_img, type = "pml")
-  slide$reference_img(src = file, dir_name = file.path(x$package_dir, "ppt/media"))
-  xml_elt <- fortify_pml_images(x, xml_elt)
-
-  value <- as_xml_document(xml_elt)
-  xml_to_slide(slide, location, value)
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  slide$fortify_id()
-  x
-
+  ph_with(x, ext_img, location = location)
 }
 
 
