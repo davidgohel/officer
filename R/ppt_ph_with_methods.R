@@ -14,7 +14,9 @@
 #' It will be used to specify the location of the new shape. This location
 #' can be defined with a call to one of the ph_location functions. See
 #' section \code{see also}.
-#' @param ... Arguments to be passed to methods
+#' @param ... further arguments passed to or from other methods. When
+#' adding a `ggplot` object or `plot_instr`, these arguments will be used
+#' by png function.
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
@@ -43,7 +45,8 @@
 #'       size = 3) +
 #'     theme_minimal()
 #'   doc <- ph_with(x = doc, value = gg_plot,
-#'                  location = ph_location_fullsize() )
+#'                  location = ph_location_fullsize(),
+#'                  bg = "transparent" )
 #'   doc <- ph_with(x = doc, value = "graphic title",
 #'                location = ph_location_type(type="title") )
 #' }
@@ -304,7 +307,8 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' @export
 #' @describeIn ph_with add a ggplot object to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
-ph_with.gg <- function(x, value, location, ...){
+#' @param res resolution of the png image in ppi
+ph_with.gg <- function(x, value, location, res = 300, ...){
   location <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
@@ -317,7 +321,7 @@ ph_with.gg <- function(x, value, location, ...){
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
   options(bitmapType='cairo')
-  png(filename = file, width = width, height = height, units = "in", res = 300, ...)
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
@@ -338,7 +342,7 @@ ph_with.gg <- function(x, value, location, ...){
 #' @export
 #' @describeIn ph_with add an R plot to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
-ph_with.plot_instr <- function(x, value, location, ...){
+ph_with.plot_instr <- function(x, value, location, res = 300, ...){
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   slide <- x$slide$get_slide(x$cursor)
@@ -351,7 +355,7 @@ ph_with.plot_instr <- function(x, value, location, ...){
   dirname <- tempfile( )
   dir.create( dirname )
   filename <- paste( dirname, "/plot%03d.png" ,sep = "" )
-  png(filename = filename, width = width, height = height, units = "in", res = 300, ...)
+  png(filename = filename, width = width, height = height, units = "in", res = res, ...)
 
   tryCatch({
     eval(value$code)

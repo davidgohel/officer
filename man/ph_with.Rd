@@ -42,9 +42,9 @@ ph_with(x, value, location, ...)
   ...
 )
 
-\method{ph_with}{gg}(x, value, location, ...)
+\method{ph_with}{gg}(x, value, location, res = 300, ...)
 
-\method{ph_with}{plot_instr}(x, value, location, ...)
+\method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
 
 \method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
 
@@ -66,7 +66,9 @@ It will be used to specify the location of the new shape. This location
 can be defined with a call to one of the ph_location functions. See
 section \code{see also}.}
 
-\item{...}{Arguments to be passed to methods}
+\item{...}{further arguments passed to or from other methods. When
+adding a \code{ggplot} object or \code{plot_instr}, these arguments will be used
+by png function.}
 
 \item{format_fun}{format function for non character vectors}
 
@@ -77,6 +79,8 @@ should evolve in the next versions.}
 \item{header}{display header if TRUE}
 
 \item{first_row, last_row, first_column, last_column}{logical for PowerPoint table options}
+
+\item{res}{resolution of the png image in ppi}
 
 \item{use_loc_size}{if set to FALSE, external_img width and height will
 be used.}
@@ -159,7 +163,8 @@ if( require("ggplot2") ){
       size = 3) +
     theme_minimal()
   doc <- ph_with(x = doc, value = gg_plot,
-                 location = ph_location_fullsize() )
+                 location = ph_location_fullsize(),
+                 bg = "transparent" )
   doc <- ph_with(x = doc, value = "graphic title",
                location = ph_location_type(type="title") )
 }
