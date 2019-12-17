@@ -1,3 +1,9 @@
+# officer 0.3.7
+
+## Changes
+
+* internals ; moved ppr from cpp to R
+
 # officer 0.3.6
 
 ## Enhancement
