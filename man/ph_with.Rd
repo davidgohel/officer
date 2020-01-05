@@ -13,6 +13,7 @@
 \alias{ph_with.plot_instr}
 \alias{ph_with.external_img}
 \alias{ph_with.fpar}
+\alias{ph_with.empty_content}
 \alias{ph_with.xml_document}
 \title{add objects into a new shape on the current slide}
 \usage{
@@ -49,6 +50,8 @@ ph_with(x, value, location, ...)
 \method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
 
 \method{ph_with}{fpar}(x, value, location, ...)
+
+\method{ph_with}{empty_content}(x, value, location, ...)
 
 \method{ph_with}{xml_document}(x, value, location, ...)
 }
@@ -130,6 +133,9 @@ unless use_loc_size is set to FALSE.
 
 \item \code{fpar}: add an \code{\link{fpar}} to a new shape
 on the current slide as a single paragraph in a \code{\link{block_list}}.
+
+\item \code{empty_content}: add an \code{\link{empty_content}} to a new shape
+on the current slide.
 
 \item \code{xml_document}: add an xml_document object to a new shape on the
 current slide. This function is to be used to add custom openxml code.

@@ -439,6 +439,27 @@ ph_with.fpar <- function( x, value, location, ... ){
   x
 }
 
+#' @export
+#' @describeIn ph_with add an \code{\link{empty_content}} to a new shape
+#' on the current slide.
+ph_with.empty_content <- function( x, value, location, ... ){
+
+  slide <- x$slide$get_slide(x$cursor)
+
+  location <- fortify_location(location, doc = x)
+  new_ph <- gen_ph_str(left = location$left, top = location$top,
+                       width = location$width, height = location$height,
+                       label = location$ph_label, ph = location$ph,
+                       rot = location$rotation, bg = location$bg)
+  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph, "</p:sp>" )
+  node <- as_xml_document(xml_elt)
+
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+
+  slide$fortify_id()
+  x
+}
+
 
 
 xml_to_slide <- function(slide, location, value){

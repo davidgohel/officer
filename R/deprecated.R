@@ -20,13 +20,7 @@ ph_empty <- function( x, type = "body", index = 1, location = NULL ){
   if( is.null( location ) ){
     location <- ph_location_type(type = type, id = index)
   }
-  new_ph <- gen_ph_str(left = 0, top = 0,
-                       width = 3, height = 3)
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
-                     "<p:txBody><a:bodyPr/><a:lstStyle/></p:txBody></p:sp>" )
-  node <- as_xml_document(xml_elt)
-
-  ph_with(x, node, location = location)
+  ph_with(x, empty_content(), location = location)
 }
 
 #' @rdname ph_empty
