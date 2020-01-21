@@ -8,3 +8,4 @@ revdep
 src/*.o.tmp
 vignettes/offcran/extract.png
 checks
+run

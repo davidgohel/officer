@@ -1,5 +1,10 @@
 # officer 0.3.7
 
+## New features
+
+* new function `get_reference_value` to read reference template used
+by R Markdown.
+
 ## Changes
 
 * internals ; moved ppr from cpp to R
