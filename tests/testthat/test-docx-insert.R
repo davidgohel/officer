@@ -17,7 +17,6 @@ test_that("seqfield add ", {
   getncheck(node, "w:r/w:fldChar[@w:fldCharType='end']")
 
   child_ <- getncheck(node, "w:r/w:instrText")
-  expect_equal( xml_attr(child_, "dirty"), "true")
   expect_equal( xml_text(child_), "TIME \\@ \"HH:mm:ss\" \\* MERGEFORMAT" )
 
   x <- body_add_par(x, " - This is a figure title", style = "centered") %>%

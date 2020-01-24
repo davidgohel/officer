@@ -37,10 +37,18 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
     style <- x$default_styles$character
 
   style_id <- get_style_id(data = x$styles, style=style, type = "character")
-  xml_elt <- seqfield(str, as_scalar = FALSE)
-  xml_elt_1 <- xml_elt[1]
-  xml_elt_2 <- xml_elt[2]
-  xml_elt_3 <- xml_elt[3]
+  xml_elt_1 <- paste0(wml_with_ns("w:r"),
+                      "<w:rPr/>",
+                      "<w:fldChar w:fldCharType=\"begin\"/>",
+                      "</w:r>")
+  xml_elt_2 <- paste0(wml_with_ns("w:r"),
+                      "<w:rPr/>",
+                      sprintf("<w:instrText xml:space=\"preserve\">%s</w:instrText>", str ),
+                      "</w:r>")
+  xml_elt_3 <- paste0(wml_with_ns("w:r"),
+                      "<w:rPr/>",
+                      "<w:fldChar w:fldCharType=\"end\"/>",
+                      "</w:r>")
 
   if( pos == "after"){
     slip_in_xml(x = x, str = xml_elt_1, pos = pos)

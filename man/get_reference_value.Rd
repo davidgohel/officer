@@ -3,9 +3,11 @@
 \name{get_reference_value}
 \alias{get_reference_value}
 \title{Get the document being used as a template}
-\format{document format, one of 'pptx', 'docx' or 'html'}
 \usage{
 get_reference_value(format = NULL)
+}
+\arguments{
+\item{format}{document format, one of 'pptx', 'docx' or 'html'}
 }
 \value{
 a name file

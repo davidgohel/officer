@@ -5,10 +5,6 @@ pml_table <- function(x, style_id, col_width, row_height, first_row = TRUE, last
     .Call(`_officer_pml_table`, x, style_id, col_width, row_height, first_row, last_row, first_column, last_column, header)
 }
 
-wml_table <- function(x, style_id, first_row = TRUE, last_row = FALSE, first_column = FALSE, last_column = FALSE, no_hband = FALSE, no_vband = FALSE, header = FALSE) {
-    .Call(`_officer_wml_table`, x, style_id, first_row, last_row, first_column, last_column, no_hband, no_vband, header)
-}
-
 rpr_new <- function(compounds) {
     .Call(`_officer_rpr_new`, compounds)
 }

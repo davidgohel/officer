@@ -12,9 +12,10 @@ get_default_pandoc_data_file <- function(format = "pptx", outfile = tempfile(fil
 #' being used as a template in an R Markdown document
 #' rendered as HTML, PowerPoint presentation or Word document. It requires
 #' packages rmarkdown >= 1.10.14 and knitr.
-#' @format document format, one of 'pptx', 'docx' or 'html'
+#' @param format document format, one of 'pptx', 'docx' or 'html'
 #' @return a name file
 #' @author Noam Ross
+#' @importFrom utils compareVersion packageVersion
 get_reference_value <- function(format = NULL) {
 
   if( length(format) != 1 ){

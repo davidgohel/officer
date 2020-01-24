@@ -128,7 +128,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #' @param style paragraph style
 #' @param width height in inches
 #' @param height height in inches
-#' @param res resolution of the png image in ppi 
+#' @param res resolution of the png image in ppi
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
 #' @examples
@@ -336,11 +336,10 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
   style_id <- get_style_id(data = x$styles, style=style, type = "table")
 
   value <- characterise_df(value)
-
-  xml_elt <- wml_table(value, style_id,
-            first_row, last_row,
-            first_column, last_column,
-            no_hband, no_vband, header)
+  xml_elt <- table_docx(x = value, header = header, style_id = style_id,
+             first_row = first_row, last_row = last_row,
+             first_column = first_column, last_column = last_column,
+             no_hband = no_hband, no_vband = no_vband)
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
