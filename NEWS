@@ -7,7 +7,7 @@ by R Markdown.
 
 ## Changes
 
-* internals ; moved ppr from cpp to R
+* internals ; drop Rcpp and htmltools dependancies
 
 # officer 0.3.6
 

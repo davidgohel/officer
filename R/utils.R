@@ -158,11 +158,11 @@ read_theme_colors <- function(doc, theme){
 
 
 characterise_df <- function(x){
-  names(x) <- htmlEscape(names(x))
+  names(x) <- htmlEscapeCopy(names(x))
   x <- lapply(x, function( x ) {
-    if( is.character(x) ) htmlEscape(x)
-    else if( is.factor(x) ) htmlEscape(as.character(x))
-    else gsub("(^ | $)+", "", htmlEscape(format(x)))
+    if( is.character(x) ) htmlEscapeCopy(x)
+    else if( is.factor(x) ) htmlEscapeCopy(as.character(x))
+    else gsub("(^ | $)+", "", htmlEscapeCopy(format(x)))
   })
   data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
 }
@@ -258,4 +258,61 @@ pml_image <- function(src, width, height){
   )
   str
 }
+
+
+#' @importFrom grDevices col2rgb rgb
+is.color = function(x) {
+  # http://stackoverflow.com/a/13290832/3315962
+  out = sapply(x, function( x ) {
+    tryCatch( is.matrix( col2rgb( x ) ), error = function( e ) F )
+  })
+
+  nout <- names(out)
+  if( !is.null(nout) && any( is.na( nout ) ) )
+    out[is.na( nout )] = FALSE
+
+  out
+}
+
+
+htmlEscapeCopy <- local({
+
+  .htmlSpecials <- list(
+    `&` = '&amp;',
+    `<` = '&lt;',
+    `>` = '&gt;'
+  )
+  .htmlSpecialsPattern <- paste(names(.htmlSpecials), collapse='|')
+  .htmlSpecialsAttrib <- c(
+    .htmlSpecials,
+    `'` = '&#39;',
+    `"` = '&quot;',
+    `\r` = '&#13;',
+    `\n` = '&#10;'
+  )
+  .htmlSpecialsPatternAttrib <- paste(names(.htmlSpecialsAttrib), collapse='|')
+  function(text, attribute=FALSE) {
+    pattern <- if(attribute)
+      .htmlSpecialsPatternAttrib
+    else
+      .htmlSpecialsPattern
+    text <- enc2utf8(as.character(text))
+    # Short circuit in the common case that there's nothing to escape
+    if (!any(grepl(pattern, text, useBytes = TRUE)))
+      return(text)
+    specials <- if(attribute)
+      .htmlSpecialsAttrib
+    else
+      .htmlSpecials
+    for (chr in names(specials)) {
+      text <- gsub(chr, specials[[chr]], text, fixed = TRUE, useBytes = TRUE)
+    }
+    Encoding(text) <- "UTF-8"
+    return(text)
+  }
+})
+
+
+
+
 

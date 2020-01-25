@@ -41,19 +41,6 @@ fp_text <- function( color = "black", font.size = 10,
   out
 }
 
-rpr_pointer <- function(x){
-  cols <- as.integer( col2rgb(x$color, alpha = TRUE)[,1] )
-  shadings <- as.integer( col2rgb(x$shading.color, alpha = TRUE)[,1] )
-
-  x <- append(x, list(
-    col_font_r = cols[1], col_font_g = cols[2],
-    col_font_b = cols[3], col_font_a = cols[4],
-    col_shading_r = shadings[1], col_shading_g = shadings[2],
-    col_shading_b = shadings[3], col_shading_a = shadings[4]
-  ))
-  rpr_new( x )
-}
-
 #' @rdname fp_text
 #' @param format format type, wml for MS word, pml for
 #' MS PowerPoint and html.
@@ -64,14 +51,12 @@ format.fp_text <- function( x, type = "wml", ... ){
   stopifnot(length(type) == 1)
   stopifnot( type %in% c("wml", "pml", "html") )
 
-  ptr <- rpr_pointer( x )
-
   if( type == "wml" ){
-    rpr_w(ptr)
+    rpr_wml(x)
   } else if( type == "pml" ){
-    rpr_p(ptr)
+    rpr_pml(x)
   } else if(type == "html") {
-    rpr_css(ptr)
+    rpr_css(x)
   } else stop("unimplemented type")
 }
 

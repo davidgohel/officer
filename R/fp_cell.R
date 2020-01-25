@@ -89,34 +89,11 @@ format.fp_cell = function (x, type = "wml", ...){
   shading <- col2rgb(x$background.color, alpha = TRUE )[,1]
 
   if( type == "wml"){
-
-    w_tcpr(vertical_align = x$vertical.align,
-      text_direction = x$text.direction,
-      mb = x$margin.bottom, mt = x$margin.top,
-      ml = x$margin.left, mr = x$margin.right,
-      shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-      colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-      type = types, width = widths )
-
+    tcpr_wml(x)
   } else if( type == "pml"){
-
-    a_tcpr(vertical_align = x$vertical.align,
-           text_direction = x$text.direction,
-           mb = x$margin.bottom, mt = x$margin.top,
-           ml = x$margin.left, mr = x$margin.right,
-           shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-           colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-           type = types, width = widths )
-
+    tcpr_pml(x)
   } else if( type == "html" ){
-
-    css_tcpr(vertical_align = x$vertical.align,
-           text_direction = x$text.direction,
-           mb = x$margin.bottom, mt = x$margin.top,
-           ml = x$margin.left, mr = x$margin.right,
-           shd_r = shading[1], shd_g = shading[2], shd_b = shading[3], shd_a = shading[4],
-           colmat[,1], colmat[,2], colmat[,3], colmat[,4],
-           type = types, width = widths )
+    tcpr_css(x)
   } else stop("unimplemented")
 }
 

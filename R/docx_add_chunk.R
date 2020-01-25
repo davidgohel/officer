@@ -92,7 +92,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
     xml_elt <- paste0( wml_with_ns("w:r"),
                        "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
                        "<w:t xml:space=\"preserve\">%s</w:t></w:r>")
-    xml_elt <- sprintf(xml_elt, style_id, htmlEscape(str))
+    xml_elt <- sprintf(xml_elt, style_id, htmlEscapeCopy(str))
   } else {
     hyperlink_id <- paste0("rId", x$doc_obj$relationship()$get_next_id())
     x$doc_obj$relationship()$add(
@@ -104,7 +104,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
     xml_elt <- paste0( wml_with_ns("w:hyperlink r:id=\"%s\""),
                        "<w:r><w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
                        "<w:t xml:space=\"preserve\">%s</w:t></w:r></w:hyperlink>")
-    xml_elt <- sprintf(xml_elt, hyperlink_id, style_id, htmlEscape(str))
+    xml_elt <- sprintf(xml_elt, hyperlink_id, style_id, htmlEscapeCopy(str))
   }
 
   slip_in_xml(x = x, str = xml_elt, pos = pos)

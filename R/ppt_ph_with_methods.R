@@ -101,8 +101,7 @@ ph_with <- function(x, value, location, ...){
 gen_bg_str <- function(bg){
   bg_str <- ""
   if( !is.null(bg)){
-    bg_str <- sprintf("%s<a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
-                      pml_with_ns("a:solidFill") , colcode0(bg), colalpha(bg) )
+    bg_str <- solid_fill(bg)
   }
   bg_str
 }
@@ -143,7 +142,7 @@ ph_with.character <- function(x, value, location, ...){
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
-  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscape(value), "</a:t></a:r></a:p>", collapse = "")
+  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
   xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
@@ -170,7 +169,7 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
 
-  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscape(value), "</a:t></a:r></a:p>", collapse = "")
+  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
   xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
@@ -196,7 +195,7 @@ ph_with.factor <- function(x, value, location, ...){
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
 
-  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscape(value), "</a:t></a:r></a:p>", collapse = "")
+  pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
   xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
@@ -260,7 +259,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
   tmpl <- "<a:p><a:pPr%s/><a:r>%s<a:t>%s</a:t></a:r></a:p>"
   lvl <- sprintf(" lvl=\"%.0f\"", value$lvl - 1)
   lvl <- ifelse(value$lvl > 1, lvl, "")
-  p <- sprintf(tmpl, lvl, style_str, htmlEscape(value$str) )
+  p <- sprintf(tmpl, lvl, style_str, htmlEscapeCopy(value$str) )
   p <- paste(p, collapse = "")
 
   new_ph <- gen_ph_str(left = location$left, top = location$top,

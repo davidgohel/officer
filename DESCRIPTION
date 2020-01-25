@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.3.7.014
+Version: 0.3.7.015
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -22,15 +22,13 @@ Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' d
   does not require any installation of Microsoft products to be able to write Microsoft files.
 License: GPL-3
 LazyData: TRUE
-LinkingTo: Rcpp
 Imports:
-    Rcpp (>= 0.12.12),
     R6,
     grDevices,
     base64enc,
     zip (>= 2.0.3),
     digest,uuid,stats,
-    magrittr,htmltools,
+    magrittr,utils,
     xml2 (>= 1.1.0), graphics
 URL: https://davidgohel.github.io/officer
 Encoding: UTF-8

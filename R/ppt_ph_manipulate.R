@@ -220,7 +220,7 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
 
   r_shape_ <- sprintf(paste0( pml_with_ns("a:r"), "%s<a:t>%s</a:t></a:r>" ),
                       format(style, type = "pml"),
-                      htmlEscape(str))
+                      htmlEscapeCopy(str))
 
   if( pos == "after" )
     where_ <- length(xml_children(current_p))

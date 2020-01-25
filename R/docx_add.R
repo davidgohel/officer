@@ -216,7 +216,6 @@ body_add_blocks <- function( x, blocks, pos = "after" ){
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
 #' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
-#' @importFrom htmltools htmlEscape
 body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
   if( is.null(style) )
@@ -226,7 +225,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
   xml_elt <- paste0(wml_with_ns("w:p"),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
-                    htmlEscape(value), "</w:t></w:r></w:p>")
+                    htmlEscapeCopy(value), "</w:t></w:r></w:p>")
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 

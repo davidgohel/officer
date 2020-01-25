@@ -1,40 +1,3 @@
-htmlEscapeCopy <- local({
-
-  .htmlSpecials <- list(
-    `&` = '&amp;',
-    `<` = '&lt;',
-    `>` = '&gt;'
-  )
-  .htmlSpecialsPattern <- paste(names(.htmlSpecials), collapse='|')
-  .htmlSpecialsAttrib <- c(
-    .htmlSpecials,
-    `'` = '&#39;',
-    `"` = '&quot;',
-    `\r` = '&#13;',
-    `\n` = '&#10;'
-  )
-  .htmlSpecialsPatternAttrib <- paste(names(.htmlSpecialsAttrib), collapse='|')
-  function(text, attribute=FALSE) {
-    pattern <- if(attribute)
-      .htmlSpecialsPatternAttrib
-    else
-      .htmlSpecialsPattern
-    text <- enc2utf8(as.character(text))
-    # Short circuit in the common case that there's nothing to escape
-    if (!any(grepl(pattern, text, useBytes = TRUE)))
-      return(text)
-    specials <- if(attribute)
-      .htmlSpecialsAttrib
-    else
-      .htmlSpecials
-    for (chr in names(specials)) {
-      text <- gsub(chr, specials[[chr]], text, fixed = TRUE, useBytes = TRUE)
-    }
-    Encoding(text) <- "UTF-8"
-    return(text)
-  }
-})
-
 # caption ----
 
 #' @export
@@ -98,7 +61,7 @@ to_wml.block_caption = function (x, base_document = NULL, ...){
       autonum <- to_wml(x$autonum)
     }
 
-    run_str <- sprintf( "<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscape(x$label))
+    run_str <- sprintf( "<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscapeCopy(x$label))
     run_str <- paste0(autonum, run_str)
     run_str <- bookmark(x$id, run_str)
     out <- sprintf( "%s<w:pPr><w:pStyle w:val=\"%s\"/></w:pPr>%s</w:p>",
@@ -290,7 +253,7 @@ block_table <- function(x, style = NULL, header = TRUE,
 }
 
 #' @export
-# @importFrom utils str
+#' @importFrom utils str
 print.block_table <- function(x, ...){
   str(x$x)
 }

@@ -203,7 +203,7 @@ test_that("css", {
   fp <- fp_text(font.size = 10, color = "#00FFFF34", shading.color = "#00FFFFCC")
   expect_true(has_css_color(fp, "color", "rgba\\(0,255,255,0.20\\)"))
   expect_true(has_css_attr(fp, "font-family", "'Arial'"))
-  expect_true(has_css_attr(fp, "font-size", "10px"))
+  expect_true(has_css_attr(fp, "font-size", "10.0pt"))
   expect_true(has_css_attr(fp, "font-style", "normal"))
   expect_true(has_css_attr(fp, "font-weight", "normal"))
   expect_true(has_css_attr(fp, "text-decoration", "none"))
