@@ -1,3 +1,24 @@
+# utils ----
+
+wp_ns_yes <- "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\">"
+wp_ns_no <- "<w:p>"
+tbl_ns_yes <- "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">"
+tbl_ns_no <- "<w:tbl>"
+
+runs_to_par <- function(..., add_ns = FALSE){
+  runs <- list(...)
+  run_str <- lapply(runs, to_wml, add_ns = FALSE)
+  run_str$collapse <- ""
+  run_str <- do.call(paste0, run_str)
+  open_tag <- wp_ns_no
+  if (add_ns) {
+    open_tag <- wp_ns_yes
+  }
+
+  out <- paste0(open_tag, "<w:pPr/>", run_str, "</w:p>")
+  out
+}
+
 # colors ----
 
 css_color <- function(color){

@@ -11,11 +11,12 @@
 #' @param autonum an object generated with function [run_autonum]
 #' @examples
 #' block_caption("a caption", style = "Normal", id = "caption_id")
-#' block_caption("a caption", style = "Normal", id = "caption_id",
-#'   autonum = run_autonum())
+#' block_caption("a caption",
+#'   style = "Normal", id = "caption_id",
+#'   autonum = run_autonum()
+#' )
 #' @family block functions for reporting
-block_caption <- function(label, style, id, autonum = NULL){
-
+block_caption <- function(label, style, id, autonum = NULL) {
   z <- list(
     label = label,
     id = id,
@@ -28,8 +29,8 @@ block_caption <- function(label, style, id, autonum = NULL){
 }
 
 #' @export
-print.block_caption <- function(x, ...){
-  if(is.null(x$autonum)){
+print.block_caption <- function(x, ...) {
+  if (is.null(x$autonum)) {
     auton <- "[anto-num on]"
   } else {
     auton <- "[antonum off]"
@@ -39,33 +40,41 @@ print.block_caption <- function(x, ...){
 
 
 #' @export
-to_wml.block_caption = function (x, base_document = NULL, ...){
+to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
+  if (is.null(base_document)) {
+    base_document <- get_reference_value("docx")
+  }
 
-    if( is.null(base_document)) {
-      base_document <- get_reference_value("docx")
-    }
+  if (is.character(base_document)) {
+    base_document <- read_docx(path = base_document)
+  } else if (!inherits(base_document, "rdocx")) {
+    stop("base_document can only be the path to a docx file or an rdocx document.")
+  }
 
-    if( is.character(base_document)) {
-      base_document <- read_docx(path=base_document)
-    } else if( !inherits(base_document, "rdocx") ){
-      stop("base_document can only be the path to a docx file or an rdocx document.")
-    }
+  open_tag <- wp_ns_no
+  if (add_ns) {
+    open_tag <- wp_ns_yes
+  }
 
-    if( is.null(x$style) )
-      style <- base_document$default_styles$paragraph
-    else style <- x$style
-    style_id <- get_style_id(data = base_document$styles, style=style, type = "paragraph")
+  if (is.null(x$style)) {
+    style <- base_document$default_styles$paragraph
+  } else {
+    style <- x$style
+  }
+  style_id <- get_style_id(data = base_document$styles, style = style, type = "paragraph")
 
-    autonum <- ""
-    if(!is.null(x$autonum)){
-      autonum <- to_wml(x$autonum)
-    }
+  autonum <- ""
+  if (!is.null(x$autonum)) {
+    autonum <- to_wml(x$autonum)
+  }
 
-    run_str <- sprintf( "<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscapeCopy(x$label))
-    run_str <- paste0(autonum, run_str)
-    run_str <- bookmark(x$id, run_str)
-    out <- sprintf( "%s<w:pPr><w:pStyle w:val=\"%s\"/></w:pPr>%s</w:p>",
-                    wml_with_ns("w:p"), style_id, run_str)
+  run_str <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscapeCopy(x$label))
+  run_str <- paste0(autonum, run_str)
+  run_str <- bookmark(x$id, run_str)
+  out <- sprintf(
+    "%s<w:pPr><w:pStyle w:val=\"%s\"/></w:pPr>%s</w:p>",
+    open_tag, style_id, run_str
+  )
 
   out
 }
@@ -83,8 +92,7 @@ to_wml.block_caption = function (x, base_document = NULL, ...){
 #' block_toc(level = 2)
 #' block_toc(style = "Table title")
 #' @family block functions for reporting
-block_toc <- function(level = 3, style = NULL, separator = ";"){
-
+block_toc <- function(level = 3, style = NULL, separator = ";") {
   z <- list(
     level = level, style = style, separator = separator
   )
@@ -94,34 +102,52 @@ block_toc <- function(level = 3, style = NULL, separator = ";"){
 }
 
 #' @export
-print.block_toc <- function(x, ...){
-  if(is.null(x$style)){
+print.block_toc <- function(x, ...) {
+  if (is.null(x$style)) {
     cat("TOC - max level: ", x$level, "\n", sep = "")
   } else {
     cat("TOC for style: ", x$style, "\n", sep = "")
   }
-
 }
 
 #' @export
-to_wml.block_toc = function (x, ...){
-    if(is.null(x$style)){
-      out <- paste0(
-        "<w:p><w:pPr/>",
-        to_wml(
-          run_seqfield(
-            seqfield = sprintf("TOC \u005Co &quot;1-%.0f&quot; \u005Ch \u005Cz \u005Cu",
-                               x$level))),
-        "</w:p>")
-    } else {
-      out <- paste0(
-        "<w:p><w:pPr/>",
-        to_wml(
-          run_seqfield(
-            seqfield = sprintf("TOC \u005Ch \u005Cz \u005Ct \"%s%s1\"",
-                               x$style, x$separator))),
-        "</w:p>")
-    }
+to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
+
+  open_tag <- wp_ns_no
+  if (add_ns) {
+    open_tag <- wp_ns_yes
+  }
+
+
+  if (is.null(x$style)) {
+    out <- paste0(
+      open_tag,
+      "<w:pPr/>",
+      to_wml(
+        run_seqfield(
+          seqfield = sprintf(
+            "TOC \u005Co &quot;1-%.0f&quot; \u005Ch \u005Cz \u005Cu",
+            x$level
+          )
+        )
+      ),
+      "</w:p>"
+    )
+  } else {
+    out <- paste0(
+      open_tag,
+      "<w:pPr/>",
+      to_wml(
+        run_seqfield(
+          seqfield = sprintf(
+            "TOC \u005Ch \u005Cz \u005Ct \"%s%s1\"",
+            x$style, x$separator
+          )
+        )
+      ),
+      "</w:p>"
+    )
+  }
 
 
 
@@ -140,10 +166,10 @@ to_wml.block_toc = function (x, ...){
 #' prop_section(
 #'   page_size = page_size(orient = "landscape"),
 #'   page_margins = page_mar(top = 2),
-#'   type = "continuous")
+#'   type = "continuous"
+#' )
 #' @family block functions for reporting
-block_section <- function(property){
-
+block_section <- function(property) {
   z <- list(
     property = property
   )
@@ -153,17 +179,22 @@ block_section <- function(property){
 }
 
 #' @export
-print.block_section <- function(x, ...){
+print.block_section <- function(x, ...) {
   cat("----- end of secion: ", "\n", sep = "")
 }
 
 #' @export
-to_wml.block_section = function (x, ...){
+to_wml.block_section <- function(x, add_ns = FALSE, ...) {
+  open_tag <- wp_ns_no
+  if (add_ns) {
+    open_tag <- wp_ns_yes
+  }
 
-    out <- paste0(
-      "<w:p><w:pPr>",
-      to_wml(x$property),
-      "</w:pPr></w:p>")
+  out <- paste0(open_tag,
+    "<w:pPr>",
+    to_wml(x$property),
+    "</w:pPr></w:p>"
+  )
 
   out
 }
@@ -172,11 +203,15 @@ to_wml.block_section = function (x, ...){
 # table ----
 table_docx <- function(x, header, style_id,
                        first_row, last_row, first_column,
-                       last_column, no_hband, no_vband){
-  str <- paste0(
-    "<w:tbl xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"",
-    " xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"",
-    " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><w:tblPr>",
+                       last_column, no_hband, no_vband, add_ns = FALSE) {
+  open_tag <- tbl_ns_no
+  if (add_ns) {
+    open_tag <- tbl_ns_yes
+  }
+
+
+  str <- paste0(open_tag,
+    "<w:tblPr>",
     "<w:tblStyle w:val=\"", style_id, "\"/>",
     "<w:tblLook w:firstRow=\"", as.integer(first_row),
     "\" w:lastRow=\"", as.integer(last_row),
@@ -184,23 +219,27 @@ table_docx <- function(x, header, style_id,
     "\" w:lastColumn=\"", as.integer(last_column),
     "\" w:noHBand=\"", as.integer(no_hband),
     "\" w:noVBand=\"", as.integer(no_vband), "\"/>",
-    "</w:tblPr>")
+    "</w:tblPr>"
+  )
 
   header_str <- character(length = 0L)
-  if( header ){
-    header_str  <- paste0(
+  if (header) {
+    header_str <- paste0(
       "<w:tr><w:trPr><w:tblHeader/></w:trPr>",
       paste0("<w:tc><w:trPr/><w:p><w:r><w:t>",
-             htmlEscapeCopy(enc2utf8(colnames(x))),
-             "</w:t></w:r></w:p></w:tc>", collapse = ""),
+        htmlEscapeCopy(enc2utf8(colnames(x))),
+        "</w:t></w:r></w:p></w:tc>",
+        collapse = ""
+      ),
       "</w:tr>"
     )
   }
 
   as_tc <- function(x) {
-    paste0("<w:tc><w:trPr/><w:p><w:r><w:t>",
-           htmlEscapeCopy(enc2utf8(x)),
-           "</w:t></w:r></w:p></w:tc>"
+    paste0(
+      "<w:tc><w:trPr/><w:p><w:r><w:t>",
+      htmlEscapeCopy(enc2utf8(x)),
+      "</w:t></w:r></w:p></w:tc>"
     )
   }
 
@@ -234,8 +273,7 @@ table_docx <- function(x, header, style_id,
 block_table <- function(x, style = NULL, header = TRUE,
                         first_row = TRUE, first_column = FALSE,
                         last_row = FALSE, last_column = FALSE,
-                        no_hband = FALSE, no_vband = TRUE){
-
+                        no_hband = FALSE, no_vband = TRUE) {
   z <- list(
     x = x,
     style = style,
@@ -254,38 +292,37 @@ block_table <- function(x, style = NULL, header = TRUE,
 
 #' @export
 #' @importFrom utils str
-print.block_table <- function(x, ...){
+print.block_table <- function(x, ...) {
   str(x$x)
 }
 
 #' @export
-to_wml.block_table = function (x, base_document = NULL, ...){
-    if( is.null(base_document)) {
-      base_document <- get_reference_value("docx")
-    }
+to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
+  if (is.null(base_document)) {
+    base_document <- get_reference_value("docx")
+  }
 
-    if( is.character(base_document)) {
-      base_document <- read_docx(path=base_document)
-    } else if( !inherits(base_document, "rdocx") ){
-      stop("base_document can only be the path to a docx file or an rdocx document.")
-    }
+  if (is.character(base_document)) {
+    base_document <- read_docx(path = base_document)
+  } else if (!inherits(base_document, "rdocx")) {
+    stop("base_document can only be the path to a docx file or an rdocx document.")
+  }
 
-    if( is.null(x$style) )
-      style <- base_document$default_styles$paragraph
-    else style <- x$style
-    style_id <- get_style_id(data = base_document$styles, style=style, type = "table")
+  if (is.null(x$style)) {
+    style <- base_document$default_styles$paragraph
+  } else {
+    style <- x$style
+  }
+  style_id <- get_style_id(data = base_document$styles, style = style, type = "table")
 
-    value <- characterise_df(x$x)
+  value <- characterise_df(x$x)
 
-    out <- table_docx(x = value, header = x$header, style_id = style_id,
-                      first_row = x$first_row, last_row = x$last_row,
-                      first_column = x$first_column, last_column = x$last_column,
-                      no_hband = x$no_hband, no_vband = x$no_vband)
+  out <- table_docx(
+    x = value, header = x$header, style_id = style_id,
+    first_row = x$first_row, last_row = x$last_row,
+    first_column = x$first_column, last_column = x$last_column,
+    no_hband = x$no_hband, no_vband = x$no_vband, add_ns = add_ns
+  )
 
   out
 }
-
-
-
-
-

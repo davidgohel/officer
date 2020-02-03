@@ -9,12 +9,8 @@
 #' doc <- read_docx() %>% body_add_break()
 #' print(doc, target = tempfile(fileext = ".docx"))
 body_add_break <- function( x, pos = "after"){
-
-  str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
-                "<w:r><w:br w:type=\"page\"/></w:r>",
-                "</w:p>")
+  str <- runs_to_par(run_pagebreak(), add_ns = TRUE)
   body_add_xml(x = x, str = str, pos = pos)
-
 }
 
 #' @export
@@ -338,7 +334,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
   xml_elt <- table_docx(x = value, header = header, style_id = style_id,
              first_row = first_row, last_row = last_row,
              first_column = first_column, last_column = last_column,
-             no_hband = no_hband, no_vband = no_vband)
+             no_hband = no_hband, no_vband = no_vband, add_ns = TRUE)
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }

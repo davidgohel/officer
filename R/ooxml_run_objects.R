@@ -5,10 +5,14 @@
 #' @description Convert an object made with package officer
 #' to WordprocessingML. The result is a string.
 #' @param x a location for a placeholder.
+#' @param add_ns should namespace be added to the top tag
 #' @param ... Arguments to be passed to methods
-to_wml <- function(x, ...) {
+to_wml <- function(x, add_ns = FALSE, ...) {
   UseMethod("to_wml")
 }
+
+
+# bookmark -----
 
 bookmark <- function(id, str) {
   new_id <- UUIDgenerate()
@@ -32,7 +36,7 @@ run_seqfield <- function(seqfield) {
 
 
 #' @export
-to_wml.run_seqfield <- function(x, ...) {
+to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
   xml_elt_1 <- paste0(
     wml_with_ns("w:r"),
     "<w:rPr/>",
@@ -78,7 +82,7 @@ run_autonum <- function(seq_id = "table", pre_label = "TABLE ", post_label = ": 
 }
 
 #' @export
-to_wml.run_autonum <- function(x, ...) {
+to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   run_str_pre <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$pre_label)
   run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
   sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic \u005Cs 1 \u005C* MERGEFORMAT"))
@@ -108,7 +112,7 @@ run_reference <- function(id) {
 }
 
 #' @export
-to_wml.run_reference <- function(x, ...) {
+to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
   out <- to_wml(run_seqfield(seqfield = x$id))
   out
 }
@@ -129,7 +133,7 @@ run_pagebreak <- function() {
 }
 
 #' @export
-to_wml.run_pagebreak <- function(x, ...) {
+to_wml.run_pagebreak <- function(x, add_ns = FALSE, ...) {
   out <- "<w:r><w:br w:type=\"page\"/></w:r>"
   out
 }
@@ -147,7 +151,7 @@ run_columnbreak <- function() {
 }
 
 #' @export
-to_wml.run_columnbreak <- function(x, ...) {
+to_wml.run_columnbreak <- function(x, add_ns = FALSE, ...) {
   out <- "<w:r><w:br w:type=\"column\"/></w:r>"
   out
 }
@@ -165,7 +169,7 @@ run_linebreak <- function() {
 }
 
 #' @export
-to_wml.run_linebreak <- function(x, ...) {
+to_wml.run_linebreak <- function(x, add_ns = FALSE, ...) {
   out <- "<w:r><w:br w:type=\"textWrapping\"/></w:r>"
   out
 }
@@ -197,7 +201,7 @@ page_size <- function(width = 21 / 2.54, height = 29.7 / 2.54, orient = "portrai
 }
 
 #' @export
-to_wml.page_size <- function(x, ...) {
+to_wml.page_size <- function(x, add_ns = FALSE, ...) {
   out <- sprintf(
     "<w:pgSz w:h=\"%.0f\" w:w=\"%.0f\" w:orient=\"%s\"/>",
     inch_to_tweep(x$height), inch_to_tweep(x$width), x$orient
@@ -225,7 +229,7 @@ page_mar <- function(bottom = 1, top = 1, right = 1, left = 1,
   # <w:pgMar w:header="720" w:bottom="1440" w:top="1440" w:right="2880" w:left="2880" w:footer="720" w:gutter="720"/>
 }
 #' @export
-to_wml.page_mar <- function(x, ...) {
+to_wml.page_mar <- function(x, add_ns = FALSE, ...) {
   out <- sprintf(
     "<w:pgMar w:header=\"%.0f\" w:bottom=\"%.0f\" w:top=\"%.0f\" w:right=\"%.0f\" w:left=\"%.0f\" w:footer=\"%.0f\" w:gutter=\"%.0f\"/>",
     inch_to_tweep(x$header), inch_to_tweep(x$bottom), inch_to_tweep(x$top),
@@ -278,7 +282,7 @@ prop_section <- function(page_size, page_margins, type) {
 }
 
 #' @export
-to_wml.prop_section <- function(x, ...) {
+to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
   out <- sprintf(
     "<w:sectPr>%s%s<w:type w:val=\"%s\"/></w:sectPr>",
     to_wml(x$page_margins),
