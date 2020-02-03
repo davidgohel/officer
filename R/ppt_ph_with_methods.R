@@ -106,30 +106,65 @@ gen_bg_str <- function(bg){
   bg_str
 }
 
+a_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
+
+  if( is.null(rot)) rot <- 0
+
+  xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
+  sprintf(xfrm_str, -rot * 60000,
+          left * 914400, top * 914400,
+          width * 914400, height * 914400)
+}
 
 gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
                 bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
-
-  if( is.null(rot)) rot <- 0
 
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
   bg_str <- gen_bg_str(bg)
 
-  xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
-  xfrm_str <- sprintf(xfrm_str, -rot * 60000,
-                      left * 914400, top * 914400,
-                      width * 914400, height * 914400)
+  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
   if( is.null(ph) || is.na(ph)){
     ph = "<p:ph/>"
   }
-
 
   str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
   sprintf(str, label, ph, xfrm_str, bg_str )
 
 }
+gen_pic_str <- function( left = 0, top = 0, width = 3, height = 3,
+                bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", src){
+
+  if( !is.null(bg) && !is.color( bg ) )
+    stop("bg must be a valid color.", call. = FALSE )
+
+  bg_str <- gen_bg_str(bg)
+
+  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  if( is.null(ph) || is.na(ph)){
+    ph = "<p:ph/>"
+  }
+  blipfill <- paste0(
+    "<p:blipFill>",
+    sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", src),
+    "<a:stretch><a:fillRect/></a:stretch>",
+    "</p:blipFill>")
+  str <- "
+<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
+  <p:nvPicPr>
+    <p:cNvPr id=\"0\" name=\"%s\"/>
+    <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
+    <p:nvPr>%s</p:nvPr>
+  </p:nvPicPr>
+  %s
+  <p:spPr>%s%s</p:spPr>
+</p:pic>
+"
+  sprintf(str, label, ph, blipfill, xfrm_str, bg_str )
+
+}
+
 
 #' @export
 #' @describeIn ph_with add a character vector to a new shape on the
@@ -308,14 +343,14 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' current slide. Use package \code{rvg} for more advanced graphical features.
 #' @param res resolution of the png image in ppi
 ph_with.gg <- function(x, value, location, res = 300, ...){
-  location <- fortify_location(location, doc = x)
+  location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
 
   slide <- x$slide$get_slide(x$cursor)
-  width <- location$width
-  height <- location$height
+  width <- location_$width
+  height <- location_$height
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
@@ -326,16 +361,7 @@ ph_with.gg <- function(x, value, location, res = 300, ...){
   on.exit(unlink(file))
 
   ext_img <- external_img(file, width = width, height = height)
-  xml_elt <- format(ext_img, type = "pml")
-  slide$reference_img(src = file, dir_name = file.path(x$package_dir, "ppt/media"))
-  xml_elt <- fortify_pml_images(x, xml_elt)
-
-  value <- as_xml_document(xml_elt)
-  xml_to_slide(slide, location, value)
-  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  slide$fortify_id()
-  x
-
+  ph_with(x, ext_img, location = location )
 }
 
 #' @export
@@ -412,10 +438,14 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)) )
   file.copy( as.character(value), to = new_src )
-  ext_img <- external_img(new_src, width = width, height = height)
-  xml_elt <- format(ext_img, type = "pml")
+
+  xml_str <- gen_pic_str(left = location$left, top = location$top,
+                       width = width, height = height,
+                       label = location$ph_label, ph = location$ph,
+                       rot = location$rotation, bg = location$bg, src = new_src)
+
   slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
-  xml_elt <- fortify_pml_images(x, xml_elt)
+  xml_elt <- fortify_pml_images(x, xml_str)
 
   value <- as_xml_document(xml_elt)
   xml_to_slide(slide, location, value)
