@@ -89,13 +89,10 @@ test_that("body_add_toc", {
   node <- x$doc_obj$get_at_cursor()
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")
-  expect_equal( xml_attr(child_, "dirty"), "true")
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='end']")
-  expect_equal( xml_attr(child_, "dirty"), "true")
 
   child_ <- getncheck(node, "w:r/w:instrText")
-  expect_equal( xml_attr(child_, "dirty"), "true")
   expect_equal( xml_text(child_), "TOC \\o \"1-3\" \\h \\z \\u" )
 
 
@@ -104,13 +101,10 @@ test_that("body_add_toc", {
   node <- x$doc_obj$get_at_cursor()
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")
-  expect_equal( xml_attr(child_, "dirty"), "true")
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='end']")
-  expect_equal( xml_attr(child_, "dirty"), "true")
 
   child_ <- getncheck(node, "w:r/w:instrText")
-  expect_equal( xml_attr(child_, "dirty"), "true")
   expect_equal( xml_text(child_), "TOC \\h \\z \\t \"Normal;1\"" )
 
 })

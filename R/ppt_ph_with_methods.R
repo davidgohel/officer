@@ -143,37 +143,6 @@ gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
   sprintf(str, label, ph, xfrm_str, bg_str )
 
 }
-gen_pic_str <- function( left = 0, top = 0, width = 3, height = 3,
-                bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", src){
-
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
-
-  bg_str <- gen_bg_str(bg)
-
-  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
-  if( is.null(ph) || is.na(ph)){
-    ph = "<p:ph/>"
-  }
-  blipfill <- paste0(
-    "<p:blipFill>",
-    sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", src),
-    "<a:stretch><a:fillRect/></a:stretch>",
-    "</p:blipFill>")
-  str <- "
-<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
-  <p:nvPicPr>
-    <p:cNvPr id=\"0\" name=\"%s\"/>
-    <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
-    <p:nvPr>%s</p:nvPr>
-  </p:nvPicPr>
-  %s
-  <p:spPr>%s%s</p:spPr>
-</p:pic>
-"
-  sprintf(str, label, ph, blipfill, xfrm_str, bg_str )
-
-}
 
 
 #' @export
@@ -297,15 +266,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
   location <- fortify_location(location, doc = x)
 
-  if( !is.null(value$style)){
-    style_str <- sapply(value$style, format, type = "pml")
-    style_str <- rep_len(style_str, length.out = length(value$str))
-  } else style_str <- rep("<a:rPr/>", length(value$str))
-  tmpl <- "<a:p><a:pPr%s/><a:r>%s<a:t>%s</a:t></a:r></a:p>"
-  lvl <- sprintf(" lvl=\"%.0f\"", value$lvl - 1)
-  lvl <- ifelse(value$lvl > 1, lvl, "")
-  p <- sprintf(tmpl, lvl, style_str, htmlEscapeCopy(value$str) )
-  p <- paste(p, collapse = "")
+  p <- to_pml(value)
 
   new_ph <- gen_ph_str(left = location$left, top = location$top,
                width = location$width, height = location$height,
@@ -455,7 +416,7 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)) )
   file.copy( as.character(value), to = new_src )
 
-  xml_str <- gen_pic_str(left = location$left, top = location$top,
+  xml_str <- pic_pml(left = location$left, top = location$top,
                        width = width, height = height,
                        label = location$ph_label, ph = location$ph,
                        rot = location$rotation, bg = location$bg, src = new_src)

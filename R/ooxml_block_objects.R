@@ -494,13 +494,22 @@ as.data.frame.fpar <- function( x, ...){
 }
 
 #' @export
-to_wml.fpar <- function(x, add_ns = FALSE, ...) {
-  par_style <- ppr_wml(x$fp_p)
+to_wml.fpar <- function(x, add_ns = FALSE, style_id = NULL, ...) {
+
+  open_tag <- wp_ns_no
+  if (add_ns) {
+    open_tag <- wp_ns_yes
+  }
+  if(is.null(style_id)){
+    par_style <- ppr_wml(x$fp_p)
+  } else par_style <- paste0(
+    "<w:pStyle w:val=\"", style_id, "\"/>")
+
   chks <- fortify_fpar(x)
   z <- lapply(chks, to_wml)
   z$collapse <- ""
   z <- do.call(paste0, z)
-  paste0("<w:p>", par_style, z, "</w:p>")
+  paste0(open_tag, par_style, z, "</w:p>")
 }
 
 #' @export
@@ -550,6 +559,79 @@ block_list <- function(...){
   x <- list(...)
   class(x) <- "block_list"
   x
+}
+
+# unordered list ----
+#' @export
+#' @title unordered list
+#' @description unordered list of text for PowerPoint
+#' presentations. Each text is associated with
+#' a hierarchy level.
+#' @param str_list list of strings to be included in the object
+#' @param level_list list of levels for hierarchy structure
+#' @param style text style, a \code{fp_text} object list or a
+#' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
+#' inherit from default sizes of the presentation.
+#' @examples
+#' unordered_list(
+#' level_list = c(1, 2, 2, 3, 3, 1),
+#' str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
+#' style = fp_text(color = "red", font.size = 0) )
+#' unordered_list(
+#' level_list = c(1, 2, 1),
+#' str_list = c("Level1", "Level2", "Level1"),
+#' style = list(
+#'   fp_text(color = "red", font.size = 0),
+#'   fp_text(color = "pink", font.size = 0),
+#'   fp_text(color = "orange", font.size = 0)
+#'   ))
+#' @seealso \code{\link{ph_with}}
+unordered_list <- function(str_list = character(0), level_list = integer(0), style = NULL){
+  stopifnot(is.character(str_list))
+  stopifnot(is.numeric(level_list))
+
+  if (length(str_list) != length(level_list) & length(str_list) > 0) {
+    stop("str_list and level_list have different lenghts.")
+  }
+
+  if( !is.null(style)){
+    if( inherits(style, "fp_text") )
+      style <- lapply(seq_len(length(str_list)), function(x) style )
+  }
+  x <- list(
+    str = str_list,
+    lvl = level_list,
+    style = style
+  )
+  class(x) <- "unordered_list"
+  x
+}
+#' @export
+#' @noRd
+print.unordered_list <- function(x, ...){
+  print(data.frame(str = x$str,
+                   lvl = x$lvl,
+                   stringsAsFactors = FALSE))
+  invisible()
+}
+
+#' @export
+to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
+
+  open_tag <- ap_ns_no
+  if (add_ns) {
+    open_tag <- ap_ns_yes
+  }
+  if( !is.null(x$style)){
+    style_str <- sapply(x$style, format, type = "pml")
+    style_str <- rep_len(style_str, length.out = length(x$str))
+  } else style_str <- rep("<a:rPr/>", length(x$str))
+  tmpl <- "%s<a:pPr%s/><a:r>%s<a:t>%s</a:t></a:r></a:p>"
+  lvl <- sprintf(" lvl=\"%.0f\"", x$lvl - 1)
+  lvl <- ifelse(x$lvl > 1, lvl, "")
+  p <- sprintf(tmpl, open_tag, lvl, style_str, htmlEscapeCopy(x$str) )
+  p <- paste(p, collapse = "")
+  p
 }
 
 

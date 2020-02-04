@@ -362,6 +362,40 @@ as.data.frame.external_img <- function( x, ... ){
   data.frame(path = as.character(x), width = dimx$width, height = dimx$height)
 }
 
+
+pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
+                     bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", src){
+
+  if( !is.null(bg) && !is.color( bg ) )
+    stop("bg must be a valid color.", call. = FALSE )
+
+  bg_str <- gen_bg_str(bg)
+
+  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  if( is.null(ph) || is.na(ph)){
+    ph = "<p:ph/>"
+  }
+  blipfill <- paste0(
+    "<p:blipFill>",
+    sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", src),
+    "<a:stretch><a:fillRect/></a:stretch>",
+    "</p:blipFill>")
+  str <- "
+<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
+  <p:nvPicPr>
+    <p:cNvPr id=\"0\" name=\"%s\"/>
+    <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
+    <p:nvPr>%s</p:nvPr>
+  </p:nvPicPr>
+  %s
+  <p:spPr>%s%s</p:spPr>
+</p:pic>
+"
+  sprintf(str, label, ph, blipfill, xfrm_str, bg_str )
+
+}
+
+
 #' @export
 to_wml.external_img <- function(x, add_ns = FALSE, ...) {
 
