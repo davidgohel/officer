@@ -55,15 +55,30 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   ext_img <- external_img(new_src, width = width, height = height)
-  xml_elt <- format(ext_img, type = "wml")
-  xml_elt <- paste0(wml_with_ns("w:p"),
+  xml_elt <- paste0(wr_ns_yes,
+         "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
+         sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700*72, height * 12700*72),
+         "<wp:docPr id=\"\" name=\"\"/>",
+         "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
+         "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
+         "<pic:nvPicPr>",
+         "<pic:cNvPr id=\"\" name=\"\"/>",
+         "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
+         "</pic:cNvPicPr></pic:nvPicPr>",
+         "<pic:blipFill>",
+         sprintf("<a:blip r:embed=\"%s\"/>", new_src),
+         "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
+         "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
+         sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
+         "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
+  )
+  xml_elt <- paste0(wp_ns_yes,
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
                     xml_elt,
                     "</w:p>")
 
   x <- docx_reference_img(x, new_src)
   xml_elt <- wml_link_images( x, xml_elt )
-
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -219,7 +234,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
-  xml_elt <- paste0(wml_with_ns("w:p"),
+  xml_elt <- paste0(wp_ns_yes,
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
                     htmlEscapeCopy(value), "</w:t></w:r></w:p>")
   body_add_xml(x = x, str = xml_elt, pos = pos)
@@ -264,8 +279,8 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
   })
   img_src <- unique(img_src[!is.na(img_src)])
 
-  xml_elt <- format(value, type = "wml")
-  xml_elt <- gsub("<w:p>", wml_with_ns("w:p"), xml_elt )
+  xml_elt <- to_wml(value)
+  xml_elt <- gsub("<w:p>", wp_ns_yes, xml_elt )
 
   x <- docx_reference_img(x, img_src)
   xml_elt <- wml_link_images( x, xml_elt )
@@ -358,14 +373,14 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
 
   if( is.null( style )){
-    str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
+    str <- paste0(wp_ns_yes, "<w:pPr/>",
                   "<w:r><w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/></w:r>",
                   "<w:r><w:instrText xml:space=\"preserve\" w:dirty=\"true\">TOC \u005Co &quot;1-%.0f&quot; \u005Ch \u005Cz \u005Cu</w:instrText></w:r>",
                   "<w:r><w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/></w:r>",
                   "</w:p>")
     out <- sprintf(str, level)
   } else {
-    str <- paste0(wml_with_ns("w:p"), "<w:pPr/>",
+    str <- paste0(wp_ns_yes, "<w:pPr/>",
                   "<w:r><w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/></w:r>",
                   "<w:r><w:instrText xml:space=\"preserve\" w:dirty=\"true\">TOC \u005Ch \u005Cz \u005Ct \"%s%s1\"</w:instrText></w:r>",
                   "<w:r><w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/></w:r>",

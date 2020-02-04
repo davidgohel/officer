@@ -196,7 +196,7 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #' doc <- ph_with(doc, "",
 #'   location = ph_location(rotation = 90, bg = "red",
 #'       newlabel = "myph"))
-#' doc <- ph_add_text(doc, str = "Jump here to slide 2!",
+#' doc <- ph_add_text(doc, str = "dummy text",
 #'   ph_label = "myph")
 #'
 #' print(doc, target = fileout)
@@ -218,9 +218,7 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
   if( inherits(current_p, "xml_missing") )
     stop("Could not find any paragraph in the selected shape.")
 
-  r_shape_ <- sprintf(paste0( pml_with_ns("a:r"), "%s<a:t>%s</a:t></a:r>" ),
-                      format(style, type = "pml"),
-                      htmlEscapeCopy(str))
+  r_shape_ <- to_pml(ftext(text = str, prop = style), add_ns = TRUE)
 
   if( pos == "after" )
     where_ <- length(xml_children(current_p))
@@ -300,14 +298,15 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
     else
       p_shape <- "<a:p/>"
 
-    simple_shape <- paste0( pml_with_ns("p:txBody"), "<a:bodyPr/><a:lstStyle/>",
+    simple_shape <- paste0( "<p:txBody xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                            "<a:bodyPr/><a:lstStyle/>",
                             p_shape, "</p:txBody>")
     xml_add_child(current_elt, as_xml_document(simple_shape) )
   } else {
     if( level > 1 ){
-      simple_shape <- sprintf(paste0( pml_with_ns("a:p"), "<a:pPr lvl=\"%.0f\"/></a:p>" ), level - 1)
+      simple_shape <- sprintf(paste0( ap_ns_yes, "<a:pPr lvl=\"%.0f\"/></a:p>" ), level - 1)
     } else
-      simple_shape <- paste0(pml_with_ns("a:p"), "</a:p>")
+      simple_shape <- paste0(ap_ns_yes, "</a:p>")
     xml_add_child(current_p, as_xml_document(simple_shape) )
   }
   x
@@ -358,12 +357,14 @@ ph_add_fpar <- function( x, value, type = "body", id = 1, id_chr = NULL, ph_labe
   current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id) )
 
   current_p <- xml_child(current_elt, "/p:txBody")
-  newp_str <- format(value, type = "pml")
-  newp_str <- gsub("<a:p>", pml_with_ns("a:p"), newp_str )
-  node <- as_xml_document(newp_str)
+
+  node <- as_xml_document(to_pml(value, add_ns = TRUE))
+
   if( par_default ){
+    # add default pPr
     ppr <- xml_child(node, "/a:pPr")
-    empty_par <- as_xml_document(paste0(pml_with_ns("a:pPr"), "</a:pPr>"))
+    empty_par <- as_xml_document(paste0("<a:pPr xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                                        "</a:pPr>"))
     xml_replace(ppr, empty_par )
   }
   ppr <- xml_child(node, "/a:pPr")
@@ -371,7 +372,8 @@ ph_add_fpar <- function( x, value, type = "body", id = 1, id_chr = NULL, ph_labe
     xml_attr(ppr, "lvl") <- sprintf("%.0f", level - 1)
   }
   if( inherits(current_p, "xml_missing") ){
-    simple_shape <- paste0( pml_with_ns("p:txBody"), "<a:bodyPr/><a:lstStyle/></p:txBody>")
+    simple_shape <- paste0( "<p:txBody xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                            "<a:bodyPr/><a:lstStyle/></p:txBody>")
     newnode <- as_xml_document(simple_shape)
     xml_add_child(newnode, node)
     xml_add_child(current_elt, newnode )

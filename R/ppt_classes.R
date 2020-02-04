@@ -101,7 +101,9 @@ presentation <- R6Class(
         sprintf("<p:sldId id=\"%.0f\" r:id=\"%s\"/>", private$slide_id, private$slide_rid),
         collapse = "" )
 
-      xml_elt <- paste0(pml_with_ns("p:sldIdLst"), xml_elt, "</p:sldIdLst>")
+      xml_elt <- paste0("<p:sldIdLst xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                        xml_elt,
+                        "</p:sldIdLst>")
       xml_elt <- as_xml_document(xml_elt)
 
       if( !inherits(xml_list, "xml_missing")){

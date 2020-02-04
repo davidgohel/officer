@@ -116,6 +116,16 @@ a_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
           width * 914400, height * 914400)
 }
 
+p_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
+
+  if( is.null(rot)) rot <- 0
+
+  xfrm_str <- "<p:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></p:xfrm>"
+  sprintf(xfrm_str, -rot * 60000,
+          left * 914400, top * 914400,
+          width * 914400, height * 914400)
+}
+
 gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
                 bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
 
@@ -178,7 +188,7 @@ ph_with.character <- function(x, value, location, ...){
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+  xml_elt <- paste0( psp_ns_yes, new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
   node <- as_xml_document(xml_elt)
@@ -205,7 +215,7 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
                rot = location$rotation, bg = location$bg)
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+  xml_elt <- paste0( psp_ns_yes, new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
   node <- as_xml_document(xml_elt)
@@ -231,7 +241,7 @@ ph_with.factor <- function(x, value, location, ...){
                rot = location$rotation, bg = location$bg)
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+  xml_elt <- paste0( psp_ns_yes, new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
   node <- as_xml_document(xml_elt)
@@ -256,7 +266,7 @@ ph_with.block_list <- function(x, value, location, is_list = FALSE, ...){
 
   location <- fortify_location(location, doc = x)
 
-  pars <- sapply(value, format, type = "pml")
+  pars <- sapply(value, to_pml)
   if( is_list ){
     pars <- gsub("<a:buNone/>", "", pars, fixed = TRUE)
   }
@@ -268,7 +278,7 @@ ph_with.block_list <- function(x, value, location, is_list = FALSE, ...){
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
 
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+  xml_elt <- paste0( psp_ns_yes, new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                      pars, "</p:txBody></p:sp>" )
   node <- as_xml_document(xml_elt)
@@ -302,7 +312,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
 
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph,
+  xml_elt <- paste0( psp_ns_yes, new_ph,
           "<p:txBody><a:bodyPr/><a:lstStyle/>", p, "</p:txBody></p:sp>" )
   node <- as_xml_document(xml_elt)
 
@@ -324,14 +334,20 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
-  xml_elt <- table_shape(x = x, value = value, left = location$left*914400, top = location$top*914400,
-                         width = location$width*914400, height = location$height*914400,
-                         first_row = first_row, first_column = first_column,
-                         last_row = last_row, last_column = last_column,
-                         header = header )
+  style_id <- x$table_styles$def[1]
+
+  bt <- block_table(x = value, style = style_id, header = header, first_row = first_row,
+              first_column = first_column, last_row = last_row,
+              last_column = last_column)
+
+  xml_elt <- to_pml(
+    bt, left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg)
 
   value <- as_xml_document(xml_elt)
-  xml_to_slide(slide, location, value)
+  # xml_to_slide(slide, location, value)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
@@ -480,7 +496,7 @@ ph_with.empty_content <- function( x, value, location, ... ){
                        width = location$width, height = location$height,
                        label = location$ph_label, ph = location$ph,
                        rot = location$rotation, bg = location$bg)
-  xml_elt <- paste0( pml_with_ns("p:sp"), new_ph, "</p:sp>" )
+  xml_elt <- paste0( psp_ns_yes, new_ph, "</p:sp>" )
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)

@@ -1,4 +1,4 @@
-table_pptx <- function(x, style_id, col_width, row_height,
+table_pptx_ <- function(x, style_id, col_width, row_height,
                       first_row = TRUE, first_column = FALSE,
                       last_row = FALSE, last_column = FALSE, header = TRUE ){
 
@@ -47,7 +47,7 @@ table_shape <- function(x, value, left, top, width, height,
   value <- characterise_df(value)
 
   style_id <- x$table_styles$def[1]
-  xml_elt <- table_pptx(value, style_id = style_id,
+  xml_elt <- table_pptx_(value, style_id = style_id,
                        col_width = as.integer(def_width),
                        row_height = as.integer(def_height),
                        first_row = first_row, last_row = last_row,

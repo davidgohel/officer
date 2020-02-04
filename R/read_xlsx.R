@@ -48,7 +48,8 @@ worksheets <- R6Class(
         sprintf("<sheet name=\"%s\" sheetId=\"%.0f\" r:id=\"%s\"/>",
                 htmlEscapeCopy(private$sheet_name), private$sheet_id, private$sheet_rid),
         collapse = "" )
-      xml_elt <- paste0( pml_with_ns("sheets"),  xml_elt, "</sheets>")
+      xml_elt <- paste0( "<sheets xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                                     xml_elt, "</sheets>")
       xml_elt <- as_xml_document(xml_elt)
 
       if( !inherits(xml_list, "xml_missing")){

@@ -133,7 +133,7 @@ docx_part <- R6Class(
       dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
       file.copy(from = new_src, to = file.path(private$package_dir, "word", "media", basename(new_src)))
 
-      out <- wml_image(paste0("rId", blip_id), width = width, height = height)
+      out <- to_wml(external_img(paste0("rId", blip_id), width = width, height = height), add_ns = TRUE)
 
       xml_replace(run_nodes[[1]], as_xml_document(out) )
       self

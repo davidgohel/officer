@@ -250,6 +250,46 @@ table_docx <- function(x, header, style_id,
   paste0(str, header_str, z, "</w:tbl>")
 }
 
+table_pptx <- function(x, style_id, col_width, row_height,
+                       first_row = TRUE, first_column = FALSE,
+                       last_row = FALSE, last_column = FALSE, header = TRUE ){
+
+  str <- paste0("<a:tbl>",
+                sprintf("<a:tblPr firstRow=\"%.0f\" lastRow=\"%.0f\" firstColumn=\"%.0f\" lastColumn=\"%.0f\"",
+                        first_row, last_row, first_column, last_column),
+                ">",
+                sprintf("<a:tableStyleId>%s</a:tableStyleId>", style_id),
+                "</a:tblPr>",
+                "<a:tblGrid>",
+                paste0(sprintf("<a:gridCol w=\"%.0f\"/>", rep(col_width, length(x))), collapse = ""),
+                "</a:tblGrid>")
+
+  as_tc <- function(x) {
+    paste0("<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>",
+           htmlEscapeCopy(enc2utf8(x)),
+           "</a:t></a:r></a:p></a:txBody></a:tc>"
+    )
+  }
+  header_str <- character(length = 0L)
+  if( header ){
+    header_str  <- paste0(
+      sprintf("<a:tr h=\"%.0f\">", row_height),
+      paste0(as_tc(colnames(x)), collapse = ""),
+      "</a:tr>"
+    )
+  }
+
+  z <- lapply(x, as_tc)
+  z <- do.call(paste0, z)
+  z <- paste0(sprintf("<a:tr h=\"%.0f\">", row_height), z, "</a:tr>", collapse = "")
+
+  z <- paste0(str, header_str, z, "</a:tbl>")
+  z <- paste0(
+    "<a:graphic>",
+    "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">",
+    z, "</a:graphicData>", "</a:graphic>")
+}
+
 
 #' @export
 #' @title table
@@ -326,3 +366,190 @@ to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 
   out
 }
+
+#' @export
+to_pml.block_table <- function(x, add_ns = FALSE,
+                               left = 0, top = 0, width = 3, height = 3,
+                               bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", ...){
+
+  if( !is.null(bg) && !is.color( bg ) )
+    stop("bg must be a valid color.", call. = FALSE )
+
+  bg_str <- gen_bg_str(bg)
+
+  xfrm_str <- p_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  if( is.null(ph) || is.na(ph)){
+    ph = "<p:ph/>"
+  }
+
+  value <- characterise_df(x$x)
+  value_str <- table_pptx(value, style_id = x$style,
+                        col_width = as.integer((width/ncol(x$x))*914400),
+                        row_height = as.integer((height/nrow(x$x))*914400),
+                        first_row = x$first_row, last_row = x$last_row,
+                        first_column = x$first_column, last_column = x$last_column,
+                        header = x$header )
+
+
+  str <- paste0("<p:graphicFrame xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+                "<p:nvGraphicFramePr>",
+                sprintf("<p:cNvPr id=\"0\" name=\"%s\"/>", label),
+                "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"1\"/></p:cNvGraphicFramePr>",
+                sprintf("<p:nvPr>%s</p:nvPr>", ph),
+                "</p:nvGraphicFramePr>",
+                xfrm_str,
+                # bg_str,
+                value_str,
+                "</p:graphicFrame>")
+  str
+}
+
+# fpar ----
+
+#' @export
+#' @title concatenate formatted text as a paragraph
+#' @description Create a paragraph representation by concatenating
+#' formatted text or images.
+#'
+#' \code{fpar} supports \code{ftext}, \code{external_img} and simple strings.
+#' All its arguments will be concatenated to create a paragraph where chunks
+#' of text and images are associated with formatting properties.
+#'
+#' Default text and paragraph formatting properties can also
+#' be modified with update.
+#' @details
+#' \code{fortify_fpar}, \code{as.data.frame} are used internally and
+#' are not supposed to be used by end user.
+#'
+#' @param ... cot objects (ftext, external_img)
+#' @param fp_p paragraph formatting properties
+#' @param fp_t default text formatting properties. This is used as
+#' text formatting properties when simple text is provided as argument.
+#'
+#' @param x,object fpar object
+#' @examples
+#' fpar(ftext("hello", shortcuts$fp_bold()))
+#'
+#' # mix text and image -----
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#'
+#' bold_face <- shortcuts$fp_bold(font.size = 12)
+#' bold_redface <- update(bold_face, color = "red")
+#' fpar_1 <- fpar(
+#'   "Hello World, ",
+#'   ftext("how ", prop = bold_redface ),
+#'   external_img(src = img.file, height = 1.06/2, width = 1.39/2),
+#'   ftext(" you?", prop = bold_face ) )
+#' fpar_1
+#'
+#' img_in_par <- fpar(
+#'   external_img(src = img.file, height = 1.06/2, width = 1.39/2),
+#'   fp_p = fp_par(text.align = "center") )
+fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text() ) {
+  out <- list()
+  out$chunks <- list(...)
+  out$fp_p <- fp_p
+  out$fp_t <- fp_t
+  class(out) <- c("fpar")
+  out
+}
+
+#' @export
+#' @rdname fpar
+#' @importFrom stats update
+update.fpar <- function (object, fp_p = NULL, fp_t = NULL, ...){
+
+  if(!is.null(fp_p)){
+    object$fp_p <- fp_p
+  }
+  if(!is.null(fp_t)){
+    object$fp_t <- fp_t
+  }
+
+  object
+}
+
+
+fortify_fpar <- function(x){
+  lapply(x$chunks, function(chk) {
+    if( !inherits(chk, "cot") ){
+      chk <- ftext(text = format(chk), prop = x$fp_t )
+    }
+    chk
+  })
+}
+
+
+#' @rdname fpar
+#' @export
+as.data.frame.fpar <- function( x, ...){
+  chks <- fortify_fpar(x)
+  chks <- chks[sapply(chks, function(x) inherits(x, "ftext"))]
+  chks <- mapply(function(x){
+    data.frame(value = x$value, size = x$pr$font.size,
+               bold = x$pr$bold, italic = x$pr$italic,
+               font.family = x$pr$font.family, stringsAsFactors = FALSE )
+  }, chks, SIMPLIFY = FALSE)
+  rbind.match.columns(chks)
+}
+
+#' @export
+to_wml.fpar <- function(x, add_ns = FALSE, ...) {
+  par_style <- ppr_wml(x$fp_p)
+  chks <- fortify_fpar(x)
+  z <- lapply(chks, to_wml)
+  z$collapse <- ""
+  z <- do.call(paste0, z)
+  paste0("<w:p>", par_style, z, "</w:p>")
+}
+
+#' @export
+to_pml.fpar <- function(x, add_ns = FALSE, ...) {
+
+  open_tag <- ap_ns_no
+  if (add_ns) {
+    open_tag <- ap_ns_yes
+  }
+
+  par_style <- ppr_pml(x$fp_p)
+  chks <- fortify_fpar(x)
+  z <- lapply(chks, to_pml)
+  z$collapse <- ""
+  z <- do.call(paste0, z)
+  paste0(open_tag, par_style, z, "</a:p>")
+}
+
+
+#' @export
+to_html.fpar <- function(x, add_ns = FALSE, ...) {
+  par_style <- ppr_css(x$fp_p)
+  chks <- fortify_fpar(x)
+  z <- lapply(chks, to_html)
+  z$collapse <- ""
+  z <- do.call(paste0, z)
+  sprintf("<p style=\"%s\">%s</p>", par_style, z)
+}
+
+# block_list -----
+
+#' @export
+#' @title create paragraph blocks
+#' @description a list of blocks can be used to gather
+#' several blocks (paragraphs or tables) into a single
+#' object. The function is to be used when adding
+#' footnotes or formatted paragraphs into a new slide.
+#' @param ... a list of objects of class \code{\link{fpar}} or
+#' \code{flextable}. When output is only for Word, objects
+#' of class \code{\link{external_img}} can also be used in
+#' fpar construction to mix text and images in a single paragraph.
+#' @examples
+#'
+#' @example examples/block_list.R
+#' @seealso [ph_with()], [body_add_blocks()]
+block_list <- function(...){
+  x <- list(...)
+  class(x) <- "block_list"
+  x
+}
+
+

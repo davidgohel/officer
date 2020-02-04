@@ -77,7 +77,7 @@ slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
 
   style_id <- get_style_id(data = x$styles, style=style, type = "character")
 
-  footnote_elt <- paste0( wml_with_ns("w:r"),
+  footnote_elt <- paste0( wr_ns_yes,
                           "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
                           "<w:footnoteRef/></w:r>")
   footnote_elt <- sprintf(footnote_elt, style_id)
@@ -93,7 +93,7 @@ slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
   new_src <- new_src[!is.na(new_src)]
   new_src <- unique(new_src)
 
-  blocks <- sapply(blocks, format, type = "wml")
+  blocks <- sapply(blocks, to_wml)
   blocks <- paste(blocks, collapse = "")
   x <- part_reference_img(x, new_src, "footnotes")
 
@@ -105,7 +105,7 @@ slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
   ftn_elt <- wml_part_link_images(x, ftn_elt, "footnotes")
   x <- footnote_add_xml(x, str = ftn_elt, pos = "after", footnote_elt)
 
-  doc_ref_elt <- paste0( wml_with_ns("w:r"),
+  doc_ref_elt <- paste0( wr_ns_yes,
                          "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>",
                          "<w:footnoteReference w:id=\"%.0f\"/></w:r>")
   doc_ref_elt <- sprintf(doc_ref_elt, style_id, id)

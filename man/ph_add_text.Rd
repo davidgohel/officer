@@ -81,7 +81,7 @@ doc <- ph_with(doc, "Un titre 2",
 doc <- ph_with(doc, "",
   location = ph_location(rotation = 90, bg = "red",
       newlabel = "myph"))
-doc <- ph_add_text(doc, str = "Jump here to slide 2!",
+doc <- ph_add_text(doc, str = "dummy text",
   ph_label = "myph")
 
 print(doc, target = fileout)

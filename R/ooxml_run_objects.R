@@ -4,11 +4,32 @@
 #' @title Convert officer objects to WordprocessingML
 #' @description Convert an object made with package officer
 #' to WordprocessingML. The result is a string.
-#' @param x a location for a placeholder.
+#' @param x object
 #' @param add_ns should namespace be added to the top tag
 #' @param ... Arguments to be passed to methods
 to_wml <- function(x, add_ns = FALSE, ...) {
   UseMethod("to_wml")
+}
+
+#' @export
+#' @title Convert officer objects to PresentationML
+#' @description Convert an object made with package officer
+#' to PresentationML. The result is a string.
+#' @param x object
+#' @param add_ns should namespace be added to the top tag
+#' @param ... Arguments to be passed to methods
+to_pml <- function(x, add_ns = FALSE, ...) {
+  UseMethod("to_pml")
+}
+
+#' @export
+#' @title Convert officer objects to HTML
+#' @description Convert an object made with package officer
+#' to HTML. The result is a string.
+#' @param x object
+#' @param ... Arguments to be passed to methods
+to_html <- function(x, ...) {
+  UseMethod("to_html")
 }
 
 
@@ -38,19 +59,19 @@ run_seqfield <- function(seqfield) {
 #' @export
 to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
   xml_elt_1 <- paste0(
-    wml_with_ns("w:r"),
+    wr_ns_yes,
     "<w:rPr/>",
     "<w:fldChar w:fldCharType=\"begin\"/>",
     "</w:r>"
   )
   xml_elt_2 <- paste0(
-    wml_with_ns("w:r"),
+    wr_ns_yes,
     "<w:rPr/>",
     sprintf("<w:instrText xml:space=\"preserve\">%s</w:instrText>", x$seqfield),
     "</w:r>"
   )
   xml_elt_3 <- paste0(
-    wml_with_ns("w:r"),
+    wr_ns_yes,
     "<w:rPr/>",
     "<w:fldChar w:fldCharType=\"end\"/>",
     "</w:r>"
@@ -291,3 +312,124 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
   )
   out
 }
+
+
+# external_img ----
+#' @export
+#' @title external image
+#' @description This function is used to insert images in 'PowerPoint'
+#' slides.
+#' @param src image file path
+#' @param width height in inches
+#' @param height height in inches
+#' @examples
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#'
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc,
+#'   value = external_img(img.file, width = 1.39, height = 1.06),
+#'   location = ph_location_type(type = "body"),
+#'   use_loc_size = FALSE )
+#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @seealso [ph_with]
+external_img <- function(src, width = .5, height = .2) {
+  # note: should it be vectorized
+  check_src <- all(grepl("^rId", src)) || all(file.exists(src))
+  if( !check_src ){
+    stop("src must be a string starting with 'rId' or an image filename")
+  }
+
+  class(src) <- c("external_img", "cot")
+  attr(src, "dims") <- list(width = width, height = height)
+  src
+}
+
+#' @rdname external_img
+#' @param x \code{external_img} object
+#' @export
+dim.external_img <- function( x ){
+  x <- attr(x, "dims")
+  data.frame(width = x$width, height = x$height)
+}
+
+
+#' @rdname external_img
+#' @param ... unused argument
+#' @export
+as.data.frame.external_img <- function( x, ... ){
+  dimx <- attr(x, "dims")
+  data.frame(path = as.character(x), width = dimx$width, height = dimx$height)
+}
+
+#' @export
+to_wml.external_img <- function(x, add_ns = FALSE, ...) {
+
+  open_tag <- wr_ns_no
+  if (add_ns) {
+    open_tag <- wr_ns_yes
+  }
+
+  dims <- attr(x, "dims")
+  width <- dims$width
+  height <- dims$height
+
+  paste0(open_tag,
+         "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
+         sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700*72, height * 12700*72),
+         "<wp:docPr id=\"\" name=\"\"/>",
+         "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
+         "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
+         "<pic:nvPicPr>",
+         "<pic:cNvPr id=\"\" name=\"\"/>",
+         "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
+         "</pic:cNvPicPr></pic:nvPicPr>",
+         "<pic:blipFill>",
+         sprintf("<a:blip r:embed=\"%s\"/>", as.character(x)),
+         "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
+         "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
+         sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
+         "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
+  )
+
+}
+
+
+# ftext -----
+#' @export
+#' @title formatted text
+#' @description Format a chunk of text with text formatting properties.
+#' @param text text value
+#' @param prop formatting text properties
+#' @examples
+#' ftext("hello", fp_text())
+ftext <- function(text, prop) {
+  out <- list( value = formatC(text), pr = prop )
+  class(out) <- c("ftext", "cot")
+  out
+}
+
+#' @export
+to_wml.ftext <- function(x, add_ns = FALSE, ...) {
+  out <- paste0("<w:r>", rpr_wml(x$pr),
+                "<w:t xml:space=\"preserve\">",
+                htmlEscapeCopy(x$value), "</w:t></w:r>")
+  out
+}
+
+#' @export
+to_pml.ftext <- function(x, add_ns = FALSE, ...) {
+  open_tag <- ar_ns_no
+  if (add_ns) {
+    open_tag <- ar_ns_yes
+  }
+  paste0(open_tag, rpr_pml(x$pr),
+         "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>")
+}
+
+#' @export
+to_html.ftext <- function(x, ...) {
+  sprintf("<span style=\"%s\">%s</span>", rpr_css(x$pr), htmlEscapeCopy(x$value))
+}
+
+

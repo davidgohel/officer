@@ -1,5 +1,5 @@
 get_wml_node <- function(x){
-  xml_ <- format(x, type = "wml")
+  xml_ <- to_wml(x)
   read_xml( wml_str(xml_) )
 }
 
@@ -8,9 +8,6 @@ test_that("fpar", {
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
     )
-  expect_output(print(fp), "\\{text:\\{toto\\}\\}\\{text:\\{titi\\}\\}")
-  expect_output(print(ftext("toto", shortcuts$fp_bold())), "\\{text:\\{toto\\}\\}")
-
   fp <- fpar( ftext("toto", fp_text(font.size = 9)), "titi" )
   fp <- update(fp, fp_t = fp_text(bold = TRUE, font.size = 9))
   df <- as.data.frame(fp)
@@ -54,7 +51,7 @@ test_that("wml", {
 })
 
 get_pml_node <- function(x){
-  xml_ <- pml_str(format(x, type = "pml"))
+  xml_ <- pml_str(to_pml(x))
   read_xml( xml_ )
 }
 
@@ -86,7 +83,7 @@ test_that("css", {
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
   )
-  node <- read_xml( format(fp, type = "html") )
+  node <- read_xml( to_html(fp) )
 
   expect_equal(xml_text(node), "tototiti")
   expect_equal(xml_find_all(node, "//span") %>% xml_text(), c("toto", "titi") )
@@ -103,7 +100,7 @@ test_that("css", {
 
 
   fp <- update(fp, fp_p = fp_par(text.align = "center"))
-  node <- read_xml( format(fp, type = "html") )
+  node <- read_xml( to_html(fp) )
   val <- xml_find_all(node, "//p") %>% xml_attr("style") %>%
     has_css_attr(atname = "text-align", value = "center")
   expect_true(val)

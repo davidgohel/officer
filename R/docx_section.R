@@ -106,7 +106,7 @@ body_end_section <- function(x, landscape = FALSE, margins = c(top = NA, bottom 
   else columns_str <- sprintf("<w:cols w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
                               space * w, paste0(columns_str, collapse = "") )
 
-  str <- paste0( wml_with_ns("w:p"),
+  str <- paste0( wp_ns_yes,
                  "<w:pPr><w:sectPr>",
                  ifelse( continuous, "<w:type w:val=\"continuous\"/>", "" ),
                  pgsz_str, mar_str, columns_str, "</w:sectPr></w:pPr></w:p>")
@@ -152,7 +152,7 @@ body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bo
   mar_str <- "<w:pgMar w:top=\"%.0f\" w:right=\"%.0f\" w:bottom=\"%.0f\" w:left=\"%.0f\" w:header=\"%.0f\" w:footer=\"%.0f\" w:gutter=\"0\"/>"
   mar_str <- sprintf(mar_str, mar_top, mar_right, mar_bottom, mar_left, mar_h, mar_f )
 
-  str <- paste0( wml_with_ns("w:sectPr"),
+  str <- paste0( "<w:sectPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\">",
                  "<w:type w:val=\"continuous\"/>",
                  pgsz_str, mar_str, "</w:sectPr>")
   last_sect <- xml_find_first(x$doc_obj$get(), "/w:document/w:body/w:sectPr[last()]")
@@ -164,7 +164,7 @@ body_default_section <- function(x, landscape = FALSE,  margins = c(top = NA, bo
 #' @rdname slip_in_column_break
 break_column_before <- function( x ){ # nocov start
   .Deprecated(new = "slip_in_column_break")
-  xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
+  xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = "before")
 } # nocov end
 
@@ -177,7 +177,7 @@ break_column_before <- function( x ){ # nocov start
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 slip_in_column_break <- function( x, pos = "before" ){
-  xml_elt <- paste0( wml_with_ns("w:r"), "<w:br w:type=\"column\"/>", "</w:r>")
+  xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
@@ -235,7 +235,7 @@ slip_in_column_break <- function( x, pos = "before" ){
 #' print(my_doc, target = tempfile(fileext = ".docx"))
 body_end_section_continuous <- function( x ){
   str <- "<w:pPr><w:sectPr><w:officersection/><w:type w:val=\"continuous\"/></w:sectPr></w:pPr>"
-  str <- paste0( wml_with_ns("w:p"), str, "</w:p>")
+  str <- paste0( wp_ns_yes, str, "</w:p>")
   body_add_xml(x, str = str, pos = "after")
 }
 
@@ -247,7 +247,7 @@ body_end_section_landscape <- function( x, w = 21 / 2.54, h = 29.7 / 2.54 ){
   pgsz_str <- "<w:pgSz w:orient=\"landscape\" w:w=\"%.0f\" w:h=\"%.0f\"/>"
   pgsz_str <- sprintf(pgsz_str, h, w )
   str <- sprintf( "<w:pPr><w:sectPr><w:officersection/>%s</w:sectPr></w:pPr>", pgsz_str)
-  str <- paste0( wml_with_ns("w:p"), str, "</w:p>")
+  str <- paste0( wp_ns_yes, str, "</w:p>")
   as_xml_document(str)
   body_add_xml(x, str = str, pos = "after")
 }
@@ -260,7 +260,7 @@ body_end_section_portrait <- function( x, w = 21 / 2.54, h = 29.7 / 2.54 ){
   pgsz_str <- "<w:pgSz w:orient=\"portrait\" w:w=\"%.0f\" w:h=\"%.0f\"/>"
   pgsz_str <- sprintf(pgsz_str, w, h )
   str <- sprintf( "<w:pPr><w:sectPr><w:officersection/>%s</w:sectPr></w:pPr>", pgsz_str)
-  str <- paste0( wml_with_ns("w:p"), str, "</w:p>")
+  str <- paste0( wp_ns_yes, str, "</w:p>")
   body_add_xml(x, str = str, pos = "after")
 }
 
@@ -290,7 +290,7 @@ body_end_section_columns <- function(x, widths = c(2.5,2.5), space = .25, sep = 
   str <- paste0( "<w:pPr><w:sectPr><w:officersection/>",
                  "<w:type w:val=\"continuous\"/>",
                  columns_str, "</w:sectPr></w:pPr>")
-  str <- paste0( wml_with_ns("w:p"), str, "</w:p>")
+  str <- paste0( wp_ns_yes, str, "</w:p>")
   body_add_xml(x, str = str, pos = "after")
 }
 
@@ -323,7 +323,7 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
   str <- paste0( "<w:pPr><w:sectPr><w:officersection/>",
                  pgsz_str,
                  columns_str, "</w:sectPr></w:pPr>")
-  str <- paste0( wml_with_ns("w:p"), str, "</w:p>")
+  str <- paste0( wp_ns_yes, str, "</w:p>")
   body_add_xml(x, str = str, pos = "after")
 }
 
