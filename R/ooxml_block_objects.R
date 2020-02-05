@@ -375,7 +375,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
-  bg_str <- gen_bg_str(bg)
+  bg_str <- solid_fill_pml(bg)
 
   xfrm_str <- p_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
   if( is.null(ph) || is.na(ph)){
@@ -398,7 +398,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
                 sprintf("<p:nvPr>%s</p:nvPr>", ph),
                 "</p:nvGraphicFramePr>",
                 xfrm_str,
-                # bg_str,
+                bg_str,
                 value_str,
                 "</p:graphicFrame>")
   str

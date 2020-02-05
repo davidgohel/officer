@@ -369,7 +369,7 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
-  bg_str <- gen_bg_str(bg)
+  bg_str <- solid_fill_pml(bg)
 
   xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
   if( is.null(ph) || is.na(ph)){

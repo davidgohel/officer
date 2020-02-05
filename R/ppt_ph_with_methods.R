@@ -98,52 +98,6 @@ ph_with <- function(x, value, location, ...){
   UseMethod("ph_with", value)
 }
 
-gen_bg_str <- function(bg){
-  bg_str <- ""
-  if( !is.null(bg)){
-    bg_str <- solid_fill(bg)
-  }
-  bg_str
-}
-
-a_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
-
-  if( is.null(rot)) rot <- 0
-
-  xfrm_str <- "<a:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>"
-  sprintf(xfrm_str, -rot * 60000,
-          left * 914400, top * 914400,
-          width * 914400, height * 914400)
-}
-
-p_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
-
-  if( is.null(rot)) rot <- 0
-
-  xfrm_str <- "<p:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></p:xfrm>"
-  sprintf(xfrm_str, -rot * 60000,
-          left * 914400, top * 914400,
-          width * 914400, height * 914400)
-}
-
-gen_ph_str <- function( left = 0, top = 0, width = 3, height = 3,
-                bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
-
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
-
-  bg_str <- gen_bg_str(bg)
-
-  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
-  if( is.null(ph) || is.na(ph)){
-    ph = "<p:ph/>"
-  }
-
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
-  sprintf(str, label, ph, xfrm_str, bg_str )
-
-}
-
 
 #' @export
 #' @describeIn ph_with add a character vector to a new shape on the
@@ -152,7 +106,7 @@ ph_with.character <- function(x, value, location, ...){
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
+  new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
@@ -178,7 +132,7 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
   value <- format_fun(value, ...)
   location <- fortify_location(location, doc = x)
 
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
+  new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
@@ -204,7 +158,7 @@ ph_with.factor <- function(x, value, location, ...){
   value <- as.character(value)
   location <- fortify_location(location, doc = x)
 
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
+  new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
@@ -242,7 +196,7 @@ ph_with.block_list <- function(x, value, location, is_list = FALSE, ...){
 
   pars <- paste0(pars, collapse = "")
 
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
+  new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
@@ -268,7 +222,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
 
   p <- to_pml(value)
 
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
+  new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
                rot = location$rotation, bg = location$bg)
@@ -308,7 +262,6 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
     rot = location$rotation, bg = location$bg)
 
   value <- as_xml_document(xml_elt)
-  # xml_to_slide(slide, location, value)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
@@ -425,7 +378,6 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
   xml_elt <- fortify_pml_images(x, xml_str)
 
   value <- as_xml_document(xml_elt)
-  xml_to_slide(slide, location, value)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
@@ -453,7 +405,7 @@ ph_with.empty_content <- function( x, value, location, ... ){
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
-  new_ph <- gen_ph_str(left = location$left, top = location$top,
+  new_ph <- sh_props_pml(left = location$left, top = location$top,
                        width = location$width, height = location$height,
                        label = location$ph_label, ph = location$ph,
                        rot = location$rotation, bg = location$bg)
@@ -520,7 +472,7 @@ xml_to_slide <- function(slide, location, value){
   if( !inherits(node_sppr, "xml_missing") ){
     # add location$bg to SpPr
     if( !is.null(location$bg) ) {
-      bg_str <- gen_bg_str(location$bg)
+      bg_str <- solid_fill_pml(location$bg)
       xml_add_child(node_sppr, as_xml_document(bg_str))
     }
   }

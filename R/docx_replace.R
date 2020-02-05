@@ -1,3 +1,16 @@
+# utils ----
+is_scalar_character <- function( x ) {
+  is.character(x) && length(x) == 1
+}
+is_scalar_logical <- function( x ) {
+  is.logical(x) && length(x) == 1
+}
+
+
+
+# functions ----
+
+
 #' @export
 #' @title replace text at a bookmark location
 #' @description replace text content enclosed in a bookmark

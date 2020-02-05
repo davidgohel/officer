@@ -1,11 +1,3 @@
-attr_chunk <- function( x ){
-  if( !is.null(x) && length( x ) > 0){
-    attribs <- paste0(names(x), "=", shQuote(x, type = "cmd"), collapse = " " )
-    attribs <- paste0(" ", attribs)
-  } else attribs <- ""
-  attribs
-}
-
 read_xfrm <- function(nodeset, file, name){
   if( length(nodeset) < 1 ){
     return(data.frame(stringsAsFactors = FALSE, type = character(0),
@@ -201,14 +193,6 @@ set_row_span <- function( row_details ){
   row_details <- rbind.match.columns(row_details)
   row_details$first <- NULL
   row_details
-}
-
-
-is_scalar_character <- function( x ) {
-  is.character(x) && length(x) == 1
-}
-is_scalar_logical <- function( x ) {
-  is.logical(x) && length(x) == 1
 }
 
 

@@ -9,7 +9,7 @@
 #' doc <- read_docx() %>% body_add_break()
 #' print(doc, target = tempfile(fileext = ".docx"))
 body_add_break <- function( x, pos = "after"){
-  str <- runs_to_par(run_pagebreak(), add_ns = TRUE)
+  str <- runs_to_p_wml(run_pagebreak(), add_ns = TRUE)
   body_add_xml(x = x, str = str, pos = pos)
 }
 
@@ -55,7 +55,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   ext_img <- external_img(new_src, width = width, height = height)
-  xml_elt <- runs_to_par(ext_img, add_ns = TRUE)
+  xml_elt <- runs_to_p_wml(ext_img, add_ns = TRUE)
   x <- docx_reference_img(x, new_src)
   xml_elt <- wml_link_images( x, xml_elt )
 

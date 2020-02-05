@@ -19,7 +19,7 @@ psp_ns_yes <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/
 psp_ns_no <- "<p:sp>"
 
 # utils -----
-runs_to_par <- function(..., add_ns = FALSE){
+runs_to_p_wml <- function(..., add_ns = FALSE){
   runs <- list(...)
   run_str <- lapply(runs, to_wml, add_ns = FALSE)
   run_str$collapse <- ""
@@ -32,6 +32,46 @@ runs_to_par <- function(..., add_ns = FALSE){
   out <- paste0(open_tag, "<w:pPr/>", run_str, "</w:p>")
   out
 }
+
+sh_props_pml <- function( left = 0, top = 0, width = 3, height = 3,
+                          bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
+
+  if( !is.null(bg) && !is.color( bg ) )
+    stop("bg must be a valid color.", call. = FALSE )
+
+  bg_str <- solid_fill_pml(bg)
+
+  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  if( is.null(ph) || is.na(ph)){
+    ph = "<p:ph/>"
+  }
+
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
+  sprintf(str, label, ph, xfrm_str, bg_str )
+
+}
+
+a_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
+
+  start_tag <- "<a:xfrm>"
+  if( !is.null(rot) && rot != 0) start_tag <- sprintf("<a:xfrm rot=\"%.0f\">", -rot * 60000)
+
+  xfrm_str <- paste0(start_tag, "<a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>")
+  sprintf(xfrm_str,
+          left * 914400, top * 914400,
+          width * 914400, height * 914400)
+}
+
+p_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
+
+  if( is.null(rot)) rot <- 0
+
+  xfrm_str <- "<p:xfrm rot=\"%.0f\"><a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></p:xfrm>"
+  sprintf(xfrm_str, -rot * 60000,
+          left * 914400, top * 914400,
+          width * 914400, height * 914400)
+}
+
 
 # colors ----
 
@@ -64,6 +104,14 @@ solid_fill <- function(color) {
            "</a:srgbClr></a:solidFill>"),
     hex_color(color),
     colalpha(color) * 100000 )
+}
+
+solid_fill_pml <- function(bg){
+  bg_str <- ""
+  if( !is.null(bg)){
+    bg_str <- solid_fill(bg)
+  }
+  bg_str
 }
 
 # border ----

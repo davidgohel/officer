@@ -1,3 +1,11 @@
+attr_chunk <- function( x ){
+  if( !is.null(x) && length( x ) > 0){
+    attribs <- paste0(names(x), "=", shQuote(x, type = "cmd"), collapse = " " )
+    attribs <- paste0(" ", attribs)
+  } else attribs <- ""
+  attribs
+}
+
 # content_type -----
 content_type <- R6Class(
   "content_type",
