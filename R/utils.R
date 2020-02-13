@@ -51,6 +51,7 @@ fortify_pml_images <- function(x, str){
 }
 
 fortify_master_xfrm <- function(master_xfrm){
+
   master_xfrm <- as.data.frame(master_xfrm)
   has_type <- grepl("type=", master_xfrm$ph)
   master_xfrm <- master_xfrm[has_type, ]
@@ -106,22 +107,6 @@ xfrmize <- function( slide_xfrm, master_xfrm ){
       !is.na( slide_xfrm$cx ) &
       !is.na( slide_xfrm$cy ),]
 }
-
-
-set_xfrm_attr <- function( node, offx, offy, cx, cy ){
-  off <- xml_child(node, "p:xfrm/a:off")
-  ext <- xml_child(node, "p:xfrm/a:ext")
-
-  xml_attr( off, "x") <- sprintf( "%.0f", offx )
-  xml_attr( off, "y") <- sprintf( "%.0f", offy )
-  xml_attr( ext, "cx") <- sprintf( "%.0f", cx )
-  xml_attr( ext, "cy") <- sprintf( "%.0f", cy )
-
-  cnvpr <- xml_child(node, "*/p:cNvPr")
-  xml_attr( cnvpr, "id") <- ""
-  node
-}
-
 
 
 read_theme_colors <- function(doc, theme){
