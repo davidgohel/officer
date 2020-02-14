@@ -224,7 +224,10 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #' @description add an \code{fpar} (a formatted paragraph) into an rdocx object
 #' @param x a docx device
 #' @param value a character
-#' @param style paragraph style
+#' @param style paragraph style. If NULL, paragraph settings from `fpar` will be used. If not
+#' NULL, it must be a paragraph style name (located in the template
+#' provided as `read_docx(path = ...)`); in that case, paragraph settings from `fpar` will be
+#' ignored.
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @examples

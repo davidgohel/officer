@@ -11,7 +11,10 @@ body_add_fpar(x, value, style = NULL, pos = "after")
 
 \item{value}{a character}
 
-\item{style}{paragraph style}
+\item{style}{paragraph style. If NULL, paragraph settings from \code{fpar} will be used. If not
+NULL, it must be a paragraph style name (located in the template
+provided as \code{read_docx(path = ...)}); in that case, paragraph settings from \code{fpar} will be
+ignored.}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
