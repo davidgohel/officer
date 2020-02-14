@@ -19,7 +19,8 @@ fp_par(
   border.left,
   border.top,
   border.right,
-  shading.color = "transparent"
+  shading.color = "transparent",
+  keep_with_next = FALSE
 )
 
 \method{dim}{fp_par}(x)
@@ -59,6 +60,9 @@ borders. overwrite other border properties.}
 
 \item{shading.color}{shading color - a single character value specifying
 a valid color (e.g. "#000000" or "black").}
+
+\item{keep_with_next}{a scalar logical. Specifies that the paragraph (or at least part of it) should be rendered
+on the same page as the next paragraph when possible.}
 
 \item{x, object}{\code{fp_par} object}
 

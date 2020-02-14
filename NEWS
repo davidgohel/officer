@@ -4,6 +4,8 @@
 
 * new function `get_reference_value` to read reference template used
 by R Markdown.
+* `fp_par` now have an argument "keep_with_next" that specifies that the paragraph (or at least
+part of it) should be rendered on the same page as the next paragraph when possible.
 
 ## Changes
 
