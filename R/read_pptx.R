@@ -30,6 +30,10 @@ read_pptx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.pptx")
 
+  if(!grepl("\\.pptx$", path, ignore.case = TRUE)){
+    stop("read_pptx only support pptx files", call. = FALSE)
+  }
+
   package_dir <- tempfile()
   unpack_folder( file = path, folder = package_dir )
 

@@ -17,6 +17,10 @@ read_docx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.docx")
 
+  if(!grepl("\\.docx$", path, ignore.case = TRUE)){
+    stop("read_docx only support docx files", call. = FALSE)
+  }
+
   package_dir <- tempfile()
   unpack_folder( file = path, folder = package_dir )
 
