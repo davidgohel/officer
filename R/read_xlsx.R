@@ -217,8 +217,8 @@ read_xlsx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.xlsx")
 
-  if(!grepl("\\.xslx$", path, ignore.case = TRUE)){
-    stop("read_xslx only support xslx files", call. = FALSE)
+  if(!grepl("\\.xlsx$", path, ignore.case = TRUE)){
+    stop("read_xlsx only support xlsx files", call. = FALSE)
   }
 
   package_dir <- tempfile()
