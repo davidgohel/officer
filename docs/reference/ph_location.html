@@ -70,7 +70,7 @@ expected format for argument location of functionph_with." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -122,8 +122,16 @@ expected format for argument location of functionph_with." />
 expected format for argument <code>location</code> of function<code>ph_with</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_location</span>(<span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ph_location</span>(
+  <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rotation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,12 +179,13 @@ This label can then be reused by other functions such as <code><a href='ph_locat
 It can be set with argument <code>newlabel</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other functions for placeholder location: <code><a href='ph_location_fullsize.html'>ph_location_fullsize</a></code>,
-  <code><a href='ph_location_label.html'>ph_location_label</a></code>,
-  <code><a href='ph_location_left.html'>ph_location_left</a></code>,
-  <code><a href='ph_location_right.html'>ph_location_right</a></code>,
-  <code><a href='ph_location_template.html'>ph_location_template</a></code>,
-  <code><a href='ph_location_type.html'>ph_location_type</a></code></p></div>
+    <div class='dont-index'><p>Other functions for placeholder location: 
+<code><a href='ph_location_fullsize.html'>ph_location_fullsize</a>()</code>,
+<code><a href='ph_location_label.html'>ph_location_label</a>()</code>,
+<code><a href='ph_location_left.html'>ph_location_left</a>()</code>,
+<code><a href='ph_location_right.html'>ph_location_right</a>()</code>,
+<code><a href='ph_location_template.html'>ph_location_template</a>()</code>,
+<code><a href='ph_location_type.html'>ph_location_type</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
@@ -201,7 +210,7 @@ It can be set with argument <code>newlabel</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

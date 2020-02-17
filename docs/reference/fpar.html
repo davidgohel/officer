@@ -75,7 +75,7 @@ be modified with update." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -138,17 +138,14 @@ be modified with update.</p>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for fpar</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"pml"</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>unused</p></td>
+      <td><p>cot objects (ftext, external_img)</p></td>
     </tr>
     <tr>
       <th>fp_p</th>
@@ -163,10 +160,6 @@ text formatting properties when simple text is provided as argument.</p></td>
       <th>x, object</th>
       <td><p>fpar object</p></td>
     </tr>
-    <tr>
-      <th>type</th>
-      <td><p>a string value ("pml", "wml" or "html").</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -175,7 +168,40 @@ text formatting properties when simple text is provided as argument.</p></td>
 are not supposed to be used by end user.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fpar</span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()))</div><div class='output co'>#&gt; {text:{hello}}</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>fpar</span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()))</div><div class='output co'>#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "hello"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE TRUE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"</div><div class='input'>
 <span class='co'># mix text and image -----</span>
 <span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
 
@@ -186,7 +212,66 @@ are not supposed to be used by end user.</p>
   <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"how "</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_redface</span> ),
   <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>/<span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>/<span class='fl'>2</span>),
   <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>" you?"</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_face</span> ) )
-<span class='no'>fpar_1</span></div><div class='output co'>#&gt; {text:{Hello World, }}{text:{how }}{image:{/Library/Frameworks/R.framework/Resources/doc/html/logo.jpg}}{text:{ you?}}</div><div class='input'>
+<span class='no'>fpar_1</span></div><div class='output co'>#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; [1] "Hello World, "
+#&gt; 
+#&gt; $chunks[[2]]
+#&gt; $value
+#&gt; [1] "how "
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined color     shading fontname vertical_align
+#&gt; 1   12  FALSE TRUE      FALSE   red transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; $chunks[[3]]
+#&gt; [1] "/Library/Frameworks/R.framework/Resources/doc/html/logo.jpg"
+#&gt; attr(,"class")
+#&gt; [1] "external_img" "cot"         
+#&gt; attr(,"dims")
+#&gt; attr(,"dims")$width
+#&gt; [1] 0.695
+#&gt; 
+#&gt; attr(,"dims")$height
+#&gt; [1] 0.53
+#&gt; 
+#&gt; 
+#&gt; $chunks[[4]]
+#&gt; $value
+#&gt; [1] " you?"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined color     shading fontname vertical_align
+#&gt; 1   12  FALSE TRUE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"</div><div class='input'>
 <span class='no'>img_in_par</span> <span class='kw'>&lt;-</span> <span class='fu'>fpar</span>(
   <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>/<span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>/<span class='fl'>2</span>),
   <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span>(<span class='kw'>text.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>) )</div></pre>
@@ -206,7 +291,7 @@ are not supposed to be used by end user.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

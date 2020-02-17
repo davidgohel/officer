@@ -72,7 +72,7 @@ footnotes or formatted paragraphs into a new slide." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -133,26 +133,319 @@ footnotes or formatted paragraphs into a new slide.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>a list of objects of class <code>fpar</code> or
-<code>flextable</code>.</p></td>
+      <td><p>a list of objects of class <code><a href='fpar.html'>fpar</a></code> or
+<code>flextable</code>. When output is only for Word, objects
+of class <code><a href='external_img.html'>external_img</a></code> can also be used in
+fpar construction to mix text and images in a single paragraph.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ph_with.html'>ph_with()</a></code>, <code><a href='body_add_blocks.html'>body_add_blocks()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
-<span class='no'>bl</span> <span class='kw'>&lt;-</span> <span class='fu'>block_list</span>(
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>())),
+    <pre class="examples"><div class='input'>
+<span class='co'>#' # block list ------</span>
+
+<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+<span class='no'>fpt_blue_bold</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#006699"</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>fpt_red_italic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#C32900"</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+
+<span class='co'>## This can be only be used in a MS word output as pptx does</span>
+<span class='co'>## not support paragraphs made of text and images.</span>
+<span class='co'>## (actually it can be used but image will not appear in the</span>
+<span class='co'>## pptx output)</span>
+<span class='no'>value</span> <span class='kw'>&lt;-</span> <span class='fu'>block_list</span>(
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>fpt_blue_bold</span>)),
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>fpt_blue_bold</span>), <span class='st'>" "</span>,
+       <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"world"</span>, <span class='no'>fpt_red_italic</span>)),
   <span class='fu'><a href='fpar.html'>fpar</a></span>(
-    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()),
-    <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>)
-  )
-)</div></pre>
+    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>fpt_red_italic</span>),
+          <span class='fu'><a href='external_img.html'>external_img</a></span>(
+            <span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>)))
+<span class='no'>value</span></div><div class='output co'>#&gt; [[1]]
+#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "hello world"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined   color     shading fontname vertical_align
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"
+#&gt; 
+#&gt; [[2]]
+#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "hello"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined   color     shading fontname vertical_align
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; $chunks[[2]]
+#&gt; [1] " "
+#&gt; 
+#&gt; $chunks[[3]]
+#&gt; $value
+#&gt; [1] "world"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic  bold underlined   color     shading fontname vertical_align
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"
+#&gt; 
+#&gt; [[3]]
+#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "hello world"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic  bold underlined   color     shading fontname vertical_align
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; $chunks[[2]]
+#&gt; [1] "/Library/Frameworks/R.framework/Resources/doc/html/logo.jpg"
+#&gt; attr(,"class")
+#&gt; [1] "external_img" "cot"         
+#&gt; attr(,"dims")
+#&gt; attr(,"dims")$width
+#&gt; [1] 1.39
+#&gt; 
+#&gt; attr(,"dims")$height
+#&gt; [1] 1.06
+#&gt; 
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "block_list"</div><div class='input'>
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='body_add_blocks.html'>body_add_blocks</a></span>(<span class='no'>doc</span>, <span class='no'>value</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))
+
+
+<span class='no'>value</span> <span class='kw'>&lt;-</span> <span class='fu'>block_list</span>(
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>fpt_blue_bold</span>)),
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>fpt_blue_bold</span>), <span class='st'>" "</span>,
+       <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"world"</span>, <span class='no'>fpt_red_italic</span>)),
+  <span class='fu'><a href='fpar.html'>fpar</a></span>(
+    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"blah blah blah"</span>, <span class='no'>fpt_red_italic</span>)))
+<span class='no'>value</span></div><div class='output co'>#&gt; [[1]]
+#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "hello world"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined   color     shading fontname vertical_align
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"
+#&gt; 
+#&gt; [[2]]
+#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "hello"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic bold underlined   color     shading fontname vertical_align
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; $chunks[[2]]
+#&gt; [1] " "
+#&gt; 
+#&gt; $chunks[[3]]
+#&gt; $value
+#&gt; [1] "world"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic  bold underlined   color     shading fontname vertical_align
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"
+#&gt; 
+#&gt; [[3]]
+#&gt; $chunks
+#&gt; $chunks[[1]]
+#&gt; $value
+#&gt; [1] "blah blah blah"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic  bold underlined   color     shading fontname vertical_align
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  
+#&gt; 
+#&gt; 
+#&gt; $fp_p
+#&gt;                     values
+#&gt; text.align            left
+#&gt; padding.top              0
+#&gt; padding.bottom           0
+#&gt; padding.left             0
+#&gt; padding.right            0
+#&gt; shading.color  transparent
+#&gt; borders:
+#&gt;        width color style
+#&gt; top        0 black solid
+#&gt; bottom     0 black solid
+#&gt; left       0 black solid
+#&gt; right      0 black solid
+#&gt; 
+#&gt; $fp_t
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "fpar"
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "block_list"</div><div class='input'>
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='no'>value</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -163,7 +456,7 @@ footnotes or formatted paragraphs into a new slide.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

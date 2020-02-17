@@ -37,8 +37,8 @@
 
 <meta property="og:title" content="add a new empty shape — ph_empty" />
 <meta property="og:description" content="add a new empty shape in the current slide.
-This function was implemented for development purpose and
-should not be used." />
+This function is deprected, function ph_with should be used
+instead." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -71,7 +71,7 @@ should not be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -120,14 +120,23 @@ should not be used." />
 
     <div class="ref-description">
     <p>add a new empty shape in the current slide.
-This function was implemented for development purpose and
-should not be used.</p>
+This function is deprected, function <code>ph_with</code> should be used
+instead.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_empty</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>ph_empty_at</span>(<span class='no'>x</span>, <span class='no'>left</span>, <span class='no'>top</span>, <span class='no'>width</span>, <span class='no'>height</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>, <span class='kw'>rot</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>template_type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>template_index</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>ph_empty_at</span>(
+  <span class='no'>x</span>,
+  <span class='no'>left</span>,
+  <span class='no'>top</span>,
+  <span class='no'>width</span>,
+  <span class='no'>height</span>,
+  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
+  <span class='kw'>rot</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>template_type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>template_index</span> <span class='kw'>=</span> <span class='fl'>1</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,29 +195,11 @@ type 'body'.</p></td>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_empty</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_empty</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>())
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )
-
-<span class='co'># demo ph_empty_at ------</span>
-<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_empty_at</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'ph_empty_at' est obsolète.</span>
-#&gt; <span class='warning'>Utilisez plutôt 'ph_with'</span>
-#&gt; <span class='warning'>Voir help("Deprecated")</span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
@@ -218,7 +209,7 @@ type 'body'.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -70,7 +70,7 @@ to find the corresponding location." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -162,18 +162,48 @@ This label can then be reused by other functions such as <code>ph_location_label
 It can be set with argument <code>newlabel</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other functions for placeholder location: <code><a href='ph_location_fullsize.html'>ph_location_fullsize</a></code>,
-  <code><a href='ph_location_left.html'>ph_location_left</a></code>,
-  <code><a href='ph_location_right.html'>ph_location_right</a></code>,
-  <code><a href='ph_location_template.html'>ph_location_template</a></code>,
-  <code><a href='ph_location_type.html'>ph_location_type</a></code>, <code><a href='ph_location.html'>ph_location</a></code></p></div>
+    <div class='dont-index'><p>Other functions for placeholder location: 
+<code><a href='ph_location_fullsize.html'>ph_location_fullsize</a>()</code>,
+<code><a href='ph_location_left.html'>ph_location_left</a>()</code>,
+<code><a href='ph_location_right.html'>ph_location_right</a>()</code>,
+<code><a href='ph_location_template.html'>ph_location_template</a>()</code>,
+<code><a href='ph_location_type.html'>ph_location_type</a>()</code>,
+<code><a href='ph_location.html'>ph_location</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>"Hello world"</span>,
+    <pre class="examples"><div class='input'>
+<span class='co'># ph_location_label demo ----</span>
+
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>)
+
+<span class='co'># all ph_label can be read here</span>
+<span class='fu'><a href='layout_properties.html'>layout_properties</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>)</div><div class='output co'>#&gt;     master_name              name   type id                   ph_label
+#&gt; 5  Office Theme Title and Content   body  3      Content Placeholder 2
+#&gt; 10 Office Theme Title and Content     dt  4         Date Placeholder 3
+#&gt; 21 Office Theme Title and Content    ftr  5       Footer Placeholder 4
+#&gt; 25 Office Theme Title and Content sldNum  6 Slide Number Placeholder 5
+#&gt; 31 Office Theme Title and Content  title  2                    Title 1
+#&gt;                                             ph     offx      offy       cx
+#&gt; 5                              &lt;p:ph idx="1"/&gt; 0.500000 1.7500000 9.000000
+#&gt; 10        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.500000 6.9513889 2.333333
+#&gt; 21    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.9513889 3.166667
+#&gt; 25 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.9513889 2.333333
+#&gt; 31                        &lt;p:ph type="title"/&gt; 0.500000 0.3003478 9.000000
+#&gt;           cy
+#&gt; 5  4.9496533
+#&gt; 10 0.3993056
+#&gt; 21 0.3993056
+#&gt; 25 0.3993056
+#&gt; 31 1.2500000</div><div class='input'>
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>),
   <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_label</span>(<span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Content Placeholder 2"</span>) )
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>) )</div></pre>
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>()),
+  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_label</span>(<span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Date Placeholder 3"</span>) )
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>"This is a title"</span>,
+  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'>ph_location_label</span>(<span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Title 1"</span>) )
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -191,7 +221,7 @@ It can be set with argument <code>newlabel</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

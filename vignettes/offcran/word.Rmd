@@ -108,7 +108,7 @@ print(my_doc, target = "assets/docx/first_example.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/", "assets/docx/first_example.docx"))
+office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/first_example.docx"))
 ```
 
 
@@ -184,7 +184,7 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE, message=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/body_add_demo.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/body_add_demo.docx" ) )
 ```
 
 ### `slip_in_*` functions
@@ -211,7 +211,7 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/slip_in_demo.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/slip_in_demo.docx" ) )
 ```
 
 These have been implemented mostly to allow the addition of Word's special 
@@ -256,7 +256,7 @@ read_docx() %>%
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/init_doc.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/init_doc.docx" ) )
 ```
 
 Now, let's use `init_doc.docx` with `read_docx()` and manipulate its content 
@@ -287,7 +287,7 @@ print(doc, target = "assets/docx/cursor.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/cursor.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/cursor.docx" ) )
 ```
 
 ## Remove content
@@ -333,7 +333,7 @@ print(my_doc, target = "assets/docx/ipsum_doc.docx")
 **The text search is made via `xpath 1.0` and regular expressions are not supported.**
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/ipsum_doc.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/ipsum_doc.docx" ) )
 ```
 
 ## Replace content
@@ -408,7 +408,7 @@ docx_show_chunk(doc) # Output is 'example one'
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/replace_doc.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/replace_doc.docx" ) )
 ```
 
 To do the same with headers and footers of the Word document, use functions 
@@ -451,7 +451,7 @@ print(my_doc, target = "assets/docx/landscape_section.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/landscape_section.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/landscape_section.docx" ) )
 ```
 
 
@@ -481,7 +481,7 @@ print(my_doc, target = "assets/docx/columns_section.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/columns_section.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/columns_section.docx" ) )
 ```
 
 To add content into a **section with columns and landscape orientation**, you will need to :
@@ -502,7 +502,7 @@ print(my_doc, target = "assets/docx/columns_landscape_section.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/columns_landscape_section.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/columns_landscape_section.docx" ) )
 ```
 
 
@@ -537,7 +537,7 @@ print(my_doc, target = "assets/docx/section.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/section.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/section.docx" ) )
 ```
 
 ## Table and image captions
@@ -602,6 +602,6 @@ print(doc, target = "assets/docx/toc_and_captions.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/", "assets/docx/toc_and_captions.docx" ) )
+office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/toc_and_captions.docx" ) )
 ```
 
