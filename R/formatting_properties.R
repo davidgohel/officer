@@ -281,6 +281,8 @@ print.fp_border <- function(x, ...) {
 #' borders. overwrite other border properties.
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
+#' @param keep_with_next a scalar logical. Specifies that the paragraph (or at least part of it) should be rendered
+#' on the same page as the next paragraph when possible.
 #' @return a \code{fp_par} object
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
@@ -292,7 +294,8 @@ fp_par = function(text.align = "left",
                   padding.left, padding.right,
                   border.bottom, border.left,
                   border.top, border.right,
-                  shading.color = "transparent") {
+                  shading.color = "transparent",
+                  keep_with_next = FALSE) {
 
   out = list()
 
@@ -325,6 +328,7 @@ fp_par = function(text.align = "left",
   if( !missing(border.right) )
     out <- check_set_border( obj = out, border.right)
 
+  out$keep_with_next <- keep_with_next
   class( out ) = "fp_par"
 
   out

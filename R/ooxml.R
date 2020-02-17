@@ -228,6 +228,10 @@ ppr_wml <- function(x){
     x$text.align  <- "both";
   }
   text_align_ <- sprintf("<w:jc w:val=\"%s\"/>", x$text.align)
+  keep_with_next <- ""
+  if(x$keep_with_next){
+    keep_with_next <- "<w:keepNext/>"
+  }
   borders_ <- paste0(
     border_wml(x$border.bottom, "bottom"),
     border_wml(x$border.top, "top"),
@@ -247,6 +251,7 @@ ppr_wml <- function(x){
 
   paste0("<w:pPr>",
          text_align_,
+         keep_with_next,
          borders_,
          topbot_spacing,
          leftright_padding,
