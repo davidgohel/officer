@@ -88,7 +88,7 @@ failures to find text." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -158,14 +158,32 @@ runs, and what text is in each chunk. This can help troubleshoot unexpected
 failures to find text.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>body_replace_all_text</span>(<span class='no'>x</span>, <span class='no'>old_value</span>, <span class='no'>new_value</span>, <span class='kw'>only_at_cursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>body_replace_all_text</span>(
+  <span class='no'>x</span>,
+  <span class='no'>old_value</span>,
+  <span class='no'>new_value</span>,
+  <span class='kw'>only_at_cursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>headers_replace_all_text</span>(<span class='no'>x</span>, <span class='no'>old_value</span>, <span class='no'>new_value</span>, <span class='kw'>only_at_cursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>headers_replace_all_text</span>(
+  <span class='no'>x</span>,
+  <span class='no'>old_value</span>,
+  <span class='no'>new_value</span>,
+  <span class='kw'>only_at_cursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>footers_replace_all_text</span>(<span class='no'>x</span>, <span class='no'>old_value</span>, <span class='no'>new_value</span>, <span class='kw'>only_at_cursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>footers_replace_all_text</span>(
+  <span class='no'>x</span>,
+  <span class='no'>old_value</span>,
+  <span class='no'>new_value</span>,
+  <span class='kw'>only_at_cursor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -253,7 +271,7 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

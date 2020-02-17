@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -99,20 +99,20 @@
 ## 4         4    paragraph List Paragraph
 ## 5         5    paragraph List Paragraph
 ## 6         6    paragraph List Paragraph
-##                                                        text level num_id
-## 1                                                   Title 1    NA     NA
-## 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit.     NA     NA
-## 3                                                   Title 2    NA     NA
-## 4                                        Quisque tristique      1      2
-## 5                                 Augue nisi, et convallis      1      2
-## 6                                       Sapien mollis nec.      1      2
-##   row_id is_header cell_id col_span row_span
-## 1     NA        NA      NA       NA       NA
-## 2     NA        NA      NA       NA       NA
-## 3     NA        NA      NA       NA       NA
-## 4     NA        NA      NA       NA       NA
-## 5     NA        NA      NA       NA       NA
-## 6     NA        NA      NA       NA       NA</code></pre>
+##                                                        text level num_id row_id
+## 1                                                   Title 1    NA     NA     NA
+## 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit.     NA     NA     NA
+## 3                                                   Title 2    NA     NA     NA
+## 4                                        Quisque tristique      1      2     NA
+## 5                                 Augue nisi, et convallis      1      2     NA
+## 6                                       Sapien mollis nec.      1      2     NA
+##   is_header cell_id col_span row_span
+## 1        NA      NA       NA       NA
+## 2        NA      NA       NA       NA
+## 3        NA      NA       NA       NA
+## 4        NA      NA       NA       NA
+## 5        NA      NA       NA       NA
+## 6        NA      NA       NA       NA</code></pre>
 <p>Explore the results:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(content<span class="op">$</span>doc_index, </a>
 <a class="sourceLine" id="cb3-2" title="2">       content<span class="op">$</span>content_type, </a>
@@ -234,20 +234,20 @@
 <a class="sourceLine" id="cb15-2" title="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/read_pptx.html">read_pptx</a></span>(example_pptx)</a>
 <a class="sourceLine" id="cb15-3" title="3">content &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/pptx_summary.html">pptx_summary</a></span>(doc)</a>
 <a class="sourceLine" id="cb15-4" title="4"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(content)</a></code></pre></div>
-<pre><code>##                  text id content_type slide_id row_id cell_id col_span
-## 1               Title 12    paragraph        1     NA      NA       NA
-## 2            A table  13    paragraph        1     NA      NA       NA
-## 3       and some text 13    paragraph        1     NA      NA       NA
-## 4   and some list (1) 13    paragraph        1     NA      NA       NA
-## 5   and some list (2) 13    paragraph        1     NA      NA       NA
-## 1.1         Header 1  18   table cell        1      1       1        1
-##     row_span media_file
-## 1         NA       &lt;NA&gt;
-## 2         NA       &lt;NA&gt;
-## 3         NA       &lt;NA&gt;
-## 4         NA       &lt;NA&gt;
-## 5         NA       &lt;NA&gt;
-## 1.1        1       &lt;NA&gt;</code></pre>
+<pre><code>##                  text id content_type slide_id row_id cell_id col_span row_span
+## 1               Title 12    paragraph        1     NA      NA       NA       NA
+## 2            A table  13    paragraph        1     NA      NA       NA       NA
+## 3       and some text 13    paragraph        1     NA      NA       NA       NA
+## 4   and some list (1) 13    paragraph        1     NA      NA       NA       NA
+## 5   and some list (2) 13    paragraph        1     NA      NA       NA       NA
+## 1.1         Header 1  18   table cell        1      1       1        1        1
+##     media_file
+## 1         &lt;NA&gt;
+## 2         &lt;NA&gt;
+## 3         &lt;NA&gt;
+## 4         &lt;NA&gt;
+## 5         &lt;NA&gt;
+## 1.1       &lt;NA&gt;</code></pre>
 <p>Explore the results:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(content<span class="op">$</span>id, </a>
 <a class="sourceLine" id="cb17-2" title="2">       content<span class="op">$</span>content_type, </a>
@@ -326,7 +326,7 @@
 
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

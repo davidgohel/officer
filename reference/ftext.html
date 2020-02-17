@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -120,13 +120,7 @@
     <p>Format a chunk of text with text formatting properties.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ftext</span>(<span class='no'>text</span>, <span class='no'>prop</span>)
-
-<span class='co'># S3 method for ftext</span>
-<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"console"</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for ftext</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>ftext</span>(<span class='no'>text</span>, <span class='no'>prop</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,23 +133,19 @@
       <th>prop</th>
       <td><p>formatting text properties</p></td>
     </tr>
-    <tr>
-      <th>x</th>
-      <td><p><code>ftext</code> object</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>output format, one of wml, pml, html, console, text.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
-    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ftext</span>(<span class='st'>"hello"</span>, <span class='fu'><a href='fp_text.html'>fp_text</a></span>())</div><div class='output co'>#&gt; {text:{hello}}</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>ftext</span>(<span class='st'>"hello"</span>, <span class='fu'><a href='fp_text.html'>fp_text</a></span>())</div><div class='output co'>#&gt; $value
+#&gt; [1] "hello"
+#&gt; 
+#&gt; $pr
+#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "ftext" "cot"  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -171,7 +161,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -120,10 +120,21 @@
     <p>Create a <code>fp_cell</code> object that describes cell formatting properties.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fp_cell</span>(<span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='fp_border.html'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0</span>), <span class='no'>border.bottom</span>, <span class='no'>border.left</span>,
-  <span class='no'>border.top</span>, <span class='no'>border.right</span>, <span class='kw'>vertical.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>margin.bottom</span>, <span class='no'>margin.top</span>, <span class='no'>margin.left</span>, <span class='no'>margin.right</span>,
-  <span class='kw'>background.color</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>, <span class='kw'>text.direction</span> <span class='kw'>=</span> <span class='st'>"lrtb"</span>)
+    <pre class="usage"><span class='fu'>fp_cell</span>(
+  <span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='fp_border.html'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0</span>),
+  <span class='no'>border.bottom</span>,
+  <span class='no'>border.left</span>,
+  <span class='no'>border.top</span>,
+  <span class='no'>border.right</span>,
+  <span class='kw'>vertical.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>,
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='no'>margin.bottom</span>,
+  <span class='no'>margin.top</span>,
+  <span class='no'>margin.left</span>,
+  <span class='no'>margin.right</span>,
+  <span class='kw'>background.color</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
+  <span class='kw'>text.direction</span> <span class='kw'>=</span> <span class='st'>"lrtb"</span>
+)
 
 <span class='co'># S3 method for fp_cell</span>
 <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"wml"</span>, <span class='no'>...</span>)
@@ -132,10 +143,23 @@
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for fp_cell</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='no'>border</span>, <span class='no'>border.bottom</span>, <span class='no'>border.left</span>,
-  <span class='no'>border.top</span>, <span class='no'>border.right</span>, <span class='no'>vertical.align</span>, <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>margin.bottom</span>,
-  <span class='no'>margin.top</span>, <span class='no'>margin.left</span>, <span class='no'>margin.right</span>, <span class='no'>background.color</span>, <span class='no'>text.direction</span>,
-  <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
+  <span class='no'>object</span>,
+  <span class='no'>border</span>,
+  <span class='no'>border.bottom</span>,
+  <span class='no'>border.left</span>,
+  <span class='no'>border.top</span>,
+  <span class='no'>border.right</span>,
+  <span class='no'>vertical.align</span>,
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='no'>margin.bottom</span>,
+  <span class='no'>margin.top</span>,
+  <span class='no'>margin.left</span>,
+  <span class='no'>margin.right</span>,
+  <span class='no'>background.color</span>,
+  <span class='no'>text.direction</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,7 +212,7 @@ value is one of "lrtb", "tbrl", "btlr".</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>fp_cell</span>(<span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>( <span class='no'>obj</span>, <span class='kw'>margin.bottom</span> <span class='kw'>=</span> <span class='fl'>5</span> )</div><div class='output co'>#&gt; border-bottom: 0.00pt solid rgba(0,0,0,1.00);border-top: 0.00pt solid rgba(0,0,0,1.00);border-left: 0.00pt solid rgba(0,0,0,1.00);border-right: 0.00pt solid rgba(0,0,0,1.00);background-color:transparent;margin-top:1pt;margin-bottom:5pt;margin-left:1pt;margin-right:1pt;vertical-align:middle;</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>( <span class='no'>obj</span>, <span class='kw'>margin.bottom</span> <span class='kw'>=</span> <span class='fl'>5</span> )</div><div class='output co'>#&gt; background-color:transparent;vertical-align:middle;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;margin-bottom:5pt;margin-top:1pt;margin-left:1pt;margin-right:1pt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -204,7 +228,7 @@ value is one of "lrtb", "tbrl", "btlr".</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

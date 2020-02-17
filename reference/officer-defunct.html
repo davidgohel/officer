@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>eval a location on the current slide — location_eval • officer</title>
+<title>Defunct Functions in Package officer — officer-defunct • officer</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,8 @@
 
 
 
-<meta property="og:title" content="eval a location on the current slide — location_eval" />
-<meta property="og:description" content="Eval a shape location against the current slide.
-This function is to be used to add custom openxml code." />
+<meta property="og:title" content="Defunct Functions in Package officer — officer-defunct" />
+<meta property="og:description" content="Defunct Functions in Package officer" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +69,7 @@ This function is to be used to add custom openxml code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -112,67 +111,57 @@ This function is to be used to add custom openxml code." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>eval a location on the current slide</h1>
+    <h1>Defunct Functions in Package officer</h1>
     
-    <div class="hidden name"><code>location_eval.Rd</code></div>
+    <div class="hidden name"><code>officer-defunct.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Eval a shape location against the current slide.
-This function is to be used to add custom openxml code.</p>
+    <p>Defunct Functions in Package officer</p>
     </div>
 
-    <pre class="usage"><span class='fu'>location_eval</span>(<span class='no'>location</span>, <span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>ph_from_xml</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_from_xml_at</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_with_table</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_with_img</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_with_gg</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_with_ul</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_with_table_at</span>(<span class='no'>...</span>)
+
+<span class='fu'>ph_with_fpars_at</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>location</th>
-      <td><p>a location for a placeholder.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>an rpptx object</p></td>
+      <th>...</th>
+      <td><p>unused arguments</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p><code><a href='ph_location.html'>ph_location</a></code>, <code><a href='ph_with.html'>ph_with</a></code></p></div>
+    <p><code>ph_from_xml()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_from_xml_at()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_with_table()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_with_img()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_with_gg()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_with_ul()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_with_table_at()</code> is replaced by <code>ph_with.xml_document</code>.</p>
+<p><code>ph_with_fpars_at()</code> is replaced by <code>ph_with.xml_document</code>.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>,
-  <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='fu'>location_eval</span>(<span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>(), <span class='no'>doc</span>)</div><div class='output co'>#&gt; $width
-#&gt; [1] 10
-#&gt; 
-#&gt; $height
-#&gt; [1] 7.5
-#&gt; 
-#&gt; $left
-#&gt; [1] 0
-#&gt; 
-#&gt; $top
-#&gt; [1] 0
-#&gt; 
-#&gt; $ph_label
-#&gt; [1] ""
-#&gt; 
-#&gt; $ph
-#&gt; [1] NA
-#&gt; 
-#&gt; $type
-#&gt; [1] "body"
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
@@ -182,7 +171,7 @@ This function is to be used to add custom openxml code.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

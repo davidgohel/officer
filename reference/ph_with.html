@@ -72,7 +72,7 @@ ph_with_*." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ and should replace calls to older functions starting with
 <code>ph_with_*</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for character</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
@@ -141,24 +141,37 @@ and should replace calls to older functions starting with
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>format_fun</span> <span class='kw'>=</span> <span class='no'>format</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for block_list</span>
-<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>is_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for unordered_list</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>first_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>first_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>last_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>ph_with</span>(
+  <span class='no'>x</span>,
+  <span class='no'>value</span>,
+  <span class='no'>location</span>,
+  <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_row</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>first_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>last_row</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>last_column</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for gg</span>
-<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for plot_instr</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for external_img</span>
-<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>use_loc_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>use_loc_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for fpar</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for empty_content</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for xml_document</span>
@@ -180,10 +193,6 @@ pretty tables with package flextable, editable graphics with
 package rvg, 'Microsoft' charts with package mschart.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments to be passed to methods</p></td>
-    </tr>
-    <tr>
       <th>location</th>
       <td><p>a placeholder location object.
 It will be used to specify the location of the new shape. This location
@@ -191,8 +200,20 @@ can be defined with a call to one of the ph_location functions. See
 section <code>see also</code>.</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>further arguments passed to or from other methods. When
+adding a <code>ggplot</code> object or <code>plot_instr</code>, these arguments will be used
+by png function.</p></td>
+    </tr>
+    <tr>
       <th>format_fun</th>
       <td><p>format function for non character vectors</p></td>
+    </tr>
+    <tr>
+      <th>is_list</th>
+      <td><p>experimental paramater to make
+block_list formated as an unordered list. This
+should evolve in the next versions.</p></td>
     </tr>
     <tr>
       <th>header</th>
@@ -201,6 +222,10 @@ section <code>see also</code>.</p></td>
     <tr>
       <th>first_row, last_row, first_column, last_column</th>
       <td><p>logical for PowerPoint table options</p></td>
+    </tr>
+    <tr>
+      <th>res</th>
+      <td><p>resolution of the png image in ppi</p></td>
     </tr>
     <tr>
       <th>use_loc_size</th>
@@ -229,6 +254,8 @@ of <code><a href='fpar.html'>fpar</a></code> to a new shape on the current slide
 package <code>flextable</code> instead for more advanced formattings.</p></li>
 <li><p><code>gg</code>: add a ggplot object to a new shape on the
 current slide. Use package <code>rvg</code> for more advanced graphical features.</p></li>
+<li><p><code>plot_instr</code>: add an R plot to a new shape on the
+current slide. Use package <code>rvg</code> for more advanced graphical features.</p></li>
 <li><p><code>external_img</code>: add a <code><a href='external_img.html'>external_img</a></code> to a new shape
 on the current slide.</p>
 <p>When value is a external_img object, image will be copied
@@ -238,6 +265,8 @@ ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.</p></li>
 <li><p><code>fpar</code>: add an <code><a href='fpar.html'>fpar</a></code> to a new shape
 on the current slide as a single paragraph in a <code><a href='block_list.html'>block_list</a></code>.</p></li>
+<li><p><code>empty_content</code>: add an <code><a href='empty_content.html'>empty_content</a></code> to a new shape
+on the current slide.</p></li>
 <li><p><code>xml_document</code>: add an xml_document object to a new shape on the
 current slide. This function is to be used to add custom openxml code.</p></li>
 </ul>
@@ -257,6 +286,17 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>3</span>:<span class='fl'>5</span>],
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_right.html'>ph_location_right</a></span>() )
 
+
+<span class='no'>anyplot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_instr.html'>plot_instr</a></span>(<span class='kw'>code</span> <span class='kw'>=</span> {
+  <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>6</span>)
+})
+
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(
+  <span class='no'>doc</span>, <span class='no'>anyplot</span>,
+  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>(),
+  <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"#00000066"</span>, <span class='kw'>pointsize</span> <span class='kw'>=</span> <span class='fl'>12</span>)
+
 <span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2"</span>) ){
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
   <span class='no'>gg_plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span> ) +
@@ -264,7 +304,8 @@ current slide. This function is to be used to add custom openxml code.</p></li>
       <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>) +
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>()
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>gg_plot</span>,
-                 <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>() )
+                 <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_fullsize.html'>ph_location_fullsize</a></span>(),
+                 <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"transparent"</span> )
   <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"graphic title"</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"title"</span>) )
 }
@@ -291,7 +332,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>bl</span>,
                <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>) )
 
-<span class='co'># block list ------</span>
+<span class='co'># fpar ------</span>
 <span class='no'>hw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)))
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>hw</span>,
@@ -323,7 +364,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.6 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
