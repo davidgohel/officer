@@ -14,6 +14,7 @@ part of it) should be rendered on the same page as the next paragraph when possi
 ## Issues
 
 * fix ph_with.external_img #265 (placeholder properties were not used)
+* fix ph_add_text when paragraph was empty and no content was rendered
 
 # officer 0.3.6
 

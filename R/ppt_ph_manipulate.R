@@ -220,9 +220,10 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
 
   r_shape_ <- to_pml(ftext(text = str, prop = style), add_ns = TRUE)
 
-  if( pos == "after" )
-    where_ <- length(xml_children(current_p))
-  else where_ <- 0
+  if( pos == "after" ){
+    runset <- xml_find_all(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]/a:p[last()]/a:r", office_id) )
+    where_ <- length(runset)
+  } else where_ <- 0
 
   new_node <- as_xml_document(r_shape_)
 
