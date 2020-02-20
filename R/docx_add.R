@@ -219,6 +219,34 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
+
+#' @export
+#' @title add caption into an rdocx object
+#' @description add a \code{caption} into an rdocx object. A Caption
+#' is created with function [block_caption].
+#' @param x a docx device
+#' @param value a [block_caption] object.
+#' @param pos where to add the new element relative to the cursor,
+#' one of "after", "before", "on".
+#' @examples
+#' library(magrittr)
+#' run_num <- run_autonum(seq_id = "tab", pre_label = "tab. ")
+#' caption <- block_caption("iris table",
+#'   style = "Normal", id = "iris_table",
+#'   autonum = run_num )
+#'
+#' doc <- read_docx() %>%
+#'   body_add_par("A title", style = "heading 1") %>%
+#'   body_add_par("Hello world!", style = "Normal") %>%
+#'   body_add_caption(caption) %>%
+#'   body_add_table(iris, style = "table_template")
+#'
+#' print(doc, target = tempfile(fileext = ".docx") )
+body_add_caption <- function( x, value, pos = "after" ){
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml(x = x, str = xml_elt, pos = pos)
+}
+
 #' @export
 #' @title add fpar
 #' @description add an \code{fpar} (a formatted paragraph) into an rdocx object
