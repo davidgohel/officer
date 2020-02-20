@@ -6,7 +6,7 @@
 by R Markdown.
 * `fp_par` now have an argument "keep_with_next" that specifies that the paragraph (or at least
 part of it) should be rendered on the same page as the next paragraph when possible.
-* new function `body_add_caption` to add captions to Word
+* new functions `body_add_caption` and 'body_add_plot'
 
 ## Changes
 

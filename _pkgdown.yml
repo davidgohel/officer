@@ -28,6 +28,7 @@ reference:
     - body_add_par
     - body_add_table
     - body_add_blocks
+    - body_add_plot
     - body_add_caption
     - body_add_fpar
     - body_add_toc

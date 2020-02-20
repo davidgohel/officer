@@ -149,6 +149,39 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = NUL
 }
 
 #' @export
+#' @title add plot
+#' @description add a plot as a png image into an rdocx object
+#' @inheritParams body_add_break
+#' @param value plotting instructions (an expression)
+#' @param style paragraph style
+#' @param width height in inches
+#' @param height height in inches
+#' @param res resolution of the png image in ppi
+#' @param ... Arguments to be passed to png function.
+#' @importFrom grDevices png dev.off
+#' @examples
+#' doc <- read_docx()
+#'
+#' if( capabilities(what = "png") )
+#'   doc <- body_add_plot(doc, value = barplot(1:6), style = "centered" )
+#'
+#' print(doc, target = tempfile(fileext = ".docx") )
+body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = NULL, ... ){
+
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  tryCatch({
+    eval(value)
+  },
+  finally = {
+    dev.off()
+  } )
+  on.exit(unlink(file))
+  body_add_img(x, src = file, style = style, width = width, height = height)
+}
+
+#' @export
 #' @title add a list of blocks into a document
 #' @description add a list of blocks produced by \code{block_list} into
 #' into an rdocx object
