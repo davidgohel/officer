@@ -314,6 +314,12 @@ block_table <- function(x, style = NULL, header = TRUE,
                         first_row = TRUE, first_column = FALSE,
                         last_row = FALSE, last_column = FALSE,
                         no_hband = FALSE, no_vband = TRUE) {
+
+  stopifnot(is.data.frame(x))
+  if(inherits(x, "tbl_df"))
+    x <- as.data.frame(
+      x, check.names = FALSE, stringsAsFactors = FALSE )
+
   z <- list(
     x = x,
     style = style,

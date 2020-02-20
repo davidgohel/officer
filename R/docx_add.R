@@ -333,20 +333,10 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
                             last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
 
-  stopifnot(is.data.frame(value))
-  if(inherits(value, "tbl_df")) value <-
-      as.data.frame(value, check.names = FALSE, stringsAsFactors = FALSE )
-
-  if( is.null(style) )
-    style <- x$default_styles$table
-
-  style_id <- get_style_id(data = x$styles, style=style, type = "table")
-
-  value <- characterise_df(value)
-  xml_elt <- table_docx(x = value, header = header, style_id = style_id,
-             first_row = first_row, last_row = last_row,
-             first_column = first_column, last_column = last_column,
-             no_hband = no_hband, no_vband = no_vband, add_ns = TRUE)
+  bt <- block_table(x = value, style = style, header = header, first_row = first_row,
+              first_column = first_column, last_row = last_row,
+              last_column = last_column, no_hband = no_hband, no_vband = no_vband)
+  xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
