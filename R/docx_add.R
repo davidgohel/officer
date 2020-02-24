@@ -329,9 +329,8 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
   xml_elt <- to_wml(value, add_ns = TRUE, style_id = style_id)
   x <- docx_reference_img(x, img_src)
   xml_elt <- wml_link_images( x, xml_elt )
-  xml_node <- as_xml_document(xml_elt)
 
-  body_add_xml(x = x, str = as.character(xml_node), pos = pos)
+  body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
 #' @export
@@ -432,6 +431,13 @@ body_add_xml <- function(x, str, pos){
   x
 }
 
+body_add_xml2 <- function(x, str){
+  xml_elt <- as_xml_document(str)
+  last_elt <- xml_find_first(x$doc_obj$get(), "w:body/*[last()]")
+  xml_add_sibling(last_elt, xml_elt, .where = "before")
+  x
+}
+
 #' @export
 #' @importFrom uuid UUIDgenerate
 #' @title add bookmark
@@ -508,4 +514,192 @@ body_remove <- function(x){
   x
 }
 
+
+# -----
+#' @export
+body_add <- function(x, value, ...){
+  UseMethod("body_add", value)
+}
+
+#' @export
+body_add.fpar <- function( x, value, style = NULL, ... ){
+  img_src <- sapply(value$chunks, function(x){
+    if( inherits(x, "external_img"))
+      as.character(x)
+    else NA_character_
+  })
+  img_src <- unique(img_src[!is.na(img_src)])
+
+  if( !is.null(style) ){
+    style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+  } else style_id <- NULL
+
+  xml_elt <- to_wml(value, add_ns = TRUE, style_id = style_id)
+  x <- docx_reference_img(x, img_src)
+  xml_elt <- wml_link_images( x, xml_elt )
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+#' @export
+body_add.character <- function(x, value, style = NULL, ...){
+  slide <- x$slide$get_slide(x$cursor)
+
+  if( !is.null(style) ){
+    style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+  } else style_id <- NULL
+
+  runs <- paste0("<w:r><w:t xml:space=\"preserve\">",
+                htmlEscapeCopy(value), "</w:t></w:r>")
+
+  xml_elt <- paste0(wp_ns_yes, "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>", runs, "</w:p>")
+  for(str in xml_elt){
+    x <- body_add_xml2(x = x, str = str)
+  }
+  x
+}
+
+#' @export
+body_add.numeric <- function(x, value, style = NULL, format_fun = format, ...){
+  value <- format_fun(value, ...)
+  body_add(x, value = value, style = style, ...)
+}
+
+#' @export
+body_add.factor <- function(x, value, style = NULL, format_fun = format, ...){
+  value <- as.character(value)
+  body_add(x, value = value, style = style, ...)
+}
+
+
+
+#' @export
+body_add.data.frame <- function( x, value, style = NULL, pos = "after", header = TRUE,
+                                 first_row = TRUE, first_column = FALSE,
+                                 last_row = FALSE, last_column = FALSE,
+                                 no_hband = FALSE, no_vband = TRUE, ... ){
+
+  bt <- block_table(x = value, style = style, header = header, first_row = first_row,
+                    first_column = first_column, last_row = last_row,
+                    last_column = last_column, no_hband = no_hband, no_vband = no_vband)
+  xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
+
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+
+#' @export
+body_add.block_caption <- function( x, value, ... ){
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+
+#' @export
+body_add.block_list <- function( x, value, ... ){
+
+  if( length(value) > 0 ){
+    pos_vector <- rep("after", length(value))
+    pos_vector[1] <- pos
+    for(i in seq_along(value) ){
+      x <- body_add(x, value = value[[i]])
+    }
+  }
+
+  x
+}
+
+#' @export
+body_add.block_toc <- function( x, value, ... ){
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+
+#' @export
+body_add.external_img <- function( x, value, style = "Normal", ... ){
+
+  if( is.null(style) )
+    style <- x$default_styles$paragraph
+
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src)
+
+  if( file_type %in% ".svg" ){
+    if (!requireNamespace("rsvg")){
+      stop("package 'rsvg' is required to convert svg file to rasters")
+    }
+
+    file <- tempfile(fileext = ".png")
+    rsvg::rsvg_png(src, file = file)
+    value <- external_img(src = file,
+                          width = attr(value, "dims")$width,
+                          height = attr(value, "dims")$height)
+    file_type <- ".png"
+  }
+
+  new_src <- tempfile( fileext = file_type )
+  file.copy( value, to = new_src )
+
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+
+  xml_elt <- paste0(wp_ns_yes,
+                    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
+                    to_wml(new_src, add_ns = FALSE),
+                    "</w:p>")
+
+  x <- docx_reference_img(x, new_src)
+  xml_elt <- wml_link_images( x, xml_elt )
+
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+#' @export
+body_add.run_pagebreak <- function( x, value, style = NULL, ... ){
+
+  if( is.null(style) )
+    style <- x$default_styles$paragraph
+
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+
+  xml_elt <- paste0(wp_ns_yes,
+                    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
+                    to_wml(value, add_ns = FALSE),
+                    "</w:p>")
+
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+#' @export
+body_add.run_columnbreak <- function( x, value, style = NULL, ... ){
+
+  if( is.null(style) )
+    style <- x$default_styles$paragraph
+
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+
+  xml_elt <- paste0(wp_ns_yes,
+                    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
+                    to_wml(value, add_ns = FALSE),
+                    "</w:p>")
+
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+
+#' @export
+body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
+
+  if( !requireNamespace("ggplot2") )
+    stop("package ggplot2 is required to use this function")
+
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  print(value)
+  dev.off()
+  on.exit(unlink(file))
+
+  value <- external_img(src = file, width = width, height = height)
+
+  body_add(x, value, style = style)
+}
 
