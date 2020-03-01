@@ -2,7 +2,6 @@
 % Please edit documentation in R/formatting_properties.R
 \name{fp_par}
 \alias{fp_par}
-\alias{dim.fp_par}
 \alias{print.fp_par}
 \alias{update.fp_par}
 \title{Paragraph formatting properties}
@@ -22,8 +21,6 @@ fp_par(
   shading.color = "transparent",
   keep_with_next = FALSE
 )
-
-\method{dim}{fp_par}(x)
 
 \method{print}{fp_par}(x, ...)
 

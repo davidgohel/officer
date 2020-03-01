@@ -2,6 +2,7 @@
 #' write_xml xml_add_child xml_add_parent xml_add_sibling xml_attr xml_attrs xml_child
 #' xml_children xml_find_all xml_find_first xml_length xml_missing xml_name xml_ns
 #' xml_path xml_remove xml_replace xml_set_attr xml_set_attrs xml_text
+#' @importFrom stats setNames
 
 
 read_xfrm <- function(nodeset, file, name){
