@@ -13,7 +13,7 @@
 #' @param location a placeholder location object.
 #' It will be used to specify the location of the new shape. This location
 #' can be defined with a call to one of the ph_location functions. See
-#' section \code{see also}.
+#' section \code{"see also"}.
 #' @param ... further arguments passed to or from other methods. When
 #' adding a `ggplot` object or `plot_instr`, these arguments will be used
 #' by png function.

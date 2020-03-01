@@ -67,7 +67,7 @@ package rvg, 'Microsoft' charts with package mschart.}
 \item{location}{a placeholder location object.
 It will be used to specify the location of the new shape. This location
 can be defined with a call to one of the ph_location functions. See
-section \code{see also}.}
+section \code{"see also"}.}
 
 \item{...}{further arguments passed to or from other methods. When
 adding a \code{ggplot} object or \code{plot_instr}, these arguments will be used

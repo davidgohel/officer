@@ -515,13 +515,75 @@ body_remove <- function(x){
 }
 
 
-# -----
+# body_add and methods -----
 #' @export
+#' @title add content into a Word document
+#' @description This function add objects into a Word document. Values are added
+#' as new paragraphs or tables.
+#' @param x an rdocx object
+#' @param value object to add in the document. Supported objects
+#' are vectors, data.frame, graphics, block of formatted paragraphs,
+#' unordered list of formatted paragraphs,
+#' pretty tables with package flextable, 'Microsoft' charts with package mschart.
+#' @param ... further arguments passed to or from other methods. When
+#' adding a `ggplot` object or `plot_instr`, these arguments will be used
+#' by png function.
+#' @examples
+#' doc <- read_docx()
+#' doc <- body_add(doc, "A title", style = "heading 1")
+#' doc <- body_add(doc, head(iris), style = "table_template")
+#' doc <- body_add(doc, "Another title", style = "heading 1")
+#' doc <- body_add(doc, letters, style = "Normal")
+#' doc <- body_add(doc, "Table of content", style = "heading 1")
+#' doc <- body_add(doc, block_toc())
+#' print(doc, target = tempfile(fileext = ".docx"))
+#' # print(doc, target = "test.docx")
 body_add <- function(x, value, ...){
   UseMethod("body_add", value)
 }
 
+
 #' @export
+#' @describeIn body_add add a character vector.
+#' @param style paragraph style name. These names are available with function [styles_info]
+#' and are the names of the Word styles defined in the base document (see
+#' argument `path` from [read_docx]).
+body_add.character <- function(x, value, style = NULL, ...){
+
+  if( !is.null(style) ){
+    style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+  } else style_id <- NULL
+
+  runs <- paste0("<w:r><w:t xml:space=\"preserve\">",
+                 htmlEscapeCopy(value), "</w:t></w:r>")
+
+  xml_elt <- paste0(wp_ns_yes, "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>", runs, "</w:p>")
+  for(str in xml_elt){
+    x <- body_add_xml2(x = x, str = str)
+  }
+  x
+}
+
+#' @export
+#' @describeIn body_add add a numeric vector.
+#' @param format_fun a function to be used to format values.
+body_add.numeric <- function(x, value, style = NULL, format_fun = formatC, ...){
+  value <- format_fun(value, ...)
+  body_add(x, value = value, style = style, ...)
+}
+
+#' @export
+#' @describeIn body_add add a factor vector.
+body_add.factor <- function(x, value, style = NULL, format_fun = as.character, ...){
+  value <- format_fun(value)
+  body_add(x, value = value, style = style, ...)
+}
+
+
+
+#' @export
+#' @describeIn body_add add a [fpar] object. These objects enable
+#' the creation of formatted paragraphs made of formatted chunks of text.
 body_add.fpar <- function( x, value, style = NULL, ... ){
   img_src <- sapply(value$chunks, function(x){
     if( inherits(x, "external_img"))
@@ -541,39 +603,18 @@ body_add.fpar <- function( x, value, style = NULL, ... ){
 }
 
 #' @export
-body_add.character <- function(x, value, style = NULL, ...){
-  slide <- x$slide$get_slide(x$cursor)
-
-  if( !is.null(style) ){
-    style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
-  } else style_id <- NULL
-
-  runs <- paste0("<w:r><w:t xml:space=\"preserve\">",
-                htmlEscapeCopy(value), "</w:t></w:r>")
-
-  xml_elt <- paste0(wp_ns_yes, "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>", runs, "</w:p>")
-  for(str in xml_elt){
-    x <- body_add_xml2(x = x, str = str)
-  }
-  x
-}
-
-#' @export
-body_add.numeric <- function(x, value, style = NULL, format_fun = format, ...){
-  value <- format_fun(value, ...)
-  body_add(x, value = value, style = style, ...)
-}
-
-#' @export
-body_add.factor <- function(x, value, style = NULL, format_fun = format, ...){
-  value <- as.character(value)
-  body_add(x, value = value, style = style, ...)
-}
-
-
-
-#' @export
-body_add.data.frame <- function( x, value, style = NULL, pos = "after", header = TRUE,
+#' @param header display header if TRUE
+#' @param first_row Specifies that the first column conditional formatting should be
+#' applied.
+#' @param last_row Specifies that the first column conditional formatting should be applied.
+#' @param first_column Specifies that the first column conditional formatting should
+#' be applied.
+#' @param last_column Specifies that the first column conditional formatting should be
+#' applied.
+#' @param no_hband Specifies that the first column conditional formatting should be applied.
+#' @param no_vband Specifies that the first column conditional formatting should be applied.
+#' @describeIn body_add add a data.frame object.
+body_add.data.frame <- function( x, value, style = NULL, header = TRUE,
                                  first_row = TRUE, first_column = FALSE,
                                  last_row = FALSE, last_column = FALSE,
                                  no_hband = FALSE, no_vband = TRUE, ... ){
@@ -588,6 +629,8 @@ body_add.data.frame <- function( x, value, style = NULL, pos = "after", header =
 
 
 #' @export
+#' @describeIn body_add add a [block_caption] object. These objects enable
+#' the creation of set of formatted paragraphs made of formatted chunks of text.
 body_add.block_caption <- function( x, value, ... ){
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
@@ -595,11 +638,10 @@ body_add.block_caption <- function( x, value, ... ){
 
 
 #' @export
+#' @describeIn body_add add a [block_list] object.
 body_add.block_list <- function( x, value, ... ){
 
   if( length(value) > 0 ){
-    pos_vector <- rep("after", length(value))
-    pos_vector[1] <- pos
     for(i in seq_along(value) ){
       x <- body_add(x, value = value[[i]])
     }
@@ -609,6 +651,7 @@ body_add.block_list <- function( x, value, ... ){
 }
 
 #' @export
+#' @describeIn body_add add a table of content (a [block_toc] object).
 body_add.block_toc <- function( x, value, ... ){
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
@@ -616,6 +659,7 @@ body_add.block_toc <- function( x, value, ... ){
 
 
 #' @export
+#' @describeIn body_add add an image (a [external_img] object).
 body_add.external_img <- function( x, value, style = "Normal", ... ){
 
   if( is.null(style) )
@@ -653,6 +697,7 @@ body_add.external_img <- function( x, value, style = "Normal", ... ){
 }
 
 #' @export
+#' @describeIn body_add add a [run_pagebreak] object.
 body_add.run_pagebreak <- function( x, value, style = NULL, ... ){
 
   if( is.null(style) )
@@ -669,6 +714,7 @@ body_add.run_pagebreak <- function( x, value, style = NULL, ... ){
 }
 
 #' @export
+#' @describeIn body_add add a [run_columnbreak] object.
 body_add.run_columnbreak <- function( x, value, style = NULL, ... ){
 
   if( is.null(style) )
@@ -686,6 +732,10 @@ body_add.run_columnbreak <- function( x, value, style = NULL, ... ){
 
 
 #' @export
+#' @describeIn body_add add a ggplot object.
+#' @param width height in inches
+#' @param height height in inches
+#' @param res resolution of the png image in ppi
 body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   if( !requireNamespace("ggplot2") )
