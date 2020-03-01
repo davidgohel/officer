@@ -14,9 +14,6 @@ test_that("fp_par", {
   expect_equal(x$padding.left, 3)
   expect_equal(x$border.bottom, fp_border(color = "red"))
 
-  x <- fp_par(padding = 0, border = shortcuts$b_null())
-  expect_identical(dim(x), c("width" = 0, "height" = 0) )
-
   expect_equal(fp_sign( fp_par() ), "75762e8a1c1dd942bd7b3a98c93aced7" )
 
 })

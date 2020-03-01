@@ -10,11 +10,8 @@
 #' @param id cross reference identifier
 #' @param autonum an object generated with function [run_autonum]
 #' @examples
-#' block_caption("a caption", style = "Normal", id = "caption_id")
-#' block_caption("a caption",
-#'   style = "Normal", id = "caption_id",
-#'   autonum = run_autonum()
-#' )
+#'
+#' @example examples/block_caption.R
 #' @family block functions for reporting
 block_caption <- function(label, style, id, autonum = NULL) {
   z <- list(
