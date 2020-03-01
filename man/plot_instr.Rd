@@ -18,14 +18,36 @@ The function enable usage of any R plot with argument \code{code}. Wrap your cod
 between curly bracket if more than a single expression.
 }
 \examples{
-anyplot <- plot_instr(code = barplot(1:5, col = 2:6))
 
-library(officer)
+# plot_instr demo ----
+
+anyplot <- plot_instr(code = {
+  barplot(1:5, col = 2:6)
+  })
+
+doc <- read_docx()
+doc <- body_add(doc, anyplot, width = 5, height = 4)
+print(doc, target = tempfile(fileext = ".docx"))
+
+
 doc <- read_pptx()
-doc <- add_slide(doc, "Title and Content", "Office Theme")
-doc <- ph_with(doc, anyplot, location = ph_location_fullsize())
+doc <- add_slide(doc)
+doc <- ph_with(
+  doc, anyplot,
+  location = ph_location_fullsize(),
+  bg = "#00000066", pointsize = 12)
 print(doc, target = tempfile(fileext = ".pptx"))
 }
 \seealso{
-\code{\link{ph_with}}
+\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add]{body_add()}}
+
+Other block functions for reporting: 
+\code{\link{block_caption}()},
+\code{\link{block_list}()},
+\code{\link{block_section}()},
+\code{\link{block_table}()},
+\code{\link{block_toc}()},
+\code{\link{fpar}()},
+\code{\link{unordered_list}()}
 }
+\concept{block functions for reporting}

@@ -14,6 +14,15 @@ read Word or PowerPoint document properties
 and get results in a data.frame.
 }
 \examples{
-library(magrittr)
-read_docx() \%>\% doc_properties()
+x <- read_docx()
+doc_properties(x)
 }
+\seealso{
+Other functions for Word document informations: 
+\code{\link{docx_bookmarks}()},
+\code{\link{docx_dim}()},
+\code{\link{length.rdocx}()},
+\code{\link{set_doc_properties}()},
+\code{\link{styles_info}()}
+}
+\concept{functions for Word document informations}

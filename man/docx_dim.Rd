@@ -16,3 +16,12 @@ are those corresponding to the section where the cursor is.
 \examples{
 docx_dim(read_docx())
 }
+\seealso{
+Other functions for Word document informations: 
+\code{\link{doc_properties}()},
+\code{\link{docx_bookmarks}()},
+\code{\link{length.rdocx}()},
+\code{\link{set_doc_properties}()},
+\code{\link{styles_info}()}
+}
+\concept{functions for Word document informations}

@@ -1,5 +1,4 @@
 #' @export
-#' @importFrom xml2 xml_name<- xml_set_attrs xml_ns xml_remove
 #' @title add a slide
 #' @description add a slide into a pptx presentation
 #' @param x an rpptx object

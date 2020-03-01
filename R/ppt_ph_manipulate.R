@@ -57,7 +57,6 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 #' doc <- ph_remove(x = doc, type = "body", id = 1)
 #'
 #' print(doc, target = fileout )
-#' @importFrom xml2 xml_remove xml_find_all
 #' @family functions for placeholders manipulation
 #' @seealso \code{\link{ph_with}}
 ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL ){
@@ -91,7 +90,6 @@ ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL 
 #' doc <- ph_slidelink(x = doc, ph_label = "Title 1", slide_index = 2)
 #'
 #' print(doc, target = fileout )
-#' @importFrom xml2 xml_remove xml_find_all
 #' @family functions for placeholders manipulation
 #' @seealso \code{\link{ph_with}}
 ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, slide_index){
@@ -132,7 +130,6 @@ ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #'   href = "https://cran.r-project.org")
 #'
 #' print(doc, target = fileout )
-#' @importFrom xml2 xml_remove xml_find_all
 #' @family functions for placeholders manipulation
 #' @seealso \code{\link{ph_with}}
 ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href ){
@@ -200,7 +197,6 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #'   ph_label = "myph")
 #'
 #' print(doc, target = fileout)
-#' @importFrom xml2 xml_child xml_children xml_add_child
 ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label = NULL,
                          style = fp_text(font.size = 0), pos = "after",
                          href = NULL, slide_index = NULL ){
@@ -280,7 +276,6 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
 #'               style = update(default_text, color = "blue"))
 #'
 #' print(doc, target = fileout)
-#' @importFrom xml2 xml_child xml_children xml_add_child
 ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_label = NULL ){
 
   slide <- x$slide$get_slide(x$cursor)
@@ -343,7 +338,6 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
 #'   ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
 #'
 #' print(doc, target = tempfile(fileext = ".pptx"))
-#' @importFrom xml2 xml_child xml_children xml_add_child
 #' @seealso \code{\link{fpar}}
 ph_add_fpar <- function( x, value, type = "body", id = 1, id_chr = NULL, ph_label = NULL,
                          level = 1, par_default = TRUE ){

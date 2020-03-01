@@ -20,7 +20,6 @@
 #' modify these values - they must be defined in the initial document.
 #' @examples
 #' read_pptx()
-#' @importFrom xml2 read_xml xml_length xml_find_first xml_attr xml_ns
 #' @seealso \code{\link{print.rpptx}} \code{\link{add_slide}}
 read_pptx <- function( path = NULL ){
 

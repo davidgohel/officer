@@ -480,7 +480,6 @@ xml_to_slide <- function(slide, location, value){
 }
 
 #' @export
-#' @importFrom xml2 xml_child xml_set_attr xml_missing
 #' @describeIn ph_with add an xml_document object to a new shape on the
 #' current slide. This function is to be used to add custom openxml code.
 ph_with.xml_document <- function( x, value, location, ... ){

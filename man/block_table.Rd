@@ -48,7 +48,11 @@ block_table(x = mtcars)
 \seealso{
 Other block functions for reporting: 
 \code{\link{block_caption}()},
+\code{\link{block_list}()},
 \code{\link{block_section}()},
-\code{\link{block_toc}()}
+\code{\link{block_toc}()},
+\code{\link{fpar}()},
+\code{\link{plot_instr}()},
+\code{\link{unordered_list}()}
 }
 \concept{block functions for reporting}

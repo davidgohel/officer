@@ -22,7 +22,6 @@ length.rpptx <- function( x ){
 #' my_pres <- add_slide(my_pres,
 #'   layout = "Two Content", master = "Office Theme")
 #' slide_size(my_pres)
-#' @importFrom xml2 xml_attrs xml_find_first
 #' @family functions for reading presentation informations
 slide_size <- function(x) {
   pres <- x$presentation$get()

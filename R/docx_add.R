@@ -30,7 +30,6 @@ body_add_break <- function( x, pos = "after"){
 #' }
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
-#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
   if( is.null(style) )
@@ -133,53 +132,13 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'
 #'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
-body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = NULL, ... ){
+body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
-
-  stopifnot(inherits(value, "gg") )
-  file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
-  print(value)
-  dev.off()
-  on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height)
+  body_add(x = x, value = value, width = width, height = height, res = res, style = style, ...)
 }
 
-#' @export
-#' @title add plot
-#' @description add a plot as a png image into an rdocx object
-#' @inheritParams body_add_break
-#' @param value plotting instructions (an expression)
-#' @param style paragraph style
-#' @param width height in inches
-#' @param height height in inches
-#' @param res resolution of the png image in ppi
-#' @param ... Arguments to be passed to png function.
-#' @importFrom grDevices png dev.off
-#' @examples
-#' doc <- read_docx()
-#'
-#' if( capabilities(what = "png") )
-#'   doc <- body_add_plot(doc, value = barplot(1:6), style = "centered" )
-#'
-#' print(doc, target = tempfile(fileext = ".docx") )
-body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = NULL, ... ){
-
-  file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
-  tryCatch({
-    eval(value)
-  },
-  finally = {
-    dev.off()
-  } )
-  on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height)
-}
 
 #' @export
 #' @title add a list of blocks into a document
@@ -204,18 +163,7 @@ body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = N
 #'   body_add_blocks( blocks = bl ) %>%
 #'   print(target = tempfile(fileext = ".docx"))
 body_add_blocks <- function( x, blocks, pos = "after" ){
-
-  stopifnot(inherits(blocks, "block_list"))
-
-  if( length(blocks) > 0 ){
-    pos_vector <- rep("after", length(blocks))
-    pos_vector[1] <- pos
-    for(i in seq_along(blocks) ){
-      x <- body_add_fpar(x, value = blocks[[i]], pos = pos_vector[i])
-    }
-  }
-
-  x
+  body_add(x, blocks)
 }
 
 
@@ -238,7 +186,6 @@ body_add_blocks <- function( x, blocks, pos = "after" ){
 #'   body_add_par("centered text", style = "centered")
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
-#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
   if( is.null(style) )
@@ -311,7 +258,6 @@ body_add_caption <- function( x, value, pos = "after" ){
 #' read_docx() %>% body_add_fpar(img_in_par) %>%
 #'   print(target = tempfile(fileext = ".docx") )
 #'
-#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 #' @seealso \code{\link{fpar}}
 body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 
@@ -359,7 +305,6 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #'   body_add_table(iris, style = "table_template")
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
-#' @importFrom xml2 read_xml xml_find_first write_xml xml_add_sibling as_xml_document
 body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
                             first_row = TRUE, first_column = FALSE,
                             last_row = FALSE, last_column = FALSE,
@@ -403,7 +348,6 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
-#' @importFrom xml2 xml_replace xml_add_sibling
 body_add_xml <- function(x, str, pos){
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before", "on")
@@ -473,7 +417,6 @@ body_bookmark <- function(x, id){
 #' @export
 #' @title remove an element
 #' @description remove element pointed by cursor from a Word document
-#' @importFrom xml2 xml_remove
 #' @param x an rdocx object
 #' @examples
 #' library(officer)
@@ -665,7 +608,7 @@ body_add.external_img <- function( x, value, style = "Normal", ... ){
   if( is.null(style) )
     style <- x$default_styles$paragraph
 
-  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src)
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", value)
 
   if( file_type %in% ".svg" ){
     if (!requireNamespace("rsvg")){
@@ -682,12 +625,13 @@ body_add.external_img <- function( x, value, style = "Normal", ... ){
 
   new_src <- tempfile( fileext = file_type )
   file.copy( value, to = new_src )
+  value[1] <- new_src
 
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   xml_elt <- paste0(wp_ns_yes,
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
-                    to_wml(new_src, add_ns = FALSE),
+                    to_wml(value, add_ns = FALSE),
                     "</w:p>")
 
   x <- docx_reference_img(x, new_src)
@@ -746,6 +690,25 @@ body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
   png(filename = file, width = width, height = height, units = "in", res = res, ...)
   print(value)
   dev.off()
+  on.exit(unlink(file))
+
+  value <- external_img(src = file, width = width, height = height)
+  body_add(x, value, style = style)
+}
+
+#' @export
+#' @describeIn body_add add a base plot
+body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
+
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  tryCatch({
+    eval(value$code)
+  },
+  finally = {
+    dev.off()
+  } )
   on.exit(unlink(file))
 
   value <- external_img(src = file, width = width, height = height)

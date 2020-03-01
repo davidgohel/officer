@@ -121,7 +121,6 @@ presentation <- R6Class(
 
 
 # slide master ------------------------------------------------------------
-#' @importFrom xml2 xml_child
 slide_master <- R6Class(
   "slide_master",
   inherit = openxml_document,

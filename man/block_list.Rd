@@ -42,7 +42,7 @@ value <- block_list(
 value
 
 doc <- read_docx()
-doc <- body_add_blocks(doc, value)
+doc <- body_add(doc, value)
 print(doc, target = tempfile(fileext = ".docx"))
 
 
@@ -62,5 +62,15 @@ print(doc, target = tempfile(fileext = ".pptx"))
 
 }
 \seealso{
-\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add_blocks]{body_add_blocks()}}
+\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add]{body_add()}}
+
+Other block functions for reporting: 
+\code{\link{block_caption}()},
+\code{\link{block_section}()},
+\code{\link{block_table}()},
+\code{\link{block_toc}()},
+\code{\link{fpar}()},
+\code{\link{plot_instr}()},
+\code{\link{unordered_list}()}
 }
+\concept{block functions for reporting}

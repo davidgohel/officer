@@ -29,9 +29,19 @@ The "last modified" and "last modified by" fields will be automatically be updat
 when the file is written.
 }
 \examples{
-library(magrittr)
-read_docx() \%>\% set_doc_properties(title = "title",
+x <- read_docx()
+x <- set_doc_properties(x, title = "title",
   subject = "document subject", creator = "Me me me",
   description = "this document is empty",
-  created = Sys.time()) \%>\% doc_properties()
+  created = Sys.time())
+x <- doc_properties(x)
 }
+\seealso{
+Other functions for Word document informations: 
+\code{\link{doc_properties}()},
+\code{\link{docx_bookmarks}()},
+\code{\link{docx_dim}()},
+\code{\link{length.rdocx}()},
+\code{\link{styles_info}()}
+}
+\concept{functions for Word document informations}

@@ -25,3 +25,12 @@ docx_bookmarks(doc)
 
 docx_bookmarks(read_docx())
 }
+\seealso{
+Other functions for Word document informations: 
+\code{\link{doc_properties}()},
+\code{\link{docx_dim}()},
+\code{\link{length.rdocx}()},
+\code{\link{set_doc_properties}()},
+\code{\link{styles_info}()}
+}
+\concept{functions for Word document informations}

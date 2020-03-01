@@ -136,7 +136,8 @@ test_that("ggplot add", {
   gg_plot <- ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
   x <- read_docx() %>%
-    body_add_gg(value = gg_plot, style = "centered" )
+    body_add(value = gg_plot, style = "centered" )
+  x <- cursor_end(x)
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:drawing")
 })

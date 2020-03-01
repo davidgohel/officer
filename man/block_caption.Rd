@@ -29,8 +29,12 @@ block_caption("a caption",
 }
 \seealso{
 Other block functions for reporting: 
+\code{\link{block_list}()},
 \code{\link{block_section}()},
 \code{\link{block_table}()},
-\code{\link{block_toc}()}
+\code{\link{block_toc}()},
+\code{\link{fpar}()},
+\code{\link{plot_instr}()},
+\code{\link{unordered_list}()}
 }
 \concept{block functions for reporting}

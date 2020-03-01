@@ -14,7 +14,6 @@
 #' one will be added with index 1 and the second one with index 2.
 #' It is recommanded to use argument \code{location} instead of \code{type} and
 #' \code{index}.
-#' @importFrom xml2 xml_find_first as_xml_document xml_remove
 ph_empty <- function( x, type = "body", index = 1, location = NULL ){
   .Deprecated(new = "ph_with")
   if( is.null( location ) ){
@@ -50,7 +49,6 @@ ph_empty_at <- function( x, left, top, width, height, bg = "transparent", rot = 
 #' This function is deprecated in favor of \code{\link{ph_with}}.
 #' @inheritParams ph_empty
 #' @param str text to add
-#' @importFrom xml2 xml_find_first as_xml_document xml_remove
 #' @inherit ph_empty seealso
 ph_with_text <- function( x, str, type = "title", index = 1, location = NULL ){
   .Deprecated(new = "ph_with")

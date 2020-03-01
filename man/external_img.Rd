@@ -2,15 +2,9 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{external_img}
 \alias{external_img}
-\alias{dim.external_img}
-\alias{as.data.frame.external_img}
 \title{external image}
 \usage{
 external_img(src, width = 0.5, height = 0.2)
-
-\method{dim}{external_img}(x)
-
-\method{as.data.frame}{external_img}(x, ...)
 }
 \arguments{
 \item{src}{image file path}
@@ -18,10 +12,6 @@ external_img(src, width = 0.5, height = 0.2)
 \item{width}{height in inches}
 
 \item{height}{height in inches}
-
-\item{x}{\code{external_img} object}
-
-\item{...}{unused argument}
 }
 \description{
 This function is used to insert images in 'PowerPoint'

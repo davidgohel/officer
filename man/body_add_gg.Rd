@@ -4,7 +4,7 @@
 \alias{body_add_gg}
 \title{add ggplot}
 \usage{
-body_add_gg(x, value, width = 6, height = 5, res = 300, style = NULL, ...)
+body_add_gg(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
 }
 \arguments{
 \item{x}{an rdocx object}

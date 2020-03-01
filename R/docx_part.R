@@ -1,6 +1,4 @@
-#' @importFrom xml2 xml_find_all xml_attr read_xml
 #' @import magrittr
-#' @importFrom xml2 xml_ns read_xml xml_find_all xml_name xml_text xml_text<- xml_remove
 docx_part <- R6Class(
   "docx_part",
   inherit = openxml_document,

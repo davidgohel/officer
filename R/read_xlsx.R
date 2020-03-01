@@ -114,7 +114,6 @@ worksheets <- R6Class(
 )
 
 # sheet ------------------------------------------------------------
-#' @importFrom xml2 xml_replace xml_add_parent
 sheet <- R6Class(
   "sheet",
   inherit = openxml_document,

@@ -3,14 +3,11 @@
 \name{fpar}
 \alias{fpar}
 \alias{update.fpar}
-\alias{as.data.frame.fpar}
 \title{concatenate formatted text as a paragraph}
 \usage{
 fpar(..., fp_p = fp_par(), fp_t = fp_text())
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
-
-\method{as.data.frame}{fpar}(x, ...)
 }
 \arguments{
 \item{...}{cot objects (ftext, external_img)}
@@ -20,7 +17,7 @@ fpar(..., fp_p = fp_par(), fp_t = fp_text())
 \item{fp_t}{default text formatting properties. This is used as
 text formatting properties when simple text is provided as argument.}
 
-\item{x, object}{fpar object}
+\item{object}{fpar object}
 }
 \description{
 Create a paragraph representation by concatenating
@@ -56,3 +53,14 @@ img_in_par <- fpar(
   external_img(src = img.file, height = 1.06/2, width = 1.39/2),
   fp_p = fp_par(text.align = "center") )
 }
+\seealso{
+Other block functions for reporting: 
+\code{\link{block_caption}()},
+\code{\link{block_list}()},
+\code{\link{block_section}()},
+\code{\link{block_table}()},
+\code{\link{block_toc}()},
+\code{\link{plot_instr}()},
+\code{\link{unordered_list}()}
+}
+\concept{block functions for reporting}

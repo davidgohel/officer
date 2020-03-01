@@ -123,7 +123,6 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 #' @param height height in inches
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
-#' @importFrom xml2 as_xml_document xml_find_first
 #' @examples
 #' library(magrittr)
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
@@ -160,7 +159,6 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
 #' @export
 #' @title add a wml string into a Word document
-#' @importFrom xml2 as_xml_document xml_find_first xml_add_child
 #' @description The function add a wml string into
 #' the document after, before or on a cursor location.
 #' @param x an rdocx object

@@ -26,7 +26,6 @@ part_reference_img <- function( x, src, part){
   x
 }
 
-#' @importFrom xml2 as_xml_document xml_attr<-
 #' @export
 #' @title transform an xml string with images references
 #' @description The function replace images filenames

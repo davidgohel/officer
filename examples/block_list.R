@@ -20,7 +20,7 @@ value <- block_list(
 value
 
 doc <- read_docx()
-doc <- body_add_blocks(doc, value)
+doc <- body_add(doc, value)
 print(doc, target = tempfile(fileext = ".docx"))
 
 

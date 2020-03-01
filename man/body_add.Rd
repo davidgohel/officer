@@ -14,6 +14,7 @@
 \alias{body_add.run_pagebreak}
 \alias{body_add.run_columnbreak}
 \alias{body_add.gg}
+\alias{body_add.plot_instr}
 \title{add content into a Word document}
 \usage{
 body_add(x, value, ...)
@@ -53,6 +54,8 @@ body_add(x, value, ...)
 \method{body_add}{run_columnbreak}(x, value, style = NULL, ...)
 
 \method{body_add}{gg}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
+
+\method{body_add}{plot_instr}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -126,6 +129,8 @@ the creation of set of formatted paragraphs made of formatted chunks of text.
 \item \code{run_columnbreak}: add a \link{run_columnbreak} object.
 
 \item \code{gg}: add a ggplot object.
+
+\item \code{plot_instr}: add a base plot
 }}
 
 \examples{

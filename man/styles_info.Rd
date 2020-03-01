@@ -14,6 +14,15 @@ read Word styles and get results in
 a tidy data.frame.
 }
 \examples{
-library(magrittr)
-read_docx() \%>\% styles_info()
+x <- read_docx()
+styles_info(x)
 }
+\seealso{
+Other functions for Word document informations: 
+\code{\link{doc_properties}()},
+\code{\link{docx_bookmarks}()},
+\code{\link{docx_dim}()},
+\code{\link{length.rdocx}()},
+\code{\link{set_doc_properties}()}
+}
+\concept{functions for Word document informations}

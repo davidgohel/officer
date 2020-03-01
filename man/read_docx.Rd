@@ -3,14 +3,11 @@
 \name{read_docx}
 \alias{read_docx}
 \alias{print.rdocx}
-\alias{length.rdocx}
 \title{open a connection to a 'Word' file}
 \usage{
 read_docx(path = NULL)
 
 \method{print}{rdocx}(x, target = NULL, ...)
-
-\method{length}{rdocx}(x)
 }
 \arguments{
 \item{path}{path to the docx file to use as base document.}
@@ -35,7 +32,7 @@ if( require(magrittr) ){
   read_docx() \%>\% print(target = tempfile(fileext = ".docx"))
 }
 
-# how many elements are there in the document ----
-length( read_docx() )
-
+}
+\seealso{
+\link{print.rdocx}, \link{body_add}
 }

@@ -432,7 +432,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' @param fp_t default text formatting properties. This is used as
 #' text formatting properties when simple text is provided as argument.
 #'
-#' @param x,object fpar object
+#' @param object fpar object
 #' @examples
 #' fpar(ftext("hello", shortcuts$fp_bold()))
 #'
@@ -451,6 +451,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' img_in_par <- fpar(
 #'   external_img(src = img.file, height = 1.06/2, width = 1.39/2),
 #'   fp_p = fp_par(text.align = "center") )
+#' @family block functions for reporting
 fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text() ) {
   out <- list()
   out$chunks <- list(...)
@@ -486,8 +487,6 @@ fortify_fpar <- function(x){
 }
 
 
-#' @rdname fpar
-#' @export
 as.data.frame.fpar <- function( x, ...){
   chks <- fortify_fpar(x)
   chks <- chks[sapply(chks, function(x) inherits(x, "ftext"))]
@@ -560,7 +559,8 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #'
 #' @example examples/block_list.R
-#' @seealso [ph_with()], [body_add_blocks()]
+#' @seealso [ph_with()], [body_add()]
+#' @family block functions for reporting
 block_list <- function(...){
   x <- list(...)
   class(x) <- "block_list"
@@ -592,6 +592,7 @@ block_list <- function(...){
 #'   fp_text(color = "orange", font.size = 0)
 #'   ))
 #' @seealso \code{\link{ph_with}}
+#' @family block functions for reporting
 unordered_list <- function(str_list = character(0), level_list = integer(0), style = NULL){
   stopifnot(is.character(str_list))
   stopifnot(is.numeric(level_list))
@@ -651,16 +652,12 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
 #'
 #' @param code plotting instructions
 #' @examples
-#' anyplot <- plot_instr(code = barplot(1:5, col = 2:6))
 #'
-#' library(officer)
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content", "Office Theme")
-#' doc <- ph_with(doc, anyplot, location = ph_location_fullsize())
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example examples/plot_instr.R
 #' @export
 #' @import graphics
-#' @seealso \code{\link{ph_with}}
+#' @seealso [ph_with()], [body_add()]
+#' @family block functions for reporting
 plot_instr <- function(code) {
   out <- list()
   out$code <- substitute(code)

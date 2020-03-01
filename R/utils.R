@@ -1,3 +1,9 @@
+#' @importFrom xml2 xml_attr<- xml_name<- xml_text<- as_list as_xml_document read_xml
+#' write_xml xml_add_child xml_add_parent xml_add_sibling xml_attr xml_attrs xml_child
+#' xml_children xml_find_all xml_find_first xml_length xml_missing xml_name xml_ns
+#' xml_path xml_remove xml_replace xml_set_attr xml_set_attrs xml_text
+
+
 read_xfrm <- function(nodeset, file, name){
   if( length(nodeset) < 1 ){
     return(data.frame(stringsAsFactors = FALSE, type = character(0),

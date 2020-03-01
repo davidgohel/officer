@@ -4,6 +4,11 @@ anyplot <- plot_instr(code = {
   barplot(1:5, col = 2:6)
   })
 
+doc <- read_docx()
+doc <- body_add(doc, anyplot, width = 5, height = 4)
+print(doc, target = tempfile(fileext = ".docx"))
+
+
 doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(

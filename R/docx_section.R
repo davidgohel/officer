@@ -9,7 +9,6 @@
 #' The function \code{body_end_section()} is reflecting that Word concept.
 #' The function \code{body_default_section()} is only modifying the default section of
 #' the document.
-#' @importFrom xml2 xml_remove
 #' @param x an rdocx object
 #' @param landscape landscape orientation
 #' @param margins a named vector of margin settings in inches, margins not set remain at their default setting

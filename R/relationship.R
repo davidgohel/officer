@@ -1,5 +1,4 @@
 #' @importFrom R6 R6Class
-#' @importFrom xml2 read_xml xml_children xml_ns xml_attr
 relationship <- R6Class(
   "relationship",
   public = list(
