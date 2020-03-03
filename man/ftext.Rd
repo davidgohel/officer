@@ -2,18 +2,36 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{ftext}
 \alias{ftext}
-\title{formatted text}
+\title{formatted chunk of text}
 \usage{
 ftext(text, prop)
 }
 \arguments{
-\item{text}{text value}
+\item{text}{text value, a string.}
 
-\item{prop}{formatting text properties}
+\item{prop}{formatting text properties returned by \link{fp_text}.}
 }
 \description{
-Format a chunk of text with text formatting properties.
+Format a chunk of text with text formatting properties (bold, color, ...).
+
+The function allows you to create pieces of text formatted in a certain way.
+You should use this function in conjunction with \link{fpar} to create paragraphs
+consisting of differently formatted text parts.
 }
 \examples{
 ftext("hello", fp_text())
+
+properties1 <- fp_text(color = "red")
+properties2 <- fp_text(bold = TRUE, shading.color = "yellow")
+ftext1 <- ftext("hello", properties1)
+ftext2 <- ftext("World", properties2)
+paragraph <- fpar(ftext1, " ", ftext2)
+
+x <- read_docx()
+x <- body_add(x, paragraph)
+print(x, target = tempfile(fileext = ".docx"))
 }
+\seealso{
+\link{fp_text}
+}
+\concept{run functions for reporting}

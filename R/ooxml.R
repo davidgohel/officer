@@ -149,16 +149,16 @@ border_pml <- function(x, side){
 
 border_wml <- function(x, side){
   tagname <- paste0("w:", side)
-  if( !x$style %in% c("dotted", "dashed", "solid") ){
-    x$style <- "solid"
+  x$style[x$style %in% "solid"] <- "single"
+  if( !x$style %in% c("dotted", "dashed", "single") ){
+    x$style <- "single"
+  }
+  if( x$width < 0.0001 || is_transparent(x$color) ){
+    x$style <- "none"
   }
 
-  style <- x$style
-  if(style == "solid")
-    style <- "single"
 
-  style_ <- sprintf("w:val=\"%s\"", style)
-
+  style_ <- sprintf("w:val=\"%s\"", x$style)
   width_ <- sprintf("w:sz=\"%.0f\"", x$width*8)
   color_ <- sprintf("w:color=\"%s\"", hex_color(x$color))
 
@@ -232,11 +232,11 @@ ppr_wml <- function(x){
   if(x$keep_with_next){
     keep_with_next <- "<w:keepNext/>"
   }
-  borders_ <- paste0(
+  borders_ <- paste0("<w:pBdr>",
     border_wml(x$border.bottom, "bottom"),
     border_wml(x$border.top, "top"),
     border_wml(x$border.left, "left"),
-    border_wml(x$border.right, "right") )
+    border_wml(x$border.right, "right"), "</w:pBdr>" )
 
   leftright_padding <- sprintf("<w:ind w:firstLine=\"0\" w:left=\"%.0f\" w:right=\"%.0f\"/>",
                                x$padding.left*20, x$padding.right*20)

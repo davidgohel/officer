@@ -9,25 +9,40 @@ external_img(src, width = 0.5, height = 0.2)
 \arguments{
 \item{src}{image file path}
 
-\item{width}{height in inches}
+\item{width}{height in inches.}
 
 \item{height}{height in inches}
 }
 \description{
-This function is used to insert images in 'PowerPoint'
-slides.
+Wraps an image in an object that can then be embedded
+in a PowerPoint slide or within a Word paragraph.
+
+The image is added as a shape in PowerPoint (it is not possible to mix text and
+images in a PowerPoint form). With a Word document, the image will be
+added inside a paragraph.
 }
 \examples{
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
+extimg <- external_img(src = srcfile, height = 1.06/2,
+  width = 1.39/2)
 
 doc <- read_pptx()
 doc <- add_slide(doc)
-doc <- ph_with(x = doc,
-  value = external_img(img.file, width = 1.39, height = 1.06),
+doc <- ph_with(x = doc, value = extimg,
   location = ph_location_type(type = "body"),
   use_loc_size = FALSE )
 print(doc, target = tempfile(fileext = ".pptx"))
+
+fp_t <- fp_text(font.size = 20, color = "red")
+an_fpar <- fpar(extimg, ftext(" is cool!", fp_t))
+
+x <- read_docx()
+x <- body_add(x, an_fpar)
+outfile <- tempfile(fileext = ".docx")
+# outfile <- "example.docx" # comment out to write the docx
+# # int your directory
+print(x, target = outfile)
 }
 \seealso{
-\link{ph_with}
+\link{ph_with}, \link{docx_add}, \link{fpar}
 }

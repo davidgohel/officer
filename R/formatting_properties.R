@@ -108,6 +108,11 @@ check_set_choice <- function( obj, value, choices){
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
 #' @return a \code{fp_text} object
+#' @examples
+#' fp_text()
+#' fp_text(color = "red")
+#' fp_text(bold = TRUE, shading.color = "yellow")
+#' @seealso [ftext], [fpar]
 #' @export
 fp_text <- function( color = "black", font.size = 10,
                      bold = FALSE, italic = FALSE, underlined = FALSE,
@@ -319,6 +324,7 @@ fp_par = function(text.align = "left",
   out <- check_spread_border( obj = out, border,
                               dest = c("border.bottom", "border.top",
                                        "border.left", "border.right") )
+
   if( !missing(border.top) )
     out <- check_set_border( obj = out, border.top)
   if( !missing(border.bottom) )

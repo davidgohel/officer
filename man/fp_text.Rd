@@ -75,5 +75,11 @@ Create a \code{fp_text} object that describes
 text formatting properties.
 }
 \examples{
+fp_text()
+fp_text(color = "red")
+fp_text(bold = TRUE, shading.color = "yellow")
 print( fp_text (color="red", font.size = 12) )
+}
+\seealso{
+\link{ftext}, \link{fpar}
 }

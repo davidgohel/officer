@@ -317,22 +317,37 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 # external_img ----
 #' @export
 #' @title external image
-#' @description This function is used to insert images in 'PowerPoint'
-#' slides.
+#' @description Wraps an image in an object that can then be embedded
+#' in a PowerPoint slide or within a Word paragraph.
+#'
+#' The image is added as a shape in PowerPoint (it is not possible to mix text and
+#' images in a PowerPoint form). With a Word document, the image will be
+#' added inside a paragraph.
 #' @param src image file path
-#' @param width height in inches
+#' @param width height in inches.
 #' @param height height in inches
 #' @examples
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' extimg <- external_img(src = srcfile, height = 1.06/2,
+#'   width = 1.39/2)
 #'
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
-#' doc <- ph_with(x = doc,
-#'   value = external_img(img.file, width = 1.39, height = 1.06),
+#' doc <- ph_with(x = doc, value = extimg,
 #'   location = ph_location_type(type = "body"),
 #'   use_loc_size = FALSE )
 #' print(doc, target = tempfile(fileext = ".pptx"))
-#' @seealso [ph_with]
+#'
+#' fp_t <- fp_text(font.size = 20, color = "red")
+#' an_fpar <- fpar(extimg, ftext(" is cool!", fp_t))
+#'
+#' x <- read_docx()
+#' x <- body_add(x, an_fpar)
+#' outfile <- tempfile(fileext = ".docx")
+#' # outfile <- "example.docx" # comment out to write the docx
+#' # # int your directory
+#' print(x, target = outfile)
+#' @seealso [ph_with], [body_add], [fpar]
 external_img <- function(src, width = .5, height = .2) {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))
@@ -424,16 +439,38 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
 
 # ftext -----
 #' @export
-#' @title formatted text
-#' @description Format a chunk of text with text formatting properties.
-#' @param text text value
-#' @param prop formatting text properties
+#' @title formatted chunk of text
+#' @description Format a chunk of text with text formatting properties (bold, color, ...).
+#'
+#' The function allows you to create pieces of text formatted in a certain way.
+#' You should use this function in conjunction with [fpar] to create paragraphs
+#' consisting of differently formatted text parts.
+#' @param text text value, a string.
+#' @param prop formatting text properties returned by [fp_text].
 #' @examples
 #' ftext("hello", fp_text())
+#'
+#' properties1 <- fp_text(color = "red")
+#' properties2 <- fp_text(bold = TRUE, shading.color = "yellow")
+#' ftext1 <- ftext("hello", properties1)
+#' ftext2 <- ftext("World", properties2)
+#' paragraph <- fpar(ftext1, " ", ftext2)
+#'
+#' x <- read_docx()
+#' x <- body_add(x, paragraph)
+#' print(x, target = tempfile(fileext = ".docx"))
+#' @seealso [fp_text]
+#' @family run functions for reporting
 ftext <- function(text, prop) {
   out <- list( value = formatC(text), pr = prop )
   class(out) <- c("ftext", "cot")
   out
+}
+
+#' @export
+print.ftext <- function (x, ...) {
+  cat("text: ", x$value, "\nformat:\n", sep = "")
+  print(x$pr)
 }
 
 #' @export
