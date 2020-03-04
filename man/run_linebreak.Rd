@@ -2,13 +2,20 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_linebreak}
 \alias{run_linebreak}
-\title{line break}
+\title{page break for Word}
 \usage{
 run_linebreak()
 }
 \description{
-Create a representation of a line break
+Object representing a line break for a Word document. The
+result must be used within a call to \link{fpar}.
 }
 \examples{
-run_linebreak()
+
+fp_t <- fp_text(font.size = 12, bold = TRUE)
+an_fpar <- fpar("let's add a line break", run_linebreak(), ftext("and blah blah!", fp_t))
+
+x <- read_docx()
+x <- body_add(x, an_fpar)
+print(x, target = tempfile(fileext = ".docx"))
 }

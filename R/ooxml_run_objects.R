@@ -141,11 +141,12 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
 # breaks ----
 
 #' @export
-#' @export
-#' @title page break
-#' @description Create a representation of a page break
+#' @title page break for Word
+#' @description Object representing a page break for a Word document. The
+#' result must be used within a call to [fpar].
 #' @examples
-#' run_pagebreak()
+#'
+#' @example examples/run_pagebreak.R
 run_pagebreak <- function() {
   z <- list()
   class(z) <- c("run_pagebreak", "run")
@@ -178,10 +179,12 @@ to_wml.run_columnbreak <- function(x, add_ns = FALSE, ...) {
 }
 
 #' @export
-#' @title line break
-#' @description Create a representation of a line break
+#' @title page break for Word
+#' @description Object representing a line break for a Word document. The
+#' result must be used within a call to [fpar].
 #' @examples
-#' run_linebreak()
+#'
+#' @example examples/run_linebreak.R
 run_linebreak <- function() {
   z <- list()
   class(z) <- c("run_linebreak", "run")
@@ -327,26 +330,8 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' @param width height in inches.
 #' @param height height in inches
 #' @examples
-#' srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' extimg <- external_img(src = srcfile, height = 1.06/2,
-#'   width = 1.39/2)
 #'
-#' doc <- read_pptx()
-#' doc <- add_slide(doc)
-#' doc <- ph_with(x = doc, value = extimg,
-#'   location = ph_location_type(type = "body"),
-#'   use_loc_size = FALSE )
-#' print(doc, target = tempfile(fileext = ".pptx"))
-#'
-#' fp_t <- fp_text(font.size = 20, color = "red")
-#' an_fpar <- fpar(extimg, ftext(" is cool!", fp_t))
-#'
-#' x <- read_docx()
-#' x <- body_add(x, an_fpar)
-#' outfile <- tempfile(fileext = ".docx")
-#' # outfile <- "example.docx" # comment out to write the docx
-#' # # int your directory
-#' print(x, target = outfile)
+#' @example examples/external_img.R
 #' @seealso [ph_with], [body_add], [fpar]
 external_img <- function(src, width = .5, height = .2) {
   # note: should it be vectorized

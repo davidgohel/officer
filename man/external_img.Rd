@@ -22,27 +22,28 @@ images in a PowerPoint form). With a Word document, the image will be
 added inside a paragraph.
 }
 \examples{
+
+# wrap r logo with external_img ----
 srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
 extimg <- external_img(src = srcfile, height = 1.06/2,
-  width = 1.39/2)
+                       width = 1.39/2)
 
+# pptx example ----
 doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(x = doc, value = extimg,
-  location = ph_location_type(type = "body"),
-  use_loc_size = FALSE )
+               location = ph_location_type(type = "body"),
+               use_loc_size = FALSE )
 print(doc, target = tempfile(fileext = ".pptx"))
 
 fp_t <- fp_text(font.size = 20, color = "red")
 an_fpar <- fpar(extimg, ftext(" is cool!", fp_t))
 
+# docx example ----
 x <- read_docx()
 x <- body_add(x, an_fpar)
-outfile <- tempfile(fileext = ".docx")
-# outfile <- "example.docx" # comment out to write the docx
-# # int your directory
-print(x, target = outfile)
+print(x, target = tempfile(fileext = ".docx"))
 }
 \seealso{
-\link{ph_with}, \link{docx_add}, \link{fpar}
+\link{ph_with}, \link{body_add}, \link{fpar}
 }

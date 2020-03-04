@@ -2,13 +2,20 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_pagebreak}
 \alias{run_pagebreak}
-\title{page break}
+\title{page break for Word}
 \usage{
 run_pagebreak()
 }
 \description{
-Create a representation of a page break
+Object representing a page break for a Word document. The
+result must be used within a call to \link{fpar}.
 }
 \examples{
-run_pagebreak()
+
+fp_t <- fp_text(font.size = 12, bold = TRUE)
+an_fpar <- fpar("let's add a break page", run_pagebreak(), ftext("and blah blah!", fp_t))
+
+x <- read_docx()
+x <- body_add(x, an_fpar)
+print(x, target = tempfile(fileext = ".docx"))
 }
