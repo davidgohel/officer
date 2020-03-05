@@ -92,7 +92,7 @@ doc <- read_docx() \%>\%
   # move the cursor forward and end a section
   cursor_forward() \%>\%
   body_add_par("The section stop here", style = "Normal") \%>\%
-  body_end_section(landscape = TRUE) \%>\%
+  body_end_section_landscape() \%>\%
 
   # move the cursor at the end of the document
   cursor_end() \%>\%
