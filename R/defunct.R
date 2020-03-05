@@ -61,3 +61,24 @@ ph_with_fpars_at <- function(...){
 }
 
 
+#' @export
+#' @rdname officer-defunct
+#' @details `body_end_section()` is replaced by function `body_end_section_*`.
+body_end_section <- function(...){
+  .Defunct(new = "body_end_section_*")
+}
+
+#' @export
+#' @rdname officer-defunct
+#' @details `body_default_section()` is replaced by function `body_end_section_*`.
+body_default_section <- function(...){
+  .Defunct(new = "body_end_section_*")
+}
+
+#' @export
+#' @rdname officer-defunct
+#' @details `break_column_before()` is replaced by function `slip_in_column_break`.
+break_column_before <- function(...){
+  .Defunct(new = "slip_in_column_break")
+}
+

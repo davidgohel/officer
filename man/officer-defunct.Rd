@@ -10,6 +10,9 @@
 \alias{ph_with_ul}
 \alias{ph_with_table_at}
 \alias{ph_with_fpars_at}
+\alias{body_end_section}
+\alias{body_default_section}
+\alias{break_column_before}
 \title{Defunct Functions in Package officer}
 \usage{
 ph_from_xml(...)
@@ -27,6 +30,12 @@ ph_with_ul(...)
 ph_with_table_at(...)
 
 ph_with_fpars_at(...)
+
+body_end_section(...)
+
+body_default_section(...)
+
+break_column_before(...)
 }
 \arguments{
 \item{...}{unused arguments}
@@ -50,4 +59,10 @@ Defunct Functions in Package officer
 \code{ph_with_table_at()} is replaced by \code{ph_with.xml_document}.
 
 \code{ph_with_fpars_at()} is replaced by \code{ph_with.xml_document}.
+
+\code{body_end_section()} is replaced by function \verb{body_end_section_*}.
+
+\code{body_default_section()} is replaced by function \verb{body_end_section_*}.
+
+\code{break_column_before()} is replaced by function \code{slip_in_column_break}.
 }
