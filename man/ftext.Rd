@@ -33,5 +33,10 @@ print(x, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 \link{fp_text}
+
+Other run functions for reporting: 
+\code{\link{external_img}()},
+\code{\link{run_linebreak}()},
+\code{\link{run_pagebreak}()}
 }
 \concept{run functions for reporting}

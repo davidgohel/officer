@@ -41,7 +41,8 @@ will be produced.}
 \item{sep}{if TRUE a line is separating columns.}
 }
 \description{
-Add sections in a Word document.
+Add sections in a Word document. A section affects
+preceding paragraphs or tables.
 }
 \details{
 A section starts at the end of the previous section (or the beginning of

@@ -19,3 +19,10 @@ x <- read_docx()
 x <- body_add(x, an_fpar)
 print(x, target = tempfile(fileext = ".docx"))
 }
+\seealso{
+Other run functions for reporting: 
+\code{\link{external_img}()},
+\code{\link{ftext}()},
+\code{\link{run_linebreak}()}
+}
+\concept{run functions for reporting}

@@ -147,6 +147,7 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #'
 #' @example examples/run_pagebreak.R
+#' @family run functions for reporting
 run_pagebreak <- function() {
   z <- list()
   class(z) <- c("run_pagebreak", "run")
@@ -185,6 +186,7 @@ to_wml.run_columnbreak <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #'
 #' @example examples/run_linebreak.R
+#' @family run functions for reporting
 run_linebreak <- function() {
   z <- list()
   class(z) <- c("run_linebreak", "run")
@@ -333,6 +335,7 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #'
 #' @example examples/external_img.R
 #' @seealso [ph_with], [body_add], [fpar]
+#' @family run functions for reporting
 external_img <- function(src, width = .5, height = .2) {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))

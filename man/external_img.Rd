@@ -46,4 +46,10 @@ print(x, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 \link{ph_with}, \link{body_add}, \link{fpar}
+
+Other run functions for reporting: 
+\code{\link{ftext}()},
+\code{\link{run_linebreak}()},
+\code{\link{run_pagebreak}()}
 }
+\concept{run functions for reporting}
