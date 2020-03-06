@@ -8,7 +8,6 @@ test_that("fp_text - print", {
 test_that("fp_text - update", {
 
   fp <- fp_text(font.size = 10)
-  expect_equal(fp_sign( fp ), "05ee0a1dbe9dd3528ac3a92451a44fbc" )
 
   fp <- update(fp, font.size = 20)
   expect_equal(fp$font.size, 20)

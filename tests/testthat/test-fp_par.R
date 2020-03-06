@@ -13,9 +13,6 @@ test_that("fp_par", {
   expect_equal(x$padding.bottom, 3)
   expect_equal(x$padding.left, 3)
   expect_equal(x$border.bottom, fp_border(color = "red"))
-
-  expect_equal(fp_sign( fp_par() ), "75762e8a1c1dd942bd7b3a98c93aced7" )
-
 })
 
 
