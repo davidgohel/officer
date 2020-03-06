@@ -351,7 +351,7 @@ body_add_xml2 <- function(x, str){
   xml_elt <- as_xml_document(str)
   last_elt <- xml_find_first(x$doc_obj$get(), "w:body/*[last()]")
   xml_add_sibling(last_elt, xml_elt, .where = "before")
-  x
+  cursor_end(x)
 }
 
 #' @export
