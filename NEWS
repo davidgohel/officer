@@ -3,6 +3,7 @@
 ## Issues
 
 * fix border issues with word paragraphs
+* reverse changes to `body_add_blocks` and `body_add_gg` as it generated issues with cursor
 
 # officer 0.3.7
 

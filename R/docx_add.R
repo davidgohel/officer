@@ -136,7 +136,15 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
-  body_add(x = x, value = value, width = width, height = height, res = res, style = style, ...)
+
+  stopifnot(inherits(value, "gg") )
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  print(value)
+  dev.off()
+  on.exit(unlink(file))
+  body_add_img(x, src = file, style = style, width = width, height = height)
 }
 
 
@@ -163,7 +171,17 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 #'   body_add_blocks( blocks = bl ) %>%
 #'   print(target = tempfile(fileext = ".docx"))
 body_add_blocks <- function( x, blocks, pos = "after" ){
-  body_add(x, blocks)
+  stopifnot(inherits(blocks, "block_list"))
+
+  if( length(blocks) > 0 ){
+    pos_vector <- rep("after", length(blocks))
+    pos_vector[1] <- pos
+    for(i in seq_along(blocks) ){
+      x <- body_add_fpar(x, value = blocks[[i]], pos = pos_vector[i])
+    }
+  }
+
+  x
 }
 
 
