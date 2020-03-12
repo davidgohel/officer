@@ -54,7 +54,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
   ext_img <- external_img(new_src, width = width, height = height)
-  xml_elt <- runs_to_p_wml(ext_img, add_ns = TRUE)
+  xml_elt <- runs_to_p_wml(ext_img, add_ns = TRUE, style_id = style_id)
   x <- docx_reference_img(x, new_src)
   xml_elt <- wml_link_images( x, xml_elt )
 

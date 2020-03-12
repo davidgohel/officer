@@ -19,7 +19,7 @@ psp_ns_yes <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/
 psp_ns_no <- "<p:sp>"
 
 # utils -----
-runs_to_p_wml <- function(..., add_ns = FALSE){
+runs_to_p_wml <- function(..., add_ns = FALSE, style_id = NULL){
   runs <- list(...)
   run_str <- lapply(runs, to_wml, add_ns = FALSE)
   run_str$collapse <- ""
@@ -29,7 +29,10 @@ runs_to_p_wml <- function(..., add_ns = FALSE){
     open_tag <- wp_ns_yes
   }
 
-  out <- paste0(open_tag, "<w:pPr/>", run_str, "</w:p>")
+  if( !is.null(style_id) )
+    ppr <- paste0("<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>")
+  else ppr <- "<w:pPr/>"
+  out <- paste0(open_tag, ppr, run_str, "</w:p>")
   out
 }
 
