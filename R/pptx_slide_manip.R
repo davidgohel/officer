@@ -9,7 +9,8 @@
 #' layout_summary(my_pres)
 #' my_pres <- add_slide(my_pres,
 #'   layout = "Two Content", master = "Office Theme")
-#' @seealso \code{\link{print.rpptx}} \code{\link{read_pptx}} \code{\link{layout_summary}}
+#' @seealso \code{\link{print.rpptx}} \code{\link{read_pptx}}
+#' \code{\link{ph_with}}, \code{\link{layout_summary}}
 #' @family functions slide manipulation
 add_slide <- function( x, layout = "Title and Content", master = "Office Theme" ){
 
