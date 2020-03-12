@@ -19,3 +19,4 @@
 ^checks$
 ^examples$
 ^todo\.md$
+^tests/testthat/docs_dir/no_master\\.pptx$

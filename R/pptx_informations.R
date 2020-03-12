@@ -67,9 +67,9 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   data <- x$slideLayouts$get_xfrm_data()
 
   if( !is.null(layout) && !is.null(master) ){
-    data <- data[data$name == layout & data$master_name == master,]
+    data <- data[data$name == layout & data$master_name %in% master,]
   } else if( is.null(layout) && !is.null(master) ){
-    data <- data[data$master_name == master,]
+    data <- data[data$master_name %in% master,]
   } else if( !is.null(layout) && is.null(master) ){
     data <- data[data$name == layout,]
   }

@@ -92,6 +92,17 @@ test_that("annotate base template", {
   expect_s3_class(try(annotate_base(), silent = TRUE), "rpptx")
 })
 
+test_that("no master do not generate an error", {
+  skip_if_not(file.exists("docs_dir/no_master.pptx"))
+  x <- read_pptx("docs_dir/no_master.pptx")
+  x <- add_slide(x, layout = "Page One", master = "Office Theme")
+  x <- try(ph_with(x, i, value = "graphic title",
+               location = ph_location_type(type="body")), silent = TRUE)
+  expect_s3_class(x, "rpptx")
+})
+
+
+
 unlink("*.pptx")
 unlink("*.emf")
 

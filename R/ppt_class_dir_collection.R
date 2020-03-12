@@ -27,7 +27,7 @@ dir_collection <- R6Class(
     },
     xfrm = function( ){
       dat <- lapply(private$collection, function(x) x$xfrm() )
-      rbind.match.columns(dat)
+      do.call(rbind, dat)
     }
   ),
 
