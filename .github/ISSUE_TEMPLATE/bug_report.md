@@ -1,38 +1,24 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a bug report
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Not a bug or feature request? If you are looking for help on how to use the 
+package correctly, please read the doc first at https://davidgohel.github.io/officer/. 
+You can also visit [Stackoverflow](http://stackoverflow.com/questions/tagged/officer) 
+and tag your question with `[officer]`. We usually read them and answer WHEN possible.**  
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+When submitting a new issue, provide;
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+- [ ] The code that is producing the error, it has to be a minimal reproducible example.
+Stackoverflow is providing good explanations about it: https://stackoverflow.com/help/mcve. You can use package `reprex` to help you: http://reprex.tidyverse.org/. The most popular R stackoverflow question is about the subject: https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+- [ ] the results of R command `sessionInfo()`. It had to be executed after you loaded the packages used by your example. This will let me know what is your version of R and what are the versions of the packages you used in your example. 
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+- [ ] you did checked you had the latest version of the package on CRAN (and on github if issue exists with CRAN version).
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+- [ ] you searched in the *open* and *closed* issues on the github repository.
 
-**Additional context**
-Add any other context about the problem here.
