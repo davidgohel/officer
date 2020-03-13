@@ -1,6 +1,16 @@
-Issues are a great way to keep track of tasks, enhancements, and bugs for your projects (https://guides.github.com/features/issues/). When submitting, you need to provide the following elements:
+---
+name: Bug report
+about: Create a bug report. **Not a bug or feature request? If you are looking for 
+  help on how to use the package correctly, please read the doc first at 
+  https://davidgohel.github.io/officer/. You can also visit [Stackoverflow](http://stackoverflow.com/questions/tagged/officer) 
+  and tag your question with `[officer]`. We usually read them and answer WHEN possible.**  
+title: ''
+labels: ''
+assignees: ''
+---
 
-### If you are reporting a bug:
+Before using this form, please read the documentation of the function that cause you trouble. When submitting 
+a new issue, provide;
 
 - [ ] The code that is producing the error, it has to be a minimal reproducible example.
 Stackoverflow is providing good explanations about it: https://stackoverflow.com/help/mcve. You can use package `reprex` to help you: http://reprex.tidyverse.org/. The most popular R stackoverflow question is about the subject: https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example.
@@ -10,19 +20,4 @@ Stackoverflow is providing good explanations about it: https://stackoverflow.com
 - [ ] you did checked you had the latest version of the package on CRAN (and on github if issue exists with CRAN version).
 
 - [ ] you searched in the *open* and *closed* issues on the github repository.
-
-
-### If you are asking an enhancement or a new function
-
-Explain the value, describe the situation.
-
-Avoid beeing anonymous, it's not pleasant for me not knowing who talked to me.
-
-Any suggestions to make the documentation better is really appriciated.
-
-### If you are asking a question
-
-This is not the best place where to put questions. If you are looking for help on how to use 
-the package correctly, please visit Stackoverflow and tag your question with `[r]` 
-and `[package_name]`. I usually read them and answer when possible.
 
