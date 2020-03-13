@@ -4,6 +4,11 @@
 
 * fix border issues with word paragraphs
 * reverse changes to `body_add_blocks` and `body_add_gg` as it generated issues with cursor
+* let pptx template have an empty master slide
+
+## Changes
+
+* internals ; drop digest from dependencies
 
 # officer 0.3.7
 
@@ -17,7 +22,7 @@ part of it) should be rendered on the same page as the next paragraph when possi
 
 ## Changes
 
-* internals ; drop Rcpp and htmltools dependancies
+* internals ; drop Rcpp and htmltools dependencies
 
 ## Issues
 
