@@ -21,4 +21,4 @@
 ^todo\.md$
 ^tests/testthat/docs_dir/no_master\\.pptx$
 ^inst/zztools/visual_compare\\.R$
-^\\.github$
+^\.github/
