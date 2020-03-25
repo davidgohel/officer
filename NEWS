@@ -1,3 +1,9 @@
+# officer 0.3.9
+
+## Issues
+
+* fix issues with invisible images when using ph_location_fullsize and a *blank* layout
+
 # officer 0.3.8
 
 ## Issues

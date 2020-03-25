@@ -384,7 +384,7 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
     <p:nvPr>%s</p:nvPr>
   </p:nvPicPr>
   %s
-  <p:spPr>%s%s</p:spPr>
+  <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s</p:spPr>
 </p:pic>
 "
   sprintf(str, label, ph, blipfill, xfrm_str, bg_str )
