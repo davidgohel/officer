@@ -199,7 +199,7 @@ ph_location_type <- function( type = "body", position_right = TRUE, position_top
   ph_types <- c("ctrTitle", "subTitle", "dt", "ftr",
                 "sldNum", "title", "body")
   if(!type %in% ph_types){
-    stop("argument type must be a value of ", paste0(shQuote(ph_types), collapse = ", ", "."))
+    warning("argument type expected to be a value of ", paste0(shQuote(ph_types), collapse = ", ", "."))
   }
   x <- list(type = type, position_right = position_right, position_top = position_top, id = id, label = newlabel)
   class(x) <- c("location_type", "location_str")
