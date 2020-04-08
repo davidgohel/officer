@@ -13,7 +13,7 @@
 #'
 #' @example examples/block_caption.R
 #' @family block functions for reporting
-block_caption <- function(label, style, id, autonum = NULL) {
+block_caption <- function(label, style, id = NULL, autonum = NULL) {
   z <- list(
     label = label,
     id = id,
@@ -67,7 +67,10 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 
   run_str <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscapeCopy(x$label))
   run_str <- paste0(autonum, run_str)
-  run_str <- bookmark(x$id, run_str)
+  if(!is.null(x$id)){
+    run_str <- bookmark(x$id, run_str)
+  }
+
   out <- sprintf(
     "%s<w:pPr><w:pStyle w:val=\"%s\"/></w:pPr>%s</w:p>",
     open_tag, style_id, run_str
@@ -352,7 +355,7 @@ to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
   }
 
   if (is.null(x$style)) {
-    style <- base_document$default_styles$paragraph
+    style <- base_document$default_styles$table
   } else {
     style <- x$style
   }

@@ -1,4 +1,6 @@
-get_default_pandoc_data_file <- function(format = "pptx", outfile = tempfile(fileext = ".pptx")) {
+get_default_pandoc_data_file <- function(format = "pptx") {
+  outfile <- tempfile(fileext = paste0(".", format))
+
   ref_doc <- paste0("reference.", format)
   system2(rmarkdown::pandoc_exec(),
           args = c("--print-default-data-file", ref_doc),
@@ -18,7 +20,7 @@ get_default_pandoc_data_file <- function(format = "pptx", outfile = tempfile(fil
 #' @importFrom utils compareVersion packageVersion
 get_reference_value <- function(format = NULL) {
 
-  if( length(format) != 1 ){
+  if( !is.null(format) && length(format) != 1 ){
     stop("format must be a scalar character")
   }
 
