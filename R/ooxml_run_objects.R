@@ -61,19 +61,19 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
   xml_elt_1 <- paste0(
     wr_ns_yes,
     "<w:rPr/>",
-    "<w:fldChar w:fldCharType=\"begin\"/>",
+    "<w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/>",
     "</w:r>"
   )
   xml_elt_2 <- paste0(
     wr_ns_yes,
     "<w:rPr/>",
-    sprintf("<w:instrText xml:space=\"preserve\">%s</w:instrText>", x$seqfield),
+    sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", x$seqfield),
     "</w:r>"
   )
   xml_elt_3 <- paste0(
     wr_ns_yes,
     "<w:rPr/>",
-    "<w:fldChar w:fldCharType=\"end\"/>",
+    "<w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/>",
     "</w:r>"
   )
   out <- paste0(xml_elt_1, xml_elt_2, xml_elt_3)
