@@ -91,7 +91,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
-run_autonum <- function(seq_id = "table", pre_label = "TABLE ", post_label = ": ") {
+run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ") {
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,
