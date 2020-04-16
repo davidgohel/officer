@@ -4,7 +4,7 @@
 \alias{run_autonum}
 \title{auto number}
 \usage{
-run_autonum(seq_id = "table", pre_label = "TABLE ", post_label = ": ")
+run_autonum(seq_id = "table", pre_label = "Table ", post_label = ": ")
 }
 \arguments{
 \item{seq_id}{sequence identifier}
