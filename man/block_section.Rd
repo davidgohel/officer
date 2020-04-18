@@ -13,11 +13,12 @@ block_section(property)
 Create a representation of a section
 }
 \examples{
-prop_section(
+ps <- prop_section(
   page_size = page_size(orient = "landscape"),
   page_margins = page_mar(top = 2),
   type = "continuous"
 )
+block_section(ps)
 }
 \seealso{
 Other block functions for reporting: 

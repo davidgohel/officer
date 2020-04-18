@@ -163,11 +163,12 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
 #' @description Create a representation of a section
 #' @param property section properties defined with function [prop_section]
 #' @examples
-#' prop_section(
+#' ps <- prop_section(
 #'   page_size = page_size(orient = "landscape"),
 #'   page_margins = page_mar(top = 2),
 #'   type = "continuous"
 #' )
+#' block_section(ps)
 #' @family block functions for reporting
 block_section <- function(property) {
   z <- list(
