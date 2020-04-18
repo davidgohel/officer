@@ -16,6 +16,7 @@ test_that("block_list structure", {
   expect_is(bl[[2]]$chunks[[1]], "ftext")
   expect_is(bl[[2]]$chunks[[2]], "external_img")
   expect_is(bl[[2]]$chunks[[1]], "cot")
+  expect_is(bl[[2]]$chunks[[1]], "run")
   expect_is(bl[[2]]$chunks[[2]], "cot")
 })
 

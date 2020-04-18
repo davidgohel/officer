@@ -157,6 +157,11 @@ format.fp_text <- function( x, type = "wml", ... ){
   } else stop("unimplemented type")
 }
 
+#' @export
+to_wml.fp_text <- function(x, add_ns = FALSE, ...) {
+  format(x, type = "wml")
+}
+
 #' @param x \code{fp_text} object
 #' @examples
 #' print( fp_text (color="red", font.size = 12) )
@@ -356,6 +361,10 @@ format.fp_par = function (x, type = "wml", ...){
   } else stop("unimplemented")
 
 }
+#' @export
+to_wml.fp_par <- function(x, add_ns = FALSE, ...) {
+  format(x, type = "wml")
+}
 
 #' @param x,object \code{fp_par} object
 #' @param ... further arguments - not used
@@ -530,6 +539,11 @@ format.fp_cell = function (x, type = "wml", ...){
   } else if( type == "html" ){
     tcpr_css(x)
   } else stop("unimplemented")
+}
+
+#' @export
+to_wml.fp_cell <- function(x, add_ns = FALSE, ...) {
+  format(x, type = "wml")
 }
 
 #' @export
