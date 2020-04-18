@@ -564,8 +564,14 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' @family block functions for reporting
 block_list <- function(...){
   x <- list(...)
-  class(x) <- "block_list"
-  x
+  z <- list()
+  for(i in x){
+    if(inherits(i, "fpar")) z <- append(z, list(i))
+    else if(is.character(i)) z <- append(z, lapply(i, fpar))
+  }
+
+  class(z) <- "block_list"
+  z
 }
 
 # unordered list ----
