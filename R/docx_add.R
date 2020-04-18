@@ -462,15 +462,16 @@ body_remove <- function(x){
 #' adding a `ggplot` object or `plot_instr`, these arguments will be used
 #' by png function.
 #' @examples
-#' doc <- read_docx()
-#' doc <- body_add(doc, "A title", style = "heading 1")
-#' doc <- body_add(doc, head(iris), style = "table_template")
-#' doc <- body_add(doc, "Another title", style = "heading 1")
-#' doc <- body_add(doc, letters, style = "Normal")
-#' doc <- body_add(doc, "Table of content", style = "heading 1")
-#' doc <- body_add(doc, block_toc())
-#' print(doc, target = tempfile(fileext = ".docx"))
-#' # print(doc, target = "test.docx")
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add(doc_1, "Table of content", style = "heading 1")
+#' doc_1 <- body_add(doc_1, block_toc())
+#' doc_1 <- body_add(doc_1, run_pagebreak())
+#' doc_1 <- body_add(doc_1, "A title", style = "heading 1")
+#' doc_1 <- body_add(doc_1, head(iris), style = "table_template")
+#' doc_1 <- body_add(doc_1, "Another title", style = "heading 1")
+#' doc_1 <- body_add(doc_1, letters, style = "Normal")
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' # print(doc_1, target = "test.docx")
 body_add <- function(x, value, ...){
   UseMethod("body_add", value)
 }
