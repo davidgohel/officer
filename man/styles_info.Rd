@@ -4,10 +4,17 @@
 \alias{styles_info}
 \title{read Word styles}
 \usage{
-styles_info(x)
+styles_info(
+  x,
+  type = c("paragraph", "character", "table", "numbering"),
+  is_default = c(TRUE, FALSE)
+)
 }
 \arguments{
 \item{x}{an rdocx object}
+
+\item{type, is_default}{subsets for types (i.e. paragraph) and
+default style (when \code{is_default} is TRUE or FALSE)}
 }
 \description{
 read Word styles and get results in
@@ -16,6 +23,7 @@ a tidy data.frame.
 \examples{
 x <- read_docx()
 styles_info(x)
+styles_info(x, type = "paragraph", is_default = TRUE)
 }
 \seealso{
 Other functions for Word document informations: 

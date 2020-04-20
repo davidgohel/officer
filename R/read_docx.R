@@ -194,12 +194,18 @@ length.rdocx <- function( x ){
 #' @description read Word styles and get results in
 #' a tidy data.frame.
 #' @param x an rdocx object
+#' @param type,is_default subsets for types (i.e. paragraph) and
+#' default style (when `is_default` is TRUE or FALSE)
 #' @examples
 #' x <- read_docx()
 #' styles_info(x)
+#' styles_info(x, type = "paragraph", is_default = TRUE)
 #' @family functions for Word document informations
-styles_info <- function( x ){
-  x$styles
+styles_info <- function( x, type = c("paragraph", "character", "table", "numbering"),
+                         is_default = c(TRUE, FALSE) ){
+  styles <- x$styles
+  styles <- styles[styles$style_type %in% type & styles$is_default %in% is_default,]
+  styles
 }
 
 #' @export
