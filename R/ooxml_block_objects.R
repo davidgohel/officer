@@ -298,16 +298,10 @@ table_pptx <- function(x, style_id, col_width, row_height,
 #' @param x a data.frame to add as a table
 #' @param style table style
 #' @param header display header if TRUE
-#' @param first_row Specifies that the first column conditional formatting should be
-#' applied. Details for this and other conditional formatting options can be found
-#' at http://officeopenxml.com/WPtblLook.php.
-#' @param last_row Specifies that the first column conditional formatting should be applied.
-#' @param first_column Specifies that the first column conditional formatting should
-#' be applied.
-#' @param last_column Specifies that the first column conditional formatting should be
-#' applied.
-#' @param no_hband Specifies that the first column conditional formatting should be applied.
-#' @param no_vband Specifies that the first column conditional formatting should be applied.
+#' @param first_row,last_row apply or remove formatting from the first or last row in the table.
+#' @param first_column,last_column apply or remove formatting from the first or last column in the table.
+#' @param no_hband,no_vband don't display odd and even rows or columns with
+#' alternating shading for ease of reading.
 #' @examples
 #' block_table(x = mtcars)
 #' @family block functions for reporting
