@@ -23,21 +23,12 @@ block_table(
 
 \item{header}{display header if TRUE}
 
-\item{first_row}{Specifies that the first column conditional formatting should be
-applied. Details for this and other conditional formatting options can be found
-at http://officeopenxml.com/WPtblLook.php.}
+\item{first_row, last_row}{apply or remove formatting from the first or last row in the table.}
 
-\item{first_column}{Specifies that the first column conditional formatting should
-be applied.}
+\item{first_column, last_column}{apply or remove formatting from the first or last column in the table.}
 
-\item{last_row}{Specifies that the first column conditional formatting should be applied.}
-
-\item{last_column}{Specifies that the first column conditional formatting should be
-applied.}
-
-\item{no_hband}{Specifies that the first column conditional formatting should be applied.}
-
-\item{no_vband}{Specifies that the first column conditional formatting should be applied.}
+\item{no_hband, no_vband}{don't display odd and even rows or columns with
+alternating shading for ease of reading.}
 }
 \description{
 Create a representation of a table

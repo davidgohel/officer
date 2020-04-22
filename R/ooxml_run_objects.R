@@ -47,6 +47,7 @@ bookmark <- function(id, str) {
 #' @title seqfield
 #' @description Create a seqfield
 #' @param seqfield seqfield string
+#' @family run functions for reporting
 run_seqfield <- function(seqfield) {
   z <- list(
     seqfield = seqfield
@@ -91,6 +92,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
+#' @family run functions for reporting
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ") {
   z <- list(
     seq_id = seq_id,
@@ -106,7 +108,7 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
 to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   run_str_pre <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$pre_label)
   run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
-  sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic \u005Cs 1 \u005C* MERGEFORMAT"))
+  sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic"))
   sf_str <- to_wml(sqf)
   out <- paste0(run_str_pre, sf_str, run_str_post)
 
@@ -121,6 +123,7 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 #' @param id reference id, a string
 #' @examples
 #' run_reference('a_ref')
+#' @family run functions for reporting
 run_reference <- function(id) {
   z <- paste0(" REF ", id, " \\h ")
 
@@ -166,6 +169,7 @@ to_wml.run_pagebreak <- function(x, add_ns = FALSE, ...) {
 #' @description Create a representation of a column break
 #' @examples
 #' run_columnbreak()
+#' @family run functions for reporting
 run_columnbreak <- function() {
   z <- list()
   class(z) <- c("run_columnbreak", "run")

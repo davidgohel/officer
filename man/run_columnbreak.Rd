@@ -12,3 +12,14 @@ Create a representation of a column break
 \examples{
 run_columnbreak()
 }
+\seealso{
+Other run functions for reporting: 
+\code{\link{external_img}()},
+\code{\link{ftext}()},
+\code{\link{run_autonum}()},
+\code{\link{run_linebreak}()},
+\code{\link{run_pagebreak}()},
+\code{\link{run_reference}()},
+\code{\link{run_seqfield}()}
+}
+\concept{run functions for reporting}
