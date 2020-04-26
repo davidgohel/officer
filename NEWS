@@ -4,6 +4,11 @@
 
 * fix issues with invisible images when using ph_location_fullsize and a *blank* layout
 
+## New features
+
+* enrich table blocks (`block_table()`) with table parameters such as width, layout. See `prop_table()`.
+
+
 # officer 0.3.8
 
 ## Issues

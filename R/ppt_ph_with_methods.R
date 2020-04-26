@@ -264,20 +264,24 @@ ph_with.unordered_list <- function(x, value, location, ...){
 
 #' @export
 #' @param header display header if TRUE
-#' @param first_row,last_row,first_column,last_column logical for PowerPoint table options
-#' @describeIn ph_with add a data.frame to a new shape on the current slide. Use
-#' package \code{flextable} instead for more advanced formattings.
+#' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
+#' @describeIn ph_with add a data.frame to a new shape on the current slide with
+#' function [block_table()]. Use package \code{flextable} instead for more
+#' advanced formattings.
 ph_with.data.frame <- function(x, value, location, header = TRUE,
-                               first_row = TRUE, first_column = FALSE,
-                               last_row = FALSE, last_column = FALSE, ...){
+                               tcf = table_conditional_formatting(),
+                               ...){
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
   style_id <- x$table_styles$def[1]
 
-  bt <- block_table(x = value, style = style_id, header = header, first_row = first_row,
-              first_column = first_column, last_row = last_row,
-              last_column = last_column)
+  pt <- prop_table(
+    style = style_id, layout = table_layout(),
+    width = table_width(),
+    tcf = tcf)
+
+  bt <- block_table(x = value, header = header, properties = pt)
 
   xml_elt <- to_pml(
     bt, left = location$left, top = location$top,

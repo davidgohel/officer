@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_block_objects.R
 \name{block_section}
 \alias{block_section}
-\title{new section}
+\title{New Word section}
 \usage{
 block_section(property)
 }

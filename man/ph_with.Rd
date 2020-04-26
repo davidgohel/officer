@@ -36,10 +36,7 @@ ph_with(x, value, location, ...)
   value,
   location,
   header = TRUE,
-  first_row = TRUE,
-  first_column = FALSE,
-  last_row = FALSE,
-  last_column = FALSE,
+  tcf = table_conditional_formatting(),
   ...
 )
 
@@ -81,7 +78,7 @@ should evolve in the next versions.}
 
 \item{header}{display header if TRUE}
 
-\item{first_row, last_row, first_column, last_column}{logical for PowerPoint table options}
+\item{tcf}{conditional formatting settings defined by \code{\link[=table_conditional_formatting]{table_conditional_formatting()}}}
 
 \item{res}{resolution of the png image in ppi}
 
@@ -113,8 +110,9 @@ of \code{\link{fpar}} to a new shape on the current slide.
 \item \code{unordered_list}: add a \code{\link{unordered_list}} made
 of \code{\link{fpar}} to a new shape on the current slide.
 
-\item \code{data.frame}: add a data.frame to a new shape on the current slide. Use
-package \code{flextable} instead for more advanced formattings.
+\item \code{data.frame}: add a data.frame to a new shape on the current slide with
+function \code{\link[=block_table]{block_table()}}. Use package \code{flextable} instead for more
+advanced formattings.
 
 \item \code{gg}: add a ggplot object to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.

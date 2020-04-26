@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_block_objects.R
 \name{block_list}
 \alias{block_list}
-\title{create paragraph blocks}
+\title{Create paragraph blocks}
 \usage{
 block_list(...)
 }

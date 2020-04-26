@@ -1,7 +1,7 @@
 # caption ----
 
 #' @export
-#' @title caption block
+#' @title Caption block
 #' @description Create a representation of a
 #' caption that can be used for cross reference. The caption
 #' can also be an auto numbered paragraph.
@@ -83,7 +83,7 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 # toc ----
 
 #' @export
-#' @title table of content
+#' @title Table of content
 #' @description Create a representation of a table of content.
 #' @param level max title level of the table
 #' @param style optional. style in the document that will be used to build entries of the TOC.
@@ -159,7 +159,7 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
 # section ----
 
 #' @export
-#' @title new section
+#' @title New Word section
 #' @description Create a representation of a section
 #' @param property section properties defined with function [prop_section]
 #' @examples
@@ -201,26 +201,213 @@ to_wml.block_section <- function(x, add_ns = FALSE, ...) {
 }
 
 
+# table properties ----
+
+
+#' @export
+#' @title Table conditional formatting
+#' @description Tables can be conditionally formatted based on few properties as
+#' whether the content is in the first row, last row, first column, or last
+#' column, or whether the rows or columns are to be banded.
+#' @param first_row,last_row apply or remove formatting from the first or last row in the table.
+#' @param first_column,last_column apply or remove formatting from the first or last column in the table.
+#' @param no_hband,no_vband don't display odd and even rows or columns with
+#' alternating shading for ease of reading.
+#' @examples
+#' table_conditional_formatting(first_row = TRUE, first_column = TRUE)
+#' @family functions for table definition
+table_conditional_formatting <- function(
+  first_row = TRUE, first_column = FALSE,
+  last_row = FALSE, last_column = FALSE,
+  no_hband = FALSE, no_vband = TRUE){
+
+  z <- list(first_row = first_row, first_column = first_column,
+            last_row = last_row, last_column = last_column,
+            no_hband = no_hband, no_vband = no_vband)
+  class(z) <- c("table_conditional_formatting")
+  z
+}
+
+#' @export
+to_wml.table_conditional_formatting <- function(x, add_ns = FALSE, ...) {
+  paste0("<w:tblLook w:firstRow=\"", as.integer(x$first_row),
+         "\" w:lastRow=\"", as.integer(x$last_row),
+         "\" w:firstColumn=\"", as.integer(x$first_column),
+         "\" w:lastColumn=\"", as.integer(x$last_column),
+         "\" w:noHBand=\"", as.integer(x$no_hband),
+         "\" w:noVBand=\"", as.integer(x$no_vband), "\"/>")
+}
+
+#' @export
+to_pml.table_conditional_formatting <- function(x, add_ns = FALSE, ...){
+  expr_ <- paste0(" firstRow=\"%.0f\" lastRow=\"%.0f\"",
+         " firstColumn=\"%.0f\" lastColumn=\"%.0f\"",
+         " bandRow=\"%.0f\" bandCol=\"%.0f\""
+         )
+  sprintf(expr_,
+          x$first_row, x$last_row,
+          x$first_column, x$last_column,
+          !x$no_hband, !x$no_vband)
+}
+
+table_layout_types <- c("autofit", "fixed")
+
+
+#' @export
+#' @title Algorithm for table layout
+#' @description When a table is displayed in a document, it can
+#' either be displayed using a fixed width or autofit layout algorithm:
+#'
+#' * fixed: uses fixed widths for columns. The width of the table is not
+#' changed regardless of the contents of the cells.
+#' * autofit: uses the contents of each cell and the table width to
+#' determine the final column widths.
+#' @param type 'autofit' or 'fixed' algorithm. Default to 'autofit'.
+#' @family functions for table definition
+table_layout <- function(type = "autofit"){
+
+  if(!type %in% table_layout_types){
+    stop("type must be one of ", paste(table_layout_types, collapse = ", "), ".")
+  }
+
+  z <- list(type = type)
+  class(z) <- "table_layout"
+  z
+}
+
+#' @export
+to_wml.table_layout <- function(x, add_ns = FALSE, ...) {
+  sprintf("<w:tblLayout w:type=\"%s\"/>", x$type)
+}
+
+table_layout_width_units <- c("in", "pct")
+
+#' @export
+#' @title Preferred width for a table
+#' @description Define the preferred width for a table.
+#' @section Word:
+#' All widths in a table are considered preferred because widths of
+#' columns can conflict and the table layout rules can require a
+#' preference to be overridden.
+#' @param width value of the preferred width of the table.
+#' @param unit unit of the width. Possible values are 'in' (inches) and 'pct' (percent)
+#' @family functions for table definition
+table_width <- function(width = 1, unit = "pct"){
+  if(!unit %in% table_layout_width_units){
+    stop("unit must be one of ", paste(table_layout_width_units, collapse = ", "), ".")
+  }
+
+  z <- list(width = width, unit = unit)
+  class(z) <- "table_width"
+  z
+
+}
+#' @export
+to_wml.table_width <- function(x, add_ns = FALSE, ...) {
+  if(x$unit %in% "pct"){
+    tbl_width <- sprintf("<w:tblW w:type=\"pct\" w:w=\"%.0f\"/>",
+                         x$width * 5000)
+  } else {
+    tbl_width <- sprintf("<w:tblW w:type=\"dxa\" w:w=\"%.0f\"/>",
+                         x$width * 1440)
+  }
+  tbl_width
+}
+
+#' @export
+#' @title Column widths of a table
+#' @description The function defines the size of each column of a table.
+#' @param widths Column widths expressed in inches.
+#' @family functions for table definition
+table_colwidths <- function(widths = NULL){
+  z <- list(widths = widths)
+  class(z) <- "table_colwidths"
+  z
+}
+
+#' @export
+to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
+  if(length(x$widths) < 1) return("")
+  grid_col_str <- sprintf("<w:w:gridCol w:w=\"%.0f\"/>", x$widths * 1440)
+  grid_col_str <- paste(grid_col_str, collapse = "")
+  paste0("<w:tblGrid>", grid_col_str, "</w:tblGrid>")
+}
+
+#' @export
+#' @title Table properties
+#' @description Define table properties such as fixed or autofit layout,
+#' table width in the document, eventually column widths.
+#' @param style table style to be used to format table
+#' @param layout layout defined by [table_layout()],
+#' @param width table width in the document defined by [table_width()]
+#' @param colwidths column widths defined by [table_colwidths()]
+#' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
+#' @examples
+#' prop_table()
+#' @family functions for table definition
+prop_table <- function(style = "table_template", layout = table_layout(),
+                         width = table_width(),
+                         colwidths = table_colwidths(),
+                         tcf = table_conditional_formatting()){
+
+
+  z <- list(
+    style = style,
+    layout = layout,
+    width = width,
+    colsizes = colwidths,
+    tcf = tcf
+  )
+  class(z) <- c("prop_table")
+  z
+}
+
+#' @export
+to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
+
+  if (is.null(base_document)) {
+    base_document <- get_reference_value("docx")
+  }
+  if (is.character(base_document)) {
+    base_document <- read_docx(path = base_document)
+  } else if (!inherits(base_document, "rdocx")) {
+    stop("base_document can only be the path to a docx file or an rdocx document.")
+  }
+
+  if (is.null(x$style)) {
+    style <- base_document$default_styles$table
+  } else {
+    style <- x$style
+  }
+  style_id <- get_style_id(data = base_document$styles, style = style, type = "table")
+
+  tbl_layout <- to_wml(x$layout, add_ns= add_ns, base_document = base_document)
+  width <- to_wml(x$width, add_ns= add_ns, base_document = base_document)
+  colwidths <- to_wml(x$colsizes, add_ns= add_ns, base_document = base_document)
+  tcf <- to_wml(x$tcf, add_ns= add_ns, base_document = base_document)
+
+  paste0("<w:tblPr>",
+         "<w:tblStyle w:val=\"", style_id, "\"/>",
+         tbl_layout, width, tcf, colwidths,
+         "</w:tblPr>",
+         colwidths
+         )
+
+}
+
+
 # table ----
 table_docx <- function(x, header, style_id,
-                       first_row, last_row, first_column,
-                       last_column, no_hband, no_vband, add_ns = FALSE) {
+                       properties, add_ns = FALSE,
+                       base_document = base_document) {
   open_tag <- tbl_ns_no
   if (add_ns) {
     open_tag <- tbl_ns_yes
   }
 
-
-  str <- paste0(open_tag,
-    "<w:tblPr>",
-    "<w:tblStyle w:val=\"", style_id, "\"/>",
-    "<w:tblLook w:firstRow=\"", as.integer(first_row),
-    "\" w:lastRow=\"", as.integer(last_row),
-    "\" w:firstColumn=\"", as.integer(first_column),
-    "\" w:lastColumn=\"", as.integer(last_column),
-    "\" w:noHBand=\"", as.integer(no_hband),
-    "\" w:noVBand=\"", as.integer(no_vband), "\"/>",
-    "</w:tblPr>"
+  str <- paste0(
+    open_tag,
+    to_wml(properties, add_ns = add_ns, base_document = base_document)
   )
 
   header_str <- character(length = 0L)
@@ -252,17 +439,15 @@ table_docx <- function(x, header, style_id,
 }
 
 table_pptx <- function(x, style_id, col_width, row_height,
-                       first_row = TRUE, first_column = FALSE,
-                       last_row = FALSE, last_column = FALSE, header = TRUE ){
-
+                       tcf, header = TRUE ){
   str <- paste0("<a:tbl>",
-                sprintf("<a:tblPr firstRow=\"%.0f\" lastRow=\"%.0f\" firstColumn=\"%.0f\" lastColumn=\"%.0f\"",
-                        first_row, last_row, first_column, last_column),
-                ">",
+                sprintf("<a:tblPr %s>", to_pml(tcf)),
                 sprintf("<a:tableStyleId>%s</a:tableStyleId>", style_id),
                 "</a:tblPr>",
                 "<a:tblGrid>",
-                paste0(sprintf("<a:gridCol w=\"%.0f\"/>", rep(col_width, length(x))), collapse = ""),
+                paste0(sprintf("<a:gridCol w=\"%.0f\"/>",
+                               rep(col_width, length(x))),
+                       collapse = ""),
                 "</a:tblGrid>")
 
   as_tc <- function(x) {
@@ -293,22 +478,26 @@ table_pptx <- function(x, style_id, col_width, row_height,
 
 
 #' @export
-#' @title table
+#' @title Table block
 #' @description Create a representation of a table
 #' @param x a data.frame to add as a table
-#' @param style table style
 #' @param header display header if TRUE
-#' @param first_row,last_row apply or remove formatting from the first or last row in the table.
-#' @param first_column,last_column apply or remove formatting from the first or last column in the table.
-#' @param no_hband,no_vband don't display odd and even rows or columns with
-#' alternating shading for ease of reading.
+#' @param properties table properties, see [prop_table()].
+#' Table properties are not handled identically between Word and PowerPoint
+#' output format. They are fully supported with Word but for PowerPoint (which
+#' does not handle as many things as Word for tables), only conditional
+#' formatting properties are supported.
 #' @examples
-#' block_table(x = mtcars)
+#' block_table(x = head(iris))
+#'
+#' block_table(x = mtcars, header = TRUE,
+#'   properties = prop_table(
+#'     tcf = table_conditional_formatting(
+#'       first_row = TRUE, first_column = TRUE)
+#'   ))
 #' @family block functions for reporting
-block_table <- function(x, style = NULL, header = TRUE,
-                        first_row = TRUE, first_column = FALSE,
-                        last_row = FALSE, last_column = FALSE,
-                        no_hband = FALSE, no_vband = TRUE) {
+#' @seealso [prop_table()]
+block_table <- function(x, header = TRUE, properties = prop_table()) {
 
   stopifnot(is.data.frame(x))
   if(inherits(x, "tbl_df"))
@@ -317,14 +506,8 @@ block_table <- function(x, style = NULL, header = TRUE,
 
   z <- list(
     x = x,
-    style = style,
     header = header,
-    first_row = first_row,
-    first_column = first_column,
-    last_row = last_row,
-    last_column = last_column,
-    no_hband = no_hband,
-    no_vband = no_vband
+    properties = properties
   )
   class(z) <- c("block_table", "block")
 
@@ -349,20 +532,13 @@ to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
     stop("base_document can only be the path to a docx file or an rdocx document.")
   }
 
-  if (is.null(x$style)) {
-    style <- base_document$default_styles$table
-  } else {
-    style <- x$style
-  }
-  style_id <- get_style_id(data = base_document$styles, style = style, type = "table")
-
   value <- characterise_df(x$x)
 
   out <- table_docx(
-    x = value, header = x$header, style_id = style_id,
-    first_row = x$first_row, last_row = x$last_row,
-    first_column = x$first_column, last_column = x$last_column,
-    no_hband = x$no_hband, no_vband = x$no_vband, add_ns = add_ns
+    x = value, header = x$header,
+    properties = x$properties,
+    base_document = base_document,
+    add_ns = add_ns
   )
 
   out
@@ -382,13 +558,11 @@ to_pml.block_table <- function(x, add_ns = FALSE,
   if( is.null(ph) || is.na(ph)){
     ph = "<p:ph/>"
   }
-
   value <- characterise_df(x$x)
-  value_str <- table_pptx(value, style_id = x$style,
+  value_str <- table_pptx(value, style_id = x$properties$style,
                         col_width = as.integer((width/ncol(x$x))*914400),
                         row_height = as.integer((height/nrow(x$x))*914400),
-                        first_row = x$first_row, last_row = x$last_row,
-                        first_column = x$first_column, last_column = x$last_column,
+                        tcf = x$properties$tcf,
                         header = x$header )
 
 
@@ -408,7 +582,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 # fpar ----
 
 #' @export
-#' @title concatenate formatted text as a paragraph
+#' @title Concatenate formatted text as a paragraph
 #' @description Create a paragraph representation by concatenating
 #' formatted text or images.
 #'
@@ -542,7 +716,7 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 # block_list -----
 
 #' @export
-#' @title create paragraph blocks
+#' @title Create paragraph blocks
 #' @description a list of blocks can be used to gather
 #' several blocks (paragraphs or tables) into a single
 #' object. The function is to be used when adding
@@ -570,7 +744,7 @@ block_list <- function(...){
 
 # unordered list ----
 #' @export
-#' @title unordered list
+#' @title Unordered list
 #' @description unordered list of text for PowerPoint
 #' presentations. Each text is associated with
 #' a hierarchy level.

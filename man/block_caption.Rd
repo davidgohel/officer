@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_block_objects.R
 \name{block_caption}
 \alias{block_caption}
-\title{caption block}
+\title{Caption block}
 \usage{
 block_caption(label, style, id = NULL, autonum = NULL)
 }

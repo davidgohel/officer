@@ -333,7 +333,7 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 #' @seealso [block_section]
 #' @family functions for section definition
 prop_section <- function(page_size = NULL, page_margins = NULL,
-                         type = "continuous", section_columns = NULL) {
+                         type = NULL, section_columns = NULL) {
   z <- list()
   if (!is.null(type) && !type %in% docx_section_type) {
     stop("type must be one of ", paste(shQuote(docx_section_type), collapse = ", "))
@@ -367,8 +367,8 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
     "<w:sectPr>",
     if(!is.null(x$page_margins)) to_wml(x$page_margins),
     if(!is.null(x$page_size)) to_wml(x$page_size),
-    "<w:type w:val=\"", x$type, "\"/>",
-    if(!is.null(x$section_columns)) to_wml(x$section_columns),
+    if(!is.null(x$type)) "<w:type w:val=\"", x$type, "\"/>",
+    if(!is.null(x$section_columns)) to_wml(x$section_columns) else "<w:cols/>",
     "</w:sectPr>"
   )
 }

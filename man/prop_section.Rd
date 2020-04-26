@@ -7,7 +7,7 @@
 prop_section(
   page_size = NULL,
   page_margins = NULL,
-  type = "continuous",
+  type = NULL,
   section_columns = NULL
 )
 }

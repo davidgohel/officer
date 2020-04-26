@@ -300,11 +300,16 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
                             last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
 
-  bt <- block_table(x = value, style = style, header = header, first_row = first_row,
-              first_column = first_column, last_row = last_row,
-              last_column = last_column, no_hband = no_hband, no_vband = no_vband)
-  xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
+  pt <- prop_table(
+    style = style, layout = table_layout(),
+    width = table_width(),
+    tcf = table_conditional_formatting(
+      first_row = first_row, first_column = first_column,
+      last_row = last_row, last_column = last_column,
+      no_hband = no_hband, no_vband = no_vband))
 
+  bt <- block_table(x = value, header = header, properties = pt)
+  xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
@@ -538,24 +543,18 @@ body_add.fpar <- function( x, value, style = NULL, ... ){
 
 #' @export
 #' @param header display header if TRUE
-#' @param first_row Specifies that the first column conditional formatting should be
-#' applied.
-#' @param last_row Specifies that the first column conditional formatting should be applied.
-#' @param first_column Specifies that the first column conditional formatting should
-#' be applied.
-#' @param last_column Specifies that the first column conditional formatting should be
-#' applied.
-#' @param no_hband Specifies that the first column conditional formatting should be applied.
-#' @param no_vband Specifies that the first column conditional formatting should be applied.
-#' @describeIn body_add add a data.frame object.
+#' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
+#' @describeIn body_add add a data.frame object with [block_table()].
 body_add.data.frame <- function( x, value, style = NULL, header = TRUE,
-                                 first_row = TRUE, first_column = FALSE,
-                                 last_row = FALSE, last_column = FALSE,
-                                 no_hband = FALSE, no_vband = TRUE, ... ){
+                                 tcf = table_conditional_formatting(),
+                                 ... ){
 
-  bt <- block_table(x = value, style = style, header = header, first_row = first_row,
-                    first_column = first_column, last_row = last_row,
-                    last_column = last_column, no_hband = no_hband, no_vband = no_vband)
+  pt <- prop_table(
+    style = style, layout = table_layout(),
+    width = table_width(),
+    tcf = tcf)
+
+  bt <- block_table(x = value, header = header, properties = pt)
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
 
   body_add_xml2(x = x, str = xml_elt)

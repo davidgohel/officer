@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_block_objects.R
 \name{unordered_list}
 \alias{unordered_list}
-\title{unordered list}
+\title{Unordered list}
 \usage{
 unordered_list(str_list = character(0), level_list = integer(0), style = NULL)
 }

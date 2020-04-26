@@ -32,12 +32,7 @@ body_add(x, value, ...)
   value,
   style = NULL,
   header = TRUE,
-  first_row = TRUE,
-  first_column = FALSE,
-  last_row = FALSE,
-  last_column = FALSE,
-  no_hband = FALSE,
-  no_vband = TRUE,
+  tcf = table_conditional_formatting(),
   ...
 )
 
@@ -77,20 +72,7 @@ argument \code{path} from \link{read_docx}).}
 
 \item{header}{display header if TRUE}
 
-\item{first_row}{Specifies that the first column conditional formatting should be
-applied.}
-
-\item{first_column}{Specifies that the first column conditional formatting should
-be applied.}
-
-\item{last_row}{Specifies that the first column conditional formatting should be applied.}
-
-\item{last_column}{Specifies that the first column conditional formatting should be
-applied.}
-
-\item{no_hband}{Specifies that the first column conditional formatting should be applied.}
-
-\item{no_vband}{Specifies that the first column conditional formatting should be applied.}
+\item{tcf}{conditional formatting settings defined by \code{\link[=table_conditional_formatting]{table_conditional_formatting()}}}
 
 \item{width}{height in inches}
 
@@ -113,7 +95,7 @@ as new paragraphs or tables.
 \item \code{fpar}: add a \link{fpar} object. These objects enable
 the creation of formatted paragraphs made of formatted chunks of text.
 
-\item \code{data.frame}: add a data.frame object.
+\item \code{data.frame}: add a data.frame object with \code{\link[=block_table]{block_table()}}.
 
 \item \code{block_caption}: add a \link{block_caption} object. These objects enable
 the creation of set of formatted paragraphs made of formatted chunks of text.
