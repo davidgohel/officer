@@ -10,7 +10,16 @@ block_section(property)
 \item{property}{section properties defined with function \link{prop_section}}
 }
 \description{
-Create a representation of a section
+Create a representation of a section.
+
+A section affects preceding paragraphs or tables; i.e.
+a section starts at the end of the previous section (or the beginning of
+the document if no preceding section exists), and stops where the
+section is declared.
+
+When a new landscape section is needed, it is recommended to add a block_section
+with \code{type = "continuous"}, to add the content to be appened in the new section
+and finally to add a block_section with \code{page_size = page_size(orient = "landscape")}.
 }
 \examples{
 ps <- prop_section(

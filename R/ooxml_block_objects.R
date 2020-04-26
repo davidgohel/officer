@@ -160,7 +160,16 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
 
 #' @export
 #' @title New Word section
-#' @description Create a representation of a section
+#' @description Create a representation of a section.
+#'
+#' A section affects preceding paragraphs or tables; i.e.
+#' a section starts at the end of the previous section (or the beginning of
+#' the document if no preceding section exists), and stops where the
+#' section is declared.
+#'
+#' When a new landscape section is needed, it is recommended to add a block_section
+#' with `type = "continuous"`, to add the content to be appened in the new section
+#' and finally to add a block_section with `page_size = page_size(orient = "landscape")`.
 #' @param property section properties defined with function [prop_section]
 #' @examples
 #' ps <- prop_section(

@@ -26,9 +26,8 @@ odd-numbered page).}
 \item{section_columns}{section columns, an object generated with function \link{section_columns}.}
 }
 \description{
-A section is a
-grouping of blocks (ie. paragraphs and tables) that have a set of properties
-that define pages on which the text will appear.
+A section is a grouping of blocks (ie. paragraphs and tables)
+that have a set of properties that define pages on which the text will appear.
 
 A Section properties object stores information about page composition,
 such as page size, page orientation, borders and margins.
