@@ -33,6 +33,7 @@ block_section(ps)
 Other block functions for reporting: 
 \code{\link{block_caption}()},
 \code{\link{block_list}()},
+\code{\link{block_pour_docx}()},
 \code{\link{block_table}()},
 \code{\link{block_toc}()},
 \code{\link{fpar}()},

@@ -706,3 +706,11 @@ body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, sty
   body_add(x, value, style = style)
 }
 
+
+#' @export
+#' @describeIn body_add add coontent of a docx file
+body_add.block_pour_docx <- function( x, value, ... ){
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml2(x = x, str = xml_elt)
+}
+

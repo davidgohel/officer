@@ -15,6 +15,7 @@
 \alias{body_add.run_columnbreak}
 \alias{body_add.gg}
 \alias{body_add.plot_instr}
+\alias{body_add.block_pour_docx}
 \title{add content into a Word document}
 \usage{
 body_add(x, value, ...)
@@ -51,6 +52,8 @@ body_add(x, value, ...)
 \method{body_add}{gg}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
 
 \method{body_add}{plot_instr}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
+
+\method{body_add}{block_pour_docx}(x, value, ...)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -113,6 +116,8 @@ the creation of set of formatted paragraphs made of formatted chunks of text.
 \item \code{gg}: add a ggplot object.
 
 \item \code{plot_instr}: add a base plot
+
+\item \code{block_pour_docx}: add coontent of a docx file
 }}
 
 \examples{

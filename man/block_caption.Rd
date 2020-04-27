@@ -41,6 +41,7 @@ print(doc, target = tempfile(fileext = ".docx") )
 \seealso{
 Other block functions for reporting: 
 \code{\link{block_list}()},
+\code{\link{block_pour_docx}()},
 \code{\link{block_section}()},
 \code{\link{block_table}()},
 \code{\link{block_toc}()},
