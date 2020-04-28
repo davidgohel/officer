@@ -702,7 +702,7 @@ fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text() ) {
   out$chunks <- list(...)
   out$fp_p <- fp_p
   out$fp_t <- fp_t
-  class(out) <- c("fpar")
+  class(out) <- c("fpar", "block")
   out
 }
 
