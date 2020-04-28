@@ -21,13 +21,9 @@ environment:
   - R_VERSION: devel
     PKGTYPE: source
     R_ARCH: x64
-    USE_RTOOLS: true
-    RTOOLS_VERSION: 35
   - R_VERSION: release
     PKGTYPE: source
     R_ARCH: x64
-    USE_RTOOLS: true
-    RTOOLS_VERSION: 35
 
 matrix:
   fast_finish: true
