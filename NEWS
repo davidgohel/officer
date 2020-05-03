@@ -7,7 +7,7 @@
 ## New features
 
 * enrich table blocks (`block_table()`) with table parameters such as width, layout. See `prop_table()`.
-
+* new function `plot_layout_properties()` to help identifying placeholders on layouts
 
 # officer 0.3.8
 
