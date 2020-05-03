@@ -57,3 +57,15 @@ doc <- read_docx() \%>\%
 
 print(doc, target = tempfile(fileext = ".docx") )
 }
+\seealso{
+Other functions \verb{body_add_*}: 
+\code{\link{body_add_blocks}()},
+\code{\link{body_add_break}()},
+\code{\link{body_add_docx}()},
+\code{\link{body_add_fpar}()},
+\code{\link{body_add_gg}()},
+\code{\link{body_add_img}()},
+\code{\link{body_add_par}()},
+\code{\link{body_add_toc}()}
+}
+\concept{functions \verb{body_add_*}}

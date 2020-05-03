@@ -8,6 +8,7 @@
 #' library(magrittr)
 #' doc <- read_docx() %>% body_add_break()
 #' print(doc, target = tempfile(fileext = ".docx"))
+#' @family functions `body_add_*`
 body_add_break <- function( x, pos = "after"){
   str <- runs_to_p_wml(run_pagebreak(), add_ns = TRUE)
   body_add_xml(x = x, str = str, pos = pos)
@@ -30,6 +31,7 @@ body_add_break <- function( x, pos = "after"){
 #' }
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
+#' @family functions `body_add_*`
 body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
   if( is.null(style) )
@@ -91,6 +93,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #'   body_add_docx(src = file2) %>%
 #'   print(target = file3)
 #' @export
+#' @family functions `body_add_*`
 body_add_docx <- function( x, src, pos = "after" ){
   src <- unique( src )
   rel <- x$doc_obj$relationship()
@@ -132,6 +135,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'
 #'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
+#' @family functions `body_add_*`
 body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   if( !requireNamespace("ggplot2") )
@@ -170,6 +174,7 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 #' x <- read_docx() %>%
 #'   body_add_blocks( blocks = bl ) %>%
 #'   print(target = tempfile(fileext = ".docx"))
+#' @family functions `body_add_*`
 body_add_blocks <- function( x, blocks, pos = "after" ){
   stopifnot(inherits(blocks, "block_list"))
 
@@ -204,6 +209,7 @@ body_add_blocks <- function( x, blocks, pos = "after" ){
 #'   body_add_par("centered text", style = "centered")
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
+#' @family functions `body_add_*`
 body_add_par <- function( x, value, style = NULL, pos = "after" ){
 
   if( is.null(style) )
@@ -249,6 +255,7 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #'   print(target = tempfile(fileext = ".docx") )
 #'
 #' @seealso \code{\link{fpar}}
+#' @family functions `body_add_*`
 body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 
   img_src <- sapply(value$chunks, function(x){
@@ -295,6 +302,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #'   body_add_table(iris, style = "table_template")
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
+#' @family functions `body_add_*`
 body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
                             first_row = TRUE, first_column = FALSE,
                             last_row = FALSE, last_column = FALSE,
@@ -329,6 +337,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
 #' doc <- read_docx() %>% body_add_toc()
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
+#' @family functions `body_add_*`
 body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator = ";"){
   bt <- block_toc(level = level, style = style, separator = separator)
   out <- to_wml(bt, add_ns = TRUE)

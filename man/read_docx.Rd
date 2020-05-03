@@ -3,7 +3,7 @@
 \name{read_docx}
 \alias{read_docx}
 \alias{print.rdocx}
-\title{open a connection to a 'Word' file}
+\title{Create a 'Word' document object}
 \usage{
 read_docx(path = NULL)
 
@@ -20,8 +20,26 @@ read_docx(path = NULL)
 }
 \description{
 read and import a docx file as an R object
-representing the document.
+representing the document. When no file is specified, it
+uses a default empty file.
+
+Use then this object to add content to it and create Word files
+from R.
 }
+\section{styles}{
+
+
+\code{read_docx()} uses a Word file as the initial document.
+This is the original Word document from which the document
+layout, paragraph styles, or table styles come.
+
+You will be able to add formatted text, change the paragraph
+style with the R api, but it will always be easier to use
+the styles from the original document.
+
+See \verb{body_add_*} functions to add content.
+}
+
 \examples{
 # create an rdocx object with default template ---
 read_docx()
@@ -34,5 +52,5 @@ if( require(magrittr) ){
 
 }
 \seealso{
-\link{print.rdocx}, \link{body_add}
+\link{print.rdocx}, \link{body_add_par}, \link{body_add}
 }
