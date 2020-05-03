@@ -44,7 +44,7 @@ read_docx(path = file1) \%>\%
   print(target = file3)
 }
 \seealso{
-Other functions \verb{body_add_*}: 
+Other functions for adding content: 
 \code{\link{body_add_blocks}()},
 \code{\link{body_add_break}()},
 \code{\link{body_add_fpar}()},
@@ -54,4 +54,4 @@ Other functions \verb{body_add_*}:
 \code{\link{body_add_table}()},
 \code{\link{body_add_toc}()}
 }
-\concept{functions \verb{body_add_*}}
+\concept{functions for adding content}

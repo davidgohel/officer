@@ -36,7 +36,7 @@ x <- read_docx() \%>\%
   print(target = tempfile(fileext = ".docx"))
 }
 \seealso{
-Other functions \verb{body_add_*}: 
+Other functions for adding content: 
 \code{\link{body_add_break}()},
 \code{\link{body_add_docx}()},
 \code{\link{body_add_fpar}()},
@@ -46,4 +46,4 @@ Other functions \verb{body_add_*}:
 \code{\link{body_add_table}()},
 \code{\link{body_add_toc}()}
 }
-\concept{functions \verb{body_add_*}}
+\concept{functions for adding content}

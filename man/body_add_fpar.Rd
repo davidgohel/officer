@@ -46,7 +46,7 @@ read_docx() \%>\% body_add_fpar(img_in_par) \%>\%
 \seealso{
 \code{\link{fpar}}
 
-Other functions \verb{body_add_*}: 
+Other functions for adding content: 
 \code{\link{body_add_blocks}()},
 \code{\link{body_add_break}()},
 \code{\link{body_add_docx}()},
@@ -56,4 +56,4 @@ Other functions \verb{body_add_*}:
 \code{\link{body_add_table}()},
 \code{\link{body_add_toc}()}
 }
-\concept{functions \verb{body_add_*}}
+\concept{functions for adding content}
