@@ -455,17 +455,21 @@ body_remove <- function(x){
 
 # body_add and methods -----
 #' @export
-#' @title add content into a Word document
+#' @title Add content into a Word document
 #' @description This function add objects into a Word document. Values are added
 #' as new paragraphs or tables.
+#'
+#' This function is experimental and will replace the `body_add_*` functions
+#' later. For now it is only to be used for successive additions and cannot
+#' be used in conjunction with the `body_add_*` functions.
 #' @param x an rdocx object
 #' @param value object to add in the document. Supported objects
 #' are vectors, data.frame, graphics, block of formatted paragraphs,
 #' unordered list of formatted paragraphs,
 #' pretty tables with package flextable, 'Microsoft' charts with package mschart.
 #' @param ... further arguments passed to or from other methods. When
-#' adding a `ggplot` object or `plot_instr`, these arguments will be used
-#' by png function.
+#' adding a `ggplot` object or [plot_instr], these arguments will be used
+#' by png function. See method signatures to see what arguments can be used.
 #' @examples
 #' doc_1 <- read_docx()
 #' doc_1 <- body_add(doc_1, "Table of content", style = "heading 1")
@@ -687,7 +691,7 @@ body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 }
 
 #' @export
-#' @describeIn body_add add a base plot
+#' @describeIn body_add add a base plot with a [plot_instr] object.
 body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   file <- tempfile(fileext = ".png")
@@ -708,7 +712,7 @@ body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, sty
 
 
 #' @export
-#' @describeIn body_add add coontent of a docx file
+#' @describeIn body_add pour content of an external docx file with with a [block_pour_docx] object
 body_add.block_pour_docx <- function( x, value, ... ){
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)

@@ -16,7 +16,7 @@
 \alias{body_add.gg}
 \alias{body_add.plot_instr}
 \alias{body_add.block_pour_docx}
-\title{add content into a Word document}
+\title{Add content into a Word document}
 \usage{
 body_add(x, value, ...)
 
@@ -64,8 +64,8 @@ unordered list of formatted paragraphs,
 pretty tables with package flextable, 'Microsoft' charts with package mschart.}
 
 \item{...}{further arguments passed to or from other methods. When
-adding a \code{ggplot} object or \code{plot_instr}, these arguments will be used
-by png function.}
+adding a \code{ggplot} object or \link{plot_instr}, these arguments will be used
+by png function. See method signatures to see what arguments can be used.}
 
 \item{style}{paragraph style name. These names are available with function \link{styles_info}
 and are the names of the Word styles defined in the base document (see
@@ -86,6 +86,10 @@ argument \code{path} from \link{read_docx}).}
 \description{
 This function add objects into a Word document. Values are added
 as new paragraphs or tables.
+
+This function is experimental and will replace the \verb{body_add_*} functions
+later. For now it is only to be used for successive additions and cannot
+be used in conjunction with the \verb{body_add_*} functions.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -115,9 +119,9 @@ the creation of set of formatted paragraphs made of formatted chunks of text.
 
 \item \code{gg}: add a ggplot object.
 
-\item \code{plot_instr}: add a base plot
+\item \code{plot_instr}: add a base plot with a \link{plot_instr} object.
 
-\item \code{block_pour_docx}: add coontent of a docx file
+\item \code{block_pour_docx}: pour content of an external docx file with with a \link{block_pour_docx} object
 }}
 
 \examples{

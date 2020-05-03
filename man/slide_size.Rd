@@ -26,6 +26,7 @@ Other functions for reading presentation informations:
 \code{\link{layout_properties}()},
 \code{\link{layout_summary}()},
 \code{\link{length.rpptx}()},
+\code{\link{plot_layout_properties}()},
 \code{\link{slide_summary}()}
 }
 \concept{functions for reading presentation informations}

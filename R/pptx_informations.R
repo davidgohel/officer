@@ -83,6 +83,52 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 }
 
 #' @export
+#' @title Plot slide layout properties
+#' @description Plot slide layout properties and print informations
+#' into defined placeholders. This can be useful to help
+#' visualise placeholders locations and identifier.
+#' @param x an rpptx object
+#' @param layout slide layout name to use
+#' @param master master layout name where \code{layout} is located
+#' @param labels if TRUE, placeholder labels will be printed, if FALSE
+#' placeholder types and identifiers will be printed.
+#' @importFrom graphics plot rect text box
+#' @examples
+#' x <- read_pptx()
+#' plot_layout_properties( x = x, layout = "Title Slide",
+#'   master = "Office Theme" )
+#' plot_layout_properties( x = x, layout = "Two Content" )
+#' @family functions for reading presentation informations
+plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE){
+  dat <- layout_properties(x, layout = layout, master = master)
+  if(length(unique(dat$name)) != 1 ){
+    stop("one single layout need to be choosen")
+  }
+
+  w <- slide_size(x)
+  h <- w$height
+  w <- w$width
+
+  offx <- dat$offx
+  offy <- dat$offy
+  cx <- dat$cx
+  cy <- dat$cy
+  if(labels) labels <- dat$ph_label
+  else {
+    labels <- dat$type[order(as.integer(dat$id))]
+    rle_ <- rle(labels)
+    labels <- sprintf("type: '%s' - id: %.0f", labels,
+           unlist(lapply(rle_$lengths, seq_len))
+    )
+  }
+
+  plot(x = c(0, w), y = -c(0,h), asp = 1, type = "n", axes = FALSE, xlab = "x (inches)", ylab = "y (inches)")
+  rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
+  text(x = offx + cx/2, y= -(offy + cy/2), labels = labels, cex = .5, col = "red")
+  box()
+}
+
+#' @export
 #' @title PowerPoint placeholder parameters annotation
 #' @description generates a slide from each layout in the base document to
 #' identify the placeholder indexes, types, names, master names and layout names.
