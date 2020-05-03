@@ -1,8 +1,8 @@
 ## Test environments
 
-- local OS X install (R 3.6.1)
+- local OS X install (R 3.6.3)
 - ubuntu 14.04 (on travis-ci with older, release and devel) 
-- winbuilder
+- winbuilder (with older, release and devel) 
 - rhub
 
 ## R CMD check results
@@ -11,5 +11,5 @@ There were no ERROR, WARNING or NOTE.
 
 ## Reverse dependencies
 
-There were 2 errors (not related to officer), no warning and few notes (not related to officer).
+There were no error or warning and few notes (not related to officer).
 
