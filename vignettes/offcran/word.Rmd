@@ -115,25 +115,15 @@ office_doc_link(url = paste0("https://davidgohel.github.io/officer/articles/offc
 
 ## Adding elements
 
-There are two types of functions for adding elements.
+Add content as a paragraph: images, tables, text. Use `body_add_*` functions:
 
-- add content as a paragraph: images, tables, text. Use `body_add_*` functions:
-    - body_add_par
-    - body_add_img
-    - body_add_table
-    - body_add_break
-    - body_add_toc
-    - body_add_gg
-    - flextable::body_add_flextable
-    
-- add text or image inside an existing paragraph. Use `slip_in_*` functions:
-    - slip_in_img
-    - slip_in_seqfield
-    - slip_in_text
-    
-    The content is appened into the paragraph where the cursor is.
-
-### `body_add_*` functions
+- body_add_par
+- body_add_img
+- body_add_table
+- body_add_break
+- body_add_toc
+- body_add_gg
+- flextable::body_add_flextable
 
 The paragraph is the main top container for content within a Word document. 
 *Note that tables are top container, they are at the same level as paragraphs*. 
@@ -185,109 +175,6 @@ read_docx() %>%
 
 ```{r echo=FALSE, message=FALSE}
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/body_add_demo.docx" ) )
-```
-
-### `slip_in_*` functions
-
-The `slip_in_*` functions are designed to add content 
-**inside an existing paragraph**: text, image or seq field. The element is 
-inserted either at the beginning or end of the paragraph 
-(`pos = c('after', 'before')`). Available functions are the following:
-
-- `slip_in_img()`
-- `slip_in_seqfield()`
-- `slip_in_text()`
-
-```{r}
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-read_docx() %>%
-  body_add_par("R logo: ", style = "Normal") %>%
-  slip_in_img(src = img.file, style = "strong", 
-              width = .3, height = .3, pos = "after") %>% 
-  slip_in_text(" - This is ", style = "strong", pos = "before") %>% 
-  slip_in_seqfield(str = "SEQ Figure \u005C* ARABIC",
-    style = 'strong', pos = "before") %>% 
-  print(target = "assets/docx/slip_in_demo.docx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/slip_in_demo.docx" ) )
-```
-
-These have been implemented mostly to allow the addition of Word's special 
-sequence fields (which facilitate numbering) at the beginning of paragraphs used 
-as reference entries (e.g. a table or plot caption). See the section 
-*Table and image captions*.
-
-Note that usage of SEQ field require usage of Word to edit the content and 
-replace the code by its value.
-
-## Cursor manipulation
-
-A cursor is available and can be manipulated so that content can be added 
-relative to its position with the `body_add_*` functions: 
-
-- `before` will insert a new element before the selected element in the document.
-- `after` will insert a new element after the selected element in the document.
-- `on` will replace the selected element in the document by a new element.
-
-Cursor functions are the following:
-
-- `cursor_begin()`
-- `cursor_end()`
-- `cursor_reach()`
-- `cursor_backward()`
-- `cursor_forward()`
-- `cursor_bookmark()`
-
-In order to illustrate the *cursor* functions, a document made up of several 
-paragraphs will be used (let's use officer for that).
-
-```{r}
-read_docx() %>%
-  body_add_par("paragraph 1", style = "Normal") %>%
-  body_add_par("paragraph 2", style = "Normal") %>%
-  body_add_par("paragraph 3", style = "Normal") %>%
-  body_add_par("paragraph 4", style = "Normal") %>%
-  body_add_par("paragraph 5", style = "Normal") %>%
-  body_add_par("paragraph 6", style = "Normal") %>%
-  body_add_par("paragraph 7", style = "Normal") %>%
-  print(target = "assets/docx/init_doc.docx" )
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/init_doc.docx" ) )
-```
-
-Now, let's use `init_doc.docx` with `read_docx()` and manipulate its content 
-with cursor functions.
-
-```{r}
-doc <- read_docx(path = "assets/docx/init_doc.docx") %>%
-
-  # default template contains only an empty paragraph
-  # Using cursor_begin and body_remove, we can delete it
-  cursor_begin() %>% body_remove() %>%
-
-  # Let add text at the beginning of the
-  # paragraph containing text "paragraph 4"
-  cursor_reach(keyword = "paragraph 4") %>%
-  slip_in_text("This is ", pos = "before", style = "Default Paragraph Font") %>%
-
-  # move the cursor forward and end a section
-  cursor_forward() %>%
-  body_add_par("The section stop here", style = "Normal") %>%
-  body_end_section(landscape = TRUE, continuous = FALSE) %>%
-
-  # move the cursor at the end of the document
-  cursor_end() %>%
-  body_add_par("The document ends now", style = "Normal")
-
-print(doc, target = "assets/docx/cursor.docx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/cursor.docx" ) )
 ```
 
 ## Remove content

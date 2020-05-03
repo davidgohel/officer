@@ -33,7 +33,6 @@ reference:
     - body_add_fpar
     - body_add_toc
     - body_add_break
-    - body_end_section
     - body_add_docx
     - body_bookmark
     - body_add_gg
