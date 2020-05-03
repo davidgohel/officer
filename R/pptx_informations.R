@@ -107,6 +107,9 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 
   ppt <- read_pptx(path=path)
+  while(length(ppt)>0){
+    ppt <- remove_slide(ppt, 1)
+  }
 
   # Pulling out all of the layouts stored in the template
   lay_sum <- layout_summary(ppt)
