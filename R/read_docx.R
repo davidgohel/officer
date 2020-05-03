@@ -111,38 +111,16 @@ print.rdocx <- function(x, target = NULL, ...){
   int_id <- 1 # unique id identifier
 
   # make all id unique for document
-  all_uid <- xml_find_all(x$doc_obj$get(), "//*[@id]")
-  for(z in seq_along(all_uid) ){
-    xml_attr(all_uid[[z]], "id") <- int_id
-    int_id <- int_id + 1
-  }
+  int_id <- correct_id(x$doc_obj$get(), int_id)
   # make all id unique for footnote
-  all_uid <- xml_find_all(x$footnotes$get(), "//*[@id]")
-  for(z in seq_along(all_uid) ){
-    xml_attr(all_uid[[z]], "id") <- int_id
-    int_id <- int_id + 1
-  }
+  int_id <- correct_id(x$footnotes$get(), int_id)
   # make all id unique for headers
   for(docpart in x[["headers"]]){
-    all_uid <- xml_find_all(docpart$get(), "//*[@id]")
-    for(z in seq_along(all_uid) ){
-      xml_attr(all_uid[[z]], "id") <- int_id
-      int_id <- int_id + 1
-    }
+    int_id <- correct_id(docpart$get(), int_id)
   }
   # make all id unique for footers
   for(docpart in x[["footers"]]){
-    all_uid <- xml_find_all(docpart$get(), "//*[@id]")
-    for(z in seq_along(all_uid) ){
-      xml_attr(all_uid[[z]], "id") <- int_id
-      int_id <- int_id + 1
-    }
-  }
-
-  all_uid <- xml_find_all(x$footnotes$get(), "//*[@id]")
-  for(z in seq_along(all_uid) ){
-    xml_attr(all_uid[[z]], "id") <- int_id
-    int_id <- int_id + 1
+    int_id <- correct_id(docpart$get(), int_id)
   }
 
   body <- xml_find_first(x$doc_obj$get(), "w:body")
