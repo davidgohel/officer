@@ -172,7 +172,6 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
 #' doc_1 <- read_docx()
 #' doc_1 <- body_add(doc_1, block_pour_docx(docx))
 #' print(doc_1, target = target)
-#' browseURL(target)
 #' @family block functions for reporting
 block_pour_docx <- function(file){
   if(!file.exists(file)){

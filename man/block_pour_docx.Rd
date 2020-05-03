@@ -24,7 +24,6 @@ target <- tempfile(fileext = ".docx")
 doc_1 <- read_docx()
 doc_1 <- body_add(doc_1, block_pour_docx(docx))
 print(doc_1, target = target)
-browseURL(target)
 }
 \seealso{
 Other block functions for reporting: 
