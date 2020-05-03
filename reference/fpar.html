@@ -6,27 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>concatenate formatted text as a paragraph — fpar • officer</title>
+<title>Concatenate formatted text as a paragraph — fpar • officer</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,7 +39,7 @@
 
 
 
-<meta property="og:title" content="concatenate formatted text as a paragraph — fpar" />
+<meta property="og:title" content="Concatenate formatted text as a paragraph — fpar" />
 <meta property="og:description" content="Create a paragraph representation by concatenating
 formatted text or images.
 fpar supports ftext, external_img and simple strings.
@@ -43,7 +47,6 @@ All its arguments will be concatenated to create a paragraph where chunks
 of text and images are associated with formatting properties.
 Default text and paragraph formatting properties can also
 be modified with update." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -61,7 +64,7 @@ be modified with update." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +78,7 @@ be modified with update." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
       </span>
     </div>
 
@@ -117,8 +120,8 @@ be modified with update." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>concatenate formatted text as a paragraph</h1>
-    
+    <h1>Concatenate formatted text as a paragraph</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ooxml_block_objects.R'><code>R/ooxml_block_objects.R</code></a></small>
     <div class="hidden name"><code>fpar.Rd</code></div>
     </div>
 
@@ -135,10 +138,7 @@ be modified with update.</p>
     <pre class="usage"><span class='fu'>fpar</span>(<span class='no'>...</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span>(), <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>())
 
 <span class='co'># S3 method for fpar</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for fpar</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,7 +157,7 @@ be modified with update.</p>
 text formatting properties when simple text is provided as argument.</p></td>
     </tr>
     <tr>
-      <th>x, object</th>
+      <th>object</th>
       <td><p>fpar object</p></td>
     </tr>
     </table>
@@ -166,19 +166,25 @@ text formatting properties when simple text is provided as argument.</p></td>
 
     <p><code>fortify_fpar</code>, <code>as.data.frame</code> are used internally and
 are not supposed to be used by end user.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other block functions for reporting: 
+<code><a href='block_caption.html'>block_caption</a>()</code>,
+<code><a href='block_list.html'>block_list</a>()</code>,
+<code><a href='block_pour_docx.html'>block_pour_docx</a>()</code>,
+<code><a href='block_section.html'>block_section</a>()</code>,
+<code><a href='block_table.html'>block_table</a>()</code>,
+<code><a href='block_toc.html'>block_toc</a>()</code>,
+<code><a href='plot_instr.html'>plot_instr</a>()</code>,
+<code><a href='unordered_list.html'>unordered_list</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>fpar</span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()))</div><div class='output co'>#&gt; $chunks
 #&gt; $chunks[[1]]
-#&gt; $value
-#&gt; [1] "hello"
-#&gt; 
-#&gt; $pr
+#&gt; text: hello
+#&gt; format:
 #&gt;   size italic bold underlined color     shading fontname vertical_align
 #&gt; 1   10  FALSE TRUE      FALSE black transparent    Arial       baseline
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "ftext" "cot"  
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -201,7 +207,7 @@ are not supposed to be used by end user.</p>
 #&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "fpar"</div><div class='input'>
+#&gt; [1] "fpar"  "block"</div><div class='input'>
 <span class='co'># mix text and image -----</span>
 <span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
 
@@ -217,15 +223,10 @@ are not supposed to be used by end user.</p>
 #&gt; [1] "Hello World, "
 #&gt; 
 #&gt; $chunks[[2]]
-#&gt; $value
-#&gt; [1] "how "
-#&gt; 
-#&gt; $pr
+#&gt; text: how 
+#&gt; format:
 #&gt;   size italic bold underlined color     shading fontname vertical_align
 #&gt; 1   12  FALSE TRUE      FALSE   red transparent    Arial       baseline
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "ftext" "cot"  
 #&gt; 
 #&gt; $chunks[[3]]
 #&gt; [1] "/Library/Frameworks/R.framework/Resources/doc/html/logo.jpg"
@@ -240,15 +241,10 @@ are not supposed to be used by end user.</p>
 #&gt; 
 #&gt; 
 #&gt; $chunks[[4]]
-#&gt; $value
-#&gt; [1] " you?"
-#&gt; 
-#&gt; $pr
+#&gt; text:  you?
+#&gt; format:
 #&gt;   size italic bold underlined color     shading fontname vertical_align
 #&gt; 1   12  FALSE TRUE      FALSE black transparent    Arial       baseline
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "ftext" "cot"  
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -271,19 +267,15 @@ are not supposed to be used by end user.</p>
 #&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "fpar"</div><div class='input'>
+#&gt; [1] "fpar"  "block"</div><div class='input'>
 <span class='no'>img_in_par</span> <span class='kw'>&lt;-</span> <span class='fu'>fpar</span>(
   <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>/<span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>/<span class='fl'>2</span>),
   <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span>(<span class='kw'>text.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>) )</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -291,11 +283,11 @@ are not supposed to be used by end user.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.7 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
 <script>
