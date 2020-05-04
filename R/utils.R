@@ -205,7 +205,6 @@ is.color = function(x) {
 correct_id <- function(doc, int_id){
   all_uid <- xml_find_all(doc, "//*[@id]")
   for(z in seq_along(all_uid) ){
-    message(xml_attr(all_uid[[z]], "id"))
     if(!grepl("[^0-9]", xml_attr(all_uid[[z]], "id"))){
       xml_attr(all_uid[[z]], "id") <- int_id
       int_id <- int_id + 1
