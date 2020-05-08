@@ -20,3 +20,13 @@ Word document, this will generate unique
 identifiers that need to be known to
 link these images with their corresponding xml code (wml).
 }
+\seealso{
+Other functions for officer extensions: 
+\code{\link{fortify_location}()},
+\code{\link{get_reference_value}()},
+\code{\link{opts_current_table}()},
+\code{\link{to_pml}()},
+\code{\link{to_wml}()},
+\code{\link{wml_link_images}()}
+}
+\concept{functions for officer extensions}

@@ -9,7 +9,7 @@ run_autonum(
   pre_label = "Table ",
   post_label = ": ",
   bkm = NULL,
-  bkm_all = TRUE
+  bkm_all = FALSE
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ run_autonum(
 is added.}
 
 \item{bkm_all}{if TRUE, the bookmark will be set on the while string, if
-FALSE, the bookmark will be set on the number only. Default to TRUE.
+FALSE, the bookmark will be set on the number only. Default to FALSE.
 As an effect when a reference to this bookmark is used, the text can
 be like "Table 1" or "1" (pre_label is not included in the referenced
 text).}

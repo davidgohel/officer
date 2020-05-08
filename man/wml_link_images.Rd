@@ -20,3 +20,13 @@ be valid without this operation.
 The function is available to allow the creation of valid
 wml code containing references to images.
 }
+\seealso{
+Other functions for officer extensions: 
+\code{\link{docx_reference_img}()},
+\code{\link{fortify_location}()},
+\code{\link{get_reference_value}()},
+\code{\link{opts_current_table}()},
+\code{\link{to_pml}()},
+\code{\link{to_wml}()}
+}
+\concept{functions for officer extensions}

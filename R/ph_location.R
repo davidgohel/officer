@@ -61,6 +61,7 @@ as_ph_location <- function(x, ...){
 #'   master = "Office Theme")
 #' fortify_location(ph_location_fullsize(), doc)
 #' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
+#' @family functions for officer extensions
 fortify_location <- function( x, doc, ... ){
   UseMethod("fortify_location")
 }

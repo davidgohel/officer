@@ -7,6 +7,7 @@
 #' @param x object
 #' @param add_ns should namespace be added to the top tag
 #' @param ... Arguments to be passed to methods
+#' @family functions for officer extensions
 to_wml <- function(x, add_ns = FALSE, ...) {
   UseMethod("to_wml")
 }
@@ -18,6 +19,7 @@ to_wml <- function(x, add_ns = FALSE, ...) {
 #' @param x object
 #' @param add_ns should namespace be added to the top tag
 #' @param ... Arguments to be passed to methods
+#' @family functions for officer extensions
 to_pml <- function(x, add_ns = FALSE, ...) {
   UseMethod("to_pml")
 }
@@ -95,7 +97,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param bkm bookmark id to associate with autonumber run. If NULL, no bookmark
 #' is added.
 #' @param bkm_all if TRUE, the bookmark will be set on the while string, if
-#' FALSE, the bookmark will be set on the number only. Default to TRUE.
+#' FALSE, the bookmark will be set on the number only. Default to FALSE.
 #' As an effect when a reference to this bookmark is used, the text can
 #' be like "Table 1" or "1" (pre_label is not included in the referenced
 #' text).
@@ -105,7 +107,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
 #' @family run functions for reporting
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
-                        bkm = NULL, bkm_all = TRUE) {
+                        bkm = NULL, bkm_all = FALSE) {
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,
@@ -120,6 +122,8 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
 
 #' @export
 to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
+  if(is.null(x$seq_id)) return("")
+
   run_str_pre <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$pre_label)
   run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
   sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic"))

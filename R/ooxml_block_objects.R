@@ -32,9 +32,7 @@ print.block_caption <- function(x, ...) {
   cat("caption ", auton, ": ", x$label, "\n", sep = "")
 }
 
-
-#' @export
-to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
+to_wml_block_caption_officer <- function(x, add_ns = FALSE, base_document = NULL){
   if (is.null(base_document)) {
     base_document <- get_reference_value("docx")
   }
@@ -56,7 +54,6 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
     style <- x$style
   }
   style_id <- get_style_id(data = base_document$styles, style = style, type = "paragraph")
-
   autonum <- ""
   if (!is.null(x$autonum)) {
     autonum <- to_wml(x$autonum)
@@ -71,6 +68,36 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
   )
 
   out
+}
+to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL){
+
+  if(is.null(x$label)) return("")
+
+  autonum <- ""
+  if (!is.null(x$autonum)) {
+    autonum <- paste("`", to_wml(x$autonum), "`{=openxml}", sep = "")
+  }
+
+  run_str <- paste0(autonum, htmlEscapeCopy(x$label))
+
+  paste0(
+    if (!is.null(x$style)) paste0("\n\n::: {custom-style=\"", x$style, "\"}"),
+    "\n\n",
+    # "<caption>\n\n",
+    if (!is.null(bookdown_id)) bookdown_id,
+    run_str,
+    # "\n\n</caption>",
+    if (!is.null(x$style)) paste0("\n:::\n"),
+    "\n\n"
+  )
+}
+
+#' @export
+to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, knitting = FALSE, ...) {
+  if(knitting)
+    to_wml_block_caption_pandoc(x, bookdown_id = list(...)$bookdown_id)
+  else
+    to_wml_block_caption_officer(x, add_ns = add_ns, base_document = base_document)
 }
 
 
