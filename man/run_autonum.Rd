@@ -4,19 +4,38 @@
 \alias{run_autonum}
 \title{auto number}
 \usage{
-run_autonum(seq_id = "table", pre_label = "Table ", post_label = ": ")
+run_autonum(
+  seq_id = "table",
+  pre_label = "Table ",
+  post_label = ": ",
+  bkm = NULL,
+  bkm_all = TRUE
+)
 }
 \arguments{
 \item{seq_id}{sequence identifier}
 
 \item{pre_label, post_label}{text to add before and after number}
+
+\item{bkm}{bookmark id to associate with autonumber run. If NULL, no bookmark
+is added.}
+
+\item{bkm_all}{if TRUE, the bookmark will be set on the while string, if
+FALSE, the bookmark will be set on the number only. Default to TRUE.
+As an effect when a reference to this bookmark is used, the text can
+be like "Table 1" or "1" (pre_label is not included in the referenced
+text).}
 }
 \description{
-Create a string representation of a number
+Create an autonumbered chunk, i.e. a string
+representation of a sequence, each item will be numbered.
+These runs can also be bookmarked and be used later for
+cross references.
 }
 \examples{
 run_autonum()
 run_autonum(seq_id = "fig", pre_label = "fig. ")
+run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
 }
 \seealso{
 Other run functions for reporting: 

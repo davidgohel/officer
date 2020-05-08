@@ -86,18 +86,32 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 
 #' @export
 #' @title auto number
-#' @description Create a string representation of a number
+#' @description Create an autonumbered chunk, i.e. a string
+#' representation of a sequence, each item will be numbered.
+#' These runs can also be bookmarked and be used later for
+#' cross references.
 #' @param seq_id sequence identifier
 #' @param pre_label,post_label text to add before and after number
+#' @param bkm bookmark id to associate with autonumber run. If NULL, no bookmark
+#' is added.
+#' @param bkm_all if TRUE, the bookmark will be set on the while string, if
+#' FALSE, the bookmark will be set on the number only. Default to TRUE.
+#' As an effect when a reference to this bookmark is used, the text can
+#' be like "Table 1" or "1" (pre_label is not included in the referenced
+#' text).
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
+#' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
 #' @family run functions for reporting
-run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ") {
+run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
+                        bkm = NULL, bkm_all = TRUE) {
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,
-    post_label = post_label
+    post_label = post_label,
+    bookmark = bkm,
+    bookmark_all = bkm_all
   )
   class(z) <- c("run_autonum", "run")
 
@@ -110,7 +124,19 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
   sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic"))
   sf_str <- to_wml(sqf)
-  out <- paste0(run_str_pre, sf_str, run_str_post)
+  if(!is.null(x$bookmark)){
+    if(x$bookmark_all){
+      out <- paste0(
+        bookmark(id = x$bookmark,
+                 str = paste0(run_str_pre, sf_str)),
+        run_str_post)
+    } else {
+      sf_str <- bookmark(id = x$bookmark, sf_str)
+      out <- paste0(run_str_pre, sf_str, run_str_post)
+    }
+  } else {
+    out <- paste0(run_str_pre, sf_str, run_str_post)
+  }
 
   out
 }

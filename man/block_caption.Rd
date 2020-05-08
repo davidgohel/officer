@@ -4,30 +4,27 @@
 \alias{block_caption}
 \title{Caption block}
 \usage{
-block_caption(label, style, id = NULL, autonum = NULL)
+block_caption(label, style, autonum = NULL)
 }
 \arguments{
 \item{label}{a scalar character representing label to display}
 
 \item{style}{paragraph style name}
 
-\item{id}{cross reference identifier}
-
 \item{autonum}{an object generated with function \link{run_autonum}}
 }
 \description{
 Create a representation of a
-caption that can be used for cross reference. The caption
-can also be an auto numbered paragraph.
+caption that can be used for cross reference.
 }
 \examples{
 
 library(magrittr)
 library(officer)
 
-run_num <- run_autonum(seq_id = "tab", pre_label = "tab. ")
+run_num <- run_autonum(seq_id = "tab", pre_label = "tab. ", bkm = "iris_table")
 caption <- block_caption("iris table",
-                         style = "Normal", id = "iris_table",
+                         style = "Normal",
                          autonum = run_num )
 
 doc <- read_docx() \%>\%

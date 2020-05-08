@@ -3,20 +3,17 @@
 #' @export
 #' @title Caption block
 #' @description Create a representation of a
-#' caption that can be used for cross reference. The caption
-#' can also be an auto numbered paragraph.
+#' caption that can be used for cross reference.
 #' @param label a scalar character representing label to display
 #' @param style paragraph style name
-#' @param id cross reference identifier
 #' @param autonum an object generated with function [run_autonum]
 #' @examples
 #'
 #' @example examples/block_caption.R
 #' @family block functions for reporting
-block_caption <- function(label, style, id = NULL, autonum = NULL) {
+block_caption <- function(label, style, autonum = NULL) {
   z <- list(
     label = label,
-    id = id,
     autonum = autonum,
     style = style
   )
@@ -67,9 +64,6 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 
   run_str <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscapeCopy(x$label))
   run_str <- paste0(autonum, run_str)
-  if(!is.null(x$id)){
-    run_str <- bookmark(x$id, run_str)
-  }
 
   out <- sprintf(
     "%s<w:pPr><w:pStyle w:val=\"%s\"/></w:pPr>%s</w:p>",
@@ -86,15 +80,19 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 #' @title Table of content
 #' @description Create a representation of a table of content.
 #' @param level max title level of the table
-#' @param style optional. style in the document that will be used to build entries of the TOC.
+#' @param style optional. If not NULL, its value is used as style in the
+#' document that will be used to build entries of the TOC.
+#' @param seq_id optional. If not NULL, its value is used as sequence
+#' identifier in the document that will be used to build entries of the
+#' TOC. See also [run_autonum()] to specify a sequence identifier.
 #' @param separator optional. Some configurations need "," (i.e. from Canada) separator instead of ";"
 #' @examples
 #' block_toc(level = 2)
 #' block_toc(style = "Table title")
 #' @family block functions for reporting
-block_toc <- function(level = 3, style = NULL, separator = ";") {
+block_toc <- function(level = 3, style = NULL, seq_id = NULL, separator = ";") {
   z <- list(
-    level = level, style = style, separator = separator
+    level = level, style = style, seq_id = seq_id, separator = separator
   )
   class(z) <- c("block_toc", "block")
 
@@ -103,10 +101,12 @@ block_toc <- function(level = 3, style = NULL, separator = ";") {
 
 #' @export
 print.block_toc <- function(x, ...) {
-  if (is.null(x$style)) {
+  if (is.null(x$style) && is.null(x$seq_id)) {
     cat("TOC - max level: ", x$level, "\n", sep = "")
-  } else {
+  } else if (!is.null(x$style)) {
     cat("TOC for style: ", x$style, "\n", sep = "")
+  } else if (!is.null(x$seq_id)) {
+    cat("TOC for seq identifier: ", x$seq_id, "\n", sep = "")
   }
 }
 
@@ -119,30 +119,41 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
   }
 
 
-  if (is.null(x$style)) {
+  if(is.null(x$style) && is.null(x$seq_id)) {
     out <- paste0(
       open_tag,
       "<w:pPr/>",
       to_wml(
         run_seqfield(
           seqfield = sprintf(
-            "TOC \u005Co &quot;1-%.0f&quot; \u005Ch \u005Cz \u005Cu",
+            "TOC \\o \"1-%.0f\" \\h \\z \\u",
             x$level
           )
         )
       ),
       "</w:p>"
     )
-  } else {
+  } else if(!is.null(x$style)) {
     out <- paste0(
       open_tag,
       "<w:pPr/>",
       to_wml(
         run_seqfield(
           seqfield = sprintf(
-            "TOC \u005Ch \u005Cz \u005Ct \"%s%s1\"",
+            "TOC \\h \\z \\t \"%s%s1\"",
             x$style, x$separator
           )
+        )
+      ),
+      "</w:p>"
+    )
+  } else if(!is.null(x$seq_id)) {
+    out <- paste0(
+      open_tag,
+      "<w:pPr/>",
+      to_wml(
+        run_seqfield(
+          seqfield = sprintf("TOC \\h \\z \\c \"%s\"", x$seq_id)
         )
       ),
       "</w:p>"
