@@ -23,7 +23,7 @@ Create a representation of a table of content.
 }
 \examples{
 block_toc(level = 2)
-block_toc(style = "Table title")
+block_toc(style = "Table Caption")
 }
 \seealso{
 Other block functions for reporting: 

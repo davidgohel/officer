@@ -115,7 +115,7 @@ to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, knitti
 #' @param separator optional. Some configurations need "," (i.e. from Canada) separator instead of ";"
 #' @examples
 #' block_toc(level = 2)
-#' block_toc(style = "Table title")
+#' block_toc(style = "Table Caption")
 #' @family block functions for reporting
 block_toc <- function(level = 3, style = NULL, seq_id = NULL, separator = ";") {
   z <- list(
