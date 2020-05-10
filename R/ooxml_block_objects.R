@@ -527,7 +527,7 @@ table_docx <- function(x, header, style_id,
   if (header) {
     header_str <- paste0(
       "<w:tr><w:trPr><w:tblHeader/></w:trPr>",
-      paste0("<w:tc><w:trPr/><w:p><w:r><w:t>",
+      paste0("<w:tc><w:p><w:r><w:t>",
         htmlEscapeCopy(enc2utf8(colnames(x))),
         "</w:t></w:r></w:p></w:tc>",
         collapse = ""
@@ -538,7 +538,7 @@ table_docx <- function(x, header, style_id,
 
   as_tc <- function(x) {
     paste0(
-      "<w:tc><w:trPr/><w:p><w:r><w:t>",
+      "<w:tc><w:p><w:r><w:t>",
       htmlEscapeCopy(enc2utf8(x)),
       "</w:t></w:r></w:p></w:tc>"
     )
