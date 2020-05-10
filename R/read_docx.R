@@ -312,7 +312,8 @@ docx_bookmarks <- function(x){
 
 #' @export
 #' @title replace paragraphs styles
-#' @description Replace styles with others in a Word document.
+#' @description Replace styles with others in a Word document. This function
+#' is to be used for paragraph styles.
 #' @param x an rdocx object
 #' @param mapstyles a named list, names are the replacement style,
 #' content (as a character vector) are the styles to be replaced.
@@ -332,23 +333,23 @@ change_styles <- function( x, mapstyles ){
 
   if( is.null(mapstyles) || length(mapstyles) < 1 ) return(x)
 
-  styles_table <- styles_info(x)
+  styles_table <- styles_info(x, type = "paragraph")
 
   from_styles <- unique( as.character( unlist(mapstyles) ) )
   to_styles <- unique( names( mapstyles) )
 
   if( any( is.na( mfrom <- match( from_styles, styles_table$style_name ) ) ) ){
-    stop("could not find style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
+    stop("could not find paragraph style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
   }
   if( any( is.na( mto <- match( to_styles, styles_table$style_name ) ) ) ){
-    stop("could not find style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
+    stop("could not find paragraph style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
   }
 
   mapping <- mapply(function(from, to) {
-    id_to <- which( styles_table$style_type %in% "paragraph" & styles_table$style_name %in% to )
+    id_to <- which( styles_table$style_name %in% to )
     id_to <- styles_table$style_id[id_to]
 
-    id_from <- which( styles_table$style_type %in% "paragraph" & styles_table$style_name %in% from )
+    id_from <- which( styles_table$style_name %in% from )
     id_from <- styles_table$style_id[id_from]
 
     data.frame( from = id_from, to = rep(id_to, length(from)), stringsAsFactors = FALSE )

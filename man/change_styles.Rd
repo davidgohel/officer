@@ -13,7 +13,8 @@ change_styles(x, mapstyles)
 content (as a character vector) are the styles to be replaced.}
 }
 \description{
-Replace styles with others in a Word document.
+Replace styles with others in a Word document. This function
+is to be used for paragraph styles.
 }
 \examples{
 library(magrittr)
