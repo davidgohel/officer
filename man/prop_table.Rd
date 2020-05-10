@@ -5,11 +5,12 @@
 \title{Table properties}
 \usage{
 prop_table(
-  style = "table_template",
+  style = NA_character_,
   layout = table_layout(),
   width = table_width(),
   colwidths = table_colwidths(),
-  tcf = table_conditional_formatting()
+  tcf = table_conditional_formatting(),
+  align = "center"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ prop_table(
 \item{colwidths}{column widths defined by \code{\link[=table_colwidths]{table_colwidths()}}}
 
 \item{tcf}{conditional formatting settings defined by \code{\link[=table_conditional_formatting]{table_conditional_formatting()}}}
+
+\item{align}{table alignment (one of left, center or right)}
 }
 \description{
 Define table properties such as fixed or autofit layout,

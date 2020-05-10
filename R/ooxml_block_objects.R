@@ -441,7 +441,7 @@ table_colwidths <- function(widths = NULL){
 #' @export
 to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
   if(length(x$widths) < 1) return("")
-  grid_col_str <- sprintf("<w:w:gridCol w:w=\"%.0f\"/>", x$widths * 1440)
+  grid_col_str <- sprintf("<w:gridCol w:w=\"%.0f\"/>", x$widths * 1440)
   grid_col_str <- paste(grid_col_str, collapse = "")
   paste0("<w:tblGrid>", grid_col_str, "</w:tblGrid>")
 }
@@ -454,14 +454,16 @@ to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
 #' @param layout layout defined by [table_layout()],
 #' @param width table width in the document defined by [table_width()]
 #' @param colwidths column widths defined by [table_colwidths()]
+#' @param align table alignment (one of left, center or right)
 #' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
 #' @examples
 #' prop_table()
 #' @family functions for table definition
-prop_table <- function(style = "table_template", layout = table_layout(),
+prop_table <- function(style = NA_character_, layout = table_layout(),
                          width = table_width(),
                          colwidths = table_colwidths(),
-                         tcf = table_conditional_formatting()){
+                         tcf = table_conditional_formatting(),
+                       align = "center"){
 
 
   z <- list(
@@ -469,7 +471,7 @@ prop_table <- function(style = "table_template", layout = table_layout(),
     layout = layout,
     width = width,
     colsizes = colwidths,
-    tcf = tcf
+    tcf = tcf, align = align
   )
   class(z) <- c("prop_table")
   z
@@ -487,23 +489,27 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
     stop("base_document can only be the path to a docx file or an rdocx document.")
   }
 
-  if (is.null(x$style)) {
-    style <- base_document$default_styles$table
-  } else {
-    style <- x$style
+  style_id <- NA_character_
+  if(!is.null(x$style) && !is.na(x$style)){
+    if (is.null(x$style)) {
+      style <- base_document$default_styles$table
+    } else {
+      style <- x$style
+    }
+    style_id <- get_style_id(data = base_document$styles, style = style, type = "table")
   }
-  style_id <- get_style_id(data = base_document$styles, style = style, type = "table")
 
   tbl_layout <- to_wml(x$layout, add_ns= add_ns, base_document = base_document)
   width <- to_wml(x$width, add_ns= add_ns, base_document = base_document)
   colwidths <- to_wml(x$colsizes, add_ns= add_ns, base_document = base_document)
   tcf <- to_wml(x$tcf, add_ns= add_ns, base_document = base_document)
-
   paste0("<w:tblPr>",
-         "<w:tblStyle w:val=\"", style_id, "\"/>",
-         tbl_layout, width, tcf, colwidths,
+         if(!is.na(style_id)) "<w:tblStyle w:val=\"", style_id, "\"/>",
+         tbl_layout,
+         sprintf( "<w:jc w:val=\"%s\"/>", x$align ),
+         width, tcf,
          "</w:tblPr>",
-         colwidths
+         if(x$layout$type %in% "fixed") colwidths
          )
 
 }
