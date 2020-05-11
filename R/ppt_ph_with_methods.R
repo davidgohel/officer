@@ -203,9 +203,7 @@ ph_with.factor <- function(x, value, location, ...){
 ph_with.logical <- ph_with.numeric
 
 #' @export
-#' @param is_list experimental paramater to make
-#' block_list formated as an unordered list. This
-#' should evolve in the next versions.
+#' @param is_list make block_list formated as an unordered list.
 #' @describeIn ph_with add a \code{\link{block_list}} made
 #' of \code{\link{fpar}} to a new shape on the current slide.
 ph_with.block_list <- function(x, value, location, is_list = FALSE, ...){

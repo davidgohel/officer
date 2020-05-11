@@ -72,9 +72,7 @@ by png function.}
 
 \item{format_fun}{format function for non character vectors}
 
-\item{is_list}{experimental paramater to make
-block_list formated as an unordered list. This
-should evolve in the next versions.}
+\item{is_list}{make block_list formated as an unordered list.}
 
 \item{header}{display header if TRUE}
 
