@@ -27,7 +27,7 @@ ph_with(x, value, location, ...)
 
 \method{ph_with}{logical}(x, value, location, format_fun = format, ...)
 
-\method{ph_with}{block_list}(x, value, location, is_list = FALSE, ...)
+\method{ph_with}{block_list}(x, value, location, level_list = integer(0), ...)
 
 \method{ph_with}{unordered_list}(x, value, location, ...)
 
@@ -72,7 +72,9 @@ by png function.}
 
 \item{format_fun}{format function for non character vectors}
 
-\item{is_list}{make block_list formated as an unordered list.}
+\item{level_list}{The list of levels for hierarchy structure as integer values.
+If used the object is formated as an unordered list. If 1 and 2,
+item 1 level will be 1, item 2 level will be 2.}
 
 \item{header}{display header if TRUE}
 
