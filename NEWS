@@ -5,13 +5,13 @@
 * new argument `level_list` in function `ph_with.block_list` ; you can now format block_list
 as lists in PowerPoint.
 
-
 # officer 0.3.9
 
 ## Issues
 
 * fix issues with invisible images when using ph_location_fullsize and a *blank* layout
 * Embedded files in initial Word document were lost when they were read and printed
+* fix run_reference issue with characters '-', '_'.
 
 ## New features
 

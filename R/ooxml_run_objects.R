@@ -95,7 +95,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param seq_id sequence identifier
 #' @param pre_label,post_label text to add before and after number
 #' @param bkm bookmark id to associate with autonumber run. If NULL, no bookmark
-#' is added.
+#' is added. Value can only be made of alpha numeric characters, '-' and '_'.
 #' @param bkm_all if TRUE, the bookmark will be set on the while string, if
 #' FALSE, the bookmark will be set on the number only. Default to FALSE.
 #' As an effect when a reference to this bookmark is used, the text can
@@ -108,6 +108,18 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @family run functions for reporting
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
                         bkm = NULL, bkm_all = FALSE) {
+
+  if(!is.null(bkm)){
+    invalid_bkm <- is.character(bkm) &&
+      length(bkm) == 1 &&
+      nchar(bkm) > 0 &&
+      grepl("[^[:alnum:]_-]+", bkm)
+    if(invalid_bkm){
+      stop("bkm [", bkm, "] should only contain alphanumeric characters, '-' and '_'.", call. = FALSE)
+    }
+  }
+
+
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,
@@ -167,7 +179,7 @@ run_reference <- function(id) {
 
 #' @export
 to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
-  out <- to_wml(run_seqfield(seqfield = x$id))
+  out <- to_wml(run_seqfield(seqfield = paste0(" REF ", x$id, " \\h ")))
   out
 }
 
