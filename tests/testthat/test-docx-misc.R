@@ -129,7 +129,6 @@ test_that("body remove", {
     body_add_par("paragraph 2", style = "Normal") %>%
 
     cursor_begin() %>%
-    body_remove() %>%
 
     body_add_par("new 1", style = "Normal") %>%
     cursor_forward() %>%
@@ -137,10 +136,9 @@ test_that("body remove", {
 
   ds_ <- docx_summary(doc)
 
-  expect_equal( ds_$text, c("paragraph 1", "new 1", "paragraph 2", "new 2") )
+  expect_equal( ds_$text, c("new 1", "paragraph 1", "new 2", "paragraph 2") )
 
   doc <- read_docx()
-  doc <- body_remove(doc)
   expect_warning(body_remove(doc), "There is nothing left to remove in the document")
 
 })

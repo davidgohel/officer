@@ -11,10 +11,10 @@ test_that("replace bkm with text in body", {
 
   doc <- body_replace_text_at_bkm(doc, "text_to_replace", "not left aligned")
   xmldoc <- doc$doc_obj$get()
-  newtext <- xml_find_first(xmldoc, "w:body/w:p[2]/w:r")
+  newtext <- xml_find_first(xmldoc, "w:body/w:p[1]/w:r")
   expect_equal(xml_text(newtext), "not left aligned")
 
-  lasttext <- xml_find_first(xmldoc, "w:body/w:p[2]/w:r[2]")
+  lasttext <- xml_find_first(xmldoc, "w:body/w:p[1]/w:r[2]")
   expect_equal(xml_text(lasttext), ". How are you")
 })
 
@@ -79,7 +79,7 @@ test_that("docx replace text", {
   doc <- body_replace_all_text(doc, old_value = "placeholder", new_value = "new",
                                only_at_cursor = FALSE, ignore.case = TRUE)
   xmldoc <- doc$doc_obj$get()
-  expect_equal(xml_text( xml_find_all(xmldoc, "//w:p") ), c("", "new one", "new two") )
+  expect_equal(xml_text( xml_find_all(xmldoc, "//w:p") ), c("new one", "new two") )
 })
 
 test_that("docx replace all text", {
