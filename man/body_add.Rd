@@ -34,6 +34,7 @@ body_add(x, value, ...)
   style = NULL,
   header = TRUE,
   tcf = table_conditional_formatting(),
+  alignment = NULL,
   ...
 )
 
@@ -76,6 +77,9 @@ argument \code{path} from \link{read_docx}).}
 \item{header}{display header if TRUE}
 
 \item{tcf}{conditional formatting settings defined by \code{\link[=table_conditional_formatting]{table_conditional_formatting()}}}
+
+\item{alignment}{columns alignement, argument length must match with columns length,
+values must be "l" (left), "r" (right) or "c" (center).}
 
 \item{width}{height in inches}
 

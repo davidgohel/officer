@@ -517,7 +517,7 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 
 # table ----
 table_docx <- function(x, header, style_id,
-                       properties, add_ns = FALSE,
+                       properties, alignment = NULL, add_ns = FALSE,
                        base_document = base_document) {
   open_tag <- tbl_ns_no
   if (add_ns) {
@@ -529,11 +529,19 @@ table_docx <- function(x, header, style_id,
     to_wml(properties, add_ns = add_ns, base_document = base_document)
   )
 
+  if(is.null(alignment)){
+    alignment <- rep("right", ncol(x))
+  } else{
+    alignment <- match.arg(alignment, c("left", "right", "center"), several.ok = TRUE )
+  }
+
   header_str <- character(length = 0L)
   if (header) {
     header_str <- paste0(
       "<w:tr><w:trPr><w:tblHeader/></w:trPr>",
-      paste0("<w:tc><w:p><w:r><w:t>",
+      paste0("<w:tc><w:p>",
+             sprintf("<w:pPr><w:jc w:val=\"%s\"/></w:pPr>", alignment),
+             "<w:r><w:t>",
         htmlEscapeCopy(enc2utf8(colnames(x))),
         "</w:t></w:r></w:p></w:tc>",
         collapse = ""
@@ -541,16 +549,17 @@ table_docx <- function(x, header, style_id,
       "</w:tr>"
     )
   }
-
-  as_tc <- function(x) {
+  as_tc <- function(x, align) {
     paste0(
-      "<w:tc><w:p><w:r><w:t>",
+      "<w:tc><w:p>",
+      sprintf("<w:pPr><w:jc w:val=\"%s\"/></w:pPr>", align),
+      "<w:r><w:t>",
       htmlEscapeCopy(enc2utf8(x)),
       "</w:t></w:r></w:p></w:tc>"
     )
   }
 
-  z <- lapply(x, as_tc)
+  z <- mapply(as_tc, x, alignment, SIMPLIFY = FALSE)
   z <- do.call(paste0, z)
   z <- paste0("<w:tr>", z, "</w:tr>", collapse = "")
 
@@ -558,7 +567,7 @@ table_docx <- function(x, header, style_id,
 }
 
 table_pptx <- function(x, style_id, col_width, row_height,
-                       tcf, header = TRUE ){
+                       tcf, header = TRUE, alignment = NULL ){
   str <- paste0("<a:tbl>",
                 sprintf("<a:tblPr %s>", to_pml(tcf)),
                 sprintf("<a:tableStyleId>%s</a:tableStyleId>", style_id),
@@ -569,22 +578,31 @@ table_pptx <- function(x, style_id, col_width, row_height,
                        collapse = ""),
                 "</a:tblGrid>")
 
-  as_tc <- function(x) {
-    paste0("<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:t>",
+  as_tc <- function(x, align) {
+    paste0("<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p>",
+           "<a:pPr algn=\"", align, "\"/>",
+           "<a:r><a:t>",
            htmlEscapeCopy(enc2utf8(x)),
            "</a:t></a:r></a:p></a:txBody></a:tc>"
     )
   }
+
+  if(is.null(alignment)){
+    alignment <- rep("r", ncol(x))
+  } else{
+    alignment <- match.arg(alignment, c("l", "r", "ctr"), several.ok = TRUE )
+  }
+
   header_str <- character(length = 0L)
   if( header ){
     header_str  <- paste0(
       sprintf("<a:tr h=\"%.0f\">", row_height),
-      paste0(as_tc(colnames(x)), collapse = ""),
+      paste0(as_tc(colnames(x), align = alignment), collapse = ""),
       "</a:tr>"
     )
   }
 
-  z <- lapply(x, as_tc)
+  z <- mapply(as_tc, x, alignment, SIMPLIFY = FALSE)
   z <- do.call(paste0, z)
   z <- paste0(sprintf("<a:tr h=\"%.0f\">", row_height), z, "</a:tr>", collapse = "")
 
@@ -606,6 +624,8 @@ table_pptx <- function(x, style_id, col_width, row_height,
 #' output format. They are fully supported with Word but for PowerPoint (which
 #' does not handle as many things as Word for tables), only conditional
 #' formatting properties are supported.
+#' @param alignment alignment for each columns, 'l' for left, 'r' for right
+#' and 'c' for center. Default to NULL.
 #' @examples
 #' block_table(x = head(iris))
 #'
@@ -616,7 +636,7 @@ table_pptx <- function(x, style_id, col_width, row_height,
 #'   ))
 #' @family block functions for reporting
 #' @seealso [prop_table()]
-block_table <- function(x, header = TRUE, properties = prop_table()) {
+block_table <- function(x, header = TRUE, properties = prop_table(), alignment = NULL) {
 
   stopifnot(is.data.frame(x))
   if(inherits(x, "tbl_df"))
@@ -626,7 +646,8 @@ block_table <- function(x, header = TRUE, properties = prop_table()) {
   z <- list(
     x = x,
     header = header,
-    properties = properties
+    properties = properties,
+    alignment = alignment
   )
   class(z) <- c("block_table", "block")
 
@@ -656,6 +677,7 @@ to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
   out <- table_docx(
     x = value, header = x$header,
     properties = x$properties,
+    alignment = x$alignment,
     base_document = base_document,
     add_ns = add_ns
   )
@@ -679,6 +701,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
   }
   value <- characterise_df(x$x)
   value_str <- table_pptx(value, style_id = x$properties$style,
+                          alignment = x$alignment,
                         col_width = as.integer((width/ncol(x$x))*914400),
                         row_height = as.integer((height/nrow(x$x))*914400),
                         tcf = x$properties$tcf,

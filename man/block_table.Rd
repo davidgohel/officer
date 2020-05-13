@@ -4,7 +4,7 @@
 \alias{block_table}
 \title{Table block}
 \usage{
-block_table(x, header = TRUE, properties = prop_table())
+block_table(x, header = TRUE, properties = prop_table(), alignment = NULL)
 }
 \arguments{
 \item{x}{a data.frame to add as a table}
@@ -16,6 +16,9 @@ Table properties are not handled identically between Word and PowerPoint
 output format. They are fully supported with Word but for PowerPoint (which
 does not handle as many things as Word for tables), only conditional
 formatting properties are supported.}
+
+\item{alignment}{alignment for each columns, 'l' for left, 'r' for right
+and 'c' for center. Default to NULL.}
 }
 \description{
 Create a representation of a table

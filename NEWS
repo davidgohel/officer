@@ -4,6 +4,12 @@
 
 * new argument `level_list` in function `ph_with.block_list` ; you can now format block_list
 as lists in PowerPoint.
+* functions `body_add_table`, `ph_with.data.frame`, `body_add.data.frame` get
+new argument `alignment` for column alignments.
+
+## Issues
+
+* run_reference now bookmarks only the number.
 
 # officer 0.3.9
 

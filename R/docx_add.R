@@ -285,6 +285,8 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @param pos where to add the new element relative to the cursor,
 #' one of after", "before", "on".
 #' @param header display header if TRUE
+#' @param alignment columns alignement, argument length must match with columns length,
+#' values must be "l" (left), "r" (right) or "c" (center).
 #' @param first_row Specifies that the first column conditional formatting should be
 #' applied. Details for this and other conditional formatting options can be found
 #' at http://officeopenxml.com/WPtblLook.php.
@@ -304,6 +306,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' print(doc, target = tempfile(fileext = ".docx") )
 #' @family functions for adding content
 body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
+                            alignment = NULL,
                             first_row = TRUE, first_column = FALSE,
                             last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
@@ -316,7 +319,7 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
       last_row = last_row, last_column = last_column,
       no_hband = no_hband, no_vband = no_vband))
 
-  bt <- block_table(x = value, header = header, properties = pt)
+  bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -557,9 +560,12 @@ body_add.fpar <- function( x, value, style = NULL, ... ){
 #' @export
 #' @param header display header if TRUE
 #' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
+#' @param alignment columns alignement, argument length must match with columns length,
+#' values must be "l" (left), "r" (right) or "c" (center).
 #' @describeIn body_add add a data.frame object with [block_table()].
 body_add.data.frame <- function( x, value, style = NULL, header = TRUE,
                                  tcf = table_conditional_formatting(),
+                                 alignment = NULL,
                                  ... ){
 
   pt <- prop_table(
@@ -567,7 +573,7 @@ body_add.data.frame <- function( x, value, style = NULL, header = TRUE,
     width = table_width(),
     tcf = tcf)
 
-  bt <- block_table(x = value, header = header, properties = pt)
+  bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
 
   body_add_xml2(x = x, str = xml_elt)

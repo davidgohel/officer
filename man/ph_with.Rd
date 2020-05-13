@@ -37,6 +37,7 @@ ph_with(x, value, location, ...)
   location,
   header = TRUE,
   tcf = table_conditional_formatting(),
+  alignment = NULL,
   ...
 )
 
@@ -79,6 +80,9 @@ item 1 level will be 1, item 2 level will be 2.}
 \item{header}{display header if TRUE}
 
 \item{tcf}{conditional formatting settings defined by \code{\link[=table_conditional_formatting]{table_conditional_formatting()}}}
+
+\item{alignment}{alignment for each columns, 'l' for left, 'r' for right
+and 'c' for center. Default to NULL.}
 
 \item{res}{resolution of the png image in ppi}
 

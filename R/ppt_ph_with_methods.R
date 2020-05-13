@@ -279,11 +279,14 @@ ph_with.unordered_list <- function(x, value, location, ...){
 #' @export
 #' @param header display header if TRUE
 #' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
+#' @param alignment alignment for each columns, 'l' for left, 'r' for right
+#' and 'c' for center. Default to NULL.
 #' @describeIn ph_with add a data.frame to a new shape on the current slide with
 #' function [block_table()]. Use package \code{flextable} instead for more
 #' advanced formattings.
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                tcf = table_conditional_formatting(),
+                               alignment = NULL,
                                ...){
   location <- fortify_location(location, doc = x)
 
@@ -295,7 +298,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
     width = table_width(),
     tcf = tcf)
 
-  bt <- block_table(x = value, header = header, properties = pt)
+  bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
 
   xml_elt <- to_pml(
     bt, left = location$left, top = location$top,

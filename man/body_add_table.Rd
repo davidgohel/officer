@@ -10,6 +10,7 @@ body_add_table(
   style = NULL,
   pos = "after",
   header = TRUE,
+  alignment = NULL,
   first_row = TRUE,
   first_column = FALSE,
   last_row = FALSE,
@@ -29,6 +30,9 @@ body_add_table(
 one of after", "before", "on".}
 
 \item{header}{display header if TRUE}
+
+\item{alignment}{columns alignement, argument length must match with columns length,
+values must be "l" (left), "r" (right) or "c" (center).}
 
 \item{first_row}{Specifies that the first column conditional formatting should be
 applied. Details for this and other conditional formatting options can be found
