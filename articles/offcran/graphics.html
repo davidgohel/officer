@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -116,7 +116,6 @@
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_img.html">body_add_img</a></span>(<span class="kw">src</span> <span class="kw">=</span> <span class="no">filename</span>, <span class="kw">width</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">height</span> <span class="kw">=</span> <span class="fl">7</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/graphics/demo_emf.docx"</span>)</pre></body></html></div>
-<pre><code>## </code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/offcran/assets/graphics/demo_emf.docx">demo_emf.docx</a>
@@ -128,7 +127,7 @@
 <h3 class="hasAnchor">
 <a href="#microsoft-charts" class="anchor"></a>Microsoft charts</h3>
 <p>Package <code>mschart</code> enable to create native office charts that can be used with <code>officer</code>. Function <code>body_add_chart</code> can be used to generate (from R plot commands) a chart object within Word.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mschart</span>)
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mschart</span>)
 
 <span class="no">my_barchart</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mschart/man/mschart.html">ms_barchart</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">browser_data</span>,
   <span class="kw">x</span> <span class="kw">=</span> <span class="st">"browser"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"value"</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="st">"serie"</span>)
@@ -138,7 +137,6 @@
 <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/mschart/man/body_add_chart.html">body_add_chart</a></span>(<span class="kw">chart</span> <span class="kw">=</span> <span class="no">my_barchart</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/graphics/demo_mschart_01.docx"</span>)</pre></body></html></div>
-<pre><code>## </code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/offcran/assets/graphics/demo_mschart_01.docx">demo_mschart_01.docx</a>
@@ -152,7 +150,7 @@
 <a href="#powerpoint-documents-and-graphics" class="anchor"></a>PowerPoint documents and graphics</h2>
 <p>Raster images and vector graphic images are added in a PowerPoint document as a shape on the current slide. In PowerPoint, images and text can not be mixed in the same shape (or placeholder). <code>officer</code> provides a function <code>ph_with</code> to let users add images into a PowerPoint document:</p>
 <p>Again those functions accept various image formats: png, jpeg and emf.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="kw">layout</span> <span class="kw">=</span> <span class="st">"Title and Content"</span>, <span class="kw">master</span> <span class="kw">=</span> <span class="st">"Office Theme"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="fu"><a href="../../reference/external_img.html">external_img</a></span>(<span class="kw">src</span> <span class="kw">=</span> <span class="no">filename</span>, <span class="kw">width</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">height</span> <span class="kw">=</span> <span class="fl">7</span>),
           <span class="kw">location</span> <span class="kw">=</span> <span class="fu"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"body"</span>), <span class="kw">use_loc_size</span> <span class="kw">=</span> <span class="fl">FALSE</span> ) <span class="kw">%&gt;%</span>
@@ -170,7 +168,7 @@
 <h3 class="hasAnchor">
 <a href="#vector-graphics" class="anchor"></a>vector graphics</h3>
 <p>Package <code>rvg</code> is providing editable vector graphics that can be used with <code>officer</code>. Function <code>ph_with_vg</code> can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function <code>ph_with_vg_at</code> is also provided to let you add a graphic at any arbitrary location in the current slide.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rvg</span>)
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rvg</span>)
 <span class="fu"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="kw">layout</span> <span class="kw">=</span> <span class="st">"Title and Content"</span>, <span class="kw">master</span> <span class="kw">=</span> <span class="st">"Office Theme"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/ph_with.html">ph_with</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/rvg/man/dml.html">dml</a></span>(<span class="kw">ggobj</span> <span class="kw">=</span> <span class="no">gg</span>), <span class="kw">location</span> <span class="kw">=</span> <span class="fu"><a href="../../reference/ph_location_type.html">ph_location_type</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"body"</span>)) <span class="kw">%&gt;%</span>
@@ -186,7 +184,7 @@
 <h3 class="hasAnchor">
 <a href="#microsoft-charts-1" class="anchor"></a>Microsoft charts</h3>
 <p>Package <code>mschart</code> enable to create native office charts that can be used with <code>officer</code>. Function <code>ph_with_chart</code> can be used to generate (from R plot commands) a chart object within PowerPoint. Function <code>ph_with_chart_at</code> is also provided to let you add a chart at any arbitrary location in the current slide.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mschart</span>)
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mschart</span>)
 
 <span class="no">my_barchart</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mschart/man/mschart.html">ms_barchart</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">browser_data</span>,
   <span class="kw">x</span> <span class="kw">=</span> <span class="st">"browser"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"value"</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="st">"serie"</span>)
@@ -228,7 +226,7 @@
 
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

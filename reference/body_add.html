@@ -76,7 +76,7 @@ be used in conjunction with the body_add_* functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -152,6 +152,7 @@ be used in conjunction with the <code>body_add_*</code> functions.</p>
   <span class='kw'>style</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>tcf</span> <span class='kw'>=</span> <span class='fu'><a href='table_conditional_formatting.html'>table_conditional_formatting</a></span>(),
+  <span class='kw'>alignment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -221,6 +222,11 @@ argument <code>path</code> from <a href='read_docx.html'>read_docx</a>).</p></td
       <td><p>conditional formatting settings defined by <code><a href='table_conditional_formatting.html'>table_conditional_formatting()</a></code></p></td>
     </tr>
     <tr>
+      <th>alignment</th>
+      <td><p>columns alignement, argument length must match with columns length,
+values must be "l" (left), "r" (right) or "c" (center).</p></td>
+    </tr>
+    <tr>
       <th>width</th>
       <td><p>height in inches</p></td>
     </tr>
@@ -255,6 +261,12 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
 <li><p><code>plot_instr</code>: add a base plot with a <a href='plot_instr.html'>plot_instr</a> object.</p></li>
 <li><p><code>block_pour_docx</code>: pour content of an external docx file with with a <a href='block_pour_docx.html'>block_pour_docx</a> object</p></li>
 </ul>
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/body_add_doc_1.png' width=60% /></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>()
@@ -279,7 +291,7 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
