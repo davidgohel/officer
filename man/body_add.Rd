@@ -128,6 +128,12 @@ the creation of set of formatted paragraphs made of formatted chunks of text.
 \item \code{block_pour_docx}: pour content of an external docx file with with a \link{block_pour_docx} object
 }}
 
+\section{Illustrations}{
+
+
+\if{html}{\figure{body_add_doc_1.png}{options: width=60\%}}
+}
+
 \examples{
 doc_1 <- read_docx()
 doc_1 <- body_add(doc_1, "Table of content", style = "heading 1")

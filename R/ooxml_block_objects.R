@@ -203,7 +203,7 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
 #' library(officer)
 #' docx <- tempfile(fileext = ".docx")
 #' doc <- read_docx()
-#' doc <- body_add(doc, iris, style = "table_template")
+#' doc <- body_add(doc, iris[1:20,], style = "table_template")
 #' print(doc, target = docx)
 #'
 #' target <- tempfile(fileext = ".docx")

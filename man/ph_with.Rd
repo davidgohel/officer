@@ -143,6 +143,12 @@ on the current slide.
 current slide. This function is to be used to add custom openxml code.
 }}
 
+\section{Illustrations}{
+
+
+\if{html}{\figure{ph_with_doc_1.png}{options: width=60\%}}
+}
+
 \examples{
 # this name will be used to print the file
 # change it to "youfile.pptx" to write the pptx

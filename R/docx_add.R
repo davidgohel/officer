@@ -493,6 +493,9 @@ body_remove <- function(x){
 #' doc_1 <- body_add(doc_1, letters, style = "Normal")
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' # print(doc_1, target = "test.docx")
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{body_add_doc_1.png}{options: width=60\%}}
 body_add <- function(x, value, ...){
   UseMethod("body_add", value)
 }
