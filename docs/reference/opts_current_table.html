@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Page not found (404) • officer</title>
+<title>Get table options in a 'knitr' context — opts_current_table • officer</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,13 +33,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Page not found (404)" />
+<meta property="og:title" content="Get table options in a 'knitr' context — opts_current_table" />
+<meta property="og:description" content="Get options for table rendering.
+It should not be used by the end user.
+The function is a utility to facilitate the retrieval of table
+options supported by the 'flextable', 'officedown' and of
+course 'officer' packages." />
 
 
 
@@ -58,7 +63,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,7 +75,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">officer</a>
+        <a class="navbar-link" href="../index.html">officer</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
@@ -78,19 +83,19 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="articles/offcran/powerpoint.html">Powerpoint</a>
+  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
 </li>
 <li>
-  <a href="articles/offcran/word.html">Word</a>
+  <a href="../articles/offcran/word.html">Word</a>
 </li>
 <li>
-  <a href="articles/offcran/graphics.html">Graphics</a>
+  <a href="../articles/offcran/graphics.html">Graphics</a>
 </li>
 <li>
-  <a href="articles/offcran/officer_reader.html">Office scraping</a>
+  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
 </li>
 <li>
-  <a href="reference/index.html">Function reference</a>
+  <a href="../reference/index.html">Function reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -111,29 +116,67 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Page not found (404)</h1>
+    <h1>Get table options in a 'knitr' context</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/knitr_utils.R'><code>R/knitr_utils.R</code></a></small>
+    <div class="hidden name"><code>opts_current_table.Rd</code></div>
     </div>
 
-Content not found. Please use links in the navbar.
+    <div class="ref-description">
+    <p>Get options for table rendering.</p>
+<p>It should not be used by the end user.
+The function is a utility to facilitate the retrieval of table
+options supported by the 'flextable', 'officedown' and of
+course 'officer' packages.</p>
+    </div>
+
+    <pre class="usage"><span class='fu'>opts_current_table</span>()</pre>
+
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a list with following elements:</p><ul>
+<li><p>cap.style (default: NULL)</p></li>
+<li><p>cap.pre (default: "Table ")</p></li>
+<li><p>cap.sep (default: ":")</p></li>
+<li><p>id (default: NULL)</p></li>
+<li><p>cap (default: NULL)</p></li>
+<li><p>style (default: NULL)</p></li>
+<li><p>tab.lp (default: "tab:")</p></li>
+<li><p>table_layout (default: "autofit")</p></li>
+<li><p>table_width (default: 1)</p></li>
+<li><p>first_row (default: TRUE)</p></li>
+<li><p>first_column (default: FALSE)</p></li>
+<li><p>last_row (default: FALSE)</p></li>
+<li><p>last_column (default: FALSE)</p></li>
+<li><p>no_hband (default: TRUE)</p></li>
+<li><p>no_vband (default: TRUE)</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other functions for officer extensions: 
+<code><a href='docx_reference_img.html'>docx_reference_img</a>()</code>,
+<code><a href='fortify_location.html'>fortify_location</a>()</code>,
+<code><a href='get_reference_value.html'>get_reference_value</a>()</code>,
+<code><a href='to_pml.html'>to_pml</a>()</code>,
+<code><a href='to_wml.html'>to_wml</a>()</code>,
+<code><a href='wml_link_images.html'>wml_link_images</a>()</code></p></div>
 
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
-
       <footer>
-      <link href="ardata.css" rel="stylesheet">
+      <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -40,7 +40,10 @@
 
 
 <meta property="og:title" content="auto number — run_autonum" />
-<meta property="og:description" content="Create a string representation of a number" />
+<meta property="og:description" content="Create an autonumbered chunk, i.e. a string
+representation of a sequence, each item will be numbered.
+These runs can also be bookmarked and be used later for
+cross references." />
 
 
 
@@ -72,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -120,10 +123,19 @@
     </div>
 
     <div class="ref-description">
-    <p>Create a string representation of a number</p>
+    <p>Create an autonumbered chunk, i.e. a string
+representation of a sequence, each item will be numbered.
+These runs can also be bookmarked and be used later for
+cross references.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_autonum</span>(<span class='kw'>seq_id</span> <span class='kw'>=</span> <span class='st'>"table"</span>, <span class='kw'>pre_label</span> <span class='kw'>=</span> <span class='st'>"Table "</span>, <span class='kw'>post_label</span> <span class='kw'>=</span> <span class='st'>": "</span>)</pre>
+    <pre class="usage"><span class='fu'>run_autonum</span>(
+  <span class='kw'>seq_id</span> <span class='kw'>=</span> <span class='st'>"table"</span>,
+  <span class='kw'>pre_label</span> <span class='kw'>=</span> <span class='st'>"Table "</span>,
+  <span class='kw'>post_label</span> <span class='kw'>=</span> <span class='st'>": "</span>,
+  <span class='kw'>bkm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bkm_all</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,6 +147,19 @@
     <tr>
       <th>pre_label, post_label</th>
       <td><p>text to add before and after number</p></td>
+    </tr>
+    <tr>
+      <th>bkm</th>
+      <td><p>bookmark id to associate with autonumber run. If NULL, no bookmark
+is added. Value can only be made of alpha numeric characters, '-' and '_'.</p></td>
+    </tr>
+    <tr>
+      <th>bkm_all</th>
+      <td><p>if TRUE, the bookmark will be set on the while string, if
+FALSE, the bookmark will be set on the number only. Default to FALSE.
+As an effect when a reference to this bookmark is used, the text can
+be like "Table 1" or "1" (pre_label is not included in the referenced
+text).</p></td>
     </tr>
     </table>
 
@@ -159,6 +184,12 @@
 #&gt; $post_label
 #&gt; [1] ": "
 #&gt; 
+#&gt; $bookmark
+#&gt; NULL
+#&gt; 
+#&gt; $bookmark_all
+#&gt; [1] FALSE
+#&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "run_autonum" "run"        </div><div class='input'><span class='fu'>run_autonum</span>(<span class='kw'>seq_id</span> <span class='kw'>=</span> <span class='st'>"fig"</span>, <span class='kw'>pre_label</span> <span class='kw'>=</span> <span class='st'>"fig. "</span>)</div><div class='output co'>#&gt; $seq_id
 #&gt; [1] "fig"
@@ -168,6 +199,28 @@
 #&gt; 
 #&gt; $post_label
 #&gt; [1] ": "
+#&gt; 
+#&gt; $bookmark
+#&gt; NULL
+#&gt; 
+#&gt; $bookmark_all
+#&gt; [1] FALSE
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "run_autonum" "run"        </div><div class='input'><span class='fu'>run_autonum</span>(<span class='kw'>seq_id</span> <span class='kw'>=</span> <span class='st'>"tab"</span>, <span class='kw'>pre_label</span> <span class='kw'>=</span> <span class='st'>"Table "</span>, <span class='kw'>bkm</span> <span class='kw'>=</span> <span class='st'>"anytable"</span>)</div><div class='output co'>#&gt; $seq_id
+#&gt; [1] "tab"
+#&gt; 
+#&gt; $pre_label
+#&gt; [1] "Table "
+#&gt; 
+#&gt; $post_label
+#&gt; [1] ": "
+#&gt; 
+#&gt; $bookmark
+#&gt; [1] "anytable"
+#&gt; 
+#&gt; $bookmark_all
+#&gt; [1] FALSE
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "run_autonum" "run"        </div></pre>
@@ -183,7 +236,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -210,21 +210,21 @@
 </tr>
 <tr class="odd">
 <td align="left">paragraph</td>
-<td align="left">graphictitle</td>
-<td align="left">graphic title</td>
+<td align="left">ImageCaption</td>
+<td align="left">Image Caption</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">paragraph</td>
-<td align="left">tabletitle</td>
-<td align="left">table title</td>
+<td align="left">TableCaption</td>
+<td align="left">Table Caption</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">table</td>
-<td align="left">Professionnel</td>
+<td align="left">Tableauprofessionnel</td>
 <td align="left">Table Professional</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
@@ -274,7 +274,6 @@
 </ol>
 <p>An (updated) Word file can be generated using the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> function with the <code>target</code> argument:</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">my_doc</span>, <span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/docx/first_example.docx"</span>)</pre></body></html></div>
-<pre><code>## </code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/offcran/assets/docx/first_example.docx">first_example.docx</a>
@@ -298,7 +297,7 @@
 <p>The paragraph is the main top container for content within a Word document. <em>Note that tables are top container, they are at the same level as paragraphs</em>. <code>body_add_*</code> functions are designed to <strong>add content as a top container</strong>: text as an entire paragraph, table, image, page break…</p>
 <p>A title is a paragraph. To add a title, use <code><a href="../../reference/body_add_par.html">body_add_par()</a></code> with the <code>style</code> argument pointing to the corresponding title style.</p>
 <p>Use the function <code><a href="../../reference/styles_info.html">styles_info()</a></code> to see available styles:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../../reference/styles_info.html">styles_info</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../../reference/styles_info.html">styles_info</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>( <span class="no">style_type</span> <span class="kw">%in%</span> <span class="st">"paragraph"</span> )</pre></body></html></div>
 <table class="table">
 <thead><tr class="header">
@@ -353,16 +352,16 @@
 <tr class="even">
 <td>15</td>
 <td align="left">paragraph</td>
-<td align="left">graphictitle</td>
-<td align="left">graphic title</td>
+<td align="left">ImageCaption</td>
+<td align="left">Image Caption</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td>16</td>
 <td align="left">paragraph</td>
-<td align="left">tabletitle</td>
-<td align="left">table title</td>
+<td align="left">TableCaption</td>
+<td align="left">Table Caption</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 </tr>
@@ -390,6 +389,22 @@
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 </tr>
+<tr class="odd">
+<td>23</td>
+<td align="left">paragraph</td>
+<td align="left">graphictitle</td>
+<td align="left">graphic title</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td align="left">paragraph</td>
+<td align="left">tabletitle</td>
+<td align="left">table title</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
 </tbody>
 </table>
 <blockquote>
@@ -400,7 +415,7 @@
 <li>When using <code><a href="../../reference/body_add_gg.html">body_add_gg()</a></code> in the following code, using <code>style = "centered"</code> will set <em>centered</em> paragraph properties (defined as centered in the initial document) to the new paragraph where the plot will be added.</li>
 <li>Table templates are also defined in the initial document and can be used with <code><a href="../../reference/body_add_table.html">body_add_table()</a></code>. For advanced tabular formatting, use the <code>flextable</code> package instead (<a href="https://davidgohel.github.io/officer/">flextable website</a>). It has a function <code><a href="https://rdrr.io/pkg/flextable/man/body_add_flextable.html">body_add_flextable()</a></code> that can be used with <code>officer</code>.</li>
 </ul>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">flextable</span>)
 
 <span class="no">gg</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">Sepal.Length</span>, <span class="no">Petal.Length</span>)) +
@@ -418,7 +433,6 @@
   <span class="fu"><a href="../../reference/body_add_gg.html">body_add_gg</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">gg</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span> ) <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/docx/body_add_demo.docx"</span>)</pre></body></html></div>
-<pre><code>## </code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/offcran/assets/docx/body_add_demo.docx">body_add_demo.docx</a>
@@ -431,7 +445,7 @@
 <a href="#remove-content" class="anchor"></a>Remove content</h2>
 <p>The function <code><a href="../../reference/body_remove.html">body_remove()</a></code> lets you remove content from a Word document. This function used with <code>cursor_*</code> functions is a convenient tool to update an existing document.</p>
 <p>For illustration purposes, we will generate a document that will be used as an initial document later when showing how to use <code><a href="../../reference/body_remove.html">body_remove()</a></code>.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">officer</span>)
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">officer</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
 
 <span class="no">str1</span> <span class="kw">&lt;-</span> <span class="st">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="kw">%&gt;%</span>
@@ -447,7 +461,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">my_doc</span>, <span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)</pre></body></html></div>
 <p>The file <code>ipsum_doc.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then delete it:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)  <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="st">"assets/docx/ipsum_doc.docx"</span>)  <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/cursor.html">cursor_reach</a></span>(<span class="kw">keyword</span> <span class="kw">=</span> <span class="st">"that text"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_remove.html">body_remove</a></span>()
 
@@ -465,14 +479,14 @@
 <a href="#replace-content" class="anchor"></a>Replace content</h2>
 <p>The <code>body_add_*</code> functions let you replace content in a Word document.</p>
 <p>For illustration purposes, we will generate a document that will be used as an initial document later.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str1</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Normal"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str2</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str3</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Normal"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">my_doc</span>, <span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/docx/replace_template.docx"</span>)</pre></body></html></div>
 <p>The file <code>replace_template.docx</code> now exists and contains a paragraph containing text <em>that text</em>. In the following example, we will position the cursor on that paragraph and then replace it. Using <code>pos = "on"</code> will replace content where the cursor is with new content.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="st">"assets/docx/replace_template.docx"</span>)  <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="st">"assets/docx/replace_template.docx"</span>)  <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/cursor.html">cursor_reach</a></span>(<span class="kw">keyword</span> <span class="kw">=</span> <span class="st">"that text"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"This is a new paragraph."</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>, <span class="kw">pos</span> <span class="kw">=</span> <span class="st">"on"</span>)
 
@@ -481,14 +495,14 @@
 <h3 class="hasAnchor">
 <a href="#search-and-replace" class="anchor"></a>Search-and-replace</h3>
 <p>You can also use the <code>body_replace_*</code> functions to search-and-replace text. <code><a href="../../reference/body_replace_text_at_bkm.html">body_replace_text_at_bkm()</a></code> replaces text at a bookmark:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"centered text"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/slip_in_text.html">slip_in_text</a></span>(<span class="st">". How are you"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"strong"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_bookmark.html">body_bookmark</a></span>(<span class="st">"text_to_replace"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_replace_text_at_bkm.html">body_replace_text_at_bkm</a></span>(<span class="st">"text_to_replace"</span>, <span class="st">"not left aligned"</span>)</pre></body></html></div>
 <p>To do the same with headers and footers of the Word document, use functions <code>headers_replace_text_at_bkm</code> and <code>footers_replace_text_at_bkm</code>.</p>
 <p><code><a href="../../reference/body_replace_all_text.html">body_replace_all_text()</a></code> will, depending on the options provided, replace text either at the cursor or in the entire document:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder one"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="st">"Placeholder two"</span>)
 
@@ -496,18 +510,18 @@
 <span class="fu"><a href="../../reference/docx_show_chunk.html">docx_show_chunk</a></span>(<span class="no">doc</span>)  <span class="co"># Output is 'Placeholder two'</span></pre></body></html></div>
 <pre><code>## 1 text nodes found at this cursor. 
 ##   &lt;w:t&gt;: 'Placeholder two'</code></pre>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span>
 <span class="fu"><a href="../../reference/body_replace_all_text.html">body_replace_all_text</a></span>(<span class="no">doc</span>, <span class="st">"Placeholder"</span>, <span class="st">"new"</span>, <span class="kw">only_at_cursor</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">fixed</span><span class="kw">=</span><span class="fl">TRUE</span>)
 <span class="fu"><a href="../../reference/docx_show_chunk.html">docx_show_chunk</a></span>(<span class="no">doc</span>)  <span class="co"># Output is 'new two'</span></pre></body></html></div>
 <pre><code>## 1 text nodes found at this cursor. 
 ##   &lt;w:t&gt;: 'new two'</code></pre>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># Do the same, but in the entire document and ignoring case</span>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># Do the same, but in the entire document and ignoring case</span>
 <span class="fu"><a href="../../reference/body_replace_all_text.html">body_replace_all_text</a></span>(<span class="no">doc</span>, <span class="st">"placeholder"</span>, <span class="st">"new"</span>, <span class="kw">only_at_cursor</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">ignore.case</span><span class="kw">=</span><span class="fl">TRUE</span>)
 <span class="fu"><a href="../../reference/cursor.html">cursor_backward</a></span>(<span class="no">doc</span>)
 <span class="fu"><a href="../../reference/docx_show_chunk.html">docx_show_chunk</a></span>(<span class="no">doc</span>) <span class="co"># Output is 'new one'</span></pre></body></html></div>
 <pre><code>## 1 text nodes found at this cursor. 
 ##   &lt;w:t&gt;: 'new one'</code></pre>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># Use regex : replace all words starting with "n" with the word "example"</span>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># Use regex : replace all words starting with "n" with the word "example"</span>
 <span class="fu"><a href="../../reference/body_replace_all_text.html">body_replace_all_text</a></span>(<span class="no">doc</span>, <span class="st">"\\bn.*?\\b"</span>, <span class="st">"example"</span>)
 <span class="fu"><a href="../../reference/docx_show_chunk.html">docx_show_chunk</a></span>(<span class="no">doc</span>) <span class="co"># Output is 'example one'</span></pre></body></html></div>
 <pre><code>## 1 text nodes found at this cursor. 
@@ -541,7 +555,7 @@
 <li>Add the content to be displayed in landscape orientation.</li>
 <li>Declare an ending section just after the content to be displayed in landscape orientation. Use function <code><a href="../../reference/sections.html">body_end_section_landscape()</a></code>.</li>
 </ol>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">str1</span> <span class="kw">&lt;-</span> <span class="st">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">str1</span> <span class="kw">&lt;-</span> <span class="st">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">5</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">collapse</span> <span class="kw">=</span> <span class="st">""</span>)
 <span class="no">str2</span> <span class="kw">&lt;-</span> <span class="st">"Aenean venenatis varius elit et fermentum vivamus vehicula. "</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">5</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">collapse</span> <span class="kw">=</span> <span class="st">""</span>)
@@ -565,7 +579,7 @@
 <li>Declare an ending section just after the content to be displayed in landscape orientation. Use function <code><a href="../../reference/sections.html">body_end_section_columns()</a></code>.</li>
 </ol>
 <p>Function <code><a href="../../reference/slip_in_column_break.html">slip_in_column_break()</a></code> can be used to add a column break. As it starts a new column, it has to be used on the paragraph where the break happens. By default <code><a href="../../reference/slip_in_column_break.html">slip_in_column_break()</a></code> insert a column break at the beginning of the paragraph where the cursor is.</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/sections.html">body_end_section_continuous</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str1</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str2</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
@@ -585,7 +599,7 @@
 <li>Add the content to be displayed in landscape orientation.</li>
 <li>Declare an ending section just after the content to be displayed in landscape orientation. Use function <code><a href="../../reference/sections.html">body_end_section_columns_landscape()</a></code>.</li>
 </ol>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/sections.html">body_end_section_continuous</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str1</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Normal"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str2</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Normal"</span>) <span class="kw">%&gt;%</span>
@@ -598,7 +612,7 @@
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://davidgohel.github.io/officer/articles/offcran/assets/docx/columns_landscape_section.docx">office web viewer</a>
 </p>
 <p>The following example demonstrate all known usages:</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">my_doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_docx.html">read_docx</a></span>()  <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"Default section"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 1"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str1</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">str2</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span>) <span class="kw">%&gt;%</span>
@@ -636,7 +650,7 @@
 <p><code><a href="../../reference/slip_in_seqfield.html">slip_in_seqfield()</a></code> and <code><a href="../../reference/slip_in_text.html">slip_in_text()</a></code> can be combined to prefix a paragraph with references (i.e. chapter number and graphic index in the document). However, producing a plot or a table and its caption can be verbose.</p>
 <p>Shortcut functions are implemented in the object <code>shortcuts</code> (it will at least give you a template of code to modify if it does not fit your needs exactly). <code>slip_in_tableref()</code>, <code>slip_in_plotref()</code> and <code><a href="../../reference/body_add_gg.html">body_add_gg()</a></code> can make life easier.</p>
 <p>Usage of these functions is illustrated below:</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">officer</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
 
@@ -653,35 +667,34 @@
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"Tables"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 1"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"dataset mtcars"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 2"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_table.html">body_add_table</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">mtcars</span>)[, <span class="fl">1</span>:<span class="fl">4</span>], <span class="kw">style</span> <span class="kw">=</span> <span class="st">"table_template"</span> ) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"data mtcars"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"table title"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"data mtcars"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Table Caption"</span>) <span class="kw">%&gt;%</span>
   <span class="no">shortcuts</span>$<span class="fu">slip_in_tableref</span>(<span class="kw">depth</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"dataset iris"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 2"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_table.html">body_add_table</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">iris</span>), <span class="kw">style</span> <span class="kw">=</span> <span class="st">"table_template"</span> ) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"data iris"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"table title"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"data iris"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Table Caption"</span>) <span class="kw">%&gt;%</span>
   <span class="no">shortcuts</span>$<span class="fu">slip_in_tableref</span>(<span class="kw">depth</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="../../reference/sections.html">body_end_section_portrait</a></span>() <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"plot examples"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 1"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_gg.html">body_add_gg</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">gg1</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span> ) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"graph example 1"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"graphic title"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"graph example 1"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Image Caption"</span>) <span class="kw">%&gt;%</span>
   <span class="no">shortcuts</span>$<span class="fu">slip_in_plotref</span>(<span class="kw">depth</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"plot 2"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 2"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_gg.html">body_add_gg</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="no">gg2</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"centered"</span> ) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"graph example 2"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"graphic title"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"graph example 2"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"Image Caption"</span>) <span class="kw">%&gt;%</span>
   <span class="no">shortcuts</span>$<span class="fu">slip_in_plotref</span>(<span class="kw">depth</span> <span class="kw">=</span> <span class="fl">2</span>) <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="../../reference/sections.html">body_end_section_landscape</a></span>() <span class="kw">%&gt;%</span>
 
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"Table of tables"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 2"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/body_add_toc.html">body_add_toc</a></span>(<span class="kw">style</span> <span class="kw">=</span> <span class="st">"table title"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../../reference/body_add_toc.html">body_add_toc</a></span>(<span class="kw">style</span> <span class="kw">=</span> <span class="st">"Table Caption"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/body_add_par.html">body_add_par</a></span>(<span class="kw">value</span> <span class="kw">=</span> <span class="st">"Table of graphics"</span>, <span class="kw">style</span> <span class="kw">=</span> <span class="st">"heading 2"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/body_add_toc.html">body_add_toc</a></span>(<span class="kw">style</span> <span class="kw">=</span> <span class="st">"graphic title"</span>)
+  <span class="fu"><a href="../../reference/body_add_toc.html">body_add_toc</a></span>(<span class="kw">style</span> <span class="kw">=</span> <span class="st">"Image Caption"</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">doc</span>, <span class="kw">target</span> <span class="kw">=</span> <span class="st">"assets/docx/toc_and_captions.docx"</span>)</pre></body></html></div>
-<pre><code>## </code></pre>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
 <a href="https://davidgohel.github.io/officer/articles/offcran/assets/docx/toc_and_captions.docx">toc_and_captions.docx</a>
@@ -703,7 +716,7 @@
 
       <footer><link href="../../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

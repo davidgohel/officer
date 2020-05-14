@@ -75,7 +75,7 @@ ph_with_*." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -144,7 +144,7 @@ and should replace calls to older functions starting with
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>format_fun</span> <span class='kw'>=</span> <span class='no'>format</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for block_list</span>
-<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>is_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='kw'>level_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>(<span class='fl'>0</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for unordered_list</span>
 <span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>location</span>, <span class='no'>...</span>)
@@ -156,6 +156,7 @@ and should replace calls to older functions starting with
   <span class='no'>location</span>,
   <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>tcf</span> <span class='kw'>=</span> <span class='fu'><a href='table_conditional_formatting.html'>table_conditional_formatting</a></span>(),
+  <span class='kw'>alignment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -210,10 +211,10 @@ by png function.</p></td>
       <td><p>format function for non character vectors</p></td>
     </tr>
     <tr>
-      <th>is_list</th>
-      <td><p>experimental paramater to make
-block_list formated as an unordered list. This
-should evolve in the next versions.</p></td>
+      <th>level_list</th>
+      <td><p>The list of levels for hierarchy structure as integer values.
+If used the object is formated as an unordered list. If 1 and 2,
+item 1 level will be 1, item 2 level will be 2.</p></td>
     </tr>
     <tr>
       <th>header</th>
@@ -222,6 +223,11 @@ should evolve in the next versions.</p></td>
     <tr>
       <th>tcf</th>
       <td><p>conditional formatting settings defined by <code><a href='table_conditional_formatting.html'>table_conditional_formatting()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>alignment</th>
+      <td><p>alignment for each columns, 'l' for left, 'r' for right
+and 'c' for center. Default to NULL.</p></td>
     </tr>
     <tr>
       <th>res</th>
@@ -271,6 +277,12 @@ on the current slide.</p></li>
 <li><p><code>xml_document</code>: add an xml_document object to a new shape on the
 current slide. This function is to be used to add custom openxml code.</p></li>
 </ul>
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/ph_with_doc_1.png' width=60% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='ph_location_type.html'>ph_location_type</a>, <a href='ph_location.html'>ph_location</a>, <a href='ph_location_label.html'>ph_location_label</a>,
@@ -386,7 +398,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

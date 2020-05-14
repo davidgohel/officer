@@ -76,7 +76,7 @@ from R." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -186,18 +186,17 @@ the styles from the original document.</p>
 #&gt;            "numbering"            "character"            "paragraph" 
 #&gt;         table_template    Light List Accent 2            Titre 1 Car 
 #&gt;                "table"                "table"            "character" 
-#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            Titre 2 Car            Titre 3 Car          Image Caption 
 #&gt;            "character"            "character"            "paragraph" 
-#&gt;            table title     Table Professional                  toc 1 
+#&gt;          Table Caption     Table Professional                  toc 1 
 #&gt;            "paragraph"                "table"            "paragraph" 
 #&gt;                  toc 2           Balloon Text    Texte de bulles Car 
 #&gt;            "paragraph"            "paragraph"            "character" 
-#&gt;           reference_id 
-#&gt;            "character" 
+#&gt;           reference_id          graphic title            table title 
+#&gt;            "character"            "paragraph"            "paragraph" 
 #&gt; 
 #&gt; * Content at cursor location:
-#&gt;   level num_id text style_name content_type
-#&gt; 1    NA     NA              NA    paragraph</div><div class='input'>
+#&gt; NULL</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>read_docx</span>())</div><div class='output co'>#&gt; rdocx document with 2 element(s)
 #&gt; 
 #&gt; * styles:
@@ -209,18 +208,17 @@ the styles from the original document.</p>
 #&gt;            "numbering"            "character"            "paragraph" 
 #&gt;         table_template    Light List Accent 2            Titre 1 Car 
 #&gt;                "table"                "table"            "character" 
-#&gt;            Titre 2 Car            Titre 3 Car          graphic title 
+#&gt;            Titre 2 Car            Titre 3 Car          Image Caption 
 #&gt;            "character"            "character"            "paragraph" 
-#&gt;            table title     Table Professional                  toc 1 
+#&gt;          Table Caption     Table Professional                  toc 1 
 #&gt;            "paragraph"                "table"            "paragraph" 
 #&gt;                  toc 2           Balloon Text    Texte de bulles Car 
 #&gt;            "paragraph"            "paragraph"            "character" 
-#&gt;           reference_id 
-#&gt;            "character" 
+#&gt;           reference_id          graphic title            table title 
+#&gt;            "character"            "paragraph"            "paragraph" 
 #&gt; 
 #&gt; * Content at cursor location:
-#&gt;   level num_id text style_name content_type
-#&gt; 1    NA     NA              NA    paragraph</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
+#&gt; NULL</div><div class='input'><span class='co'># write a rdocx object in a docx file ----</span>
 <span class='kw'>if</span>( <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>magrittr</span>) ){
   <span class='fu'>read_docx</span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))
 }</div></pre>
@@ -236,7 +234,7 @@ the styles from the original document.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

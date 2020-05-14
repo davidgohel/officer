@@ -41,8 +41,7 @@
 
 <meta property="og:title" content="Caption block — block_caption" />
 <meta property="og:description" content="Create a representation of a
-caption that can be used for cross reference. The caption
-can also be an auto numbered paragraph." />
+caption that can be used for cross reference." />
 
 
 
@@ -74,7 +73,7 @@ can also be an auto numbered paragraph." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
       </span>
     </div>
 
@@ -123,11 +122,10 @@ can also be an auto numbered paragraph." />
 
     <div class="ref-description">
     <p>Create a representation of a
-caption that can be used for cross reference. The caption
-can also be an auto numbered paragraph.</p>
+caption that can be used for cross reference.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>block_caption</span>(<span class='no'>label</span>, <span class='no'>style</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>autonum</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>block_caption</span>(<span class='no'>label</span>, <span class='no'>style</span>, <span class='kw'>autonum</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,10 +137,6 @@ can also be an auto numbered paragraph.</p>
     <tr>
       <th>style</th>
       <td><p>paragraph style name</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>cross reference identifier</p></td>
     </tr>
     <tr>
       <th>autonum</th>
@@ -167,9 +161,9 @@ can also be an auto numbered paragraph.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>officer</span>)
 
-<span class='no'>run_num</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_autonum.html'>run_autonum</a></span>(<span class='kw'>seq_id</span> <span class='kw'>=</span> <span class='st'>"tab"</span>, <span class='kw'>pre_label</span> <span class='kw'>=</span> <span class='st'>"tab. "</span>)
+<span class='no'>run_num</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_autonum.html'>run_autonum</a></span>(<span class='kw'>seq_id</span> <span class='kw'>=</span> <span class='st'>"tab"</span>, <span class='kw'>pre_label</span> <span class='kw'>=</span> <span class='st'>"tab. "</span>, <span class='kw'>bkm</span> <span class='kw'>=</span> <span class='st'>"iris_table"</span>)
 <span class='no'>caption</span> <span class='kw'>&lt;-</span> <span class='fu'>block_caption</span>(<span class='st'>"iris table"</span>,
-                         <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"iris_table"</span>,
+                         <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>,
                          <span class='kw'>autonum</span> <span class='kw'>=</span> <span class='no'>run_num</span> )
 
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
@@ -191,7 +185,7 @@ can also be an auto numbered paragraph.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.9 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
