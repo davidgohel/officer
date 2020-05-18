@@ -9,10 +9,17 @@ check_dep <- function(){
 get_default_pandoc_data_file <- function(format = "pptx") {
   outfile <- tempfile(fileext = paste0(".", format))
 
-  ref_doc <- paste0("reference.", format)
-  system2(rmarkdown::pandoc_exec(),
-          args = c("--print-default-data-file", ref_doc),
-          stdout = outfile)
+  pandoc_exec <- rmarkdown::pandoc_exec()
+  if(length(pandoc_exec) != 1 || !file.exists(pandoc_exec)){
+    file.copy(system.file(package = "officer", "template/template.docx"),
+              to = outfile)
+  } else {
+    ref_doc <- paste0("reference.", format)
+    system2(pandoc_exec,
+            args = c("--print-default-data-file", ref_doc),
+            stdout = outfile)
+  }
+
   return(outfile)
 }
 

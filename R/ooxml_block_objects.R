@@ -458,6 +458,7 @@ to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
 #' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
 #' @examples
 #' prop_table()
+#' to_wml(prop_table())
 #' @family functions for table definition
 prop_table <- function(style = NA_character_, layout = table_layout(),
                          width = table_width(),

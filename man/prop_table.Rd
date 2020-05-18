@@ -32,6 +32,7 @@ table width in the document, eventually column widths.
 }
 \examples{
 prop_table()
+to_wml(prop_table())
 }
 \seealso{
 Other functions for table definition: 
