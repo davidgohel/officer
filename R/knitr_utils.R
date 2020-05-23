@@ -10,8 +10,8 @@ get_default_pandoc_data_file <- function(format = "pptx") {
   outfile <- tempfile(fileext = paste0(".", format))
 
   pandoc_exec <- rmarkdown::pandoc_exec()
-  if(length(pandoc_exec) != 1 || !file.exists(pandoc_exec)){
-    file.copy(system.file(package = "officer", "template/template.docx"),
+  if(!rmarkdown::pandoc_available() || !file.exists(pandoc_exec)){
+    file.copy(system.file(package = "officer", "template", paste0("template.", format)),
               to = outfile)
   } else {
     ref_doc <- paste0("reference.", format)
