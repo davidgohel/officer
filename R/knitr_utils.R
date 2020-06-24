@@ -10,10 +10,15 @@ get_default_pandoc_data_file <- function(format = "pptx") {
   outfile <- tempfile(fileext = paste0(".", format))
 
   pandoc_exec <- rmarkdown::pandoc_exec()
-  if(!rmarkdown::pandoc_available() || !file.exists(paste0(pandoc_exec, ".exe"))){
-    file.copy(system.file(package = "officer", "template", paste0("template.", format)),
-              to = outfile)
+  if(.Platform$OS.type %in% "windows"){
+    pandoc_exec <- paste0(pandoc_exec, ".exe")
+  }
+
+  if(!rmarkdown::pandoc_available() || !file.exists(pandoc_exec)){
+    # Use officer template when no pandoc - stupid fallback as if o pandoc, no result
+    outfile <- system.file(package = "officer", "template", paste0("template.", format))
   } else {
+    # note in that case outfile will be removed when session will end
     ref_doc <- paste0("reference.", format)
     system2(pandoc_exec,
             args = c("--print-default-data-file", ref_doc),
