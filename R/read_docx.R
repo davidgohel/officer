@@ -143,7 +143,7 @@ print.rdocx <- function(x, target = NULL, ...){
   # If body is not ending with an sectPr, create a continuous one append it
   if( !xml_name(xml_child(body, search = xml_length(body))) %in% "sectPr" ){
     str <- paste0( "<w:sectPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\">",
-                   "<w:officersection/><w:type w:val=\"continuous\"/></w:sectPr>")
+                   "<w:type w:val=\"continuous\"/></w:sectPr>")
     xml_add_child( body, as_xml_document(str) )
   }
 
@@ -179,7 +179,7 @@ print.rdocx <- function(x, target = NULL, ...){
 #' length( read_docx() )
 #' @family functions for Word document informations
 length.rdocx <- function( x ){
-  length(xml_child(x$doc_obj$get(), "w:body"))
+  xml_length(xml_child(x$doc_obj$get(), "w:body"))
 }
 
 #' @export

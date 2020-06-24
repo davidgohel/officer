@@ -28,6 +28,9 @@ test_that("body_end_sections", {
   x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
     body_add_par("paragraph 2", style = "Normal") %>%
     body_end_section_columns()
+  outfile <- tempfile(fileext = ".docx")
+  print(x, target = outfile)
+  x <- read_docx(outfile)
 
   node <- x$doc_obj$get_at_cursor()
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
@@ -56,27 +59,16 @@ test_that("body_end_sections", {
     body_add_par("paragraph 2", style = "Normal") %>%
     body_end_section_portrait()
 
+  outfile <- tempfile(fileext = ".docx")
+  print(x, target = outfile)
+
+  x <- read_docx(outfile)
   node <- x$doc_obj$get_at_cursor()
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
 
   ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
   expect_false( inherits(ps, "xml_missing") )
   expect_equal( xml_attr(ps, "orient"), "portrait")
-
-  xml_flags <- x$doc_obj$get() %>%
-    xml_find_all("//w:officersection")
-  expect_length(xml_flags, 4)
-  docx_file <- tempfile(fileext = ".docx")
-  docx_dir <- tempfile()
-  print(x, target = docx_file)
-  unpack_folder(docx_file, docx_dir)
-
-
-
-  xml_flags <- read_xml(file.path(docx_dir, "word/document.xml")) %>%
-    xml_find_all("//w:officersection")
-  expect_length(xml_flags, 0)
-
 })
 
 

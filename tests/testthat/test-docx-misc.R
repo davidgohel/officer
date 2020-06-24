@@ -2,7 +2,7 @@ source("utils.R")
 
 test_that("default template", {
   x <- read_docx()
-  expect_equal(length( x ), 2)
+  expect_equal(length( x ), 1)
   expect_true(file.exists(x$package_dir))
 })
 
@@ -104,7 +104,7 @@ test_that("cursor behavior", {
     body_add_par("paragraph 5", style = "Normal") %>%
     body_add_par("paragraph 6", style = "Normal") %>%
     body_add_par("paragraph 7", style = "Normal") %>%
-    cursor_begin() %>% body_remove() %>%
+    cursor_begin() %>%
     print(target = "init_doc.docx")
 
   doc <- read_docx(path = "init_doc.docx") %>%
@@ -123,14 +123,14 @@ test_that("cursor behavior", {
 
 })
 
-test_that("body remove", {
+test_that("cursor and position", {
   doc <- read_docx() %>%
     body_add_par("paragraph 1", style = "Normal") %>%
     body_add_par("paragraph 2", style = "Normal") %>%
 
     cursor_begin() %>%
 
-    body_add_par("new 1", style = "Normal") %>%
+    body_add_par("new 1", style = "Normal", pos = "before") %>%
     cursor_forward() %>%
     body_add_par("new 2", style = "Normal")
 

@@ -16,6 +16,7 @@
 \alias{body_add.gg}
 \alias{body_add.plot_instr}
 \alias{body_add.block_pour_docx}
+\alias{body_add.block_section}
 \title{Add content into a Word document}
 \usage{
 body_add(x, value, ...)
@@ -55,6 +56,8 @@ body_add(x, value, ...)
 \method{body_add}{plot_instr}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
 
 \method{body_add}{block_pour_docx}(x, value, ...)
+
+\method{body_add}{block_section}(x, value, ...)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -126,6 +129,8 @@ the creation of set of formatted paragraphs made of formatted chunks of text.
 \item \code{plot_instr}: add a base plot with a \link{plot_instr} object.
 
 \item \code{block_pour_docx}: pour content of an external docx file with with a \link{block_pour_docx} object
+
+\item \code{block_section}: ends a section with a \link{block_section} object
 }}
 
 \section{Illustrations}{
@@ -143,6 +148,13 @@ doc_1 <- body_add(doc_1, "A title", style = "heading 1")
 doc_1 <- body_add(doc_1, head(iris), style = "table_template")
 doc_1 <- body_add(doc_1, "Another title", style = "heading 1")
 doc_1 <- body_add(doc_1, letters, style = "Normal")
+doc_1 <- body_add(doc_1,
+  block_section(prop_section(type = "continuous"))
+)
+doc_1 <- body_add(doc_1, plot_instr(code = barplot(1:5, col = 2:6)))
+doc_1 <- body_add(doc_1,
+  block_section(prop_section(page_size = page_size(orient = "landscape")))
+)
 print(doc_1, target = tempfile(fileext = ".docx"))
 # print(doc_1, target = "test.docx")
 }

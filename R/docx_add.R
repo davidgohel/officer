@@ -491,6 +491,13 @@ body_remove <- function(x){
 #' doc_1 <- body_add(doc_1, head(iris), style = "table_template")
 #' doc_1 <- body_add(doc_1, "Another title", style = "heading 1")
 #' doc_1 <- body_add(doc_1, letters, style = "Normal")
+#' doc_1 <- body_add(doc_1,
+#'   block_section(prop_section(type = "continuous"))
+#' )
+#' doc_1 <- body_add(doc_1, plot_instr(code = barplot(1:5, col = 2:6)))
+#' doc_1 <- body_add(doc_1,
+#'   block_section(prop_section(page_size = page_size(orient = "landscape")))
+#' )
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' # print(doc_1, target = "test.docx")
 #' @section Illustrations:
@@ -732,6 +739,14 @@ body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, sty
 #' @export
 #' @describeIn body_add pour content of an external docx file with with a [block_pour_docx] object
 body_add.block_pour_docx <- function( x, value, ... ){
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml2(x = x, str = xml_elt)
+}
+
+
+#' @export
+#' @describeIn body_add ends a section with a [block_section] object
+body_add.block_section <- function( x, value, ... ){
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
 }

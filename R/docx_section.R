@@ -13,145 +13,136 @@ slip_in_column_break <- function( x, pos = "before" ){
 
 
 
-#' @title sections
-#'
-#' @description Add sections in a Word document. A section affects
-#' preceding paragraphs or tables.
-#'
-#' @details
-#' A section starts at the end of the previous section (or the beginning of
-#' the document if no preceding section exists), and stops where the section is declared.
+#' @export
+#' @title add continuous section
+#' @description Section break starts the new section on the same page. This
+#' type of section break is often used to change the number of columns
+#' without starting a new page.
 #' @param x an rdocx object
-#' @param w,h width and height in inches of the section page. This will
-#' be ignored if the default section (of the \code{reference_docx} file)
-#' already has a width and a height.
-#' @export
-#' @rdname sections
-#' @name sections
 #' @examples
-#' library(magrittr)
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+#' str1 <- rep(str1, 5)
+#' str1 <- paste(str1, collapse = " ")
+#' str2 <- "Aenean venenatis varius elit et fermentum vivamus vehicula."
+#' str2 <- rep(str2, 5)
+#' str2 <- paste(str2, collapse = " ")
 #'
-#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " %>%
-#'   rep(5) %>% paste(collapse = "")
-#' str2 <- "Aenean venenatis varius elit et fermentum vivamus vehicula. " %>%
-#'   rep(5) %>% paste(collapse = "")
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, value = "Default section", style = "heading 1")
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_add_par(doc_1, value = str2, style = "Normal")
+#' doc_1 <- body_end_section_continuous(doc_1)
 #'
-#' my_doc <- read_docx()  %>%
-#'   body_add_par(value = "Default section", style = "heading 1") %>%
-#'   body_add_par(value = str1, style = "centered") %>%
-#'   body_add_par(value = str2, style = "centered") %>%
-#'
-#'   body_end_section_continuous() %>%
-#'   body_add_par(value = "Landscape section", style = "heading 1") %>%
-#'   body_add_par(value = str1, style = "centered") %>%
-#'   body_add_par(value = str2, style = "centered") %>%
-#'   body_end_section_landscape() %>%
-#'
-#'   body_add_par(value = "Columns", style = "heading 1") %>%
-#'   body_end_section_continuous() %>%
-#'   body_add_par(value = str1, style = "centered") %>%
-#'   body_add_par(value = str2, style = "centered") %>%
-#'   slip_in_column_break() %>%
-#'   body_add_par(value = str1, style = "centered") %>%
-#'   body_end_section_columns(widths = c(2,2), sep = TRUE, space = 1) %>%
-#'
-#'   body_add_par(value = str1, style = "Normal") %>%
-#'   body_add_par(value = str2, style = "Normal") %>%
-#'   slip_in_column_break() %>%
-#'   body_end_section_columns_landscape(widths = c(3,3), sep = TRUE, space = 1)
-#'
-#' print(my_doc, target = tempfile(fileext = ".docx"))
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @family functions for Word sections
 body_end_section_continuous <- function( x ){
-  str <- "<w:pPr><w:sectPr><w:officersection/><w:type w:val=\"continuous\"/></w:sectPr></w:pPr>"
-  str <- paste0( wp_ns_yes, str, "</w:p>")
+  bs <- block_section(prop_section(type = "continuous"))
+  str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
 
 #' @export
-#' @rdname sections
-body_end_section_landscape <- function( x, w = 21 / 2.54, h = 29.7 / 2.54 ){
-  w = w * 20 * 72
-  h = h * 20 * 72
-  pgsz_str <- "<w:pgSz w:orient=\"landscape\" w:w=\"%.0f\" w:h=\"%.0f\"/>"
-  pgsz_str <- sprintf(pgsz_str, h, w )
-  str <- sprintf( "<w:pPr><w:sectPr><w:officersection/>%s</w:sectPr></w:pPr>", pgsz_str)
-  str <- paste0( wp_ns_yes, str, "</w:p>")
-  as_xml_document(str)
+#' @title add landscape section
+#' @description A section with landscape orientation is added to the document.
+#' @param x an rdocx object
+#' @param w,h page width, page height (in inches)
+#' @examples
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+#' str1 <- rep(str1, 5)
+#' str1 <- paste(str1, collapse = " ")
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_end_section_landscape(doc_1)
+#'
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @family functions for Word sections
+body_end_section_landscape <- function( x, w = 21 / 2.54, h = 29.7 / 2.54){
+  bs <- block_section(prop_section(
+    page_size = page_size(width = w, height = h, orient = "landscape"),
+    type = "oddPage"))
+  str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
 
 #' @export
-#' @rdname sections
-body_end_section_portrait <- function( x, w = 21 / 2.54, h = 29.7 / 2.54 ){
-  w = w * 20 * 72
-  h = h * 20 * 72
-  pgsz_str <- "<w:pgSz w:orient=\"portrait\" w:w=\"%.0f\" w:h=\"%.0f\"/>"
-  pgsz_str <- sprintf(pgsz_str, w, h )
-  str <- sprintf( "<w:pPr><w:sectPr><w:officersection/>%s</w:sectPr></w:pPr>", pgsz_str)
-  str <- paste0( wp_ns_yes, str, "</w:p>")
+#' @title add portrait section
+#' @description A section with portrait orientation is added to the document.
+#' @param x an rdocx object
+#' @param w,h page width, page height (in inches)
+#' @examples
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+#' str1 <- rep(str1, 5)
+#' str1 <- paste(str1, collapse = " ")
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_end_section_portrait(doc_1)
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @family functions for Word sections
+body_end_section_portrait <- function( x, w = 21 / 2.54, h = 29.7 / 2.54){
+  bs <- block_section(prop_section(
+    page_size = page_size(width = w, height = h, orient = "portrait"),
+    type = "oddPage"))
+  str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
 
 #' @export
-#' @param widths columns widths in inches. If 3 values, 3 columns
-#' will be produced.
-#' @param space space in inches between columns.
-#' @param sep if TRUE a line is separating columns.
-#' @rdname sections
+#' @title add multi columns section
+#' @description A section with multiple columns is added to the document.
+#' @param x an rdocx object
+#' @inheritParams section_columns
+#' @examples
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+#' str1 <- rep(str1, 5)
+#' str1 <- paste(str1, collapse = " ")
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_end_section_columns(doc_1)
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @family functions for Word sections
 body_end_section_columns <- function(x, widths = c(2.5,2.5), space = .25, sep = FALSE){
 
-  widths <- widths * 20 * 72
-  space <- space * 20 * 72
-
-  columns_str_all_but_last <- sprintf("<w:col w:w=\"%.0f\" w:space=\"%.0f\"/>",
-                                      widths[-length(widths)], space)
-  columns_str_last <- sprintf("<w:col w:w=\"%.0f\"/>",
-                              widths[length(widths)])
-  columns_str <- c(columns_str_all_but_last, columns_str_last)
-
-  if( length(widths) < 2 )
-    stop("length of widths should be at least 2", call. = FALSE)
-
-  columns_str <- sprintf("<w:cols w:num=\"%.0f\" w:sep=\"%.0f\" w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
-                         length(widths), as.integer(sep), space, paste0(columns_str, collapse = "") )
-
-  str <- paste0( "<w:pPr><w:sectPr><w:officersection/>",
-                 "<w:type w:val=\"continuous\"/>",
-                 columns_str, "</w:sectPr></w:pPr>")
-  str <- paste0( wp_ns_yes, str, "</w:p>")
+  bs <- block_section(prop_section(
+    section_columns = section_columns(widths = widths, space = space, sep = sep),
+    type = NULL))
+  str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
 
 
 #' @export
-#' @rdname sections
-body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .25, sep = FALSE, w = 21 / 2.54, h = 29.7 / 2.54){
+#' @title add multi columns section within landscape orientation
+#' @description A landscape section with multiple columns is added to the document.
+#' @param x an rdocx object
+#' @inheritParams section_columns
+#' @param w,h page width, page height (in inches)
+#' @examples
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+#' str1 <- rep(str1, 5)
+#' str1 <- paste(str1, collapse = " ")
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- slip_in_column_break(doc_1, pos = "after")
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_end_section_columns_landscape(doc_1, widths = c(6, 2))
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @family functions for Word sections
+body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .25,
+                                               sep = FALSE, w = 21 / 2.54, h = 29.7 / 2.54){
 
-  widths <- widths * 20 * 72
-  space <- space * 20 * 72
-
-  columns_str_all_but_last <- sprintf("<w:col w:w=\"%.0f\" w:space=\"%.0f\"/>",
-                                      widths[-length(widths)], space)
-  columns_str_last <- sprintf("<w:col w:w=\"%.0f\"/>",
-                              widths[length(widths)])
-  columns_str <- c(columns_str_all_but_last, columns_str_last)
-
-  if( length(widths) < 2 )
-    stop("length of widths should be at least 2", call. = FALSE)
-
-  columns_str <- sprintf("<w:cols w:num=\"%.0f\" w:sep=\"%.0f\" w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
-                         length(widths), as.integer(sep), space, paste0(columns_str, collapse = "") )
-
-  w = w * 20 * 72
-  h = h * 20 * 72
-  pgsz_str <- "<w:pgSz w:orient=\"landscape\" w:w=\"%.0f\" w:h=\"%.0f\"/>"
-  pgsz_str <- sprintf(pgsz_str, h, w )
-
-
-  str <- paste0( "<w:pPr><w:sectPr><w:officersection/>",
-                 pgsz_str,
-                 columns_str, "</w:sectPr></w:pPr>")
-  str <- paste0( wp_ns_yes, str, "</w:p>")
+  bs <- block_section(prop_section(
+    page_size = page_size(width = w, height = h, orient = "landscape"),
+    section_columns = section_columns(widths = widths, space = space, sep = sep),
+    type = "oddPage"))
+  str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
 
@@ -159,7 +150,7 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
 # utils ----
 process_sections <- function( x ){
 
-  all_nodes <- xml_find_all(x$doc_obj$get(), "//w:sectPr[w:officersection]")
+  all_nodes <- xml_find_all(x$doc_obj$get(), "//w:pPr/w:sectPr")
   main_sect <- xml_find_first(x$doc_obj$get(), "w:body/w:sectPr")
 
   for(node_id in seq_along(all_nodes) ){
@@ -201,6 +192,9 @@ process_sections <- function( x ){
         } else if( xml_attr(pgSz, "orient") %in% "landscape" ){
           w <- ifelse( wref < href, href, wref )
           h <- ifelse( wref < href, wref, href )
+        } else {
+          h <- href
+          w <- wref
         }
         xml_attr(pgSz_ref, "w:w") <- w
         xml_attr(pgSz_ref, "w:h") <- h
@@ -208,7 +202,6 @@ process_sections <- function( x ){
         xml_add_child(new_node, pgSz)
       }
     }
-
     node <- xml_replace(all_nodes[[node_id]], new_node)
   }
   x
