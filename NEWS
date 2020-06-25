@@ -1,3 +1,20 @@
+# officer 0.3.12
+
+## New features
+
+* added `body_end_block_section` and `body_add.block_section` so that users are free to add any
+section they want
+
+## Issues
+
+* Use pandoc.exe when platform is windows
+
+# officer 0.3.11
+
+## Issues
+
+* pandoc availability is now checked (for solaris and CRAN policy)
+
 # officer 0.3.10
 
 ## New features

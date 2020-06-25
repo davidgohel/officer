@@ -145,7 +145,44 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
   str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
+#' @export
+#' @title add any section
+#' @description Add a section to the document. You can
+#' define any section with a [block_section] object. All other
+#' `body_end_section_*` are specialized, thiis one is higly flexible
+#' but it's up to the user to define the section properties.
+#' @param x an rdocx object
+#' @param value a [block_section] object
+#' @examples
+#' library(officer)
+#' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+#' str1 <- rep(str1, 5)
+#' str1 <- paste(str1, collapse = " ")
+#'
+#' ps <- prop_section(
+#'   page_size = page_size(orient = "landscape"),
+#'   page_margins = page_mar(top = 2),
+#'   type = "continuous"
+#' )
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#'
+#' doc_1 <- body_end_block_section(doc_1, block_section(ps))
+#'
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#'
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @family functions for Word sections
+body_end_block_section <- function( x, value ){
 
+  stopifnot(inherits(value, "block_section"))
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml(x = x, str = xml_elt, pos = "after")
+
+  x
+}
 
 # utils ----
 process_sections <- function( x ){

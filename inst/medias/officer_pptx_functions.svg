@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 530 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>@font-face { font-family: Roboto; font-style: normal; font-weight: 400; font-stretch: normal; font-variant: normal; font-feature-settings: normal; src: url("https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Me5Q.ttf"); }</style>
+  </defs>
+  <text transform="matrix(1, 0, 0, 0.998051, -23.499977, -243.531738)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18">Slides</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="293.18" transform="matrix(1, 0, 0, 0.998051, -23.499977, -243.531738)">add_slide() on_slide()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, -23.499977, -243.531738)">move_slide() remove_slide() </text>
+  <rect y="16" width="5" height="67" style="fill: rgb(170, 170, 170);" x="126.5"/>
+  <text transform="matrix(1, 0, 0, 0.998051, 95.499977, -257.032043)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;"><tspan x="160.008" y="273.18">add         </tspan><tspan style="fill: rgb(195, 41, 0);">content</tspan><tspan>    into     </tspan><tspan style="fill: rgb(0, 102, 153);">location</tspan></text>
+  <text transform="matrix(1, 0, 0, 0.998051, 95.499977, -257.032043)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 9.01758px; font-weight: 700; line-height: 12.8px; white-space: pre;"><tspan x="160.008" y="293.18" style="line-height: 14.4281px;">ph_with(                                         </tspan><tspan style="line-height: 25.65px;">,</tspan><tspan style="line-height: 14.4281px;">                                                          )</tspan></text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 95.499977, -247.032043)">text, ggplot, data.frame, block_list, </text>
+  <rect y="2.5" width="5" height="95" style="fill: rgb(170, 170, 170);" x="245.5"/>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, -23.499977, -228.522522)">layout_summary()</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 95.500023, -232.022522)">unordered_list, external_img</text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 95.500023, -217.022522)">fpar, flextable</text>
+  <path d="M 5.27 80.511 H 16.32 L 16.32 75.011 L 22.27 82.511 L 16.32 90.011 L 16.32 84.511 H 5.27 V 80.511 Z" style="fill: rgb(195, 41, 0);" transform="matrix(0.000068, -1, 1, 0.000068, 249.488678, 56.7649)"/>
+  <text transform="matrix(1, 0, 0, 0.998051, -138.499969, -237.531372)" style="fill: rgb(51, 51, 51); font-family: Roboto; font-size: 14px; white-space: pre;" x="160.008" y="273.18">I/O</text>
+  <text transform="matrix(1, 0, 0, 0.998051, -138.499969, -237.531372)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.00799560546875" y="293.17999267578125"><tspan style="fill: rgb(235, 85, 85);">read_pptx()</tspan><tspan> </tspan></text>
+  <text transform="matrix(1, 0, 0, 0.998051, -138.499969, -237.531372)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;"><tspan x="160.008" y="308.18" style="fill: rgb(235, 85, 85);">print</tspan><tspan>(x, </tspan><tspan style="fill: rgb(235, 85, 85);">target</tspan><tspan> = "file.pptx")</tspan></text>
+  <rect y="22" width="5" height="55" style="fill: rgb(170, 170, 170);" x="11.5"/>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="293.18" transform="matrix(1, 0, 0, 0.998051, 230.500031, -231.051758)">ph_location() ph_location_fullsize()</text>
+  <text transform="matrix(1, 0, 0, 0.998051, 230.500031, -231.051758)" style="fill: rgb(51, 51, 51); font-family: &quot;Roboto Mono&quot;; font-size: 8px; white-space: pre;" x="160.008" y="308.18">ph_location_label() ph_location_type() </text>
+  <text style="fill: rgb(51, 51, 51); font-family: 'Roboto Mono'; font-size: 8px; white-space: pre;" x="160.008" y="308.18" transform="matrix(1, 0, 0, 0.998051, 230.500031, -216.042542)">ph_location_left() ph_location_right()</text>
+  <path d="M 5.27 80.511 H 16.32 L 16.32 75.011 L 22.27 82.511 L 16.32 90.011 L 16.32 84.511 H 5.27 V 80.511 Z" style="fill: rgb(0, 102, 153);" transform="matrix(0.000068, -1, 1, 0.000068, 363.488678, 56.7649)"/>
+</svg>
