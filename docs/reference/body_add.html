@@ -76,7 +76,7 @@ be used in conjunction with the body_add_* functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
       </span>
     </div>
 
@@ -181,6 +181,9 @@ be used in conjunction with the <code>body_add_*</code> functions.</p>
 <span class='fu'>body_add</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for block_pour_docx</span>
+<span class='fu'>body_add</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for block_section</span>
 <span class='fu'>body_add</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -260,6 +263,7 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
 <li><p><code>gg</code>: add a ggplot object.</p></li>
 <li><p><code>plot_instr</code>: add a base plot with a <a href='plot_instr.html'>plot_instr</a> object.</p></li>
 <li><p><code>block_pour_docx</code>: pour content of an external docx file with with a <a href='block_pour_docx.html'>block_pour_docx</a> object</p></li>
+<li><p><code>block_section</code>: ends a section with a <a href='block_section.html'>block_section</a> object</p></li>
 </ul>
     <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
 
@@ -277,6 +281,13 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
 <span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add</span>(<span class='no'>doc_1</span>, <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>iris</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"table_template"</span>)
 <span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add</span>(<span class='no'>doc_1</span>, <span class='st'>"Another title"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"heading 1"</span>)
 <span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add</span>(<span class='no'>doc_1</span>, <span class='no'>letters</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>)
+<span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add</span>(<span class='no'>doc_1</span>,
+  <span class='fu'><a href='block_section.html'>block_section</a></span>(<span class='fu'><a href='prop_section.html'>prop_section</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"continuous"</span>))
+)
+<span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add</span>(<span class='no'>doc_1</span>, <span class='fu'><a href='plot_instr.html'>plot_instr</a></span>(<span class='kw'>code</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>6</span>)))
+<span class='no'>doc_1</span> <span class='kw'>&lt;-</span> <span class='fu'>body_add</span>(<span class='no'>doc_1</span>,
+  <span class='fu'><a href='block_section.html'>block_section</a></span>(<span class='fu'><a href='prop_section.html'>prop_section</a></span>(<span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fu'><a href='page_size.html'>page_size</a></span>(<span class='kw'>orient</span> <span class='kw'>=</span> <span class='st'>"landscape"</span>)))
+)
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc_1</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))
 <span class='co'># print(doc_1, target = "test.docx")</span></div></pre>
   </div>
@@ -291,7 +302,7 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.10 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
