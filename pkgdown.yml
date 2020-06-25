@@ -1,4 +1,4 @@
-pandoc: 2.7.2
+pandoc: 2.9.2.1
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
@@ -7,5 +7,5 @@ articles:
   powerpoint: offcran/powerpoint.html
   word: offcran/word.html
   overview: overview.html
-last_built: 2020-05-14T10:41Z
+last_built: 2020-06-25T15:49Z
 
