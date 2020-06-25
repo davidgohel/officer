@@ -427,6 +427,8 @@ print(my_doc, target = "assets/docx/section.docx")
 office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/offcran/", "assets/docx/section.docx" ) )
 ```
 
+Note that by using `body_end_block_section()`, all options can be combined.
+
 ## Table and image captions
 
 `slip_in_seqfield()` and `slip_in_text()` can be combined to prefix a paragraph 
