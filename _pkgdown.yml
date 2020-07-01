@@ -64,7 +64,7 @@ reference:
     - ph_slidelink
     - ph_hyperlink
     - ph_remove
-  - title: Read PowerPoint informtions
+  - title: Read PowerPoint information
     contents:
     - pptx_summary
     - slide_size
