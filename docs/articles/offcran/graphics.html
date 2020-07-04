@@ -167,7 +167,7 @@
 <div id="vector-graphics" class="section level3">
 <h3 class="hasAnchor">
 <a href="#vector-graphics" class="anchor"></a>vector graphics</h3>
-<p>Package <code>rvg</code> is providing editable vector graphics that can be used with <code>officer</code>. Function <code>ph_with_vg</code> can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function <code>ph_with_vg_at</code> is also provided to let you add a graphic at any arbitrary location in the current slide.</p>
+<p>Package <code>rvg</code> is providing editable vector graphics that can be used with <code>officer</code>. Function <code>dml</code> can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. <code>ph_with</code> supports <code>dml</code> objects, you only have to wrap your R graphic instructions (or ggplot object) with function <code>dml</code>.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rvg</span>)
 <span class="fu"><a href="../../reference/read_pptx.html">read_pptx</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../../reference/add_slide.html">add_slide</a></span>(<span class="kw">layout</span> <span class="kw">=</span> <span class="st">"Title and Content"</span>, <span class="kw">master</span> <span class="kw">=</span> <span class="st">"Office Theme"</span>) <span class="kw">%&gt;%</span>

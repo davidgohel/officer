@@ -2,7 +2,7 @@
 title: "Officer and graphics"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{graphics}
+  %\VignetteIndexEntry{Officer and graphics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -124,7 +124,10 @@ office_doc_link( url = paste0( "https://davidgohel.github.io/officer/articles/of
 
 ### vector graphics
 
-Package `rvg` is providing editable vector graphics that can be used with `officer`. Function `ph_with_vg` can be used to generate (from R plot commands) a nice editable graphic within PowerPoint. Function `ph_with_vg_at` is also provided to let you add a graphic at any arbitrary location in the current slide.
+Package `rvg` is providing editable vector graphics that can be used with
+`officer`. Function `dml` can be used to generate (from R plot commands) a nice
+editable graphic within PowerPoint. `ph_with` supports `dml` objects, you only
+have to wrap your R graphic instructions (or ggplot object) with function `dml`.
 
 ```{r}
 library(rvg)
