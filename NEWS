@@ -1,3 +1,9 @@
+# officer 0.3.13
+
+## Issues
+
+* fix sections issue with page margin (it effected also officedown).
+
 # officer 0.3.12
 
 ## New features

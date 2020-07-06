@@ -190,56 +190,26 @@ process_sections <- function( x ){
   all_nodes <- xml_find_all(x$doc_obj$get(), "//w:pPr/w:sectPr")
   main_sect <- xml_find_first(x$doc_obj$get(), "w:body/w:sectPr")
 
+  footer_refs <- xml_find_all(x$doc_obj$get(), "w:body/w:sectPr/w:footerReference")
+  header_refs <- xml_find_all(x$doc_obj$get(), "w:body/w:sectPr/w:headerReference")
+
   for(node_id in seq_along(all_nodes) ){
-    current_node <- as_xml_document(all_nodes[[node_id]])
-    new_node <- as_xml_document(main_sect)
+    current_node <- all_nodes[[node_id]]
 
-    # correct type ---
-    type <- xml_child(current_node, "w:type")
-    type_ref <- xml_child(new_node, "w:type")
-    if( !inherits(type, "xml_missing") ){
-      if( !inherits(type_ref, "xml_missing") )
-        type_ref <- xml_replace(type_ref, type)
-      else xml_add_child(new_node, type)
-    }
+    header_ref <- xml_child(current_node, "w:headerReference")
+    footer_ref <- xml_child(current_node, "w:footerReference")
 
-    # correct cols ---
-    cols <- xml_child(current_node, "w:cols")
-    cols_ref <- xml_child(new_node, "w:cols")
-    if( !inherits(cols, "xml_missing") ){
-      if( !inherits(cols_ref, "xml_missing") )
-        cols_ref <- xml_replace(cols_ref, cols)
-      else xml_add_child(new_node, cols)
-    }
-
-    # correct pgSz ---
-    pgSz <- xml_child(current_node, "w:pgSz")
-    pgSz_ref <- xml_child(new_node, "w:pgSz")
-    if( !inherits(pgSz, "xml_missing") ){
-
-      if( !inherits(pgSz_ref, "xml_missing") ){
-        xml_attr(pgSz_ref, "w:orient") <- xml_attr(pgSz, "orient")
-
-        wref <- as.integer( xml_attr(pgSz_ref, "w") )
-        href <- as.integer( xml_attr(pgSz_ref, "h") )
-
-        if( xml_attr(pgSz, "orient") %in% "portrait" ){
-          h <- ifelse( wref < href, href, wref )
-          w <- ifelse( wref < href, wref, href )
-        } else if( xml_attr(pgSz, "orient") %in% "landscape" ){
-          w <- ifelse( wref < href, href, wref )
-          h <- ifelse( wref < href, wref, href )
-        } else {
-          h <- href
-          w <- wref
-        }
-        xml_attr(pgSz_ref, "w:w") <- w
-        xml_attr(pgSz_ref, "w:h") <- h
-      } else {
-        xml_add_child(new_node, pgSz)
+    if(inherits(footer_ref, "xml_missing") && length(footer_refs) > 0 ){
+      for(l in rev(seq_along(footer_refs))){
+        xml_add_child(current_node, footer_refs[[l]], .where = 1)
       }
     }
-    node <- xml_replace(all_nodes[[node_id]], new_node)
+    if(inherits(header_ref, "xml_missing") && length(header_refs) > 0 ){
+      for(l in rev(seq_along(header_refs))){
+        xml_add_child(current_node, header_refs[[l]], .where = 1)
+      }
+    }
+
   }
   x
 }
