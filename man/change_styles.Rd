@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{change_styles}
 \alias{change_styles}
-\title{replace paragraphs styles}
+\title{Replace Styles in a Word Document}
 \usage{
 change_styles(x, mapstyles)
 }
@@ -10,22 +10,32 @@ change_styles(x, mapstyles)
 \item{x}{an rdocx object}
 
 \item{mapstyles}{a named list, names are the replacement style,
-content (as a character vector) are the styles to be replaced.}
+content (as a character vector) are the styles to be replaced.
+Use \code{\link[=styles_info]{styles_info()}} to display available styles.}
 }
 \description{
 Replace styles with others in a Word document. This function
-is to be used for paragraph styles.
+can be used for paragraph, run/character and table styles.
 }
 \examples{
 library(magrittr)
 
-mapstyles <- list( "centered" = c("Normal"),
-    "heading 3" = c("heading 1", "heading 2") )
+mapstyles <- list(
+  "centered" = c("Normal", "heading 2"),
+  "strong" = "Default Paragraph Font"
+)
 doc <- read_docx() \%>\%
   body_add_par("A title", style = "heading 1") \%>\%
+  body_add_par("Hello ", style = "Normal") \%>\%
+  slip_in_text("world", style = "Default Paragraph Font") \%>\%
+  slip_in_text("Message is: ", style = "Default Paragraph Font", pos = "before") \%>\%
+  slip_in_text(" with a link",
+    style = "strong",
+    pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
+  ) \%>\%
   body_add_par("Another title", style = "heading 2") \%>\%
   body_add_par("Hello world!", style = "Normal") \%>\%
-  change_styles( mapstyles = mapstyles )
+  change_styles(mapstyles = mapstyles)
 
 print(doc, target = tempfile(fileext = ".docx"))
 }

@@ -312,55 +312,68 @@ docx_bookmarks <- function(x){
 }
 
 #' @export
-#' @title replace paragraphs styles
+#' @title Replace Styles in a Word Document
 #' @description Replace styles with others in a Word document. This function
-#' is to be used for paragraph styles.
+#' can be used for paragraph, run/character and table styles.
 #' @param x an rdocx object
 #' @param mapstyles a named list, names are the replacement style,
 #' content (as a character vector) are the styles to be replaced.
+#' Use [styles_info()] to display available styles.
 #' @examples
 #' library(magrittr)
 #'
-#' mapstyles <- list( "centered" = c("Normal"),
-#'     "heading 3" = c("heading 1", "heading 2") )
+#' mapstyles <- list(
+#'   "centered" = c("Normal", "heading 2"),
+#'   "strong" = "Default Paragraph Font"
+#' )
 #' doc <- read_docx() %>%
 #'   body_add_par("A title", style = "heading 1") %>%
+#'   body_add_par("Hello ", style = "Normal") %>%
+#'   slip_in_text("world", style = "Default Paragraph Font") %>%
+#'   slip_in_text("Message is: ", style = "Default Paragraph Font", pos = "before") %>%
+#'   slip_in_text(" with a link",
+#'     style = "strong",
+#'     pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
+#'   ) %>%
 #'   body_add_par("Another title", style = "heading 2") %>%
 #'   body_add_par("Hello world!", style = "Normal") %>%
-#'   change_styles( mapstyles = mapstyles )
+#'   change_styles(mapstyles = mapstyles)
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 change_styles <- function( x, mapstyles ){
 
   if( is.null(mapstyles) || length(mapstyles) < 1 ) return(x)
 
-  styles_table <- styles_info(x, type = "paragraph")
+  table_styles <- styles_info(x, type = c("paragraph", "character", "table"))
 
   from_styles <- unique( as.character( unlist(mapstyles) ) )
   to_styles <- unique( names( mapstyles) )
 
-  if( any( is.na( mfrom <- match( from_styles, styles_table$style_name ) ) ) ){
+  if( any( is.na( mfrom <- match( from_styles, table_styles$style_name ) ) ) ){
     stop("could not find paragraph style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
   }
-  if( any( is.na( mto <- match( to_styles, styles_table$style_name ) ) ) ){
+  if( any( is.na( mto <- match( to_styles, table_styles$style_name ) ) ) ){
     stop("could not find paragraph style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
   }
 
   mapping <- mapply(function(from, to) {
-    id_to <- which( styles_table$style_name %in% to )
-    id_to <- styles_table$style_id[id_to]
+    id_to <- which( table_styles$style_name %in% to )
+    id_to <- table_styles$style_id[id_to]
 
-    id_from <- which( styles_table$style_name %in% from )
-    id_from <- styles_table$style_id[id_from]
+    id_from <- which( table_styles$style_name %in% from )
+    types <- substring(table_styles$style_type[id_from], first = 1, last = 1)
+    types[types %in% "c"] <- "r"
+    types[types %in% "t"] <- "tbl"
+    id_from <- table_styles$style_id[id_from]
 
-    data.frame( from = id_from, to = rep(id_to, length(from)), stringsAsFactors = FALSE )
+    data.frame( from = id_from, to = rep(id_to, length(from)), types = types, stringsAsFactors = FALSE )
   }, mapstyles, names(mapstyles), SIMPLIFY = FALSE)
 
   mapping <- do.call(rbind, mapping)
   row.names(mapping) <- NULL
 
   for(i in seq_len( nrow(mapping) )){
-    all_nodes <- xml_find_all(x$doc_obj$get(), sprintf("//w:pStyle[@w:val='%s']", mapping$from[i]))
+    all_nodes <- xml_find_all(x$doc_obj$get(), sprintf("//w:%sStyle[@w:val='%s']", mapping$types[i], mapping$from[i]))
     xml_attr(all_nodes, "w:val") <- rep(mapping$to[i], length(all_nodes) )
   }
 

@@ -4,6 +4,10 @@
 
 * fix sections issue with page margin (it effected also officedown).
 
+## New features
+
+* change_styles - support for run/character, paragraph and table styles.
+
 # officer 0.3.12
 
 ## New features
