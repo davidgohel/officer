@@ -37,7 +37,6 @@ test_that("body_end_sections", {
   sect <- xml_child(node, "w:pPr/w:sectPr")
 
   expect_false( inherits(sect, "xml_missing") )
-  expect_equal( xml_attr(xml_child(sect, "w:type"), "val"), "continuous")
   expect_false( inherits(xml_child(sect, "w:cols"), "xml_missing") )
 
   x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
