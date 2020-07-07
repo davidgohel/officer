@@ -350,10 +350,10 @@ change_styles <- function( x, mapstyles ){
   to_styles <- unique( names( mapstyles) )
 
   if( any( is.na( mfrom <- match( from_styles, table_styles$style_name ) ) ) ){
-    stop("could not find paragraph style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
+    stop("could not find style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
   }
   if( any( is.na( mto <- match( to_styles, table_styles$style_name ) ) ) ){
-    stop("could not find paragraph style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
+    stop("could not find style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
   }
 
   mapping <- mapply(function(from, to) {
