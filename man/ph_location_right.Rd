@@ -14,7 +14,9 @@ ph_location_right(newlabel = NULL, ...)
 \description{
 The function will return the location corresponding
 to a right bounding box. The function assume the layout 'Two Content'
-is existing.
+is existing. This is an helper function, if you don't have a layout
+named 'Two Content', use \code{\link[=ph_location_type]{ph_location_type()}} and set arguments
+to your specific needs.
 }
 \examples{
 doc <- read_pptx()

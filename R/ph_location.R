@@ -310,7 +310,9 @@ fortify_location.location_fullsize <- function( x, doc, ...){
 #' @title location of a left body element
 #' @description The function will return the location corresponding
 #' to a left bounding box. The function assume the layout 'Two Content'
-#' is existing.
+#' is existing. This is an helper function, if you don't have a layout
+#' named 'Two Content', use [ph_location_type()] and set arguments
+#' to your specific needs.
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
@@ -347,7 +349,9 @@ fortify_location.location_left <- function( x, doc, ...){
 #' @title location of a right body element
 #' @description The function will return the location corresponding
 #' to a right bounding box. The function assume the layout 'Two Content'
-#' is existing.
+#' is existing. This is an helper function, if you don't have a layout
+#' named 'Two Content', use [ph_location_type()] and set arguments
+#' to your specific needs.
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
