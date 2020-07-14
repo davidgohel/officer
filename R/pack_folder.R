@@ -8,6 +8,7 @@
 pack_folder <- function( folder, target ){
 
   target <- absolute_path(target)
+  Encoding(target) <- "UTF-8"
 
   dir_fi <- dirname(target)
   if( !file.exists(dir_fi) ){
