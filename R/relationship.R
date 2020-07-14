@@ -31,12 +31,12 @@ relationship <- R6Class(
                           is.na(private$target_mode),
                           "",
                           "\" TargetMode=\"External" ),
-                    "\"/>", collapse = "")
-      else str <- ""
-      str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
+                    "\"/>")
+      else str <- character(length = 0)
+      str <- c("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
              "\n<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">", str, "</Relationships>")
       dir.create(dirname(path), showWarnings = FALSE, recursive = FALSE)
-      cat(str, file = path)
+      writeLines(str, con = path, useBytes = TRUE)
       self
     },
     get_next_id = function(){
@@ -115,6 +115,7 @@ relationship <- R6Class(
       self
     },
     add = function(id, type, target, target_mode = NA ) {
+      Encoding(target) <- "UTF-8"
       if( !target %in% private$target ){
         private$id <- c( private$id, id )
         private$type <- c( private$type, type )
