@@ -8,38 +8,24 @@
 pack_folder <- function( folder, target ){
 
   target <- absolute_path(target)
-  Encoding(target) <- "UTF-8"
-
   dir_fi <- dirname(target)
+
   if( !file.exists(dir_fi) ){
     stop("directory ", shQuote(dir_fi), " does not exist.", call. = FALSE)
   } else if( file.access(dir_fi) < 0 ){
     stop("can not write to directory ", shQuote(dir_fi), call. = FALSE)
   } else if( file.exists(target) && file.access(target) < 0 ){
     stop(shQuote(target), " already exists and is not writable", call. = FALSE)
-  } else if( !file.exists(target) ){
-    old_warn <- getOption("warn")
-    options(warn = -1)
-    x <- tryCatch({cat("", file = target);TRUE}, error = function(e) FALSE, finally = unlink(target, force = TRUE) )
-    options(warn = old_warn)
-    if( !x )
-      stop(shQuote(target), " cannot be written, please check your permissions.", call. = FALSE)
   }
 
   curr_wd <- getwd()
   setwd(folder)
-  if( .Platform$OS.type %in% "windows")
-    target <- enc2native(target)
   tryCatch(
-      zip::zipr(zipfile = target, include_directories = FALSE,
+    zip::zipr(zipfile = target, include_directories = FALSE,
                 files = list.files(path = ".", all.files = FALSE), recurse = TRUE)
     , error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
     },
-    # deprecated = function(e) {
-    #   if( !grepl("zip::zipr", e))
-    #     warning(e)
-    # },
     finally = {
       setwd(curr_wd)
     })
