@@ -304,11 +304,20 @@ docx_dim <- function(x){
 #'
 #' docx_bookmarks(read_docx())
 #' @family functions for Word document informations
-docx_bookmarks <- function(x){
+docx_bookmarks = function (x) {
   stopifnot(inherits(x, "rdocx"))
-
+  
   doc_ <- xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
-  setdiff(xml_attr(doc_, "name"), "_GoBack")
+  doc_ <- setdiff(xml_attr(doc_, "name"), "_GoBack")
+  head_ <- sapply(x$headers, function(h) {
+    tmp <- xml_find_all(h$get(), "//w:bookmarkStart[@w:name]")
+    setdiff(xml_attr(tmp, "name"), "_GoBack")
+  })
+  foot_ <- sapply(x$footers, function(f) {
+    tmp <- xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
+    setdiff(xml_attr(tmp, "name"), "_GoBack")
+  })
+  list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
 }
 
 #' @export
