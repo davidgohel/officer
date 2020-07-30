@@ -304,7 +304,7 @@ docx_dim <- function(x){
 #'
 #' docx_bookmarks(read_docx())
 #' @family functions for Word document informations
-docx_bookmarks = function (x) {
+docx_bookmarks <- function (x) {
   stopifnot(inherits(x, "rdocx"))
   
   doc_ <- xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
