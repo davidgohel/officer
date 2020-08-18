@@ -32,7 +32,7 @@ body_add_break <- function( x, pos = "after"){
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
+body_add_img <- function( x, src, style = NULL, width, height, units = c("in", "cm", "mm"), pos = "after" ){
 
   if( is.null(style) )
     style <- x$default_styles$paragraph
@@ -55,7 +55,8 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
   style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
 
-  ext_img <- external_img(new_src, width = width, height = height)
+  to_inches <- function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]  
+  ext_img <- external_img(new_src, width = to_inches(width), height = to_inches(height))
   xml_elt <- runs_to_p_wml(ext_img, add_ns = TRUE, style_id = style_id)
   x <- docx_reference_img(x, new_src)
   xml_elt <- wml_link_images( x, xml_elt )
@@ -136,19 +137,16 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
 #' @family functions for adding content
-body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
+body_add_gg <- function( x, value, width = 6, height = 5, units = c("in", "cm", "mm"), res = 300, style = "Normal", ... ){
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
-  print(value)
-  dev.off()
+  ggplot2::ggsave(file, value, width = width, height = height, units = units, dpi=res, ...)
   on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height)
+  body_add_img(x, src = file, style = style, width = width, height = height, units=units)
 }
 
 
