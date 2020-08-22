@@ -292,6 +292,8 @@ docx_dim <- function(x){
 #' @description List bookmarks id that can be found in an \code{rdocx}
 #' object.
 #' @param x an \code{rdocx} object
+#' @return a list of 3 character vectors containing the bookmarks of 
+#' respectivly the header, body and footer of the \code{rdocx} object.
 #' @examples
 #' library(magrittr)
 #'
