@@ -20,8 +20,9 @@ body_add_break <- function( x, pos = "after"){
 #' @inheritParams body_add_break
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param style paragraph style
-#' @param width height in inches
-#' @param height height in inches
+#' @param width height in units
+#' @param height height in units
+#' @param units one of c("in", "cm", "mm")
 #' @examples
 #' doc <- read_docx()
 #'
@@ -119,8 +120,9 @@ body_add_docx <- function( x, src, pos = "after" ){
 #' @inheritParams body_add_break
 #' @param value ggplot object
 #' @param style paragraph style
-#' @param width height in inches
-#' @param height height in inches
+#' @param width height in units
+#' @param height height in units
+#' @param units one of c("in", "cm", "mm")
 #' @param res resolution of the png image in ppi
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
