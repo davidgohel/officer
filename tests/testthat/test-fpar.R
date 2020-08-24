@@ -27,7 +27,6 @@ test_that("wml", {
 
   expect_equal(xml_text(node), "tototiti")
   expect_equal(xml_find_all(node, "//w:r/w:t") %>% xml_text(), c("toto", "titi") )
-  expect_equal(xml_find_all(node, "//w:r/w:rPr/*[self::w:i or self::w:b]") %>% xml_name(), c("b", "i") )
   val <- xml_find_all(node, "//w:pPr/w:jc") %>% xml_attr("val")
   expect_equal(val, "left")
 
@@ -43,8 +42,8 @@ test_that("wml", {
   )
   fp <- update(fp, fp_t = fp_text(bold = TRUE))
   node <- get_wml_node(fp)
-  italic <- xml_find_all(node, "//w:r/w:rPr") %>% xml_child("w:i") %>% xml_name() %in% "i"
-  bold <- xml_find_all(node, "//w:r/w:rPr") %>% xml_child("w:b") %>% xml_name() %in% "b"
+  italic <- xml_find_all(node, "//w:r/w:rPr") %>% xml_child("w:i") %>% xml_attr("val") %in% "true"
+  bold <- xml_find_all(node, "//w:r/w:rPr") %>% xml_child("w:b") %>% xml_attr("val") %in% "true"
 
   expect_equal(italic, c(FALSE, TRUE, FALSE) )
   expect_equal(bold, c(FALSE, FALSE, TRUE) )
@@ -64,8 +63,8 @@ test_that("pml", {
 
   expect_equal(xml_text(node), "tototiti")
   expect_equal(xml_find_all(node, "//a:r/a:t") %>% xml_text(), c("toto", "titi") )
-  expect_equal(xml_find_all(node, "//a:r/a:rPr") %>% xml_attr("b"), c("1", NA) )
-  expect_equal(xml_find_all(node, "//a:r/a:rPr") %>% xml_attr("i"), c(NA, "1") )
+  expect_equal(xml_find_all(node, "//a:r/a:rPr") %>% xml_attr("b"), c("1", "0") )
+  expect_equal(xml_find_all(node, "//a:r/a:rPr") %>% xml_attr("i"), c("0", "1") )
   val <- xml_find_all(node, "//a:p/a:pPr") %>% xml_attr("algn")
   expect_equal(val, "l")
 

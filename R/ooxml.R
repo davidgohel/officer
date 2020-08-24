@@ -277,12 +277,18 @@ rpr_pml <- function(x){
 
   if(x$italic){
     out <- paste0(out, " i=\"1\"")
+  } else {
+    out <- paste0(out, " i=\"0\"")
   }
   if(x$bold){
     out <- paste0(out, " b=\"1\"")
+  } else {
+    out <- paste0(out, " b=\"0\"")
   }
   if(x$underlined){
     out <- paste0(out, " u=\"sng\"")
+  } else {
+    out <- paste0(out, " u=\"none\"")
   }
 
   if( x$vertical.align == "superscript"){
@@ -321,13 +327,19 @@ rpr_wml <- function(x){
     "/>")
 
   if(x$italic){
-    out <- paste0(out, "<w:i/>")
+    out <- paste0(out, "<w:i w:val=\"true\"/>")
+  } else {
+    out <- paste0(out, "<w:i w:val=\"false\"/>")
   }
   if(x$bold){
-    out <- paste0(out, "<w:b/>")
+    out <- paste0(out, "<w:b w:val=\"true\"/>")
+  } else {
+    out <- paste0(out, "<w:b w:val=\"false\"/>")
   }
   if(x$underlined){
     out <- paste0(out, "<w:u w:val=\"single\"/>")
+  } else {
+    out <- paste0(out, "<w:u w:val=\"none\"/>")
   }
 
   if( x$vertical.align == "superscript"){

@@ -5,6 +5,7 @@
 * fix sections issue with page margin (it effected also officedown).
 * fix issue #320 (with URL encoding in .rel files).
 * fix encoding issue with ftext
+* explicit coding of bold, italic and uunderline attribuutes
 
 ## New features
 

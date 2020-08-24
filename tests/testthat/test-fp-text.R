@@ -44,16 +44,31 @@ test_that("wml - bold italic underlined", {
   doc_underline_ <- read_xml( wml_str(xml_underline_) )
 
   expect_equal(wml_is_bold(doc_bold_), TRUE)
-  expect_equal(wml_is_italic(doc_bold_), FALSE)
+  expect_equal(
+    xml_attr(xml_find_first(doc_bold_, "/w:document/w:rPr/w:i"), "val"),
+    "false")
+  expect_equal(
+    xml_attr(xml_find_first(doc_italic_, "/w:document/w:rPr/w:b"), "val"),
+    "false")
+  expect_equal(
+    xml_attr(xml_find_first(doc_italic_, "/w:document/w:rPr/w:i"), "val"),
+    "true")
 
-  expect_equal(wml_is_bold(doc_italic_), FALSE)
-  expect_equal(wml_is_italic(doc_italic_), TRUE)
-
+  expect_equal(
+    xml_attr(xml_find_first(doc_italic_, "/w:document/w:rPr/w:b"), "val"),
+    "false")
+  expect_equal(
+    xml_attr(xml_find_first(doc_italic_, "/w:document/w:rPr/w:i"), "val"),
+    "true")
   expect_equal(wml_is_bold(doc_bolditalic_), TRUE)
   expect_equal(wml_is_italic(doc_bolditalic_), TRUE)
 
-  expect_equal(wml_is_underline(doc_bold_), FALSE)
-  expect_equal(wml_is_underline(doc_underline_), TRUE)
+  expect_equal(
+    xml_attr(xml_find_first(doc_bold_, "/w:document/w:rPr/w:u"), "val"),
+    "none")
+  expect_equal(
+    xml_attr(xml_find_first(doc_underline_, "/w:document/w:rPr/w:u"), "val"),
+    "single")
 })
 
 
