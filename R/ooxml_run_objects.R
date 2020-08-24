@@ -546,7 +546,13 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
 #' @seealso [fp_text]
 #' @family run functions for reporting
 ftext <- function(text, prop) {
-  out <- list( value = formatC(text), pr = prop )
+  if(is.character(text)) {
+    value <- enc2utf8(text)
+  } else {
+    value <- formatC(text)
+  }
+
+  out <- list( value = value, pr = prop )
   class(out) <- c("ftext", "cot", "run")
   out
 }
