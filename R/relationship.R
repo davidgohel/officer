@@ -26,13 +26,14 @@ relationship <- R6Class(
       if( length(private$id) )
         str <- paste0("<Relationship Id=\"", private$id,
                     "\" Type=\"", private$type,
-                    "\" Target=\"", private$target,
+                    "\" Target=\"", htmlEscapeCopy(private$target),
                     ifelse(
                           is.na(private$target_mode),
                           "",
                           "\" TargetMode=\"External" ),
                     "\"/>")
       else str <- character(length = 0)
+
       str <- c("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
              "\n<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">", str, "</Relationships>")
       dir.create(dirname(path), showWarnings = FALSE, recursive = FALSE)
