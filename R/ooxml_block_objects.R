@@ -439,6 +439,97 @@ table_colwidths <- function(widths = NULL){
 }
 
 #' @export
+#' @title Paragraph styles for columns
+#' @description The function defines the paragraph styles for columns.
+#' @param stylenames a named character vector, names are column names, values are
+#' paragraph styles associated with each column. If a column is not
+#' specified, default value 'Normal' is used.
+#' Another form is as a named list, the list names are the styles
+#' and the contents are column names to be formatted with the
+#' corresponding style.
+#' @family functions for table definition
+#' @examples
+#' library(officer)
+#'
+#' stylenames <- c(
+#'   vs = "centered", am = "centered",
+#'   gear = "centered", carb = "centered"
+#' )
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_table(doc_1,
+#'   value = mtcars, style = "table_template",
+#'   stylenames = table_stylenames(stylenames = stylenames)
+#' )
+#'
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#'
+#'
+#' stylenames <- list(
+#'   "centered" = c("vs", "am", "gear", "carb")
+#' )
+#'
+#' doc_2 <- read_docx()
+#' doc_2 <- body_add_table(doc_2,
+#'   value = mtcars, style = "table_template",
+#'   stylenames = table_stylenames(stylenames = stylenames)
+#' )
+#'
+#' print(doc_2, target = tempfile(fileext = ".docx"))
+table_stylenames <- function(stylenames = list()){
+
+  if( length(stylenames) > 0 && is.null(attr(stylenames, "names")) ){
+    stop("stylenames should have names")
+  }
+
+  if( length(stylenames) > 0 && is.list(stylenames) ){
+    .l <- vapply(stylenames, length, FUN.VALUE = 0L)
+    zz <- inverse.rle(
+      structure(list(
+        lengths = .l,
+        values = names(stylenames)),
+        class = "rle")
+      )
+    names(zz) <- as.character(unlist(stylenames))
+    stylenames <- as.list(zz)
+  } else if(is.character(stylenames)){
+    stylenames <- as.list(stylenames)
+  }
+
+  z <- list(stylenames = stylenames)
+  class(z) <- "table_stylenames"
+  z
+}
+
+#' @export
+#' @importFrom utils modifyList
+to_wml.table_stylenames <- function(x, add_ns = FALSE, base_document = NULL, dat, ...) {
+
+  if (is.null(base_document)) {
+    base_document <- get_reference_value("docx")
+  }
+  if (is.character(base_document)) {
+    base_document <- read_docx(path = base_document)
+  } else if (!inherits(base_document, "rdocx")) {
+    stop("base_document can only be the path to a docx file or an rdocx document.")
+  }
+
+  stylenames <- rep("Normal", ncol(dat))
+  names(stylenames) <- colnames(dat)
+  stylenames <- as.list(stylenames)
+  # restrict to only existing cols
+  x$stylenames <- x$stylenames[names(x$stylenames) %in% colnames(dat)]
+  stylenames <- modifyList(stylenames, val = x$stylenames)
+  stylenames <- lapply(stylenames, function(x){
+    get_style_id(data = base_document$styles, style = x, type = "paragraph")
+  })
+  stylenames <- lapply(stylenames, function(x){
+    sprintf("<w:pStyle w:val=\"%s\"/>", x)
+  })
+  stylenames
+}
+
+#' @export
 to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
   if(length(x$widths) < 1) return("")
   grid_col_str <- sprintf("<w:gridCol w:w=\"%.0f\"/>", x$widths * 1440)
@@ -453,6 +544,7 @@ to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
 #' @param style table style to be used to format table
 #' @param layout layout defined by [table_layout()],
 #' @param width table width in the document defined by [table_width()]
+#' @param stylenames columns styles defined by [table_stylenames()]
 #' @param colwidths column widths defined by [table_colwidths()]
 #' @param align table alignment (one of left, center or right)
 #' @param tcf conditional formatting settings defined by [table_conditional_formatting()]
@@ -461,9 +553,10 @@ to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
 #' to_wml(prop_table())
 #' @family functions for table definition
 prop_table <- function(style = NA_character_, layout = table_layout(),
-                         width = table_width(),
-                         colwidths = table_colwidths(),
-                         tcf = table_conditional_formatting(),
+                       width = table_width(),
+                       stylenames = table_stylenames(),
+                       colwidths = table_colwidths(),
+                       tcf = table_conditional_formatting(),
                        align = "center"){
 
 
@@ -472,6 +565,7 @@ prop_table <- function(style = NA_character_, layout = table_layout(),
     layout = layout,
     width = width,
     colsizes = colwidths,
+    stylenames = stylenames,
     tcf = tcf, align = align
   )
   class(z) <- c("prop_table")
@@ -530,18 +624,27 @@ table_docx <- function(x, header, style_id,
     to_wml(properties, add_ns = add_ns, base_document = base_document)
   )
 
+  stylenames <- to_wml(properties$stylenames, base_document = base_document, dat = x)
+  stylenames <- unlist(stylenames)
+  stylenames <- as.character(stylenames)
+
   if(is.null(alignment)){
-    alignment <- rep("right", ncol(x))
+    alignment <- rep("", ncol(x))
   } else{
     alignment <- match.arg(alignment, c("left", "right", "center"), several.ok = TRUE )
+    if(length(alignment) < ncol(x)){
+      alignment <- rep(alignment, length.out = ncol(x) )
+    }
+    alignment <- sprintf("<w:jc w:val=\"%s\"/>", alignment)
   }
 
   header_str <- character(length = 0L)
   if (header) {
+
     header_str <- paste0(
       "<w:tr><w:trPr><w:tblHeader/></w:trPr>",
       paste0("<w:tc><w:p>",
-             sprintf("<w:pPr><w:jc w:val=\"%s\"/></w:pPr>", alignment),
+             sprintf("<w:pPr>%s%s</w:pPr>", stylenames, alignment),
              "<w:r><w:t>",
         htmlEscapeCopy(enc2utf8(colnames(x))),
         "</w:t></w:r></w:p></w:tc>",
@@ -550,17 +653,16 @@ table_docx <- function(x, header, style_id,
       "</w:tr>"
     )
   }
-  as_tc <- function(x, align) {
+  as_tc <- function(x, align, stylenames) {
     paste0(
       "<w:tc><w:p>",
-      sprintf("<w:pPr><w:jc w:val=\"%s\"/></w:pPr>", align),
+      sprintf("<w:pPr>%s%s</w:pPr>", stylenames, align),
       "<w:r><w:t>",
       htmlEscapeCopy(enc2utf8(x)),
       "</w:t></w:r></w:p></w:tc>"
     )
   }
-
-  z <- mapply(as_tc, x, alignment, SIMPLIFY = FALSE)
+  z <- mapply(as_tc, x, alignment, stylenames, SIMPLIFY = FALSE)
   z <- do.call(paste0, z)
   z <- paste0("<w:tr>", z, "</w:tr>", collapse = "")
 

@@ -34,6 +34,7 @@ Other functions for table definition:
 \code{\link{prop_table}()},
 \code{\link{table_colwidths}()},
 \code{\link{table_layout}()},
+\code{\link{table_stylenames}()},
 \code{\link{table_width}()}
 }
 \concept{functions for table definition}

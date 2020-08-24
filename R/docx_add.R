@@ -287,6 +287,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @param header display header if TRUE
 #' @param alignment columns alignement, argument length must match with columns length,
 #' values must be "l" (left), "r" (right) or "c" (center).
+#' @param stylenames columns styles defined by [table_stylenames()]
 #' @param first_row Specifies that the first column conditional formatting should be
 #' applied. Details for this and other conditional formatting options can be found
 #' at http://officeopenxml.com/WPtblLook.php.
@@ -307,13 +308,14 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @family functions for adding content
 body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
                             alignment = NULL,
+                            stylenames = table_stylenames(),
                             first_row = TRUE, first_column = FALSE,
                             last_row = FALSE, last_column = FALSE,
                             no_hband = FALSE, no_vband = TRUE ){
 
   pt <- prop_table(
     style = style, layout = table_layout(),
-    width = table_width(),
+    width = table_width(), stylenames = stylenames,
     tcf = table_conditional_formatting(
       first_row = first_row, first_column = first_column,
       last_row = last_row, last_column = last_column,

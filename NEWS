@@ -7,6 +7,8 @@
 ## New features
 
 * change_styles - support for run/character, paragraph and table styles.
+* new function `table_stylenames()` to define columns stylenames to be used in
+tables, it benefits to `block_table` and `body_add_table`.
 
 # officer 0.3.12
 

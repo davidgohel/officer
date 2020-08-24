@@ -8,6 +8,7 @@ prop_table(
   style = NA_character_,
   layout = table_layout(),
   width = table_width(),
+  stylenames = table_stylenames(),
   colwidths = table_colwidths(),
   tcf = table_conditional_formatting(),
   align = "center"
@@ -19,6 +20,8 @@ prop_table(
 \item{layout}{layout defined by \code{\link[=table_layout]{table_layout()}},}
 
 \item{width}{table width in the document defined by \code{\link[=table_width]{table_width()}}}
+
+\item{stylenames}{columns styles defined by \code{\link[=table_stylenames]{table_stylenames()}}}
 
 \item{colwidths}{column widths defined by \code{\link[=table_colwidths]{table_colwidths()}}}
 
@@ -39,6 +42,7 @@ Other functions for table definition:
 \code{\link{table_colwidths}()},
 \code{\link{table_conditional_formatting}()},
 \code{\link{table_layout}()},
+\code{\link{table_stylenames}()},
 \code{\link{table_width}()}
 }
 \concept{functions for table definition}

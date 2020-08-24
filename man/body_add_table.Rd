@@ -11,6 +11,7 @@ body_add_table(
   pos = "after",
   header = TRUE,
   alignment = NULL,
+  stylenames = table_stylenames(),
   first_row = TRUE,
   first_column = FALSE,
   last_row = FALSE,
@@ -33,6 +34,8 @@ one of after", "before", "on".}
 
 \item{alignment}{columns alignement, argument length must match with columns length,
 values must be "l" (left), "r" (right) or "c" (center).}
+
+\item{stylenames}{columns styles defined by \code{\link[=table_stylenames]{table_stylenames()}}}
 
 \item{first_row}{Specifies that the first column conditional formatting should be
 applied. Details for this and other conditional formatting options can be found
