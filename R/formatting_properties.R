@@ -286,6 +286,7 @@ print.fp_border <- function(x, ...) {
 #' @param padding.bottom,padding.top,padding.left,padding.right paragraph paddings - 0 or positive integer value.
 #' @param padding paragraph paddings - 0 or positive integer value. Argument \code{padding} overwrites
 #' arguments \code{padding.bottom}, \code{padding.top}, \code{padding.left}, \code{padding.right}.
+#' @param line_spacing line spacing, 1 is single line spacing, 2 is double line spacing.
 #' @param border shortcut for all borders.
 #' @param border.bottom,border.left,border.top,border.right \code{\link{fp_border}} for
 #' borders. overwrite other border properties.
@@ -299,6 +300,7 @@ print.fp_border <- function(x, ...) {
 #' @export
 fp_par = function(text.align = "left",
                   padding = 0,
+                  line_spacing = 1,
                   border = fp_border(width=0),
                   padding.bottom, padding.top,
                   padding.left, padding.right,
@@ -324,6 +326,8 @@ fp_par = function(text.align = "left",
     out <- check_set_integer( obj = out, padding.top)
   if( !missing(padding.right) )
     out <- check_set_integer( obj = out, padding.right)
+
+  out <- check_set_numeric( obj = out, line_spacing)
 
   # border checking
   out <- check_spread_border( obj = out, border,

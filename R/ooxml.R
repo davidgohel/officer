@@ -202,7 +202,10 @@ ppr_pml <- function(x){
   top_padding <- sprintf("<a:spcBef><a:spcPts val=\"%.0f\" /></a:spcBef>", x$padding.top*100)
   bottom_padding <- sprintf("<a:spcAft><a:spcPts val=\"%.0f\" /></a:spcAft>", x$padding.bottom*100)
 
+  line_spacing <- sprintf("<a:lnSpc><a:spcPct val=\"%.0f\"/></a:lnSpc>", x$line_spacing*100000)
+
   paste0("<a:pPr", align, leftright_padding, ">",
+         line_spacing,
          top_padding, bottom_padding, "<a:buNone/>",
          "</a:pPr>")
 }
@@ -243,8 +246,8 @@ ppr_wml <- function(x){
 
   leftright_padding <- sprintf("<w:ind w:firstLine=\"0\" w:left=\"%.0f\" w:right=\"%.0f\"/>",
                                x$padding.left*20, x$padding.right*20)
-  topbot_spacing <- sprintf("<w:spacing w:after=\"%.0f\" w:before=\"%.0f\"/>",
-                            x$padding.bottom*20, x$padding.top*20)
+  topbot_spacing <- sprintf("<w:spacing w:after=\"%.0f\" w:before=\"%.0f\" w:line=\"%.0f\"/>",
+                            x$padding.bottom*20, x$padding.top*20, x$line_spacing*240)
   shading_ <- ""
   if(!is_transparent(x$shading.color)){
     shading_ <- sprintf(

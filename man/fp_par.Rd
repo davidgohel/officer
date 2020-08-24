@@ -9,6 +9,7 @@
 fp_par(
   text.align = "left",
   padding = 0,
+  line_spacing = 1,
   border = fp_border(width = 0),
   padding.bottom,
   padding.top,
@@ -47,6 +48,8 @@ is one of 'left', 'right', 'center', 'justify'.}
 
 \item{padding}{paragraph paddings - 0 or positive integer value. Argument \code{padding} overwrites
 arguments \code{padding.bottom}, \code{padding.top}, \code{padding.left}, \code{padding.right}.}
+
+\item{line_spacing}{line spacing, 1 is single line spacing, 2 is double line spacing.}
 
 \item{border}{shortcut for all borders.}
 
