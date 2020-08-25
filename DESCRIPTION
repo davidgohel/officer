@@ -29,7 +29,7 @@ Imports:
     uuid,stats,
     magrittr,utils,
     xml2 (>= 1.1.0), graphics
-URL: https://davidgohel.github.io/officer
+URL: https://davidgohel.github.io/officer/
 Encoding: UTF-8
 BugReports: https://github.com/davidgohel/officer/issues
 RoxygenNote: 7.1.1

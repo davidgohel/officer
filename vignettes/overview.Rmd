@@ -7,4 +7,4 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-please visit https://davidgohel.github.io/officer for the latest vignette.
+please visit https://davidgohel.github.io/officer/ for the latest vignette.

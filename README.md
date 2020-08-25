@@ -123,7 +123,7 @@ The help pages are located at <https://davidgohel.github.io/officer/>.
 
 If you have questions about how to use the package, [visit Stack
 Overflow’s `officer`
-tag](http://stackoverflow.com/questions/tagged/officer) and post your
+tag](https://stackoverflow.com/questions/tagged/officer) and post your
 question there. I usually read them and answer when possible.
 
 ## Contributing to the package
