@@ -38,4 +38,3 @@ Suggests: testthat, devEMF,tibble,ggplot2,
     rmarkdown,
     knitr, rsvg
 VignetteBuilder: knitr
-remotes: r-lib/zip
