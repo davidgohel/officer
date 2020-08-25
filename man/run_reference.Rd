@@ -4,10 +4,12 @@
 \alias{run_reference}
 \title{reference}
 \usage{
-run_reference(id)
+run_reference(id, prop = NULL)
 }
 \arguments{
 \item{id}{reference id, a string}
+
+\item{prop}{formatting text properties returned by \link{fp_text}.}
 }
 \description{
 Create a representation of a reference

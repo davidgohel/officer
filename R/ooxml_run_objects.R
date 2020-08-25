@@ -49,10 +49,11 @@ bookmark <- function(id, str) {
 #' @title seqfield
 #' @description Create a seqfield
 #' @param seqfield seqfield string
+#' @param prop formatting text properties returned by [fp_text].
 #' @family run functions for reporting
-run_seqfield <- function(seqfield) {
+run_seqfield <- function(seqfield, prop = NULL) {
   z <- list(
-    seqfield = seqfield
+    seqfield = seqfield, pr = prop
   )
     class(z) <- c("run_seqfield", "run")
   z
@@ -61,21 +62,24 @@ run_seqfield <- function(seqfield) {
 
 #' @export
 to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
+
+  pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
+
   xml_elt_1 <- paste0(
     wr_ns_yes,
-    "<w:rPr/>",
+    pr,
     "<w:fldChar w:fldCharType=\"begin\" w:dirty=\"true\"/>",
     "</w:r>"
   )
   xml_elt_2 <- paste0(
     wr_ns_yes,
-    "<w:rPr/>",
+    pr,
     sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", x$seqfield),
     "</w:r>"
   )
   xml_elt_3 <- paste0(
     wr_ns_yes,
-    "<w:rPr/>",
+    pr,
     "<w:fldChar w:fldCharType=\"end\" w:dirty=\"true\"/>",
     "</w:r>"
   )
@@ -96,18 +100,19 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param pre_label,post_label text to add before and after number
 #' @param bkm bookmark id to associate with autonumber run. If NULL, no bookmark
 #' is added. Value can only be made of alpha numeric characters, '-' and '_'.
-#' @param bkm_all if TRUE, the bookmark will be set on the while string, if
+#' @param bkm_all if TRUE, the bookmark will be set on the whole string, if
 #' FALSE, the bookmark will be set on the number only. Default to FALSE.
 #' As an effect when a reference to this bookmark is used, the text can
 #' be like "Table 1" or "1" (pre_label is not included in the referenced
 #' text).
+#' @param prop formatting text properties returned by [fp_text].
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
 #' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
 #' @family run functions for reporting
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
-                        bkm = NULL, bkm_all = FALSE) {
+                        bkm = NULL, bkm_all = FALSE, prop = NULL) {
 
   if(!is.null(bkm)){
     invalid_bkm <- is.character(bkm) &&
@@ -125,7 +130,8 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
     pre_label = pre_label,
     post_label = post_label,
     bookmark = bkm,
-    bookmark_all = bkm_all
+    bookmark_all = bkm_all,
+    pr = prop
   )
   class(z) <- c("run_autonum", "run")
 
@@ -136,9 +142,11 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
 to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   if(is.null(x$seq_id)) return("")
 
-  run_str_pre <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$pre_label)
-  run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
-  sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic"))
+  pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
+
+  run_str_pre <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$pre_label)
+  run_str_post <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$post_label)
+  sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic"), prop = x$pr)
   sf_str <- to_wml(sqf)
   if(!is.null(x$bookmark)){
     if(x$bookmark_all){
@@ -163,14 +171,15 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 #' @title reference
 #' @description Create a representation of a reference
 #' @param id reference id, a string
+#' @param prop formatting text properties returned by [fp_text].
 #' @examples
 #' run_reference('a_ref')
 #' @family run functions for reporting
-run_reference <- function(id) {
+run_reference <- function(id, prop = NULL) {
   z <- paste0(" REF ", id, " \\h ")
 
   z <- list(
-    id = id
+    id = id, pr = prop
   )
   class(z) <- c("run_reference", "run")
 
@@ -179,7 +188,7 @@ run_reference <- function(id) {
 
 #' @export
 to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
-  out <- to_wml(run_seqfield(seqfield = paste0(" REF ", x$id, " \\h ")))
+  out <- to_wml(run_seqfield(seqfield = paste0(" REF ", x$id, " \\h "), prop = x$pr))
   out
 }
 

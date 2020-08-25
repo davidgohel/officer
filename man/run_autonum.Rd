@@ -9,7 +9,8 @@ run_autonum(
   pre_label = "Table ",
   post_label = ": ",
   bkm = NULL,
-  bkm_all = FALSE
+  bkm_all = FALSE,
+  prop = NULL
 )
 }
 \arguments{
@@ -20,11 +21,13 @@ run_autonum(
 \item{bkm}{bookmark id to associate with autonumber run. If NULL, no bookmark
 is added. Value can only be made of alpha numeric characters, '-' and '_'.}
 
-\item{bkm_all}{if TRUE, the bookmark will be set on the while string, if
+\item{bkm_all}{if TRUE, the bookmark will be set on the whole string, if
 FALSE, the bookmark will be set on the number only. Default to FALSE.
 As an effect when a reference to this bookmark is used, the text can
 be like "Table 1" or "1" (pre_label is not included in the referenced
 text).}
+
+\item{prop}{formatting text properties returned by \link{fp_text}.}
 }
 \description{
 Create an autonumbered chunk, i.e. a string

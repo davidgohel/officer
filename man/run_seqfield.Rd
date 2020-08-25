@@ -4,10 +4,12 @@
 \alias{run_seqfield}
 \title{seqfield}
 \usage{
-run_seqfield(seqfield)
+run_seqfield(seqfield, prop = NULL)
 }
 \arguments{
 \item{seqfield}{seqfield string}
+
+\item{prop}{formatting text properties returned by \link{fp_text}.}
 }
 \description{
 Create a seqfield
