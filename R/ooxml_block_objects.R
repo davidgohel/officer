@@ -922,7 +922,7 @@ to_wml.fpar <- function(x, add_ns = FALSE, style_id = NULL, ...) {
   if(is.null(style_id)){
     par_style <- ppr_wml(x$fp_p)
   } else par_style <- paste0(
-    "<w:pStyle w:val=\"", style_id, "\"/>")
+    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>")
 
   chks <- fortify_fpar(x)
   z <- lapply(chks, to_wml)
