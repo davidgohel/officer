@@ -17,10 +17,16 @@ define any section with a \link{block_section} object. All other
 \verb{body_end_section_*} are specialized, thiis one is higly flexible
 but it's up to the user to define the section properties.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{body_end_block_section_doc_1.png}{options: width=80\%}}
+}
+
 \examples{
 library(officer)
 str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-str1 <- rep(str1, 5)
+str1 <- rep(str1, 20)
 str1 <- paste(str1, collapse = " ")
 
 ps <- prop_section(
@@ -35,7 +41,7 @@ doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
 
 doc_1 <- body_end_block_section(doc_1, block_section(ps))
 
-doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+doc_1 <- body_add_par(doc_1, value = str1, style = "centered")
 
 print(doc_1, target = tempfile(fileext = ".docx"))
 }

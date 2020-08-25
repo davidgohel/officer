@@ -32,11 +32,42 @@ that have a set of properties that define pages on which the text will appear.
 A Section properties object stores information about page composition,
 such as page size, page orientation, borders and margins.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{prop_section_doc_1.png}{options: width=80\%}}
+}
+
 \examples{
-prop_section(
-  page_size = page_size(orient = "landscape"),
-  page_margins = page_mar(top = 2),
-  type = "continuous")
+library(officer)
+
+landscape_one_column <- block_section(
+  prop_section(
+    page_size = page_size(orient = "landscape"), type = "continuous"
+  )
+)
+landscape_two_columns <- block_section(
+  prop_section(
+    page_size = page_size(orient = "landscape"), type = "continuous",
+    section_columns = section_columns(widths = c(4.75, 4.75))
+  )
+)
+
+doc_1 <- read_docx()
+# there starts section with landscape_one_column
+doc_1 <- body_add_table(doc_1, value = mtcars[1:10,], style = "table_template")
+doc_1 <- body_end_block_section(doc_1, value = landscape_one_column)
+# there stops section with landscape_one_column
+
+
+# there starts section with landscape_two_columns
+doc_1 <- body_add_par(doc_1, value = paste(rep(letters, 50), collapse = " "))
+doc_1 <- body_end_block_section(doc_1, value = landscape_two_columns)
+# there stops section with landscape_two_columns
+
+doc_1 <- body_add_table(doc_1, value = mtcars[1:25,], style = "table_template")
+
+print(doc_1, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 \link{block_section}

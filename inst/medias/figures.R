@@ -24,6 +24,11 @@ out <- Filter(function(x) length(x)>0, out)
 stack_images(out$body_add$doc_1, fileout = "inst/medias/figures/body_add_doc_1.png")
 stack_images(out$ph_with$doc_1, fileout = "inst/medias/figures/ph_with_doc_1.png")
 
+# pdftools::pdf_convert(pdf = "~/Desktop/docx_prop_section_1_.pdf", format = "png")
+# word_as_png(c("docx_prop_section_1__1.png", "docx_prop_section_1__2.png"), file = "inst/medias/figures/prop_section_doc_1.png")
+# zz=pdftools::pdf_convert(pdf = "~/Desktop/body_end_block_section_doc_1.pdf", format = "png")
+# word_as_png(zz, file = "inst/medias/figures/body_end_block_section_doc_1.png")
+#
 img_compress(dir_input = "inst/medias/figures",
                        dir_output = "man/figures")
 

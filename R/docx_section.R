@@ -156,7 +156,7 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
 #' @examples
 #' library(officer)
 #' str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-#' str1 <- rep(str1, 5)
+#' str1 <- rep(str1, 20)
 #' str1 <- paste(str1, collapse = " ")
 #'
 #' ps <- prop_section(
@@ -171,10 +171,13 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
 #'
 #' doc_1 <- body_end_block_section(doc_1, block_section(ps))
 #'
-#' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
+#' doc_1 <- body_add_par(doc_1, value = str1, style = "centered")
 #'
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family functions for Word sections
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{body_end_block_section_doc_1.png}{options: width=80\%}}
 body_end_block_section <- function( x, value ){
 
   stopifnot(inherits(value, "block_section"))
