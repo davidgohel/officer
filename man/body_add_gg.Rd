@@ -4,16 +4,27 @@
 \alias{body_add_gg}
 \title{add ggplot}
 \usage{
-body_add_gg(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
+body_add_gg(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  units = c("in", "cm", "mm"),
+  res = 300,
+  style = "Normal",
+  ...
+)
 }
 \arguments{
 \item{x}{an rdocx object}
 
 \item{value}{ggplot object}
 
-\item{width}{height in inches}
+\item{width}{height in units}
 
-\item{height}{height in inches}
+\item{height}{height in units}
+
+\item{units}{one of c("in", "cm", "mm")}
 
 \item{res}{resolution of the png image in ppi}
 

@@ -4,7 +4,15 @@
 \alias{body_add_img}
 \title{add image}
 \usage{
-body_add_img(x, src, style = NULL, width, height, pos = "after")
+body_add_img(
+  x,
+  src,
+  style = NULL,
+  width,
+  height,
+  units = c("in", "cm", "mm"),
+  pos = "after"
+)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -13,9 +21,11 @@ body_add_img(x, src, style = NULL, width, height, pos = "after")
 
 \item{style}{paragraph style}
 
-\item{width}{height in inches}
+\item{width}{height in units}
 
-\item{height}{height in inches}
+\item{height}{height in units}
+
+\item{units}{one of c("in", "cm", "mm")}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
