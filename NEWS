@@ -1,3 +1,10 @@
+# officer 0.3.14
+
+## Issues
+
+* revert PR#319 that introduced a major issue wiith repeated images
+in Word document.
+
 # officer 0.3.13
 
 ## Issues
