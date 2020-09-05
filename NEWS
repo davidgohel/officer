@@ -5,6 +5,10 @@
 * revert PR#319 that introduced a major issue wiith repeated images
 in Word document.
 
+## Changes
+
+* remove defunct functions (ph_with_*at) and set deprecated as defunct (other ph_with_*at)
+
 # officer 0.3.13
 
 ## Issues
