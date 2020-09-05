@@ -2,40 +2,22 @@
 % Please edit documentation in R/defunct.R
 \name{officer-defunct}
 \alias{officer-defunct}
-\alias{ph_from_xml}
-\alias{ph_from_xml_at}
-\alias{ph_with_table}
-\alias{ph_with_img}
-\alias{ph_with_gg}
-\alias{ph_with_ul}
-\alias{ph_with_table_at}
-\alias{ph_with_fpars_at}
-\alias{body_end_section}
-\alias{body_default_section}
-\alias{break_column_before}
+\alias{ph_with_gg_at}
+\alias{ph_with_img_at}
+\alias{ph_with_text}
+\alias{ph_empty_at}
+\alias{ph_empty}
 \title{Defunct Functions in Package officer}
 \usage{
-ph_from_xml(...)
+ph_with_gg_at(...)
 
-ph_from_xml_at(...)
+ph_with_img_at(...)
 
-ph_with_table(...)
+ph_with_text(...)
 
-ph_with_img(...)
+ph_empty_at(...)
 
-ph_with_gg(...)
-
-ph_with_ul(...)
-
-ph_with_table_at(...)
-
-ph_with_fpars_at(...)
-
-body_end_section(...)
-
-body_default_section(...)
-
-break_column_before(...)
+ph_empty(...)
 }
 \arguments{
 \item{...}{unused arguments}
@@ -44,25 +26,13 @@ break_column_before(...)
 Defunct Functions in Package officer
 }
 \details{
-\code{ph_from_xml()} is replaced by \code{ph_with.xml_document}.
+\code{ph_with()} is replaced by \code{ph_with.gg}.
 
-\code{ph_from_xml_at()} is replaced by \code{ph_with.xml_document}.
+\code{ph_with_img_at()} is replaced by \code{ph_with.external_img}.
 
-\code{ph_with_table()} is replaced by \code{ph_with.xml_document}.
+\code{ph_with_text()} is replaced by \code{ph_with.character}.
 
-\code{ph_with_img()} is replaced by \code{ph_with.xml_document}.
+\code{ph_empty_at()} is replaced by \code{ph_with.empty_content}.
 
-\code{ph_with_gg()} is replaced by \code{ph_with.xml_document}.
-
-\code{ph_with_ul()} is replaced by \code{ph_with.xml_document}.
-
-\code{ph_with_table_at()} is replaced by \code{ph_with.xml_document}.
-
-\code{ph_with_fpars_at()} is replaced by \code{ph_with.xml_document}.
-
-\code{body_end_section()} is replaced by function \verb{body_end_section_*}.
-
-\code{body_default_section()} is replaced by function \verb{body_end_section_*}.
-
-\code{break_column_before()} is replaced by function \code{slip_in_column_break}.
+\code{ph_empty()} is replaced by \code{ph_with.empty_content}.
 }

@@ -4,81 +4,41 @@ NULL
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_from_xml()` is replaced by `ph_with.xml_document`.
+#' @details `ph_with()` is replaced by `ph_with.gg`.
 #' @param ... unused arguments
-ph_from_xml <- function(...){
+ph_with_gg_at <- function(...){
   .Defunct("ph_with")
 }
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_from_xml_at()` is replaced by `ph_with.xml_document`.
-ph_from_xml_at <- function(...){
+#' @details `ph_with_img_at()` is replaced by `ph_with.external_img`.
+#' @param ... unused arguments
+ph_with_img_at <- function(...){
   .Defunct("ph_with")
 }
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_with_table()` is replaced by `ph_with.xml_document`.
-ph_with_table <- function(...){
+#' @details `ph_with_text()` is replaced by `ph_with.character`.
+#' @param ... unused arguments
+ph_with_text <- function(...){
   .Defunct("ph_with")
 }
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_with_img()` is replaced by `ph_with.xml_document`.
-ph_with_img <- function(...){
+#' @details `ph_empty_at()` is replaced by `ph_with.empty_content`.
+#' @param ... unused arguments
+ph_empty_at <- function(...){
   .Defunct("ph_with")
 }
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_with_gg()` is replaced by `ph_with.xml_document`.
-ph_with_gg <- function(...){
+#' @details `ph_empty()` is replaced by `ph_with.empty_content`.
+#' @param ... unused arguments
+ph_empty <- function(...){
   .Defunct("ph_with")
-}
-
-#' @export
-#' @rdname officer-defunct
-#' @details `ph_with_ul()` is replaced by `ph_with.xml_document`.
-ph_with_ul <- function(...) {
-  .Defunct("ph_with")
-}
-
-#' @export
-#' @rdname officer-defunct
-#' @details `ph_with_table_at()` is replaced by `ph_with.xml_document`.
-ph_with_table_at <- function(...){
-  .Defunct(new = "ph_with")
-}
-
-
-#' @export
-#' @rdname officer-defunct
-#' @details `ph_with_fpars_at()` is replaced by `ph_with.xml_document`.
-ph_with_fpars_at <- function(...){
-  .Defunct(new = "ph_with")
-}
-
-
-#' @export
-#' @rdname officer-defunct
-#' @details `body_end_section()` is replaced by function `body_end_section_*`.
-body_end_section <- function(...){
-  .Defunct(new = "body_end_section_*")
-}
-
-#' @export
-#' @rdname officer-defunct
-#' @details `body_default_section()` is replaced by function `body_end_section_*`.
-body_default_section <- function(...){
-  .Defunct(new = "body_end_section_*")
-}
-
-#' @export
-#' @rdname officer-defunct
-#' @details `break_column_before()` is replaced by function `slip_in_column_break`.
-break_column_before <- function(...){
-  .Defunct(new = "slip_in_column_break")
 }
 
