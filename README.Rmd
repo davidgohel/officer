@@ -14,24 +14,21 @@ knitr::opts_chunk$set(
 )
 ```
 
+<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>. 
 The officer package lets R users manipulate Word (`.docx`) and 
 PowerPoint (`*.pptx`) documents. In short, one can add images, 
 tables and text into documents from R. An initial document can 
 be provided; contents, styles and properties of the original 
 document will then be available.
 
-<img src="https://www.ardata.fr/img/hexbin/officer.svg" width = "15%"/>
-
-
 > Make corporate reporting with minimum hassle
 
-[![Travis-CI Build Status](https://travis-ci.org/davidgohel/officer.svg?branch=master)](https://travis-ci.org/davidgohel/officer)
-[![Build status](https://ci.appveyor.com/api/projects/status/github/davidgohel/officer?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/officer/branch/master)
+[![R build status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
 ![cranlogs](https://cranlogs.r-pkg.org/badges/officer)
-[![codecov](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/officer)
+[![codecov test coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/officer)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
-
+[![Lifecycle: Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 ## Word documents
 
