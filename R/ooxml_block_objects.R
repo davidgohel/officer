@@ -990,6 +990,12 @@ block_list <- function(...){
   z
 }
 
+#' @export
+to_html.block_list <- function(x, add_ns = FALSE, ...) {
+  str <- vapply(x, to_html, NA_character_)
+  paste0(str, collapse = "")
+}
+
 # unordered list ----
 #' @export
 #' @title Unordered list
