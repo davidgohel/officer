@@ -3,7 +3,9 @@
 \name{officer-defunct}
 \alias{officer-defunct}
 \alias{ph_with_gg_at}
+\alias{ph_with_table_at}
 \alias{ph_with_img_at}
+\alias{ph_with_img}
 \alias{ph_with_text}
 \alias{ph_empty_at}
 \alias{ph_empty}
@@ -11,7 +13,11 @@
 \usage{
 ph_with_gg_at(...)
 
+ph_with_table_at(...)
+
 ph_with_img_at(...)
+
+ph_with_img(...)
 
 ph_with_text(...)
 
@@ -28,7 +34,11 @@ Defunct Functions in Package officer
 \details{
 \code{ph_with()} is replaced by \code{ph_with.gg}.
 
+\code{ph_with_table_at()} is replaced by \code{ph_with.data.frame}.
+
 \code{ph_with_img_at()} is replaced by \code{ph_with.external_img}.
+
+\code{ph_with_img()} is replaced by \code{ph_with.external_img}.
 
 \code{ph_with_text()} is replaced by \code{ph_with.character}.
 

@@ -12,9 +12,25 @@ ph_with_gg_at <- function(...){
 
 #' @export
 #' @rdname officer-defunct
+#' @details `ph_with_table_at()` is replaced by `ph_with.data.frame`.
+#' @param ... unused arguments
+ph_with_table_at <- function(...){
+  .Defunct("ph_with")
+}
+
+#' @export
+#' @rdname officer-defunct
 #' @details `ph_with_img_at()` is replaced by `ph_with.external_img`.
 #' @param ... unused arguments
 ph_with_img_at <- function(...){
+  .Defunct("ph_with")
+}
+
+#' @export
+#' @rdname officer-defunct
+#' @details `ph_with_img()` is replaced by `ph_with.external_img`.
+#' @param ... unused arguments
+ph_with_img <- function(...){
   .Defunct("ph_with")
 }
 
