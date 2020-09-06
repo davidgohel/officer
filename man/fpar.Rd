@@ -21,18 +21,18 @@ text formatting properties when simple text is provided as argument.}
 }
 \description{
 Create a paragraph representation by concatenating
-formatted text or images.
+formatted text or images. The result can be inserted in a Word document
+or a PowerPoint presentation and can also be inserted in a \code{\link[=block_list]{block_list()}}
+call.
 
-\code{fpar} supports \code{ftext}, \code{external_img} and simple strings.
-All its arguments will be concatenated to create a paragraph where chunks
-of text and images are associated with formatting properties.
+All its arguments will be concatenated to create a paragraph where chunks of
+text and images are associated with formatting properties.
 
-Default text and paragraph formatting properties can also
-be modified with update.
-}
-\details{
-\code{fortify_fpar}, \code{as.data.frame} are used internally and
-are not supposed to be used by end user.
+\code{fpar} supports \code{\link[=ftext]{ftext()}}, \code{\link[=external_img]{external_img()}}, \code{run_*} functions
+(i.e. \code{\link[=run_autonum]{run_autonum()}}, \code{\link[=run_seqfield]{run_seqfield()}}) when output is Word, and simple strings.
+
+Default text and paragraph formatting properties can also be modified
+with function \code{update()}.
 }
 \examples{
 fpar(ftext("hello", shortcuts$fp_bold()))
@@ -54,6 +54,8 @@ img_in_par <- fpar(
   fp_p = fp_par(text.align = "center") )
 }
 \seealso{
+\code{\link[=block_list]{block_list()}}, \code{\link[=body_add_fpar]{body_add_fpar()}}, \code{\link[=ph_with]{ph_with()}}
+
 Other block functions for reporting: 
 \code{\link{block_caption}()},
 \code{\link{block_list}()},

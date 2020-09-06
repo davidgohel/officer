@@ -3,13 +3,6 @@ officer R package
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>.
-The officer package lets R users manipulate Word (`.docx`) and
-PowerPoint (`*.pptx`) documents. In short, one can add images, tables
-and text into documents from R. An initial document can be provided;
-contents, styles and properties of the original document will then be
-available.
-
 > Make corporate reporting with minimum hassle
 
 [![R build
@@ -20,6 +13,13 @@ coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 [![Lifecycle:
 Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+
+<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>.
+The officer package lets R users manipulate Word (`.docx`) and
+PowerPoint (`*.pptx`) documents. In short, one can add images, tables
+and text into documents from R. An initial document can be provided;
+contents, styles and properties of the original document will then be
+available.
 
 ## Word documents
 

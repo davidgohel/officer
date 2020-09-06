@@ -829,17 +829,18 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' @export
 #' @title Concatenate formatted text as a paragraph
 #' @description Create a paragraph representation by concatenating
-#' formatted text or images.
+#' formatted text or images. The result can be inserted in a Word document
+#' or a PowerPoint presentation and can also be inserted in a [block_list()]
+#' call.
 #'
-#' \code{fpar} supports \code{ftext}, \code{external_img} and simple strings.
-#' All its arguments will be concatenated to create a paragraph where chunks
-#' of text and images are associated with formatting properties.
+#' All its arguments will be concatenated to create a paragraph where chunks of
+#' text and images are associated with formatting properties.
 #'
-#' Default text and paragraph formatting properties can also
-#' be modified with update.
-#' @details
-#' \code{fortify_fpar}, \code{as.data.frame} are used internally and
-#' are not supposed to be used by end user.
+#' \code{fpar} supports [ftext()], [external_img()], \code{run_*} functions
+#' (i.e. [run_autonum()], [run_seqfield()]) when output is Word, and simple strings.
+#'
+#' Default text and paragraph formatting properties can also be modified
+#' with function `update()`.
 #'
 #' @param ... cot objects (ftext, external_img)
 #' @param fp_p paragraph formatting properties
@@ -866,6 +867,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #'   external_img(src = img.file, height = 1.06/2, width = 1.39/2),
 #'   fp_p = fp_par(text.align = "center") )
 #' @family block functions for reporting
+#' @seealso [block_list()], [body_add_fpar()], [ph_with()]
 fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text() ) {
   out <- list()
   out$chunks <- list(...)
@@ -965,15 +967,16 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' @description a list of blocks can be used to gather
 #' several blocks (paragraphs or tables) into a single
 #' object. The function is to be used when adding
-#' footnotes or formatted paragraphs into a new slide.
-#' @param ... a list of objects of class \code{\link{fpar}} or
+#' formatted paragraphs into a Word document or a
+#' PowerPoint presentation.
+#' @param ... a list of [fpar()] or
 #' \code{flextable}. When output is only for Word, objects
 #' of class \code{\link{external_img}} can also be used in
 #' fpar construction to mix text and images in a single paragraph.
 #' @examples
 #'
 #' @example examples/block_list.R
-#' @seealso [ph_with()], [body_add()]
+#' @seealso [ph_with()], [body_add_blocks()], [fpar()]
 #' @family block functions for reporting
 block_list <- function(...){
   x <- list(...)

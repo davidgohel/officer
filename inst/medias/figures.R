@@ -29,6 +29,7 @@ stack_images(out$ph_with$doc_1, fileout = "inst/medias/figures/ph_with_doc_1.png
 # zz=pdftools::pdf_convert(pdf = "~/Desktop/body_end_block_section_doc_1.pdf", format = "png")
 # word_as_png(zz, file = "inst/medias/figures/body_end_block_section_doc_1.png")
 #
+rsvg::rsvg_png("inst/medias/officerlogo.svg", "man/figures/logo.png")
 img_compress(dir_input = "inst/medias/figures",
                        dir_output = "man/figures")
 

@@ -7,7 +7,7 @@
 block_list(...)
 }
 \arguments{
-\item{...}{a list of objects of class \code{\link{fpar}} or
+\item{...}{a list of \code{\link[=fpar]{fpar()}} or
 \code{flextable}. When output is only for Word, objects
 of class \code{\link{external_img}} can also be used in
 fpar construction to mix text and images in a single paragraph.}
@@ -16,7 +16,8 @@ fpar construction to mix text and images in a single paragraph.}
 a list of blocks can be used to gather
 several blocks (paragraphs or tables) into a single
 object. The function is to be used when adding
-footnotes or formatted paragraphs into a new slide.
+formatted paragraphs into a Word document or a
+PowerPoint presentation.
 }
 \examples{
 
@@ -62,7 +63,7 @@ print(doc, target = tempfile(fileext = ".pptx"))
 
 }
 \seealso{
-\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add]{body_add()}}
+\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add_blocks]{body_add_blocks()}}, \code{\link[=fpar]{fpar()}}
 
 Other block functions for reporting: 
 \code{\link{block_caption}()},
