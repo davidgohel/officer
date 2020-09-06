@@ -21,7 +21,6 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: Install XQuartz
-        if: matrix.config.os == 'macOS-latest'
         env:
           XQUARTZ_VERSION: 2.7.11
         run: |
