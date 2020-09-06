@@ -16,6 +16,13 @@ pack_folder <- function( folder, target ){
     stop("can not write to directory ", shQuote(dir_fi), call. = FALSE)
   } else if( file.exists(target) && file.access(target) < 0 ){
     stop(shQuote(target), " already exists and is not writable", call. = FALSE)
+  } else if( !file.exists(target) ){
+    old_warn <- getOption("warn")
+    options(warn = -1)
+    x <- tryCatch({cat("", file = target);TRUE}, error = function(e) FALSE, finally = unlink(target, force = TRUE) )
+    options(warn = old_warn)
+    if( !x )
+      stop(shQuote(target), " cannot be written, please check your permissions.", call. = FALSE)
   }
 
   curr_wd <- getwd()
