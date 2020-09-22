@@ -133,9 +133,9 @@ read_theme_colors <- function(doc, theme){
 characterise_df <- function(x){
   names(x) <- htmlEscapeCopy(names(x))
   x <- lapply(x, function( x ) {
-    if( is.character(x) ) htmlEscapeCopy(x)
-    else if( is.factor(x) ) htmlEscapeCopy(as.character(x))
-    else gsub("(^ | $)+", "", htmlEscapeCopy(format(x)))
+    if( is.character(x) ) x
+    else if( is.factor(x) ) as.character(x)
+    else gsub("(^ | $)+", "", format(x))
   })
   data.frame(x, stringsAsFactors = FALSE, check.names = FALSE)
 }

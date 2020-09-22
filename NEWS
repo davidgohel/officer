@@ -1,3 +1,10 @@
+# officer 0.3.15
+
+## Issues
+
+* fix #333: issue with &, <, > in `to_wml.block_table`.
+
+
 # officer 0.3.14
 
 ## Issues
