@@ -12,7 +12,8 @@ plot_instr(code)
 \description{
 A simple wrapper to capture
 plot instructions that will be executed and copied in a document. It produces
-an object of class 'plot_instr' with a corresponding method \code{\link[=ph_with]{ph_with()}}.
+an object of class 'plot_instr' with a corresponding method \code{\link[=ph_with]{ph_with()}} and
+\code{\link[=body_add_plot]{body_add_plot()}}.
 
 The function enable usage of any R plot with argument \code{code}. Wrap your code
 between curly bracket if more than a single expression.
@@ -39,7 +40,7 @@ doc <- ph_with(
 print(doc, target = tempfile(fileext = ".pptx"))
 }
 \seealso{
-\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add]{body_add()}}
+\code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add_plot]{body_add_plot()}}
 
 Other block functions for reporting: 
 \code{\link{block_caption}()},

@@ -1074,7 +1074,8 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
 #' @title Wrap plot instructions for png plotting in Powerpoint or Word
 #' @description A simple wrapper to capture
 #' plot instructions that will be executed and copied in a document. It produces
-#' an object of class 'plot_instr' with a corresponding method [ph_with()].
+#' an object of class 'plot_instr' with a corresponding method [ph_with()] and
+#' [body_add_plot()].
 #'
 #' The function enable usage of any R plot with argument `code`. Wrap your code
 #' between curly bracket if more than a single expression.
@@ -1085,7 +1086,7 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
 #' @example examples/plot_instr.R
 #' @export
 #' @import graphics
-#' @seealso [ph_with()], [body_add()]
+#' @seealso [ph_with()], [body_add_plot()]
 #' @family block functions for reporting
 plot_instr <- function(code) {
   out <- list()

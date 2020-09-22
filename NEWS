@@ -4,6 +4,9 @@
 
 * fix #333: issue with &, <, > in `to_wml.block_table`.
 
+## Change
+
+* `run_word_field` will supersed `run_seqfield`.
 
 # officer 0.3.14
 

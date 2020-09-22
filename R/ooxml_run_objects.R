@@ -44,14 +44,19 @@ bookmark <- function(id, str) {
   paste0(bm_start_str, str, bm_start_end)
 }
 
-# seqfield ----
+# Word computed field ----
 #' @export
 #' @title seqfield
-#' @description Create a seqfield
-#' @param seqfield seqfield string
+#' @description Create a Word computed field.
+#' @note
+#' In the previous version, this function was called `run_seqfield`
+#' but the name was wrong and should have been `run_word_field`.
+#' @param field,seqfield computed field string (`seqfield` will be
+#' totally superseded by `field` in the futur).
 #' @param prop formatting text properties returned by [fp_text].
 #' @family run functions for reporting
-run_seqfield <- function(seqfield, prop = NULL) {
+#' @family Word computed fields
+run_word_field <- function(field, prop = NULL, seqfield = field) {
   z <- list(
     seqfield = seqfield, pr = prop
   )
@@ -59,6 +64,9 @@ run_seqfield <- function(seqfield, prop = NULL) {
   z
 }
 
+#' @export
+#' @rdname run_word_field
+run_seqfield <- run_word_field
 
 #' @export
 to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
@@ -111,6 +119,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
 #' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
 #' @family run functions for reporting
+#' @family Word computed fields
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
                         bkm = NULL, bkm_all = FALSE, prop = NULL) {
 
@@ -175,6 +184,7 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #' run_reference('a_ref')
 #' @family run functions for reporting
+#' @family Word computed fields
 run_reference <- function(id, prop = NULL) {
   z <- paste0(" REF ", id, " \\h ")
 
@@ -205,7 +215,6 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
 run_pagebreak <- function() {
   z <- list()
   class(z) <- c("run_pagebreak", "run")
-
   z
 }
 

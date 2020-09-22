@@ -27,6 +27,6 @@ Other run functions for reporting:
 \code{\link{run_columnbreak}()},
 \code{\link{run_linebreak}()},
 \code{\link{run_reference}()},
-\code{\link{run_seqfield}()}
+\code{\link{run_word_field}()}
 }
 \concept{run functions for reporting}
