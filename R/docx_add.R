@@ -349,6 +349,64 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
   body_add_xml(x = x, str = out, pos = pos)
 }
 
+
+
+
+#' @export
+#' @title add plot
+#' @description add a plot as a png image into an rdocx object
+#' @inheritParams body_add_break
+#' @param value plot instructions, see [plot_instr()].
+#' @param style paragraph style
+#' @param width height in inches
+#' @param height height in inches
+#' @param res resolution of the png image in ppi
+#' @param ... Arguments to be passed to png function.
+#' @importFrom grDevices png dev.off
+#' @examples
+#' doc <- read_docx()
+#'
+#' if( capabilities(what = "png") )
+#'   doc <- body_add_plot(doc,
+#'     value = plot_instr(
+#'       code = {barplot(1:5, col = 2:6)}),
+#'       style = "centered" )
+#'
+#' print(doc, target = tempfile(fileext = ".docx") )
+#' @family functions for adding content
+body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
+
+  file <- tempfile(fileext = ".png")
+  options(bitmapType='cairo')
+  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  tryCatch({
+    eval(value$code)
+  },
+  finally = {
+    dev.off()
+  } )
+  on.exit(unlink(file))
+  body_add_img(x, src = file, style = style, width = width, height = height)
+}
+
+
+#' @export
+#' @title add Word caption
+#' @description add a Word caption into an rdocx object.
+#' @param x an rdocx object
+#' @param value an object returned by [block_caption()]
+#' @param pos where to add the new element relative to the cursor,
+#' one of "after", "before", "on".
+#' @family functions for adding content
+body_add_caption <- function( x, value, pos = "after"){
+  stopifnot(inherits(value, "block_caption"))
+  out <- to_wml(value, add_ns = TRUE, base_document = x)
+  body_add_xml(x = x, str = out, pos = pos)
+}
+
+
+
+
 #' @export
 #' @title add an xml string as document element
 #' @description Add an xml string as document element in the document. This function

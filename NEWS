@@ -1,5 +1,9 @@
 # officer 0.3.15
 
+## New features
+
+* new function `body_add_plot()` and `body_add_caption()`
+
 ## Issues
 
 * fix #333: issue with &, <, > in `to_wml.block_table`.
