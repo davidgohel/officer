@@ -965,14 +965,14 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' @export
 #' @title Create paragraph blocks
 #' @description a list of blocks can be used to gather
-#' several blocks (paragraphs or tables) into a single
+#' several blocks of paragraphs into a single
 #' object. The function is to be used when adding
 #' formatted paragraphs into a Word document or a
 #' PowerPoint presentation.
-#' @param ... a list of [fpar()] or
-#' \code{flextable}. When output is only for Word, objects
-#' of class \code{\link{external_img}} can also be used in
-#' fpar construction to mix text and images in a single paragraph.
+#' @param ... a list of [fpar()]. When output is only for
+#' Word, objects of class \code{\link{external_img}} can
+#' also be used in fpar construction to mix text and images
+#' in a single paragraph.
 #' @examples
 #'
 #' @example examples/block_list.R
@@ -982,10 +982,12 @@ block_list <- function(...){
   x <- list(...)
   z <- list()
   for(i in x){
-    if(inherits(i, "fpar")) z <- append(z, list(i))
-    else if(is.character(i)) z <- append(z, lapply(i, fpar))
+    if(inherits(i, c("fpar"))) {
+      z <- append(z, list(i))
+    } else if(is.character(i)){
+      z <- append(z, lapply(i, fpar))
+    }
   }
-
   class(z) <- "block_list"
   z
 }

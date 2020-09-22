@@ -7,14 +7,14 @@
 block_list(...)
 }
 \arguments{
-\item{...}{a list of \code{\link[=fpar]{fpar()}} or
-\code{flextable}. When output is only for Word, objects
-of class \code{\link{external_img}} can also be used in
-fpar construction to mix text and images in a single paragraph.}
+\item{...}{a list of \code{\link[=fpar]{fpar()}}. When output is only for
+Word, objects of class \code{\link{external_img}} can
+also be used in fpar construction to mix text and images
+in a single paragraph.}
 }
 \description{
 a list of blocks can be used to gather
-several blocks (paragraphs or tables) into a single
+several blocks of paragraphs into a single
 object. The function is to be used when adding
 formatted paragraphs into a Word document or a
 PowerPoint presentation.
