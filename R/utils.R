@@ -178,7 +178,7 @@ set_row_span <- function( row_details ){
   row_details <- mapply(function(dat){
     rowspan_values_at_breaks <- rle(cumsum(dat$first))$lengths
     rowspan_pos_at_breaks <- which(dat$first)
-    dat$row_span <- 0
+    dat$row_span <- 0L
     dat$row_span[rowspan_pos_at_breaks] <- rowspan_values_at_breaks
     dat
   }, row_details, SIMPLIFY = FALSE)

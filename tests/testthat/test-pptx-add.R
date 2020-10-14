@@ -51,9 +51,9 @@ test_that("ph_add_text with hyperlink", {
   xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
   expect_true( href_ %in% rel_df$target )
-  row_id_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
+  row_num_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
 
-  rid <- rel_df[row_id_, "id"]
+  rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
   node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
   expect_equal( xml_text(node_), "test")
@@ -123,8 +123,8 @@ test_that("link to another shape", {
   xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
   expect_true( "slide1.xml" %in% rel_df$target )
-  row_id_ <- which( rel_df$target %in% "slide1.xml" )
-  rid <- rel_df[row_id_, "id"]
+  row_num_ <- which( rel_df$target %in% "slide1.xml" )
+  rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
   node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
   expect_equal( xml_text(node_), "test")
@@ -142,9 +142,9 @@ test_that("ph_add_text with hyperlink", {
   xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
   expect_true( href_ %in% rel_df$target )
-  row_id_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
+  row_num_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
 
-  rid <- rel_df[row_id_, "id"]
+  rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
   node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
   expect_equal( xml_text(node_), "test")
@@ -170,9 +170,9 @@ test_that("slidelink shape", {
   slide_filename <- doc$slide$get_metadata()$name[2]
 
   expect_true( slide_filename %in% rel_df$target )
-  row_id_ <- which( is.na(rel_df$target_mode) & rel_df$target %in% slide_filename )
+  row_num_ <- which( is.na(rel_df$target_mode) & rel_df$target %in% slide_filename )
 
-  rid <- rel_df[row_id_, "id"]
+  rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp[p:nvSpPr/p:cNvPr/a:hlinkClick/@r:id='%s']", rid)
   node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
   expect_false( inherits(node_, "xml_missing") )
@@ -191,9 +191,9 @@ test_that("hyperlink shape", {
   rel_df <- doc$slide$get_slide(1)$rel_df()
 
   expect_true( "https://cran.r-project.org" %in% rel_df$target )
-  row_id_ <- which( !is.na(rel_df$target_mode) & rel_df$target %in% "https://cran.r-project.org" )
+  row_num_ <- which( !is.na(rel_df$target_mode) & rel_df$target %in% "https://cran.r-project.org" )
 
-  rid <- rel_df[row_id_, "id"]
+  rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp[p:nvSpPr/p:cNvPr/a:hlinkClick/@r:id='%s']", rid)
   node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
   expect_false( inherits(node_, "xml_missing") )

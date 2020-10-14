@@ -1,4 +1,4 @@
-unfold_row_pml <- function(node, row_id){
+unfold_row_pml <- function(node, row_num){
 
   children_ <- xml_children(node)
   cell_nodes <- children_[sapply(children_, function(x) xml_name(x)=="tc" )]
@@ -11,8 +11,8 @@ unfold_row_pml <- function(node, row_id){
   h_merge <- sapply(cell_nodes, function(x) {
     as.integer(xml_attr(x, "hMerge"))
   }) %in% c(1)
-  col_span[is.na(col_span)] <- 1
-  col_span[h_merge] <- 0
+  col_span[is.na(col_span)] <- 1L
+  col_span[h_merge] <- 0L
 
   row_span <- lapply(cell_nodes, function(x) {
     row_span <- as.integer(xml_attr(x, "rowSpan"))
@@ -25,17 +25,16 @@ unfold_row_pml <- function(node, row_id){
   row_span <- rbind.match.columns(row_span)
   row_span$row_merge <- !is.na(row_span$v_merged) | !is.na(row_span$row_span)
   row_span$first <- !is.na(row_span$row_span)
-  row_span$row_span[!is.na(row_span$v_merged)] <- 0
-  row_span$row_span[!row_span$row_merge] <- 1
+  row_span$row_span[!is.na(row_span$v_merged)] <- 0L
+  row_span$row_span[!row_span$row_merge] <- 1L
   row_span <- row_span[, c("row_merge", "first", "row_span") ]
 
 
-  out <- data.frame(row_id = row_id, cell_id = seq_along(cell_nodes),
+  out <- data.frame(row_num = row_num, cell_id = seq_along(cell_nodes),
                 text = txt, col_span = col_span,
                 row_merge = row_span$row_merge,
                 first = row_span$first,
                 stringsAsFactors = FALSE)
-
   out
 }
 
@@ -49,7 +48,6 @@ pptxtable_as_tibble <- function( node ){
   row_details <- rbind.match.columns(row_details)
   row_details <- set_row_span(row_details)
   row_details$text[row_details$col_span < 1 | row_details$row_span < 1] <- NA_character_
-
   row_details
 }
 

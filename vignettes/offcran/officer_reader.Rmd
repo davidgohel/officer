@@ -6,6 +6,23 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r}
+library(officer)
+library(flextable)
+library(knitr)
+genere_flextable <- function(x, ...) {
+  ft <- flextable(x, defaults = list(fontname = "Roboto"))
+  ft <- theme_zebra(ft, odd_header = "#FCFCFC", odd_body = "#FCFCFC")
+  ft <- hline_bottom(ft, border = fp_border(), part = "header")
+  ft <- fontsize(ft, size = 15, part = "all")
+  ft <- padding(ft, padding = 5, part = "all")
+  ft <- set_formatter_type(ft, na_str = "<na>")
+  ft <- set_table_properties(ft, layout = "autofit")
+  knitr::knit_print(ft)
+}
+registerS3method("knit_print", "data.frame", genere_flextable)
+
+```
 
 
 ## Import Word document
@@ -51,22 +68,22 @@ table_cells <- subset(content, content_type %in% "table cell")
 print(head( table_cells) )
 ```
 
-Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`
+Cells positions and values are dispatched in columns `row_num`, `cell_id`, `text`
 and `is_header` (a logical column indicating if the cell is part of a header or
 not). Note that the content itself (column `text`) is a character vector.
 
 ```{r}
 table_body <- subset(table_cells, !is_header)
-table_body <- table_body[,c("row_id", "cell_id", "text")]
+table_body <- table_body[,c("row_num", "cell_id", "text")]
 head(table_body)
 ```
 
-Reshaping the data with columns `row_id`, `cell_id` and `text` would display 
+Reshaping the data with columns `row_num`, `cell_id` and `text` would display 
 something close to the orginal table: 
 
 ```{r}
 tapply(table_body$text, 
-       list(row_id = table_body$row_id, 
+       list(row_num = table_body$row_num, 
             cell_id = table_body$cell_id
             ), 
        FUN = I
@@ -77,10 +94,10 @@ Getting headers requires another operation:
 
 ```{r}
 data <- subset(table_cells, is_header) 
-data <- data[, c("row_id", "cell_id", "text") ] 
+data <- data[, c("row_num", "cell_id", "text") ] 
 
 tapply(data$text, 
-   list(row_id = data$row_id, 
+   list(row_num = data$row_num, 
         cell_id = data$cell_id
         ), FUN = I )
 ```
@@ -139,13 +156,13 @@ table_cells <- subset(content, content_type %in% "table cell")
 head(table_cells)
 ```
 
-Cells positions and values are dispatched in columns `row_id`, `cell_id`, `text`. 
+Cells positions and values are dispatched in columns `row_num`, `cell_id`, `text`. 
 Note that here there is no indicator for the table header.
 
 ```{r}
-data <- subset(table_cells, id == 18, c(row_id, cell_id, text) )
+data <- subset(table_cells, id == 18, c(row_num, cell_id, text) )
 tapply(data$text, 
-   list(row_id = data$row_id, 
+   list(row_num = data$row_num, 
         cell_id = data$cell_id
         ), FUN = I )
 ```

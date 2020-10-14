@@ -12,9 +12,9 @@ test_that("complex docx table", {
   doc <- read_docx(path = "docs_dir/table-complex.docx" )
   doc_data <- docx_summary(doc)
   table_data <- doc_data[doc_data$content_type == "table cell", ]
-  table_data <- table_data[order(table_data$row_id, table_data$cell_id),]
+  table_data <- table_data[order(table_data$row_num, table_data$cell_id),]
 
-  first_row <- table_data[table_data$row_id %in% 1,]
+  first_row <- table_data[table_data$row_num %in% 1,]
 
   expect_equal( first_row$text, c("Column head", "column head", "column head", "column head",
                                   NA, NA, "x", "y") )
@@ -30,10 +30,10 @@ test_that("pptx summary", {
   example_pptx <- system.file(package = "officer", "doc_examples/example.pptx")
   doc <- read_pptx(path = example_pptx)
   doc_data <- pptx_summary(doc)
-  table_data <- subset(doc_data, content_type %in% "table cell" & row_id == 1 & slide_id == 1)
+  table_data <- subset(doc_data, content_type %in% "table cell" & row_num == 1 & slide_id == 1)
   expect_equal( table_data$text, c("Header 1 ", "Header 2", "Header 3") )
 
-  table_data <- subset(doc_data, content_type %in% "table cell" & row_id == 4 & slide_id == 1)
+  table_data <- subset(doc_data, content_type %in% "table cell" & row_num == 4 & slide_id == 1)
   expect_equal( table_data$text, c("B", "9.0", "Salut") )
 
   example_pptx <- "docs_dir/table-complex.pptx"
