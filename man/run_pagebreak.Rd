@@ -7,9 +7,16 @@
 run_pagebreak()
 }
 \description{
-Object representing a page break for a Word document. The
-result must be used within a call to \link{fpar}.
+Object representing a page break for a Word document.
 }
+\section{usage}{
+
+You can use this function in conjunction with \link{fpar} to create paragraphs
+consisting of differently formatted text parts. You can also use this
+function as an \emph{r chunk} in an R Markdown document made with package
+officedown.
+}
+
 \examples{
 
 fp_t <- fp_text(font.size = 12, bold = TRUE)
@@ -24,6 +31,7 @@ Other run functions for reporting:
 \code{\link{external_img}()},
 \code{\link{ftext}()},
 \code{\link{run_autonum}()},
+\code{\link{run_bookmark}()},
 \code{\link{run_columnbreak}()},
 \code{\link{run_linebreak}()},
 \code{\link{run_reference}()},

@@ -21,6 +21,14 @@ The image is added as a shape in PowerPoint (it is not possible to mix text and
 images in a PowerPoint form). With a Word document, the image will be
 added inside a paragraph.
 }
+\section{usage}{
+
+You can use this function in conjunction with \link{fpar} to create paragraphs
+consisting of differently formatted text parts. You can also use this
+function as an \emph{r chunk} in an R Markdown document made with package
+officedown.
+}
+
 \examples{
 
 # wrap r logo with external_img ----
@@ -50,6 +58,7 @@ print(x, target = tempfile(fileext = ".docx"))
 Other run functions for reporting: 
 \code{\link{ftext}()},
 \code{\link{run_autonum}()},
+\code{\link{run_bookmark}()},
 \code{\link{run_columnbreak}()},
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},

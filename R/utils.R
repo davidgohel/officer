@@ -252,6 +252,17 @@ htmlEscapeCopy <- local({
 })
 
 
-
+check_bookmark_id <- function(bkm){
+  if(!is.null(bkm)){
+    invalid_bkm <- is.character(bkm) &&
+      length(bkm) == 1 &&
+      nchar(bkm) > 0 &&
+      grepl("[^[:alnum:]_-]+", bkm)
+    if(invalid_bkm){
+      stop("bkm [", bkm, "] should only contain alphanumeric characters, '-' and '_'.", call. = FALSE)
+    }
+  }
+  bkm
+}
 
 

@@ -26,6 +26,10 @@ Tables can be conditionally formatted based on few properties as
 whether the content is in the first row, last row, first column, or last
 column, or whether the rows or columns are to be banded.
 }
+\note{
+You must define a format for first_row, first_column and other properties
+if you need to use them. The format is defined in a docx template.
+}
 \examples{
 table_conditional_formatting(first_row = TRUE, first_column = TRUE)
 }

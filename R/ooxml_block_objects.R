@@ -18,7 +18,6 @@ block_caption <- function(label, style, autonum = NULL) {
     style = style
   )
   class(z) <- c("block_caption", "block")
-
   z
 }
 
@@ -326,6 +325,9 @@ to_wml.block_section <- function(x, add_ns = FALSE, ...) {
 #' @param first_column,last_column apply or remove formatting from the first or last column in the table.
 #' @param no_hband,no_vband don't display odd and even rows or columns with
 #' alternating shading for ease of reading.
+#' @note
+#' You must define a format for first_row, first_column and other properties
+#' if you need to use them. The format is defined in a docx template.
 #' @examples
 #' table_conditional_formatting(first_row = TRUE, first_column = TRUE)
 #' @family functions for table definition
@@ -595,7 +597,12 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
   }
 
   tbl_layout <- to_wml(x$layout, add_ns= add_ns, base_document = base_document)
-  width <- to_wml(x$width, add_ns= add_ns, base_document = base_document)
+
+
+  width <- ""
+  if(!is.null(x$width) && "autofit" %in% x$type)
+    width <- to_wml(x$width, add_ns= add_ns, base_document = base_document)
+
   colwidths <- to_wml(x$colsizes, add_ns= add_ns, base_document = base_document)
   tcf <- to_wml(x$tcf, add_ns= add_ns, base_document = base_document)
   paste0("<w:tblPr>",

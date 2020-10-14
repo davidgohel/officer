@@ -468,6 +468,7 @@ body_bookmark <- function(x, id){
   cursor_elt <- x$doc_obj$get_at_cursor()
   ns_ <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\""
   new_id <- UUIDgenerate()
+  id <- check_bookmark_id(id)
 
   bm_start_str <- sprintf("<w:bookmarkStart w:id=\"%s\" w:name=\"%s\" %s/>", new_id, id, ns_ )
   bm_start_end <- sprintf("<w:bookmarkEnd %s w:id=\"%s\"/>", ns_, new_id )

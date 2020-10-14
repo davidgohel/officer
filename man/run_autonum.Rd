@@ -35,6 +35,14 @@ representation of a sequence, each item will be numbered.
 These runs can also be bookmarked and be used later for
 cross references.
 }
+\section{usage}{
+
+You can use this function in conjunction with \link{fpar} to create paragraphs
+consisting of differently formatted text parts. You can also use this
+function as an \emph{r chunk} in an R Markdown document made with package
+officedown.
+}
+
 \examples{
 run_autonum()
 run_autonum(seq_id = "fig", pre_label = "fig. ")
@@ -44,6 +52,7 @@ run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
 Other run functions for reporting: 
 \code{\link{external_img}()},
 \code{\link{ftext}()},
+\code{\link{run_bookmark}()},
 \code{\link{run_columnbreak}()},
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},

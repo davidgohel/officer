@@ -22,11 +22,24 @@ Create a Word computed field.
 In the previous version, this function was called \code{run_seqfield}
 but the name was wrong and should have been \code{run_word_field}.
 }
+\section{usage}{
+
+You can use this function in conjunction with \link{fpar} to create paragraphs
+consisting of differently formatted text parts. You can also use this
+function as an \emph{r chunk} in an R Markdown document made with package
+officedown.
+}
+
+\examples{
+run_word_field(field = "PAGE  \\\\* MERGEFORMAT")
+run_word_field(field = "Date \\\\@ \"MMMM d yyyy\"")
+}
 \seealso{
 Other run functions for reporting: 
 \code{\link{external_img}()},
 \code{\link{ftext}()},
 \code{\link{run_autonum}()},
+\code{\link{run_bookmark}()},
 \code{\link{run_columnbreak}()},
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},

@@ -3,6 +3,7 @@
 ## New features
 
 * new function `body_add_plot()` and `body_add_caption()`
+* new function `run_bookmark()` to create a run with a bookmark.
 
 ## Issues
 
