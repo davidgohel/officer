@@ -74,8 +74,8 @@ File generation is performed with the `print()` function.
 ### import PowerPoint document in a data.frame
 
 The `pptx_summary()` function reads and imports content of a PowerPoint
-document into a tibble object. The function handles paragraphs, tables
-and images.
+document into a data.frame. The function handles paragraphs, tables and
+images.
 
 ## Extensions
 
@@ -116,7 +116,8 @@ install.packages("officer")
 
 ### Online documentation
 
-The help pages are located at <https://davidgohel.github.io/officer/>.
+The help pages are located at <https://ardata-fr.github.io/officeverse/>
+and manuals are available at <https://davidgohel.github.io/officer/>.
 
 ### Getting help
 

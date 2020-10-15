@@ -7,4 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-please visit https://davidgohel.github.io/officer/ for the latest vignette.
+The documentation is available here: 
+
+https://ardata-fr.github.io/officeverse/

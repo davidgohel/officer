@@ -26,15 +26,15 @@ Imports:
     R6,
     grDevices,
     zip (>= 2.1.0),
-    uuid,stats,
+    uuid, stats,
     magrittr,utils,
     xml2 (>= 1.1.0), graphics
-URL: https://davidgohel.github.io/officer/
+URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
 Encoding: UTF-8
 BugReports: https://github.com/davidgohel/officer/issues
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-Suggests: testthat, devEMF,tibble,ggplot2,
+Suggests: testthat, devEMF, ggplot2,
     rmarkdown,
     base64enc,
     knitr, rsvg
