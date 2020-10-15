@@ -91,16 +91,7 @@ navbar:
   title: officer
   type: default
   left:
-  - text: Powerpoint
-    href: articles/offcran/powerpoint.html
-  - text: Word
-    href: articles/offcran/word.html
-  - text: Graphics
-    href: articles/offcran/graphics.html
-  - text: Office scraping
-    href: articles/offcran/officer_reader.html
   - text: Function reference
     href: reference/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/davidgohel/officer
+  - icon: fa-book fa-lg
+    href: https://ardata-fr.github.io/officeverse/
