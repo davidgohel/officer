@@ -23,7 +23,7 @@ available.
 
 ## Ressources
 
-The help pages are located at:
+The help pages are in a bookdown located at:
 
 <https://ardata-fr.github.io/officeverse/>
 
