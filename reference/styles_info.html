@@ -8,6 +8,13 @@
 
 <title>read Word styles — styles_info • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="read Word styles — styles_info" />
 <meta property="og:description" content="read Word styles and get results in
 a tidy data.frame." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,32 +81,26 @@ a tidy data.frame." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,11 +127,11 @@ a tidy data.frame." />
 a tidy data.frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>styles_info</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"paragraph"</span>, <span class='st'>"character"</span>, <span class='st'>"table"</span>, <span class='st'>"numbering"</span>),
-  <span class='kw'>is_default</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>styles_info</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"paragraph"</span>, <span class='st'>"character"</span>, <span class='st'>"table"</span>, <span class='st'>"numbering"</span><span class='op'>)</span>,
+  is_default <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,8 +157,9 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></td>
 <code><a href='set_doc_properties.html'>set_doc_properties</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>()
-<span class='fu'>styles_info</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;    style_type             style_id             style_name is_custom is_default
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>styles_info</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    style_type             style_id             style_name is_custom is_default
 #&gt; 1   paragraph               Normal                 Normal     FALSE       TRUE
 #&gt; 2   paragraph               Titre1              heading 1     FALSE      FALSE
 #&gt; 3   paragraph               Titre2              heading 2     FALSE      FALSE
@@ -180,7 +183,8 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></td>
 #&gt; 21  character     TextedebullesCar    Texte de bulles Car      TRUE      FALSE
 #&gt; 22  character          referenceid           reference_id      TRUE      FALSE
 #&gt; 23  paragraph         graphictitle          graphic title      TRUE      FALSE
-#&gt; 24  paragraph           tabletitle            table title      TRUE      FALSE</div><div class='input'><span class='fu'>styles_info</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"paragraph"</span>, <span class='kw'>is_default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   style_type style_id style_name is_custom is_default
+#&gt; 24  paragraph           tabletitle            table title      TRUE      FALSE</div><div class='input'><span class='fu'>styles_info</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"paragraph"</span>, is_default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   style_type style_id style_name is_custom is_default
 #&gt; 1  paragraph   Normal     Normal     FALSE       TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -194,11 +198,11 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

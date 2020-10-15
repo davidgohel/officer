@@ -8,6 +8,13 @@
 
 <title>shortcuts for formatting properties — shortcuts • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="shortcuts for formatting properties — shortcuts" />
 <meta property="og:description" content="Shortcuts for fp_text, fp_par,
 fp_cell and fp_border." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,32 +81,26 @@ fp_cell and fp_border." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,14 +127,17 @@ fp_cell and fp_border." />
 <code>fp_cell</code> and <code>fp_border</code>.</p>
     </div>
 
-    <pre class="usage"><span class='no'>shortcuts</span></pre>
+    <pre class="usage"><span class='va'>shortcuts</span></pre>
 
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()</div><div class='output co'>#&gt;   size italic bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE black transparent    Arial       baseline</div><div class='input'><span class='no'>shortcuts</span>$<span class='fu'>fp_italic</span>()</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10   TRUE FALSE      FALSE black transparent    Arial       baseline</div><div class='input'><span class='no'>shortcuts</span>$<span class='fu'>b_null</span>()</div><div class='output co'>#&gt; line: color: black, width: 0, style: solid</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>shortcuts</span><span class='op'>$</span><span class='fu'>fp_bold</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   size italic bold underlined color     shading fontname vertical_align
+#&gt; 1   10  FALSE TRUE      FALSE black transparent    Arial       baseline</div><div class='input'><span class='va'>shortcuts</span><span class='op'>$</span><span class='fu'>fp_italic</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname vertical_align
+#&gt; 1   10   TRUE FALSE      FALSE black transparent    Arial       baseline</div><div class='input'><span class='va'>shortcuts</span><span class='op'>$</span><span class='fu'>b_null</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; line: color: black, width: 0, style: solid</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -145,11 +150,11 @@ fp_cell and fp_border." />
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

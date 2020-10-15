@@ -8,6 +8,13 @@
 
 <title>location of a placeholder based on a type — ph_location_type • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="location of a placeholder based on a type — ph_location_type" />
 <meta property="og:description" content="The function will use the type name of the placeholder (e.g. body, title),
 the layout name and few other criterias to find the corresponding location." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,32 +81,26 @@ the layout name and few other criterias to find the corresponding location." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,14 +127,14 @@ the layout name and few other criterias to find the corresponding location." />
 the layout name and few other criterias to find the corresponding location.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_location_type</span>(
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
-  <span class='kw'>position_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>position_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ph_location_type</span><span class='op'>(</span>
+  type <span class='op'>=</span> <span class='st'>"body"</span>,
+  position_right <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  position_top <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  newlabel <span class='op'>=</span> <span class='cn'>NULL</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +179,7 @@ will be ignored.</p></td>
     <p>The location of the bounding box associated to a placeholder
 within a slide is specified with the left top coordinate,
 the width and the height. These are defined in inches:</p>
-<dl'>
+<dl>
 <dt>left</dt><dd><p>left coordinate of the bounding box</p></dd>
 <dt>top</dt><dd><p>top coordinate of the bounding box</p></dd>
 <dt>width</dt><dd><p>width of the bounding box</p></dd>
@@ -204,29 +206,33 @@ It can be set with argument <code>newlabel</code>.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># ph_location_type demo ----</span>
 
-<span class='no'>loc_title</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>)
-<span class='no'>loc_footer</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ftr"</span>)
-<span class='no'>loc_dt</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dt"</span>)
-<span class='no'>loc_slidenum</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sldNum"</span>)
-<span class='no'>loc_body</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>)
+<span class='va'>loc_title</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"title"</span><span class='op'>)</span>
+<span class='va'>loc_footer</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"ftr"</span><span class='op'>)</span>
+<span class='va'>loc_dt</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"dt"</span><span class='op'>)</span>
+<span class='va'>loc_slidenum</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"sldNum"</span><span class='op'>)</span>
+<span class='va'>loc_body</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span>
 
 
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"Un titre"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_title</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"pied de page"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_footer</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>()), <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_dt</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"slide 1"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_slidenum</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>10</span>], <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_body</span>)
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"Un titre"</span>, location <span class='op'>=</span> <span class='va'>loc_title</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"pied de page"</span>, location <span class='op'>=</span> <span class='va'>loc_footer</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>, location <span class='op'>=</span> <span class='va'>loc_dt</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"slide 1"</span>, location <span class='op'>=</span> <span class='va'>loc_slidenum</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>, location <span class='op'>=</span> <span class='va'>loc_body</span><span class='op'>)</span>
 
-<span class='no'>loc_subtitle</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"subTitle"</span>)
-<span class='no'>loc_ctrtitle</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_location_type</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ctrTitle"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title Slide"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"Un sous titre"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_subtitle</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"Un titre"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_ctrtitle</span>)
+<span class='va'>loc_subtitle</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"subTitle"</span><span class='op'>)</span>
+<span class='va'>loc_ctrtitle</span> <span class='op'>&lt;-</span> <span class='fu'>ph_location_type</span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"ctrTitle"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span>, layout <span class='op'>=</span> <span class='st'>"Title Slide"</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"Un sous titre"</span>, location <span class='op'>=</span> <span class='va'>loc_subtitle</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"Un titre"</span>, location <span class='op'>=</span> <span class='va'>loc_ctrtitle</span><span class='op'>)</span>
 
-<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div></pre>
+<span class='va'>fileout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='va'>fileout</span> <span class='op'>)</span>
+
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -239,11 +245,11 @@ It can be set with argument <code>newlabel</code>.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

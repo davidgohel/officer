@@ -8,6 +8,13 @@
 
 <title>Create paragraph blocks — block_list • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,9 +48,11 @@
 
 <meta property="og:title" content="Create paragraph blocks — block_list" />
 <meta property="og:description" content="a list of blocks can be used to gather
-several blocks (paragraphs or tables) into a single
+several blocks of paragraphs into a single
 object. The function is to be used when adding
-footnotes or formatted paragraphs into a new slide." />
+formatted paragraphs into a Word document or a
+PowerPoint presentation." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -75,32 +84,26 @@ footnotes or formatted paragraphs into a new slide." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -124,28 +127,29 @@ footnotes or formatted paragraphs into a new slide." />
 
     <div class="ref-description">
     <p>a list of blocks can be used to gather
-several blocks (paragraphs or tables) into a single
+several blocks of paragraphs into a single
 object. The function is to be used when adding
-footnotes or formatted paragraphs into a new slide.</p>
+formatted paragraphs into a Word document or a
+PowerPoint presentation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>block_list</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>block_list</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>a list of objects of class <code><a href='fpar.html'>fpar</a></code> or
-<code>flextable</code>. When output is only for Word, objects
-of class <code><a href='external_img.html'>external_img</a></code> can also be used in
-fpar construction to mix text and images in a single paragraph.</p></td>
+      <td><p>a list of <code><a href='fpar.html'>fpar()</a></code>. When output is only for
+Word, objects of class <code><a href='external_img.html'>external_img</a></code> can
+also be used in fpar construction to mix text and images
+in a single paragraph.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ph_with.html'>ph_with()</a></code>, <code><a href='body_add.html'>body_add()</a></code></p>
+    <div class='dont-index'><p><code><a href='ph_with.html'>ph_with()</a></code>, <code><a href='body_add_blocks.html'>body_add_blocks()</a></code>, <code><a href='fpar.html'>fpar()</a></code></p>
 <p>Other block functions for reporting: 
 <code><a href='block_caption.html'>block_caption</a>()</code>,
 <code><a href='block_pour_docx.html'>block_pour_docx</a>()</code>,
@@ -160,24 +164,25 @@ fpar construction to mix text and images in a single paragraph.</p></td>
     <pre class="examples"><div class='input'>
 <span class='co'>#' # block list ------</span>
 
-<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
-<span class='no'>fpt_blue_bold</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#006699"</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>fpt_red_italic</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#C32900"</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='va'>img.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> <span class='op'>)</span>
+<span class='va'>fpt_blue_bold</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#006699"</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>fpt_red_italic</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#C32900"</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 <span class='co'>## This can be only be used in a MS word output as pptx does</span>
 <span class='co'>## not support paragraphs made of text and images.</span>
 <span class='co'>## (actually it can be used but image will not appear in the</span>
 <span class='co'>## pptx output)</span>
-<span class='no'>value</span> <span class='kw'>&lt;-</span> <span class='fu'>block_list</span>(
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>fpt_blue_bold</span>)),
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>fpt_blue_bold</span>), <span class='st'>" "</span>,
-       <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"world"</span>, <span class='no'>fpt_red_italic</span>)),
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(
-    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>fpt_red_italic</span>),
-          <span class='fu'><a href='external_img.html'>external_img</a></span>(
-            <span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>)))
-<span class='no'>value</span></div><div class='output co'>#&gt; [[1]]
+<span class='va'>value</span> <span class='op'>&lt;-</span> <span class='fu'>block_list</span><span class='op'>(</span>
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello world"</span>, <span class='va'>fpt_blue_bold</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello"</span>, <span class='va'>fpt_blue_bold</span><span class='op'>)</span>, <span class='st'>" "</span>,
+       <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"world"</span>, <span class='va'>fpt_red_italic</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span>
+    <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello world"</span>, <span class='va'>fpt_red_italic</span><span class='op'>)</span>,
+          <span class='fu'><a href='external_img.html'>external_img</a></span><span class='op'>(</span>
+            src <span class='op'>=</span> <span class='va'>img.file</span>, height <span class='op'>=</span> <span class='fl'>1.06</span>, width <span class='op'>=</span> <span class='fl'>1.39</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>value</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; $chunks
 #&gt; $chunks[[1]]
 #&gt; text: hello world
@@ -257,9 +262,9 @@ fpar construction to mix text and images in a single paragraph.</p></td>
 #&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
 #&gt; 
 #&gt; $chunks[[2]]
-#&gt; [1] "/Library/Frameworks/R.framework/Resources/doc/html/logo.jpg"
+#&gt; [1] "/opt/R/4.0.3/lib/R/doc/html/logo.jpg"
 #&gt; attr(,"class")
-#&gt; [1] "external_img" "cot"         
+#&gt; [1] "external_img" "cot"          "run"         
 #&gt; attr(,"dims")
 #&gt; attr(,"dims")$width
 #&gt; [1] 1.39
@@ -293,18 +298,19 @@ fpar construction to mix text and images in a single paragraph.</p></td>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "block_list"</div><div class='input'>
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='body_add.html'>body_add</a></span>(<span class='no'>doc</span>, <span class='no'>value</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add.html'>body_add</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>value</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
 
 
-<span class='no'>value</span> <span class='kw'>&lt;-</span> <span class='fu'>block_list</span>(
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello world"</span>, <span class='no'>fpt_blue_bold</span>)),
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>fpt_blue_bold</span>), <span class='st'>" "</span>,
-       <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"world"</span>, <span class='no'>fpt_red_italic</span>)),
-  <span class='fu'><a href='fpar.html'>fpar</a></span>(
-    <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"blah blah blah"</span>, <span class='no'>fpt_red_italic</span>)))
-<span class='no'>value</span></div><div class='output co'>#&gt; [[1]]
+<span class='va'>value</span> <span class='op'>&lt;-</span> <span class='fu'>block_list</span><span class='op'>(</span>
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello world"</span>, <span class='va'>fpt_blue_bold</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello"</span>, <span class='va'>fpt_blue_bold</span><span class='op'>)</span>, <span class='st'>" "</span>,
+       <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"world"</span>, <span class='va'>fpt_red_italic</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span>
+    <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"blah blah blah"</span>, <span class='va'>fpt_red_italic</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>value</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; $chunks
 #&gt; $chunks[[1]]
 #&gt; text: hello world
@@ -408,10 +414,13 @@ fpar construction to mix text and images in a single paragraph.</p></td>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "block_list"</div><div class='input'>
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='no'>value</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div></pre>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>value</span>, location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span><span class='op'>)</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -424,11 +433,11 @@ fpar construction to mix text and images in a single paragraph.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

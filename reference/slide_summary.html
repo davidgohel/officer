@@ -8,6 +8,13 @@
 
 <title>get PowerPoint slide content in a data.frame — slide_summary • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="get content and positions of current slide
 into a data.frame. Data for any tables, images, or paragraphs are
 imported into the resulting data.frame." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,32 +82,26 @@ imported into the resulting data.frame." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,7 +129,7 @@ into a data.frame. Data for any tables, images, or paragraphs are
 imported into the resulting data.frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>slide_summary</span>(<span class='no'>x</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>slide_summary</span><span class='op'>(</span><span class='va'>x</span>, index <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,18 +162,20 @@ when the document will be rendered. This is not related to argument
 <code><a href='slide_size.html'>slide_size</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>my_pres</span>)
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>my_pres</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>()),
-  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"dt"</span>))
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>my_pres</span>)
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>my_pres</span>, <span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,],
-  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"body"</span>))
-<span class='fu'>slide_summary</span>(<span class='no'>my_pres</span>)</div><div class='output co'>#&gt;   type id              ph_label offx offy cx cy
+    <pre class="examples"><div class='input'><span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>my_pres</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>my_pres</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+  location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type<span class='op'>=</span><span class='st'>"dt"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>my_pres</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>my_pres</span>, <span class='va'>iris</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='op'>]</span>,
+  location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type<span class='op'>=</span><span class='st'>"body"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>slide_summary</span><span class='op'>(</span><span class='va'>my_pres</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   type id              ph_label offx offy cx cy
 #&gt; 1 body  2 Content Placeholder 2   NA   NA NA NA
 #&gt;                                                                                                                              text
-#&gt; 1 {5C22544A-7EE6-4342-B048-85BDC9FD1C3A}Sepal.LengthSepal.WidthPetal.LengthPetal.WidthSpecies5.13.51.40.2setosa4.93.01.40.2setosa</div><div class='input'><span class='fu'>slide_summary</span>(<span class='no'>my_pres</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;   type id           ph_label offx     offy       cx        cy       text
-#&gt; 1   dt  2 Date Placeholder 3  0.5 6.951389 2.333333 0.3993056 2020-06-25</div></pre>
+#&gt; 1 {5C22544A-7EE6-4342-B048-85BDC9FD1C3A}Sepal.LengthSepal.WidthPetal.LengthPetal.WidthSpecies5.13.51.40.2setosa4.93.01.40.2setosa</div><div class='input'><span class='fu'>slide_summary</span><span class='op'>(</span><span class='va'>my_pres</span>, index <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   type id           ph_label offx     offy       cx        cy       text
+#&gt; 1   dt  2 Date Placeholder 3  0.5 6.951389 2.333333 0.3993056 2020-10-15</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -184,11 +188,11 @@ when the document will be rendered. This is not related to argument
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

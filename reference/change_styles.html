@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>replace paragraphs styles — change_styles • officer</title>
+<title>Replace Styles in a Word Document — change_styles • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -39,9 +46,10 @@
 
 
 
-<meta property="og:title" content="replace paragraphs styles — change_styles" />
+<meta property="og:title" content="Replace Styles in a Word Document — change_styles" />
 <meta property="og:description" content="Replace styles with others in a Word document. This function
-is to be used for paragraph styles." />
+can be used for paragraph, run/character and table styles." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,32 +81,26 @@ is to be used for paragraph styles." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,17 +117,17 @@ is to be used for paragraph styles." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>replace paragraphs styles</h1>
+    <h1>Replace Styles in a Word Document</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/read_docx.R'><code>R/read_docx.R</code></a></small>
     <div class="hidden name"><code>change_styles.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Replace styles with others in a Word document. This function
-is to be used for paragraph styles.</p>
+can be used for paragraph, run/character and table styles.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>change_styles</span>(<span class='no'>x</span>, <span class='no'>mapstyles</span>)</pre>
+    <pre class="usage"><span class='fu'>change_styles</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>mapstyles</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,23 +139,34 @@ is to be used for paragraph styles.</p>
     <tr>
       <th>mapstyles</th>
       <td><p>a named list, names are the replacement style,
-content (as a character vector) are the styles to be replaced.</p></td>
+content (as a character vector) are the styles to be replaced.
+Use <code><a href='styles_info.html'>styles_info()</a></code> to display available styles.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>magrittr</span><span class='op'>)</span>
 
-<span class='no'>mapstyles</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>( <span class='st'>"centered"</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Normal"</span>),
-    <span class='st'>"heading 3"</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"heading 1"</span>, <span class='st'>"heading 2"</span>) )
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"A title"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"heading 1"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Another title"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"heading 2"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span>(<span class='st'>"Hello world!"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"Normal"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>change_styles</span>( <span class='kw'>mapstyles</span> <span class='kw'>=</span> <span class='no'>mapstyles</span> )
+<span class='va'>mapstyles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  <span class='st'>"centered"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Normal"</span>, <span class='st'>"heading 2"</span><span class='op'>)</span>,
+  <span class='st'>"strong"</span> <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span>
+<span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='st'>"A title"</span>, style <span class='op'>=</span> <span class='st'>"heading 1"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='st'>"Hello "</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='st'>"world"</span>, style <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='st'>"Message is: "</span>, style <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span>, pos <span class='op'>=</span> <span class='st'>"before"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='st'>" with a link"</span>,
+    style <span class='op'>=</span> <span class='st'>"strong"</span>,
+    pos <span class='op'>=</span> <span class='st'>"after"</span>, hyperlink <span class='op'>=</span> <span class='st'>"https://davidgohel.github.io/officer/"</span>
+  <span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='st'>"Another title"</span>, style <span class='op'>=</span> <span class='st'>"heading 2"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='st'>"Hello world!"</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>change_styles</span><span class='op'>(</span>mapstyles <span class='op'>=</span> <span class='va'>mapstyles</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".docx"</span>))</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -166,11 +179,11 @@ content (as a character vector) are the styles to be replaced.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

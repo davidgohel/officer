@@ -8,6 +8,13 @@
 
 <title>append fpar — ph_add_fpar • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -44,6 +51,7 @@
 The function let you add a new formatted paragraph (fpar)
 to an existing content in an exiisting shape, existing paragraphs
 will be preserved." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -75,32 +83,26 @@ will be preserved." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -129,16 +131,16 @@ to an existing content in an exiisting shape, existing paragraphs
 will be preserved.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_add_fpar</span>(
-  <span class='no'>x</span>,
-  <span class='no'>value</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>par_default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ph_add_fpar</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>value</span>,
+  type <span class='op'>=</span> <span class='st'>"body"</span>,
+  id <span class='op'>=</span> <span class='fl'>1</span>,
+  id_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ph_label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  level <span class='op'>=</span> <span class='fl'>1</span>,
+  par_default <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,21 +195,22 @@ with a <code><a href='block_list.html'>block_list</a></code> instead of this fun
     <div class='dont-index'><p><code><a href='fpar.html'>fpar</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>magrittr</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>magrittr</span><span class='op'>)</span>
 
-<span class='no'>bold_face</span> <span class='kw'>&lt;-</span> <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>(<span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>30</span>)
-<span class='no'>bold_redface</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>bold_face</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
+<span class='va'>bold_face</span> <span class='op'>&lt;-</span> <span class='va'>shortcuts</span><span class='op'>$</span><span class='fu'>fp_bold</span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>bold_redface</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>bold_face</span>, color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
 
-<span class='no'>fpar_</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"Hello "</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_face</span>),
-              <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"World"</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_redface</span> ),
-              <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>", how are you?"</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_face</span> ) )
+<span class='va'>fpar_</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"Hello "</span>, prop <span class='op'>=</span> <span class='va'>bold_face</span><span class='op'>)</span>,
+              <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"World"</span>, prop <span class='op'>=</span> <span class='va'>bold_redface</span> <span class='op'>)</span>,
+              <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>", how are you?"</span>, prop <span class='op'>=</span> <span class='va'>bold_face</span> <span class='op'>)</span> <span class='op'>)</span>
 
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='st'>""</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span>(<span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"wheat"</span>, <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='st'>"myph"</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>ph_add_fpar</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>fpar_</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span>layout <span class='op'>=</span> <span class='st'>"Title and Content"</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='st'>""</span>, location <span class='op'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span><span class='op'>(</span>bg <span class='op'>=</span> <span class='st'>"wheat"</span>, newlabel <span class='op'>=</span> <span class='st'>"myph"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>ph_add_fpar</span><span class='op'>(</span>value <span class='op'>=</span> <span class='va'>fpar_</span>, ph_label <span class='op'>=</span> <span class='st'>"myph"</span>, level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>))</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,11 +223,11 @@ with a <code><a href='block_list.html'>block_list</a></code> instead of this fun
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

@@ -8,6 +8,13 @@
 
 <title>page margins object — page_mar • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="The margins for each page of a sectionThe function creates a representation of the dimensions of a page. The
 dimensions are defined by length, width and orientation. If the orientation is
 in landscape mode then the length becomes the width and the width becomes the length." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,32 +82,26 @@ in landscape mode then the length becomes the width and the width becomes the le
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,15 +129,15 @@ dimensions are defined by length, width and orientation. If the orientation is
 in landscape mode then the length becomes the width and the width becomes the length.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>page_mar</span>(
-  <span class='kw'>bottom</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>footer</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>gutter</span> <span class='kw'>=</span> <span class='fl'>0.5</span>
-)</pre>
+    <pre class="usage"><span class='fu'>page_mar</span><span class='op'>(</span>
+  bottom <span class='op'>=</span> <span class='fl'>1</span>,
+  top <span class='op'>=</span> <span class='fl'>1</span>,
+  right <span class='op'>=</span> <span class='fl'>1</span>,
+  left <span class='op'>=</span> <span class='fl'>1</span>,
+  header <span class='op'>=</span> <span class='fl'>0.5</span>,
+  footer <span class='op'>=</span> <span class='fl'>0.5</span>,
+  gutter <span class='op'>=</span> <span class='fl'>0.5</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,7 +172,8 @@ in landscape mode then the length becomes the width and the width becomes the le
 <code><a href='section_columns.html'>section_columns</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>page_mar</span>()</div><div class='output co'>#&gt; $header
+    <pre class="examples"><div class='input'><span class='fu'>page_mar</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $header
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $bottom
@@ -205,11 +208,11 @@ in landscape mode then the length becomes the width and the width becomes the le
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

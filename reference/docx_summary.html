@@ -8,6 +8,13 @@
 
 <title>get Word content in a data.frame — docx_summary • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="get Word content in a data.frame — docx_summary" />
 <meta property="og:description" content="read content of a Word document and
 return a tidy dataset representing the document." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,32 +81,26 @@ return a tidy dataset representing the document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +127,7 @@ return a tidy dataset representing the document." />
 return a tidy dataset representing the document.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>docx_summary</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>docx_summary</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,10 +144,11 @@ return a tidy dataset representing the document.</p>
 not be accessible in the results.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>example_pptx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"officer"</span>,
-  <span class='st'>"doc_examples/example.docx"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span>(<span class='no'>example_pptx</span>)
-<span class='fu'>docx_summary</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt;       doc_index content_type     style_name
+    <pre class="examples"><div class='input'><span class='va'>example_pptx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"officer"</span>,
+  <span class='st'>"doc_examples/example.docx"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='va'>example_pptx</span><span class='op'>)</span>
+<span class='fu'>docx_summary</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       doc_index content_type     style_name
 #&gt; 1             1    paragraph      heading 1
 #&gt; 2             2    paragraph           &lt;NA&gt;
 #&gt; 3             3    paragraph      heading 1
@@ -285,76 +288,76 @@ not be accessible in the results.</p>
 #&gt; 4.412                                                                    &lt;NA&gt;
 #&gt; 16                                                                           
 #&gt; 17                                                                           
-#&gt;       level num_id row_id is_header cell_id col_span row_span
-#&gt; 1        NA     NA     NA        NA      NA       NA       NA
-#&gt; 2        NA     NA     NA        NA      NA       NA       NA
-#&gt; 3        NA     NA     NA        NA      NA       NA       NA
-#&gt; 4         1      2     NA        NA      NA       NA       NA
-#&gt; 5         1      2     NA        NA      NA       NA       NA
-#&gt; 6         1      2     NA        NA      NA       NA       NA
-#&gt; 7        NA     NA     NA        NA      NA       NA       NA
-#&gt; 8         1      1     NA        NA      NA       NA       NA
-#&gt; 9         1      1     NA        NA      NA       NA       NA
-#&gt; 10        1      1     NA        NA      NA       NA       NA
-#&gt; 11       NA     NA     NA        NA      NA       NA       NA
-#&gt; 12       NA     NA     NA        NA      NA       NA       NA
-#&gt; 13       NA     NA     NA        NA      NA       NA       NA
-#&gt; 14       NA     NA     NA        NA      NA       NA       NA
-#&gt; 15       NA     NA     NA        NA      NA       NA       NA
-#&gt; 1.1      NA     NA      1      TRUE       1        1        1
-#&gt; 1.11     NA     NA      2     FALSE       1        2        1
-#&gt; 1.12     NA     NA      3     FALSE       1        1        1
-#&gt; 1.13     NA     NA      4     FALSE       1        1        1
-#&gt; 1.14     NA     NA      5     FALSE       1        2        1
-#&gt; 1.15     NA     NA      6     FALSE       1        1        1
-#&gt; 1.16     NA     NA      7     FALSE       1        1        1
-#&gt; 1.17     NA     NA      8     FALSE       1        1        1
-#&gt; 1.18     NA     NA      9     FALSE       1        1        1
-#&gt; 1.19     NA     NA     10     FALSE       1        1        1
-#&gt; 1.110    NA     NA     11     FALSE       1        1        1
-#&gt; 1.111    NA     NA     12     FALSE       1        1        1
-#&gt; 1.112    NA     NA     13     FALSE       1        4        1
-#&gt; 2.2      NA     NA      1      TRUE       2        1        1
-#&gt; 2.31     NA     NA      2     FALSE       2        0        1
-#&gt; 2.22     NA     NA      3     FALSE       2        1        2
-#&gt; 2.23     NA     NA      4     FALSE       2        1        0
-#&gt; 2.44     NA     NA      5     FALSE       2        0        1
-#&gt; 2.25     NA     NA      6     FALSE       2        1        1
-#&gt; 2.26     NA     NA      7     FALSE       2        1        1
-#&gt; 2.27     NA     NA      8     FALSE       2        1        4
-#&gt; 2.28     NA     NA      9     FALSE       2        1        0
-#&gt; 2.29     NA     NA     10     FALSE       2        1        0
-#&gt; 2.210    NA     NA     11     FALSE       2        1        0
-#&gt; 2.211    NA     NA     12     FALSE       2        1        1
-#&gt; 2.212    NA     NA     13     FALSE       2        0        1
-#&gt; 3.3      NA     NA      1      TRUE       3        1        1
-#&gt; 3.21     NA     NA      2     FALSE       3        2        1
-#&gt; 3.32     NA     NA      3     FALSE       3        1        1
-#&gt; 3.33     NA     NA      4     FALSE       3        2        1
-#&gt; 3.24     NA     NA      5     FALSE       3        1        1
-#&gt; 3.35     NA     NA      6     FALSE       3        1        1
-#&gt; 3.36     NA     NA      7     FALSE       3        1        1
-#&gt; 3.37     NA     NA      8     FALSE       3        1        1
-#&gt; 3.38     NA     NA      9     FALSE       3        1        1
-#&gt; 3.39     NA     NA     10     FALSE       3        1        1
-#&gt; 3.310    NA     NA     11     FALSE       3        1        1
-#&gt; 3.311    NA     NA     12     FALSE       3        1        1
-#&gt; 3.312    NA     NA     13     FALSE       3        0        1
-#&gt; 4.4      NA     NA      1      TRUE       4        1        1
-#&gt; 4.41     NA     NA      2     FALSE       4        0        1
-#&gt; 4.42     NA     NA      3     FALSE       4        1        1
-#&gt; 4.43     NA     NA      4     FALSE       4        0        1
-#&gt; 4.34     NA     NA      5     FALSE       4        1        1
-#&gt; 4.45     NA     NA      6     FALSE       4        1        3
-#&gt; 4.46     NA     NA      7     FALSE       4        1        0
-#&gt; 4.47     NA     NA      8     FALSE       4        1        0
-#&gt; 4.48     NA     NA      9     FALSE       4        1        1
-#&gt; 4.49     NA     NA     10     FALSE       4        1        1
-#&gt; 4.410    NA     NA     11     FALSE       4        1        1
-#&gt; 4.411    NA     NA     12     FALSE       4        1        1
-#&gt; 4.412    NA     NA     13     FALSE       4        0        1
-#&gt; 16       NA     NA     NA        NA      NA       NA       NA
-#&gt; 17       NA     NA     NA        NA      NA       NA       NA</div></pre>
+#&gt;       level num_id row_num is_header cell_id col_span row_span
+#&gt; 1        NA     NA      NA        NA      NA       NA       NA
+#&gt; 2        NA     NA      NA        NA      NA       NA       NA
+#&gt; 3        NA     NA      NA        NA      NA       NA       NA
+#&gt; 4         1      2      NA        NA      NA       NA       NA
+#&gt; 5         1      2      NA        NA      NA       NA       NA
+#&gt; 6         1      2      NA        NA      NA       NA       NA
+#&gt; 7        NA     NA      NA        NA      NA       NA       NA
+#&gt; 8         1      1      NA        NA      NA       NA       NA
+#&gt; 9         1      1      NA        NA      NA       NA       NA
+#&gt; 10        1      1      NA        NA      NA       NA       NA
+#&gt; 11       NA     NA      NA        NA      NA       NA       NA
+#&gt; 12       NA     NA      NA        NA      NA       NA       NA
+#&gt; 13       NA     NA      NA        NA      NA       NA       NA
+#&gt; 14       NA     NA      NA        NA      NA       NA       NA
+#&gt; 15       NA     NA      NA        NA      NA       NA       NA
+#&gt; 1.1      NA     NA       1      TRUE       1        1        1
+#&gt; 1.11     NA     NA       2     FALSE       1        2        1
+#&gt; 1.12     NA     NA       3     FALSE       1        1        1
+#&gt; 1.13     NA     NA       4     FALSE       1        1        1
+#&gt; 1.14     NA     NA       5     FALSE       1        2        1
+#&gt; 1.15     NA     NA       6     FALSE       1        1        1
+#&gt; 1.16     NA     NA       7     FALSE       1        1        1
+#&gt; 1.17     NA     NA       8     FALSE       1        1        1
+#&gt; 1.18     NA     NA       9     FALSE       1        1        1
+#&gt; 1.19     NA     NA      10     FALSE       1        1        1
+#&gt; 1.110    NA     NA      11     FALSE       1        1        1
+#&gt; 1.111    NA     NA      12     FALSE       1        1        1
+#&gt; 1.112    NA     NA      13     FALSE       1        4        1
+#&gt; 2.2      NA     NA       1      TRUE       2        1        1
+#&gt; 2.31     NA     NA       2     FALSE       2        0        1
+#&gt; 2.22     NA     NA       3     FALSE       2        1        2
+#&gt; 2.23     NA     NA       4     FALSE       2        1        0
+#&gt; 2.44     NA     NA       5     FALSE       2        0        1
+#&gt; 2.25     NA     NA       6     FALSE       2        1        1
+#&gt; 2.26     NA     NA       7     FALSE       2        1        1
+#&gt; 2.27     NA     NA       8     FALSE       2        1        4
+#&gt; 2.28     NA     NA       9     FALSE       2        1        0
+#&gt; 2.29     NA     NA      10     FALSE       2        1        0
+#&gt; 2.210    NA     NA      11     FALSE       2        1        0
+#&gt; 2.211    NA     NA      12     FALSE       2        1        1
+#&gt; 2.212    NA     NA      13     FALSE       2        0        1
+#&gt; 3.3      NA     NA       1      TRUE       3        1        1
+#&gt; 3.21     NA     NA       2     FALSE       3        2        1
+#&gt; 3.32     NA     NA       3     FALSE       3        1        1
+#&gt; 3.33     NA     NA       4     FALSE       3        2        1
+#&gt; 3.24     NA     NA       5     FALSE       3        1        1
+#&gt; 3.35     NA     NA       6     FALSE       3        1        1
+#&gt; 3.36     NA     NA       7     FALSE       3        1        1
+#&gt; 3.37     NA     NA       8     FALSE       3        1        1
+#&gt; 3.38     NA     NA       9     FALSE       3        1        1
+#&gt; 3.39     NA     NA      10     FALSE       3        1        1
+#&gt; 3.310    NA     NA      11     FALSE       3        1        1
+#&gt; 3.311    NA     NA      12     FALSE       3        1        1
+#&gt; 3.312    NA     NA      13     FALSE       3        0        1
+#&gt; 4.4      NA     NA       1      TRUE       4        1        1
+#&gt; 4.41     NA     NA       2     FALSE       4        0        1
+#&gt; 4.42     NA     NA       3     FALSE       4        1        1
+#&gt; 4.43     NA     NA       4     FALSE       4        0        1
+#&gt; 4.34     NA     NA       5     FALSE       4        1        1
+#&gt; 4.45     NA     NA       6     FALSE       4        1        3
+#&gt; 4.46     NA     NA       7     FALSE       4        1        0
+#&gt; 4.47     NA     NA       8     FALSE       4        1        0
+#&gt; 4.48     NA     NA       9     FALSE       4        1        1
+#&gt; 4.49     NA     NA      10     FALSE       4        1        1
+#&gt; 4.410    NA     NA      11     FALSE       4        1        1
+#&gt; 4.411    NA     NA      12     FALSE       4        1        1
+#&gt; 4.412    NA     NA      13     FALSE       4        0        1
+#&gt; 16       NA     NA      NA        NA      NA       NA       NA
+#&gt; 17       NA     NA      NA        NA      NA       NA       NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -367,11 +370,11 @@ not be accessible in the results.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

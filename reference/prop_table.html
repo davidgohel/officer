@@ -8,6 +8,13 @@
 
 <title>Table properties — prop_table • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="Table properties — prop_table" />
 <meta property="og:description" content="Define table properties such as fixed or autofit layout,
 table width in the document, eventually column widths." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,32 +81,26 @@ table width in the document, eventually column widths." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,14 +127,15 @@ table width in the document, eventually column widths." />
 table width in the document, eventually column widths.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prop_table</span>(
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>,
-  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='fu'><a href='table_layout.html'>table_layout</a></span>(),
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fu'><a href='table_width.html'>table_width</a></span>(),
-  <span class='kw'>colwidths</span> <span class='kw'>=</span> <span class='fu'><a href='table_colwidths.html'>table_colwidths</a></span>(),
-  <span class='kw'>tcf</span> <span class='kw'>=</span> <span class='fu'><a href='table_conditional_formatting.html'>table_conditional_formatting</a></span>(),
-  <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>prop_table</span><span class='op'>(</span>
+  style <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  layout <span class='op'>=</span> <span class='fu'><a href='table_layout.html'>table_layout</a></span><span class='op'>(</span><span class='op'>)</span>,
+  width <span class='op'>=</span> <span class='fu'><a href='table_width.html'>table_width</a></span><span class='op'>(</span><span class='op'>)</span>,
+  stylenames <span class='op'>=</span> <span class='fu'><a href='table_stylenames.html'>table_stylenames</a></span><span class='op'>(</span><span class='op'>)</span>,
+  colwidths <span class='op'>=</span> <span class='fu'><a href='table_colwidths.html'>table_colwidths</a></span><span class='op'>(</span><span class='op'>)</span>,
+  tcf <span class='op'>=</span> <span class='fu'><a href='table_conditional_formatting.html'>table_conditional_formatting</a></span><span class='op'>(</span><span class='op'>)</span>,
+  align <span class='op'>=</span> <span class='st'>"center"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +151,10 @@ table width in the document, eventually column widths.</p>
     <tr>
       <th>width</th>
       <td><p>table width in the document defined by <code><a href='table_width.html'>table_width()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>stylenames</th>
+      <td><p>columns styles defined by <code><a href='table_stylenames.html'>table_stylenames()</a></code></p></td>
     </tr>
     <tr>
       <th>colwidths</th>
@@ -169,10 +176,12 @@ table width in the document, eventually column widths.</p>
 <code><a href='table_colwidths.html'>table_colwidths</a>()</code>,
 <code><a href='table_conditional_formatting.html'>table_conditional_formatting</a>()</code>,
 <code><a href='table_layout.html'>table_layout</a>()</code>,
+<code><a href='table_stylenames.html'>table_stylenames</a>()</code>,
 <code><a href='table_width.html'>table_width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prop_table</span>()</div><div class='output co'>#&gt; $style
+    <pre class="examples"><div class='input'><span class='fu'>prop_table</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $style
 #&gt; [1] NA
 #&gt; 
 #&gt; $layout
@@ -198,6 +207,13 @@ table width in the document, eventually column widths.</p>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "table_colwidths"
+#&gt; 
+#&gt; $stylenames
+#&gt; $stylenames
+#&gt; list()
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "table_stylenames"
 #&gt; 
 #&gt; $tcf
 #&gt; $first_row
@@ -225,7 +241,8 @@ table width in the document, eventually column widths.</p>
 #&gt; [1] "center"
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "prop_table"</div><div class='input'><span class='fu'><a href='to_wml.html'>to_wml</a></span>(<span class='fu'>prop_table</span>())</div><div class='output co'>#&gt; [1] "&lt;w:tblPr&gt;NA\"/&gt;&lt;w:tblLayout w:type=\"autofit\"/&gt;&lt;w:jc w:val=\"center\"/&gt;&lt;w:tblW w:type=\"pct\" w:w=\"5000\"/&gt;&lt;w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"0\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/&gt;&lt;/w:tblPr&gt;"</div></pre>
+#&gt; [1] "prop_table"</div><div class='input'><span class='fu'><a href='to_wml.html'>to_wml</a></span><span class='op'>(</span><span class='fu'>prop_table</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "&lt;w:tblPr&gt;NA\"/&gt;&lt;w:tblLayout w:type=\"autofit\"/&gt;&lt;w:jc w:val=\"center\"/&gt;&lt;w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"0\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/&gt;&lt;/w:tblPr&gt;"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -238,11 +255,11 @@ table width in the document, eventually column widths.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

@@ -8,6 +8,13 @@
 
 <title>section properties — prop_section • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -44,6 +51,7 @@
 that have a set of properties that define pages on which the text will appear.
 A Section properties object stores information about page composition,
 such as page size, page orientation, borders and margins." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -75,32 +83,26 @@ such as page size, page orientation, borders and margins." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -129,12 +131,12 @@ that have a set of properties that define pages on which the text will appear.</
 such as page size, page orientation, borders and margins.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prop_section</span>(
-  <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>page_margins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>section_columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>prop_section</span><span class='op'>(</span>
+  page_size <span class='op'>=</span> <span class='cn'>NULL</span>,
+  page_margins <span class='op'>=</span> <span class='cn'>NULL</span>,
+  type <span class='op'>=</span> <span class='cn'>NULL</span>,
+  section_columns <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,6 +164,12 @@ odd-numbered page).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/prop_section_doc_1.png' width=80% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='block_section.html'>block_section</a></p>
@@ -171,52 +179,36 @@ odd-numbered page).</p></td>
 <code><a href='section_columns.html'>section_columns</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prop_section</span>(
-  <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fu'><a href='page_size.html'>page_size</a></span>(<span class='kw'>orient</span> <span class='kw'>=</span> <span class='st'>"landscape"</span>),
-  <span class='kw'>page_margins</span> <span class='kw'>=</span> <span class='fu'><a href='page_mar.html'>page_mar</a></span>(<span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>2</span>),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"continuous"</span>)</div><div class='output co'>#&gt; $type
-#&gt; [1] "continuous"
-#&gt; 
-#&gt; $page_size
-#&gt; $width
-#&gt; [1] 11.69291
-#&gt; 
-#&gt; $height
-#&gt; [1] 8.267717
-#&gt; 
-#&gt; $orient
-#&gt; [1] "landscape"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "page_size"
-#&gt; 
-#&gt; $page_margins
-#&gt; $header
-#&gt; [1] 0.5
-#&gt; 
-#&gt; $bottom
-#&gt; [1] 1
-#&gt; 
-#&gt; $top
-#&gt; [1] 2
-#&gt; 
-#&gt; $right
-#&gt; [1] 1
-#&gt; 
-#&gt; $left
-#&gt; [1] 1
-#&gt; 
-#&gt; $footer
-#&gt; [1] 0.5
-#&gt; 
-#&gt; $gutter
-#&gt; [1] 0.5
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "page_mar"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "prop_section" "prop"        </div></pre>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+
+<span class='va'>landscape_one_column</span> <span class='op'>&lt;-</span> <span class='fu'><a href='block_section.html'>block_section</a></span><span class='op'>(</span>
+  <span class='fu'>prop_section</span><span class='op'>(</span>
+    page_size <span class='op'>=</span> <span class='fu'><a href='page_size.html'>page_size</a></span><span class='op'>(</span>orient <span class='op'>=</span> <span class='st'>"landscape"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"continuous"</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>landscape_two_columns</span> <span class='op'>&lt;-</span> <span class='fu'><a href='block_section.html'>block_section</a></span><span class='op'>(</span>
+  <span class='fu'>prop_section</span><span class='op'>(</span>
+    page_size <span class='op'>=</span> <span class='fu'><a href='page_size.html'>page_size</a></span><span class='op'>(</span>orient <span class='op'>=</span> <span class='st'>"landscape"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"continuous"</span>,
+    section_columns <span class='op'>=</span> <span class='fu'><a href='section_columns.html'>section_columns</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4.75</span>, <span class='fl'>4.75</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'># there starts section with landscape_one_column</span>
+<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_table.html'>body_add_table</a></span><span class='op'>(</span><span class='va'>doc_1</span>, value <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,<span class='op'>]</span>, style <span class='op'>=</span> <span class='st'>"table_template"</span><span class='op'>)</span>
+<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_end_block_section.html'>body_end_block_section</a></span><span class='op'>(</span><span class='va'>doc_1</span>, value <span class='op'>=</span> <span class='va'>landscape_one_column</span><span class='op'>)</span>
+<span class='co'># there stops section with landscape_one_column</span>
+
+
+<span class='co'># there starts section with landscape_two_columns</span>
+<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc_1</span>, value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>letters</span>, <span class='fl'>50</span><span class='op'>)</span>, collapse <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_end_block_section.html'>body_end_block_section</a></span><span class='op'>(</span><span class='va'>doc_1</span>, value <span class='op'>=</span> <span class='va'>landscape_two_columns</span><span class='op'>)</span>
+<span class='co'># there stops section with landscape_two_columns</span>
+
+<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_table.html'>body_add_table</a></span><span class='op'>(</span><span class='va'>doc_1</span>, value <span class='op'>=</span> <span class='va'>mtcars</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>25</span>,<span class='op'>]</span>, style <span class='op'>=</span> <span class='st'>"table_template"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc_1</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -229,11 +221,11 @@ odd-numbered page).</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

@@ -8,6 +8,13 @@
 
 <title>Cell formatting properties — fp_cell • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Cell formatting properties — fp_cell" />
 <meta property="og:description" content="Create a fp_cell object that describes cell formatting properties." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,32 +80,26 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -123,46 +125,46 @@
     <p>Create a <code>fp_cell</code> object that describes cell formatting properties.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fp_cell</span>(
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='fu'><a href='fp_border.html'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-  <span class='no'>border.bottom</span>,
-  <span class='no'>border.left</span>,
-  <span class='no'>border.top</span>,
-  <span class='no'>border.right</span>,
-  <span class='kw'>vertical.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>margin.bottom</span>,
-  <span class='no'>margin.top</span>,
-  <span class='no'>margin.left</span>,
-  <span class='no'>margin.right</span>,
-  <span class='kw'>background.color</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>text.direction</span> <span class='kw'>=</span> <span class='st'>"lrtb"</span>
-)
+    <pre class="usage"><span class='fu'>fp_cell</span><span class='op'>(</span>
+  border <span class='op'>=</span> <span class='fu'><a href='fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+  <span class='va'>border.bottom</span>,
+  <span class='va'>border.left</span>,
+  <span class='va'>border.top</span>,
+  <span class='va'>border.right</span>,
+  vertical.align <span class='op'>=</span> <span class='st'>"center"</span>,
+  margin <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>margin.bottom</span>,
+  <span class='va'>margin.top</span>,
+  <span class='va'>margin.left</span>,
+  <span class='va'>margin.right</span>,
+  background.color <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  text.direction <span class='op'>=</span> <span class='st'>"lrtb"</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for fp_cell</span>
-<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"wml"</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"wml"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for fp_cell</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for fp_cell</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='no'>border</span>,
-  <span class='no'>border.bottom</span>,
-  <span class='no'>border.left</span>,
-  <span class='no'>border.top</span>,
-  <span class='no'>border.right</span>,
-  <span class='no'>vertical.align</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>margin.bottom</span>,
-  <span class='no'>margin.top</span>,
-  <span class='no'>margin.left</span>,
-  <span class='no'>margin.right</span>,
-  <span class='no'>background.color</span>,
-  <span class='no'>text.direction</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>border</span>,
+  <span class='va'>border.bottom</span>,
+  <span class='va'>border.left</span>,
+  <span class='va'>border.top</span>,
+  <span class='va'>border.right</span>,
+  <span class='va'>vertical.align</span>,
+  margin <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>margin.bottom</span>,
+  <span class='va'>margin.top</span>,
+  <span class='va'>margin.left</span>,
+  <span class='va'>margin.right</span>,
+  <span class='va'>background.color</span>,
+  <span class='va'>text.direction</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,8 +216,9 @@ value is one of "lrtb", "tbrl", "btlr".</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>fp_cell</span>(<span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>( <span class='no'>obj</span>, <span class='kw'>margin.bottom</span> <span class='kw'>=</span> <span class='fl'>5</span> )</div><div class='output co'>#&gt; background-color:transparent;vertical-align:middle;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;margin-bottom:5pt;margin-top:1pt;margin-left:1pt;margin-right:1pt;</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>obj</span> <span class='op'>&lt;-</span> <span class='fu'>fp_cell</span><span class='op'>(</span>margin <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span> <span class='va'>obj</span>, margin.bottom <span class='op'>=</span> <span class='fl'>5</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; background-color:transparent;vertical-align:middle;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;margin-bottom:5pt;margin-top:1pt;margin-left:1pt;margin-right:1pt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,11 +231,11 @@ value is one of "lrtb", "tbrl", "btlr".</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

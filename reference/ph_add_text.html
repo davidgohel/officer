@@ -8,6 +8,13 @@
 
 <title>append text — ph_add_text • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="append text in a placeholder.
 The function let you add text to an existing
 content in an exiisting shape, existing text will be preserved." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -74,32 +82,26 @@ content in an exiisting shape, existing text will be preserved." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,18 +129,18 @@ The function let you add text to an existing
 content in an exiisting shape, existing text will be preserved.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_add_text</span>(
-  <span class='no'>x</span>,
-  <span class='no'>str</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-  <span class='kw'>pos</span> <span class='kw'>=</span> <span class='st'>"after"</span>,
-  <span class='kw'>href</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>slide_index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ph_add_text</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>str</span>,
+  type <span class='op'>=</span> <span class='st'>"body"</span>,
+  id <span class='op'>=</span> <span class='fl'>1</span>,
+  id_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ph_label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  style <span class='op'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+  pos <span class='op'>=</span> <span class='st'>"after"</span>,
+  href <span class='op'>=</span> <span class='cn'>NULL</span>,
+  slide_index <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,35 +201,36 @@ It will be ignored if <code>href</code> is not NULL.</p></td>
 with a <code><a href='block_list.html'>block_list</a></code> instead of this function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>my_pres</span>)
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>my_pres</span>, <span class='st'>""</span>,
-  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>))
+    <pre class="examples"><div class='input'><span class='va'>fileout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>my_pres</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>my_pres</span>, <span class='st'>""</span>,
+  location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>small_red</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>14</span>)
+<span class='va'>small_red</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>
 
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_add_text</span>(<span class='no'>my_pres</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"A small red text."</span>,
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='no'>small_red</span>)
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_add_par.html'>ph_add_par</a></span>(<span class='no'>my_pres</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>my_pres</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_add_text</span>(<span class='no'>my_pres</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"Level 2"</span>)
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'>ph_add_text</span><span class='op'>(</span><span class='va'>my_pres</span>, str <span class='op'>=</span> <span class='st'>"A small red text."</span>,
+  style <span class='op'>=</span> <span class='va'>small_red</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_add_par.html'>ph_add_par</a></span><span class='op'>(</span><span class='va'>my_pres</span>, level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>my_pres</span> <span class='op'>&lt;-</span> <span class='fu'>ph_add_text</span><span class='op'>(</span><span class='va'>my_pres</span>, str <span class='op'>=</span> <span class='st'>"Level 2"</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>my_pres</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>my_pres</span>, target <span class='op'>=</span> <span class='va'>fileout</span><span class='op'>)</span>
 
 <span class='co'># another example ----</span>
-<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+<span class='va'>fileout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
 
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>"Un titre 2"</span>,
-  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>))
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='no'>doc</span>, <span class='st'>""</span>,
-  <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span>(<span class='kw'>rotation</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>bg</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-      <span class='kw'>newlabel</span> <span class='kw'>=</span> <span class='st'>"myph"</span>))
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_add_text</span>(<span class='no'>doc</span>, <span class='kw'>str</span> <span class='kw'>=</span> <span class='st'>"dummy text"</span>,
-  <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"myph"</span>)
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"Un titre 2"</span>,
+  location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"title"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>""</span>,
+  location <span class='op'>=</span> <span class='fu'><a href='ph_location.html'>ph_location</a></span><span class='op'>(</span>rotation <span class='op'>=</span> <span class='fl'>90</span>, bg <span class='op'>=</span> <span class='st'>"red"</span>,
+      newlabel <span class='op'>=</span> <span class='st'>"myph"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>ph_add_text</span><span class='op'>(</span><span class='va'>doc</span>, str <span class='op'>=</span> <span class='st'>"dummy text"</span>,
+  ph_label <span class='op'>=</span> <span class='st'>"myph"</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='va'>fileout</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -240,11 +243,11 @@ with a <code><a href='block_list.html'>block_list</a></code> instead of this fun
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

@@ -8,6 +8,13 @@
 
 <title>Concatenate formatted text as a paragraph — fpar • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,12 +48,16 @@
 
 <meta property="og:title" content="Concatenate formatted text as a paragraph — fpar" />
 <meta property="og:description" content="Create a paragraph representation by concatenating
-formatted text or images.
-fpar supports ftext, external_img and simple strings.
-All its arguments will be concatenated to create a paragraph where chunks
-of text and images are associated with formatting properties.
-Default text and paragraph formatting properties can also
-be modified with update." />
+formatted text or images. The result can be inserted in a Word document
+or a PowerPoint presentation and can also be inserted in a block_list()
+call.
+All its arguments will be concatenated to create a paragraph where chunks of
+text and images are associated with formatting properties.
+fpar supports ftext(), external_img(), run_* functions
+(i.e. run_autonum(), run_seqfield()) when output is Word, and simple strings.
+Default text and paragraph formatting properties can also be modified
+with function update()." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -78,32 +89,26 @@ be modified with update." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,18 +132,21 @@ be modified with update." />
 
     <div class="ref-description">
     <p>Create a paragraph representation by concatenating
-formatted text or images.</p>
-<p><code>fpar</code> supports <code>ftext</code>, <code>external_img</code> and simple strings.
-All its arguments will be concatenated to create a paragraph where chunks
-of text and images are associated with formatting properties.</p>
-<p>Default text and paragraph formatting properties can also
-be modified with update.</p>
+formatted text or images. The result can be inserted in a Word document
+or a PowerPoint presentation and can also be inserted in a <code><a href='block_list.html'>block_list()</a></code>
+call.</p>
+<p>All its arguments will be concatenated to create a paragraph where chunks of
+text and images are associated with formatting properties.</p>
+<p><code>fpar</code> supports <code><a href='ftext.html'>ftext()</a></code>, <code><a href='external_img.html'>external_img()</a></code>, <code>run_*</code> functions
+(i.e. <code><a href='run_autonum.html'>run_autonum()</a></code>, <code><a href='run_word_field.html'>run_seqfield()</a></code>) when output is Word, and simple strings.</p>
+<p>Default text and paragraph formatting properties can also be modified
+with function <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fpar</span>(<span class='no'>...</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span>(), <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span>())
+    <pre class="usage"><span class='fu'>fpar</span><span class='op'>(</span><span class='va'>...</span>, fp_p <span class='op'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span><span class='op'>(</span><span class='op'>)</span>, fp_t <span class='op'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># S3 method for fpar</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>object</span>, <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fp_t</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>object</span>, fp_p <span class='op'>=</span> <span class='cn'>NULL</span>, fp_t <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,13 +170,10 @@ text formatting properties when simple text is provided as argument.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>fortify_fpar</code>, <code>as.data.frame</code> are used internally and
-are not supposed to be used by end user.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other block functions for reporting: 
+    <div class='dont-index'><p><code><a href='block_list.html'>block_list()</a></code>, <code><a href='body_add_fpar.html'>body_add_fpar()</a></code>, <code><a href='ph_with.html'>ph_with()</a></code></p>
+<p>Other block functions for reporting: 
 <code><a href='block_caption.html'>block_caption</a>()</code>,
 <code><a href='block_list.html'>block_list</a>()</code>,
 <code><a href='block_pour_docx.html'>block_pour_docx</a>()</code>,
@@ -179,7 +184,8 @@ are not supposed to be used by end user.</p>
 <code><a href='unordered_list.html'>unordered_list</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>fpar</span>(<span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"hello"</span>, <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>()))</div><div class='output co'>#&gt; $chunks
+    <pre class="examples"><div class='input'><span class='fu'>fpar</span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello"</span>, <span class='va'>shortcuts</span><span class='op'>$</span><span class='fu'>fp_bold</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $chunks
 #&gt; $chunks[[1]]
 #&gt; text: hello
 #&gt; format:
@@ -209,16 +215,17 @@ are not supposed to be used by end user.</p>
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"</div><div class='input'>
 <span class='co'># mix text and image -----</span>
-<span class='no'>img.file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span>(<span class='st'>"doc"</span>), <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> )
+<span class='va'>img.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> <span class='op'>)</span>
 
-<span class='no'>bold_face</span> <span class='kw'>&lt;-</span> <span class='no'>shortcuts</span>$<span class='fu'>fp_bold</span>(<span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>12</span>)
-<span class='no'>bold_redface</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>bold_face</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)
-<span class='no'>fpar_1</span> <span class='kw'>&lt;-</span> <span class='fu'>fpar</span>(
+<span class='va'>bold_face</span> <span class='op'>&lt;-</span> <span class='va'>shortcuts</span><span class='op'>$</span><span class='fu'>fp_bold</span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>
+<span class='va'>bold_redface</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>bold_face</span>, color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+<span class='va'>fpar_1</span> <span class='op'>&lt;-</span> <span class='fu'>fpar</span><span class='op'>(</span>
   <span class='st'>"Hello World, "</span>,
-  <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>"how "</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_redface</span> ),
-  <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>/<span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>/<span class='fl'>2</span>),
-  <span class='fu'><a href='ftext.html'>ftext</a></span>(<span class='st'>" you?"</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='no'>bold_face</span> ) )
-<span class='no'>fpar_1</span></div><div class='output co'>#&gt; $chunks
+  <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"how "</span>, prop <span class='op'>=</span> <span class='va'>bold_redface</span> <span class='op'>)</span>,
+  <span class='fu'><a href='external_img.html'>external_img</a></span><span class='op'>(</span>src <span class='op'>=</span> <span class='va'>img.file</span>, height <span class='op'>=</span> <span class='fl'>1.06</span><span class='op'>/</span><span class='fl'>2</span>, width <span class='op'>=</span> <span class='fl'>1.39</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>,
+  <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>" you?"</span>, prop <span class='op'>=</span> <span class='va'>bold_face</span> <span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>fpar_1</span>
+</div><div class='output co'>#&gt; $chunks
 #&gt; $chunks[[1]]
 #&gt; [1] "Hello World, "
 #&gt; 
@@ -229,9 +236,9 @@ are not supposed to be used by end user.</p>
 #&gt; 1   12  FALSE TRUE      FALSE   red transparent    Arial       baseline
 #&gt; 
 #&gt; $chunks[[3]]
-#&gt; [1] "/Library/Frameworks/R.framework/Resources/doc/html/logo.jpg"
+#&gt; [1] "/opt/R/4.0.3/lib/R/doc/html/logo.jpg"
 #&gt; attr(,"class")
-#&gt; [1] "external_img" "cot"         
+#&gt; [1] "external_img" "cot"          "run"         
 #&gt; attr(,"dims")
 #&gt; attr(,"dims")$width
 #&gt; [1] 0.695
@@ -268,9 +275,10 @@ are not supposed to be used by end user.</p>
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"</div><div class='input'>
-<span class='no'>img_in_par</span> <span class='kw'>&lt;-</span> <span class='fu'>fpar</span>(
-  <span class='fu'><a href='external_img.html'>external_img</a></span>(<span class='kw'>src</span> <span class='kw'>=</span> <span class='no'>img.file</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1.06</span>/<span class='fl'>2</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1.39</span>/<span class='fl'>2</span>),
-  <span class='kw'>fp_p</span> <span class='kw'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span>(<span class='kw'>text.align</span> <span class='kw'>=</span> <span class='st'>"center"</span>) )</div></pre>
+<span class='va'>img_in_par</span> <span class='op'>&lt;-</span> <span class='fu'>fpar</span><span class='op'>(</span>
+  <span class='fu'><a href='external_img.html'>external_img</a></span><span class='op'>(</span>src <span class='op'>=</span> <span class='va'>img.file</span>, height <span class='op'>=</span> <span class='fl'>1.06</span><span class='op'>/</span><span class='fl'>2</span>, width <span class='op'>=</span> <span class='fl'>1.39</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>,
+  fp_p <span class='op'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span><span class='op'>(</span>text.align <span class='op'>=</span> <span class='st'>"center"</span><span class='op'>)</span> <span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,11 +291,11 @@ are not supposed to be used by end user.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>

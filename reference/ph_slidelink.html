@@ -8,6 +8,13 @@
 
 <title>slide link to a placeholder — ph_slidelink • officer</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="slide link to a placeholder — ph_slidelink" />
 <meta property="og:description" content="add slide link to a placeholder in the current slide." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,32 +80,26 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/offcran/powerpoint.html">Powerpoint</a>
-</li>
-<li>
-  <a href="../articles/offcran/word.html">Word</a>
-</li>
-<li>
-  <a href="../articles/offcran/graphics.html">Graphics</a>
-</li>
-<li>
-  <a href="../articles/offcran/officer_reader.html">Office scraping</a>
-</li>
-<li>
   <a href="../reference/index.html">Function reference</a>
+</li>
+<li>
+  <a href="https://ardata-fr.github.io/officeverse/">
+    <span class="fa fa-book fa-lg"></span>
+     
+  </a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/davidgohel/officer">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/davidgohel/officer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -123,14 +125,14 @@
     <p>add slide link to a placeholder in the current slide.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_slidelink</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"body"</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>id_chr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>slide_index</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ph_slidelink</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='st'>"body"</span>,
+  id <span class='op'>=</span> <span class='fl'>1</span>,
+  id_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ph_label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>slide_index</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,18 +175,20 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
 <code><a href='ph_remove.html'>ph_remove</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='no'>loc_title</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"title"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"Un titre 1"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_title</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span>(<span class='no'>doc</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='st'>"Un titre 2"</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='no'>loc_title</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='on_slide.html'>on_slide</a></span>(<span class='no'>doc</span>, <span class='fl'>1</span>)
-<span class='fu'><a href='slide_summary.html'>slide_summary</a></span>(<span class='no'>doc</span>) <span class='co'># read column ph_label here</span></div><div class='output co'>#&gt;    type id ph_label offx      offy cx   cy       text
-#&gt; 1 title  2  Title 1  0.5 0.3003478  9 1.25 Un titre 1</div><div class='input'><span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_slidelink</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>doc</span>, <span class='kw'>ph_label</span> <span class='kw'>=</span> <span class='st'>"Title 1"</span>, <span class='kw'>slide_index</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+    <pre class="examples"><div class='input'><span class='va'>fileout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
+<span class='va'>loc_title</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"title"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"Un titre 1"</span>, location <span class='op'>=</span> <span class='va'>loc_title</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"Un titre 2"</span>, location <span class='op'>=</span> <span class='va'>loc_title</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='on_slide.html'>on_slide</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='slide_summary.html'>slide_summary</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span> <span class='co'># read column ph_label here</span>
+</div><div class='output co'>#&gt;    type id ph_label offx      offy cx   cy       text
+#&gt; 1 title  2  Title 1  0.5 0.3003478  9 1.25 Un titre 1</div><div class='input'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>ph_slidelink</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, ph_label <span class='op'>=</span> <span class='st'>"Title 1"</span>, slide_index <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span> )</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='va'>fileout</span> <span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -197,11 +201,11 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.12 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>
