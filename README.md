@@ -14,12 +14,22 @@ coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg
 [![Lifecycle:
 Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
-<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>.
+<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
 The officer package lets R users manipulate Word (`.docx`) and
 PowerPoint (`*.pptx`) documents. In short, one can add images, tables
 and text into documents from R. An initial document can be provided;
 contents, styles and properties of the original document will then be
 available.
+
+## Ressources
+
+The help pages are located at:
+
+<https://ardata-fr.github.io/officeverse/>
+
+Manuals are available at:
+
+<https://davidgohel.github.io/officer/>.
 
 ## Word documents
 
@@ -112,14 +122,7 @@ Or the latest version on CRAN:
 install.packages("officer")
 ```
 
-## Resources
-
-### Online documentation
-
-The help pages are located at <https://ardata-fr.github.io/officeverse/>
-and manuals are available at <https://davidgohel.github.io/officer/>.
-
-### Getting help
+## Getting help
 
 If you have questions about how to use the package, [visit Stack
 Overflow’s `officer`

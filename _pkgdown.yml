@@ -6,6 +6,8 @@ template:
 
 home:
   links:
+  - text: 'The documentation is in the <strong>officeverse</strong> book'
+    href: https://ardata-fr.github.io/officeverse/
   - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
     href: https://www.ardata.fr
 
@@ -93,5 +95,5 @@ navbar:
   left:
   - text: Function reference
     href: reference/index.html
-  - icon: fa-book fa-lg
+  - text: Documentation
     href: https://ardata-fr.github.io/officeverse/
