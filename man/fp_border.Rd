@@ -32,3 +32,10 @@ fp_border(color="gray", style="dotted", width=1)
 border <- fp_border()
 update(border, style="dotted", width=3)
 }
+\seealso{
+Other functions for defining formatting properties: 
+\code{\link{fp_cell}()},
+\code{\link{fp_par}()},
+\code{\link{fp_text}()}
+}
+\concept{functions for defining formatting properties}

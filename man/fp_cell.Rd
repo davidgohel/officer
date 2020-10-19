@@ -76,3 +76,10 @@ Create a \code{fp_cell} object that describes cell formatting properties.
 obj <- fp_cell(margin = 1)
 update( obj, margin.bottom = 5 )
 }
+\seealso{
+Other functions for defining formatting properties: 
+\code{\link{fp_border}()},
+\code{\link{fp_par}()},
+\code{\link{fp_text}()}
+}
+\concept{functions for defining formatting properties}

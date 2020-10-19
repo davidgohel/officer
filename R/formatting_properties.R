@@ -112,6 +112,7 @@ check_set_choice <- function( obj, value, choices){
 #' fp_text()
 #' fp_text(color = "red")
 #' fp_text(bold = TRUE, shading.color = "yellow")
+#' @family functions for defining formatting properties
 #' @seealso [ftext], [fpar]
 #' @export
 fp_text <- function( color = "black", font.size = 10,
@@ -227,6 +228,7 @@ border_styles = c( "none", "solid", "dotted", "dashed" )
 #' fp_border(color="orange", style="solid", width=1)
 #' fp_border(color="gray", style="dotted", width=1)
 #' @export
+#' @family functions for defining formatting properties
 fp_border = function( color = "black", style = "solid", width = 1 ){
 
   out <- list()
@@ -298,6 +300,8 @@ print.fp_border <- function(x, ...) {
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
 #' @export
+#' @family functions for defining formatting properties
+#' @seealso [fpar]
 fp_par = function(text.align = "left",
                   padding = 0,
                   line_spacing = 1,
@@ -464,6 +468,7 @@ text.directions <- c( "lrtb", "tbrl", "btlr" )
 #' @param text.direction cell text rotation - a single character value, expected
 #' value is one of "lrtb", "tbrl", "btlr".
 #' @export
+#' @family functions for defining formatting properties
 fp_cell = function(
   border = fp_border(width=0),
   border.bottom, border.left, border.top, border.right,
@@ -471,8 +476,7 @@ fp_cell = function(
   margin = 0,
   margin.bottom, margin.top, margin.left, margin.right,
   background.color = "transparent",
-  text.direction = "lrtb"
-){
+  text.direction = "lrtb"){
 
   out <- list()
 

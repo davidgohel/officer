@@ -82,4 +82,10 @@ print( fp_text (color="red", font.size = 12) )
 }
 \seealso{
 \link{ftext}, \link{fpar}
+
+Other functions for defining formatting properties: 
+\code{\link{fp_border}()},
+\code{\link{fp_cell}()},
+\code{\link{fp_par}()}
 }
+\concept{functions for defining formatting properties}
