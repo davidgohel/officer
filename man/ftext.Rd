@@ -4,7 +4,7 @@
 \alias{ftext}
 \title{formatted chunk of text}
 \usage{
-ftext(text, prop)
+ftext(text, prop = NULL)
 }
 \arguments{
 \item{text}{text value, a single character value}

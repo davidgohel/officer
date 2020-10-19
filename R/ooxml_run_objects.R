@@ -50,7 +50,8 @@ bookmark <- function(id, str) {
 #' @description Format a chunk of text with text formatting properties (bold, color, ...).
 #' The function allows you to create pieces of text formatted the way you want.
 #' @param text text value, a single character value
-#' @param prop formatting text properties returned by [fp_text].
+#' @param prop formatting text properties returned by [fp_text]. It also can be NULL in
+#' which case, no formatting is defined (the default is applied).
 #' @section usage:
 #' You can use this function in conjunction with [fpar] to create paragraphs
 #' consisting of differently formatted text parts. You can also use this
@@ -70,7 +71,7 @@ bookmark <- function(id, str) {
 #' print(x, target = tempfile(fileext = ".docx"))
 #' @seealso [fp_text]
 #' @family run functions for reporting
-ftext <- function(text, prop) {
+ftext <- function(text, prop = NULL) {
   if(is.character(text)) {
     value <- enc2utf8(text)
   } else {
@@ -102,13 +103,13 @@ to_pml.ftext <- function(x, add_ns = FALSE, ...) {
   if (add_ns) {
     open_tag <- ar_ns_yes
   }
-  paste0(open_tag, rpr_pml(x$pr),
+  paste0(open_tag, if(!is.null(x$pr)) rpr_pml(x$pr),
          "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>")
 }
 
 #' @export
 to_html.ftext <- function(x, ...) {
-  sprintf("<span style=\"%s\">%s</span>", rpr_css(x$pr), htmlEscapeCopy(x$value))
+  sprintf("<span style=\"%s\">%s</span>", if(!is.null(x$pr)) rpr_css(x$pr) else "", htmlEscapeCopy(x$value))
 }
 
 
@@ -281,8 +282,20 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
 #' @family run functions for reporting
 run_bookmark <- function(bkm, run) {
 
-  if(!inherits(run, "run"))
-    stop("`run` must be a run object (ftext for example)")
+  all_run <- FALSE
+
+  if(inherits(run, "run")){
+    run <- list(run)
+  }
+
+  if(is.list(run) && !inherits(run, "run")){
+    all_run <- all(vapply(run, inherits, FUN.VALUE = FALSE, what = "run" ))
+  }
+
+
+  if(!all_run)
+    stop("`run` must be a run object (ftext for example) or a list of run objects.")
+
   bkm <- check_bookmark_id(bkm)
 
   z <- list(id = bkm, run = run)
@@ -292,7 +305,9 @@ run_bookmark <- function(bkm, run) {
 
 #' @export
 to_wml.run_bookmark <- function(x, add_ns = FALSE, ...) {
-  bookmark(id = x$id, str = to_wml(x$run, add_ns, ...))
+  runs <- lapply(x$run, to_wml, add_ns = add_ns, ...)
+  runs <- do.call(paste0, runs)
+  bookmark(id = x$id, str = runs)
 }
 
 # breaks ----

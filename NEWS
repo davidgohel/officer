@@ -12,6 +12,7 @@
 ## Change
 
 * `run_word_field` will supersed `run_seqfield`.
+* argument `prop` of `ftext()` now default to NULL
 
 # officer 0.3.14
 
