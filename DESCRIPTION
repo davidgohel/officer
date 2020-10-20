@@ -26,7 +26,7 @@ Imports:
     R6,
     grDevices,
     zip (>= 2.1.0),
-    uuid, stats,
+    uuid (>= 0.1-4), stats,
     magrittr,utils,
     xml2 (>= 1.1.0), graphics
 URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
