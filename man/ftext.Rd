@@ -9,7 +9,8 @@ ftext(text, prop = NULL)
 \arguments{
 \item{text}{text value, a single character value}
 
-\item{prop}{formatting text properties returned by \link{fp_text}.}
+\item{prop}{formatting text properties returned by \link{fp_text}. It also can be NULL in
+which case, no formatting is defined (the default is applied).}
 }
 \description{
 Format a chunk of text with text formatting properties (bold, color, ...).
