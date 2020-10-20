@@ -1,4 +1,4 @@
-unfold_row_pml <- function(node, row_num){
+unfold_row_pml <- function(node, row_id){
 
   children_ <- xml_children(node)
   cell_nodes <- children_[sapply(children_, function(x) xml_name(x)=="tc" )]
@@ -30,7 +30,7 @@ unfold_row_pml <- function(node, row_num){
   row_span <- row_span[, c("row_merge", "first", "row_span") ]
 
 
-  out <- data.frame(row_num = row_num, cell_id = seq_along(cell_nodes),
+  out <- data.frame(row_id = row_id, cell_id = seq_along(cell_nodes),
                 text = txt, col_span = col_span,
                 row_merge = row_span$row_merge,
                 first = row_span$first,

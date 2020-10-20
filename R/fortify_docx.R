@@ -1,4 +1,4 @@
-unfold_row_wml <- function(node, row_num){
+unfold_row_wml <- function(node, row_id){
   is_header_1 <- !inherits(xml_child(node, "w:trPr/w:tblHeader"), "xml_missing")
   is_header_2 <- !inherits(xml_child(node, "w:trPr/w:cnfStyle[@w:firstRow='1']"), "xml_missing")
   is_header <- is_header_1 | is_header_2
@@ -23,16 +23,16 @@ unfold_row_wml <- function(node, row_num){
   row_span <- rbind.match.columns(row_span)
   txt[row_span$row_merge & !row_span$first] <- NA
 
-  out <- data.frame(row_num = row_num, is_header = is_header,
+  out <- data.frame(row_id = row_id, is_header = is_header,
                 cell_id = 1 + simple_lag( cumsum(col_span), default=0 ),
                 text = txt, col_span = col_span, stringsAsFactors = FALSE)
   out <- cbind(out, row_span)
 
   out_add_ <- out[out$col_span > 1, ]
 
-  out_add_ <- mapply(function(row_num, is_header, cell_id, text, col_span, row_merge, first, row_span){
+  out_add_ <- mapply(function(row_id, is_header, cell_id, text, col_span, row_merge, first, row_span){
     reps_ <- col_span - 1
-    row_num_ <- rep( row_num, reps_)
+    row_num_ <- rep( row_id, reps_)
     is_header_ <- rep( is_header, reps_)
     cell_id_ <- rep( cell_id, reps_)
     text_ <- rep( NA, reps_)
@@ -40,13 +40,13 @@ unfold_row_wml <- function(node, row_num){
     row_merge_ <- rep( row_merge, reps_)
     first_ <- rep( first, reps_)
     row_span_ <- rep( row_span, reps_)
-    out <- data.frame(row_num = row_num_, is_header = is_header_, cell_id = cell_id_,
+    out <- data.frame(row_id = row_num_, is_header = is_header_, cell_id = cell_id_,
                       text = text_, col_span = col_span_, row_merge = row_merge_,
                       first = first_, row_span = row_span_,
                       stringsAsFactors = FALSE)
     out$cell_id <- seq_len(reps_) + cell_id
     out
-  }, out_add_$row_num, out_add_$is_header, out_add_$cell_id, out_add_$text,
+  }, out_add_$row_id, out_add_$is_header, out_add_$cell_id, out_add_$text,
   out_add_$col_span, out_add_$row_merge, out_add_$first, out_add_$row_span,
   SIMPLIFY = FALSE)
   if( length(out_add_) > 0 ){
@@ -132,7 +132,7 @@ docx_summary <- function( x ){
   data <- rbind.match.columns(data)
 
   colnames <- c("doc_index", "content_type", "style_name", "text",
-    "level", "num_id", "row_num", "is_header", "cell_id",
+    "level", "num_id", "row_id", "is_header", "cell_id",
     "col_span", "row_span")
   colnames <- intersect(colnames, names(data))
   data[, colnames]
