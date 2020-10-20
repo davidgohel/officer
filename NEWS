@@ -8,6 +8,8 @@
 ## Issues
 
 * fix #333: issue with &, <, > in `to_wml.block_table`.
+* fix https://github.com/davidgohel/officedown/issues/41: when a space was in the path, pandoc send the short path format
+instead of the real path name, it needed to be transformed with `normalizePath`.
 
 ## Change
 

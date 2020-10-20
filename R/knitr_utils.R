@@ -76,7 +76,7 @@ get_reference_value <- function(format = NULL) {
   } else {
     reference_data <- get_default_pandoc_data_file(format = format)
   }
-  return(reference_data)
+  return(normalizePath(reference_data, winslash = "/"))
 }
 
 
