@@ -81,7 +81,7 @@ return a dataset representing the document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.008</span>
       </span>
     </div>
 
@@ -141,61 +141,61 @@ return a dataset representing the document.</p>
   <span class='st'>"doc_examples/example.pptx"</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='va'>example_pptx</span><span class='op'>)</span>
 <span class='fu'>pptx_summary</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                    text id content_type slide_id row_num cell_id col_span
-#&gt; 1                 Title 12    paragraph        1      NA      NA       NA
-#&gt; 2              A table  13    paragraph        1      NA      NA       NA
-#&gt; 3         and some text 13    paragraph        1      NA      NA       NA
-#&gt; 4     and some list (1) 13    paragraph        1      NA      NA       NA
-#&gt; 5     and some list (2) 13    paragraph        1      NA      NA       NA
-#&gt; 1.1           Header 1  18   table cell        1       1       1        1
-#&gt; 1.4                   A 18   table cell        1       2       1        1
-#&gt; 1.7                   B 18   table cell        1       3       1        1
-#&gt; 1.10                  B 18   table cell        1       4       1        1
-#&gt; 1.13                  C 18   table cell        1       5       1        1
-#&gt; 2.2            Header 2 18   table cell        1       1       2        1
-#&gt; 2.5               12.23 18   table cell        1       2       2        1
-#&gt; 2.8                1.23 18   table cell        1       3       2        1
-#&gt; 2.11                9.0 18   table cell        1       4       2        1
-#&gt; 2.14                  6 18   table cell        1       5       2        1
-#&gt; 3.3            Header 3 18   table cell        1       1       3        1
-#&gt; 3.6           blah blah 18   table cell        1       2       3        1
-#&gt; 3.9      blah blah blah 18   table cell        1       3       3        1
-#&gt; 3.12              Salut 18   table cell        1       4       3        1
-#&gt; 3.15              Hello 18   table cell        1       5       3        1
-#&gt; 11               R logo 15    paragraph        1      NA      NA       NA
-#&gt; 12                 &lt;NA&gt; 17        image        1      NA      NA       NA
-#&gt; 13                   Hi  2    paragraph        2      NA      NA       NA
-#&gt; 21             This is   3    paragraph        2      NA      NA       NA
-#&gt; 31         an unordered  3    paragraph        2      NA      NA       NA
-#&gt; 41   list of paragraphs  3    paragraph        2      NA      NA       NA
-#&gt; 51                       3    paragraph        2      NA      NA       NA
-#&gt; 6    This is an ordered  3    paragraph        2      NA      NA       NA
-#&gt; 7    list of paragraphs  3    paragraph        2      NA      NA       NA
-#&gt; 1.12                     5   table cell        3       1       1        1
-#&gt; 1.6                   a  5   table cell        3       2       1        2
-#&gt; 1.11                     5   table cell        3       3       1        1
-#&gt; 1.16                  b  5   table cell        3       4       1        1
-#&gt; 1.21               &lt;NA&gt;  5   table cell        3       5       1        1
-#&gt; 2.21                     5   table cell        3       1       2        1
-#&gt; 2.7                &lt;NA&gt;  5   table cell        3       2       2        0
-#&gt; 2.12                     5   table cell        3       3       2        1
-#&gt; 2.17                     5   table cell        3       4       2        1
-#&gt; 2.22                     5   table cell        3       5       2        1
-#&gt; 3.31                     5   table cell        3       1       3        1
-#&gt; 3.8                      5   table cell        3       2       3        1
-#&gt; 3.13                  c  5   table cell        3       3       3        1
-#&gt; 3.18               &lt;NA&gt;  5   table cell        3       4       3        1
-#&gt; 3.23                     5   table cell        3       5       3        1
-#&gt; 4.4                      5   table cell        3       1       4        1
-#&gt; 4.9                      5   table cell        3       2       4        1
-#&gt; 4.14                     5   table cell        3       3       4        1
-#&gt; 4.19                     5   table cell        3       4       4        1
-#&gt; 4.24                     5   table cell        3       5       4        1
-#&gt; 5.5                      5   table cell        3       1       5        1
-#&gt; 5.10                  d  5   table cell        3       2       5        1
-#&gt; 5.15               &lt;NA&gt;  5   table cell        3       3       5        1
-#&gt; 5.20                     5   table cell        3       4       5        1
-#&gt; 5.25                     5   table cell        3       5       5        1
+</div><div class='output co'>#&gt;                    text id content_type slide_id row_id cell_id col_span
+#&gt; 1                 Title 12    paragraph        1     NA      NA       NA
+#&gt; 2              A table  13    paragraph        1     NA      NA       NA
+#&gt; 3         and some text 13    paragraph        1     NA      NA       NA
+#&gt; 4     and some list (1) 13    paragraph        1     NA      NA       NA
+#&gt; 5     and some list (2) 13    paragraph        1     NA      NA       NA
+#&gt; 1.1           Header 1  18   table cell        1      1       1        1
+#&gt; 1.4                   A 18   table cell        1      2       1        1
+#&gt; 1.7                   B 18   table cell        1      3       1        1
+#&gt; 1.10                  B 18   table cell        1      4       1        1
+#&gt; 1.13                  C 18   table cell        1      5       1        1
+#&gt; 2.2            Header 2 18   table cell        1      1       2        1
+#&gt; 2.5               12.23 18   table cell        1      2       2        1
+#&gt; 2.8                1.23 18   table cell        1      3       2        1
+#&gt; 2.11                9.0 18   table cell        1      4       2        1
+#&gt; 2.14                  6 18   table cell        1      5       2        1
+#&gt; 3.3            Header 3 18   table cell        1      1       3        1
+#&gt; 3.6           blah blah 18   table cell        1      2       3        1
+#&gt; 3.9      blah blah blah 18   table cell        1      3       3        1
+#&gt; 3.12              Salut 18   table cell        1      4       3        1
+#&gt; 3.15              Hello 18   table cell        1      5       3        1
+#&gt; 11               R logo 15    paragraph        1     NA      NA       NA
+#&gt; 12                 &lt;NA&gt; 17        image        1     NA      NA       NA
+#&gt; 13                   Hi  2    paragraph        2     NA      NA       NA
+#&gt; 21             This is   3    paragraph        2     NA      NA       NA
+#&gt; 31         an unordered  3    paragraph        2     NA      NA       NA
+#&gt; 41   list of paragraphs  3    paragraph        2     NA      NA       NA
+#&gt; 51                       3    paragraph        2     NA      NA       NA
+#&gt; 6    This is an ordered  3    paragraph        2     NA      NA       NA
+#&gt; 7    list of paragraphs  3    paragraph        2     NA      NA       NA
+#&gt; 1.12                     5   table cell        3      1       1        1
+#&gt; 1.6                   a  5   table cell        3      2       1        2
+#&gt; 1.11                     5   table cell        3      3       1        1
+#&gt; 1.16                  b  5   table cell        3      4       1        1
+#&gt; 1.21               &lt;NA&gt;  5   table cell        3      5       1        1
+#&gt; 2.21                     5   table cell        3      1       2        1
+#&gt; 2.7                &lt;NA&gt;  5   table cell        3      2       2        0
+#&gt; 2.12                     5   table cell        3      3       2        1
+#&gt; 2.17                     5   table cell        3      4       2        1
+#&gt; 2.22                     5   table cell        3      5       2        1
+#&gt; 3.31                     5   table cell        3      1       3        1
+#&gt; 3.8                      5   table cell        3      2       3        1
+#&gt; 3.13                  c  5   table cell        3      3       3        1
+#&gt; 3.18               &lt;NA&gt;  5   table cell        3      4       3        1
+#&gt; 3.23                     5   table cell        3      5       3        1
+#&gt; 4.4                      5   table cell        3      1       4        1
+#&gt; 4.9                      5   table cell        3      2       4        1
+#&gt; 4.14                     5   table cell        3      3       4        1
+#&gt; 4.19                     5   table cell        3      4       4        1
+#&gt; 4.24                     5   table cell        3      5       4        1
+#&gt; 5.5                      5   table cell        3      1       5        1
+#&gt; 5.10                  d  5   table cell        3      2       5        1
+#&gt; 5.15               &lt;NA&gt;  5   table cell        3      3       5        1
+#&gt; 5.20                     5   table cell        3      4       5        1
+#&gt; 5.25                     5   table cell        3      5       5        1
 #&gt;      row_span            media_file
 #&gt; 1          NA                  &lt;NA&gt;
 #&gt; 2          NA                  &lt;NA&gt;
@@ -251,61 +251,61 @@ return a dataset representing the document.</p>
 #&gt; 5.15        0                  &lt;NA&gt;
 #&gt; 5.20        1                  &lt;NA&gt;
 #&gt; 5.25        1                  &lt;NA&gt;</div><div class='input'><span class='fu'>pptx_summary</span><span class='op'>(</span><span class='va'>example_pptx</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                    text id content_type slide_id row_num cell_id col_span
-#&gt; 1                 Title 12    paragraph        1      NA      NA       NA
-#&gt; 2              A table  13    paragraph        1      NA      NA       NA
-#&gt; 3         and some text 13    paragraph        1      NA      NA       NA
-#&gt; 4     and some list (1) 13    paragraph        1      NA      NA       NA
-#&gt; 5     and some list (2) 13    paragraph        1      NA      NA       NA
-#&gt; 1.1           Header 1  18   table cell        1       1       1        1
-#&gt; 1.4                   A 18   table cell        1       2       1        1
-#&gt; 1.7                   B 18   table cell        1       3       1        1
-#&gt; 1.10                  B 18   table cell        1       4       1        1
-#&gt; 1.13                  C 18   table cell        1       5       1        1
-#&gt; 2.2            Header 2 18   table cell        1       1       2        1
-#&gt; 2.5               12.23 18   table cell        1       2       2        1
-#&gt; 2.8                1.23 18   table cell        1       3       2        1
-#&gt; 2.11                9.0 18   table cell        1       4       2        1
-#&gt; 2.14                  6 18   table cell        1       5       2        1
-#&gt; 3.3            Header 3 18   table cell        1       1       3        1
-#&gt; 3.6           blah blah 18   table cell        1       2       3        1
-#&gt; 3.9      blah blah blah 18   table cell        1       3       3        1
-#&gt; 3.12              Salut 18   table cell        1       4       3        1
-#&gt; 3.15              Hello 18   table cell        1       5       3        1
-#&gt; 11               R logo 15    paragraph        1      NA      NA       NA
-#&gt; 12                 &lt;NA&gt; 17        image        1      NA      NA       NA
-#&gt; 13                   Hi  2    paragraph        2      NA      NA       NA
-#&gt; 21             This is   3    paragraph        2      NA      NA       NA
-#&gt; 31         an unordered  3    paragraph        2      NA      NA       NA
-#&gt; 41   list of paragraphs  3    paragraph        2      NA      NA       NA
-#&gt; 51                       3    paragraph        2      NA      NA       NA
-#&gt; 6    This is an ordered  3    paragraph        2      NA      NA       NA
-#&gt; 7    list of paragraphs  3    paragraph        2      NA      NA       NA
-#&gt; 1.12                     5   table cell        3       1       1        1
-#&gt; 1.6                   a  5   table cell        3       2       1        2
-#&gt; 1.11                     5   table cell        3       3       1        1
-#&gt; 1.16                  b  5   table cell        3       4       1        1
-#&gt; 1.21               &lt;NA&gt;  5   table cell        3       5       1        1
-#&gt; 2.21                     5   table cell        3       1       2        1
-#&gt; 2.7                &lt;NA&gt;  5   table cell        3       2       2        0
-#&gt; 2.12                     5   table cell        3       3       2        1
-#&gt; 2.17                     5   table cell        3       4       2        1
-#&gt; 2.22                     5   table cell        3       5       2        1
-#&gt; 3.31                     5   table cell        3       1       3        1
-#&gt; 3.8                      5   table cell        3       2       3        1
-#&gt; 3.13                  c  5   table cell        3       3       3        1
-#&gt; 3.18               &lt;NA&gt;  5   table cell        3       4       3        1
-#&gt; 3.23                     5   table cell        3       5       3        1
-#&gt; 4.4                      5   table cell        3       1       4        1
-#&gt; 4.9                      5   table cell        3       2       4        1
-#&gt; 4.14                     5   table cell        3       3       4        1
-#&gt; 4.19                     5   table cell        3       4       4        1
-#&gt; 4.24                     5   table cell        3       5       4        1
-#&gt; 5.5                      5   table cell        3       1       5        1
-#&gt; 5.10                  d  5   table cell        3       2       5        1
-#&gt; 5.15               &lt;NA&gt;  5   table cell        3       3       5        1
-#&gt; 5.20                     5   table cell        3       4       5        1
-#&gt; 5.25                     5   table cell        3       5       5        1
+</div><div class='output co'>#&gt;                    text id content_type slide_id row_id cell_id col_span
+#&gt; 1                 Title 12    paragraph        1     NA      NA       NA
+#&gt; 2              A table  13    paragraph        1     NA      NA       NA
+#&gt; 3         and some text 13    paragraph        1     NA      NA       NA
+#&gt; 4     and some list (1) 13    paragraph        1     NA      NA       NA
+#&gt; 5     and some list (2) 13    paragraph        1     NA      NA       NA
+#&gt; 1.1           Header 1  18   table cell        1      1       1        1
+#&gt; 1.4                   A 18   table cell        1      2       1        1
+#&gt; 1.7                   B 18   table cell        1      3       1        1
+#&gt; 1.10                  B 18   table cell        1      4       1        1
+#&gt; 1.13                  C 18   table cell        1      5       1        1
+#&gt; 2.2            Header 2 18   table cell        1      1       2        1
+#&gt; 2.5               12.23 18   table cell        1      2       2        1
+#&gt; 2.8                1.23 18   table cell        1      3       2        1
+#&gt; 2.11                9.0 18   table cell        1      4       2        1
+#&gt; 2.14                  6 18   table cell        1      5       2        1
+#&gt; 3.3            Header 3 18   table cell        1      1       3        1
+#&gt; 3.6           blah blah 18   table cell        1      2       3        1
+#&gt; 3.9      blah blah blah 18   table cell        1      3       3        1
+#&gt; 3.12              Salut 18   table cell        1      4       3        1
+#&gt; 3.15              Hello 18   table cell        1      5       3        1
+#&gt; 11               R logo 15    paragraph        1     NA      NA       NA
+#&gt; 12                 &lt;NA&gt; 17        image        1     NA      NA       NA
+#&gt; 13                   Hi  2    paragraph        2     NA      NA       NA
+#&gt; 21             This is   3    paragraph        2     NA      NA       NA
+#&gt; 31         an unordered  3    paragraph        2     NA      NA       NA
+#&gt; 41   list of paragraphs  3    paragraph        2     NA      NA       NA
+#&gt; 51                       3    paragraph        2     NA      NA       NA
+#&gt; 6    This is an ordered  3    paragraph        2     NA      NA       NA
+#&gt; 7    list of paragraphs  3    paragraph        2     NA      NA       NA
+#&gt; 1.12                     5   table cell        3      1       1        1
+#&gt; 1.6                   a  5   table cell        3      2       1        2
+#&gt; 1.11                     5   table cell        3      3       1        1
+#&gt; 1.16                  b  5   table cell        3      4       1        1
+#&gt; 1.21               &lt;NA&gt;  5   table cell        3      5       1        1
+#&gt; 2.21                     5   table cell        3      1       2        1
+#&gt; 2.7                &lt;NA&gt;  5   table cell        3      2       2        0
+#&gt; 2.12                     5   table cell        3      3       2        1
+#&gt; 2.17                     5   table cell        3      4       2        1
+#&gt; 2.22                     5   table cell        3      5       2        1
+#&gt; 3.31                     5   table cell        3      1       3        1
+#&gt; 3.8                      5   table cell        3      2       3        1
+#&gt; 3.13                  c  5   table cell        3      3       3        1
+#&gt; 3.18               &lt;NA&gt;  5   table cell        3      4       3        1
+#&gt; 3.23                     5   table cell        3      5       3        1
+#&gt; 4.4                      5   table cell        3      1       4        1
+#&gt; 4.9                      5   table cell        3      2       4        1
+#&gt; 4.14                     5   table cell        3      3       4        1
+#&gt; 4.19                     5   table cell        3      4       4        1
+#&gt; 4.24                     5   table cell        3      5       4        1
+#&gt; 5.5                      5   table cell        3      1       5        1
+#&gt; 5.10                  d  5   table cell        3      2       5        1
+#&gt; 5.15               &lt;NA&gt;  5   table cell        3      3       5        1
+#&gt; 5.20                     5   table cell        3      4       5        1
+#&gt; 5.25                     5   table cell        3      5       5        1
 #&gt;      row_span            media_file
 #&gt; 1          NA                  &lt;NA&gt;
 #&gt; 2          NA                  &lt;NA&gt;
@@ -373,7 +373,7 @@ return a dataset representing the document.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.15.005 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.008 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
