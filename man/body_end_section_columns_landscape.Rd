@@ -47,6 +47,7 @@ Other functions for Word sections:
 \code{\link{body_end_section_columns}()},
 \code{\link{body_end_section_continuous}()},
 \code{\link{body_end_section_landscape}()},
-\code{\link{body_end_section_portrait}()}
+\code{\link{body_end_section_portrait}()},
+\code{\link{body_set_default_section}()}
 }
 \concept{functions for Word sections}

@@ -149,7 +149,7 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
 #' @title add any section
 #' @description Add a section to the document. You can
 #' define any section with a [block_section] object. All other
-#' `body_end_section_*` are specialized, thiis one is higly flexible
+#' `body_end_section_*` are specialized, this one is highly flexible
 #' but it's up to the user to define the section properties.
 #' @param x an rdocx object
 #' @param value a [block_section] object
@@ -183,6 +183,35 @@ body_end_block_section <- function( x, value ){
   stopifnot(inherits(value, "block_section"))
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml(x = x, str = xml_elt, pos = "after")
+
+  x
+}
+
+#' @export
+#' @title Define Default Section
+#' @description Define default section of the document. You can
+#' define section propeerties (page size, orientation, ...) with a [prop_section] object.
+#' @param x an rdocx object
+#' @param value a [prop_section] object
+#' @family functions for Word sections
+#' @examples
+#' default_sect_properties <- prop_section(
+#'     page_size = page_size(orient = "landscape"), type = "continuous",
+#'     page_margins = page_mar(bottom = .75, top = 1.5, right = 2, left = 2)
+#'   )
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_table(doc_1, value = mtcars[1:10,], style = "table_template")
+#' doc_1 <- body_add_par(doc_1, value = paste(rep(letters, 40), collapse = " "))
+#' doc_1 <- body_set_default_section(doc_1, default_sect_properties)
+#'
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+body_set_default_section <- function( x, value ){
+
+  stopifnot(inherits(value, "prop_section"))
+  xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
+  z <- xml_find_first(docx_body_xml(x), "w:body/w:sectPr")
+  xml_replace(z, as_xml_document(xml_elt))
 
   x
 }

@@ -32,6 +32,9 @@ that have a set of properties that define pages on which the text will appear.
 A Section properties object stores information about page composition,
 such as page size, page orientation, borders and margins.
 }
+\note{
+There is no support yet for header and footer contents definition.
+}
 \section{Illustrations}{
 
 

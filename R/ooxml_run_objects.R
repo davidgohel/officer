@@ -484,6 +484,8 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 #'
 #' A Section properties object stores information about page composition,
 #' such as page size, page orientation, borders and margins.
+#' @note
+#' There is no support yet for header and footer contents definition.
 #' @param page_size page dimensions, an object generated with function [page_size].
 #' @param page_margins page margins, an object generated with function [page_mar].
 #' @param type Section type. It defines how the contents of the section will be
@@ -559,8 +561,11 @@ prop_section <- function(page_size = NULL, page_margins = NULL,
 
 #' @export
 to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
+
   paste0(
-    "<w:sectPr>",
+    "<w:sectPr",
+    if (add_ns) " xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"",
+    ">",
     if(!is.null(x$page_margins)) to_wml(x$page_margins),
     if(!is.null(x$page_size)) to_wml(x$page_size),
     if(!is.null(x$type)) "<w:type w:val=\"", x$type, "\"/>",
