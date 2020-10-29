@@ -320,7 +320,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' @describeIn ph_with add a ggplot object to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
 #' @param res resolution of the png image in ppi
-ph_with.gg <- function(x, value, location, res = 300, ...){
+ph_with.gg <- function(x, value, location, res = 300, alt_text, ...){
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
@@ -339,7 +339,7 @@ ph_with.gg <- function(x, value, location, res = 300, ...){
   on.exit(unlink(file))
 
   ext_img <- external_img(file, width = width, height = height)
-  ph_with(x, ext_img, location = location )
+  ph_with(x, ext_img, location = location, alt_text = alt_text )
 }
 
 #' @export
@@ -389,7 +389,7 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...){
 #' specified in call to \code{external_img} will be
 #' ignored, their values will be those of the location,
 #' unless use_loc_size is set to FALSE.
-ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
+ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, alt_text, ...){
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
@@ -413,14 +413,13 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
     value[1] <- file
     file_type <- ".png"
   }
-
   new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)) )
   file.copy( as.character(value), to = new_src )
 
   xml_str <- pic_pml(left = location$left, top = location$top,
                        width = width, height = height,
                        label = location$ph_label, ph = location$ph,
-                       rot = location$rotation, bg = location$bg, src = new_src)
+                       rot = location$rotation, bg = location$bg, src = new_src, alt_text = alt_text)
 
   slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
   xml_elt <- fortify_pml_images(x, xml_str)

@@ -620,12 +620,15 @@ as.data.frame.external_img <- function( x, ... ){
 
 
 pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
-                     bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", src){
+                     bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", src, alt_text = ""){
 
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
   bg_str <- solid_fill_pml(bg)
+
+  if (missing(alt_text)) alt_text <- ""
+
 
   xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
   if( is.null(ph) || is.na(ph)){
@@ -639,7 +642,7 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
   str <- "
 <p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
   <p:nvPicPr>
-    <p:cNvPr id=\"0\" name=\"%s\"/>
+    <p:cNvPr id=\"0\" name=\"%s\" descr=\"%s\"/>
     <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
     <p:nvPr>%s</p:nvPr>
   </p:nvPicPr>
@@ -647,7 +650,7 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
   <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s</p:spPr>
 </p:pic>
 "
-  sprintf(str, label, ph, blipfill, xfrm_str, bg_str )
+  sprintf(str, label, alt_text, ph, blipfill, xfrm_str, bg_str )
 
 }
 
