@@ -15,3 +15,4 @@ unpack_folder(file, folder)
 Extract files from a zip file to a folder. The
 function returns the complete path to destination folder.
 }
+\keyword{internal}

@@ -8,6 +8,7 @@
 #' @param add_ns should namespace be added to the top tag
 #' @param ... Arguments to be passed to methods
 #' @family functions for officer extensions
+#' @keywords internal
 to_wml <- function(x, add_ns = FALSE, ...) {
   UseMethod("to_wml")
 }
@@ -20,6 +21,7 @@ to_wml <- function(x, add_ns = FALSE, ...) {
 #' @param add_ns should namespace be added to the top tag
 #' @param ... Arguments to be passed to methods
 #' @family functions for officer extensions
+#' @keywords internal
 to_pml <- function(x, add_ns = FALSE, ...) {
   UseMethod("to_pml")
 }
@@ -30,6 +32,7 @@ to_pml <- function(x, add_ns = FALSE, ...) {
 #' to HTML. The result is a string.
 #' @param x object
 #' @param ... Arguments to be passed to methods
+#' @keywords internal
 to_html <- function(x, ...) {
   UseMethod("to_html")
 }

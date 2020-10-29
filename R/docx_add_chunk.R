@@ -165,6 +165,7 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
+#' @keywords internal
 slip_in_xml <- function(x, str, pos){
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before")

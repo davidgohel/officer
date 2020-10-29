@@ -30,3 +30,4 @@ Other functions for officer extensions:
 \code{\link{wml_link_images}()}
 }
 \concept{functions for officer extensions}
+\keyword{internal}

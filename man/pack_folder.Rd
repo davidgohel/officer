@@ -15,3 +15,4 @@ pack_folder(folder, target)
 compress a folder to a target file. The
 function returns the complete path to target file.
 }
+\keyword{internal}

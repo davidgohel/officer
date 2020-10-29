@@ -11,6 +11,7 @@
 #' @param x an rdocx object
 #' @param src a vector of character containing image filenames.
 #' @family functions for officer extensions
+#' @keywords internal
 docx_reference_img <- function( x, src){
   x <- part_reference_img(x, src, "doc_obj")
   x
@@ -38,6 +39,7 @@ part_reference_img <- function( x, src, part){
 #' @param x an rdocx object
 #' @param str wml string
 #' @family functions for officer extensions
+#' @keywords internal
 wml_link_images <- function(x, str){
   wml_part_link_images(x, str, "doc_obj")
 }

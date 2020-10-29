@@ -15,3 +15,4 @@ to_html(x, ...)
 Convert an object made with package officer
 to HTML. The result is a string.
 }
+\keyword{internal}

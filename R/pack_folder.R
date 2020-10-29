@@ -5,6 +5,7 @@
 #' function returns the complete path to target file.
 #' @param folder folder to compress
 #' @param target path of the archive to create
+#' @keywords internal
 pack_folder <- function( folder, target ){
 
   target <- absolute_path(target)
@@ -47,6 +48,7 @@ pack_folder <- function( folder, target ){
 #' function returns the complete path to destination folder.
 #' @param file path of the archive to unzip
 #' @param folder folder to create
+#' @keywords internal
 unpack_folder <- function( file, folder ){
 
   stopifnot(file.exists(file))

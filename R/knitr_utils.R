@@ -38,6 +38,7 @@ get_default_pandoc_data_file <- function(format = "pptx") {
 #' @return a name file
 #' @importFrom utils compareVersion packageVersion
 #' @family functions for officer extensions
+#' @keywords internal
 get_reference_value <- function(format = NULL) {
 
   if( !is.null(format) && length(format) != 1 ){
@@ -114,6 +115,7 @@ knitr_opts_current <- function(x, default = FALSE){
 #' * no_hband (default: TRUE)
 #' * no_vband (default: TRUE)
 #' @family functions for officer extensions
+#' @keywords internal
 opts_current_table <- function() {
   tab.cap.style <- knitr_opts_current("tab.cap.style", default = NULL)
   tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table ")

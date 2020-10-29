@@ -18,3 +18,4 @@ one of "after", "before", "on".}
 Add an xml string as document element in the document. This function
 is to be used to add custom openxml code.
 }
+\keyword{internal}

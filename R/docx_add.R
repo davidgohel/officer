@@ -429,6 +429,7 @@ body_add_caption <- function( x, value, pos = "after"){
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
+#' @keywords internal
 body_add_xml <- function(x, str, pos){
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before", "on")

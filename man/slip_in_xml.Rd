@@ -18,3 +18,4 @@ slip_in_xml(x, str, pos)
 The function add a wml string into
 the document after, before or on a cursor location.
 }
+\keyword{internal}
