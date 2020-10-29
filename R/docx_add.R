@@ -398,6 +398,20 @@ body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = "
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @family functions for adding content
+#' @examples
+#' doc <- read_docx()
+#'
+#' if( capabilities(what = "png") )
+#'   doc <- body_add_plot(doc,
+#'     value = plot_instr(
+#'       code = {barplot(1:5, col = 2:6)}),
+#'       style = "centered" )
+#' run_num <- run_autonum(seq_id = "fig", pre_label = "Figure ",
+#'   bkm = "barplot")
+#' caption <- block_caption("a barplot", style = "Normal",
+#'   autonum = run_num )
+#' doc <- body_add_caption(doc, caption)
+#' print(doc, target = tempfile(fileext = ".docx") )
 body_add_caption <- function( x, value, pos = "after"){
   stopifnot(inherits(value, "block_caption"))
   out <- to_wml(value, add_ns = TRUE, base_document = x)
