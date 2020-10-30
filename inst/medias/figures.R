@@ -1,21 +1,12 @@
-library(logger)
 library(imgpress)
-library(magrittr)
-
-log_layout(layout_glue_colors)
-log_threshold(TRACE)
 
 man_names <- package_man_names(package_name = "officer")
-drop <- c("fpar")
-man_names <- setdiff(man_names, drop)
-
 
 pattern <- "^doc_[0-9]+?$"
 
 rm(list = ls(pattern = pattern))
 out <- list()
 for (man_name in man_names) {
-  log_info("watching {man_name}")
   out[[man_name]] <- process_manual_office(name = man_name, pkg = "officer")
 }
 

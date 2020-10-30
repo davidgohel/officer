@@ -15,6 +15,8 @@ instead of the real path name, it needed to be transformed with `normalizePath`.
 
 ## Change
 
+* The documentation has been rewritten and can now be found
+at the following URL: https://ardata-fr.github.io/officeverse/.
 * `run_word_field` will supersed `run_seqfield`.
 * argument `prop` of `ftext()` now default to NULL
 
