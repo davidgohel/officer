@@ -391,6 +391,7 @@ change_styles <- function( x, mapstyles ){
 #' @examples
 #' doc <- read_docx()
 #' docx_body_xml(doc)
+#' @keywords internal
 docx_body_xml <- function( x ){
   x$doc_obj$get()
 }
@@ -404,6 +405,7 @@ docx_body_xml <- function( x ){
 #' @examples
 #' doc <- read_docx()
 #' docx_body_relationship(doc)
+#' @keywords internal
 docx_body_relationship <- function( x ){
   x$doc_obj$relationship()
 }

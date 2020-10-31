@@ -18,3 +18,4 @@ to allow other packages to work with officer.
 doc <- read_docx()
 docx_body_xml(doc)
 }
+\keyword{internal}

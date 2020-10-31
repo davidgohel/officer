@@ -15,11 +15,15 @@ reference:
   - title: Working with Word documents
     contents:
     - read_docx
+    - set_doc_properties
+    - change_styles
+  - title: Word documents information
+    contents:
     - docx_summary
     - styles_info
     - doc_properties
-    - set_doc_properties
     - docx_dim
+    - docx_show_chunk
   - title: Navigate into Word documents
     contents:
     - starts_with("cursor_")
@@ -36,12 +40,21 @@ reference:
     - body_add_docx
     - body_bookmark
     - body_add_gg
-    - slip_in_img
-    - slip_in_text
-    - slip_in_seqfield
+    - body_add_caption
+    - body_add_plot
+    - body_end_block_section
+    - body_set_default_section
     - starts_with("body_end_section_")
-    - slip_in_column_break
-    - slip_in_footnote
+  - title: Word sections
+    contents:
+    - prop_section
+    - page_mar
+    - page_size
+    - section_columns
+  - title: Word simple tables
+    contents:
+    - prop_table
+    - starts_with("table_")
   - title: Replace content in Word documents
     contents:
     - ends_with("at_bkm")
@@ -74,14 +87,21 @@ reference:
     - annotate_base
     - layout_summary
     - layout_properties
+    - plot_layout_properties
     - slide_summary
     - color_scheme
-  - title: Create formatted paragraphs
+    - media_extract
+  - title: Content formatting
+    desc: Define formatted paragraphs or parts of paragraphs, such as text, calculated Word fields, sets of paragraphs, etc.
     contents:
     - fpar
-    - block_list
+    - starts_with("block_")
+    - unordered_list
+    - plot_instr
     - ftext
+    - starts_with("run_")
     - external_img
+    - empty_content
   - title: Formatting properties
     contents:
     - fp_text
@@ -95,5 +115,5 @@ navbar:
   left:
   - text: Function reference
     href: reference/index.html
-  - text: Documentation
+  - text: User Documentation
     href: https://ardata-fr.github.io/officeverse/
