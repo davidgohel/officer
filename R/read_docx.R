@@ -32,7 +32,7 @@
 #' doc_1 <- body_add_table(doc_1, value = mtcars, style = "table_template")
 #' doc_1 <- body_add_par(doc_1, "This is a plot", style = "heading 2")
 #' doc_1 <- body_add_plot(doc_1, pinst)
-#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' docx_file_1 <- print(doc_1, target = tempfile(fileext = ".docx"))
 #'
 #' template <- system.file(package = "officer",
 #'   "doc_examples", "landscape.docx")
@@ -41,9 +41,14 @@
 #' doc_2 <- body_add_table(doc_2, value = mtcars)
 #' doc_2 <- body_add_par(doc_2, "This is a plot", style = "heading 2")
 #' doc_2 <- body_add_plot(doc_2, pinst)
-#' print(doc_2, target = tempfile(fileext = ".docx"))
+#' docx_file_2 <- print(doc_2, target = tempfile(fileext = ".docx"))
 #'
 #' @seealso [body_add_par], [body_add_plot], [body_add_table]
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{read_docx_doc_1.png}{options: width=80\%}}
+#'
+#' \if{html}{\figure{read_docx_doc_2.png}{options: width=80\%}}
 read_docx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
@@ -117,9 +122,6 @@ read_docx <- function( path = NULL ){
 #' @param x an rdocx object
 #' @param target path to the docx file to write
 #' @param ... unused
-#' @examples
-#' doc_1 <- read_docx()
-#' doc_1 <- print(doc_1, target = tempfile(fileext = ".docx"))
 print.rdocx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
