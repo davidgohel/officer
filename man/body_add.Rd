@@ -136,7 +136,7 @@ the creation of set of formatted paragraphs made of formatted chunks of text.
 \section{Illustrations}{
 
 
-\if{html}{\figure{body_add_doc_1.png}{options: width=60\%}}
+\if{html}{\figure{body_add_doc_1.png}{options: width=70\%}}
 }
 
 \examples{

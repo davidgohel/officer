@@ -9,6 +9,9 @@ doc_properties(x)
 \arguments{
 \item{x}{an \code{rdocx} or \code{rpptx} object}
 }
+\value{
+a data.frame
+}
 \description{
 read Word or PowerPoint document properties
 and get results in a data.frame.

@@ -10,18 +10,19 @@ docx_bookmarks(x)
 \item{x}{an \code{rdocx} object}
 }
 \description{
-List bookmarks id that can be found in an \code{rdocx}
-object.
+List bookmarks id that can be found in a
+Word document.
 }
 \examples{
-library(magrittr)
+library(officer)
 
-doc <- read_docx() \%>\%
-  body_add_par("centered text", style = "centered") \%>\%
-  body_bookmark("text_to_replace") \%>\% body_add_par("centered text", style = "centered") \%>\%
-  body_bookmark("text_to_replace2")
+doc_1 <- read_docx()
+doc_1 <- body_add_par(doc_1, "centered text", style = "centered")
+doc_1 <- body_bookmark(doc_1, "text_to_replace_1")
+doc_1 <- body_add_par(doc_1, "centered text", style = "centered")
+doc_1 <- body_bookmark(doc_1, "text_to_replace_2")
 
-docx_bookmarks(doc)
+docx_bookmarks(doc_1)
 
 docx_bookmarks(read_docx())
 }

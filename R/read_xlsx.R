@@ -302,12 +302,8 @@ sheet_select <- function( x, sheet ){
 #' @param ... unused
 #' @rdname read_xlsx
 #' @examples
-#' # write a rdocx object in a docx file ----
-#' if( require(magrittr) ){
-#'   read_xlsx() %>% print(target = tempfile(fileext = ".xlsx"))
-#'   # full path of produced file is returned
-#'   print(.Last.value)
-#' }
+#' x <- read_xlsx()
+#' print(x, target = tempfile(fileext = ".xlsx"))
 print.rxlsx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){

@@ -6,8 +6,8 @@
 #'
 #' Use then this object to add content to it and create Word files
 #' from R.
-#' @param x an rdocx object
 #' @param path path to the docx file to use as base document.
+#' @return an object of class `rdocx`.
 #' @section styles:
 #'
 #' `read_docx()` uses a Word file as the initial document.
@@ -15,15 +15,35 @@
 #' layout, paragraph styles, or table styles come.
 #'
 #' You will be able to add formatted text, change the paragraph
-#' style with the R api, but it will always be easier to use
-#' the styles from the original document.
+#' style with the R api but also use the styles from the
+#' original document.
 #'
 #' See `body_add_*` functions to add content.
 #' @examples
-#' # create an rdocx object with default template ---
-#' read_docx()
+#' library(officer)
 #'
-#' @seealso [print.rdocx], [body_add_par], [body_add]
+#' pinst <- plot_instr({
+#'   z <- c(rnorm(100), rnorm(50, mean = 5))
+#'   plot(density(z))
+#' })
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, "This is a table", style = "heading 2")
+#' doc_1 <- body_add_table(doc_1, value = mtcars, style = "table_template")
+#' doc_1 <- body_add_par(doc_1, "This is a plot", style = "heading 2")
+#' doc_1 <- body_add_plot(doc_1, pinst)
+#' print(doc_1, target = tempfile(fileext = ".docx"))
+#'
+#' template <- system.file(package = "officer",
+#'   "doc_examples", "landscape.docx")
+#' doc_2 <- read_docx(path = template)
+#' doc_2 <- body_add_par(doc_2, "This is a table", style = "heading 2")
+#' doc_2 <- body_add_table(doc_2, value = mtcars)
+#' doc_2 <- body_add_par(doc_2, "This is a plot", style = "heading 2")
+#' doc_2 <- body_add_plot(doc_2, pinst)
+#' print(doc_2, target = tempfile(fileext = ".docx"))
+#'
+#' @seealso [body_add_par], [body_add_plot], [body_add_table]
 read_docx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
@@ -92,16 +112,14 @@ read_docx <- function( path = NULL ){
 }
 
 #' @export
+#' @describeIn read_docx write docx to a file. It returns the path of the result
+#' file.
+#' @param x an rdocx object
 #' @param target path to the docx file to write
 #' @param ... unused
-#' @rdname read_docx
 #' @examples
-#' print(read_docx())
-#' # write a rdocx object in a docx file ----
-#' if( require(magrittr) ){
-#'   read_docx() %>% print(target = tempfile(fileext = ".docx"))
-#' }
-#'
+#' doc_1 <- read_docx()
+#' doc_1 <- print(doc_1, target = tempfile(fileext = ".docx"))
 print.rdocx <- function(x, target = NULL, ...){
 
   if( is.null( target) ){
@@ -185,7 +203,7 @@ length.rdocx <- function( x ){
 #' @export
 #' @title read Word styles
 #' @description read Word styles and get results in
-#' a tidy data.frame.
+#' a data.frame.
 #' @param x an rdocx object
 #' @param type,is_default subsets for types (i.e. paragraph) and
 #' default style (when `is_default` is TRUE or FALSE)
@@ -209,6 +227,7 @@ styles_info <- function( x, type = c("paragraph", "character", "table", "numberi
 #' @examples
 #' x <- read_docx()
 #' doc_properties(x)
+#' @return a data.frame
 #' @family functions for Word document informations
 doc_properties <- function( x ){
   if( inherits(x, "rdocx"))
@@ -289,18 +308,19 @@ docx_dim <- function(x){
 
 #' @export
 #' @title List Word bookmarks
-#' @description List bookmarks id that can be found in an \code{rdocx}
-#' object.
+#' @description List bookmarks id that can be found in a
+#' Word document.
 #' @param x an \code{rdocx} object
 #' @examples
-#' library(magrittr)
+#' library(officer)
 #'
-#' doc <- read_docx() %>%
-#'   body_add_par("centered text", style = "centered") %>%
-#'   body_bookmark("text_to_replace") %>% body_add_par("centered text", style = "centered") %>%
-#'   body_bookmark("text_to_replace2")
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_par(doc_1, "centered text", style = "centered")
+#' doc_1 <- body_bookmark(doc_1, "text_to_replace_1")
+#' doc_1 <- body_add_par(doc_1, "centered text", style = "centered")
+#' doc_1 <- body_bookmark(doc_1, "text_to_replace_2")
 #'
-#' docx_bookmarks(doc)
+#' docx_bookmarks(doc_1)
 #'
 #' docx_bookmarks(read_docx())
 #' @family functions for Word document informations
@@ -320,26 +340,36 @@ docx_bookmarks <- function(x){
 #' content (as a character vector) are the styles to be replaced.
 #' Use [styles_info()] to display available styles.
 #' @examples
-#' library(magrittr)
+#' # creating a sample docx so that we can illustrate how
+#' # to change styles
+#' doc_1 <- read_docx()
 #'
+#' doc_1 <- body_add_par(doc_1, "A title", style = "heading 1")
+#' doc_1 <- body_add_par(doc_1, "", style = "Normal")
+#' doc_1 <- slip_in_text(doc_1, "Message is: ",
+#'   style = "Default Paragraph Font"
+#' )
+#' doc_1 <- body_add_par(doc_1, "Hello ", style = "Normal")
+#' doc_1 <- slip_in_text(doc_1, "world", style = "Default Paragraph Font")
+#' doc_1 <- slip_in_text(doc_1, " with a link",
+#'   style = "strong",
+#'   pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
+#' )
+#' doc_1 <- body_add_par(doc_1, "Another title", style = "heading 2")
+#' doc_1 <- body_add_par(doc_1, "Hello world!", style = "Normal")
+#'
+#' file <- print(doc_1, target = tempfile(fileext = ".docx"))
+#'
+#' # now we can illustrate how
+#' # to change styles with `change_styles`
+#' doc_2 <- read_docx(path = file)
 #' mapstyles <- list(
 #'   "centered" = c("Normal", "heading 2"),
 #'   "strong" = "Default Paragraph Font"
 #' )
-#' doc <- read_docx() %>%
-#'   body_add_par("A title", style = "heading 1") %>%
-#'   body_add_par("Hello ", style = "Normal") %>%
-#'   slip_in_text("world", style = "Default Paragraph Font") %>%
-#'   slip_in_text("Message is: ", style = "Default Paragraph Font", pos = "before") %>%
-#'   slip_in_text(" with a link",
-#'     style = "strong",
-#'     pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
-#'   ) %>%
-#'   body_add_par("Another title", style = "heading 2") %>%
-#'   body_add_par("Hello world!", style = "Normal") %>%
-#'   change_styles(mapstyles = mapstyles)
+#' doc_2 <- change_styles(doc_2, mapstyles = mapstyles)
 #'
-#' print(doc, target = tempfile(fileext = ".docx"))
+#' print(doc_2, target = tempfile(fileext = ".docx"))
 change_styles <- function( x, mapstyles ){
 
   if( is.null(mapstyles) || length(mapstyles) < 1 ) return(x)

@@ -18,24 +18,34 @@ Replace styles with others in a Word document. This function
 can be used for paragraph, run/character and table styles.
 }
 \examples{
-library(magrittr)
+# creating a sample docx so that we can illustrate how
+# to change styles
+doc_1 <- read_docx()
 
+doc_1 <- body_add_par(doc_1, "A title", style = "heading 1")
+doc_1 <- body_add_par(doc_1, "", style = "Normal")
+doc_1 <- slip_in_text(doc_1, "Message is: ",
+  style = "Default Paragraph Font"
+)
+doc_1 <- body_add_par(doc_1, "Hello ", style = "Normal")
+doc_1 <- slip_in_text(doc_1, "world", style = "Default Paragraph Font")
+doc_1 <- slip_in_text(doc_1, " with a link",
+  style = "strong",
+  pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
+)
+doc_1 <- body_add_par(doc_1, "Another title", style = "heading 2")
+doc_1 <- body_add_par(doc_1, "Hello world!", style = "Normal")
+
+file <- print(doc_1, target = tempfile(fileext = ".docx"))
+
+# now we can illustrate how
+# to change styles with `change_styles`
+doc_2 <- read_docx(path = file)
 mapstyles <- list(
   "centered" = c("Normal", "heading 2"),
   "strong" = "Default Paragraph Font"
 )
-doc <- read_docx() \%>\%
-  body_add_par("A title", style = "heading 1") \%>\%
-  body_add_par("Hello ", style = "Normal") \%>\%
-  slip_in_text("world", style = "Default Paragraph Font") \%>\%
-  slip_in_text("Message is: ", style = "Default Paragraph Font", pos = "before") \%>\%
-  slip_in_text(" with a link",
-    style = "strong",
-    pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
-  ) \%>\%
-  body_add_par("Another title", style = "heading 2") \%>\%
-  body_add_par("Hello world!", style = "Normal") \%>\%
-  change_styles(mapstyles = mapstyles)
+doc_2 <- change_styles(doc_2, mapstyles = mapstyles)
 
-print(doc, target = tempfile(fileext = ".docx"))
+print(doc_2, target = tempfile(fileext = ".docx"))
 }

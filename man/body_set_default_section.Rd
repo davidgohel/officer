@@ -15,6 +15,12 @@ body_set_default_section(x, value)
 Define default section of the document. You can
 define section propeerties (page size, orientation, ...) with a \link{prop_section} object.
 }
+\section{Illustrations}{
+
+
+\if{html}{\figure{body_set_default_section_doc_1.png}{options: width=80\%}}
+}
+
 \examples{
 default_sect_properties <- prop_section(
     page_size = page_size(orient = "landscape"), type = "continuous",

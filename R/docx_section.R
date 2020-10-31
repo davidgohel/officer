@@ -206,6 +206,9 @@ body_end_block_section <- function( x, value ){
 #' doc_1 <- body_set_default_section(doc_1, default_sect_properties)
 #'
 #' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @section Illustrations:
+#'
+#' \if{html}{\figure{body_set_default_section_doc_1.png}{options: width=80\%}}
 body_set_default_section <- function( x, value ){
 
   stopifnot(inherits(value, "prop_section"))

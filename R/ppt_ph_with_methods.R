@@ -120,7 +120,7 @@
 #' [ph_location_template]
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{ph_with_doc_1.png}{options: width=60\%}}
+#' \if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}
 ph_with <- function(x, value, location, ...){
   UseMethod("ph_with", value)
 }

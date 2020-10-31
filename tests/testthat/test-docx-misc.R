@@ -54,7 +54,7 @@ test_that("style is read from document", {
 })
 
 
-test_that("styles_info is returning a tidy df", {
+test_that("styles_info is returning a df", {
   x <- read_docx()
   df <- styles_info(x)
 

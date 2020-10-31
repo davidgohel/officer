@@ -160,20 +160,22 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 #' @param blocks set of blocks to be used as footnote content returned by
 #'   function \code{\link{block_list}}.
 #' @examples
-#' library(magrittr)
+#' library(officer)
 #'
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#'
 #' bl <- block_list(
-#'   fpar(ftext("hello", shortcuts$fp_bold())),
+#'   fpar(ftext("hello", shortcuts$fp_bold(color="red"))),
 #'   fpar(
 #'     ftext("hello world", shortcuts$fp_bold()),
-#'     external_img(src = img.file, height = 1.06, width = 1.39)
+#'     external_img(src = img.file, height = 1.06, width = 1.39),
+#'     fp_p = fp_par(text.align = "center")
 #'   )
 #' )
 #'
-#' x <- read_docx() %>%
-#'   body_add_blocks( blocks = bl ) %>%
-#'   print(target = tempfile(fileext = ".docx"))
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add_blocks(doc_1, blocks = bl)
+#' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
 body_add_blocks <- function( x, blocks, pos = "after" ){
   stopifnot(inherits(blocks, "block_list"))
@@ -578,7 +580,7 @@ body_remove <- function(x){
 #' # print(doc_1, target = "test.docx")
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{body_add_doc_1.png}{options: width=60\%}}
+#' \if{html}{\figure{body_add_doc_1.png}{options: width=70\%}}
 body_add <- function(x, value, ...){
   UseMethod("body_add", value)
 }

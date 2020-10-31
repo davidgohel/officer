@@ -109,7 +109,7 @@ node_content <- function(node, x){
 
 #' @title get Word content in a data.frame
 #' @description read content of a Word document and
-#' return a tidy dataset representing the document.
+#' return a data.frame representing the document.
 #' @note
 #' Documents included with \code{body_add_docx()} will
 #' not be accessible in the results.

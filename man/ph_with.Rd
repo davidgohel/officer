@@ -146,7 +146,7 @@ current slide. This function is to be used to add custom openxml code.
 \section{Illustrations}{
 
 
-\if{html}{\figure{ph_with_doc_1.png}{options: width=60\%}}
+\if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}
 }
 
 \examples{

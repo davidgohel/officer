@@ -18,6 +18,9 @@ read_docx(path = NULL)
 
 \item{...}{unused}
 }
+\value{
+an object of class \code{rdocx}.
+}
 \description{
 read and import a docx file as an R object
 representing the document. When no file is specified, it
@@ -26,6 +29,12 @@ uses a default empty file.
 Use then this object to add content to it and create Word files
 from R.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{print}: write docx to a file. It returns the path of the result
+file.
+}}
+
 \section{styles}{
 
 
@@ -34,23 +43,39 @@ This is the original Word document from which the document
 layout, paragraph styles, or table styles come.
 
 You will be able to add formatted text, change the paragraph
-style with the R api, but it will always be easier to use
-the styles from the original document.
+style with the R api but also use the styles from the
+original document.
 
 See \verb{body_add_*} functions to add content.
 }
 
 \examples{
-# create an rdocx object with default template ---
-read_docx()
+library(officer)
 
-print(read_docx())
-# write a rdocx object in a docx file ----
-if( require(magrittr) ){
-  read_docx() \%>\% print(target = tempfile(fileext = ".docx"))
-}
+pinst <- plot_instr({
+  z <- c(rnorm(100), rnorm(50, mean = 5))
+  plot(density(z))
+})
 
+doc_1 <- read_docx()
+doc_1 <- body_add_par(doc_1, "This is a table", style = "heading 2")
+doc_1 <- body_add_table(doc_1, value = mtcars, style = "table_template")
+doc_1 <- body_add_par(doc_1, "This is a plot", style = "heading 2")
+doc_1 <- body_add_plot(doc_1, pinst)
+print(doc_1, target = tempfile(fileext = ".docx"))
+
+template <- system.file(package = "officer",
+  "doc_examples", "landscape.docx")
+doc_2 <- read_docx(path = template)
+doc_2 <- body_add_par(doc_2, "This is a table", style = "heading 2")
+doc_2 <- body_add_table(doc_2, value = mtcars)
+doc_2 <- body_add_par(doc_2, "This is a plot", style = "heading 2")
+doc_2 <- body_add_plot(doc_2, pinst)
+print(doc_2, target = tempfile(fileext = ".docx"))
+
+doc_1 <- read_docx()
+doc_1 <- print(doc_1, target = tempfile(fileext = ".docx"))
 }
 \seealso{
-\link{print.rdocx}, \link{body_add_par}, \link{body_add}
+\link{body_add_par}, \link{body_add_plot}, \link{body_add_table}
 }
