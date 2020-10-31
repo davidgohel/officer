@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15.009</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@
   <a href="../reference/index.html">Function reference</a>
 </li>
 <li>
-  <a href="https://ardata-fr.github.io/officeverse/">Documentation</a>
+  <a href="https://ardata-fr.github.io/officeverse/">User Documentation</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -144,6 +144,31 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="set_doc_properties.html">set_doc_properties()</a></code> </p>
+        </td>
+        <td><p>set document properties</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="change_styles.html">change_styles()</a></code> </p>
+        </td>
+        <td><p>Replace Styles in a Word Document</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-word-documents-information" class="hasAnchor"><a href="#section-word-documents-information" class="anchor"></a>Word documents information</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
           <p><code><a href="docx_summary.html">docx_summary()</a></code> </p>
         </td>
         <td><p>get Word content in a data.frame</p></td>
@@ -162,15 +187,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="set_doc_properties.html">set_doc_properties()</a></code> </p>
-        </td>
-        <td><p>set document properties</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="docx_dim.html">docx_dim()</a></code> </p>
         </td>
         <td><p>Word page layout</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="docx_show_chunk.html">docx_show_chunk()</a></code> </p>
+        </td>
+        <td><p>Show underlying text tag structure</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -272,21 +297,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="slip_in_img.html">slip_in_img()</a></code> </p>
+          <p><code><a href="body_add_caption.html">body_add_caption()</a></code> </p>
         </td>
-        <td><p>append an image</p></td>
+        <td><p>add Word caption</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="slip_in_text.html">slip_in_text()</a></code> </p>
+          <p><code><a href="body_add_plot.html">body_add_plot()</a></code> </p>
         </td>
-        <td><p>append text</p></td>
+        <td><p>add plot</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="slip_in_seqfield.html">slip_in_seqfield()</a></code> </p>
+          <p><code><a href="body_end_block_section.html">body_end_block_section()</a></code> </p>
         </td>
-        <td><p>append seq field</p></td>
+        <td><p>add any section</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="body_set_default_section.html">body_set_default_section()</a></code> </p>
+        </td>
+        <td><p>Define Default Section</p></td>
       </tr><tr>
         
         <td>
@@ -317,18 +348,92 @@
           <p><code><a href="body_end_section_portrait.html">body_end_section_portrait()</a></code> </p>
         </td>
         <td><p>add portrait section</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-word-sections" class="hasAnchor"><a href="#section-word-sections" class="anchor"></a>Word sections</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="prop_section.html">prop_section()</a></code> </p>
+        </td>
+        <td><p>section properties</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="slip_in_column_break.html">slip_in_column_break()</a></code> </p>
+          <p><code><a href="page_mar.html">page_mar()</a></code> </p>
         </td>
-        <td><p>add a column break</p></td>
+        <td><p>page margins object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="slip_in_footnote.html">slip_in_footnote()</a></code> </p>
+          <p><code><a href="page_size.html">page_size()</a></code> </p>
         </td>
-        <td><p>append a footnote</p></td>
+        <td><p>page size object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="section_columns.html">section_columns()</a></code> </p>
+        </td>
+        <td><p>section columns</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-word-simple-tables" class="hasAnchor"><a href="#section-word-simple-tables" class="anchor"></a>Word simple tables</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="prop_table.html">prop_table()</a></code> </p>
+        </td>
+        <td><p>Table properties</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="table_colwidths.html">table_colwidths()</a></code> </p>
+        </td>
+        <td><p>Column widths of a table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="table_conditional_formatting.html">table_conditional_formatting()</a></code> </p>
+        </td>
+        <td><p>Table conditional formatting</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="table_layout.html">table_layout()</a></code> </p>
+        </td>
+        <td><p>Algorithm for table layout</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="table_stylenames.html">table_stylenames()</a></code> </p>
+        </td>
+        <td><p>Paragraph styles for columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="table_width.html">table_width()</a></code> </p>
+        </td>
+        <td><p>Preferred width for a table</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -566,6 +671,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="plot_layout_properties.html">plot_layout_properties()</a></code> </p>
+        </td>
+        <td><p>Plot slide layout properties</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="slide_summary.html">slide_summary()</a></code> </p>
         </td>
         <td><p>get PowerPoint slide content in a data.frame</p></td>
@@ -575,12 +686,18 @@
           <p><code><a href="color_scheme.html">color_scheme()</a></code> </p>
         </td>
         <td><p>color scheme</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="media_extract.html">media_extract()</a></code> </p>
+        </td>
+        <td><p>Extract media from a document object</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-create-formatted-paragraphs" class="hasAnchor"><a href="#section-create-formatted-paragraphs" class="anchor"></a>Create formatted paragraphs</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-content-formatting" class="hasAnchor"><a href="#section-content-formatting" class="anchor"></a>Content formatting</h2>
+          <p class="section-desc"><p>Define formatted paragraphs or parts of paragraphs, such as text, calculated Word fields, sets of paragraphs, etc.</p></p>
         </th>
       </tr>
       
@@ -597,9 +714,51 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="block_caption.html">block_caption()</a></code> </p>
+        </td>
+        <td><p>Caption block</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="block_list.html">block_list()</a></code> </p>
         </td>
         <td><p>Create paragraph blocks</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="block_pour_docx.html">block_pour_docx()</a></code> </p>
+        </td>
+        <td><p>Pour external Word document in the current document</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="block_section.html">block_section()</a></code> </p>
+        </td>
+        <td><p>New Word section</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="block_table.html">block_table()</a></code> </p>
+        </td>
+        <td><p>Table block</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="block_toc.html">block_toc()</a></code> </p>
+        </td>
+        <td><p>Table of content</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unordered_list.html">unordered_list()</a></code> </p>
+        </td>
+        <td><p>Unordered list</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_instr.html">plot_instr()</a></code> </p>
+        </td>
+        <td><p>Wrap plot instructions for png plotting in Powerpoint or Word</p></td>
       </tr><tr>
         
         <td>
@@ -609,9 +768,57 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="run_autonum.html">run_autonum()</a></code> </p>
+        </td>
+        <td><p>auto number</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_bookmark.html">run_bookmark()</a></code> </p>
+        </td>
+        <td><p>bookmark for Word</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_columnbreak.html">run_columnbreak()</a></code> </p>
+        </td>
+        <td><p>column break</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_linebreak.html">run_linebreak()</a></code> </p>
+        </td>
+        <td><p>page break for Word</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_pagebreak.html">run_pagebreak()</a></code> </p>
+        </td>
+        <td><p>page break for Word</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_reference.html">run_reference()</a></code> </p>
+        </td>
+        <td><p>reference</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_word_field.html">run_word_field()</a></code> <code><a href="run_word_field.html">run_seqfield()</a></code> </p>
+        </td>
+        <td><p>seqfield</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="external_img.html">external_img()</a></code> </p>
         </td>
         <td><p>external image</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="empty_content.html">empty_content()</a></code> </p>
+        </td>
+        <td><p>create empty blocks</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -665,7 +872,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.15.008 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.15.009 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
