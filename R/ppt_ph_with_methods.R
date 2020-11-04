@@ -320,6 +320,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' @describeIn ph_with add a ggplot object to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
 #' @param res resolution of the png image in ppi
+#' @param alt_text Alt-text for screen-readers
 ph_with.gg <- function(x, value, location, res = 300, alt_text, ...){
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
@@ -381,6 +382,7 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...){
 #' @export
 #' @param use_loc_size if set to FALSE, external_img width and height will
 #' be used.
+#' @param alt_text Alt-text for screen-readers
 #' @describeIn ph_with add a \code{\link{external_img}} to a new shape
 #' on the current slide.
 #'
