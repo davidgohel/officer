@@ -41,11 +41,11 @@ ph_with(x, value, location, ...)
   ...
 )
 
-\method{ph_with}{gg}(x, value, location, res = 300, ...)
+\method{ph_with}{gg}(x, value, location, res = 300, alt_text, ...)
 
 \method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
 
-\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
+\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, alt_text, ...)
 
 \method{ph_with}{fpar}(x, value, location, ...)
 
@@ -85,6 +85,8 @@ item 1 level will be 1, item 2 level will be 2.}
 and 'c' for center. Default to NULL.}
 
 \item{res}{resolution of the png image in ppi}
+
+\item{alt_text}{Alt-text for screen-readers}
 
 \item{use_loc_size}{if set to FALSE, external_img width and height will
 be used.}
