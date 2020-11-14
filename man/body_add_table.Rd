@@ -11,6 +11,7 @@ body_add_table(
   pos = "after",
   header = TRUE,
   alignment = NULL,
+  align_table = "center",
   stylenames = table_stylenames(),
   first_row = TRUE,
   first_column = FALSE,
@@ -34,6 +35,8 @@ one of after", "before", "on".}
 
 \item{alignment}{columns alignement, argument length must match with columns length,
 values must be "l" (left), "r" (right) or "c" (center).}
+
+\item{align_table}{table alignment within document, value must be "left", "center" or "right"}
 
 \item{stylenames}{columns styles defined by \code{\link[=table_stylenames]{table_stylenames()}}}
 

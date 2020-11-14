@@ -323,8 +323,8 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
     tcf = table_conditional_formatting(
       first_row = first_row, first_column = first_column,
       last_row = last_row, last_column = last_column,
-      no_hband = no_hband, no_vband = no_vband)
-      align_table = align)
+      no_hband = no_hband, no_vband = no_vband),
+      align = align_table)
 
   bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
