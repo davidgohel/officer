@@ -333,7 +333,6 @@ ph_with.gg <- function(x, value, location, res = 300, alt_text, ...){
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
   png(filename = file, width = width, height = height, units = "in", res = res, ...)
   print(value)
   dev.off()
@@ -354,7 +353,6 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...){
   height <- location_$height
 
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
 
   dirname <- tempfile( )
   dir.create( dirname )

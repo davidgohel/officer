@@ -143,7 +143,6 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
   png(filename = file, width = width, height = height, units = "in", res = res, ...)
   print(value)
   dev.off()
@@ -379,7 +378,6 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
   png(filename = file, width = width, height = height, units = "in", res = res, ...)
   tryCatch({
     eval(value$code)
@@ -783,7 +781,6 @@ body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
     stop("package ggplot2 is required to use this function")
 
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
   png(filename = file, width = width, height = height, units = "in", res = res, ...)
   print(value)
   dev.off()
@@ -798,7 +795,6 @@ body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   file <- tempfile(fileext = ".png")
-  options(bitmapType='cairo')
   png(filename = file, width = width, height = height, units = "in", res = res, ...)
   tryCatch({
     eval(value$code)

@@ -1,3 +1,10 @@
+# officer 0.3.16
+
+## Change
+
+* drop cairo usage and let user settings do the job
+
+
 # officer 0.3.15
 
 ## New features
