@@ -39,13 +39,13 @@ test_that("check template", {
 
 
 test_that("slide remove", {
-  x <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("Hello world 1", location = ph_location_type(type = "body")) %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("Hello world 2", location = ph_location_type(type = "body")) %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("Hello world 3", location = ph_location_type(type = "body"))
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 1", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 2", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 3", location = ph_location_type(type = "body"))
   print(x, target = "template.pptx")
 
   x <- read_pptx(path = "template.pptx")
@@ -61,13 +61,13 @@ test_that("slide remove", {
 
 
 test_that("ph remove", {
-  x <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("Hello world 1", location = ph_location_type(type = "body")) %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("Hello world 2", location = ph_location_type(type = "body")) %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("Hello world 3", location = ph_location_type(type = "body"))
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 1", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 2", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 3", location = ph_location_type(type = "body"))
   print(x, target = "template.pptx")
 
   x <- read_pptx(path = "template.pptx")

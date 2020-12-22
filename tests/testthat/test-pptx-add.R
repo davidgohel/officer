@@ -1,40 +1,38 @@
 source("utils.R")
 
 test_that("add text into placeholder", {
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("", location = ph_location_fullsize())
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, "", location = ph_location_fullsize())
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
 
   small_red <- fp_text(color = "red", font.size = 14)
-  doc <- doc %>%
-    ph_add_par(level = 2) %>%
-    ph_add_text(str = "chunk 1", style = small_red )
+  doc <- doc
+  doc <- ph_add_par(doc, level = 2)
+  doc <- ph_add_text(doc, str = "chunk 1", style = small_red )
   sm <- slide_summary(doc)
   expect_equal(sm[1, ]$text, "chunk 1")
 
-  doc <- doc %>%
-    ph_add_text(str = "this is ", style = small_red, pos = "before" )
+  doc <- ph_add_text(doc, str = "this is ", style = small_red, pos = "before" )
   sm <- slide_summary(doc)
   expect_equal(sm[1, ]$text, "this is chunk 1")
 })
 
 test_that("ph_add_par append when text alrady exists", {
   small_red <- fp_text(color = "red", font.size = 14)
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("This is a ", location = ph_location_type(type = "body")) %>%
-    ph_add_par(level = 2)
-  doc <- doc %>%
-    ph_add_text(str = "test", style = small_red )
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, "This is a ", location = ph_location_type(type = "body"))
+  doc <- ph_add_par(doc, level = 2)
+  doc <-  ph_add_text(doc, str = "test", style = small_red )
 
   sm <- slide_summary(doc)
   expect_equal(sm$text, "This is a test")
 
   xmldoc <- doc$slide$get_slide(1)$get()
-  txt <- xml_find_all(xmldoc, "//p:spTree/p:sp/p:txBody/a:p") %>% xml_text()
+  txt <- xml_text(xml_find_all(xmldoc, "//p:spTree/p:sp/p:txBody/a:p"))
   expect_equal(txt, c("This is a ", "test"))
 })
 
@@ -42,11 +40,11 @@ test_that("ph_add_par append when text alrady exists", {
 test_that("ph_add_text with hyperlink", {
   small_red <- fp_text(color = "red", font.size = 14)
   href_ <- "https://cran.r-project.org"
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("This is a ", location = ph_location_type(type = "body")) %>%
-    ph_add_par(level = 2) %>%
-    ph_add_text(str = "test", style = small_red, href = href_ )
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, "This is a ", location = ph_location_type(type = "body"))
+  doc <- ph_add_par(doc, level = 2)
+  doc <- ph_add_text(doc, str = "test", style = small_red, href = href_ )
 
   xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
@@ -62,9 +60,9 @@ test_that("ph_add_text with hyperlink", {
 test_that("add img into placeholder", {
   skip_on_os("windows")
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with(external_img(img.file, height = 1.06, width = 1.39), location = ph_location_type(type = "body"),
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, external_img(img.file, height = 1.06, width = 1.39), location = ph_location_type(type = "body"),
                 use_loc_size = FALSE )
   sm <- slide_summary(doc)
 
@@ -83,28 +81,28 @@ test_that("add formatted par into placeholder", {
                 ftext("World", prop = bold_redface ),
                 ftext(", how are you?", prop = bold_face ) )
 
-  doc <- read_pptx() %>%
-    add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with(fpar_, location = ph_location_type(type = "body"))
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, fpar_, location = ph_location_type(type = "body"))
 
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 1)
   expect_equal(sm[1, ]$text, "Hello World, how are you?")
 
   xmldoc <- doc$slide$get_slide(id = 1)$get()
-  cols <- xml_find_all(xmldoc, "//a:rPr/a:solidFill/a:srgbClr") %>% xml_attr("val")
+  cols <- xml_attr(xml_find_all(xmldoc, "//a:rPr/a:solidFill/a:srgbClr"), "val")
   expect_equal(cols, c("000000", "FF0000", "000000") )
-  expect_equal(xml_find_all(xmldoc, "//a:rPr") %>% xml_attr("b"), rep("1",3))
+  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:rPr") ,"b"), rep("1",3))
 })
 
 
 test_that("add xml into placeholder", {
   xml_str <- "<p:sp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\"><p:nvSpPr><p:cNvPr id=\"\" name=\"\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr><p:ph type=\"title\"/></p:nvPr></p:nvSpPr><p:spPr/>\n<p:txBody><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr/><a:t>Hello world 1</a:t></a:r></a:p></p:txBody></p:sp>"
   library(xml2)
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with(value = as_xml_document(xml_str), location = ph_location_type(type = "body")) %>%
-    ph_with(value = as_xml_document(xml_str), location = ph_location(left = 1, top = 1, width = 3, height = 3))
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, value = as_xml_document(xml_str), location = ph_location_type(type = "body"))
+  doc <- ph_with(doc, value = as_xml_document(xml_str), location = ph_location(left = 1, top = 1, width = 3, height = 3))
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 2)
   expect_equal(sm[1,]$text, "Hello world 1")
@@ -114,11 +112,11 @@ test_that("add xml into placeholder", {
 test_that("link to another shape", {
   small_red <- fp_text(color = "red", font.size = 14)
 
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with(location = ph_location_type(type = "body"), value = "This is a ") %>%
-    ph_add_par(level = 2) %>%
-    ph_add_text(str = "test", style = small_red, slide_index = 1 )
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, location = ph_location_type(type = "body"), value = "This is a ")
+  doc <- ph_add_par(doc, level = 2)
+  doc <- ph_add_text(doc, str = "test", style = small_red, slide_index = 1 )
 
   xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
@@ -133,11 +131,11 @@ test_that("link to another shape", {
 test_that("ph_add_text with hyperlink", {
   small_red <- fp_text(color = "red", font.size = 14)
   href_ <- "https://cran.r-project.org"
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with(location = ph_location_type(type = "body"), value = "This is a ") %>%
-    ph_add_par(level = 2) %>%
-    ph_add_text(str = "test", style = small_red, href = href_ )
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, location = ph_location_type(type = "body"), value = "This is a ")
+  doc <- ph_add_par(doc, level = 2)
+  doc <- ph_add_text(doc, str = "test", style = small_red, href = href_ )
 
   xmldoc <- doc$slide$get_slide(1)$get()
   rel_df <- doc$slide$get_slide(1)$rel_df()
@@ -154,16 +152,15 @@ test_that("ph_add_text with hyperlink", {
 
 test_that("slidelink shape", {
 
-  doc <- read_pptx() %>%
-    add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with("Un titre 1", location = ph_location_type(type = "title")) %>%
-    ph_with("text 1", location = ph_location_type(type = "body")) %>%
-    add_slide(layout = "Title and Content", master = "Office Theme") %>%
-    ph_with("Un titre 2", location = ph_location_type(type = "title")) %>%
-    on_slide( index = 1)
-  slide_summary(doc)
-  doc <- doc %>%
-    ph_slidelink(type = "body", slide_index = 2 )
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, "Un titre 1", location = ph_location_type(type = "title"))
+  doc <- ph_with(doc, "text 1", location = ph_location_type(type = "body"))
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, "Un titre 2", location = ph_location_type(type = "title"))
+  doc <- on_slide(doc, index = 1)
+
+  doc <- ph_slidelink(doc, type = "body", slide_index = 2 )
 
   rel_df <- doc$slide$get_slide(1)$rel_df()
 

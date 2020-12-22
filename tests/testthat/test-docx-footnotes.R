@@ -14,11 +14,11 @@ test_that("add footnotes", {
     fpar(ftext("hello", normal_fp), ftext(" world!", bold_fp))
   )
 
-  x <- read_docx() %>%
-    body_add_par("Here is a footnote", style = "Normal") %>%
-    slip_in_footnote(style = "reference_id", blocks = bl1) %>%
-    body_add_par("Here is another footnote", style = "Normal") %>%
-    slip_in_footnote(style = "reference_id", blocks = bl2)
+  x <- read_docx()
+  x <- body_add_par(x, "Here is a footnote", style = "Normal")
+  x <- slip_in_footnote(x, style = "reference_id", blocks = bl1)
+  x <- body_add_par(x, "Here is another footnote", style = "Normal")
+  x <- slip_in_footnote(x, style = "reference_id", blocks = bl2)
 
   docx_file <- tempfile(fileext = ".docx")
   docx_dir <- tempfile()
@@ -40,11 +40,9 @@ test_that("add footnotes", {
 
 test_that("check blocks", {
 
-  x <- read_docx() %>%
-    body_add_par("Here is a footnote", style = "Normal")
-  expect_error(x %>% slip_in_footnote(style = "reference_id", blocks = "hi"),
+  x <- read_docx()
+  x <- body_add_par(x, "Here is a footnote", style = "Normal")
+  expect_error(slip_in_footnote(x, style = "reference_id", blocks = "hi"),
                regexp = "block_list")
 
 })
-
-

@@ -18,9 +18,8 @@ is added on the first run of text in the current paragraph.
 \examples{
 
 # cursor_bookmark ----
-library(magrittr)
 
-doc <- read_docx() \%>\%
-  body_add_par("centered text", style = "centered") \%>\%
-  body_bookmark("text_to_replace")
+doc <- read_docx()
+doc <- body_add_par(doc, "centered text", style = "centered")
+doc <- body_bookmark(doc, "text_to_replace")
 }

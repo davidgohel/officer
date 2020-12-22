@@ -83,11 +83,9 @@ Replacements will be performed in each footer of all sections.
 }
 
 \examples{
-library(magrittr)
-
-doc <- read_docx() \%>\%
-  body_add_par("Placeholder one") \%>\%
-  body_add_par("Placeholder two")
+doc <- read_docx()
+doc <- body_add_par(doc, "Placeholder one")
+doc <- body_add_par(doc, "Placeholder two")
 
 # Show text chunk at cursor
 docx_show_chunk(doc)  # Output is 'Placeholder two'

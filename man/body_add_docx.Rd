@@ -26,22 +26,21 @@ This feature is unlikely to work as expected if the
 resulting document is edited by another software.
 }
 \examples{
-
-library(magrittr)
 file1 <- tempfile(fileext = ".docx")
 file2 <- tempfile(fileext = ".docx")
 file3 <- tempfile(fileext = ".docx")
-read_docx() \%>\%
-  body_add_par("hello world 1", style = "Normal") \%>\%
-  print(target = file1)
-read_docx() \%>\%
-  body_add_par("hello world 2", style = "Normal") \%>\%
-  print(target = file2)
+x <- read_docx()
+x <- body_add_par(x, "hello world 1", style = "Normal")
+print(x, target = file1)
 
-read_docx(path = file1) \%>\%
-  body_add_break() \%>\%
-  body_add_docx(src = file2) \%>\%
-  print(target = file3)
+x <- read_docx()
+x <- body_add_par(x, "hello world 2", style = "Normal")
+print(x, target = file2)
+
+x <- read_docx(path = file1)
+x <- body_add_break(x)
+x <- body_add_docx(x, src = file2)
+print(x, target = file3)
 }
 \seealso{
 Other functions for adding content: 

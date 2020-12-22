@@ -21,8 +21,6 @@ function \code{\link{block_list}}.}
 append a new footnote into a paragraph of an rdocx object
 }
 \examples{
-library(magrittr)
-
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 bl <- block_list(
   fpar(ftext("hello", shortcuts$fp_bold())),
@@ -32,10 +30,10 @@ bl <- block_list(
   )
 )
 
-x <- read_docx() \%>\%
-  body_add_par("Hello ", style = "Normal") \%>\%
-  slip_in_text("world", style = "strong") \%>\%
-  slip_in_footnote(style = "reference_id", blocks = bl)
+x <- read_docx()
+x <- body_add_par(x, "Hello ", style = "Normal")
+x <- slip_in_text(x, "world", style = "strong")
+x <- slip_in_footnote(x, style = "reference_id", blocks = bl)
 
 print(x, target = tempfile(fileext = ".docx"))
 }

@@ -15,9 +15,9 @@ test_that("body_add_break", {
 
 test_that("body_end_sections", {
 
-  x <- read_docx() %>%
-    body_add_par("paragraph 1", style = "Normal") %>%
-    body_end_section_landscape()
+  x <- read_docx()
+  x <- body_add_par(x, "paragraph 1", style = "Normal")
+  x <- body_end_section_landscape(x)
 
   node <- x$doc_obj$get_at_cursor()
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
@@ -25,9 +25,10 @@ test_that("body_end_sections", {
   expect_false( inherits(ps, "xml_missing") )
   expect_equal( xml_attr(ps, "orient"), "landscape")
 
-  x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
-    body_add_par("paragraph 2", style = "Normal") %>%
-    body_end_section_columns()
+  x <- body_add_par(x, "paragraph 1", style = "Normal")
+  x <- body_add_par(x, "paragraph 2", style = "Normal")
+  x <- body_end_section_columns(x)
+
   outfile <- tempfile(fileext = ".docx")
   print(x, target = outfile)
   x <- read_docx(outfile)
@@ -39,9 +40,9 @@ test_that("body_end_sections", {
   expect_false( inherits(sect, "xml_missing") )
   expect_false( inherits(xml_child(sect, "w:cols"), "xml_missing") )
 
-  x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
-    body_add_par("paragraph 2", style = "Normal") %>%
-    body_end_section_columns_landscape()
+  x <- body_add_par(x, "paragraph 1", style = "Normal")
+  x <- body_add_par(x, "paragraph 2", style = "Normal")
+  x <- body_end_section_columns_landscape(x)
 
   node <- x$doc_obj$get_at_cursor()
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
@@ -54,9 +55,9 @@ test_that("body_end_sections", {
   expect_false( inherits(sect, "xml_missing") )
   expect_false( inherits(xml_child(sect, "w:cols"), "xml_missing") )
 
-  x <- body_add_par(x, "paragraph 1", style = "Normal") %>%
-    body_add_par("paragraph 2", style = "Normal") %>%
-    body_end_section_portrait()
+  x <- body_add_par(x, "paragraph 1", style = "Normal")
+  x <- body_add_par(x, "paragraph 2", style = "Normal")
+  x <- body_end_section_portrait(x)
 
   outfile <- tempfile(fileext = ".docx")
   print(x, target = outfile)
@@ -73,9 +74,9 @@ test_that("body_end_sections", {
 
 test_that("body_add_toc", {
 
-  x <- read_docx() %>%
-    body_add_par("paragraph 1") %>%
-    body_add_toc()
+  x <- read_docx()
+  x <- body_add_par(x, "paragraph 1")
+  x <- body_add_toc(x)
 
   node <- x$doc_obj$get_at_cursor()
 
@@ -87,8 +88,7 @@ test_that("body_add_toc", {
   expect_equal( xml_text(child_), "TOC \\o \"1-3\" \\h \\z \\u" )
 
 
-  x <- x %>%
-    body_add_toc(style = "Normal")
+  x <- body_add_toc(x, style = "Normal")
   node <- x$doc_obj$get_at_cursor()
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")
@@ -103,8 +103,8 @@ test_that("body_add_toc", {
 test_that("body_add_img", {
 
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-  x <- read_docx() %>%
-    body_add_img(img.file, width=2.5, height=1.3)
+  x <- read_docx()
+  x <- body_add_img(x, img.file, width=2.5, height=1.3)
 
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:drawing")
@@ -112,9 +112,9 @@ test_that("body_add_img", {
 
 test_that("slip_in_img", {
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-  x <- read_docx() %>%
-    body_add_par("") %>%
-    slip_in_img(src = img.file, style = "strong", width = .3, height = .3)
+  x <- read_docx()
+  x <- body_add_par(x, "")
+  x <- slip_in_img(x, src = img.file, style = "strong", width = .3, height = .3)
 
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:drawing")
@@ -126,8 +126,8 @@ test_that("ggplot add", {
 
   gg_plot <- ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
-  x <- read_docx() %>%
-    body_add(value = gg_plot, style = "centered" )
+  x <- read_docx()
+  x <- body_add(x, value = gg_plot, style = "centered" )
   x <- cursor_end(x)
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:drawing")
@@ -137,9 +137,10 @@ test_that("fpar add", {
   bold_face <- shortcuts$fp_bold(font.size = 20)
   bold_redface <- update(bold_face, color = "red")
   fpar_ <- fpar(ftext("This is a big ", prop = bold_face),
-                ftext("text", prop = bold_redface ) ) %>%
-    update(fp_p = fp_par(text.align = "center"))
-  x <- read_docx() %>% body_add_fpar(fpar_)
+                ftext("text", prop = bold_redface ) )
+  fpar_ <- update(fpar_, fp_p = fp_par(text.align = "center"))
+  x <- read_docx()
+  x <- body_add_fpar(x, fpar_)
 
   node <- x$doc_obj$get_at_cursor()
   expect_equal(xml_text(node), "This is a big text" )
@@ -164,9 +165,10 @@ test_that("add docx into docx", {
   new_dir <- tempfile()
   unpack_folder("final.docx", folder = new_dir)
 
-  doc_parts <- read_xml(file.path(new_dir, "[Content_Types].xml")) %>%
-    xml_find_all("d1:Override[@ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml']") %>%
-    xml_attr("PartName") %>% basename()
+  doc_parts <- read_xml(file.path(new_dir, "[Content_Types].xml"))
+  doc_parts <- xml_find_all(doc_parts, "d1:Override[@ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml']")
+  doc_parts <- xml_attr(doc_parts, "PartName")
+  doc_parts <- basename(doc_parts)
   expect_equal(doc_parts[grepl("\\.docx$", doc_parts)], list.files(new_dir, pattern = "\\.docx$") )
 })
 

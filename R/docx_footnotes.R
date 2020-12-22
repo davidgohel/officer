@@ -42,8 +42,6 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #' @param pos where to add the new element relative to the cursor, "after" or
 #'   "before".
 #' @examples
-#' library(magrittr)
-#'
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' bl <- block_list(
 #'   fpar(ftext("hello", shortcuts$fp_bold())),
@@ -53,10 +51,10 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #'   )
 #' )
 #'
-#' x <- read_docx() %>%
-#'   body_add_par("Hello ", style = "Normal") %>%
-#'   slip_in_text("world", style = "strong") %>%
-#'   slip_in_footnote(style = "reference_id", blocks = bl)
+#' x <- read_docx()
+#' x <- body_add_par(x, "Hello ", style = "Normal")
+#' x <- slip_in_text(x, "world", style = "strong")
+#' x <- slip_in_footnote(x, style = "reference_id", blocks = bl)
 #'
 #' print(x, target = tempfile(fileext = ".docx"))
 slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){

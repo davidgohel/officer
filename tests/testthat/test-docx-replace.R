@@ -1,8 +1,8 @@
 test_that("replace bkm with text in body", {
-  doc <- read_docx() %>%
-    body_add_par("centered text", style = "centered") %>%
-    slip_in_text(". How are you", style = "strong") %>%
-    body_bookmark("text_to_replace")
+  doc <- read_docx()
+  doc <- body_add_par(doc, "centered text", style = "centered")
+  doc <- slip_in_text(doc, ". How are you", style = "strong")
+  doc <- body_bookmark(doc, "text_to_replace")
 
   xmldoc <- doc$doc_obj$get()
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", "text_to_replace")
@@ -73,9 +73,9 @@ test_that("replace bkm in headers and footers", {
 })
 
 test_that("docx replace text", {
-  doc <- read_docx() %>%
-    body_add_par("Placeholder one") %>%
-    body_add_par("Placeholder two")
+  doc <- read_docx()
+  doc <- body_add_par(doc, "Placeholder one")
+  doc <- body_add_par(doc, "Placeholder two")
   doc <- body_replace_all_text(doc, old_value = "placeholder", new_value = "new",
                                only_at_cursor = FALSE, ignore.case = TRUE)
   xmldoc <- doc$doc_obj$get()

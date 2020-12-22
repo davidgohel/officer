@@ -1,4 +1,3 @@
-#' @import magrittr
 docx_part <- R6Class(
   "docx_part",
   inherit = openxml_document,

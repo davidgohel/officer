@@ -7,15 +7,15 @@ test_that("check slide selection", {
   x <- add_slide(x, "Title and Content", "Office Theme")
   x <- ph_with(x, "Hello world 3", location = ph_location_type(type = "body"))
 
-  x <-  x %>% on_slide(index = 1)
+  x <-  on_slide(x, index = 1)
   sm <- slide_summary(x)
   expect_equal(sm[1,]$text, "Hello world 1")
 
-  x <-  x %>% on_slide(index = 2)
+  x <-  on_slide(x, index = 2)
   sm <- slide_summary(x)
   expect_equal(sm[1, ]$text, "Hello world 2")
 
-  x <-  x %>% on_slide(index = 3)
+  x <-  on_slide(x, index = 3)
   sm <- slide_summary(x)
   expect_equal(sm[1, ]$text, "Hello world 3")
 
@@ -41,9 +41,9 @@ test_that("check errors", {
 })
 
 test_that("get shape id", {
-  doc <- read_pptx() %>%
-    add_slide("Title and Content", "Office Theme") %>%
-    ph_with("hello", location = ph_location_type(type = "body"))
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, "hello", location = ph_location_type(type = "body"))
   expect_equal(officer:::get_shape_id(doc, type = "body", id = 1), "2")
   expect_equal(officer:::get_shape_id(doc, ph_label = "Content Placeholder 2", id = 1), "2")
   expect_error(officer:::get_shape_id(doc, type = "body", id = 4) )

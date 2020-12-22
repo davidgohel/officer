@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.3.16.001
+Version: 0.3.16.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -22,11 +22,10 @@ License: GPL-3
 LazyData: TRUE
 Imports:
     R6,
-    grDevices,
+    grDevices, stats, graphics, utils,
     zip (>= 2.1.0),
-    uuid (>= 0.1-4), stats,
-    magrittr, utils,
-    xml2 (>= 1.1.0), graphics
+    uuid (>= 0.1-4), 
+    xml2 (>= 1.1.0)
 URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
 Encoding: UTF-8
 BugReports: https://github.com/davidgohel/officer/issues

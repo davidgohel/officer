@@ -57,8 +57,8 @@ wml_part_link_images <- function(x, str, part){
                    "]")
 
     src_nodes <- xml_find_all(doc, xpth)
-    xml_find_all(src_nodes, "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip") %>%
-    {xml_attr(., "r:embed") <- ref$id[id];.}
+    blip_nodes <- xml_find_all(src_nodes, "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip")
+    xml_attr(blip_nodes, "r:embed") <- ref$id[id]
   }
   as.character(doc)
 }

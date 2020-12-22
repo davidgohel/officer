@@ -36,11 +36,10 @@ test_that("pml fp_border", {
 
   node <- pml_cell_node(fp_cell(background.color = "#00FF0099"))
 
-  col <- xml_child(node, "a:solidFill/a:srgbClr") %>% xml_attr("val")
+  col <- xml_attr(xml_child(node, "a:solidFill/a:srgbClr"), "val")
   expect_equal(col, "00FF00")
 
-  alpha <- xml_child(node, "a:solidFill/a:srgbClr/a:alpha") %>%
-    xml_attr("val")
+  alpha <- xml_attr(xml_child(node, "a:solidFill/a:srgbClr/a:alpha"), "val")
   expect_equal(alpha, "60000")
 
   border_nodes <- xml_find_all(node, "//*[self::a:lnL or self::a:lnR or self::a:lnT or self::a:lnB]")
@@ -52,10 +51,10 @@ test_that("pml fp_border", {
   expect_equal(xml_attr(node, "marL"), "0")
 
   node <- pml_cell_node(fp_cell(margin = 2, margin.bottom = 4))
-  expect_equal(xml_attr(node, "marB") %>% as.integer(), 12700 * 4)
-  expect_equal(xml_attr(node, "marT") %>% as.integer(), 12700 * 2)
-  expect_equal(xml_attr(node, "marR") %>% as.integer(), 12700 * 2)
-  expect_equal(xml_attr(node, "marL") %>% as.integer(), 12700 * 2)
+  expect_equal(as.integer(xml_attr(node, "marB")), 12700 * 4)
+  expect_equal(as.integer(xml_attr(node, "marT")), 12700 * 2)
+  expect_equal(as.integer(xml_attr(node, "marR")), 12700 * 2)
+  expect_equal(as.integer(xml_attr(node, "marL")), 12700 * 2)
 
   node <- pml_cell_node(fp_cell(vertical.align = "top"))
   expect_equal(xml_attr(node, "anchor"), "t")
@@ -85,18 +84,18 @@ test_that("wml fp_border", {
 
   node <- wml_cell_node(fp_cell(background.color = "#00FF0099", margin = 2))
 
-  col <- xml_child(node, "w:shd") %>% xml_attr("fill")
+  col <- xml_attr(xml_child(node, "w:shd"), "fill")
   expect_equal(col, "00FF00")
 
-  margins <- xml_child(node, "w:tcMar") %>% xml_children() %>%
-    sapply(function(x) xml_attr(x, "w")) %>%
-    as.integer()
+  margins <- xml_children(xml_child(node, "w:tcMar"))
+  margins <- sapply(margins, function(x) xml_attr(x, "w"))
+  margins <- as.integer(margins)
   expect_equal( margins, rep(40, 4) )
 
   node <- wml_cell_node(fp_cell(margin = 2, margin.bottom = 0))
-  margins <- xml_child(node, "w:tcMar") %>% xml_children() %>%
-    sapply(function(x) xml_attr(x, "w")) %>%
-    as.integer()
+  margins <- xml_children(xml_child(node, "w:tcMar"))
+  margins <- sapply(margins, function(x) xml_attr(x, "w"))
+  margins <- as.integer(margins)
   expect_equal( margins, c(40, 0, 40, 40) )
 
   node <- wml_cell_node(fp_cell(border = fp_border()))
@@ -104,22 +103,22 @@ test_that("wml fp_border", {
   expect_length(border_nodes, 4)
 
   node <- wml_cell_node(fp_cell(vertical.align = "top"))
-  valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
+  valign <- xml_attr(xml_child(node, "w:vAlign"), "val")
   expect_equal(valign, "top")
   node <- wml_cell_node(fp_cell(vertical.align = "center"))
-  valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
+  valign <- xml_attr(xml_child(node, "w:vAlign"), "val")
   expect_equal(valign, "center")
   node <- wml_cell_node(fp_cell(vertical.align = "bottom"))
-  valign <- xml_child(node, "w:vAlign") %>% xml_attr("val")
+  valign <- xml_attr(xml_child(node, "w:vAlign"), "val")
   expect_equal(valign, "bottom")
 
   x <- fp_cell(text.direction = "btlr")
   node <- wml_cell_node(x)
-  td <- xml_child(node, "w:textDirection") %>% xml_attr("val")
+  td <- xml_attr(xml_child(node, "w:textDirection"), "val")
   expect_equal(td, "btLr")
   x <- fp_cell(text.direction = "tbrl")
   node <- wml_cell_node(x)
-  td <- xml_child(node, "w:textDirection") %>% xml_attr("val")
+  td <- xml_attr(xml_child(node, "w:textDirection"), "val")
   expect_equal(td, "tbRl")
 })
 

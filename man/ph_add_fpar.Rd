@@ -50,8 +50,6 @@ with a \code{\link{block_list}} instead of this function.
 }
 
 \examples{
-library(magrittr)
-
 bold_face <- shortcuts$fp_bold(font.size = 30)
 bold_redface <- update(bold_face, color = "red")
 
@@ -59,10 +57,10 @@ fpar_ <- fpar(ftext("Hello ", prop = bold_face),
               ftext("World", prop = bold_redface ),
               ftext(", how are you?", prop = bold_face ) )
 
-doc <- read_pptx() \%>\%
-  add_slide(layout = "Title and Content", master = "Office Theme") \%>\%
-  ph_with("", location = ph_location(bg = "wheat", newlabel = "myph")) \%>\%
-  ph_add_fpar(value = fpar_, ph_label = "myph", level = 2)
+doc <- read_pptx()
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with(doc, "", location = ph_location(bg = "wheat", newlabel = "myph"))
+doc <- ph_add_fpar(doc, value = fpar_, ph_label = "myph", level = 2)
 
 print(doc, target = tempfile(fileext = ".pptx"))
 }

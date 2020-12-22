@@ -36,12 +36,11 @@ a bookmark set on a whole paragraph is also invalid, but bookmarking few words
 inside a paragraph is valid.
 }
 \examples{
-library(magrittr)
-doc <- read_docx() \%>\%
-  body_add_par("centered text", style = "centered") \%>\%
-  slip_in_text(". How are you", style = "strong") \%>\%
-  body_bookmark("text_to_replace") \%>\%
-  body_replace_text_at_bkm("text_to_replace", "not left aligned")
+doc <- read_docx()
+doc <- body_add_par(doc, "centered text", style = "centered")
+doc <- slip_in_text(doc, ". How are you", style = "strong")
+doc <- body_bookmark(doc, "text_to_replace")
+doc <- body_replace_text_at_bkm(doc, "text_to_replace", "not left aligned")
 
 
 # demo usage of bookmark and images ----

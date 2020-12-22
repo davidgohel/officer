@@ -26,27 +26,22 @@ test_that("pml fp_border", {
 
   node <- pml_border_node(fp_border(width = 2, color = "#00FF0099"))
 
-  col <- xml_child(node, "/a:solidFill/a:srgbClr") %>% xml_attr("val")
+  col <- xml_attr(xml_child(node, "/a:solidFill/a:srgbClr"), "val")
   expect_equal(col, "00FF00")
 
-  alpha <- xml_child(node, "/a:solidFill/a:srgbClr/a:alpha") %>%
-    xml_attr("val")
+  alpha <- xml_attr(xml_child(node, "/a:solidFill/a:srgbClr/a:alpha"), "val")
   expect_equal(alpha, "60000")
 
-  type <- xml_child(node, "/a:prstDash") %>%
-    xml_attr("val")
+  type <- xml_attr(xml_child(node, "/a:prstDash"),"val")
   expect_equal(type, "solid")
   node <- pml_border_node(fp_border(style = "dashed"))
-  type <- xml_child(node, "/a:prstDash") %>%
-    xml_attr("val")
+  type <- xml_attr(xml_child(node, "/a:prstDash"), "val")
   expect_equal(type, "sysDash")
   node <- pml_border_node(fp_border(style = "dotted", width = 2))
-  type <- xml_child(node, "/a:prstDash") %>%
-    xml_attr("val")
+  type <- xml_attr(xml_child(node, "/a:prstDash"), "val")
   expect_equal(type, "sysDot")
 
-  width <- xml_attr(node, "w") %>%
-    as.integer()
+  width <- as.integer(xml_attr(node, "w"))
   expect_equal(width, 12700 * 2)
 
   node <- pml_border_node(fp_border(color = "transparent"))

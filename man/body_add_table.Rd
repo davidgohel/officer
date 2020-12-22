@@ -57,10 +57,8 @@ applied.}
 add a table into an rdocx object
 }
 \examples{
-library(magrittr)
-
-doc <- read_docx() \%>\%
-  body_add_table(iris, style = "table_template")
+doc <- read_docx()
+doc <- body_add_table(doc, iris, style = "table_template")
 
 print(doc, target = tempfile(fileext = ".docx") )
 }

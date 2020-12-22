@@ -25,12 +25,11 @@ test_that("set docx properties", {
   doc <- read_docx()
   time_now <- Sys.time()
   filename <- tempfile(fileext = ".docx")
-  doc  %>%
-    set_doc_properties(title = "title",
+  doc <- set_doc_properties(doc, title = "title",
                        subject = "document subject", creator = "Me me me",
                        description = "this document is not empty",
-                       created = time_now ) %>%
-    print(target = filename )
+                       created = time_now )
+  dooc <- print(doc, target = filename )
 
   doc <- read_docx(path = filename)
   properties <- doc_properties(doc)

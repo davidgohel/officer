@@ -16,8 +16,8 @@ one of "after", "before", "on".}
 add a page break into an rdocx object
 }
 \examples{
-library(magrittr)
-doc <- read_docx() \%>\% body_add_break()
+doc <- read_docx()
+doc <- body_add_break(doc)
 print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{

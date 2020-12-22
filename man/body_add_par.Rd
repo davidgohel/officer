@@ -20,12 +20,10 @@ one of "after", "before", "on".}
 add a paragraph of text into an rdocx object
 }
 \examples{
-library(magrittr)
-
-doc <- read_docx() \%>\%
-  body_add_par("A title", style = "heading 1") \%>\%
-  body_add_par("Hello world!", style = "Normal") \%>\%
-  body_add_par("centered text", style = "centered")
+doc <- read_docx()
+doc <- body_add_par(doc, "A title", style = "heading 1")
+doc <- body_add_par(doc, "Hello world!", style = "Normal")
+doc <- body_add_par(doc, "centered text", style = "centered")
 
 print(doc, target = tempfile(fileext = ".docx") )
 }

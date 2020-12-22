@@ -40,8 +40,8 @@ test_that("format pml fp_par", {
   expect_equal( xml_attr(node, "algn"), "r" )
   x <- update(x, padding = 3, padding.bottom = 0)
   node <- get_ppr(x)
-  expect_equal( xml_child(node, "a:spcBef/a:spcPts") %>% xml_attr("val"), "300" )
-  expect_equal( xml_child(node, "a:spcAft/a:spcPts") %>% xml_attr("val"), "0" )
+  expect_equal( xml_attr(xml_child(node, "a:spcBef/a:spcPts"), "val"), "300" )
+  expect_equal( xml_attr(xml_child(node, "a:spcAft/a:spcPts"), "val"), "0" )
   expect_equal( xml_attr(node, "marL"), as.character(12700*3) )
   expect_equal( xml_attr(node, "marR"), as.character(12700*3) )
 })
@@ -72,7 +72,7 @@ test_that("format css fp_par", {
 is_align <- function(x, align){
   xml_ <- format(x, type = "wml")
   doc <- read_xml( wml_str(xml_) )
-  val <- xml_find_first(doc, "/w:document/w:pPr/w:jc") %>% xml_attr("val")
+  val <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:jc"), "val")
   val == align
 }
 
@@ -95,10 +95,10 @@ test_that("wml text align", {
 get_padding <- function(x, align){
   xml_ <- format(x, type = "wml")
   doc <- read_xml( wml_str(xml_) )
-  after <- xml_find_first(doc, "/w:document/w:pPr/w:spacing") %>% xml_attr("after")
-  before <- xml_find_first(doc, "/w:document/w:pPr/w:spacing") %>% xml_attr("before")
-  left <- xml_find_first(doc, "/w:document/w:pPr/w:ind") %>% xml_attr("left")
-  right <- xml_find_first(doc, "/w:document/w:pPr/w:ind") %>% xml_attr("right")
+  after <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:spacing"), "after")
+  before <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:spacing"), "before")
+  left <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:ind"), "left")
+  right <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:ind"), "right")
   out <- as.integer( c(after, before, left, right) ) / 20
   names(out) <- c("bottom", "top", "left", "right")
   out
@@ -120,6 +120,6 @@ test_that("wml shading.color", {
 
   xml_ <- format(x, type = "wml")
   doc <- read_xml( wml_str(xml_) )
-  shd <- xml_find_first(doc, "/w:document/w:pPr/w:shd") %>% xml_attr("fill")
+  shd <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:shd"), "fill")
   expect_equal(shd, "FF0000")
 })

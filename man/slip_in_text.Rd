@@ -22,12 +22,11 @@ slip_in_text(x, str, style = NULL, pos = "after", hyperlink = NULL)
 append text into a paragraph of an rdocx object
 }
 \examples{
-library(magrittr)
-x <- read_docx() \%>\%
-  body_add_par("Hello ", style = "Normal") \%>\%
-  slip_in_text("world", style = "strong") \%>\%
-  slip_in_text("Message is", style = "strong", pos = "before") \%>\%
-  slip_in_text("with a link", style = "strong",
+x <- read_docx()
+x <- body_add_par(x, "Hello ", style = "Normal")
+x <- slip_in_text(x, "world", style = "strong")
+x <- slip_in_text(x, "Message is", style = "strong", pos = "before")
+x <- slip_in_text(x, "with a link", style = "strong",
     pos = "after", hyperlink = "https://davidgohel.github.io/officer/")
 
 print(x, target = tempfile(fileext = ".docx"))

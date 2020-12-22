@@ -83,8 +83,9 @@ test_that("id are sequentially defined", {
   pack_dir <- tempfile(pattern = "dir")
   unpack_folder(file = "body_add_img.docx", folder = pack_dir)
 
-  all_ids <- read_xml(x = file.path(pack_dir, "word/document.xml")) %>%
-    xml_find_all("//*[@id]") %>% xml_attr("id")
+  all_ids <- read_xml(x = file.path(pack_dir, "word/document.xml"))
+  all_ids <- xml_find_all(all_ids, "//*[@id]")
+  all_ids <- xml_attr(all_ids, "id")
 
   expect_equal(length(unique(all_ids)), length(all_ids) )
   expect_true( all(grepl("[0-9]+", all_ids )) )
@@ -95,44 +96,42 @@ test_that("id are sequentially defined", {
 
 
 test_that("cursor behavior", {
-  doc <- read_docx() %>%
-    body_add_par("paragraph 1", style = "Normal") %>%
-    body_add_par("paragraph 2", style = "Normal") %>%
-    body_add_par("paragraph 3", style = "Normal") %>%
-    body_bookmark("bkm1") %>%
-    body_add_par("paragraph 4", style = "Normal") %>%
-    body_add_par("paragraph 5", style = "Normal") %>%
-    body_add_par("paragraph 6", style = "Normal") %>%
-    body_add_par("paragraph 7", style = "Normal") %>%
-    cursor_begin() %>%
-    print(target = "init_doc.docx")
+  doc <- read_docx()
+  doc <- body_add_par(doc, "paragraph 1", style = "Normal")
+  doc <- body_add_par(doc, "paragraph 2", style = "Normal")
+  doc <- body_add_par(doc, "paragraph 3", style = "Normal")
+  doc <- body_bookmark(doc, "bkm1")
+  doc <- body_add_par(doc, "paragraph 4", style = "Normal")
+  doc <- body_add_par(doc, "paragraph 5", style = "Normal")
+  doc <- body_add_par(doc, "paragraph 6", style = "Normal")
+  doc <- body_add_par(doc, "paragraph 7", style = "Normal")
+  doc <- cursor_begin(doc)
+  print(doc, target = "init_doc.docx")
 
-  doc <- read_docx(path = "init_doc.docx") %>%
-    cursor_begin()
-  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 1" )
-  doc <- doc %>% cursor_forward()
-  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 2" )
-  doc <- doc %>% cursor_end()
-  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 7" )
-  doc <- doc %>% cursor_backward()
-  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 6" )
-  doc <- doc %>% cursor_reach(keyword = "paragraph 5")
-  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 5" )
-  doc <- doc %>% cursor_bookmark("bkm1")
-  expect_equal( doc$doc_obj$get_at_cursor() %>% xml_text(), "paragraph 3" )
+  doc <- read_docx(path = "init_doc.docx")
+  doc <- cursor_begin(doc)
+  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 1" )
+  doc <- cursor_forward(doc)
+  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 2" )
+  doc <- cursor_end(doc)
+  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 7" )
+  doc <- cursor_backward(doc)
+  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 6" )
+  doc <- cursor_reach(doc, keyword = "paragraph 5")
+  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 5" )
+  doc <- cursor_bookmark(doc, "bkm1")
+  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 3" )
 
 })
 
 test_that("cursor and position", {
-  doc <- read_docx() %>%
-    body_add_par("paragraph 1", style = "Normal") %>%
-    body_add_par("paragraph 2", style = "Normal") %>%
-
-    cursor_begin() %>%
-
-    body_add_par("new 1", style = "Normal", pos = "before") %>%
-    cursor_forward() %>%
-    body_add_par("new 2", style = "Normal")
+  doc <- read_docx()
+  doc <- body_add_par(doc, "paragraph 1", style = "Normal")
+  doc <- body_add_par(doc, "paragraph 2", style = "Normal")
+  doc <- cursor_begin(doc)
+  doc <- body_add_par(doc, "new 1", style = "Normal", pos = "before")
+  doc <- cursor_forward(doc)
+  doc <- body_add_par(doc, "new 2", style = "Normal")
 
   ds_ <- docx_summary(doc)
 

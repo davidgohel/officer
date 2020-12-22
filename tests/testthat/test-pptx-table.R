@@ -15,7 +15,7 @@ test_that("pml structure", {
 
   xml_tr <- xml_find_all(xmldoc, xpath = "p:cSld/p:spTree/p:graphicFrame/a:graphic/a:graphicData/a:tbl/a:tr")
   expect_length(xml_tr, nrow(mtcars) + 1)
-  expect_equal(xml_attr(xml_tr, "h") %>% unique() %>% length(), 1)
+  expect_equal(length(unique(xml_attr(xml_tr, "h")) ), 1)
   expect_true( all( grepl( "^[0-9]+$", xml_attr(xml_tr, "h") ) ) )
 
   xml_tr <- xml_find_all(xmldoc, xpath = "p:cSld/p:spTree/p:graphicFrame/a:graphic/a:graphicData/a:tbl/a:tr/a:tc")

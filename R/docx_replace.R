@@ -22,12 +22,11 @@ is_scalar_logical <- function( x ) {
 #' @param bookmark bookmark id
 #' @param value the replacement string, of type character
 #' @examples
-#' library(magrittr)
-#' doc <- read_docx() %>%
-#'   body_add_par("centered text", style = "centered") %>%
-#'   slip_in_text(". How are you", style = "strong") %>%
-#'   body_bookmark("text_to_replace") %>%
-#'   body_replace_text_at_bkm("text_to_replace", "not left aligned")
+#' doc <- read_docx()
+#' doc <- body_add_par(doc, "centered text", style = "centered")
+#' doc <- slip_in_text(doc, ". How are you", style = "strong")
+#' doc <- body_bookmark(doc, "text_to_replace")
+#' doc <- body_replace_text_at_bkm(doc, "text_to_replace", "not left aligned")
 body_replace_text_at_bkm <- function( x, bookmark, value ){
 
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
@@ -159,11 +158,9 @@ footers_replace_img_at_bkm <- function( x, bookmark, value ){
 #' @param warn warn if \code{old_value} could not be found.
 #' @param ... optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})
 #' @examples
-#' library(magrittr)
-#'
-#' doc <- read_docx() %>%
-#'   body_add_par("Placeholder one") %>%
-#'   body_add_par("Placeholder two")
+#' doc <- read_docx()
+#' doc <- body_add_par(doc, "Placeholder one")
+#' doc <- body_add_par(doc, "Placeholder two")
 #'
 #' # Show text chunk at cursor
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
@@ -200,11 +197,9 @@ body_replace_all_text <- function( x, old_value, new_value,
 #' @seealso \code{\link{body_replace_all_text}}
 #' @param x a docx device
 #' @examples
-#' library(magrittr)
-#'
-#' doc <- read_docx() %>%
-#'   body_add_par("Placeholder one") %>%
-#'   body_add_par("Placeholder two")
+#' doc <- read_docx()
+#' doc <- body_add_par(doc, "Placeholder one")
+#' doc <- body_add_par(doc, "Placeholder two")
 #'
 #' # Show text chunk at cursor
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
