@@ -151,7 +151,6 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
 #'
 #' @family functions for reading presentation informations
 annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
-
   ppt <- read_pptx(path=path)
   while(length(ppt)>0){
     ppt <- remove_slide(ppt, 1)
@@ -161,20 +160,11 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
   lay_sum <- layout_summary(ppt)
 
   # Looping through each layout
-
   for(lidx in seq_len(nrow(lay_sum))){
     # Pulling out the layout properties
-
     layout <- lay_sum[lidx, 1]
     master <- lay_sum[lidx, 2]
     lp <- layout_properties ( x = ppt, layout = layout, master = master)
-    lp <- lp[order(lp$type, as.integer(lp$id)),]
-
-    id <- unlist( lapply(rle( lp$type)$lengths, function(x){
-      seq_len(x)
-    }) )
-    textstr <- sprintf('type="%s", index =%d, ph_label="%s"',
-                       lp$type, id, lp$ph_label)
 
     # Adding a slide for the current layout
     ppt <- add_slide(x=ppt, layout = layout, master = master)
@@ -185,14 +175,14 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
     )
     ppt <- ph_with(x = ppt, value = fpar_, ph_label = "layout_ph",
                    location = ph_location(left = 0, top = -0.5, width = size$width, height = 1,
-                               bg = "transparent", newlabel = "layout_ph"))
-
+                                          bg = "transparent", newlabel = "layout_ph"))
 
     # Blank slides have nothing
     if(length(lp[,1] > 0)){
       # Now we go through each placholder
       for(pidx in seq_len(nrow(lp))){
-        ppt <- ph_with(x=ppt, value = textstr[pidx], location = ph_location_type(type = lp$type[pidx], id = id[pidx]))
+        textstr <- paste("type=", lp$type[pidx], ", index=", lp$id[pidx], ", ph_label=",lp$ph_label[pidx])
+        ppt <- ph_with(x=ppt,  value = textstr, location = ph_location_label(type = lp$type[pidx], ph_label = lp$ph_label[pidx]))
       }
     }
   }
