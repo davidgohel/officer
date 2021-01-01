@@ -4,6 +4,10 @@
 
 * drop cairo usage and let user settings do the job
 
+## Issues
+
+* fix annotate_base that was not presenting the correct informatons (thanks to John Harrold).
+
 
 # officer 0.3.15
 

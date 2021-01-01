@@ -36,5 +36,5 @@ modify these values - they must be defined in the initial document.
 read_pptx()
 }
 \seealso{
-\code{\link{print.rpptx}} \code{\link{add_slide}}
+\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=add_slide]{add_slide()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}
 }

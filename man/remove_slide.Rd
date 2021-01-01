@@ -23,6 +23,8 @@ my_pres <- add_slide(my_pres)
 my_pres <- remove_slide(my_pres)
 }
 \seealso{
+\code{\link[=read_pptx]{read_pptx()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=ph_remove]{ph_remove()}}
+
 Other functions slide manipulation: 
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},

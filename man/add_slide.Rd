@@ -23,8 +23,7 @@ my_pres <- add_slide(my_pres,
   layout = "Two Content", master = "Office Theme")
 }
 \seealso{
-\code{\link{print.rpptx}} \code{\link{read_pptx}}
-\code{\link{ph_with}}, \code{\link{layout_summary}}
+\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=layout_summary]{layout_summary()}}
 
 Other functions slide manipulation: 
 \code{\link{move_slide}()},

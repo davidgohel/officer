@@ -9,8 +9,7 @@
 #' layout_summary(my_pres)
 #' my_pres <- add_slide(my_pres,
 #'   layout = "Two Content", master = "Office Theme")
-#' @seealso \code{\link{print.rpptx}} \code{\link{read_pptx}}
-#' \code{\link{ph_with}}, \code{\link{layout_summary}}
+#' @seealso [print.rpptx()], [read_pptx()], [plot_layout_properties()], [ph_with()], [layout_summary()]
 #' @family functions slide manipulation
 add_slide <- function( x, layout = "Title and Content", master = "Office Theme" ){
 
@@ -58,6 +57,7 @@ add_slide <- function( x, layout = "Title and Content", master = "Office Theme" 
 #' file <- tempfile(fileext = ".pptx")
 #' print(doc, target = file )
 #' @family functions slide manipulation
+#' @seealso [read_pptx()], [ph_with()]
 on_slide <- function( x, index ){
 
   l_ <- length(x)
@@ -87,6 +87,7 @@ on_slide <- function( x, index ){
 #' my_pres <- add_slide(my_pres)
 #' my_pres <- remove_slide(my_pres)
 #' @family functions slide manipulation
+#' @seealso [read_pptx()], [ph_with()], [ph_remove()]
 remove_slide <- function( x, index = NULL ){
 
   l_ <- length(x)
@@ -129,6 +130,7 @@ remove_slide <- function( x, index = NULL ){
 #' x <- ph_with(x, "Hello world 2", location = ph_location_type())
 #' x <- move_slide(x, index = 1, to = 2)
 #' @family functions slide manipulation
+#' @seealso [read_pptx()]
 move_slide <- function( x, index, to ){
 
   x$presentation$slide_data()

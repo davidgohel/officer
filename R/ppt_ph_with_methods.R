@@ -1,9 +1,8 @@
 #' @export
 #' @title add objects into a new shape on the current slide
 #' @description add object into a new shape in the current slide. This
-#' function is able to add all supported outputs to a presentation
-#' and should replace calls to older functions starting with
-#' \code{ph_with_*}.
+#' function is able to add all supported outputs to a presentation. See
+#' section **Methods (by class)** to see supported outputs.
 #' @param x an rpptx object
 #' @param value object to add as a new shape. Supported objects
 #' are vectors, data.frame, graphics, block of formatted paragraphs,

@@ -93,9 +93,8 @@ be used.}
 }
 \description{
 add object into a new shape in the current slide. This
-function is able to add all supported outputs to a presentation
-and should replace calls to older functions starting with
-\code{ph_with_*}.
+function is able to add all supported outputs to a presentation. See
+section \strong{Methods (by class)} to see supported outputs.
 }
 \section{Methods (by class)}{
 \itemize{

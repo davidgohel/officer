@@ -20,7 +20,7 @@
 #' modify these values - they must be defined in the initial document.
 #' @examples
 #' read_pptx()
-#' @seealso \code{\link{print.rpptx}} \code{\link{add_slide}}
+#' @seealso [print.rpptx()], [add_slide()], [plot_layout_properties()], [ph_with()]
 read_pptx <- function( path = NULL ){
 
   if( !is.null(path) && !file.exists(path))
