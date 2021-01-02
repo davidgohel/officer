@@ -57,6 +57,7 @@ print(x, target = tempfile(fileext = ".docx"))
 
 Other run functions for reporting: 
 \code{\link{ftext}()},
+\code{\link{hyperlink_ftext}()},
 \code{\link{run_autonum}()},
 \code{\link{run_bookmark}()},
 \code{\link{run_columnbreak}()},

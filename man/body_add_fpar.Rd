@@ -37,6 +37,9 @@ print(doc, target = tempfile(fileext = ".docx"))
 rlogo <- file.path( R.home("doc"), "html", "logo.jpg" )
 img_in_par <- fpar(
   external_img(src = rlogo, height = 1.06/2, width = 1.39/2),
+  hyperlink_ftext(
+    href = "https://cran.r-project.org/index.html",
+    text = "cran", prop = bold_redface),
   fp_p = fp_par(text.align = "center") )
 
 doc <- read_docx()

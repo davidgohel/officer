@@ -247,6 +247,9 @@ body_add_par <- function( x, value, style = NULL, pos = "after" ){
 #' rlogo <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' img_in_par <- fpar(
 #'   external_img(src = rlogo, height = 1.06/2, width = 1.39/2),
+#'   hyperlink_ftext(
+#'     href = "https://cran.r-project.org/index.html",
+#'     text = "cran", prop = bold_redface),
 #'   fp_p = fp_par(text.align = "center") )
 #'
 #' doc <- read_docx()
@@ -264,6 +267,13 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
   })
   img_src <- unique(img_src[!is.na(img_src)])
 
+  hrefs <- sapply(value$chunks, function(x){
+    if( inherits(x, "hyperlink_ftext"))
+      as.character(x$href)
+    else NA_character_
+  })
+  hrefs <- unique(hrefs[!is.na(hrefs)])
+
   if( !is.null(style) ){
     style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
   } else style_id <- NULL
@@ -271,6 +281,8 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
   xml_elt <- to_wml(value, add_ns = TRUE, style_id = style_id)
   x <- docx_reference_img(x, img_src)
   xml_elt <- wml_link_images( x, xml_elt )
+  x <- docx_reference_hyperlink(x, hrefs)
+  xml_elt <- wml_link_hyperlink( x, xml_elt )
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -628,6 +640,12 @@ body_add.fpar <- function( x, value, style = NULL, ... ){
     else NA_character_
   })
   img_src <- unique(img_src[!is.na(img_src)])
+  hrefs <- sapply(value$chunks, function(x){
+    if( inherits(x, "hyperlink_ftext"))
+      as.character(x$href)
+    else NA_character_
+  })
+  hrefs <- unique(hrefs[!is.na(hrefs)])
 
   if( !is.null(style) ){
     style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
@@ -636,6 +654,9 @@ body_add.fpar <- function( x, value, style = NULL, ... ){
   xml_elt <- to_wml(value, add_ns = TRUE, style_id = style_id)
   x <- docx_reference_img(x, img_src)
   xml_elt <- wml_link_images( x, xml_elt )
+  x <- docx_reference_hyperlink(x, hrefs)
+  xml_elt <- wml_link_hyperlink( x, xml_elt )
+
   body_add_xml2(x = x, str = xml_elt)
 }
 

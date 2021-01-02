@@ -269,6 +269,75 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
   out
 }
 
+# hyperlink text ----
+
+#' @export
+#' @title formatted chunk of text with hyperlink
+#' @description Format a chunk of text with text formatting properties (bold, color, ...),
+#' the chunk is associated with an hyperlink.
+#' @param text text value, a single character value
+#' @param prop formatting text properties returned by [fp_text]. It also can be NULL in
+#' which case, no formatting is defined (the default is applied).
+#' @param href URL value
+#' @inheritSection ftext usage
+#' @examples
+#' ft <- fp_text(font.size = 12, bold = TRUE)
+#' hyperlink_ftext(
+#'   href = "https://cran.r-project.org/index.html",
+#'   text = "some text", prop = ft)
+#' @family run functions for reporting
+hyperlink_ftext <- function(text, prop = NULL, href) {
+  if(is.character(text)) {
+    value <- enc2utf8(text)
+  } else {
+    value <- formatC(text)
+  }
+
+  out <- list(value = value, pr = prop, href = href)
+  class(out) <- c("hyperlink_ftext", "cot", "run")
+  out
+}
+
+#' @export
+to_wml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
+
+  out <- paste0("<w:r>", if(!is.null(x$pr)) rpr_wml(x$pr),
+                "<w:t xml:space=\"preserve\">",
+                htmlEscapeCopy(x$value), "</w:t></w:r>")
+  paste0("<w:hyperlink r:id=\"", htmlEscapeCopy(x$href), "\">", out, "</w:hyperlink>")
+}
+
+#' @export
+to_pml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
+  open_tag <- ar_ns_no
+  if (add_ns) {
+    open_tag <- ar_ns_yes
+  }
+  str_ <- sprintf("<a:hlinkClick r:id=\"%s\"/>", x$href)
+
+  if(!is.null(x$pr)) {
+    rpr_pml_ <- rpr_pml(x$pr)
+    m <- regexpr(">", rpr_pml_)
+    regmatches(rpr_pml_, m) <- paste0(">",str_)
+  } else {
+    rpr_pml_ <- paste0("<a:rPr>", str_, "</a:rPr>")
+  }
+
+  paste0(open_tag, rpr_pml_,
+         "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>")
+}
+
+#' @export
+to_html.hyperlink_ftext <- function(x, ...) {
+  out <- sprintf("<span style=\"%s\">%s</span>",
+                 if(!is.null(x$pr)) rpr_css(x$pr) else "",
+                 htmlEscapeCopy(x$value))
+  sprintf("<a href=\"%s\">%s</a>", x$href, out)
+  out
+}
+
+
+
 # bookmark ----
 
 #' @export

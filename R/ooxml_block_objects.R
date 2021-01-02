@@ -849,11 +849,12 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' Default text and paragraph formatting properties can also be modified
 #' with function `update()`.
 #'
-#' @param ... cot objects (ftext, external_img)
+#' @param ... cot objects ([ftext()], [external_img()])
 #' @param fp_p paragraph formatting properties
 #' @param fp_t default text formatting properties. This is used as
 #' text formatting properties when simple text is provided as argument.
 #'
+#' @param values a list of cot objects. If provided, argument \code{...} will be ignored.
 #' @param object fpar object
 #' @examples
 #' fpar(ftext("hello", shortcuts$fp_bold()))
@@ -875,9 +876,14 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #'   fp_p = fp_par(text.align = "center") )
 #' @family block functions for reporting
 #' @seealso [block_list()], [body_add_fpar()], [ph_with()]
-fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text() ) {
+fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text(), values = NULL) {
   out <- list()
-  out$chunks <- list(...)
+
+  if( is.null(values)){
+    values <- list(...)
+  }
+
+  out$chunks <- values
   out$fp_p <- fp_p
   out$fp_t <- fp_t
   class(out) <- c("fpar", "block")

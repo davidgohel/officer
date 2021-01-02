@@ -5,17 +5,19 @@
 \alias{update.fpar}
 \title{Concatenate formatted text as a paragraph}
 \usage{
-fpar(..., fp_p = fp_par(), fp_t = fp_text())
+fpar(..., fp_p = fp_par(), fp_t = fp_text(), values = NULL)
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
 }
 \arguments{
-\item{...}{cot objects (ftext, external_img)}
+\item{...}{cot objects (\code{\link[=ftext]{ftext()}}, \code{\link[=external_img]{external_img()}})}
 
 \item{fp_p}{paragraph formatting properties}
 
 \item{fp_t}{default text formatting properties. This is used as
 text formatting properties when simple text is provided as argument.}
+
+\item{values}{a list of cot objects. If provided, argument \code{...} will be ignored.}
 
 \item{object}{fpar object}
 }

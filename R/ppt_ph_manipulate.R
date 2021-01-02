@@ -260,6 +260,9 @@ ph_add_text <- function( x, str, type = "body", id = 1, id_chr = NULL, ph_label 
 #' @description append a new empty paragraph in a placeholder.
 #' The function let you add a new empty paragraph to an existing
 #' content in an exiisting shape, existing paragraphs will be preserved.
+#' @note This function will be deprecated in a next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @inheritParams ph_remove
 #' @param level paragraph level
 #' @inheritSection ph_add_text Usage
@@ -317,6 +320,9 @@ ph_add_par <- function( x, type = "body", id = 1, id_chr = NULL, level = 1, ph_l
 #' The function let you add a new formatted paragraph (\code{\link{fpar}})
 #' to an existing content in an exiisting shape, existing paragraphs
 #' will be preserved.
+#' @note This function will be deprecated in a next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @inheritParams ph_remove
 #' @param value fpar object
 #' @param level paragraph level

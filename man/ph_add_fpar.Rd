@@ -43,6 +43,11 @@ The function let you add a new formatted paragraph (\code{\link{fpar}})
 to an existing content in an exiisting shape, existing paragraphs
 will be preserved.
 }
+\note{
+This function will be deprecated in a next release because it is not
+efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
+formatted paragraphs.
+}
 \section{Usage}{
 
 If your goal is to add formatted text in a new shape, use \code{\link{ph_with}}

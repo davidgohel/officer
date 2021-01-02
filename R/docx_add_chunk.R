@@ -4,6 +4,9 @@
 #' This feature is only available when document are edited with Word,
 #' when edited with Libre Office or another program, seq field will not
 #' be calculated and not displayed.
+#' @note This function will be deprecated in a next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @param x an rdocx object
 #' @param str seq field value
 #' @param style text style
@@ -70,6 +73,9 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 #' @param hyperlink turn the text into an external hyperlink
+#' @note This function will be deprecated in a next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @examples
 #' x <- read_docx()
 #' x <- body_add_par(x, "Hello ", style = "Normal")
@@ -121,6 +127,9 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 #' @param height height in inches
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
+#' @note This function will be deprecated in a next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @examples
 #' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 #' x <- read_docx()

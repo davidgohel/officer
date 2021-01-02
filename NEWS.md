@@ -1,5 +1,9 @@
 # officer 0.3.16
 
+## New features
+
+* new chunk function `hyperlink_ftext()`.
+
 ## Change
 
 * drop cairo usage and let user settings do the job

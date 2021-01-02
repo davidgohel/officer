@@ -98,9 +98,14 @@
 #'
 #'
 #' # fpar ------
-#' hw <- fpar(ftext("hello world",
-#'   fp_text(bold = TRUE, font.family = "Bradley Hand",
-#'     font.size = 150, color = "#F5595B")))
+#' fpt <- fp_text(bold = TRUE, font.family = "Bradley Hand",
+#'       font.size = 150, color = "#F5595B")
+#' hw <- fpar(
+#'   ftext("hello ", fpt),
+#'   hyperlink_ftext(
+#'     href = "https://cran.r-project.org/index.html",
+#'     text = "cran", prop = fpt)
+#' )
 #' doc_1 <- add_slide(doc_1)
 #' doc_1 <- ph_with(x = doc_1, value = hw,
 #'                  location = ph_location_type(type="body") )
@@ -214,6 +219,19 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
+
+  for(v in seq_along(value)){
+    for(iter in seq_along(value[[v]]$chunks)){
+      curr_chk <- value[[v]]$chunks[[iter]]
+      if( inherits(curr_chk, "hyperlink_ftext")){
+        slide$reference_hyperlink(curr_chk$href)
+        rel_df <- slide$rel_df()
+        id <- rel_df$id[match(curr_chk$href, rel_df$target)]
+        curr_chk$href <- id
+        value[[v]]$chunks[[iter]] <- curr_chk
+      }
+    }
+  }
 
   pars <- sapply(value, to_pml)
 

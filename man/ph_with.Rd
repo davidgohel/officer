@@ -232,9 +232,14 @@ doc_1 <- ph_with(x = doc_1, value = bl,
 
 
 # fpar ------
-hw <- fpar(ftext("hello world",
-  fp_text(bold = TRUE, font.family = "Bradley Hand",
-    font.size = 150, color = "#F5595B")))
+fpt <- fp_text(bold = TRUE, font.family = "Bradley Hand",
+      font.size = 150, color = "#F5595B")
+hw <- fpar(
+  ftext("hello ", fpt),
+  hyperlink_ftext(
+    href = "https://cran.r-project.org/index.html",
+    text = "cran", prop = fpt)
+)
 doc_1 <- add_slide(doc_1)
 doc_1 <- ph_with(x = doc_1, value = hw,
                  location = ph_location_type(type="body") )

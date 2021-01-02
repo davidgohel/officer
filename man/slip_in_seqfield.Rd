@@ -22,6 +22,11 @@ This feature is only available when document are edited with Word,
 when edited with Libre Office or another program, seq field will not
 be calculated and not displayed.
 }
+\note{
+This function will be deprecated in a next release because it is not
+efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
+formatted paragraphs.
+}
 \examples{
 x <- read_docx()
 x <- body_add_par(x, "Time is: ", style = "Normal")
