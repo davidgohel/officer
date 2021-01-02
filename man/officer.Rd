@@ -33,7 +33,7 @@ Other contributors:
   \item Liz Sander \email{lsander@civisanalytics.com} (several documentation fixes) [contributor]
   \item Anton Victorson \email{anton@victorson.se} (fixes xml structures) [contributor]
   \item Jon Calder \email{jonmcalder@gmail.com} (update vignettes) [contributor]
-  \item John Harrold \email{john.m.harrold@gmail.com} (fuction annotate_base) [contributor]
+  \item John Harrold \email{john.m.harrold@gmail.com} (function annotate_base) [contributor]
   \item John Muschelli \email{muschellij2@gmail.com} (google doc compatibility) [contributor]
 }
 
