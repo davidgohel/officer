@@ -48,9 +48,8 @@
 
 <meta property="og:title" content="add objects into a new shape on the current slide — ph_with" />
 <meta property="og:description" content="add object into a new shape in the current slide. This
-function is able to add all supported outputs to a presentation
-and should replace calls to older functions starting with
-ph_with_*." />
+function is able to add all supported outputs to a presentation. See
+section Methods (by class) to see supported outputs." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -83,7 +82,7 @@ ph_with_*." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
       </span>
     </div>
 
@@ -99,7 +98,7 @@ ph_with_*." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidgohel/officer/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -123,9 +122,8 @@ ph_with_*." />
 
     <div class="ref-description">
     <p>add object into a new shape in the current slide. This
-function is able to add all supported outputs to a presentation
-and should replace calls to older functions starting with
-<code>ph_with_*</code>.</p>
+function is able to add all supported outputs to a presentation. See
+section <strong>Methods (by class)</strong> to see supported outputs.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -160,13 +158,13 @@ and should replace calls to older functions starting with
 <span class='op'>)</span>
 
 <span class='co'># S3 method for gg</span>
-<span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, res <span class='op'>=</span> <span class='fl'>300</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, res <span class='op'>=</span> <span class='fl'>300</span>, <span class='va'>alt_text</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for plot_instr</span>
 <span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, res <span class='op'>=</span> <span class='fl'>300</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for external_img</span>
-<span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, use_loc_size <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, use_loc_size <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>alt_text</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for fpar</span>
 <span class='fu'>ph_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, <span class='va'>location</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -231,6 +229,10 @@ and 'c' for center. Default to NULL.</p></td>
     <tr>
       <th>res</th>
       <td><p>resolution of the png image in ppi</p></td>
+    </tr>
+    <tr>
+      <th>alt_text</th>
+      <td><p>Alt-text for screen-readers</p></td>
     </tr>
     <tr>
       <th>use_loc_size</th>
@@ -319,7 +321,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
   bg <span class='op'>=</span> <span class='st'>"#006699"</span><span class='op'>)</span>
 
 <span class='co'># add a ggplot2 plot ----</span>
-<span class='kw'>if</span><span class='op'>(</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://ggplot2.tidyverse.org'>"ggplot2"</a></span><span class='op'>)</span> <span class='op'>)</span><span class='op'>{</span>
+<span class='kw'>if</span><span class='op'>(</span> <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://ggplot2.tidyverse.org'>"ggplot2"</a></span><span class='op'>)</span> <span class='op'>)</span><span class='op'>{</span>
   <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc_1</span><span class='op'>)</span>
   <span class='va'>gg_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>iris</span> <span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span>, <span class='va'>Petal.Length</span><span class='op'>)</span>,
@@ -370,9 +372,14 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 
 
 <span class='co'># fpar ------</span>
-<span class='va'>hw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello world"</span>,
-  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span>, font.family <span class='op'>=</span> <span class='st'>"Bradley Hand"</span>,
-    font.size <span class='op'>=</span> <span class='fl'>150</span>, color <span class='op'>=</span> <span class='st'>"#F5595B"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fpt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span>, font.family <span class='op'>=</span> <span class='st'>"Bradley Hand"</span>,
+      font.size <span class='op'>=</span> <span class='fl'>150</span>, color <span class='op'>=</span> <span class='st'>"#F5595B"</span><span class='op'>)</span>
+<span class='va'>hw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span>
+  <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello "</span>, <span class='va'>fpt</span><span class='op'>)</span>,
+  <span class='fu'><a href='hyperlink_ftext.html'>hyperlink_ftext</a></span><span class='op'>(</span>
+    href <span class='op'>=</span> <span class='st'>"https://cran.r-project.org/index.html"</span>,
+    text <span class='op'>=</span> <span class='st'>"cran"</span>, prop <span class='op'>=</span> <span class='va'>fpt</span><span class='op'>)</span>
+<span class='op'>)</span>
 <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc_1</span><span class='op'>)</span>
 <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'>ph_with</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc_1</span>, value <span class='op'>=</span> <span class='va'>hw</span>,
                  location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type<span class='op'>=</span><span class='st'>"body"</span><span class='op'>)</span> <span class='op'>)</span>
@@ -399,7 +406,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.15 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.16 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
