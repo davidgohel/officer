@@ -45,7 +45,7 @@ ph_with(x, value, location, ...)
 
 \method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
 
-\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, alt_text, ...)
+\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
 
 \method{ph_with}{fpar}(x, value, location, ...)
 

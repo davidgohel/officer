@@ -1,3 +1,9 @@
+# officer 0.3.17
+
+## New features
+
+* alt-text for images
+
 # officer 0.3.16
 
 ## New features

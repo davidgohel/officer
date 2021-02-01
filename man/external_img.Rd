@@ -4,7 +4,7 @@
 \alias{external_img}
 \title{external image}
 \usage{
-external_img(src, width = 0.5, height = 0.2)
+external_img(src, width = 0.5, height = 0.2, alt = "")
 }
 \arguments{
 \item{src}{image file path}
@@ -12,6 +12,8 @@ external_img(src, width = 0.5, height = 0.2)
 \item{width}{height in inches.}
 
 \item{height}{height in inches}
+
+\item{alt}{alternative text for images}
 }
 \description{
 Wraps an image in an object that can then be embedded

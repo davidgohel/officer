@@ -659,13 +659,14 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' @param src image file path
 #' @param width height in inches.
 #' @param height height in inches
+#' @param alt alternative text for images
 #' @inheritSection ftext usage
 #' @examples
 #'
 #' @example examples/external_img.R
 #' @seealso [ph_with], [body_add], [fpar]
 #' @family run functions for reporting
-external_img <- function(src, width = .5, height = .2) {
+external_img <- function(src, width = .5, height = .2, alt = "") {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))
   if( !check_src ){
@@ -674,6 +675,7 @@ external_img <- function(src, width = .5, height = .2) {
 
   class(src) <- c("external_img", "cot", "run")
   attr(src, "dims") <- list(width = width, height = height)
+  attr(src, "alt") <- alt
   src
 }
 
@@ -684,7 +686,7 @@ dim.external_img <- function( x ){
 
 as.data.frame.external_img <- function( x, ... ){
   dimx <- attr(x, "dims")
-  data.frame(path = as.character(x), width = dimx$width, height = dimx$height)
+  data.frame(path = as.character(x), width = dimx$width, height = dimx$height, alt = attr(x, "alt"), stringsAsFactors = FALSE)
 }
 
 
@@ -736,10 +738,11 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
   width <- dims$width
   height <- dims$height
 
+
   paste0(open_tag,
          "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
          sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700*72, height * 12700*72),
-         "<wp:docPr id=\"\" name=\"\"/>",
+         "<wp:docPr id=\"\" name=\"\" descr=\"", attr(x, "alt"),"\"/>",
          "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
          "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
          "<pic:nvPicPr>",
@@ -784,7 +787,7 @@ to_html.external_img <- function(x, ...) {
     stop("this format is not implemented")
   }
   x <- base64enc::dataURI(file = as.character(x), mime = mime )
-  sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" />", width*72, height*72, x)
+  sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" alt=\"%s\"/>", width*72, height*72, x, attr(x, "alt"))
 
 }
 
