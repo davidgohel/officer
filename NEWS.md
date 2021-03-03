@@ -4,6 +4,8 @@
 
 * alt-text for images
 * On Windows, the file will not be overwritten if it is edited.
+* `fp_text` gained arguments to specify different fonts when mixing 
+  CJK and latin characters: `cs.family`, `eastasia.family`, `hansi.family`.
 
 # officer 0.3.16
 

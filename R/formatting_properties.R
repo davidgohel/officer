@@ -101,7 +101,17 @@ check_set_choice <- function( obj, value, choices){
 #' @param bold is bold
 #' @param italic is italic
 #' @param underlined is underlined
-#' @param font.family single character value specifying font name.
+#' @param font.family single character value. Specifies the font to
+#' be used to format characters in the Unicode range (U+0000-U+007F).
+#' @param cs.family optional font to be used to format
+#' characters in a complex script Unicode range. For example, Arabic
+#' text might be displayed using the "Arial Unicode MS" font.
+#' @param eastasia.family optional font to be used to
+#' format characters in an East Asian Unicode range. For example,
+#' Japanese text might be displayed using the "MS Mincho" font.
+#' @param hansi.family optional. Specifies the font to be used to format
+#' characters in a Unicode range which does not fall into one of the
+#' other categories.
 #' @param vertical.align single character value specifying font vertical alignments.
 #' Expected value is one of the following : default \code{'baseline'}
 #' or \code{'subscript'} or \code{'superscript'}
@@ -118,6 +128,7 @@ check_set_choice <- function( obj, value, choices){
 fp_text <- function( color = "black", font.size = 10,
                      bold = FALSE, italic = FALSE, underlined = FALSE,
                      font.family = "Arial",
+                     cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
                      vertical.align = "baseline",
                      shading.color = "transparent" ){
 
@@ -129,6 +140,14 @@ fp_text <- function( color = "black", font.size = 10,
   out <- check_set_bool( obj = out, underlined)
   out <- check_set_color(out, color)
   out <- check_set_chr(out, font.family)
+
+  if(is.null(cs.family)) cs.family <- font.family
+  if(is.null(eastasia.family)) eastasia.family <- font.family
+  if(is.null(hansi.family)) hansi.family <- font.family
+
+  out <- check_set_chr(out, cs.family)
+  out <- check_set_chr(out, eastasia.family)
+  out <- check_set_chr(out, hansi.family)
 
   out <- check_set_choice( obj = out, value = vertical.align,
                            choices = c("subscript", "superscript", "baseline") )
@@ -177,6 +196,9 @@ print.fp_text = function (x, ...){
     color = x$color,
     shading = x$shading.color,
     fontname = x$font.family,
+    fontname_cs = x$cs.family,
+    fontname_eastasia = x$eastasia.family,
+    fontname.hansi = x$hansi.family,
     vertical_align = x$vertical.align, stringsAsFactors = FALSE )
   print(out)
   invisible()
@@ -188,8 +210,9 @@ print.fp_text = function (x, ...){
 #' @rdname fp_text
 #' @export
 update.fp_text <- function(object, color, font.size,
-                           bold = FALSE, italic = FALSE, underlined = FALSE,
-                           font.family, vertical.align, shading.color, ...) {
+                           bold, italic, underlined,
+                           font.family, cs.family, eastasia.family, hansi.family,
+                           vertical.align, shading.color, ...) {
 
   if( !missing( font.size ) )
     object <- check_set_numeric( obj = object, font.size)
@@ -203,6 +226,12 @@ update.fp_text <- function(object, color, font.size,
     object <- check_set_color(object, color)
   if( !missing( font.family ) )
     object <- check_set_chr(object, font.family)
+  if( !missing( cs.family ) )
+    object <- check_set_chr(object, cs.family)
+  if( !missing( eastasia.family ) )
+    object <- check_set_chr(object, eastasia.family)
+  if( !missing( hansi.family ) )
+    object <- check_set_chr(object, hansi.family)
   if( !missing( vertical.align ) )
     object <- check_set_choice(
       obj = object, value = vertical.align,

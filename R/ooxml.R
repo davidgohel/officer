@@ -313,8 +313,8 @@ rpr_pml <- function(x){
   }
 
   out <- paste0(out,
-                sprintf("<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/>",
-                        x$font.family, x$font.family)
+                sprintf("<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/><a:ea typeface=\"%s\"/><a:sym typeface=\"%s\"/>",
+                        x$font.family, x$cs.family, x$eastasia.family, x$hansi.family)
         )
   out <- paste0(out, "</a:rPr>")
   out
@@ -324,9 +324,9 @@ rpr_wml <- function(x){
 
   out <- paste0("<w:rPr><w:rFonts",
     " w:ascii=\"", x$font.family, "\"",
-    " w:hAnsi=\"", x$font.family, "\"",
-    " w:eastAsia=\"", x$font.family, "\"",
-    " w:cs=\"", x$font.family, "\"",
+    " w:hAnsi=\"", x$hansi.family, "\"",
+    " w:eastAsia=\"", x$eastasia.family, "\"",
+    " w:cs=\"", x$cs.family, "\"",
     "/>")
 
   if(x$italic){
