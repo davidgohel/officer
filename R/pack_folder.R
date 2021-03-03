@@ -49,7 +49,7 @@ pack_folder <- function( folder, target ){
 #' @param file path of the archive to unzip
 #' @param folder folder to create
 #' @keywords internal
-unpack_folder <- function( file, folder ){
+unpack_folder <- function(file, folder){
 
   stopifnot(file.exists(file))
 
@@ -61,8 +61,12 @@ unpack_folder <- function( file, folder ){
   if( l10n_info()$`UTF-8` ){
     zip::unzip( zipfile = file, exdir = folder )
   } else {
+    officer_wd_folder <- getOption("officer_wd_folder")
+    if(is.null(officer_wd_folder) || !dir.exists(officer_wd_folder)){
+      officer_wd_folder <- tempdir()
+    }
     # unable to unzip a file with accent when on windows
-    newfile <- tempfile(fileext = file_type)
+    newfile <- tempfile(tmpdir = officer_wd_folder, fileext = file_type)
     file.copy(from = file, to = newfile)
     zip::unzip( zipfile = newfile, exdir = folder )
     unlink(newfile, force = TRUE)
