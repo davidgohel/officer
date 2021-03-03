@@ -3,6 +3,7 @@
 ## New features
 
 * alt-text for images
+* On Windows, the file will not be overwritten if it is edited.
 
 # officer 0.3.16
 

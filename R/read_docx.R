@@ -143,6 +143,10 @@ print.rdocx <- function(x, target = NULL, ...){
   if( !grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE) )
     stop(target , " should have '.docx' extension.")
 
+  if(is_windows() && is_office_doc_edited(target))
+    stop(target , " is already edited.",
+         " You must close the document in order to be able to write the file.")
+
   int_id <- 1 # unique id identifier
 
   # make all id unique for document

@@ -265,4 +265,21 @@ check_bookmark_id <- function(bkm){
   bkm
 }
 
+is_windows <- function() {
+  "windows" %in% .Platform$OS.type
+}
 
+is_office_doc_edited <- function(file){
+  is_docx <- grepl("\\.docx$", basename(file))
+  x <- gsub("\\.(docx|pptx)$", "", basename(file))
+  if( nchar(x) < 7)
+    z <- paste0("~$", x)
+  else if( nchar(x) < 8)
+    z <- paste0("~$", substring(x, 2))
+  else {
+    z <- paste0("~$", substring(x, 3))
+  }
+  z <- paste0(z, if(is_docx) ".docx" else ".pptx")
+
+  file.exists(file.path(dirname(file), z))
+}
