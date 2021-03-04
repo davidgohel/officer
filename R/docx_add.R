@@ -299,6 +299,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @param header display header if TRUE
 #' @param alignment columns alignement, argument length must match with columns length,
 #' values must be "l" (left), "r" (right) or "c" (center).
+#' @param align_table table alignment within document, value must be "left", "center" or "right"
 #' @param stylenames columns styles defined by [table_stylenames()]
 #' @param first_row Specifies that the first column conditional formatting should be
 #' applied. Details for this and other conditional formatting options can be found
@@ -318,6 +319,7 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
 #' @family functions for adding content
 body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE,
                             alignment = NULL,
+                            align_table = "center",
                             stylenames = table_stylenames(),
                             first_row = TRUE, first_column = FALSE,
                             last_row = FALSE, last_column = FALSE,
@@ -329,7 +331,8 @@ body_add_table <- function( x, value, style = NULL, pos = "after", header = TRUE
     tcf = table_conditional_formatting(
       first_row = first_row, first_column = first_column,
       last_row = last_row, last_column = last_column,
-      no_hband = no_hband, no_vband = no_vband))
+      no_hband = no_hband, no_vband = no_vband),
+      align = align_table)
 
   bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
