@@ -81,7 +81,7 @@ text formatting properties." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
       </span>
     </div>
 
@@ -131,6 +131,9 @@ text formatting properties.</p>
   italic <span class='op'>=</span> <span class='cn'>FALSE</span>,
   underlined <span class='op'>=</span> <span class='cn'>FALSE</span>,
   font.family <span class='op'>=</span> <span class='st'>"Arial"</span>,
+  cs.family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  eastasia.family <span class='op'>=</span> <span class='cn'>NULL</span>,
+  hansi.family <span class='op'>=</span> <span class='cn'>NULL</span>,
   vertical.align <span class='op'>=</span> <span class='st'>"baseline"</span>,
   shading.color <span class='op'>=</span> <span class='st'>"transparent"</span>
 <span class='op'>)</span>
@@ -146,10 +149,13 @@ text formatting properties.</p>
   <span class='va'>object</span>,
   <span class='va'>color</span>,
   <span class='va'>font.size</span>,
-  bold <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  italic <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  underlined <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>bold</span>,
+  <span class='va'>italic</span>,
+  <span class='va'>underlined</span>,
   <span class='va'>font.family</span>,
+  <span class='va'>cs.family</span>,
+  <span class='va'>eastasia.family</span>,
+  <span class='va'>hansi.family</span>,
   <span class='va'>vertical.align</span>,
   <span class='va'>shading.color</span>,
   <span class='va'>...</span>
@@ -181,7 +187,26 @@ a valid color (e.g. "#000000" or "black").</p></td>
     </tr>
     <tr>
       <th>font.family</th>
-      <td><p>single character value specifying font name.</p></td>
+      <td><p>single character value. Specifies the font to
+be used to format characters in the Unicode range (U+0000-U+007F).</p></td>
+    </tr>
+    <tr>
+      <th>cs.family</th>
+      <td><p>optional font to be used to format
+characters in a complex script Unicode range. For example, Arabic
+text might be displayed using the "Arial Unicode MS" font.</p></td>
+    </tr>
+    <tr>
+      <th>eastasia.family</th>
+      <td><p>optional font to be used to
+format characters in an East Asian Unicode range. For example,
+Japanese text might be displayed using the "MS Mincho" font.</p></td>
+    </tr>
+    <tr>
+      <th>hansi.family</th>
+      <td><p>optional. Specifies the font to be used to format
+characters in a Unicode range which does not fall into one of the
+other categories.</p></td>
     </tr>
     <tr>
       <th>vertical.align</th>
@@ -230,14 +255,22 @@ MS PowerPoint and html.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>fp_text</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline</div><div class='input'><span class='fu'>fp_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE   red transparent    Arial       baseline</div><div class='input'><span class='fu'>fp_text</span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span>, shading.color <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   size italic bold underlined color shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE black  yellow    Arial       baseline</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span> <span class='fu'>fp_text</span> <span class='op'>(</span>color<span class='op'>=</span><span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   12  FALSE FALSE      FALSE   red transparent    Arial       baseline</div></pre>
+</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline</div><div class='input'><span class='fu'>fp_text</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE   red transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline</div><div class='input'><span class='fu'>fp_text</span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span>, shading.color <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   size italic bold underlined color shading fontname fontname_cs
+#&gt; 1   10  FALSE TRUE      FALSE black  yellow    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span> <span class='fu'>fp_text</span> <span class='op'>(</span>color<span class='op'>=</span><span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   12  FALSE FALSE      FALSE   red transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -250,7 +283,7 @@ MS PowerPoint and html.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.16 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -89,7 +89,7 @@ with function update()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
       </span>
     </div>
 
@@ -154,12 +154,13 @@ with function <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></
     </tr>
     <tr>
       <th>fp_p</th>
-      <td><p>paragraph formatting properties</p></td>
+      <td><p>paragraph formatting properties, see <code><a href='fp_par.html'>fp_par()</a></code></p></td>
     </tr>
     <tr>
       <th>fp_t</th>
       <td><p>default text formatting properties. This is used as
-text formatting properties when simple text is provided as argument.</p></td>
+text formatting properties when simple text is provided as argument,
+see <code><a href='fp_text.html'>fp_text()</a></code>.</p></td>
     </tr>
     <tr>
       <th>values</th>
@@ -190,8 +191,10 @@ text formatting properties when simple text is provided as argument.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: hello
 #&gt; format:
-#&gt;   size italic bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE black transparent    Arial       baseline
+#&gt;   size italic bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE TRUE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -210,8 +213,10 @@ text formatting properties when simple text is provided as argument.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"</div><div class='input'>
@@ -233,11 +238,13 @@ text formatting properties when simple text is provided as argument.</p></td>
 #&gt; $chunks[[2]]
 #&gt; text: how 
 #&gt; format:
-#&gt;   size italic bold underlined color     shading fontname vertical_align
-#&gt; 1   12  FALSE TRUE      FALSE   red transparent    Arial       baseline
+#&gt;   size italic bold underlined color     shading fontname fontname_cs
+#&gt; 1   12  FALSE TRUE      FALSE   red transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; $chunks[[3]]
-#&gt; [1] "/opt/R/4.0.3/lib/R/doc/html/logo.jpg"
+#&gt; [1] "/opt/R/4.0.4/lib/R/doc/html/logo.jpg"
 #&gt; attr(,"class")
 #&gt; [1] "external_img" "cot"          "run"         
 #&gt; attr(,"dims")
@@ -247,12 +254,16 @@ text formatting properties when simple text is provided as argument.</p></td>
 #&gt; attr(,"dims")$height
 #&gt; [1] 0.53
 #&gt; 
+#&gt; attr(,"alt")
+#&gt; [1] ""
 #&gt; 
 #&gt; $chunks[[4]]
 #&gt; text:  you?
 #&gt; format:
-#&gt;   size italic bold underlined color     shading fontname vertical_align
-#&gt; 1   12  FALSE TRUE      FALSE black transparent    Arial       baseline
+#&gt;   size italic bold underlined color     shading fontname fontname_cs
+#&gt; 1   12  FALSE TRUE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -271,8 +282,10 @@ text formatting properties when simple text is provided as argument.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"</div><div class='input'>
@@ -292,7 +305,7 @@ text formatting properties when simple text is provided as argument.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.16 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

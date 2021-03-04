@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create paragraph blocks — block_list • officer</title>
+<title>List of blocks — block_list • officer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,10 @@
 
 
 
-<meta property="og:title" content="Create paragraph blocks — block_list" />
-<meta property="og:description" content="a list of blocks can be used to gather
-several blocks of paragraphs into a single
-object. The function is to be used when adding
-formatted paragraphs into a Word document or a
+<meta property="og:title" content="List of blocks — block_list" />
+<meta property="og:description" content="A list of blocks can be used to gather
+several blocks (paragraphs, tables, ...) into a single
+object. The result can be added into a Word document or a
 PowerPoint presentation." />
 <meta property="og:image" content="/logo.png" />
 
@@ -84,7 +83,7 @@ PowerPoint presentation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
       </span>
     </div>
 
@@ -117,16 +116,15 @@ PowerPoint presentation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create paragraph blocks</h1>
+    <h1>List of blocks</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ooxml_block_objects.R'><code>R/ooxml_block_objects.R</code></a></small>
     <div class="hidden name"><code>block_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>a list of blocks can be used to gather
-several blocks of paragraphs into a single
-object. The function is to be used when adding
-formatted paragraphs into a Word document or a
+    <p>A list of blocks can be used to gather
+several blocks (paragraphs, tables, ...) into a single
+object. The result can be added into a Word document or a
 PowerPoint presentation.</p>
     </div>
 
@@ -137,10 +135,12 @@ PowerPoint presentation.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>a list of <code><a href='fpar.html'>fpar()</a></code>. When output is only for
-Word, objects of class <code><a href='external_img.html'>external_img</a></code> can
+      <td><p>a list of blocks. When output is only for
+Word, objects of class <code><a href='external_img.html'>external_img()</a></code> can
 also be used in fpar construction to mix text and images
-in a single paragraph.</p></td>
+in a single paragraph. Supported objects are:
+<code><a href='block_caption.html'>block_caption()</a></code>, <code><a href='block_pour_docx.html'>block_pour_docx()</a></code>, <code><a href='block_section.html'>block_section()</a></code>,
+<code><a href='block_table.html'>block_table()</a></code>, <code><a href='block_toc.html'>block_toc()</a></code>, <code><a href='fpar.html'>fpar()</a></code>, <code><a href='plot_instr.html'>plot_instr()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -184,8 +184,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: hello world
 #&gt; format:
-#&gt;   size italic bold underlined   color     shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt;   size italic bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -204,8 +206,10 @@ in a single paragraph.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"
@@ -215,8 +219,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: hello
 #&gt; format:
-#&gt;   size italic bold underlined   color     shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt;   size italic bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; $chunks[[2]]
 #&gt; [1] " "
@@ -224,8 +230,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[3]]
 #&gt; text: world
 #&gt; format:
-#&gt;   size italic  bold underlined   color     shading fontname vertical_align
-#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt;   size italic  bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -244,8 +252,10 @@ in a single paragraph.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"
@@ -255,11 +265,13 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: hello world
 #&gt; format:
-#&gt;   size italic  bold underlined   color     shading fontname vertical_align
-#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt;   size italic  bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; $chunks[[2]]
-#&gt; [1] "/opt/R/4.0.3/lib/R/doc/html/logo.jpg"
+#&gt; [1] "/opt/R/4.0.4/lib/R/doc/html/logo.jpg"
 #&gt; attr(,"class")
 #&gt; [1] "external_img" "cot"          "run"         
 #&gt; attr(,"dims")
@@ -269,6 +281,8 @@ in a single paragraph.</p></td>
 #&gt; attr(,"dims")$height
 #&gt; [1] 1.06
 #&gt; 
+#&gt; attr(,"alt")
+#&gt; [1] ""
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -287,14 +301,16 @@ in a single paragraph.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "block_list"</div><div class='input'>
+#&gt; [1] "block_list" "block"     </div><div class='input'>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add.html'>body_add</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>value</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
@@ -312,8 +328,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: hello world
 #&gt; format:
-#&gt;   size italic bold underlined   color     shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt;   size italic bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -332,8 +350,10 @@ in a single paragraph.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"
@@ -343,8 +363,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: hello
 #&gt; format:
-#&gt;   size italic bold underlined   color     shading fontname vertical_align
-#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       baseline
+#&gt;   size italic bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; $chunks[[2]]
 #&gt; [1] " "
@@ -352,8 +374,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[3]]
 #&gt; text: world
 #&gt; format:
-#&gt;   size italic  bold underlined   color     shading fontname vertical_align
-#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt;   size italic  bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -372,8 +396,10 @@ in a single paragraph.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"
@@ -383,8 +409,10 @@ in a single paragraph.</p></td>
 #&gt; $chunks[[1]]
 #&gt; text: blah blah blah
 #&gt; format:
-#&gt;   size italic  bold underlined   color     shading fontname vertical_align
-#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       baseline
+#&gt;   size italic  bold underlined   color     shading fontname fontname_cs
+#&gt; 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; 
 #&gt; $fp_p
@@ -403,14 +431,16 @@ in a single paragraph.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname vertical_align
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       baseline
+#&gt;   size italic  bold underlined color     shading fontname fontname_cs
+#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   fontname_eastasia fontname.hansi vertical_align
+#&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "block_list"</div><div class='input'>
+#&gt; [1] "block_list" "block"     </div><div class='input'>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>value</span>, location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span><span class='op'>)</span>
@@ -430,7 +460,7 @@ in a single paragraph.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.16 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
