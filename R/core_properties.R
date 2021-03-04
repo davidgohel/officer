@@ -69,7 +69,7 @@ write_core_properties <- function(core_matrix, package_dir){
   properties <- sprintf("<%s:%s%s>%s</%s:%s>",
                         core_matrix[, "ns"], core_matrix[, "name"],
                         core_matrix[, "attrs"],
-                        core_matrix[, "value"],
+                        htmlEscapeCopy(core_matrix[, "value"]),
                         core_matrix[, "ns"], core_matrix[, "name"]
   )
   xml_ <- paste0(xml_, paste0(properties, collapse = ""), "</cp:coreProperties>" )
