@@ -8,11 +8,8 @@ officer R package
 [![R build
 status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
-![cranlogs](https://cranlogs.r-pkg.org/badges/officer) [![codecov test
+[![codecov test
 coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/officer)
-![Active](https://www.repostatus.org/badges/latest/active.svg)
-[![Lifecycle:
-Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 <a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
 The officer package lets R users manipulate Word (`.docx`) and
@@ -91,10 +88,10 @@ images.
 
 ### Tables and package `flextable`
 
-The package [flextable](https://github.com/davidgohel/flextable) brings
-a full API to produce nice tables and use them with `officer`. Tables
-can be written in PowerPoint documents and Word documents. An option is
-available to render flextables in rmarkdown (HTML and Word outputs).
+The package
+[flextable](https://ardata-fr.github.io/flextable-book/index.html)
+brings a full API to produce nice tables and use them with packages
+officer and rmarkdown.
 
 ### Vector graphics with package `rvg`
 
