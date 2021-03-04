@@ -12,10 +12,11 @@ fpar(..., fp_p = fp_par(), fp_t = fp_text(), values = NULL)
 \arguments{
 \item{...}{cot objects (\code{\link[=ftext]{ftext()}}, \code{\link[=external_img]{external_img()}})}
 
-\item{fp_p}{paragraph formatting properties}
+\item{fp_p}{paragraph formatting properties, see \code{\link[=fp_par]{fp_par()}}}
 
 \item{fp_t}{default text formatting properties. This is used as
-text formatting properties when simple text is provided as argument.}
+text formatting properties when simple text is provided as argument,
+see \code{\link[=fp_text]{fp_text()}}.}
 
 \item{values}{a list of cot objects. If provided, argument \code{...} will be ignored.}
 

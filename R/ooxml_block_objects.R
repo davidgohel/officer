@@ -850,10 +850,10 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' with function `update()`.
 #'
 #' @param ... cot objects ([ftext()], [external_img()])
-#' @param fp_p paragraph formatting properties
+#' @param fp_p paragraph formatting properties, see [fp_par()]
 #' @param fp_t default text formatting properties. This is used as
-#' text formatting properties when simple text is provided as argument.
-#'
+#' text formatting properties when simple text is provided as argument,
+#' see [fp_text()].
 #' @param values a list of cot objects. If provided, argument \code{...} will be ignored.
 #' @param object fpar object
 #' @examples
@@ -976,16 +976,17 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 # block_list -----
 
 #' @export
-#' @title Create paragraph blocks
-#' @description a list of blocks can be used to gather
-#' several blocks of paragraphs into a single
-#' object. The function is to be used when adding
-#' formatted paragraphs into a Word document or a
+#' @title List of blocks
+#' @description A list of blocks can be used to gather
+#' several blocks (paragraphs, tables, ...) into a single
+#' object. The result can be added into a Word document or a
 #' PowerPoint presentation.
-#' @param ... a list of [fpar()]. When output is only for
-#' Word, objects of class \code{\link{external_img}} can
+#' @param ... a list of blocks. When output is only for
+#' Word, objects of class [external_img()] can
 #' also be used in fpar construction to mix text and images
-#' in a single paragraph.
+#' in a single paragraph. Supported objects are:
+#' [block_caption()], [block_pour_docx()], [block_section()],
+#' [block_table()], [block_toc()], [fpar()], [plot_instr()].
 #' @examples
 #'
 #' @example examples/block_list.R
@@ -995,14 +996,24 @@ block_list <- function(...){
   x <- list(...)
   z <- list()
   for(i in x){
-    if(inherits(i, c("fpar"))) {
+    if(inherits(i, "block")) {
       z <- append(z, list(i))
     } else if(is.character(i)){
       z <- append(z, lapply(i, fpar))
     }
   }
-  class(z) <- "block_list"
+  class(z) <- c("block_list", "block")
   z
+}
+
+#' @export
+to_wml.block_list <- function(x, add_ns = FALSE, ...) {
+  out <- character(length(x))
+  for(i in seq_along(x) ){
+    out[i] <- to_wml(x[[i]], add_ns = add_ns)
+  }
+
+  paste0(out, collapse = "")
 }
 
 #' @export

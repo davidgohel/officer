@@ -10,14 +10,14 @@ body_add_blocks(x, blocks, pos = "after")
 \item{x}{an rdocx object}
 
 \item{blocks}{set of blocks to be used as footnote content returned by
-function \code{\link{block_list}}.}
+function \code{\link[=block_list]{block_list()}}.}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
 }
 \description{
 add a list of blocks produced by \code{block_list} into
-into an rdocx object
+into an rdocx object.
 }
 \examples{
 library(officer)

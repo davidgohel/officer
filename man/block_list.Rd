@@ -2,21 +2,22 @@
 % Please edit documentation in R/ooxml_block_objects.R
 \name{block_list}
 \alias{block_list}
-\title{Create paragraph blocks}
+\title{List of blocks}
 \usage{
 block_list(...)
 }
 \arguments{
-\item{...}{a list of \code{\link[=fpar]{fpar()}}. When output is only for
-Word, objects of class \code{\link{external_img}} can
+\item{...}{a list of blocks. When output is only for
+Word, objects of class \code{\link[=external_img]{external_img()}} can
 also be used in fpar construction to mix text and images
-in a single paragraph.}
+in a single paragraph. Supported objects are:
+\code{\link[=block_caption]{block_caption()}}, \code{\link[=block_pour_docx]{block_pour_docx()}}, \code{\link[=block_section]{block_section()}},
+\code{\link[=block_table]{block_table()}}, \code{\link[=block_toc]{block_toc()}}, \code{\link[=fpar]{fpar()}}, \code{\link[=plot_instr]{plot_instr()}}.}
 }
 \description{
-a list of blocks can be used to gather
-several blocks of paragraphs into a single
-object. The function is to be used when adding
-formatted paragraphs into a Word document or a
+A list of blocks can be used to gather
+several blocks (paragraphs, tables, ...) into a single
+object. The result can be added into a Word document or a
 PowerPoint presentation.
 }
 \examples{

@@ -153,10 +153,10 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 #' @export
 #' @title add a list of blocks into a document
 #' @description add a list of blocks produced by \code{block_list} into
-#' into an rdocx object
+#' into an rdocx object.
 #' @inheritParams body_add_break
 #' @param blocks set of blocks to be used as footnote content returned by
-#'   function \code{\link{block_list}}.
+#'   function [block_list()].
 #' @examples
 #' library(officer)
 #'
@@ -182,7 +182,8 @@ body_add_blocks <- function( x, blocks, pos = "after" ){
     pos_vector <- rep("after", length(blocks))
     pos_vector[1] <- pos
     for(i in seq_along(blocks) ){
-      x <- body_add_fpar(x, value = blocks[[i]], pos = pos_vector[i])
+      x <- body_add_xml(x, str = to_wml(blocks[[i]], add_ns = TRUE),
+                        pos = pos_vector[i])
     }
   }
 
