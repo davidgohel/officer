@@ -19,7 +19,7 @@ run_autonum(
 \item{pre_label, post_label}{text to add before and after number}
 
 \item{bkm}{bookmark id to associate with autonumber run. If NULL, no bookmark
-is added. Value can only be made of alpha numeric characters, '-' and '_'.}
+is added. Value can only be made of alpha numeric characters, ':', -' and '_'.}
 
 \item{bkm_all}{if TRUE, the bookmark will be set on the whole string, if
 FALSE, the bookmark will be set on the number only. Default to FALSE.

@@ -184,7 +184,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param seq_id sequence identifier
 #' @param pre_label,post_label text to add before and after number
 #' @param bkm bookmark id to associate with autonumber run. If NULL, no bookmark
-#' is added. Value can only be made of alpha numeric characters, '-' and '_'.
+#' is added. Value can only be made of alpha numeric characters, ':', -' and '_'.
 #' @param bkm_all if TRUE, the bookmark will be set on the whole string, if
 #' FALSE, the bookmark will be set on the number only. Default to FALSE.
 #' As an effect when a reference to this bookmark is used, the text can
