@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.3.18.002
+Version: 0.3.18.003
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -19,7 +19,6 @@ Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' d
   The package does not require any installation of Microsoft products to be able to write Microsoft 
   files.
 License: GPL-3
-LazyData: TRUE
 Imports:
     R6,
     grDevices, stats, graphics, utils,
