@@ -223,32 +223,65 @@ body_set_default_section <- function( x, value ){
 process_sections <- function( x ){
 
   all_nodes <- xml_find_all(x$doc_obj$get(), "//w:pPr/w:sectPr")
-  main_sect <- xml_find_first(x$doc_obj$get(), "w:body/w:sectPr")
 
-  footer_refs <- xml_find_all(x$doc_obj$get(), "w:body/w:sectPr/w:footerReference")
-  header_refs <- xml_find_all(x$doc_obj$get(), "w:body/w:sectPr/w:headerReference")
+  default_pgMar <- xml_find_first(x$doc_obj$get(), "w:body/w:sectPr/w:pgMar")
+  default_pgSz <- xml_find_first(x$doc_obj$get(), "w:body/w:sectPr/w:pgSz")
+
+  default_footer <- xml_find_all(x$doc_obj$get(), "w:body/w:sectPr/w:footerReference")
+  default_header <- xml_find_all(x$doc_obj$get(), "w:body/w:sectPr/w:headerReference")
+
+  sect_dim <- section_dimensions(xml_find_first(x$doc_obj$get(), "w:body/w:sectPr"))
 
   for(node_id in seq_along(all_nodes) ){
     current_node <- all_nodes[[node_id]]
 
-    header_ref <- xml_child(current_node, "w:headerReference")
-    footer_ref <- xml_child(current_node, "w:footerReference")
-
-    if(inherits(footer_ref, "xml_missing") && length(footer_refs) > 0 ){
-      for(l in rev(seq_along(footer_refs))){
-        xml_add_child(current_node, footer_refs[[l]], .where = 1)
+    current_footer <- xml_child(current_node, "w:footerReference")
+    if(inherits(current_footer, "xml_missing") && length(default_footer) > 0 ){
+      for(l in rev(seq_along(default_footer))){
+        xml_add_child(current_node, default_footer[[l]], .where = 1)
       }
     }
-    if(inherits(header_ref, "xml_missing") && length(header_refs) > 0 ){
-      for(l in rev(seq_along(header_refs))){
-        xml_add_child(current_node, header_refs[[l]], .where = 1)
+
+    current_header <- xml_child(current_node, "w:headerReference")
+    if(inherits(current_header, "xml_missing") && length(default_header) > 0 ){
+      for(l in rev(seq_along(default_header))){
+        xml_add_child(current_node, default_header[[l]], .where = 1)
       }
+    }
+
+    current_pgSz <- xml_child(current_node, "w:pgSz")
+    if(inherits(current_pgSz, "xml_missing") && length(default_pgSz) > 0 ){
+      xml_add_child(current_node, default_pgSz)
+    } else if(!inherits(current_pgSz, "xml_missing")){
+      fill_if_missing(current_pgSz, "h", sect_dim$page["height"])
+      fill_if_missing(current_pgSz, "w", sect_dim$page["width"])
+      if(length(sect_dim$landscape) && sect_dim$landscape)
+        fill_if_missing(current_pgSz, "orient", "landscape")
+    }
+
+    current_pgMar <- xml_child(current_node, "w:pgMar")
+    if(inherits(current_pgMar, "xml_missing") && length(default_pgMar) > 0 ){
+      xml_add_child(current_node, default_pgMar)
+    } else if(!inherits(current_pgMar, "xml_missing")){
+      fill_if_missing(current_pgMar, "header", sect_dim$margins["header"])
+      fill_if_missing(current_pgMar, "footer", sect_dim$margins["footer"])
+      fill_if_missing(current_pgMar, "top", sect_dim$margins["top"])
+      fill_if_missing(current_pgMar, "bottom", sect_dim$margins["bottom"])
+      fill_if_missing(current_pgMar, "left", sect_dim$margins["left"])
+      fill_if_missing(current_pgMar, "right", sect_dim$margins["right"])
     }
 
   }
   x
 }
 
+fill_if_missing <- function(node, attr, val){
+  att_val <- xml_attr(node, attr)
+  if(missing(att_val)){
+    xml_attr(node, attr) <- val
+  }
+  node
+}
 
 
 section_dimensions <- function(node){

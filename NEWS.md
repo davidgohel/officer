@@ -1,3 +1,12 @@
+# officer 0.3.18
+
+## Change
+
+The sections are now corrected as follow, each section will be completed with 
+the values of the default section if the value is missing. This should solve 
+issue that lot of users have with page breaks when using sections. Now page 
+breaks should disappear. 
+
 # officer 0.3.17
 
 ## New features
