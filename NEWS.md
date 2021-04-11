@@ -1,3 +1,9 @@
+# officer 0.3.19
+
+## New features
+
+* On Windows, the pptx file will not be overwritten if it is edited.
+
 # officer 0.3.18
 
 ## Change
@@ -12,7 +18,7 @@ breaks should disappear.
 ## New features
 
 * alt-text for images
-* On Windows, the file will not be overwritten if it is edited.
+* On Windows, the docx file will not be overwritten if it is edited.
 * `fp_text` gained arguments to specify different fonts when mixing 
   CJK and latin characters: `cs.family`, `eastasia.family`, `hansi.family`.
 

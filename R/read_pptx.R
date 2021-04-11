@@ -96,6 +96,10 @@ print.rpptx <- function(x, target = NULL, ...){
   if( !grepl(x = target, pattern = "\\.(pptx)$", ignore.case = TRUE) )
     stop(target , " should have '.pptx' extension.")
 
+  if(is_windows() && is_office_doc_edited(target))
+    stop(target , " is already edited.",
+         " You must close the document in order to be able to write the file.")
+
   x$presentation$save()
   x$content_type$save()
 
