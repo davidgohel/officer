@@ -30,7 +30,7 @@
 #' doc <- cursor_reach(doc, keyword = "paragraph 4")
 #' doc <- slip_in_text(doc, "This is ", pos = "before", style = "Default Paragraph Font")
 #'
-#' doc <- # move the cursor forward and end a section
+#' # move the cursor forward and end a section
 #' doc <- cursor_forward(doc)
 #' doc <- body_add_par(doc, "The section stop here", style = "Normal")
 #' doc <- body_end_section_landscape(doc)
