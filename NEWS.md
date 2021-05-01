@@ -3,6 +3,7 @@
 ## New features
 
 * On Windows, the pptx file will not be overwritten if it is edited.
+* `run_autonum` gained new argument start_at.
 
 # officer 0.3.18
 

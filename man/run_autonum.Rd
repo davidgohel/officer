@@ -10,7 +10,8 @@ run_autonum(
   post_label = ": ",
   bkm = NULL,
   bkm_all = FALSE,
-  prop = NULL
+  prop = NULL,
+  start_at = NULL
 )
 }
 \arguments{
@@ -28,6 +29,10 @@ be like "Table 1" or "1" (pre_label is not included in the referenced
 text).}
 
 \item{prop}{formatting text properties returned by \link{fp_text}.}
+
+\item{start_at}{If not NULL, it must be a positive integer, it
+specifies the new number to use, at which number the auto
+numbering will restart.}
 }
 \description{
 Create an autonumbered chunk, i.e. a string

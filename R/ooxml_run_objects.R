@@ -191,6 +191,9 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' be like "Table 1" or "1" (pre_label is not included in the referenced
 #' text).
 #' @param prop formatting text properties returned by [fp_text].
+#' @param start_at If not NULL, it must be a positive integer, it
+#' specifies the new number to use, at which number the auto
+#' numbering will restart.
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
@@ -198,7 +201,8 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @family run functions for reporting
 #' @family Word computed fields
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
-                        bkm = NULL, bkm_all = FALSE, prop = NULL) {
+                        bkm = NULL, bkm_all = FALSE, prop = NULL,
+                        start_at = NULL) {
   bkm <- check_bookmark_id(bkm)
   z <- list(
     seq_id = seq_id,
@@ -206,7 +210,8 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
     post_label = post_label,
     bookmark = bkm,
     bookmark_all = bkm_all,
-    pr = prop
+    pr = prop,
+    start_at = start_at
   )
   class(z) <- c("run_autonum", "run")
 
@@ -221,7 +226,13 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 
   run_str_pre <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$pre_label)
   run_str_post <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$post_label)
-  sqf <- run_seqfield(seqfield = paste0("SEQ ", x$seq_id, " \u005C* Arabic"), prop = x$pr)
+
+  seq_str <- paste0("SEQ ", x$seq_id, " \u005C* Arabic")
+  if(!is.null(x$start_at) && is.numeric(x$start_at)){
+    seq_str <- paste(seq_str, "\\r", as.integer(x$start_at))
+  }
+
+  sqf <- run_word_field(seqfield = seq_str, prop = x$pr)
   sf_str <- to_wml(sqf)
   if(!is.null(x$bookmark)){
     if(x$bookmark_all){
