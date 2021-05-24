@@ -104,6 +104,7 @@ knitr_opts_current <- function(x, default = FALSE){
 #' * cap.sep (default: ":")
 #' * id (default: NULL)
 #' * cap (default: NULL)
+#' * topcaption (default: TRUE)
 #' * style (default: NULL)
 #' * tab.lp (default: "tab:")
 #' * table_layout (default: "autofit")
@@ -121,6 +122,7 @@ opts_current_table <- function() {
   tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table ")
   tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ":")
   tab.cap <- knitr_opts_current("tab.cap", default = NULL)
+  tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
   tab.id <- knitr_opts_current("tab.id", default = NULL)
   tab.lp <- knitr_opts_current("tab.lp", default = "tab:")
   tab.style <- knitr_opts_current("tab.style", default = NULL)
@@ -139,6 +141,7 @@ opts_current_table <- function() {
     cap.pre = tab.cap.pre,
     cap.sep = tab.cap.sep,
     id = tab.id,
+    topcaption = tab.topcaption,
     cap = tab.cap,
     style = tab.style,
     tab.lp = tab.lp,

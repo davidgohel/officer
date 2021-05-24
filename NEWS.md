@@ -4,6 +4,8 @@
 
 * On Windows, the pptx file will not be overwritten if it is edited.
 * `run_autonum` gained new argument start_at.
+* `tab.topcaption` is now supported by `opts_current_table()`
+
 
 # officer 0.3.18
 

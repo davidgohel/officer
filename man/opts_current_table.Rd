@@ -14,6 +14,7 @@ a list with following elements:
 \item cap.sep (default: ":")
 \item id (default: NULL)
 \item cap (default: NULL)
+\item topcaption (default: TRUE)
 \item style (default: NULL)
 \item tab.lp (default: "tab:")
 \item table_layout (default: "autofit")
