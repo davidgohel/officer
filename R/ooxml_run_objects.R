@@ -125,7 +125,7 @@ to_html.ftext <- function(x, ...) {
 #' but the name was wrong and should have been `run_word_field`.
 #' @inheritSection ftext usage
 #' @param field,seqfield computed field string (`seqfield` will be
-#' totally superseded by `field` in the futur).
+#' totally superseded by `field` in the future).
 #' @param prop formatting text properties returned by [fp_text].
 #' @examples
 #' run_word_field(field = "PAGE  \\* MERGEFORMAT")
