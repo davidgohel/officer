@@ -10,6 +10,15 @@ read_core_properties <- function( package_dir ){
 
   all_ <- xml_find_all(doc, "/cp:coreProperties/*")
 
+  if( length(all_) < 1 ){
+    out <- list(data = structure(character(0), .Dim = c(0L, 4L), .Dimnames = list(
+      NULL, c("ns", "name", "attrs", "value"))), ns = c(cp = "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+                                                        dc = "http://purl.org/dc/elements/1.1/", dcmitype = "http://purl.org/dc/dcmitype/",
+                                                        dcterms = "http://purl.org/dc/terms/", xsi = "http://www.w3.org/2001/XMLSchema-instance"
+      ))
+    return(out)
+  }
+
   names_ <- sapply(all_, xml_name, ns = ns_)
   names_ <- strsplit(names_, ":")
 

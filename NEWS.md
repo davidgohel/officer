@@ -6,6 +6,10 @@
 * `run_autonum` gained new argument start_at.
 * `tab.topcaption` is now supported by `opts_current_table()`
 
+## Issues
+
+* fix issue with document properties that are null
+
 
 # officer 0.3.18
 

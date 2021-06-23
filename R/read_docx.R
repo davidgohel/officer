@@ -185,9 +185,11 @@ print.rdocx <- function(x, target = NULL, ...){
   x$footnotes$save()
 
   # save doc properties
-  x$doc_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  x$doc_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
-  write_core_properties(x$doc_properties, x$package_dir)
+  if(nrow(x$doc_properties$data) >0 ){
+    x$doc_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+    x$doc_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
+    write_core_properties(x$doc_properties, x$package_dir)
+  }
   invisible(pack_folder(folder = x$package_dir, target = target ))
 }
 
