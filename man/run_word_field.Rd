@@ -11,7 +11,7 @@ run_seqfield(field, prop = NULL, seqfield = field)
 }
 \arguments{
 \item{field, seqfield}{computed field string (\code{seqfield} will be
-totally superseded by \code{field} in the futur).}
+totally superseded by \code{field} in the future).}
 
 \item{prop}{formatting text properties returned by \link{fp_text}.}
 }
