@@ -10,6 +10,7 @@
 
 * fix issue with document properties that are null
 * angle was not always preserved in PowerPoint
+* fix pptx scrapping for grouped object containing a table
 
 # officer 0.3.18
 

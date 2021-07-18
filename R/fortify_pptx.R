@@ -41,7 +41,8 @@ unfold_row_pml <- function(node, row_id){
 globalVariables(c(".", "src", "width", "height"))
 
 pptxtable_as_tibble <- function( node ){
-  xpath_ <- paste0( xml_path(node), "/a:graphic/a:graphicData/a:tbl/a:tr")
+  tbl <- xml_child(node, "/a:graphic/a:graphicData/a:tbl")
+  xpath_ <- paste0( xml_path(tbl), "/a:tr")
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
   row_details <- mapply(unfold_row_pml, rows, seq_along(rows), SIMPLIFY = FALSE)
@@ -156,7 +157,9 @@ pptx_summary <- function( x ){
                     stringsAsFactors = FALSE)
       }
     }, nodes, slide_id = i, SIMPLIFY = FALSE)
+
     list_content[[length(list_content)+1]] <- rbind.match.columns(content)
   }
+
   rbind.match.columns(list_content)
 }

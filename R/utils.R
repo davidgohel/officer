@@ -165,12 +165,12 @@ simple_lag <- function( x, default=0 ){
 rbind.match.columns <- function(list_df) {
 
   col <- unique(unlist(lapply(list_df, colnames)))
-  list_df <- Filter(function(x) nrow(x)>0, list_df)
-  list_df <- lapply(list_df, function(x, col) {
+  x <- Filter(function(x) nrow(x)>0, list_df)
+  x <- lapply(x, function(x, col) {
     x[, setdiff(col, colnames(x))] <- NA
     x
   }, col = col)
-  do.call(rbind, list_df)
+  do.call(rbind, x)
 }
 
 set_row_span <- function( row_details ){
