@@ -16,7 +16,7 @@ test_that("layout properties", {
   laypr <- layout_properties(x, layout = "Title and Content", master = "Office Theme")
 
   expect_is( laypr, "data.frame" )
-  expect_true( all( c("master_name", "name", "type", "offx", "offy", "cx", "cy") %in% names(laypr)) )
+  expect_true( all( c("master_name", "name", "type", "offx", "offy", "cx", "cy", "rotation") %in% names(laypr)) )
   expect_is( laypr$master_name, "character" )
   expect_is( laypr$name, "character" )
   expect_is( laypr$type, "character" )
@@ -24,6 +24,7 @@ test_that("layout properties", {
   expect_is( laypr$offy, "numeric" )
   expect_is( laypr$cx, "numeric" )
   expect_is( laypr$cy, "numeric" )
+  expect_is( laypr$rotation, "numeric" )
 })
 
 test_that("slide summary", {

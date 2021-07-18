@@ -6,6 +6,7 @@
 
 
 read_xfrm <- function(nodeset, file, name){
+
   if( length(nodeset) < 1 ){
     return(data.frame(stringsAsFactors = FALSE, type = character(0),
                    id = character(0),
@@ -16,6 +17,7 @@ read_xfrm <- function(nodeset, file, name){
                    offy = integer(0),
                    cx = integer(0),
                    cy = integer(0),
+                   rotation = integer(0),
                    name = character(0) ))
   }
 
@@ -27,6 +29,7 @@ read_xfrm <- function(nodeset, file, name){
 
   off <- xml_child(nodeset, "p:spPr/a:xfrm/a:off")
   ext <- xml_child(nodeset, "p:spPr/a:xfrm/a:ext")
+  rot <- xml_child(nodeset, "p:spPr/a:xfrm")
 
   data.frame(stringsAsFactors = FALSE, type = type, id = id,
           ph_label = label,
@@ -36,6 +39,7 @@ read_xfrm <- function(nodeset, file, name){
           offy = as.integer(xml_attr(off, "y")),
           cx = as.integer(xml_attr(ext, "cx")),
           cy = as.integer(xml_attr(ext, "cy")),
+          rotation = as.integer(xml_attr(rot, "rot")),
           name = name )
 }
 
@@ -73,46 +77,46 @@ fortify_master_xfrm <- function(master_xfrm){
   master_xfrm$id <- NULL
   master_xfrm$ph <- NULL
   master_xfrm$ph_label <- NULL
+  master_xfrm$rotation <- NULL
 
   master_xfrm
 }
 
 xfrmize <- function( slide_xfrm, master_xfrm ){
-
-  slide_xfrm <- as.data.frame( slide_xfrm )
+  x <- as.data.frame( slide_xfrm )
 
   master_ref <- unique( data.frame(file = master_xfrm$file,
                                      master_name = master_xfrm$name,
                                      stringsAsFactors = FALSE ) )
   master_xfrm <- fortify_master_xfrm(master_xfrm)
 
-  slide_key_id <- paste0(slide_xfrm$master_file, slide_xfrm$type)
+  slide_key_id <- paste0(x$master_file, x$type)
   master_key_id <- paste0(master_xfrm$file, master_xfrm$type)
 
-  slide_xfrm_no_match <- slide_xfrm[!slide_key_id %in% master_key_id, ]
+  slide_xfrm_no_match <- x[!slide_key_id %in% master_key_id, ]
   slide_xfrm_no_match <- merge(slide_xfrm_no_match,
                                master_ref, by.x = "master_file", by.y = "file",
                                all.x = TRUE, all.y = FALSE)
 
-  slide_xfrm <- merge(slide_xfrm, master_xfrm,
+  x <- merge(x, master_xfrm,
                       by.x = c("master_file", "type"),
                       by.y = c("file", "type"),
                       all = FALSE)
-  slide_xfrm$offx <- ifelse( !is.finite(slide_xfrm$offx), slide_xfrm$offx_ref, slide_xfrm$offx )
-  slide_xfrm$offy <- ifelse( !is.finite(slide_xfrm$offy), slide_xfrm$offy_ref, slide_xfrm$offy )
-  slide_xfrm$cx <- ifelse( !is.finite(slide_xfrm$cx), slide_xfrm$cx_ref, slide_xfrm$cx )
-  slide_xfrm$cy <- ifelse( !is.finite(slide_xfrm$cy), slide_xfrm$cy_ref, slide_xfrm$cy )
-  slide_xfrm$offx_ref <- NULL
-  slide_xfrm$offy_ref <- NULL
-  slide_xfrm$cx_ref <- NULL
-  slide_xfrm$cy_ref <- NULL
+  x$offx <- ifelse( !is.finite(x$offx), x$offx_ref, x$offx )
+  x$offy <- ifelse( !is.finite(x$offy), x$offy_ref, x$offy )
+  x$cx <- ifelse( !is.finite(x$cx), x$cx_ref, x$cx )
+  x$cy <- ifelse( !is.finite(x$cy), x$cy_ref, x$cy )
+  x$offx_ref <- NULL
+  x$offy_ref <- NULL
+  x$cx_ref <- NULL
+  x$cy_ref <- NULL
 
-  slide_xfrm <- rbind(slide_xfrm, slide_xfrm_no_match, stringsAsFactors = FALSE)
-  slide_xfrm[
-    !is.na( slide_xfrm$offx ) &
-      !is.na( slide_xfrm$offy ) &
-      !is.na( slide_xfrm$cx ) &
-      !is.na( slide_xfrm$cy ),]
+  x <- rbind(x, slide_xfrm_no_match, stringsAsFactors = FALSE)
+  x[
+    !is.na( x$offx ) &
+      !is.na( x$offy ) &
+      !is.na( x$cx ) &
+      !is.na( x$cy ),]
 }
 
 

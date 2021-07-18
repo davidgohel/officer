@@ -57,7 +57,9 @@ sh_props_pml <- function( left = 0, top = 0, width = 3, height = 3,
 a_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
 
   start_tag <- "<a:xfrm>"
-  if( !is.null(rot) && rot != 0) start_tag <- sprintf("<a:xfrm rot=\"%.0f\">", -rot * 60000)
+  if( !is.null(rot) && !is.na(rot) && rot != 0) {
+    start_tag <- sprintf("<a:xfrm rot=\"%.0f\">", -rot * 60000)
+  }
 
   xfrm_str <- paste0(start_tag, "<a:off x=\"%.0f\" y=\"%.0f\"/><a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm>")
   sprintf(xfrm_str,

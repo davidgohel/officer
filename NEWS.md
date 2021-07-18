@@ -9,7 +9,7 @@
 ## Issues
 
 * fix issue with document properties that are null
-
+* angle was not always preserved in PowerPoint
 
 # officer 0.3.18
 
