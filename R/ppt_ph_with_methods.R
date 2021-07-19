@@ -527,8 +527,10 @@ xml_to_slide <- function(slide, location, value){
     xml_attr( chExt, "cy") <- sprintf( "%.0f", location$height*914400 )
 
     # add location$rotation to cNvPr:name
-    if( !is.null(location$rotation) && is.numeric(location$rotation) ) {
-      xml_set_attr(node_xfrm, "rot", sprintf("%.0f", -location$rotation * 60000))
+    if( !is.null(location$rotation) &&
+        is.finite(location$rotation) &&
+        is.numeric(location$rotation) ) {
+      xml_attr(node_xfrm, "rot") <- sprintf("%.0f", -location$rotation * 60000)
     }
   }
 
