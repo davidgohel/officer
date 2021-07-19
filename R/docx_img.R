@@ -90,7 +90,7 @@ wml_part_link_hyperlink <- function(x, str, part){
   doc <- as_xml_document(str)
   for(id in seq_along(ref$ext_src) ){
     xpth <- paste0("//w:hyperlink",
-                   sprintf( "[contains(@r:id,'%s')]", ref$target[id])
+                   sprintf( "[@r:id='%s']", ref$target[id])
                    )
 
     src_nodes <- xml_find_all(doc, xpth)
