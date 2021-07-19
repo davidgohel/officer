@@ -11,8 +11,7 @@
 * fix issue with document properties that are null
 * angle was not always preserved in PowerPoint
 * fix pptx scrapping for grouped object containing a table
-* fix hyperlinks insertion in docx if one is a subset of 
-another (thanks to mat-x)
+* fix invalid hyperlinks in docx and pptx
 
 
 # officer 0.3.18

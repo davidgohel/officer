@@ -147,6 +147,10 @@ print.rdocx <- function(x, target = NULL, ...){
     stop(target , " is already edited.",
          " You must close the document in order to be able to write the file.")
 
+  process_links(x$doc_obj)
+  for(header in x$headers) process_links(header)
+  for(footer in x$footers) process_links(footer)
+
   int_id <- 1 # unique id identifier
 
   # make all id unique for document
@@ -192,6 +196,24 @@ print.rdocx <- function(x, target = NULL, ...){
   }
   invisible(pack_folder(folder = x$package_dir, target = target ))
 }
+
+process_links <- function( doc_obj ){
+  rel <- doc_obj$relationship()
+  hl_nodes <- xml_find_all(doc_obj$get(), "//w:hyperlink[@r:id]")
+  which_to_add <- hl_nodes[!grepl( "^rId[0-9]+$", xml_attr(hl_nodes, "id") )]
+  hl_ref <- unique(xml_attr(which_to_add, "id"))
+  for(i in seq_along(hl_ref) ){
+    rid <- sprintf("rId%.0f", rel$get_next_id() )
+
+    rel$add(
+      id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+      target = htmlEscapeCopy(hl_ref[i]), target_mode = "External" )
+
+    which_match_id <- grepl( hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE )
+    xml_attr(which_to_add[which_match_id], "r:id") <- rep(rid, sum(which_match_id))
+  }
+}
+
 
 #' @export
 #' @title number of blocks inside an rdocx object

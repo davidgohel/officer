@@ -312,10 +312,11 @@ hyperlink_ftext <- function(text, prop = NULL, href) {
 #' @export
 to_wml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
 
+  url_val <- urlEncodePath(x$href)
   out <- paste0("<w:r>", if(!is.null(x$pr)) rpr_wml(x$pr),
                 "<w:t xml:space=\"preserve\">",
                 htmlEscapeCopy(x$value), "</w:t></w:r>")
-  paste0("<w:hyperlink r:id=\"", htmlEscapeCopy(x$href), "\">", out, "</w:hyperlink>")
+  paste0("<w:hyperlink r:id=\"", url_val, "\">", out, "</w:hyperlink>")
 }
 
 #' @export
@@ -324,7 +325,7 @@ to_pml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
   if (add_ns) {
     open_tag <- ar_ns_yes
   }
-  str_ <- sprintf("<a:hlinkClick r:id=\"%s\"/>", x$href)
+  str_ <- sprintf("<a:hlinkClick r:id=\"%s\"/>", urlEncodePath(x$href))
 
   if(!is.null(x$pr)) {
     rpr_pml_ <- rpr_pml(x$pr)

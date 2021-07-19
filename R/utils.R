@@ -218,6 +218,49 @@ correct_id <- function(doc, int_id){
 }
 
 
+
+
+
+check_bookmark_id <- function(bkm){
+  if(!is.null(bkm)){
+    invalid_bkm <- is.character(bkm) &&
+      length(bkm) == 1 &&
+      nchar(bkm) > 0 &&
+      grepl("[^:[:alnum:]_-]+", bkm)
+    if(invalid_bkm){
+      stop("bkm [", bkm, "] should only contain alphanumeric characters, ':', '-' and '_'.", call. = FALSE)
+    }
+  }
+  bkm
+}
+
+is_windows <- function() {
+  "windows" %in% .Platform$OS.type
+}
+
+is_office_doc_edited <- function(file){
+  is_docx <- grepl("\\.docx$", basename(file))
+  x <- gsub("\\.(docx|pptx)$", "", basename(file))
+  if( nchar(x) < 7)
+    z <- paste0("~$", x)
+  else if( nchar(x) < 8)
+    z <- paste0("~$", substring(x, 2))
+  else {
+    z <- paste0("~$", substring(x, 3))
+  }
+  z <- paste0(z, if(is_docx) ".docx" else ".pptx")
+
+  file.exists(file.path(dirname(file), z))
+}
+
+# this is copied from package htmltools
+#' @importFrom utils URLencode
+urlEncodePath <- function (x){
+  vURLEncode <- Vectorize(URLencode, USE.NAMES = FALSE)
+  gsub("%2[Ff]", "/", vURLEncode(x, TRUE))
+}
+
+# htmlEscapeCopy ----
 htmlEscapeCopy <- local({
 
   .htmlSpecials <- list(
@@ -254,36 +297,3 @@ htmlEscapeCopy <- local({
     return(text)
   }
 })
-
-
-check_bookmark_id <- function(bkm){
-  if(!is.null(bkm)){
-    invalid_bkm <- is.character(bkm) &&
-      length(bkm) == 1 &&
-      nchar(bkm) > 0 &&
-      grepl("[^:[:alnum:]_-]+", bkm)
-    if(invalid_bkm){
-      stop("bkm [", bkm, "] should only contain alphanumeric characters, ':', '-' and '_'.", call. = FALSE)
-    }
-  }
-  bkm
-}
-
-is_windows <- function() {
-  "windows" %in% .Platform$OS.type
-}
-
-is_office_doc_edited <- function(file){
-  is_docx <- grepl("\\.docx$", basename(file))
-  x <- gsub("\\.(docx|pptx)$", "", basename(file))
-  if( nchar(x) < 7)
-    z <- paste0("~$", x)
-  else if( nchar(x) < 8)
-    z <- paste0("~$", substring(x, 2))
-  else {
-    z <- paste0("~$", substring(x, 3))
-  }
-  z <- paste0(z, if(is_docx) ".docx" else ".pptx")
-
-  file.exists(file.path(dirname(file), z))
-}
