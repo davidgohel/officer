@@ -40,7 +40,7 @@ should be used.}
 \description{
 append \code{fpar} (a formatted paragraph) in a placeholder
 The function let you add a new formatted paragraph (\code{\link{fpar}})
-to an existing content in an exiisting shape, existing paragraphs
+to an existing content in an existing shape, existing paragraphs
 will be preserved.
 }
 \note{
