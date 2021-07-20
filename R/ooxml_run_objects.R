@@ -754,7 +754,7 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
   file.copy(as.character(x), filecp)
 
   paste0(open_tag,
-         "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
+         "<w:rPr/><w:drawing xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
          sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700*72, height * 12700*72),
          "<wp:docPr id=\"\" name=\"\" descr=\"", attr(x, "alt"),"\"/>",
          "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",

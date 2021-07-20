@@ -218,7 +218,11 @@ process_links <- function( doc_obj ){
 }
 process_images <- function( doc_obj, package_dir ){
   rel <- doc_obj$relationship()
-  hl_nodes <- xml_find_all(doc_obj$get(), "//a:blip[@r:embed]")
+
+  hl_nodes <- xml_find_all(
+    doc_obj$get(), "//a:blip[@r:embed]",
+    ns = c("a"="http://schemas.openxmlformats.org/drawingml/2006/main",
+           r = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"))
   which_to_add <- hl_nodes[!grepl( "^rId[0-9]+$", xml_attr(hl_nodes, "embed") )]
   hl_ref <- unique(xml_attr(which_to_add, "embed"))
   for(i in seq_along(hl_ref) ){

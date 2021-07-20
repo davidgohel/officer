@@ -123,14 +123,7 @@ docx_part <- R6Class(
       new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
       file.copy( src, to = new_src )
 
-      blip_id <- self$relationship()$get_next_id()
-      self$relationship()$add_img(new_src, root_target = "media")
-
-      img_path <- file.path(private$package_dir, "word", "media")
-      dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
-      file.copy(from = new_src, to = file.path(private$package_dir, "word", "media", basename(new_src)))
-
-      out <- to_wml(external_img(paste0("rId", blip_id), width = width, height = height), add_ns = TRUE)
+      out <- to_wml(external_img(new_src, width = width, height = height), add_ns = TRUE)
 
       xml_replace(run_nodes[[1]], as_xml_document(out) )
       self
