@@ -150,6 +150,9 @@ print.rdocx <- function(x, target = NULL, ...){
   process_links(x$doc_obj)
   for(header in x$headers) process_links(header)
   for(footer in x$footers) process_links(footer)
+  process_images(x$doc_obj, x$package_dir)
+  for(header in x$headers) process_images(header, x$package_dir)
+  for(footer in x$footers) process_images(footer, x$package_dir)
 
   int_id <- 1 # unique id identifier
 
@@ -211,6 +214,26 @@ process_links <- function( doc_obj ){
 
     which_match_id <- grepl( hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE )
     xml_attr(which_to_add[which_match_id], "r:id") <- rep(rid, sum(which_match_id))
+  }
+}
+process_images <- function( doc_obj, package_dir ){
+  rel <- doc_obj$relationship()
+  hl_nodes <- xml_find_all(doc_obj$get(), "//a:blip[@r:embed]")
+  which_to_add <- hl_nodes[!grepl( "^rId[0-9]+$", xml_attr(hl_nodes, "embed") )]
+  hl_ref <- unique(xml_attr(which_to_add, "embed"))
+  for(i in seq_along(hl_ref) ){
+    rid <- sprintf("rId%.0f", rel$get_next_id() )
+
+    img_path <- file.path(package_dir, "word", "media")
+    dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
+    file.copy(from = hl_ref[i], to = file.path(package_dir, "word", "media", basename(hl_ref[i])))
+
+    rel$add(
+      id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+      target = file.path("media", basename(hl_ref[i])))
+
+    which_match_id <- grepl( hl_ref[i], xml_attr(which_to_add, "embed"), fixed = TRUE )
+    xml_attr(which_to_add[which_match_id], "r:embed") <- rep(rid, sum(which_match_id))
   }
 }
 

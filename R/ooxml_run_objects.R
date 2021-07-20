@@ -682,7 +682,7 @@ external_img <- function(src, width = .5, height = .2, alt = "") {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))
   if( !check_src ){
-    stop("src must be a string starting with 'rId' or an image filename")
+    stop("src must be a string starting with 'rId' or an existing image filename")
   }
 
   class(src) <- c("external_img", "cot", "run")
@@ -750,6 +750,8 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
   width <- dims$width
   height <- dims$height
 
+  filecp <- tempfile(fileext = gsub("(.*)(\\.[[:alnum:]]+)$", "\\2", as.character(x) ))
+  file.copy(as.character(x), filecp)
 
   paste0(open_tag,
          "<w:rPr/><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
@@ -762,7 +764,7 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
          "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
          "</pic:cNvPicPr></pic:nvPicPr>",
          "<pic:blipFill>",
-         sprintf("<a:blip r:embed=\"%s\"/>", as.character(x)),
+         sprintf("<a:blip r:embed=\"%s\"/>", filecp),
          "<a:srcRect/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>",
          "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
          sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),

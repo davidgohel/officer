@@ -12,7 +12,7 @@
 * angle was not always preserved in PowerPoint
 * fix pptx scrapping for grouped object containing a table
 * fix invalid hyperlinks in docx and pptx
-
+* fix issue with duplicated images basenames
 
 # officer 0.3.18
 

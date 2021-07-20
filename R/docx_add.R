@@ -57,8 +57,6 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
   ext_img <- external_img(new_src, width = width, height = height)
   xml_elt <- runs_to_p_wml(ext_img, add_ns = TRUE, style_id = style_id)
-  x <- docx_reference_img(x, new_src)
-  xml_elt <- wml_link_images( x, xml_elt )
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -273,8 +271,6 @@ body_add_fpar <- function( x, value, style = NULL, pos = "after" ){
   } else style_id <- NULL
 
   xml_elt <- to_wml(value, add_ns = TRUE, style_id = style_id)
-  x <- docx_reference_img(x, img_src)
-  xml_elt <- wml_link_images( x, xml_elt )
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -641,8 +637,6 @@ body_add.fpar <- function( x, value, style = NULL, ... ){
   } else style_id <- NULL
 
   xml_elt <- to_wml(value, add_ns = TRUE, style_id = style_id)
-  x <- docx_reference_img(x, img_src)
-  xml_elt <- wml_link_images( x, xml_elt )
 
   body_add_xml2(x = x, str = xml_elt)
 }
@@ -732,9 +726,6 @@ body_add.external_img <- function( x, value, style = "Normal", ... ){
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
                     to_wml(value, add_ns = FALSE),
                     "</w:p>")
-
-  x <- docx_reference_img(x, new_src)
-  xml_elt <- wml_link_images( x, xml_elt )
 
   body_add_xml2(x = x, str = xml_elt)
 }

@@ -151,9 +151,6 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
   xml_elt <- to_wml(ext_img)
   xml_elt <- paste0(wp_ns_yes, "<w:pPr/>", xml_elt, "</w:p>")
 
-  x <- docx_reference_img(x, new_src)
-  xml_elt <- wml_link_images( x, xml_elt )
-
   drawing_node <- xml_find_first(as_xml_document(xml_elt), "//w:r/w:drawing")
 
   wml_ <- paste0(wr_ns_yes, "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>%s</w:r>")
