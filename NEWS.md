@@ -13,6 +13,8 @@
 * fix pptx scrapping for grouped object containing a table
 * fix invalid hyperlinks in docx and pptx
 * fix issue with duplicated images basenames
+* internal `get_reference_value` - fix - if reference_data is not an existing file, 
+it is appened to `opts_knit$get("output.dir")`.
 
 # officer 0.3.18
 
