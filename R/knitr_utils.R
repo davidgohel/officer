@@ -69,11 +69,18 @@ get_reference_value <- function(format = NULL) {
     stop("format must be have value 'docx', 'pptx' or 'html'.")
   }
 
+  output.dir <- knitr::opts_knit$get("output.dir")
+  if(is.null(output.dir)){
+    output.dir <- getwd()
+  }
+
   pandoc_args <- knitr::opts_knit$get("rmarkdown.pandoc.args")
 
   rd <- grep("--reference-doc", pandoc_args)
   if (length(rd)) {
     reference_data <- pandoc_args[rd + 1]
+    if(!file.exists(reference_data))
+      reference_data <- file.path(output.dir, reference_data)
   } else {
     reference_data <- get_default_pandoc_data_file(format = format)
   }
