@@ -1,4 +1,19 @@
 #' @export
+#' @title add a column break
+#' @description add a column break into a Word document. A column break
+#' is used to add a break in a multi columns section in a Word
+#' Document.
+#' @param x an rdocx object
+#' @param pos where to add the new element relative to the cursor,
+#' "after" or "before".
+slip_in_column_break <- function( x, pos = "before" ){
+  .Deprecated("run_columnbreak")
+  xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
+  slip_in_xml(x = x, str = xml_elt, pos = pos)
+}
+
+
+#' @export
 #' @title append seq field
 #' @description append seq field into a paragraph of an rdocx object.
 #' This feature is only available when document are edited with Word,
@@ -35,6 +50,7 @@
 #' print(x, target = tempfile(fileext = ".docx"))
 slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 
+  .Deprecated("run_word_field")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -87,6 +103,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' print(x, target = tempfile(fileext = ".docx"))
 slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL ){
 
+  .Deprecated("ftext")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -139,6 +156,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 #' print(x, target = tempfile(fileext = ".docx"))
 slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
+  .Deprecated("external_img")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -170,6 +188,9 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' "after" or "before".
 #' @keywords internal
 slip_in_xml <- function(x, str, pos){
+
+  .Deprecated("fpar")
+
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before")
 
