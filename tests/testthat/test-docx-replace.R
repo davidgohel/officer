@@ -1,8 +1,21 @@
 test_that("replace bkm with text in body", {
   doc <- read_docx()
-  doc <- body_add_par(doc, "centered text", style = "centered")
-  doc <- slip_in_text(doc, ". How are you", style = "strong")
-  doc <- body_bookmark(doc, "text_to_replace")
+  fp <- fpar(
+    run_bookmark(
+      ftext(
+        "centered text"),
+      bkm = "text_to_replace"
+    ),
+    ftext(
+      text = ". How are you",
+      prop = fp_text(
+        color = NA, font.size = NA, bold = TRUE, italic = NA,
+        underlined = NA, font.family = NA_character_,
+        cs.family = NA_character_, eastasia.family = NA_character_,
+        hansi.family = NA_character_, shading.color = NA_character_)
+      )
+  )
+  doc <- body_add_fpar(doc, value = fp, style = "centered")
 
   xmldoc <- doc$doc_obj$get()
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", "text_to_replace")

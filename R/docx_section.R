@@ -114,7 +114,6 @@ body_end_section_columns <- function(x, widths = c(2.5,2.5), space = .25, sep = 
 #'
 #' doc_1 <- read_docx()
 #' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
-#' doc_1 <- slip_in_column_break(doc_1, pos = "after")
 #' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
 #' doc_1 <- body_end_section_columns_landscape(doc_1, widths = c(6, 2))
 #' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")

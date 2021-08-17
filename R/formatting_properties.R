@@ -11,7 +11,7 @@ check_spread_integer <- function( obj, value, dest){
 
 check_set_color <- function( obj, value){
   varname <- as.character(substitute(value))
-  if( !is.color( value ) )
+  if( !is.color( value ) && !is.na(value) )
     stop(varname, " must be a valid color.", call. = FALSE )
   else obj[[varname]] <- value
   obj
@@ -50,7 +50,7 @@ check_spread_border <- function( obj, value, dest ){
 
 check_set_integer <- function( obj, value){
   varname <- as.character(substitute(value))
-  if( is.numeric( value ) && length(value) == 1  && value >= 0 ){
+  if( is.na(value) || (is.numeric( value ) && length(value) == 1  && value >= 0) ){
     obj[[varname]] <- as.integer(value)
   } else stop(varname, " must be a positive integer scalar.", call. = FALSE)
   obj
@@ -58,7 +58,7 @@ check_set_integer <- function( obj, value){
 
 check_set_numeric <- function( obj, value){
   varname <- as.character(substitute(value))
-  if( is.numeric( value ) && length(value) == 1  && value >= 0 ){
+  if( is.na(value) || (is.numeric( value ) && length(value) == 1  && value >= 0) ){
     obj[[varname]] <- as.double(value)
   } else stop(varname, " must be a positive numeric scalar.", call. = FALSE)
   obj
@@ -66,14 +66,14 @@ check_set_numeric <- function( obj, value){
 
 check_set_bool <- function( obj, value){
   varname <- as.character(substitute(value))
-  if( is.logical( value ) && length(value) == 1 ){
+  if( is.na(value) || (is.logical( value ) && length(value) == 1) ){
     obj[[varname]] <- value
   } else stop(varname, " must be a boolean", call. = FALSE)
   obj
 }
 check_set_chr <- function( obj, value){
   varname <- as.character(substitute(value))
-  if( is.character( value ) && length(value) == 1 ){
+  if( is.na(value) || (is.character( value ) && length(value) == 1) ){
     obj[[varname]] <- value
   } else stop(varname, " must be a string", call. = FALSE)
   obj
@@ -81,11 +81,19 @@ check_set_chr <- function( obj, value){
 
 check_set_choice <- function( obj, value, choices){
   varname <- as.character(substitute(value))
-  if( is.character( value ) && length(value) == 1 ){
-    if( !value %in% choices )
-      stop(varname, " must be one of ", paste( shQuote(choices), collapse = ", "), call. = FALSE )
-    obj[[varname]] = value
-  } else stop(varname, " must be a character scalar.", call. = FALSE)
+
+  if(is.na(value)){
+    obj[[varname]] <- value
+  } else {
+    if( is.character( value ) && length(value) == 1 ){
+      if( !value %in% choices )
+        stop(varname, " must be one of ",
+             paste( shQuote(choices), collapse = ", "),
+             call. = FALSE )
+      obj[[varname]] = value
+    } else stop(varname, " must be a character scalar.", call. = FALSE)
+  }
+
   obj
 }
 
@@ -125,12 +133,12 @@ check_set_choice <- function( obj, value, choices){
 #' @family functions for defining formatting properties
 #' @seealso [ftext], [fpar]
 #' @export
-fp_text <- function( color = "black", font.size = 10,
-                     bold = FALSE, italic = FALSE, underlined = FALSE,
-                     font.family = "Arial",
-                     cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
-                     vertical.align = "baseline",
-                     shading.color = "transparent" ){
+fp_text <- function(color = "black", font.size = 10,
+                    bold = FALSE, italic = FALSE, underlined = FALSE,
+                    font.family = "Arial",
+                    cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
+                    vertical.align = "baseline",
+                    shading.color = "transparent" ){
 
   out <- list()
 
@@ -156,6 +164,25 @@ fp_text <- function( color = "black", font.size = 10,
   class( out ) <- "fp_text"
 
   out
+}
+
+#' @rdname fp_text
+#' @description Function `fp_text_lite()` is generating properties
+#' with only entries for the parameters users provided. The
+#' undefined properties will inherit from the default settings.
+#' @export
+fp_text_lite <- function(
+  color = NA, font.size = NA,
+  font.family = NA, cs.family = NA, eastasia.family = NA, hansi.family = NA,
+  bold = NA, italic = NA, underlined = NA,
+  vertical.align = "baseline", shading.color = NA){
+
+  fp_text(
+    color = color, font.size = font.size,
+    bold = bold, italic = italic, underlined = underlined,
+    font.family = font.family, cs.family = cs.family, eastasia.family = eastasia.family, hansi.family = hansi.family,
+    vertical.align = vertical.align, shading.color = shading.color)
+
 }
 
 #' @rdname fp_text

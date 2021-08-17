@@ -113,9 +113,12 @@ test_that("body_add_img", {
 test_that("slip_in_img", {
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   x <- read_docx()
-  x <- body_add_par(x, "")
-  x <- slip_in_img(x, src = img.file, style = "strong", width = .3, height = .3)
-
+  x <- body_add_fpar(
+    x = x,
+    value = fpar(
+      external_img(src = img.file, width = .3, height = .3)
+    )
+  )
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:drawing")
 })

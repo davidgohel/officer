@@ -2,6 +2,7 @@
 % Please edit documentation in R/formatting_properties.R
 \name{fp_text}
 \alias{fp_text}
+\alias{fp_text_lite}
 \alias{format.fp_text}
 \alias{print.fp_text}
 \alias{update.fp_text}
@@ -19,6 +20,20 @@ fp_text(
   hansi.family = NULL,
   vertical.align = "baseline",
   shading.color = "transparent"
+)
+
+fp_text_lite(
+  color = NA,
+  font.size = NA,
+  font.family = NA,
+  cs.family = NA,
+  eastasia.family = NA,
+  hansi.family = NA,
+  bold = NA,
+  italic = NA,
+  underlined = NA,
+  vertical.align = "baseline",
+  shading.color = NA
 )
 
 \method{format}{fp_text}(x, type = "wml", ...)
@@ -92,6 +107,10 @@ a \code{fp_text} object
 \description{
 Create a \code{fp_text} object that describes
 text formatting properties.
+
+Function \code{fp_text_lite()} is generating properties
+with only entries for the parameters users provided. The
+undefined properties will inherit from the default settings.
 }
 \examples{
 fp_text()

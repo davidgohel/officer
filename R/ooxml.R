@@ -278,24 +278,35 @@ rpr_pml <- function(x){
   if(is_transparent(x$color) ) return("")
 
   out  <- "<a:rPr cap=\"none\""
-  if( x$font.size > 0 ){
-    out <- paste0(out, sprintf(" sz=\"%.0f\"", x$font.size * 100) )
+
+  if(!is.na(x$font.size)){
+    if( x$font.size > 0 ){
+      out <- paste0(out, sprintf(" sz=\"%.0f\"", x$font.size * 100) )
+    }
   }
 
-  if(x$italic){
-    out <- paste0(out, " i=\"1\"")
-  } else {
-    out <- paste0(out, " i=\"0\"")
+  if(!is.na(x$italic)){
+    if(x$italic){
+      out <- paste0(out, " i=\"1\"")
+    } else {
+      out <- paste0(out, " i=\"0\"")
+    }
   }
-  if(x$bold){
-    out <- paste0(out, " b=\"1\"")
-  } else {
-    out <- paste0(out, " b=\"0\"")
+
+  if(!is.na(x$bold)){
+    if(x$bold){
+      out <- paste0(out, " b=\"1\"")
+    } else {
+      out <- paste0(out, " b=\"0\"")
+    }
   }
-  if(x$underlined){
-    out <- paste0(out, " u=\"sng\"")
-  } else {
-    out <- paste0(out, " u=\"none\"")
+
+  if(!is.na(x$underlined)){
+    if(x$underlined){
+      out <- paste0(out, " u=\"sng\"")
+    } else {
+      out <- paste0(out, " u=\"none\"")
+    }
   }
 
   if( x$vertical.align == "superscript"){
@@ -304,49 +315,65 @@ rpr_pml <- function(x){
     out <- paste0(out, " baseline=\"-40000\"")
   }
   out <- paste0(out, ">")
-  out <- paste0(out, solid_fill(x$color))
 
-  if(!is_transparent(x$shading.color) ){
-    shad <- sprintf(
-      paste0("<a:highlight><a:srgbClr val=\"%s\">",
-             "<a:alpha val=\"%.0f\"/>",
-             "</a:srgbClr></a:highlight>"),
-      hex_color(x$shading.color),
-      colalpha(x$shading.color) * 100000 )
-    out <- paste0(out, shad)
+  if(!is.na(x$color)){
+    out <- paste0(out, solid_fill(x$color))
+
+    if(!is_transparent(x$shading.color) ){
+      shad <- sprintf(
+        paste0("<a:highlight><a:srgbClr val=\"%s\">",
+               "<a:alpha val=\"%.0f\"/>",
+               "</a:srgbClr></a:highlight>"),
+        hex_color(x$shading.color),
+        colalpha(x$shading.color) * 100000 )
+      out <- paste0(out, shad)
+    }
   }
 
-  out <- paste0(out,
-                sprintf("<a:latin typeface=\"%s\"/><a:cs typeface=\"%s\"/><a:ea typeface=\"%s\"/><a:sym typeface=\"%s\"/>",
-                        x$font.family, x$cs.family, x$eastasia.family, x$hansi.family)
-        )
+  out <- paste0(
+    out,
+    if(!is.na(x$font.family)) sprintf("<a:latin typeface=\"%s\"/>", x$font.family),
+    if(!is.na(x$cs.family)) sprintf("<a:cs typeface=\"%s\"/>", x$cs.family),
+    if(!is.na(x$eastasia.family)) sprintf("<a:ea typeface=\"%s\"/>", x$eastasia.family),
+    if(!is.na(x$hansi.family)) sprintf("<a:sym typeface=\"%s\"/>", x$hansi.family)
+  )
+
   out <- paste0(out, "</a:rPr>")
   out
 }
 
 rpr_wml <- function(x){
 
-  out <- paste0("<w:rPr><w:rFonts",
-    " w:ascii=\"", x$font.family, "\"",
-    " w:hAnsi=\"", x$hansi.family, "\"",
-    " w:eastAsia=\"", x$eastasia.family, "\"",
-    " w:cs=\"", x$cs.family, "\"",
-    "/>")
+  out <- paste0(
+    "<w:rPr><w:rFonts",
+    if (!is.na(x$font.family)) paste0(" w:ascii=\"", x$font.family, "\""),
+    if (!is.na(x$hansi.family)) paste0(" w:hAnsi=\"", x$hansi.family, "\""),
+    if (!is.na(x$eastasia.family)) paste0(" w:eastAsia=\"", x$eastasia.family, "\""),
+    if (!is.na(x$cs.family)) paste0(" w:cs=\"", x$cs.family, "\""),
+    "/>"
+  )
 
-  if(x$italic){
-    out <- paste0(out, "<w:i w:val=\"true\"/>")
-  } else {
-    out <- paste0(out, "<w:i w:val=\"false\"/>")
+  if (!is.na(x$italic)) {
+    if (x$italic) {
+      out <- paste0(out, "<w:i w:val=\"true\"/>")
+    } else {
+      out <- paste0(out, "<w:i w:val=\"false\"/>")
+    }
   }
-  if(x$bold){
-    out <- paste0(out, "<w:b w:val=\"true\"/>")
-  } else {
-    out <- paste0(out, "<w:b w:val=\"false\"/>")
+
+  if (!is.na(x$bold)) {
+    if (x$bold) {
+      out <- paste0(out, "<w:b w:val=\"true\"/>")
+    } else {
+      out <- paste0(out, "<w:b w:val=\"false\"/>")
+    }
   }
-  if(x$underlined){
-    out <- paste0(out, "<w:u w:val=\"single\"/>")
-  } else {
-    out <- paste0(out, "<w:u w:val=\"none\"/>")
+  if (!is.na(x$underlined)) {
+    if (x$underlined) {
+      out <- paste0(out, "<w:u w:val=\"single\"/>")
+    } else {
+      out <- paste0(out, "<w:u w:val=\"none\"/>")
+    }
   }
 
   if( x$vertical.align == "superscript"){
@@ -355,75 +382,92 @@ rpr_wml <- function(x){
     out <- paste0(out, "<w:vertAlign w:val=\"subscript\"/>")
   }
 
-  out <- paste0(
-    out,
-    sprintf("<w:sz w:val=\"%.0f\"/><w:szCs w:val=\"%.0f\"/>",
-            x$font.size * 2, x$font.size * 2)
-  )
-
-  out <- paste0(
-    out,
-    sprintf("<w:color w:val=\"%s\"/>", hex_color(x$color))
-  )
-
-  if(!is_transparent(x$shading.color) ){
+  if(!is.na(x$font.size)){
     out <- paste0(
       out,
-      sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", hex_color(x$shading.color))
+      sprintf("<w:sz w:val=\"%.0f\"/><w:szCs w:val=\"%.0f\"/>",
+              x$font.size * 2, x$font.size * 2)
     )
   }
 
-  if(colalpha(x$color) < 1){
+  if(!is.na(x$color)){
     out <- paste0(
       out,
-      sprintf(
-        paste0("<w14:textFill><w14:solidFill><w14:srgbClr val=\"%s\">",
-               "<w14:alpha val=\"%.0f\"/>",
-               "</w14:srgbClr></w14:solidFill></w14:textFill>"),
-        hex_color(x$color),
-        colalpha(x$color) * 100000 )
+      sprintf("<w:color w:val=\"%s\"/>", hex_color(x$color))
     )
   }
+
+  if(!is.na(x$shading.color)){
+    if(!is_transparent(x$shading.color) ){
+      out <- paste0(
+        out,
+        sprintf("<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"%s\"/>", hex_color(x$shading.color))
+      )
+    }
+    if(colalpha(x$color) < 1){
+      out <- paste0(
+        out,
+        sprintf(
+          paste0("<w14:textFill><w14:solidFill><w14:srgbClr val=\"%s\">",
+                 "<w14:alpha val=\"%.0f\"/>",
+                 "</w14:srgbClr></w14:solidFill></w14:textFill>"),
+          hex_color(x$color),
+          colalpha(x$color) * 100000 )
+      )
+    }
+  }
+
   out <- paste0(out, "</w:rPr>")
   out
 }
 
 rpr_css <- function(x){
 
-  out <- sprintf("font-family:'%s';", x$font.family)
-  out <- paste0(out, sprintf("color:%s;", css_color(x$color)))
-  out <- paste0(out, sprintf("font-size:%0.1fpt;", x$font.size))
+  out <- ""
 
-  if(x$italic){
-    out <- paste0(out, "font-style:italic;")
-  } else {
-    out <- paste0(out, "font-style:normal;")
+  if(!is.na(x$font.family)) out <- paste0(out, sprintf("font-family:'%s';", x$font.family))
+  if(!is.na(x$color)) out <- paste0(out, sprintf("color:%s;", css_color(x$color)))
+  if(!is.na(x$font.size)) out <- paste0(out, sprintf("font-size:%0.1fpt;", x$font.size))
+
+  if(!is.na(x$italic)){
+    if(x$italic){
+      out <- paste0(out, "font-style:italic;")
+    } else {
+      out <- paste0(out, "font-style:normal;")
+    }
   }
 
-  if(x$bold){
-    out <- paste0(out, "font-weight:bold;")
-  } else {
-    out <- paste0(out, "font-weight:normal;")
+  if(!is.na(x$bold)){
+    if(x$bold){
+      out <- paste0(out, "font-weight:bold;")
+    } else {
+      out <- paste0(out, "font-weight:normal;")
+    }
   }
 
-  if(x$underlined){
-    out <- paste0(out, "text-decoration:underline;")
-  } else {
-    out <- paste0(out, "text-decoration:none;")
+  if(!is.na(x$bold)){
+    if(x$underlined){
+      out <- paste0(out, "text-decoration:underline;")
+    } else {
+      out <- paste0(out, "text-decoration:none;")
+    }
   }
 
-  if(!is_transparent(x$shading.color) ){
-    out <- paste0(
-      out,
-      sprintf("background-color:%s;", css_color(x$shading.color))
-    )
-  } else out <- paste0(out, "background-color:transparent;")
+  if(!is.na(x$shading.color)){
+    if(!is_transparent(x$shading.color) ){
+      out <- paste0(
+        out,
+        sprintf("background-color:%s;", css_color(x$shading.color))
+      )
+    } else out <- paste0(out, "background-color:transparent;")
+  }
 
   if( x$vertical.align == "superscript"){
     out <- paste0(out, "vertical-align: super;")
   } else if( x$vertical.align == "subscript"){
     out <- paste0(out, "vertical-align: sub;")
   }
+
 
   out
 }

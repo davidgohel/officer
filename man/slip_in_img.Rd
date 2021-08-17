@@ -28,11 +28,3 @@ This function will be deprecated in a next release because it is not
 efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
 formatted paragraphs.
 }
-\examples{
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-x <- read_docx()
-x <- body_add_par(x, "R logo: ", style = "Normal")
-x <- slip_in_img(x, src = img.file, style = "strong", width = .3, height = .3)
-
-print(x, target = tempfile(fileext = ".docx"))
-}

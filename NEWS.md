@@ -1,3 +1,13 @@
+# officer 0.4.0
+
+## New features
+
+* new function `fp_text_lite()` that do not force to provide a value 
+for each properties - if a value is not provided, its attribute will 
+not be written and as a result, the default properties will be applied. 
+Function `fp_text()` has also been adapted, it now supports NA meaning 
+to not write the attributes as in `fp_text_lite()`.
+
 # officer 0.3.19
 
 ## New features
