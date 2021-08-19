@@ -23,7 +23,7 @@ when edited with Libre Office or another program, seq field will not
 be calculated and not displayed.
 }
 \note{
-This function will be deprecated in a next release because it is not
+This function will be deprecated in the next release because it is not
 efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
 formatted paragraphs.
 }

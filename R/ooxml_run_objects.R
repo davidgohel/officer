@@ -805,4 +805,110 @@ to_html.external_img <- function(x, ...) {
 
 }
 
+# run_footnoteref ----
+#' @export
+#' @title Word footnote reference
+#' @description Wraps a footnote reference in an object that can then be inserted
+#' as a run/chunk with [fpar()] or within an R Markdown document.
+#' @param prop formatting text properties returned by
+#' [fp_text_lite()] or [fp_text()]. It also can be NULL in
+#' which case, no formatting is defined (the default is applied).
+#' @family run functions for reporting
+#' @examples
+#' run_footnoteref()
+#' to_wml(run_footnoteref())
+run_footnoteref <- function(prop = NULL) {
+  z <- list(pr = prop)
+  class(z) <- c("run_footnoteref", "run")
+  z
+}
+#' @export
+to_wml.run_footnoteref <- function(x, add_ns = FALSE, ...) {
+  open_tag <- wr_ns_no
+  if (add_ns) {
+    open_tag <- wr_ns_yes
+  }
 
+  str <- paste0(
+    open_tag,
+    if (!is.null(x$pr)) rpr_wml(x$pr),
+    "<w:footnoteRef/></w:r>"
+  )
+
+  str
+}
+
+# run_footnote ----
+#' @export
+#' @title Word footnote
+#' @description Wraps a footnote in an object that can then be inserted
+#' as a run/chunk with [fpar()] or within an R Markdown document.
+#' @param x a set of blocks to be used as footnote content returned by
+#'   function [block_list()].
+#' @param prop formatting text properties returned by
+#' [fp_text_lite()] or [fp_text()]. It also can be NULL in
+#' which case, no formatting is defined (the default is applied).
+#' @family run functions for reporting
+#' @examples
+#' library(officer)
+#'
+#' fp_bold <- fp_text_lite(bold = TRUE)
+#' fp_refnote <- fp_text_lite(vertical.align = "superscript")
+#'
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' bl <- block_list(
+#'   fpar(ftext("hello", fp_bold)),
+#'   fpar(
+#'     ftext("hello world", fp_bold),
+#'     external_img(src = img.file, height = 1.06, width = 1.39)
+#'   )
+#' )
+#'
+#' a_par <- fpar(
+#'   "this paragraph contains a note ",
+#'   run_footnote(x = bl, prop = fp_refnote),
+#'   "."
+#' )
+#'
+#' doc <- read_docx()
+#' doc <- body_add_fpar(doc, value = a_par, style = "Normal")
+#'
+#' print(doc, target = tempfile(fileext = ".docx"))
+run_footnote <- function(x, prop = NULL) {
+  z <- list(footnote = x, pr = prop)
+  class(z) <- c("run_footnote", "run")
+  z
+}
+#' @export
+to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
+  open_tag <- wr_ns_no
+  if (add_ns) {
+    open_tag <- wr_ns_yes
+  }
+
+  x$footnote[[1]]$chunks <- append(list(run_footnoteref(x$pr)), x$footnote[[1]]$chunks)
+  blocks <- sapply(x$footnote, to_wml)
+  blocks <- paste(blocks, collapse = "")
+
+  id <- basename(tempfile(pattern = "footnote"))
+  base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\""
+  footnote_xml <- paste0(
+    "<w:footnote ", base_ns, " w:id=\"",
+    id,
+    "\">",
+    blocks, "</w:footnote>"
+  )
+
+  footnote_ref_xml <- paste0(
+    open_tag,
+    if (!is.null(x$pr)) rpr_wml(x$pr),
+    "<w:footnoteReference w:id=\"",
+    id,
+    "\">",
+    footnote_xml,
+    "</w:footnoteReference>",
+    "</w:r>"
+  )
+
+  footnote_ref_xml
+}

@@ -7,6 +7,8 @@ for each properties - if a value is not provided, its attribute will
 not be written and as a result, the default properties will be applied. 
 Function `fp_text()` has also been adapted, it now supports NA meaning 
 to not write the attributes as in `fp_text_lite()`.
+* new function `run_footnote` to add footnotes in a Word document (it 
+also makes possible to deprecate totally slip_in* functions).
 
 # officer 0.3.19
 

@@ -17,3 +17,7 @@ add a column break into a Word document. A column break
 is used to add a break in a multi columns section in a Word
 Document.
 }
+\note{
+This function will be deprecated in the next release because it is not
+efficient and make users write complex code, use \code{\link[=run_columnbreak]{run_columnbreak()}} instead.
+}

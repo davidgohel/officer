@@ -41,23 +41,12 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #'   function \code{\link{block_list}}.
 #' @param pos where to add the new element relative to the cursor, "after" or
 #'   "before".
-#' @examples
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' bl <- block_list(
-#'   fpar(ftext("hello", shortcuts$fp_bold())),
-#'   fpar(
-#'     ftext("hello world", shortcuts$fp_bold()),
-#'     external_img(src = img.file, height = 1.06, width = 1.39)
-#'   )
-#' )
-#'
-#' x <- read_docx()
-#' x <- body_add_par(x, "Hello ", style = "Normal")
-#' x <- slip_in_text(x, "world", style = "strong")
-#' x <- slip_in_footnote(x, style = "reference_id", blocks = bl)
-#'
-#' print(x, target = tempfile(fileext = ".docx"))
+#' @note This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
+
+  .Deprecated("run_footnote")
 
   if( !inherits(blocks, "block_list") ){
     stop("blocks must be an object created by function block_list().", call. = FALSE)

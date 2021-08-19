@@ -147,10 +147,13 @@ print.rdocx <- function(x, target = NULL, ...){
     stop(target , " is already edited.",
          " You must close the document in order to be able to write the file.")
 
+  process_footnotes(x)
+
   process_links(x$doc_obj)
   for(header in x$headers) process_links(header)
   for(footer in x$footers) process_links(footer)
   process_images(x$doc_obj, x$package_dir)
+  process_images(x$footnotes, x$package_dir)
   for(header in x$headers) process_images(header, x$package_dir)
   for(footer in x$footers) process_images(footer, x$package_dir)
 
@@ -200,6 +203,50 @@ print.rdocx <- function(x, target = NULL, ...){
   invisible(pack_folder(folder = x$package_dir, target = target ))
 }
 
+#' @importFrom xml2 xml_remove as_xml_document xml_parent xml_child
+process_footnotes <- function( x ){
+
+  footnotes <- x$footnotes
+  doc_obj <- x$doc_obj
+
+  rel <- doc_obj$relationship()
+
+  hl_nodes <- xml_find_all(doc_obj$get(), "//w:footnoteReference[@w:id]")
+  which_to_add <- hl_nodes[grepl( "^footnote", xml_attr(hl_nodes, "id") )]
+  hl_ref <- xml_attr(which_to_add, "id")
+  for(i in seq_along(hl_ref) ){
+
+    next_id <- rel$get_next_id()
+    rel$add(
+      paste0("rId", next_id),
+      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes",
+      target = "footnotes.xml" )
+
+    index <- length(xml_find_all(footnotes$get(), "w:footnote")) - 1
+    xml_attr(which_to_add[[i]], "w:id") <- index
+
+    run <- xml_parent(which_to_add[[i]])
+
+    run_rstyle <- xml_child(run, "w:rPr/w:rStyle")
+
+    styles <- styles_info(x, type = "character")
+    style_id <- xml_attr(run_rstyle, "val")
+    style_id <- styles$style_id[styles$style_name %in% style_id]
+
+    xml_attr(run_rstyle, "w:val") <- style_id
+
+    footnote <- xml_child(which_to_add[[i]], "w:footnote")
+    xml_attr(footnote, "w:id") <- index
+
+    footnote_rstyle <- xml_child(footnote, "w:p/w:r/w:rPr/w:rStyle")
+    xml_attr(footnote_rstyle, "w:val") <- style_id
+
+    newfootnote <- as_xml_document(as.character(footnote))
+    xml_remove(footnote)
+
+    xml_add_child(footnotes$get(), newfootnote)
+  }
+}
 process_links <- function( doc_obj ){
   rel <- doc_obj$relationship()
   hl_nodes <- xml_find_all(doc_obj$get(), "//w:hyperlink[@r:id]")
@@ -402,19 +449,8 @@ docx_bookmarks <- function(x){
 #' doc_1 <- read_docx()
 #'
 #' doc_1 <- body_add_par(doc_1, "A title", style = "heading 1")
-#' doc_1 <- body_add_par(doc_1, "", style = "Normal")
-#' doc_1 <- slip_in_text(doc_1, "Message is: ",
-#'   style = "Default Paragraph Font"
-#' )
-#' doc_1 <- body_add_par(doc_1, "Hello ", style = "Normal")
-#' doc_1 <- slip_in_text(doc_1, "world", style = "Default Paragraph Font")
-#' doc_1 <- slip_in_text(doc_1, " with a link",
-#'   style = "strong",
-#'   pos = "after", hyperlink = "https://davidgohel.github.io/officer/"
-#' )
 #' doc_1 <- body_add_par(doc_1, "Another title", style = "heading 2")
 #' doc_1 <- body_add_par(doc_1, "Hello world!", style = "Normal")
-#'
 #' file <- print(doc_1, target = tempfile(fileext = ".docx"))
 #'
 #' # now we can illustrate how
@@ -425,7 +461,6 @@ docx_bookmarks <- function(x){
 #'   "strong" = "Default Paragraph Font"
 #' )
 #' doc_2 <- change_styles(doc_2, mapstyles = mapstyles)
-#'
 #' print(doc_2, target = tempfile(fileext = ".docx"))
 change_styles <- function( x, mapstyles ){
 

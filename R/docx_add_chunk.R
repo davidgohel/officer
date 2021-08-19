@@ -6,6 +6,8 @@
 #' @param x an rdocx object
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
+#' @note This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code, use [run_columnbreak()] instead.
 slip_in_column_break <- function( x, pos = "before" ){
   .Deprecated("run_columnbreak")
   xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
@@ -19,7 +21,7 @@ slip_in_column_break <- function( x, pos = "before" ){
 #' This feature is only available when document are edited with Word,
 #' when edited with Libre Office or another program, seq field will not
 #' be calculated and not displayed.
-#' @note This function will be deprecated in a next release because it is not
+#' @note This function will be deprecated in the next release because it is not
 #' efficient and make users write complex code. Use instead [fpar()] to build
 #' formatted paragraphs.
 #' @param x an rdocx object
@@ -68,7 +70,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 #' @param hyperlink turn the text into an external hyperlink
-#' @note This function will be deprecated in a next release because it is not
+#' @note This function will be deprecated in the next release because it is not
 #' efficient and make users write complex code. Use instead [fpar()] to build
 #' formatted paragraphs.
 slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL ){
@@ -114,7 +116,7 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 #' @param height height in inches
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
-#' @note This function will be deprecated in a next release because it is not
+#' @note This function will be deprecated in the next release because it is not
 #' efficient and make users write complex code. Use instead [fpar()] to build
 #' formatted paragraphs.
 slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
@@ -150,6 +152,9 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 #' @keywords internal
+#' @note This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 slip_in_xml <- function(x, str, pos){
 
   .Deprecated("fpar")

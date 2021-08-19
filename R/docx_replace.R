@@ -23,10 +23,9 @@ is_scalar_logical <- function( x ) {
 #' @param value the replacement string, of type character
 #' @examples
 #' doc <- read_docx()
-#' doc <- body_add_par(doc, "centered text", style = "centered")
-#' doc <- slip_in_text(doc, ". How are you", style = "strong")
+#' doc <- body_add_par(doc, "a paragraph to replace", style = "centered")
 #' doc <- body_bookmark(doc, "text_to_replace")
-#' doc <- body_replace_text_at_bkm(doc, "text_to_replace", "not left aligned")
+#' doc <- body_replace_text_at_bkm(doc, "text_to_replace", "new text")
 body_replace_text_at_bkm <- function( x, bookmark, value ){
 
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))

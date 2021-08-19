@@ -22,7 +22,7 @@ slip_in_text(x, str, style = NULL, pos = "after", hyperlink = NULL)
 append text into a paragraph of an rdocx object
 }
 \note{
-This function will be deprecated in a next release because it is not
+This function will be deprecated in the next release because it is not
 efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
 formatted paragraphs.
 }

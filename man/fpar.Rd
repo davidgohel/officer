@@ -5,7 +5,7 @@
 \alias{update.fpar}
 \title{Concatenate formatted text as a paragraph}
 \usage{
-fpar(..., fp_p = fp_par(), fp_t = fp_text(), values = NULL)
+fpar(..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL)
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
 }
