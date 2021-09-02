@@ -35,20 +35,15 @@ one by default) and lets you modify its content later.
 
 The package provides functions to add R outputs into a Word document:
 
-  - images: produce your plot in png or emf files and add them into the
+-   images: produce your plot in png or emf files and add them into the
     document, as a whole paragraph or inside a paragraph.
-  - tables: add data.frames as tables, format is defined by the
+-   tables: add data.frames as tables, format is defined by the
     associated Word table style.
-  - text: add text as paragraphs or inside an existing paragraph, format
+-   text: add text as paragraphs or inside an existing paragraph, format
     is defined by the associated Word paragraph and text styles.
-  - field codes: add Word field codes inside paragraphs. Field codes is
+-   field codes: add Word field codes inside paragraphs. Field codes is
     an old feature of MS Word to create calculated elements such as
     tables of contents, automatic numbering and hyperlinks.
-
-In a Word document, one can use cursor functions to reach the beginning
-or end of a document, or a particular paragraph containing a given text.
-This *cursor* concept has been implemented to make the post processing
-of files easier.
 
 File generation is performed with the `print` function.
 
@@ -66,11 +61,11 @@ empty one by default) and let you modify its content later.
 The package provides functions to add R outputs into existing or new
 PowerPoint slides:
 
-  - images: produce your plot in png or emf files and add them in a
+-   images: produce your plot in png or emf files and add them in a
     slide.
-  - tables: add data.frames as tables, format is defined by the
+-   tables: add data.frames as tables, format is defined by the
     associated PowerPoint table style.
-  - text: add text as paragraphs or inside an existing paragraph, format
+-   text: add text as paragraphs or inside an existing paragraph, format
     is defined in the corresponding layout of the slide.
 
 In a PowerPoint document, one can set a slide as selected and reach a
@@ -104,6 +99,12 @@ documents or Excel workbooks with `officer`.
 The package [mschart](https://github.com/ardata-fr/mschart) combined
 with `officer` can produce native office charts in PowerPoint and Word
 documents.
+
+### Advance Word documents with R Markdown with package `officedown`
+
+The package [officedown](https://ardata-fr.github.io/officeverse/)
+facilitates the formatting of Microsoft Word documents produced by R
+Markdown documents.
 
 ## Installation
 
@@ -149,10 +150,10 @@ documentation.
 If you want to submit a Pull Request to integrate functions of yours,
 please provide:
 
-  - the new function(s) with code and roxygen tags (with examples)
-  - a new section in the appropriate vignette that describes how to use
+-   the new function(s) with code and roxygen tags (with examples)
+-   a new section in the appropriate vignette that describes how to use
     the new function
-  - add corresponding tests in directory `tests/testthat`.
+-   add corresponding tests in directory `tests/testthat`.
 
 By using rhub (run `rhub::check_for_cran()`), you will see if everything
 is ok. When submitted, the PR will be evaluated automatically on travis

@@ -53,11 +53,6 @@ The package provides functions to add R outputs into a Word document:
   feature of MS Word to create calculated elements such as tables of contents, 
   automatic numbering and hyperlinks.
 
-In a Word document, one can use cursor functions to reach the
-beginning or end of a document, or a particular paragraph containing a
-given text. This *cursor* concept has been implemented to make the
-post processing of files easier.
-
 File generation is performed with the `print` function.
 
 ### import Word document in a data.frame
@@ -104,6 +99,10 @@ The package [rvg](https://github.com/davidgohel/rvg) brings an API to produce ni
 
 The package [mschart](https://github.com/ardata-fr/mschart) combined with `officer` can 
 produce native office charts in PowerPoint and Word documents.
+
+### Advance Word documents with R Markdown with package `officedown`
+
+The package [officedown](https://ardata-fr.github.io/officeverse/) facilitates the formatting of Microsoft Word documents produced by R Markdown documents.
 
 
 ## Installation
