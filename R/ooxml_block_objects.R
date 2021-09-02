@@ -606,7 +606,7 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
   colwidths <- to_wml(x$colsizes, add_ns= add_ns, base_document = base_document)
   tcf <- to_wml(x$tcf, add_ns= add_ns, base_document = base_document)
   paste0("<w:tblPr>",
-         if(!is.na(style_id)) "<w:tblStyle w:val=\"", style_id, "\"/>",
+         if(!is.na(style_id)) paste0("<w:tblStyle w:val=\"", style_id, "\"/>"),
          tbl_layout,
          sprintf( "<w:jc w:val=\"%s\"/>", x$align ),
          width, tcf,

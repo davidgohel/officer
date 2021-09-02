@@ -10,6 +10,10 @@ to not write the attributes as in `fp_text_lite()`.
 * new function `run_footnote` to add footnotes in a Word document (it 
 also makes possible to deprecate totally slip_in* functions).
 
+## Issues
+
+* fix a bug when creating the XML of table properties for Word documents
+
 # officer 0.3.19
 
 ## New features
