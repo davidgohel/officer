@@ -84,7 +84,7 @@ inside a paragraph is valid." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -162,10 +162,9 @@ inside a paragraph is valid.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"centered text"</span>, style <span class='op'>=</span> <span class='st'>"centered"</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>". How are you"</span>, style <span class='op'>=</span> <span class='st'>"strong"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"a paragraph to replace"</span>, style <span class='op'>=</span> <span class='st'>"centered"</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_bookmark.html'>body_bookmark</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"text_to_replace"</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>body_replace_text_at_bkm</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"text_to_replace"</span>, <span class='st'>"not left aligned"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>body_replace_text_at_bkm</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"text_to_replace"</span>, <span class='st'>"new text"</span><span class='op'>)</span>
 
 
 <span class='co'># demo usage of bookmark and images ----</span>
@@ -193,7 +192,7 @@ inside a paragraph is valid.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

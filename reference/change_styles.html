@@ -81,7 +81,7 @@ can be used for paragraph, run/character and table styles." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -148,19 +148,8 @@ Use <code><a href='styles_info.html'>styles_info()</a></code> to display availab
 <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>"A title"</span>, style <span class='op'>=</span> <span class='st'>"heading 1"</span><span class='op'>)</span>
-<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>""</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
-<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>"Message is: "</span>,
-  style <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span>
-<span class='op'>)</span>
-<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>"Hello "</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
-<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>"world"</span>, style <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span><span class='op'>)</span>
-<span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>" with a link"</span>,
-  style <span class='op'>=</span> <span class='st'>"strong"</span>,
-  pos <span class='op'>=</span> <span class='st'>"after"</span>, hyperlink <span class='op'>=</span> <span class='st'>"https://davidgohel.github.io/officer/"</span>
-<span class='op'>)</span>
 <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>"Another title"</span>, style <span class='op'>=</span> <span class='st'>"heading 2"</span><span class='op'>)</span>
 <span class='va'>doc_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc_1</span>, <span class='st'>"Hello world!"</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
-
 <span class='va'>file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc_1</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># now we can illustrate how</span>
@@ -171,7 +160,6 @@ Use <code><a href='styles_info.html'>styles_info()</a></code> to display availab
   <span class='st'>"strong"</span> <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span>
 <span class='op'>)</span>
 <span class='va'>doc_2</span> <span class='op'>&lt;-</span> <span class='fu'>change_styles</span><span class='op'>(</span><span class='va'>doc_2</span>, mapstyles <span class='op'>=</span> <span class='va'>mapstyles</span><span class='op'>)</span>
-
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc_2</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
 </div></pre>
   </div>
@@ -186,7 +174,7 @@ Use <code><a href='styles_info.html'>styles_info()</a></code> to display availab
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

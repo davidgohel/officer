@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add a wml string into a Word document — slip_in_xml • officer</title>
+<title>Word footnote reference — run_footnoteref • officer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,9 @@
 
 
 
-<meta property="og:title" content="add a wml string into a Word document — slip_in_xml" />
-<meta property="og:description" content="The function add a wml string into
-the document after, before or on a cursor location.
-This function will be deprecated in the next release because it is not
-efficient and make users write complex code. Use instead fpar() to build
-formatted paragraphs." />
+<meta property="og:title" content="Word footnote reference — run_footnoteref" />
+<meta property="og:description" content="Wraps a footnote reference in an object that can then be inserted
+as a run/chunk with fpar() or within an R Markdown document." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,40 +114,52 @@ formatted paragraphs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add a wml string into a Word document</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/docx_add_chunk.R'><code>R/docx_add_chunk.R</code></a></small>
-    <div class="hidden name"><code>slip_in_xml.Rd</code></div>
+    <h1>Word footnote reference</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ooxml_run_objects.R'><code>R/ooxml_run_objects.R</code></a></small>
+    <div class="hidden name"><code>run_footnoteref.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function add a wml string into
-the document after, before or on a cursor location.</p>
-<p>This function will be deprecated in the next release because it is not
-efficient and make users write complex code. Use instead <code><a href='fpar.html'>fpar()</a></code> to build
-formatted paragraphs.</p>
+    <p>Wraps a footnote reference in an object that can then be inserted
+as a run/chunk with <code><a href='fpar.html'>fpar()</a></code> or within an R Markdown document.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>slip_in_xml</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>str</span>, <span class='va'>pos</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>run_footnoteref</span><span class='op'>(</span>prop <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>an rdocx object</p></td>
-    </tr>
-    <tr>
-      <th>str</th>
-      <td><p>a wml string</p></td>
-    </tr>
-    <tr>
-      <th>pos</th>
-      <td><p>where to add the new element relative to the cursor,
-"after" or "before".</p></td>
+      <th>prop</th>
+      <td><p>formatting text properties returned by
+<code><a href='fp_text.html'>fp_text_lite()</a></code> or <code><a href='fp_text.html'>fp_text()</a></code>. It also can be NULL in
+which case, no formatting is defined (the default is applied).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p>Other run functions for reporting: 
+<code><a href='external_img.html'>external_img</a>()</code>,
+<code><a href='ftext.html'>ftext</a>()</code>,
+<code><a href='hyperlink_ftext.html'>hyperlink_ftext</a>()</code>,
+<code><a href='run_autonum.html'>run_autonum</a>()</code>,
+<code><a href='run_bookmark.html'>run_bookmark</a>()</code>,
+<code><a href='run_columnbreak.html'>run_columnbreak</a>()</code>,
+<code><a href='run_footnote.html'>run_footnote</a>()</code>,
+<code><a href='run_linebreak.html'>run_linebreak</a>()</code>,
+<code><a href='run_pagebreak.html'>run_pagebreak</a>()</code>,
+<code><a href='run_reference.html'>run_reference</a>()</code>,
+<code><a href='run_word_field.html'>run_word_field</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>run_footnoteref</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $pr
+#&gt; NULL
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "run_footnoteref" "run"            </div><div class='input'><span class='fu'><a href='to_wml.html'>to_wml</a></span><span class='op'>(</span><span class='fu'>run_footnoteref</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "&lt;w:r&gt;&lt;w:footnoteRef/&gt;&lt;/w:r&gt;"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -171,8 +171,8 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, <span class='st'>"Un titre 1"</span>, location <span class='op'>=</span> <span class='va'>loc_manual</span><span class='op'>)</span>
 <span class='fu'><a href='slide_summary.html'>slide_summary</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span> <span class='co'># read column ph_label here</span>
-</div><div class='output co'>#&gt;   type id ph_label offx offy cx cy       text
-#&gt; 1 body  2  mytitle    1    1  4  3 Un titre 1</div><div class='input'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>ph_hyperlink</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, ph_label <span class='op'>=</span> <span class='st'>"mytitle"</span>,
+</div><div class='output co'>#&gt;   type id ph_label offx offy cx cy rotation       text
+#&gt; 1 body  2  mytitle    1    1  4  3       NA Un titre 1</div><div class='input'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>ph_hyperlink</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>doc</span>, ph_label <span class='op'>=</span> <span class='st'>"mytitle"</span>,
   href <span class='op'>=</span> <span class='st'>"https://cran.r-project.org"</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='va'>fileout</span> <span class='op'>)</span>
@@ -189,7 +189,7 @@ Values can be read from <code><a href='slide_summary.html'>slide_summary</a></co
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

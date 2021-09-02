@@ -89,7 +89,7 @@ with function update()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@ text and images are associated with formatting properties.</p>
 with function <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fpar</span><span class='op'>(</span><span class='va'>...</span>, fp_p <span class='op'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span><span class='op'>(</span><span class='op'>)</span>, fp_t <span class='op'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span><span class='op'>)</span>, values <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>fpar</span><span class='op'>(</span><span class='va'>...</span>, fp_p <span class='op'>=</span> <span class='fu'><a href='fp_par.html'>fp_par</a></span><span class='op'>(</span><span class='op'>)</span>, fp_t <span class='op'>=</span> <span class='fu'><a href='fp_text.html'>fp_text_lite</a></span><span class='op'>(</span><span class='op'>)</span>, values <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S3 method for fpar</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>object</span>, fp_p <span class='op'>=</span> <span class='cn'>NULL</span>, fp_t <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -213,10 +213,10 @@ see <code><a href='fp_text.html'>fp_text()</a></code>.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname fontname_cs
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   size italic bold underlined color shading fontname fontname_cs
+#&gt; 1   NA     NA   NA         NA    NA      NA       NA          NA
 #&gt;   fontname_eastasia fontname.hansi vertical_align
-#&gt; 1             Arial          Arial       baseline
+#&gt; 1                NA             NA       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"</div><div class='input'>
@@ -244,7 +244,7 @@ see <code><a href='fp_text.html'>fp_text()</a></code>.</p></td>
 #&gt; 1             Arial          Arial       baseline
 #&gt; 
 #&gt; $chunks[[3]]
-#&gt; [1] "/opt/R/4.0.4/lib/R/doc/html/logo.jpg"
+#&gt; [1] "/opt/R/4.1.1/lib/R/doc/html/logo.jpg"
 #&gt; attr(,"class")
 #&gt; [1] "external_img" "cot"          "run"         
 #&gt; attr(,"dims")
@@ -282,10 +282,10 @@ see <code><a href='fp_text.html'>fp_text()</a></code>.</p></td>
 #&gt; right      0 black solid
 #&gt; 
 #&gt; $fp_t
-#&gt;   size italic  bold underlined color     shading fontname fontname_cs
-#&gt; 1   10  FALSE FALSE      FALSE black transparent    Arial       Arial
+#&gt;   size italic bold underlined color shading fontname fontname_cs
+#&gt; 1   NA     NA   NA         NA    NA      NA       NA          NA
 #&gt;   fontname_eastasia fontname.hansi vertical_align
-#&gt; 1             Arial          Arial       baseline
+#&gt; 1                NA             NA       baseline
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "fpar"  "block"</div><div class='input'>
@@ -305,7 +305,7 @@ see <code><a href='fp_text.html'>fp_text()</a></code>.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -82,7 +82,7 @@ inserting, deleting or updating elements in the document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -207,21 +207,13 @@ The argument <code>keyword</code> is a regexpr pattern.</p>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>cursor_begin</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_remove.html'>body_remove</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
 
-<span class='co'># Let add text at the beginning of the</span>
-<span class='co'># paragraph containing text "paragraph 4"</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>cursor_reach</span><span class='op'>(</span><span class='va'>doc</span>, keyword <span class='op'>=</span> <span class='st'>"paragraph 4"</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='slip_in_text.html'>slip_in_text</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"This is "</span>, pos <span class='op'>=</span> <span class='st'>"before"</span>, style <span class='op'>=</span> <span class='st'>"Default Paragraph Font"</span><span class='op'>)</span>
 
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='co'># move the cursor forward and end a section</span>
+<span class='co'># move the cursor forward</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>cursor_forward</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"The section stop here"</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_end_section_landscape.html'>body_end_section_landscape</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
 
 <span class='co'># move the cursor at the end of the document</span>
 <span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>cursor_end</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"The document ends now"</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># cursor_bookmark ----</span>
 
@@ -247,7 +239,7 @@ The argument <code>keyword</code> is a regexpr pattern.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

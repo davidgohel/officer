@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>add a wml string into a Word document — slip_in_xml • officer</title>
+<title>Word footnote — run_footnote • officer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,9 @@
 
 
 
-<meta property="og:title" content="add a wml string into a Word document — slip_in_xml" />
-<meta property="og:description" content="The function add a wml string into
-the document after, before or on a cursor location.
-This function will be deprecated in the next release because it is not
-efficient and make users write complex code. Use instead fpar() to build
-formatted paragraphs." />
+<meta property="og:title" content="Word footnote — run_footnote" />
+<meta property="og:description" content="Wraps a footnote in an object that can then be inserted
+as a run/chunk with fpar() or within an R Markdown document." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,40 +114,75 @@ formatted paragraphs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>add a wml string into a Word document</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/docx_add_chunk.R'><code>R/docx_add_chunk.R</code></a></small>
-    <div class="hidden name"><code>slip_in_xml.Rd</code></div>
+    <h1>Word footnote</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ooxml_run_objects.R'><code>R/ooxml_run_objects.R</code></a></small>
+    <div class="hidden name"><code>run_footnote.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function add a wml string into
-the document after, before or on a cursor location.</p>
-<p>This function will be deprecated in the next release because it is not
-efficient and make users write complex code. Use instead <code><a href='fpar.html'>fpar()</a></code> to build
-formatted paragraphs.</p>
+    <p>Wraps a footnote in an object that can then be inserted
+as a run/chunk with <code><a href='fpar.html'>fpar()</a></code> or within an R Markdown document.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>slip_in_xml</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>str</span>, <span class='va'>pos</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>run_footnote</span><span class='op'>(</span><span class='va'>x</span>, prop <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an rdocx object</p></td>
+      <td><p>a set of blocks to be used as footnote content returned by
+function <code><a href='block_list.html'>block_list()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>str</th>
-      <td><p>a wml string</p></td>
-    </tr>
-    <tr>
-      <th>pos</th>
-      <td><p>where to add the new element relative to the cursor,
-"after" or "before".</p></td>
+      <th>prop</th>
+      <td><p>formatting text properties returned by
+<code><a href='fp_text.html'>fp_text_lite()</a></code> or <code><a href='fp_text.html'>fp_text()</a></code>. It also can be NULL in
+which case, no formatting is defined (the default is applied).</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p>Other run functions for reporting: 
+<code><a href='external_img.html'>external_img</a>()</code>,
+<code><a href='ftext.html'>ftext</a>()</code>,
+<code><a href='hyperlink_ftext.html'>hyperlink_ftext</a>()</code>,
+<code><a href='run_autonum.html'>run_autonum</a>()</code>,
+<code><a href='run_bookmark.html'>run_bookmark</a>()</code>,
+<code><a href='run_columnbreak.html'>run_columnbreak</a>()</code>,
+<code><a href='run_footnoteref.html'>run_footnoteref</a>()</code>,
+<code><a href='run_linebreak.html'>run_linebreak</a>()</code>,
+<code><a href='run_pagebreak.html'>run_pagebreak</a>()</code>,
+<code><a href='run_reference.html'>run_reference</a>()</code>,
+<code><a href='run_word_field.html'>run_word_field</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+
+<span class='va'>fp_bold</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text_lite</a></span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>fp_refnote</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text_lite</a></span><span class='op'>(</span>vertical.align <span class='op'>=</span> <span class='st'>"superscript"</span><span class='op'>)</span>
+
+<span class='va'>img.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> <span class='op'>)</span>
+<span class='va'>bl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='block_list.html'>block_list</a></span><span class='op'>(</span>
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span><span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello"</span>, <span class='va'>fp_bold</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span>
+    <span class='fu'><a href='ftext.html'>ftext</a></span><span class='op'>(</span><span class='st'>"hello world"</span>, <span class='va'>fp_bold</span><span class='op'>)</span>,
+    <span class='fu'><a href='external_img.html'>external_img</a></span><span class='op'>(</span>src <span class='op'>=</span> <span class='va'>img.file</span>, height <span class='op'>=</span> <span class='fl'>1.06</span>, width <span class='op'>=</span> <span class='fl'>1.39</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='va'>a_par</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fpar.html'>fpar</a></span><span class='op'>(</span>
+  <span class='st'>"this paragraph contains a note "</span>,
+  <span class='fu'>run_footnote</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bl</span>, prop <span class='op'>=</span> <span class='va'>fp_refnote</span><span class='op'>)</span>,
+  <span class='st'>"."</span>
+<span class='op'>)</span>
+
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_fpar.html'>body_add_fpar</a></span><span class='op'>(</span><span class='va'>doc</span>, value <span class='op'>=</span> <span class='va'>a_par</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -47,7 +47,10 @@
 
 
 <meta property="og:title" content="append an image — slip_in_img" />
-<meta property="og:description" content="append an image into a paragraph of an rdocx object" />
+<meta property="og:description" content="append an image into a paragraph of an rdocx object.
+This function will be deprecated in the next release because it is not
+efficient and make users write complex code. Use instead fpar() to build
+formatted paragraphs." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -119,7 +122,10 @@
     </div>
 
     <div class="ref-description">
-    <p>append an image into a paragraph of an rdocx object</p>
+    <p>append an image into a paragraph of an rdocx object.</p>
+<p>This function will be deprecated in the next release because it is not
+efficient and make users write complex code. Use instead <code><a href='fpar.html'>fpar()</a></code> to build
+formatted paragraphs.</p>
     </div>
 
     <pre class="usage"><span class='fu'>slip_in_img</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>src</span>, style <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>width</span>, <span class='va'>height</span>, pos <span class='op'>=</span> <span class='st'>"after"</span><span class='op'>)</span></pre>
@@ -154,20 +160,7 @@
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function will be deprecated in a next release because it is not
-efficient and make users write complex code. Use instead <code><a href='fpar.html'>fpar()</a></code> to build
-formatted paragraphs.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>img.file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/Rhome.html'>R.home</a></span><span class='op'>(</span><span class='st'>"doc"</span><span class='op'>)</span>, <span class='st'>"html"</span>, <span class='st'>"logo.jpg"</span> <span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='body_add_par.html'>body_add_par</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"R logo: "</span>, style <span class='op'>=</span> <span class='st'>"Normal"</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>slip_in_img</span><span class='op'>(</span><span class='va'>x</span>, src <span class='op'>=</span> <span class='va'>img.file</span>, style <span class='op'>=</span> <span class='st'>"strong"</span>, width <span class='op'>=</span> <span class='fl'>.3</span>, height <span class='op'>=</span> <span class='fl'>.3</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".docx"</span><span class='op'>)</span><span class='op'>)</span>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -180,7 +173,7 @@ formatted paragraphs.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

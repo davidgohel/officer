@@ -49,7 +49,9 @@
 <meta property="og:title" content="add a column break — slip_in_column_break" />
 <meta property="og:description" content="add a column break into a Word document. A column break
 is used to add a break in a multi columns section in a Word
-Document." />
+Document.
+This function will be deprecated in the next release because it is not
+efficient and make users write complex code, use run_columnbreak() instead." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -82,7 +84,7 @@ Document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -116,7 +118,7 @@ Document." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>add a column break</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/docx_section.R'><code>R/docx_section.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/docx_add_chunk.R'><code>R/docx_add_chunk.R</code></a></small>
     <div class="hidden name"><code>slip_in_column_break.Rd</code></div>
     </div>
 
@@ -124,6 +126,8 @@ Document." />
     <p>add a column break into a Word document. A column break
 is used to add a break in a multi columns section in a Word
 Document.</p>
+<p>This function will be deprecated in the next release because it is not
+efficient and make users write complex code, use <code><a href='run_columnbreak.html'>run_columnbreak()</a></code> instead.</p>
     </div>
 
     <pre class="usage"><span class='fu'>slip_in_column_break</span><span class='op'>(</span><span class='va'>x</span>, pos <span class='op'>=</span> <span class='st'>"before"</span><span class='op'>)</span></pre>
@@ -155,7 +159,7 @@ Document.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

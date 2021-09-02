@@ -83,7 +83,7 @@ cross references." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -134,7 +134,8 @@ cross references.</p>
   post_label <span class='op'>=</span> <span class='st'>": "</span>,
   bkm <span class='op'>=</span> <span class='cn'>NULL</span>,
   bkm_all <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  prop <span class='op'>=</span> <span class='cn'>NULL</span>
+  prop <span class='op'>=</span> <span class='cn'>NULL</span>,
+  start_at <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -151,7 +152,7 @@ cross references.</p>
     <tr>
       <th>bkm</th>
       <td><p>bookmark id to associate with autonumber run. If NULL, no bookmark
-is added. Value can only be made of alpha numeric characters, '-' and '_'.</p></td>
+is added. Value can only be made of alpha numeric characters, ':', -' and '_'.</p></td>
     </tr>
     <tr>
       <th>bkm_all</th>
@@ -164,6 +165,12 @@ text).</p></td>
     <tr>
       <th>prop</th>
       <td><p>formatting text properties returned by <a href='fp_text.html'>fp_text</a>.</p></td>
+    </tr>
+    <tr>
+      <th>start_at</th>
+      <td><p>If not NULL, it must be a positive integer, it
+specifies the new number to use, at which number the auto
+numbering will restart.</p></td>
     </tr>
     </table>
 
@@ -183,6 +190,8 @@ officedown.</p>
 <code><a href='hyperlink_ftext.html'>hyperlink_ftext</a>()</code>,
 <code><a href='run_bookmark.html'>run_bookmark</a>()</code>,
 <code><a href='run_columnbreak.html'>run_columnbreak</a>()</code>,
+<code><a href='run_footnoteref.html'>run_footnoteref</a>()</code>,
+<code><a href='run_footnote.html'>run_footnote</a>()</code>,
 <code><a href='run_linebreak.html'>run_linebreak</a>()</code>,
 <code><a href='run_pagebreak.html'>run_pagebreak</a>()</code>,
 <code><a href='run_reference.html'>run_reference</a>()</code>,
@@ -211,6 +220,9 @@ officedown.</p>
 #&gt; $pr
 #&gt; NULL
 #&gt; 
+#&gt; $start_at
+#&gt; NULL
+#&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "run_autonum" "run"        </div><div class='input'><span class='fu'>run_autonum</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"fig"</span>, pre_label <span class='op'>=</span> <span class='st'>"fig. "</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $seq_id
@@ -229,6 +241,9 @@ officedown.</p>
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $pr
+#&gt; NULL
+#&gt; 
+#&gt; $start_at
 #&gt; NULL
 #&gt; 
 #&gt; attr(,"class")
@@ -251,6 +266,9 @@ officedown.</p>
 #&gt; $pr
 #&gt; NULL
 #&gt; 
+#&gt; $start_at
+#&gt; NULL
+#&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "run_autonum" "run"        </div></pre>
   </div>
@@ -265,7 +283,7 @@ officedown.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.17 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
