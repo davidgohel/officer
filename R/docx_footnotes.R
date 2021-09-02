@@ -46,8 +46,6 @@ footnote_add_xml <- function(x, str, pos, refnote){
 #' formatted paragraphs.
 slip_in_footnote <- function( x, style = NULL, blocks, pos = "after" ){
 
-  .Deprecated("run_footnote")
-
   if( !inherits(blocks, "block_list") ){
     stop("blocks must be an object created by function block_list().", call. = FALSE)
   }

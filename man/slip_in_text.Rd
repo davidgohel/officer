@@ -19,9 +19,8 @@ slip_in_text(x, str, style = NULL, pos = "after", hyperlink = NULL)
 \item{hyperlink}{turn the text into an external hyperlink}
 }
 \description{
-append text into a paragraph of an rdocx object
-}
-\note{
+append text into a paragraph of an rdocx object.
+
 This function will be deprecated in the next release because it is not
 efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
 formatted paragraphs.

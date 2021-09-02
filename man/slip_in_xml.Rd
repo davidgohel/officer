@@ -17,8 +17,7 @@ slip_in_xml(x, str, pos)
 \description{
 The function add a wml string into
 the document after, before or on a cursor location.
-}
-\note{
+
 This function will be deprecated in the next release because it is not
 efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
 formatted paragraphs.

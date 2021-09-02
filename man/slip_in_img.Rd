@@ -21,9 +21,8 @@ slip_in_img(x, src, style = NULL, width, height, pos = "after")
 "after" or "before".}
 }
 \description{
-append an image into a paragraph of an rdocx object
-}
-\note{
+append an image into a paragraph of an rdocx object.
+
 This function will be deprecated in the next release because it is not
 efficient and make users write complex code. Use instead \code{\link[=fpar]{fpar()}} to build
 formatted paragraphs.

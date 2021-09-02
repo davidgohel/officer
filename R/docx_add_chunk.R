@@ -3,13 +3,13 @@
 #' @description add a column break into a Word document. A column break
 #' is used to add a break in a multi columns section in a Word
 #' Document.
+#'
+#' This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code, use [run_columnbreak()] instead.
 #' @param x an rdocx object
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
-#' @note This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code, use [run_columnbreak()] instead.
 slip_in_column_break <- function( x, pos = "before" ){
-  .Deprecated("run_columnbreak")
   xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -21,7 +21,8 @@ slip_in_column_break <- function( x, pos = "before" ){
 #' This feature is only available when document are edited with Word,
 #' when edited with Libre Office or another program, seq field will not
 #' be calculated and not displayed.
-#' @note This function will be deprecated in the next release because it is not
+#'
+#' This function will be deprecated in the next release because it is not
 #' efficient and make users write complex code. Use instead [fpar()] to build
 #' formatted paragraphs.
 #' @param x an rdocx object
@@ -31,7 +32,6 @@ slip_in_column_break <- function( x, pos = "before" ){
 #' "after" or "before".
 slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 
-  .Deprecated("run_word_field")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -63,19 +63,19 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 
 #' @export
 #' @title append text
-#' @description append text into a paragraph of an rdocx object
+#' @description append text into a paragraph of an rdocx object.
+#'
+#' This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @param x an rdocx object
 #' @param str text
 #' @param style text style
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 #' @param hyperlink turn the text into an external hyperlink
-#' @note This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
-#' formatted paragraphs.
 slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL ){
 
-  .Deprecated("ftext")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -108,7 +108,11 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 
 #' @export
 #' @title append an image
-#' @description append an image into a paragraph of an rdocx object
+#' @description append an image into a paragraph of an rdocx object.
+#'
+#' This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @param x an rdocx object
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param style text style
@@ -116,12 +120,8 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 #' @param height height in inches
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
-#' @note This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
-#' formatted paragraphs.
 slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
-  .Deprecated("external_img")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -147,17 +147,16 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @title add a wml string into a Word document
 #' @description The function add a wml string into
 #' the document after, before or on a cursor location.
+#'
+#' This function will be deprecated in the next release because it is not
+#' efficient and make users write complex code. Use instead [fpar()] to build
+#' formatted paragraphs.
 #' @param x an rdocx object
 #' @param str a wml string
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 #' @keywords internal
-#' @note This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
-#' formatted paragraphs.
 slip_in_xml <- function(x, str, pos){
-
-  .Deprecated("fpar")
 
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before")
