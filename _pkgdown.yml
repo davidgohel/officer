@@ -30,6 +30,8 @@ reference:
     - docx_bookmarks
   - title: Add content to Word documents
     contents:
+    - body_add_blocks
+    - body_add_caption
     - body_add_img
     - body_add_par
     - body_add_table
@@ -104,6 +106,7 @@ reference:
     - empty_content
   - title: Formatting properties
     contents:
+    - fp_text_lite
     - fp_text
     - fp_par
     - fp_border
