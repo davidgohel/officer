@@ -1,3 +1,9 @@
+# officer 0.4.1
+
+## Issues
+
+* fix a bug in `ph_with.external_img()` that could be seen when `alt_text` was null
+
 # officer 0.4.0
 
 ## New features

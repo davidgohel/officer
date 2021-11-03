@@ -710,7 +710,7 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
 
   bg_str <- solid_fill_pml(bg)
 
-  if (missing(alt_text)) alt_text <- ""
+  if (missing(alt_text) || is.null(alt_text)) alt_text <- ""
 
 
   xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
