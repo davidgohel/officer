@@ -4,7 +4,16 @@
 \alias{body_add_gg}
 \title{add ggplot}
 \usage{
-body_add_gg(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
+body_add_gg(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  scale = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -18,6 +27,8 @@ body_add_gg(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
 \item{res}{resolution of the png image in ppi}
 
 \item{style}{paragraph style}
+
+\item{scale}{Multiplicative scaling factor, same as in ggsave}
 
 \item{...}{Arguments to be passed to png function.}
 }
