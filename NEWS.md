@@ -3,6 +3,7 @@
 ## Issues
 
 * fix a bug in `ph_with.external_img()` that could be seen when `alt_text` was null
+* change default value for `tab.cap.sep` from ":" to ": "
 
 # officer 0.4.0
 

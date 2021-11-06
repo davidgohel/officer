@@ -127,7 +127,7 @@ knitr_opts_current <- function(x, default = FALSE){
 opts_current_table <- function() {
   tab.cap.style <- knitr_opts_current("tab.cap.style", default = NULL)
   tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table ")
-  tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ":")
+  tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ": ")
   tab.cap <- knitr_opts_current("tab.cap", default = NULL)
   tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
   tab.id <- knitr_opts_current("tab.id", default = NULL)
