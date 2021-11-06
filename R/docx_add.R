@@ -118,6 +118,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #' @param width height in inches
 #' @param height height in inches
 #' @param res resolution of the png image in ppi
+#' @param scale Multiplicative scaling factor, same as in ggsave
 #' @param ... Arguments to be passed to png function.
 #' @importFrom grDevices png dev.off
 #' @examples
@@ -133,14 +134,14 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
 #' @family functions for adding content
-body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
+body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, ... ){
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  png(filename = file, width = width*scale, height = height*scale, units = "in", res = res, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
@@ -770,13 +771,14 @@ body_add.run_columnbreak <- function( x, value, style = NULL, ... ){
 #' @param width height in inches
 #' @param height height in inches
 #' @param res resolution of the png image in ppi
-body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
+#' @param scale Multiplicative scaling factor, same as in ggsave
+body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, ... ){
 
   if( !requireNamespace("ggplot2") )
     stop("package ggplot2 is required to use this function")
 
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  png(filename = file, width = width*scale, height = height*scale, units = "in", res = res, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
