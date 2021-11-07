@@ -338,7 +338,8 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' current slide. Use package \code{rvg} for more advanced graphical features.
 #' @param res resolution of the png image in ppi
 #' @param alt_text Alt-text for screen-readers
-ph_with.gg <- function(x, value, location, res = 300, alt_text, ...){
+#' @param scale Multiplicative scaling factor, same as in ggsave
+ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...){
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   if( !requireNamespace("ggplot2") )
@@ -350,7 +351,7 @@ ph_with.gg <- function(x, value, location, res = 300, alt_text, ...){
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  png(filename = file, width = width*scale, height = height*scale, units = "in", res = res, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))

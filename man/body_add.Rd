@@ -51,7 +51,16 @@ body_add(x, value, ...)
 
 \method{body_add}{run_columnbreak}(x, value, style = NULL, ...)
 
-\method{body_add}{gg}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
+\method{body_add}{gg}(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  scale = 1,
+  ...
+)
 
 \method{body_add}{plot_instr}(x, value, width = 6, height = 5, res = 300, style = "Normal", ...)
 
@@ -89,6 +98,8 @@ values must be "l" (left), "r" (right) or "c" (center).}
 \item{height}{height in inches}
 
 \item{res}{resolution of the png image in ppi}
+
+\item{scale}{Multiplicative scaling factor, same as in ggsave}
 }
 \description{
 This function add objects into a Word document. Values are added

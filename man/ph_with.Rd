@@ -41,7 +41,7 @@ ph_with(x, value, location, ...)
   ...
 )
 
-\method{ph_with}{gg}(x, value, location, res = 300, alt_text, ...)
+\method{ph_with}{gg}(x, value, location, res = 300, alt_text, scale = 1, ...)
 
 \method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
 
@@ -87,6 +87,8 @@ and 'c' for center. Default to NULL.}
 \item{res}{resolution of the png image in ppi}
 
 \item{alt_text}{Alt-text for screen-readers}
+
+\item{scale}{Multiplicative scaling factor, same as in ggsave}
 
 \item{use_loc_size}{if set to FALSE, external_img width and height will
 be used.}
