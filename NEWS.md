@@ -10,6 +10,10 @@
 * new parameter `scale` added to `ph_with.gg`, `body_add_gg` and `body_add.gg` 
 to set the scale of ggplot outputs (like in ggsave).
 
+## Deprecation 
+
+* deprecate `slip_in*()` and `ph_add*()` functions. Functions `ftext()` and related 
+used with `fpar()` are to be used as replacement.
 
 # officer 0.4.0
 
