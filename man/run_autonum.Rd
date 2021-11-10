@@ -11,7 +11,9 @@ run_autonum(
   bkm = NULL,
   bkm_all = FALSE,
   prop = NULL,
-  start_at = NULL
+  start_at = NULL,
+  title_num_depth = 0,
+  num_sep = "-"
 )
 }
 \arguments{
@@ -33,6 +35,14 @@ text).}
 \item{start_at}{If not NULL, it must be a positive integer, it
 specifies the new number to use, at which number the auto
 numbering will restart.}
+
+\item{title_num_depth}{only applies if positive.
+Inserts the number of the last title of
+level \code{title_num_depth} (i.e. 4.3-2 for figure 2 of
+chapter 4.3).}
+
+\item{num_sep}{separator to use between title number and table
+number. Default is "-".}
 }
 \description{
 Create an autonumbered chunk, i.e. a string

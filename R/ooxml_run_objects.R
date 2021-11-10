@@ -194,6 +194,12 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param start_at If not NULL, it must be a positive integer, it
 #' specifies the new number to use, at which number the auto
 #' numbering will restart.
+#' @param title_num_depth only applies if positive.
+#' Inserts the number of the last title of
+#' level `title_num_depth` (i.e. 4.3-2 for figure 2 of
+#' chapter 4.3).
+#' @param num_sep separator to use between title number and table
+#' number. Default is "-".
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
@@ -202,7 +208,8 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @family Word computed fields
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
                         bkm = NULL, bkm_all = FALSE, prop = NULL,
-                        start_at = NULL) {
+                        start_at = NULL,
+                        title_num_depth = 0, num_sep = "-") {
   bkm <- check_bookmark_id(bkm)
   z <- list(
     seq_id = seq_id,
@@ -211,11 +218,32 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
     bookmark = bkm,
     bookmark_all = bkm_all,
     pr = prop,
-    start_at = start_at
+    start_at = start_at,
+    title_num_depth = title_num_depth, num_sep = num_sep
   )
   class(z) <- c("run_autonum", "run")
 
   z
+}
+
+#' @export
+#' @title update bookmark of an autonumber run
+#' @description This function lets recycling a object
+#' made by [run_autonum()] by changing the bookmark value. This
+#' is useful to avoid calling `run_autonum()` several times
+#' because of many tables.
+#' @param x an object of class [run_autonum()]
+#' @param bkm bookmark id to associate with autonumber run.
+#' Value can only be made of alpha numeric characters, ':', -' and '_'.
+#' @examples
+#' z <- run_autonum(seq_id = "tab", pre_label = "Table ",
+#'   bkm = "anytable")
+#' set_autonum_bookmark(z, bkm = "anothertable")
+#' @seealso [run_autonum()]
+set_autonum_bookmark <- function(x, bkm = NULL){
+  stopifnot(inherits(x, "run_autonum"))
+  x$bookmark <- bkm
+  x
 }
 
 #' @export
@@ -234,6 +262,16 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 
   sqf <- run_word_field(seqfield = seq_str, prop = x$pr)
   sf_str <- to_wml(sqf)
+
+  if(x$title_num_depth > 0){
+    z <- paste0(
+      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$title_num_depth, " \\r"))),
+      to_wml(ftext(x$num_sep))
+    )
+    sf_str <- paste0(z, sf_str)
+  }
+
+
   if(!is.null(x$bookmark)){
     if(x$bookmark_all){
       out <- paste0(
