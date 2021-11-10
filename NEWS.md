@@ -5,6 +5,12 @@
 * fix a bug in `ph_with.external_img()` that could be seen when `alt_text` was null
 * change default value for `tab.cap.sep` from ":" to ": "
 
+## New features
+
+* new parameter `scale` added to `ph_with.gg`, `body_add_gg` and `body_add.gg` 
+to set the scale of ggplot outputs (like in ggsave).
+
+
 # officer 0.4.0
 
 ## New features
@@ -16,8 +22,6 @@ Function `fp_text()` has also been adapted, it now supports NA meaning
 to not write the attributes as in `fp_text_lite()`.
 * new function `run_footnote` to add footnotes in a Word document (it 
 also makes possible to deprecate totally slip_in* functions).
-* new parameter `scale` added to `ph_with.gg`, `body_add_gg` and `body_add.gg` 
-to set the scale of ggplot outputs (like in ggsave).
 
 ## Issues
 
