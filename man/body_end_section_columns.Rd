@@ -17,7 +17,11 @@ will be produced.}
 \item{sep}{if TRUE a line is separating columns.}
 }
 \description{
-A section with multiple columns is added to the document.
+A section with multiple columns is added to the
+document.
+
+You may prefer to use \code{\link[=body_end_block_section]{body_end_block_section()}} that is
+more flexible.
 }
 \examples{
 str1 <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit."

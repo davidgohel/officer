@@ -690,7 +690,7 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
     ">",
     if(!is.null(x$page_margins)) to_wml(x$page_margins),
     if(!is.null(x$page_size)) to_wml(x$page_size),
-    if(!is.null(x$type)) "<w:type w:val=\"", x$type, "\"/>",
+    if(!is.null(x$type)) paste0("<w:type w:val=\"", x$type, "\"/>"),
     if(!is.null(x$section_columns)) to_wml(x$section_columns) else "<w:cols/>",
     "</w:sectPr>"
   )

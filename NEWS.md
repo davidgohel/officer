@@ -4,6 +4,7 @@
 
 * fix a bug in `ph_with.external_img()` that could be seen when `alt_text` was null
 * change default value for `tab.cap.sep` from ":" to ": "
+* fix an issue with `body_end_section_columns()` that is expected as 'continuous'.
 
 ## New features
 

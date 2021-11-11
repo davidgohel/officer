@@ -76,7 +76,11 @@ body_end_section_portrait <- function( x, w = 21 / 2.54, h = 29.7 / 2.54){
 
 #' @export
 #' @title add multi columns section
-#' @description A section with multiple columns is added to the document.
+#' @description A section with multiple columns is added to the
+#' document.
+#'
+#' You may prefer to use [body_end_block_section()] that is
+#' more flexible.
 #' @param x an rdocx object
 #' @inheritParams section_columns
 #' @examples
@@ -95,7 +99,7 @@ body_end_section_columns <- function(x, widths = c(2.5,2.5), space = .25, sep = 
 
   bs <- block_section(prop_section(
     section_columns = section_columns(widths = widths, space = space, sep = sep),
-    type = NULL))
+    type = "continuous"))
   str <- to_wml(bs, add_ns = TRUE)
   body_add_xml(x, str = str, pos = "after")
 }
