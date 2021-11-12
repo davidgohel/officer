@@ -12,7 +12,7 @@
 to set the scale of ggplot outputs (like in ggsave).
 * new function `set_autonum_bookmark()` to recycle an object 
 made by `run_autonum()` by changing the bookmark value.
-* add `title_num_depth` argument to prefix a autonumber with the 
+* add `tnd` argument to prefix a autonumber with the 
 title number (i.e. 4.3-2 for figure 2 of chapter 4.3).
 * `unordered_list()` now supports `level_list` < 1 which 
 will be interpreted as 'no bullet'.
