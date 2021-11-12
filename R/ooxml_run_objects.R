@@ -269,8 +269,8 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 
   if(x$tnd > 0){
     z <- paste0(
-      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$tnd, " \\r"))),
-      to_wml(ftext(x$tns))
+      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
+      to_wml(ftext(x$tns, prop = x$pr))
     )
     sf_str <- paste0(z, sf_str)
   }
