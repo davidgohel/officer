@@ -110,17 +110,18 @@ knitr_opts_current <- function(x, default = FALSE){
 #'
 #' @section knitr chunk options for table captions:
 #'
-#' | **label**                                               |    **name**     | **value**  |
-#' |:--------------------------------------------------------|:---------------:|:----------:|
-#' | Word stylename to use for table captions.               | tab.cap.style   |    NULL    |
-#' | prefix for numbering chunk (default to   "Table ").     | tab.cap.pre     |   Table    |
-#' | suffix for numbering chunk (default to   ": ").         | tab.cap.sep     |    " :"    |
-#' | title number depth                                      | tab.cap.tnd     |      0     |
-#' | separator to use between title number and table number. | tab.cap.tns     |     "-"    |
-#' | caption id/bookmark                                     | tab.id          |    NULL    |
-#' | caption                                                 | tab.cap         |    NULL    |
-#' | display table caption on top of the table or not        | tab.topcaption  |    TRUE    |
-#' | caption table sequence identifier.                      | tab.lp          |   "tab:"   |
+#' | **label**                                               |    **name**     | **value**                 |
+#' |:--------------------------------------------------------|:---------------:|:-------------------------:|
+#' | Word stylename to use for table captions.               | tab.cap.style   |            NULL           |
+#' | prefix for numbering chunk (default to   "Table ").     | tab.cap.pre     |           Table           |
+#' | suffix for numbering chunk (default to   ": ").         | tab.cap.sep     |            " :"           |
+#' | title number depth                                      | tab.cap.tnd     |              0            |
+#' | separator to use between title number and table number. | tab.cap.tns     |             "-"           |
+#' | caption prefix formatting properties                    | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
+#' | caption id/bookmark                                     | tab.id          |          NULL             |
+#' | caption                                                 | tab.cap         |          NULL             |
+#' | display table caption on top of the table or not        | tab.topcaption  |          TRUE             |
+#' | caption table sequence identifier.                      | tab.lp          |         "tab:"            |
 #'
 #' @section knitr chunk options for tables:
 #'
@@ -148,6 +149,7 @@ knitr_opts_current <- function(x, default = FALSE){
 #' * cap.sep (default: ":")
 #' * cap.tnd (default: 0)
 #' * cap.tns (default: "-")
+#' * cap.fp_text (default: `fp_text_lite(bold = TRUE)`)
 #' * id (default: NULL)
 #' * cap (default: NULL)
 #' * topcaption (default: TRUE)
@@ -170,6 +172,7 @@ opts_current_table <- function() {
 
   tab.cap.tnd <- knitr_opts_current("tab.cap.tnd", default = 0)
   tab.cap.tns <- knitr_opts_current("tab.cap.tns", default = "-")
+  tab.cap.fp_text <- knitr_opts_current("tab.cap.fp_text", default = fp_text_lite(bold = TRUE))
 
   tab.cap <- knitr_opts_current("tab.cap", default = NULL)
   tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
@@ -192,6 +195,7 @@ opts_current_table <- function() {
     cap.sep = tab.cap.sep,
     cap.tnd = tab.cap.tnd,
     cap.tns = tab.cap.tns,
+    cap.fp_text = tab.cap.fp_text,
     id = tab.id,
     topcaption = tab.topcaption,
     cap = tab.cap,

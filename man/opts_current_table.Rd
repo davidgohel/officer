@@ -14,6 +14,7 @@ a list with following elements:
 \item cap.sep (default: ":")
 \item cap.tnd (default: 0)
 \item cap.tns (default: "-")
+\item cap.fp_text (default: \code{fp_text_lite(bold = TRUE)})
 \item id (default: NULL)
 \item cap (default: NULL)
 \item topcaption (default: TRUE)
@@ -48,6 +49,7 @@ The names and expected values are listed in the following sections.
    suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
    title number depth \tab tab.cap.tnd \tab 0 \cr
    separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
+   caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
    caption id/bookmark \tab tab.id \tab NULL \cr
    caption \tab tab.cap \tab NULL \cr
    display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr

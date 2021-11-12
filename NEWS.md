@@ -16,6 +16,8 @@ made by `run_autonum()` by changing the bookmark value.
 title number (i.e. 4.3-2 for figure 2 of chapter 4.3).
 * `unordered_list()` now supports `level_list` < 1 which 
 will be interpreted as 'no bullet'.
+* add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
+in function `opts_current_table()`.
 
 ## Deprecation 
 
