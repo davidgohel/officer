@@ -1,62 +1,5 @@
 source("utils.R")
 
-test_that("add text into placeholder", {
-  doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, "", location = ph_location_fullsize())
-  sm <- slide_summary(doc)
-
-  expect_equal(nrow(sm), 1)
-
-  small_red <- fp_text(color = "red", font.size = 14)
-  doc <- doc
-  doc <- ph_add_par(doc, level = 2)
-  doc <- ph_add_text(doc, str = "chunk 1", style = small_red )
-  sm <- slide_summary(doc)
-  expect_equal(sm[1, ]$text, "chunk 1")
-
-  doc <- ph_add_text(doc, str = "this is ", style = small_red, pos = "before" )
-  sm <- slide_summary(doc)
-  expect_equal(sm[1, ]$text, "this is chunk 1")
-})
-
-test_that("ph_add_par append when text alrady exists", {
-  small_red <- fp_text(color = "red", font.size = 14)
-  doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, "This is a ", location = ph_location_type(type = "body"))
-  doc <- ph_add_par(doc, level = 2)
-  doc <-  ph_add_text(doc, str = "test", style = small_red )
-
-  sm <- slide_summary(doc)
-  expect_equal(sm$text, "This is a test")
-
-  xmldoc <- doc$slide$get_slide(1)$get()
-  txt <- xml_text(xml_find_all(xmldoc, "//p:spTree/p:sp/p:txBody/a:p"))
-  expect_equal(txt, c("This is a ", "test"))
-})
-
-
-test_that("ph_add_text with hyperlink", {
-  small_red <- fp_text(color = "red", font.size = 14)
-  href_ <- "https://cran.r-project.org"
-  doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, "This is a ", location = ph_location_type(type = "body"))
-  doc <- ph_add_par(doc, level = 2)
-  doc <- ph_add_text(doc, str = "test", style = small_red, href = href_ )
-
-  xmldoc <- doc$slide$get_slide(1)$get()
-  rel_df <- doc$slide$get_slide(1)$rel_df()
-  expect_true( href_ %in% rel_df$target )
-  row_num_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
-
-  rid <- rel_df[row_num_, "id"]
-  xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
-  node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
-  expect_equal( xml_text(node_), "test")
-})
-
 test_that("add img into placeholder", {
   skip_on_os("windows")
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
@@ -108,47 +51,6 @@ test_that("add xml into placeholder", {
   expect_equal(sm[1,]$text, "Hello world 1")
   expect_equal(sm[2,]$text, "Hello world 1")
 })
-
-test_that("link to another shape", {
-  small_red <- fp_text(color = "red", font.size = 14)
-
-  doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, location = ph_location_type(type = "body"), value = "This is a ")
-  doc <- ph_add_par(doc, level = 2)
-  doc <- ph_add_text(doc, str = "test", style = small_red, slide_index = 1 )
-
-  xmldoc <- doc$slide$get_slide(1)$get()
-  rel_df <- doc$slide$get_slide(1)$rel_df()
-  expect_true( "slide1.xml" %in% rel_df$target )
-  row_num_ <- which( rel_df$target %in% "slide1.xml" )
-  rid <- rel_df[row_num_, "id"]
-  xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
-  node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
-  expect_equal( xml_text(node_), "test")
-})
-
-test_that("ph_add_text with hyperlink", {
-  small_red <- fp_text(color = "red", font.size = 14)
-  href_ <- "https://cran.r-project.org"
-  doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, location = ph_location_type(type = "body"), value = "This is a ")
-  doc <- ph_add_par(doc, level = 2)
-  doc <- ph_add_text(doc, str = "test", style = small_red, href = href_ )
-
-  xmldoc <- doc$slide$get_slide(1)$get()
-  rel_df <- doc$slide$get_slide(1)$rel_df()
-  expect_true( href_ %in% rel_df$target )
-  row_num_ <- which( rel_df$target_mode %in% "External" & rel_df$target %in% href_ )
-
-  rid <- rel_df[row_num_, "id"]
-  xpath_ <- sprintf("//p:sp/p:txBody/a:p/a:r[a:rPr/a:hlinkClick/@r:id='%s']", rid)
-  node_ <- xml_find_first(doc$slide$get_slide(1)$get(), xpath_ )
-  expect_equal( xml_text(node_), "test")
-})
-
-
 
 test_that("slidelink shape", {
 
