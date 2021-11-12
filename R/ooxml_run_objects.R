@@ -32,6 +32,7 @@ to_pml <- function(x, add_ns = FALSE, ...) {
 #' to HTML. The result is a string.
 #' @param x object
 #' @param ... Arguments to be passed to methods
+#' @family functions for officer extensions
 #' @keywords internal
 to_html <- function(x, ...) {
   UseMethod("to_html")
@@ -194,22 +195,25 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param start_at If not NULL, it must be a positive integer, it
 #' specifies the new number to use, at which number the auto
 #' numbering will restart.
-#' @param title_num_depth only applies if positive.
-#' Inserts the number of the last title of
-#' level `title_num_depth` (i.e. 4.3-2 for figure 2 of
+#' @param tnd *title number depth*, a positive integer (only applies if positive)
+#' that specify the depth (or heading of level *depth*) to use for prefixing
+#' the caption number with this last reference number. For example, setting
+#' `tnd=2` will generate numbered captions like '4.3-2' (figure 2 of
 #' chapter 4.3).
-#' @param num_sep separator to use between title number and table
+#' @param tns separator to use between title number and table
 #' number. Default is "-".
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
 #' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
+#' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable",
+#'   tnd = 2, tns= " ")
 #' @family run functions for reporting
 #' @family Word computed fields
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
                         bkm = NULL, bkm_all = FALSE, prop = NULL,
                         start_at = NULL,
-                        title_num_depth = 0, num_sep = "-") {
+                        tnd = 0, tns = "-") {
   bkm <- check_bookmark_id(bkm)
   z <- list(
     seq_id = seq_id,
@@ -219,7 +223,7 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
     bookmark_all = bkm_all,
     pr = prop,
     start_at = start_at,
-    title_num_depth = title_num_depth, num_sep = num_sep
+    tnd = tnd, tns = tns
   )
   class(z) <- c("run_autonum", "run")
 
@@ -263,10 +267,10 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   sqf <- run_word_field(seqfield = seq_str, prop = x$pr)
   sf_str <- to_wml(sqf)
 
-  if(x$title_num_depth > 0){
+  if(x$tnd > 0){
     z <- paste0(
-      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$title_num_depth, " \\r"))),
-      to_wml(ftext(x$num_sep))
+      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$tnd, " \\r"))),
+      to_wml(ftext(x$tns))
     )
     sf_str <- paste0(z, sf_str)
   }

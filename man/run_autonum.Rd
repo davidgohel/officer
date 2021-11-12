@@ -12,8 +12,8 @@ run_autonum(
   bkm_all = FALSE,
   prop = NULL,
   start_at = NULL,
-  title_num_depth = 0,
-  num_sep = "-"
+  tnd = 0,
+  tns = "-"
 )
 }
 \arguments{
@@ -36,12 +36,13 @@ text).}
 specifies the new number to use, at which number the auto
 numbering will restart.}
 
-\item{title_num_depth}{only applies if positive.
-Inserts the number of the last title of
-level \code{title_num_depth} (i.e. 4.3-2 for figure 2 of
+\item{tnd}{\emph{title number depth}, a positive integer (only applies if positive)
+that specify the depth (or heading of level \emph{depth}) to use for prefixing
+the caption number with this last reference number. For example, setting
+\code{tnd=2} will generate numbered captions like '4.3-2' (figure 2 of
 chapter 4.3).}
 
-\item{num_sep}{separator to use between title number and table
+\item{tns}{separator to use between title number and table
 number. Default is "-".}
 }
 \description{
@@ -62,6 +63,8 @@ officedown.
 run_autonum()
 run_autonum(seq_id = "fig", pre_label = "fig. ")
 run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
+run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable",
+  tnd = 2, tns= " ")
 }
 \seealso{
 Other run functions for reporting: 
