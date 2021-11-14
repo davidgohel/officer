@@ -192,7 +192,6 @@ ph_add_fpar <- function( x, value, type = "body", id = 1, id_chr = NULL, ph_labe
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 slip_in_column_break <- function( x, pos = "before" ){
-  .Deprecated(new = "ftext()")
   xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -260,7 +259,6 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' @param hyperlink turn the text into an external hyperlink
 slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL ){
 
-  .Deprecated(new = "ftext()")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -344,7 +342,6 @@ slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @keywords internal
 slip_in_xml <- function(x, str, pos){
 
-  .Deprecated(new = "ftext()")
   xml_elt <- as_xml_document(str)
   pos_list <- c("after", "before")
 
