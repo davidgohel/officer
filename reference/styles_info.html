@@ -81,7 +81,7 @@ a data.frame." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -154,35 +154,37 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></td>
 <code><a href='set_doc_properties.html'>set_doc_properties</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'>styles_info</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    style_type             style_id             style_name is_custom is_default
-#&gt; 1   paragraph               Normal                 Normal     FALSE       TRUE
-#&gt; 2   paragraph               Titre1              heading 1     FALSE      FALSE
-#&gt; 3   paragraph               Titre2              heading 2     FALSE      FALSE
-#&gt; 4   paragraph               Titre3              heading 3     FALSE      FALSE
-#&gt; 5   character       Policepardfaut Default Paragraph Font     FALSE       TRUE
-#&gt; 6       table        TableauNormal           Normal Table     FALSE       TRUE
-#&gt; 7   numbering          Aucuneliste                No List     FALSE       TRUE
-#&gt; 8   character               strong                 strong      TRUE      FALSE
-#&gt; 9   paragraph             centered               centered      TRUE      FALSE
-#&gt; 10      table        tabletemplate         table_template      TRUE      FALSE
-#&gt; 11      table  Listeclaire-Accent2    Light List Accent 2     FALSE      FALSE
-#&gt; 12  character            Titre1Car            Titre 1 Car      TRUE      FALSE
-#&gt; 13  character            Titre2Car            Titre 2 Car      TRUE      FALSE
-#&gt; 14  character            Titre3Car            Titre 3 Car      TRUE      FALSE
-#&gt; 15  paragraph         ImageCaption          Image Caption      TRUE      FALSE
-#&gt; 16  paragraph         TableCaption          Table Caption      TRUE      FALSE
-#&gt; 17      table Tableauprofessionnel     Table Professional     FALSE      FALSE
-#&gt; 18  paragraph                  TM1                  toc 1     FALSE      FALSE
-#&gt; 19  paragraph                  TM2                  toc 2     FALSE      FALSE
-#&gt; 20  paragraph        Textedebulles           Balloon Text     FALSE      FALSE
-#&gt; 21  character     TextedebullesCar    Texte de bulles Car      TRUE      FALSE
-#&gt; 22  character          referenceid           reference_id      TRUE      FALSE
-#&gt; 23  paragraph         graphictitle          graphic title      TRUE      FALSE
-#&gt; 24  paragraph           tabletitle            table title      TRUE      FALSE</div><div class='input'><span class='fu'>styles_info</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"paragraph"</span>, is_default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   style_type style_id style_name is_custom is_default
-#&gt; 1  paragraph   Normal     Normal     FALSE       TRUE</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>styles_info</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    style_type             style_id             style_name is_custom is_default</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   paragraph               Normal                 Normal     FALSE       TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   paragraph               Titre1              heading 1     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   paragraph               Titre2              heading 2     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4   paragraph               Titre3              heading 3     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5   character       Policepardfaut Default Paragraph Font     FALSE       TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6       table        TableauNormal           Normal Table     FALSE       TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   numbering          Aucuneliste                No List     FALSE       TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   character               strong                 strong      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9   paragraph             centered               centered      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10      table        tabletemplate         table_template      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11      table  Listeclaire-Accent2    Light List Accent 2     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12  character            Titre1Car            Titre 1 Car      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13  character            Titre2Car            Titre 2 Car      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14  character            Titre3Car            Titre 3 Car      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15  paragraph         ImageCaption          Image Caption      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16  paragraph         TableCaption          Table Caption      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17      table Tableauprofessionnel     Table Professional     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18  paragraph                  TM1                  toc 1     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19  paragraph                  TM2                  toc 2     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20  paragraph        Textedebulles           Balloon Text     FALSE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21  character     TextedebullesCar    Texte de bulles Car      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22  character          referenceid           reference_id      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23  paragraph         graphictitle          graphic title      TRUE      FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24  paragraph           tabletitle            table title      TRUE      FALSE</span>
+<span class='r-in'><span class='fu'>styles_info</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"paragraph"</span>, is_default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   style_type style_id style_name is_custom is_default</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  paragraph   Normal     Normal     FALSE       TRUE</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -195,7 +197,7 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

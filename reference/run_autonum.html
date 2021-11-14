@@ -83,7 +83,7 @@ cross references." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -135,7 +135,9 @@ cross references.</p>
   bkm <span class='op'>=</span> <span class='cn'>NULL</span>,
   bkm_all <span class='op'>=</span> <span class='cn'>FALSE</span>,
   prop <span class='op'>=</span> <span class='cn'>NULL</span>,
-  start_at <span class='op'>=</span> <span class='cn'>NULL</span>
+  start_at <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tnd <span class='op'>=</span> <span class='fl'>0</span>,
+  tns <span class='op'>=</span> <span class='st'>"-"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -172,6 +174,19 @@ text).</p></td>
 specifies the new number to use, at which number the auto
 numbering will restart.</p></td>
     </tr>
+    <tr>
+      <th>tnd</th>
+      <td><p><em>title number depth</em>, a positive integer (only applies if positive)
+that specify the depth (or heading of level <em>depth</em>) to use for prefixing
+the caption number with this last reference number. For example, setting
+<code>tnd=2</code> will generate numbered captions like '4.3-2' (figure 2 of
+chapter 4.3).</p></td>
+    </tr>
+    <tr>
+      <th>tns</th>
+      <td><p>separator to use between title number and table
+number. Default is "-".</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="usage"><a class="anchor" href="#usage"></a>usage</h2>
@@ -201,76 +216,128 @@ officedown.</p>
 <code><a href='run_word_field.html'>run_word_field</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>run_autonum</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $seq_id
-#&gt; [1] "table"
-#&gt; 
-#&gt; $pre_label
-#&gt; [1] "Table "
-#&gt; 
-#&gt; $post_label
-#&gt; [1] ": "
-#&gt; 
-#&gt; $bookmark
-#&gt; NULL
-#&gt; 
-#&gt; $bookmark_all
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $pr
-#&gt; NULL
-#&gt; 
-#&gt; $start_at
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "run_autonum" "run"        </div><div class='input'><span class='fu'>run_autonum</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"fig"</span>, pre_label <span class='op'>=</span> <span class='st'>"fig. "</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $seq_id
-#&gt; [1] "fig"
-#&gt; 
-#&gt; $pre_label
-#&gt; [1] "fig. "
-#&gt; 
-#&gt; $post_label
-#&gt; [1] ": "
-#&gt; 
-#&gt; $bookmark
-#&gt; NULL
-#&gt; 
-#&gt; $bookmark_all
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $pr
-#&gt; NULL
-#&gt; 
-#&gt; $start_at
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "run_autonum" "run"        </div><div class='input'><span class='fu'>run_autonum</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"tab"</span>, pre_label <span class='op'>=</span> <span class='st'>"Table "</span>, bkm <span class='op'>=</span> <span class='st'>"anytable"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $seq_id
-#&gt; [1] "tab"
-#&gt; 
-#&gt; $pre_label
-#&gt; [1] "Table "
-#&gt; 
-#&gt; $post_label
-#&gt; [1] ": "
-#&gt; 
-#&gt; $bookmark
-#&gt; [1] "anytable"
-#&gt; 
-#&gt; $bookmark_all
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $pr
-#&gt; NULL
-#&gt; 
-#&gt; $start_at
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "run_autonum" "run"        </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>run_autonum</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $seq_id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "table"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Table "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] ": "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark_all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $start_at</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tnd</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tns</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "-"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "run_autonum" "run"        </span>
+<span class='r-in'><span class='fu'>run_autonum</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"fig"</span>, pre_label <span class='op'>=</span> <span class='st'>"fig. "</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $seq_id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "fig"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "fig. "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] ": "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark_all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $start_at</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tnd</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tns</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "-"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "run_autonum" "run"        </span>
+<span class='r-in'><span class='fu'>run_autonum</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"tab"</span>, pre_label <span class='op'>=</span> <span class='st'>"Table "</span>, bkm <span class='op'>=</span> <span class='st'>"anytable"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $seq_id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "tab"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Table "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] ": "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "anytable"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark_all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $start_at</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tnd</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tns</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "-"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "run_autonum" "run"        </span>
+<span class='r-in'><span class='fu'>run_autonum</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"tab"</span>, pre_label <span class='op'>=</span> <span class='st'>"Table "</span>, bkm <span class='op'>=</span> <span class='st'>"anytable"</span>,</span>
+<span class='r-in'>  tnd <span class='op'>=</span> <span class='fl'>2</span>, tns<span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $seq_id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "tab"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Table "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] ": "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "anytable"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark_all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $start_at</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tnd</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tns</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] " "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "run_autonum" "run"        </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,7 +350,7 @@ officedown.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>location of a full size element — ph_location_fullsize • officer</title>
+<title>update bookmark of an autonumber run — set_autonum_bookmark • officer</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="location of a full size element — ph_location_fullsize" />
-<meta property="og:description" content="The function will return the location corresponding
-to a full size display." />
+<meta property="og:title" content="update bookmark of an autonumber run — set_autonum_bookmark" />
+<meta property="og:description" content="This function lets recycling a object
+made by run_autonum() by changing the bookmark value. This
+is useful to avoid calling run_autonum() several times
+because of many tables." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,46 +116,71 @@ to a full size display." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>location of a full size element</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ph_location.R'><code>R/ph_location.R</code></a></small>
-    <div class="hidden name"><code>ph_location_fullsize.Rd</code></div>
+    <h1>update bookmark of an autonumber run</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ooxml_run_objects.R'><code>R/ooxml_run_objects.R</code></a></small>
+    <div class="hidden name"><code>set_autonum_bookmark.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function will return the location corresponding
-to a full size display.</p>
+    <p>This function lets recycling a object
+made by <code><a href='run_autonum.html'>run_autonum()</a></code> by changing the bookmark value. This
+is useful to avoid calling <code><a href='run_autonum.html'>run_autonum()</a></code> several times
+because of many tables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ph_location_fullsize</span><span class='op'>(</span>newlabel <span class='op'>=</span> <span class='st'>""</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>set_autonum_bookmark</span><span class='op'>(</span><span class='va'>x</span>, bkm <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>newlabel</th>
-      <td><p>a label to associate with the placeholder.</p></td>
+      <th>x</th>
+      <td><p>an object of class <code><a href='run_autonum.html'>run_autonum()</a></code></p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>unused arguments</p></td>
+      <th>bkm</th>
+      <td><p>bookmark id to associate with autonumber run.
+Value can only be made of alpha numeric characters, ':', -' and '_'.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other functions for placeholder location: 
-<code><a href='ph_location_label.html'>ph_location_label</a>()</code>,
-<code><a href='ph_location_left.html'>ph_location_left</a>()</code>,
-<code><a href='ph_location_right.html'>ph_location_right</a>()</code>,
-<code><a href='ph_location_template.html'>ph_location_template</a>()</code>,
-<code><a href='ph_location_type.html'>ph_location_type</a>()</code>,
-<code><a href='ph_location.html'>ph_location</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='run_autonum.html'>run_autonum()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"Hello world"</span>, location <span class='op'>=</span> <span class='fu'>ph_location_fullsize</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>)</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span> <span class='op'>)</span></span>
+    <pre class="examples"><span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='run_autonum.html'>run_autonum</a></span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"tab"</span>, pre_label <span class='op'>=</span> <span class='st'>"Table "</span>,</span>
+<span class='r-in'>  bkm <span class='op'>=</span> <span class='st'>"anytable"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>set_autonum_bookmark</span><span class='op'>(</span><span class='va'>z</span>, bkm <span class='op'>=</span> <span class='st'>"anothertable"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $seq_id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "tab"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Table "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] ": "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "anothertable"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $bookmark_all</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $start_at</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tnd</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tns</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "-"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "run_autonum" "run"        </span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

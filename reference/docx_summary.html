@@ -81,7 +81,7 @@ return a data.frame representing the document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -141,220 +141,221 @@ return a data.frame representing the document.</p>
 not be accessible in the results.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>example_pptx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"officer"</span>,
-  <span class='st'>"doc_examples/example.docx"</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='va'>example_pptx</span><span class='op'>)</span>
-<span class='fu'>docx_summary</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       doc_index content_type     style_name
-#&gt; 1             1    paragraph      heading 1
-#&gt; 2             2    paragraph           &lt;NA&gt;
-#&gt; 3             3    paragraph      heading 1
-#&gt; 4             4    paragraph List Paragraph
-#&gt; 5             5    paragraph List Paragraph
-#&gt; 6             6    paragraph List Paragraph
-#&gt; 7             7    paragraph      heading 2
-#&gt; 8             8    paragraph List Paragraph
-#&gt; 9             9    paragraph List Paragraph
-#&gt; 10           10    paragraph List Paragraph
-#&gt; 11           11    paragraph           &lt;NA&gt;
-#&gt; 12           12    paragraph           &lt;NA&gt;
-#&gt; 13           13    paragraph      heading 2
-#&gt; 14           14    paragraph           &lt;NA&gt;
-#&gt; 15           15    paragraph           &lt;NA&gt;
-#&gt; 1.1          16   table cell  Light Shading
-#&gt; 1.11         16   table cell  Light Shading
-#&gt; 1.12         16   table cell  Light Shading
-#&gt; 1.13         16   table cell  Light Shading
-#&gt; 1.14         16   table cell  Light Shading
-#&gt; 1.15         16   table cell  Light Shading
-#&gt; 1.16         16   table cell  Light Shading
-#&gt; 1.17         16   table cell  Light Shading
-#&gt; 1.18         16   table cell  Light Shading
-#&gt; 1.19         16   table cell  Light Shading
-#&gt; 1.110        16   table cell  Light Shading
-#&gt; 1.111        16   table cell  Light Shading
-#&gt; 1.112        16   table cell  Light Shading
-#&gt; 2.2          16   table cell  Light Shading
-#&gt; 2.31         16   table cell  Light Shading
-#&gt; 2.22         16   table cell  Light Shading
-#&gt; 2.23         16   table cell  Light Shading
-#&gt; 2.44         16   table cell  Light Shading
-#&gt; 2.25         16   table cell  Light Shading
-#&gt; 2.26         16   table cell  Light Shading
-#&gt; 2.27         16   table cell  Light Shading
-#&gt; 2.28         16   table cell  Light Shading
-#&gt; 2.29         16   table cell  Light Shading
-#&gt; 2.210        16   table cell  Light Shading
-#&gt; 2.211        16   table cell  Light Shading
-#&gt; 2.212        16   table cell  Light Shading
-#&gt; 3.3          16   table cell  Light Shading
-#&gt; 3.21         16   table cell  Light Shading
-#&gt; 3.32         16   table cell  Light Shading
-#&gt; 3.33         16   table cell  Light Shading
-#&gt; 3.24         16   table cell  Light Shading
-#&gt; 3.35         16   table cell  Light Shading
-#&gt; 3.36         16   table cell  Light Shading
-#&gt; 3.37         16   table cell  Light Shading
-#&gt; 3.38         16   table cell  Light Shading
-#&gt; 3.39         16   table cell  Light Shading
-#&gt; 3.310        16   table cell  Light Shading
-#&gt; 3.311        16   table cell  Light Shading
-#&gt; 3.312        16   table cell  Light Shading
-#&gt; 4.4          16   table cell  Light Shading
-#&gt; 4.41         16   table cell  Light Shading
-#&gt; 4.42         16   table cell  Light Shading
-#&gt; 4.43         16   table cell  Light Shading
-#&gt; 4.34         16   table cell  Light Shading
-#&gt; 4.45         16   table cell  Light Shading
-#&gt; 4.46         16   table cell  Light Shading
-#&gt; 4.47         16   table cell  Light Shading
-#&gt; 4.48         16   table cell  Light Shading
-#&gt; 4.49         16   table cell  Light Shading
-#&gt; 4.410        16   table cell  Light Shading
-#&gt; 4.411        16   table cell  Light Shading
-#&gt; 4.412        16   table cell  Light Shading
-#&gt; 16           17    paragraph           &lt;NA&gt;
-#&gt; 17           18    paragraph           &lt;NA&gt;
-#&gt;                                                                          text
-#&gt; 1                                                                     Title 1
-#&gt; 2                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-#&gt; 3                                                                     Title 2
-#&gt; 4                                                          Quisque tristique 
-#&gt; 5                                                   Augue nisi, et convallis 
-#&gt; 6                                                         Sapien mollis nec. 
-#&gt; 7                                                                 Sub title 1
-#&gt; 8                                                          Quisque tristique 
-#&gt; 9                                                   Augue nisi, et convallis 
-#&gt; 10                                                        Sapien mollis nec. 
-#&gt; 11                                                                           
-#&gt; 12             Phasellus nec nunc vitae nulla interdum volutpat eu ac massa. 
-#&gt; 13                                                                Sub title 2
-#&gt; 14    Morbi rhoncus sapien sit amet leo eleifend, vel fermentum nisi mattis. 
-#&gt; 15                                                                           
-#&gt; 1.1                                                                    Petals
-#&gt; 1.11                                                              5,621498349
-#&gt; 1.12                                                              4,994616997
-#&gt; 1.13                                                              4,767504884
-#&gt; 1.14                                                               25,9242382
-#&gt; 1.15                                                              6,489375001
-#&gt; 1.16                                                                5,7858682
-#&gt; 1.17                                                              5,645575295
-#&gt; 1.18                                                              4,828953215
-#&gt; 1.19                                                              6,783500773
-#&gt; 1.110                                                             5,395076839
-#&gt; 1.111                                                             4,683617783
-#&gt; 1.112                                                                    Note
-#&gt; 2.2                                                                 Internode
-#&gt; 2.31                                                                     &lt;NA&gt;
-#&gt; 2.22                                                                       AA
-#&gt; 2.23                                                                     &lt;NA&gt;
-#&gt; 2.44                                                                     &lt;NA&gt;
-#&gt; 2.25                                                              25,21130805
-#&gt; 2.26                                                              25,52433147
-#&gt; 2.27                                                              Merged cell
-#&gt; 2.28                                                                     &lt;NA&gt;
-#&gt; 2.29                                                                     &lt;NA&gt;
-#&gt; 2.210                                                                    &lt;NA&gt;
-#&gt; 2.211                                                              29,2459239
-#&gt; 2.212                                                                    &lt;NA&gt;
-#&gt; 3.3                                                                     Sepal
-#&gt; 3.21                                                    2,46210657918,2034091
-#&gt; 3.32                                                              2,429320759
-#&gt; 3.33                                                                      AAA
-#&gt; 3.24                                                              2,066051345
-#&gt; 3.35                                                              2,901582763
-#&gt; 3.36                                                              2,655642742
-#&gt; 3.37                                                              2,278691288
-#&gt; 3.38                                                              2,238467716
-#&gt; 3.39                                                              2,202762147
-#&gt; 3.310                                                             2,538375992
-#&gt; 3.311                                                             2,601945544
-#&gt; 3.312                                                                    &lt;NA&gt;
-#&gt; 4.4                                                                     Bract
-#&gt; 4.41                                                                     &lt;NA&gt;
-#&gt; 4.42                                                              17,65204912
-#&gt; 4.43                                                                     &lt;NA&gt;
-#&gt; 4.34                                                              18,37915478
-#&gt; 4.45                                         17,3130473717,0721572418,2902189
-#&gt; 4.46                                                                     &lt;NA&gt;
-#&gt; 4.47                                                                     &lt;NA&gt;
-#&gt; 4.48                                                              19,87376227
-#&gt; 4.49                                                              19,85326662
-#&gt; 4.410                                                             19,56545356
-#&gt; 4.411                                                             18,95335451
-#&gt; 4.412                                                                    &lt;NA&gt;
-#&gt; 16                                                                           
-#&gt; 17                                                                           
-#&gt;       level num_id row_id is_header cell_id col_span row_span
-#&gt; 1        NA     NA     NA        NA      NA       NA       NA
-#&gt; 2        NA     NA     NA        NA      NA       NA       NA
-#&gt; 3        NA     NA     NA        NA      NA       NA       NA
-#&gt; 4         1      2     NA        NA      NA       NA       NA
-#&gt; 5         1      2     NA        NA      NA       NA       NA
-#&gt; 6         1      2     NA        NA      NA       NA       NA
-#&gt; 7        NA     NA     NA        NA      NA       NA       NA
-#&gt; 8         1      1     NA        NA      NA       NA       NA
-#&gt; 9         1      1     NA        NA      NA       NA       NA
-#&gt; 10        1      1     NA        NA      NA       NA       NA
-#&gt; 11       NA     NA     NA        NA      NA       NA       NA
-#&gt; 12       NA     NA     NA        NA      NA       NA       NA
-#&gt; 13       NA     NA     NA        NA      NA       NA       NA
-#&gt; 14       NA     NA     NA        NA      NA       NA       NA
-#&gt; 15       NA     NA     NA        NA      NA       NA       NA
-#&gt; 1.1      NA     NA      1      TRUE       1        1        1
-#&gt; 1.11     NA     NA      2     FALSE       1        2        1
-#&gt; 1.12     NA     NA      3     FALSE       1        1        1
-#&gt; 1.13     NA     NA      4     FALSE       1        1        1
-#&gt; 1.14     NA     NA      5     FALSE       1        2        1
-#&gt; 1.15     NA     NA      6     FALSE       1        1        1
-#&gt; 1.16     NA     NA      7     FALSE       1        1        1
-#&gt; 1.17     NA     NA      8     FALSE       1        1        1
-#&gt; 1.18     NA     NA      9     FALSE       1        1        1
-#&gt; 1.19     NA     NA     10     FALSE       1        1        1
-#&gt; 1.110    NA     NA     11     FALSE       1        1        1
-#&gt; 1.111    NA     NA     12     FALSE       1        1        1
-#&gt; 1.112    NA     NA     13     FALSE       1        4        1
-#&gt; 2.2      NA     NA      1      TRUE       2        1        1
-#&gt; 2.31     NA     NA      2     FALSE       2        0        1
-#&gt; 2.22     NA     NA      3     FALSE       2        1        2
-#&gt; 2.23     NA     NA      4     FALSE       2        1        0
-#&gt; 2.44     NA     NA      5     FALSE       2        0        1
-#&gt; 2.25     NA     NA      6     FALSE       2        1        1
-#&gt; 2.26     NA     NA      7     FALSE       2        1        1
-#&gt; 2.27     NA     NA      8     FALSE       2        1        4
-#&gt; 2.28     NA     NA      9     FALSE       2        1        0
-#&gt; 2.29     NA     NA     10     FALSE       2        1        0
-#&gt; 2.210    NA     NA     11     FALSE       2        1        0
-#&gt; 2.211    NA     NA     12     FALSE       2        1        1
-#&gt; 2.212    NA     NA     13     FALSE       2        0        1
-#&gt; 3.3      NA     NA      1      TRUE       3        1        1
-#&gt; 3.21     NA     NA      2     FALSE       3        2        1
-#&gt; 3.32     NA     NA      3     FALSE       3        1        1
-#&gt; 3.33     NA     NA      4     FALSE       3        2        1
-#&gt; 3.24     NA     NA      5     FALSE       3        1        1
-#&gt; 3.35     NA     NA      6     FALSE       3        1        1
-#&gt; 3.36     NA     NA      7     FALSE       3        1        1
-#&gt; 3.37     NA     NA      8     FALSE       3        1        1
-#&gt; 3.38     NA     NA      9     FALSE       3        1        1
-#&gt; 3.39     NA     NA     10     FALSE       3        1        1
-#&gt; 3.310    NA     NA     11     FALSE       3        1        1
-#&gt; 3.311    NA     NA     12     FALSE       3        1        1
-#&gt; 3.312    NA     NA     13     FALSE       3        0        1
-#&gt; 4.4      NA     NA      1      TRUE       4        1        1
-#&gt; 4.41     NA     NA      2     FALSE       4        0        1
-#&gt; 4.42     NA     NA      3     FALSE       4        1        1
-#&gt; 4.43     NA     NA      4     FALSE       4        0        1
-#&gt; 4.34     NA     NA      5     FALSE       4        1        1
-#&gt; 4.45     NA     NA      6     FALSE       4        1        3
-#&gt; 4.46     NA     NA      7     FALSE       4        1        0
-#&gt; 4.47     NA     NA      8     FALSE       4        1        0
-#&gt; 4.48     NA     NA      9     FALSE       4        1        1
-#&gt; 4.49     NA     NA     10     FALSE       4        1        1
-#&gt; 4.410    NA     NA     11     FALSE       4        1        1
-#&gt; 4.411    NA     NA     12     FALSE       4        1        1
-#&gt; 4.412    NA     NA     13     FALSE       4        0        1
-#&gt; 16       NA     NA     NA        NA      NA       NA       NA
-#&gt; 17       NA     NA     NA        NA      NA       NA       NA</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>example_pptx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>package <span class='op'>=</span> <span class='st'>"officer"</span>,</span>
+<span class='r-in'>  <span class='st'>"doc_examples/example.docx"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='va'>example_pptx</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>docx_summary</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       doc_index content_type     style_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1             1    paragraph      heading 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2             2    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3             3    paragraph      heading 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4             4    paragraph List Paragraph</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5             5    paragraph List Paragraph</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6             6    paragraph List Paragraph</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7             7    paragraph      heading 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8             8    paragraph List Paragraph</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9             9    paragraph List Paragraph</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10           10    paragraph List Paragraph</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11           11    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12           12    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13           13    paragraph      heading 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14           14    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15           15    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.1          16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.11         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.12         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.13         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.14         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.15         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.16         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.17         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.18         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.19         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.110        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.111        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.112        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.2          16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.31         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.22         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.23         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.44         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.25         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.26         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.27         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.28         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.29         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.210        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.211        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.212        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.3          16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.21         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.32         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.33         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.24         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.35         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.36         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.37         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.38         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.39         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.310        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.311        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.312        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.4          16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.41         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.42         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.43         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.34         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.45         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.46         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.47         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.48         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.49         16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.410        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.411        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.412        16   table cell  Light Shading</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16           17    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17           18    paragraph           &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                          text</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                                                                     Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                     Title 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                          Quisque tristique </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                   Augue nisi, et convallis </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                                                         Sapien mollis nec. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                                 Sub title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                          Quisque tristique </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                   Augue nisi, et convallis </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                                        Sapien mollis nec. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11                                                                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12             Phasellus nec nunc vitae nulla interdum volutpat eu ac massa. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13                                                                Sub title 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14    Morbi rhoncus sapien sit amet leo eleifend, vel fermentum nisi mattis. </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15                                                                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.1                                                                    Petals</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.11                                                              5,621498349</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.12                                                              4,994616997</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.13                                                              4,767504884</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.14                                                               25,9242382</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.15                                                              6,489375001</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.16                                                                5,7858682</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.17                                                              5,645575295</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.18                                                              4,828953215</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.19                                                              6,783500773</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.110                                                             5,395076839</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.111                                                             4,683617783</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.112                                                                    Note</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.2                                                                 Internode</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.31                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.22                                                                       AA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.23                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.44                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.25                                                              25,21130805</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.26                                                              25,52433147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.27                                                              Merged cell</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.28                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.29                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.210                                                                    &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.211                                                              29,2459239</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.212                                                                    &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.3                                                                     Sepal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.21                                                    2,46210657918,2034091</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.32                                                              2,429320759</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.33                                                                      AAA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.24                                                              2,066051345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.35                                                              2,901582763</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.36                                                              2,655642742</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.37                                                              2,278691288</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.38                                                              2,238467716</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.39                                                              2,202762147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.310                                                             2,538375992</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.311                                                             2,601945544</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.312                                                                    &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.4                                                                     Bract</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.41                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.42                                                              17,65204912</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.43                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.34                                                              18,37915478</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.45                                         17,3130473717,0721572418,2902189</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.46                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.47                                                                     &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.48                                                              19,87376227</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.49                                                              19,85326662</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.410                                                             19,56545356</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.411                                                             18,95335451</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.412                                                                    &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16                                                                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17                                                                           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       level num_id row_id is_header cell_id col_span row_span</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3        NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4         1      2     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5         1      2     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6         1      2     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7        NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8         1      1     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9         1      1     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10        1      1     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11       NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12       NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13       NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14       NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15       NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.1      NA     NA      1      TRUE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.11     NA     NA      2     FALSE       1        2        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.12     NA     NA      3     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.13     NA     NA      4     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.14     NA     NA      5     FALSE       1        2        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.15     NA     NA      6     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.16     NA     NA      7     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.17     NA     NA      8     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.18     NA     NA      9     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.19     NA     NA     10     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.110    NA     NA     11     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.111    NA     NA     12     FALSE       1        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1.112    NA     NA     13     FALSE       1        4        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.2      NA     NA      1      TRUE       2        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.31     NA     NA      2     FALSE       2        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.22     NA     NA      3     FALSE       2        1        2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.23     NA     NA      4     FALSE       2        1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.44     NA     NA      5     FALSE       2        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.25     NA     NA      6     FALSE       2        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.26     NA     NA      7     FALSE       2        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.27     NA     NA      8     FALSE       2        1        4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.28     NA     NA      9     FALSE       2        1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.29     NA     NA     10     FALSE       2        1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.210    NA     NA     11     FALSE       2        1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.211    NA     NA     12     FALSE       2        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2.212    NA     NA     13     FALSE       2        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.3      NA     NA      1      TRUE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.21     NA     NA      2     FALSE       3        2        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.32     NA     NA      3     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.33     NA     NA      4     FALSE       3        2        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.24     NA     NA      5     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.35     NA     NA      6     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.36     NA     NA      7     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.37     NA     NA      8     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.38     NA     NA      9     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.39     NA     NA     10     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.310    NA     NA     11     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.311    NA     NA     12     FALSE       3        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3.312    NA     NA     13     FALSE       3        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.4      NA     NA      1      TRUE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.41     NA     NA      2     FALSE       4        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.42     NA     NA      3     FALSE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.43     NA     NA      4     FALSE       4        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.34     NA     NA      5     FALSE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.45     NA     NA      6     FALSE       4        1        3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.46     NA     NA      7     FALSE       4        1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.47     NA     NA      8     FALSE       4        1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.48     NA     NA      9     FALSE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.49     NA     NA     10     FALSE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.410    NA     NA     11     FALSE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.411    NA     NA     12     FALSE       4        1        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4.412    NA     NA     13     FALSE       4        0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16       NA     NA     NA        NA      NA       NA       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17       NA     NA     NA        NA      NA       NA       NA</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -367,7 +368,7 @@ not be accessible in the results.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -81,7 +81,7 @@ table width in the document, eventually column widths." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -177,69 +177,71 @@ table width in the document, eventually column widths.</p>
 <code><a href='table_width.html'>table_width</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>prop_table</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $style
-#&gt; [1] NA
-#&gt; 
-#&gt; $layout
-#&gt; $type
-#&gt; [1] "autofit"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "table_layout"
-#&gt; 
-#&gt; $width
-#&gt; $width
-#&gt; [1] 1
-#&gt; 
-#&gt; $unit
-#&gt; [1] "pct"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "table_width"
-#&gt; 
-#&gt; $colsizes
-#&gt; $widths
-#&gt; NULL
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "table_colwidths"
-#&gt; 
-#&gt; $stylenames
-#&gt; $stylenames
-#&gt; list()
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "table_stylenames"
-#&gt; 
-#&gt; $tcf
-#&gt; $first_row
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $first_column
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $last_row
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $last_column
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $no_hband
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $no_vband
-#&gt; [1] TRUE
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "table_conditional_formatting"
-#&gt; 
-#&gt; $align
-#&gt; [1] "center"
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "prop_table"</div><div class='input'><span class='fu'><a href='to_wml.html'>to_wml</a></span><span class='op'>(</span><span class='fu'>prop_table</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "&lt;w:tblPr&gt;&lt;w:tblLayout w:type=\"autofit\"/&gt;&lt;w:jc w:val=\"center\"/&gt;&lt;w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"0\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/&gt;&lt;/w:tblPr&gt;"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>prop_table</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $style</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $layout</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "autofit"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "table_layout"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $unit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "pct"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "table_width"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $colsizes</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $widths</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "table_colwidths"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stylenames</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $stylenames</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "table_stylenames"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $tcf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $first_row</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $first_column</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $last_row</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $last_column</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $no_hband</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $no_vband</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "table_conditional_formatting"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $align</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "center"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "prop_table"</span>
+<span class='r-in'><span class='fu'><a href='to_wml.html'>to_wml</a></span><span class='op'>(</span><span class='fu'>prop_table</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "&lt;w:tblPr&gt;&lt;w:tblLayout w:type=\"autofit\"/&gt;&lt;w:jc w:val=\"center\"/&gt;&lt;w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"0\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/&gt;&lt;/w:tblPr&gt;"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -252,7 +254,7 @@ table width in the document, eventually column widths.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

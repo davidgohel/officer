@@ -82,7 +82,7 @@ a hierarchy level." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -137,12 +137,13 @@ a hierarchy level.</p>
     </tr>
     <tr>
       <th>level_list</th>
-      <td><p>list of levels for hierarchy structure</p></td>
+      <td><p>list of levels for hierarchy structure. Use
+0 for 'no bullet', 1 for level 1, 2 for level 2 and so on.</p></td>
     </tr>
     <tr>
       <th>style</th>
       <td><p>text style, a <code>fp_text</code> object list or a
-single <code>fp_text</code> objects. Use <code><a href='fp_text.html'>fp_text(font.size = 0, ...)</a></code> to
+single <code>fp_text</code> objects. Use <code>fp_text(font.size = 0, ...)</code> to
 inherit from default sizes of the presentation.</p></td>
     </tr>
     </table>
@@ -161,28 +162,30 @@ inherit from default sizes of the presentation.</p></td>
 <code><a href='plot_instr.html'>plot_instr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>unordered_list</span><span class='op'>(</span>
-level_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span>,
-str_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span><span class='op'>)</span>,
-style <span class='op'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;      str lvl
-#&gt; 1 Level1   1
-#&gt; 2 Level2   2
-#&gt; 3 Level2   2
-#&gt; 4 Level3   3
-#&gt; 5 Level3   3
-#&gt; 6 Level1   1</div><div class='input'><span class='fu'>unordered_list</span><span class='op'>(</span>
-level_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>,
-str_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level1"</span><span class='op'>)</span>,
-style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
-  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"pink"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
-  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"orange"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-  <span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      str lvl
-#&gt; 1 Level1   1
-#&gt; 2 Level2   2
-#&gt; 3 Level1   1</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>unordered_list</span><span class='op'>(</span></span>
+<span class='r-in'>level_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>str_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level3"</span>, <span class='st'>"Level1"</span><span class='op'>)</span>,</span>
+<span class='r-in'>style <span class='op'>=</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      str lvl</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Level1   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 Level2   2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 Level2   2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 Level3   3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 Level3   3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 Level1   1</span>
+<span class='r-in'><span class='fu'>unordered_list</span><span class='op'>(</span></span>
+<span class='r-in'>level_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>str_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Level1"</span>, <span class='st'>"Level2"</span>, <span class='st'>"Level1"</span><span class='op'>)</span>,</span>
+<span class='r-in'>style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"pink"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"orange"</span>, font.size <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      str lvl</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Level1   1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 Level2   2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 Level1   1</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -195,7 +198,7 @@ style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

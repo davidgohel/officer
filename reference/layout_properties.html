@@ -81,7 +81,7 @@ into a data.frame." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -155,269 +155,273 @@ into a data.frame.</p>
 <code><a href='slide_summary.html'>slide_summary</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span>, layout <span class='op'>=</span> <span class='st'>"Title Slide"</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;     master_name        name     type id                   ph_label
-#&gt; 9  Office Theme Title Slide       dt  4         Date Placeholder 3
-#&gt; 17 Office Theme Title Slide      ftr  5       Footer Placeholder 4
-#&gt; 27 Office Theme Title Slide   sldNum  6 Slide Number Placeholder 5
-#&gt; 35 Office Theme Title Slide ctrTitle  2                    Title 1
-#&gt; 36 Office Theme Title Slide subTitle  3                 Subtitle 2
-#&gt;                                             ph     offx     offy       cx
-#&gt; 9         &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.500000 6.951389 2.333333
-#&gt; 17    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.951389 3.166667
-#&gt; 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.951389 2.333333
-#&gt; 35                     &lt;p:ph type="ctrTitle"/&gt; 0.750000 2.329861 8.500000
-#&gt; 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.500000 4.250000 7.000000
-#&gt;           cy rotation
-#&gt; 9  0.3993056       NA
-#&gt; 17 0.3993056       NA
-#&gt; 27 0.3993056       NA
-#&gt; 35 1.6076389       NA
-#&gt; 36 1.9166667       NA</div><div class='input'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;     master_name              name     type id                   ph_label
-#&gt; 1  Office Theme    Section Header     body  3         Text Placeholder 2
-#&gt; 2  Office Theme        Comparison     body  5         Text Placeholder 4
-#&gt; 3  Office Theme        Comparison     body  6      Content Placeholder 5
-#&gt; 4  Office Theme        Comparison     body  4      Content Placeholder 3
-#&gt; 5  Office Theme Title and Content     body  3      Content Placeholder 2
-#&gt; 6  Office Theme       Two Content     body  3      Content Placeholder 2
-#&gt; 7  Office Theme       Two Content     body  4      Content Placeholder 3
-#&gt; 8  Office Theme        Comparison     body  3         Text Placeholder 2
-#&gt; 9  Office Theme       Title Slide       dt  4         Date Placeholder 3
-#&gt; 10 Office Theme Title and Content       dt  4         Date Placeholder 3
-#&gt; 11 Office Theme        Title Only       dt  3         Date Placeholder 2
-#&gt; 12 Office Theme       Two Content       dt  5         Date Placeholder 4
-#&gt; 13 Office Theme    Section Header       dt  4         Date Placeholder 3
-#&gt; 14 Office Theme        Comparison       dt  7         Date Placeholder 6
-#&gt; 15 Office Theme             Blank       dt  2         Date Placeholder 1
-#&gt; 16 Office Theme       Two Content      ftr  6       Footer Placeholder 5
-#&gt; 17 Office Theme       Title Slide      ftr  5       Footer Placeholder 4
-#&gt; 18 Office Theme        Comparison      ftr  8       Footer Placeholder 7
-#&gt; 19 Office Theme             Blank      ftr  3       Footer Placeholder 2
-#&gt; 20 Office Theme        Title Only      ftr  4       Footer Placeholder 3
-#&gt; 21 Office Theme Title and Content      ftr  5       Footer Placeholder 4
-#&gt; 22 Office Theme    Section Header      ftr  5       Footer Placeholder 4
-#&gt; 23 Office Theme        Comparison   sldNum  9 Slide Number Placeholder 8
-#&gt; 24 Office Theme        Title Only   sldNum  5 Slide Number Placeholder 4
-#&gt; 25 Office Theme Title and Content   sldNum  6 Slide Number Placeholder 5
-#&gt; 26 Office Theme    Section Header   sldNum  6 Slide Number Placeholder 5
-#&gt; 27 Office Theme       Title Slide   sldNum  6 Slide Number Placeholder 5
-#&gt; 28 Office Theme             Blank   sldNum  4 Slide Number Placeholder 3
-#&gt; 29 Office Theme       Two Content   sldNum  7 Slide Number Placeholder 6
-#&gt; 30 Office Theme        Title Only    title  2                    Title 1
-#&gt; 31 Office Theme Title and Content    title  2                    Title 1
-#&gt; 32 Office Theme       Two Content    title  2                    Title 1
-#&gt; 33 Office Theme    Section Header    title  2                    Title 1
-#&gt; 34 Office Theme        Comparison    title  2                    Title 1
-#&gt; 35 Office Theme       Title Slide ctrTitle  2                    Title 1
-#&gt; 36 Office Theme       Title Slide subTitle  3                 Subtitle 2
-#&gt;                                             ph      offx      offy       cx
-#&gt; 1                  &lt;p:ph type="body" idx="1"/&gt; 0.7899311 3.1788200 8.500000
-#&gt; 2     &lt;p:ph type="body" sz="quarter" idx="3"/&gt; 5.0798611 1.6788200 4.420139
-#&gt; 3                 &lt;p:ph sz="quarter" idx="4"/&gt; 5.0798611 2.3784722 4.420139
-#&gt; 4                    &lt;p:ph sz="half" idx="2"/&gt; 0.5000000 2.3784722 4.418403
-#&gt; 5                              &lt;p:ph idx="1"/&gt; 0.5000000 1.7500000 9.000000
-#&gt; 6                    &lt;p:ph sz="half" idx="1"/&gt; 0.5000000 1.7500000 4.416667
-#&gt; 7                    &lt;p:ph sz="half" idx="2"/&gt; 5.0833333 1.7500000 4.416667
-#&gt; 8                  &lt;p:ph type="body" idx="1"/&gt; 0.5000000 1.6788200 4.418403
-#&gt; 9         &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 10        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 11        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 12        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 13        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 14        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 15        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 17    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 18    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 19    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 20    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 21    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 22    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 23 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 24 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 25 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 26 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 28 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 30                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 31                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 32                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 33                        &lt;p:ph type="title"/&gt; 0.7899311 4.8194444 8.500000
-#&gt; 34                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 35                     &lt;p:ph type="ctrTitle"/&gt; 0.7500000 2.3298611 8.500000
-#&gt; 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.5000000 4.2500000 7.000000
-#&gt;           cy rotation
-#&gt; 1  1.6406245       NA
-#&gt; 2  0.6996522       NA
-#&gt; 3  4.3211811       NA
-#&gt; 4  4.3211811       NA
-#&gt; 5  4.9496533       NA
-#&gt; 6  4.9496533       NA
-#&gt; 7  4.9496533       NA
-#&gt; 8  0.6996522       NA
-#&gt; 9  0.3993056       NA
-#&gt; 10 0.3993056       NA
-#&gt; 11 0.3993056       NA
-#&gt; 12 0.3993056       NA
-#&gt; 13 0.3993056       NA
-#&gt; 14 0.3993056       NA
-#&gt; 15 0.3993056       NA
-#&gt; 16 0.3993056       NA
-#&gt; 17 0.3993056       NA
-#&gt; 18 0.3993056       NA
-#&gt; 19 0.3993056       NA
-#&gt; 20 0.3993056       NA
-#&gt; 21 0.3993056       NA
-#&gt; 22 0.3993056       NA
-#&gt; 23 0.3993056       NA
-#&gt; 24 0.3993056       NA
-#&gt; 25 0.3993056       NA
-#&gt; 26 0.3993056       NA
-#&gt; 27 0.3993056       NA
-#&gt; 28 0.3993056       NA
-#&gt; 29 0.3993056       NA
-#&gt; 30 1.2500000       NA
-#&gt; 31 1.2500000       NA
-#&gt; 32 1.2500000       NA
-#&gt; 33 1.4895833       NA
-#&gt; 34 1.2500000       NA
-#&gt; 35 1.6076389       NA
-#&gt; 36 1.9166667       NA</div><div class='input'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span>, layout <span class='op'>=</span> <span class='st'>"Two Content"</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;     master_name        name   type id                   ph_label
-#&gt; 6  Office Theme Two Content   body  3      Content Placeholder 2
-#&gt; 7  Office Theme Two Content   body  4      Content Placeholder 3
-#&gt; 12 Office Theme Two Content     dt  5         Date Placeholder 4
-#&gt; 16 Office Theme Two Content    ftr  6       Footer Placeholder 5
-#&gt; 29 Office Theme Two Content sldNum  7 Slide Number Placeholder 6
-#&gt; 32 Office Theme Two Content  title  2                    Title 1
-#&gt;                                             ph     offx      offy       cx
-#&gt; 6                    &lt;p:ph sz="half" idx="1"/&gt; 0.500000 1.7500000 4.416667
-#&gt; 7                    &lt;p:ph sz="half" idx="2"/&gt; 5.083333 1.7500000 4.416667
-#&gt; 12        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.500000 6.9513889 2.333333
-#&gt; 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.9513889 3.166667
-#&gt; 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.9513889 2.333333
-#&gt; 32                        &lt;p:ph type="title"/&gt; 0.500000 0.3003478 9.000000
-#&gt;           cy rotation
-#&gt; 6  4.9496533       NA
-#&gt; 7  4.9496533       NA
-#&gt; 12 0.3993056       NA
-#&gt; 16 0.3993056       NA
-#&gt; 29 0.3993056       NA
-#&gt; 32 1.2500000       NA</div><div class='input'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;     master_name              name     type id                   ph_label
-#&gt; 1  Office Theme    Section Header     body  3         Text Placeholder 2
-#&gt; 2  Office Theme        Comparison     body  5         Text Placeholder 4
-#&gt; 3  Office Theme        Comparison     body  6      Content Placeholder 5
-#&gt; 4  Office Theme        Comparison     body  4      Content Placeholder 3
-#&gt; 5  Office Theme Title and Content     body  3      Content Placeholder 2
-#&gt; 6  Office Theme       Two Content     body  3      Content Placeholder 2
-#&gt; 7  Office Theme       Two Content     body  4      Content Placeholder 3
-#&gt; 8  Office Theme        Comparison     body  3         Text Placeholder 2
-#&gt; 9  Office Theme       Title Slide       dt  4         Date Placeholder 3
-#&gt; 10 Office Theme Title and Content       dt  4         Date Placeholder 3
-#&gt; 11 Office Theme        Title Only       dt  3         Date Placeholder 2
-#&gt; 12 Office Theme       Two Content       dt  5         Date Placeholder 4
-#&gt; 13 Office Theme    Section Header       dt  4         Date Placeholder 3
-#&gt; 14 Office Theme        Comparison       dt  7         Date Placeholder 6
-#&gt; 15 Office Theme             Blank       dt  2         Date Placeholder 1
-#&gt; 16 Office Theme       Two Content      ftr  6       Footer Placeholder 5
-#&gt; 17 Office Theme       Title Slide      ftr  5       Footer Placeholder 4
-#&gt; 18 Office Theme        Comparison      ftr  8       Footer Placeholder 7
-#&gt; 19 Office Theme             Blank      ftr  3       Footer Placeholder 2
-#&gt; 20 Office Theme        Title Only      ftr  4       Footer Placeholder 3
-#&gt; 21 Office Theme Title and Content      ftr  5       Footer Placeholder 4
-#&gt; 22 Office Theme    Section Header      ftr  5       Footer Placeholder 4
-#&gt; 23 Office Theme        Comparison   sldNum  9 Slide Number Placeholder 8
-#&gt; 24 Office Theme        Title Only   sldNum  5 Slide Number Placeholder 4
-#&gt; 25 Office Theme Title and Content   sldNum  6 Slide Number Placeholder 5
-#&gt; 26 Office Theme    Section Header   sldNum  6 Slide Number Placeholder 5
-#&gt; 27 Office Theme       Title Slide   sldNum  6 Slide Number Placeholder 5
-#&gt; 28 Office Theme             Blank   sldNum  4 Slide Number Placeholder 3
-#&gt; 29 Office Theme       Two Content   sldNum  7 Slide Number Placeholder 6
-#&gt; 30 Office Theme        Title Only    title  2                    Title 1
-#&gt; 31 Office Theme Title and Content    title  2                    Title 1
-#&gt; 32 Office Theme       Two Content    title  2                    Title 1
-#&gt; 33 Office Theme    Section Header    title  2                    Title 1
-#&gt; 34 Office Theme        Comparison    title  2                    Title 1
-#&gt; 35 Office Theme       Title Slide ctrTitle  2                    Title 1
-#&gt; 36 Office Theme       Title Slide subTitle  3                 Subtitle 2
-#&gt;                                             ph      offx      offy       cx
-#&gt; 1                  &lt;p:ph type="body" idx="1"/&gt; 0.7899311 3.1788200 8.500000
-#&gt; 2     &lt;p:ph type="body" sz="quarter" idx="3"/&gt; 5.0798611 1.6788200 4.420139
-#&gt; 3                 &lt;p:ph sz="quarter" idx="4"/&gt; 5.0798611 2.3784722 4.420139
-#&gt; 4                    &lt;p:ph sz="half" idx="2"/&gt; 0.5000000 2.3784722 4.418403
-#&gt; 5                              &lt;p:ph idx="1"/&gt; 0.5000000 1.7500000 9.000000
-#&gt; 6                    &lt;p:ph sz="half" idx="1"/&gt; 0.5000000 1.7500000 4.416667
-#&gt; 7                    &lt;p:ph sz="half" idx="2"/&gt; 5.0833333 1.7500000 4.416667
-#&gt; 8                  &lt;p:ph type="body" idx="1"/&gt; 0.5000000 1.6788200 4.418403
-#&gt; 9         &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 10        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 11        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 12        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 13        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 14        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 15        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333
-#&gt; 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 17    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 18    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 19    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 20    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 21    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 22    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667
-#&gt; 23 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 24 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 25 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 26 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 28 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333
-#&gt; 30                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 31                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 32                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 33                        &lt;p:ph type="title"/&gt; 0.7899311 4.8194444 8.500000
-#&gt; 34                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000
-#&gt; 35                     &lt;p:ph type="ctrTitle"/&gt; 0.7500000 2.3298611 8.500000
-#&gt; 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.5000000 4.2500000 7.000000
-#&gt;           cy rotation
-#&gt; 1  1.6406245       NA
-#&gt; 2  0.6996522       NA
-#&gt; 3  4.3211811       NA
-#&gt; 4  4.3211811       NA
-#&gt; 5  4.9496533       NA
-#&gt; 6  4.9496533       NA
-#&gt; 7  4.9496533       NA
-#&gt; 8  0.6996522       NA
-#&gt; 9  0.3993056       NA
-#&gt; 10 0.3993056       NA
-#&gt; 11 0.3993056       NA
-#&gt; 12 0.3993056       NA
-#&gt; 13 0.3993056       NA
-#&gt; 14 0.3993056       NA
-#&gt; 15 0.3993056       NA
-#&gt; 16 0.3993056       NA
-#&gt; 17 0.3993056       NA
-#&gt; 18 0.3993056       NA
-#&gt; 19 0.3993056       NA
-#&gt; 20 0.3993056       NA
-#&gt; 21 0.3993056       NA
-#&gt; 22 0.3993056       NA
-#&gt; 23 0.3993056       NA
-#&gt; 24 0.3993056       NA
-#&gt; 25 0.3993056       NA
-#&gt; 26 0.3993056       NA
-#&gt; 27 0.3993056       NA
-#&gt; 28 0.3993056       NA
-#&gt; 29 0.3993056       NA
-#&gt; 30 1.2500000       NA
-#&gt; 31 1.2500000       NA
-#&gt; 32 1.2500000       NA
-#&gt; 33 1.4895833       NA
-#&gt; 34 1.2500000       NA
-#&gt; 35 1.6076389       NA
-#&gt; 36 1.9166667       NA</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span>, layout <span class='op'>=</span> <span class='st'>"Title Slide"</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     master_name        name     type id                   ph_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  Office Theme Title Slide       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 Office Theme Title Slide      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 Office Theme Title Slide   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35 Office Theme Title Slide ctrTitle  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36 Office Theme Title Slide subTitle  3                 Subtitle 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                             ph     offx     offy       cx</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9         &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.500000 6.951389 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.951389 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.951389 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35                     &lt;p:ph type="ctrTitle"/&gt; 0.750000 2.329861 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.500000 4.250000 7.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           cy rotation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35 1.6076389       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36 1.9166667       NA</span>
+<span class='r-in'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     master_name              name     type id                   ph_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Office Theme    Section Header     body  3         Text Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Office Theme        Comparison     body  5         Text Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Office Theme        Comparison     body  6      Content Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  Office Theme        Comparison     body  4      Content Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  Office Theme Title and Content     body  3      Content Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  Office Theme       Two Content     body  3      Content Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  Office Theme       Two Content     body  4      Content Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  Office Theme        Comparison     body  3         Text Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  Office Theme       Title Slide       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 Office Theme Title and Content       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 Office Theme        Title Only       dt  3         Date Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 Office Theme       Two Content       dt  5         Date Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 Office Theme    Section Header       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 Office Theme        Comparison       dt  7         Date Placeholder 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 Office Theme             Blank       dt  2         Date Placeholder 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 Office Theme       Two Content      ftr  6       Footer Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 Office Theme       Title Slide      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 Office Theme        Comparison      ftr  8       Footer Placeholder 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 Office Theme             Blank      ftr  3       Footer Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 Office Theme        Title Only      ftr  4       Footer Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 Office Theme Title and Content      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 Office Theme    Section Header      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 Office Theme        Comparison   sldNum  9 Slide Number Placeholder 8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 Office Theme        Title Only   sldNum  5 Slide Number Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 Office Theme Title and Content   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 Office Theme    Section Header   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 Office Theme       Title Slide   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28 Office Theme             Blank   sldNum  4 Slide Number Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 Office Theme       Two Content   sldNum  7 Slide Number Placeholder 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30 Office Theme        Title Only    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31 Office Theme Title and Content    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32 Office Theme       Two Content    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33 Office Theme    Section Header    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34 Office Theme        Comparison    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35 Office Theme       Title Slide ctrTitle  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36 Office Theme       Title Slide subTitle  3                 Subtitle 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                             ph      offx      offy       cx</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                  &lt;p:ph type="body" idx="1"/&gt; 0.7899311 3.1788200 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     &lt;p:ph type="body" sz="quarter" idx="3"/&gt; 5.0798611 1.6788200 4.420139</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                 &lt;p:ph sz="quarter" idx="4"/&gt; 5.0798611 2.3784722 4.420139</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                    &lt;p:ph sz="half" idx="2"/&gt; 0.5000000 2.3784722 4.418403</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                              &lt;p:ph idx="1"/&gt; 0.5000000 1.7500000 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                    &lt;p:ph sz="half" idx="1"/&gt; 0.5000000 1.7500000 4.416667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                    &lt;p:ph sz="half" idx="2"/&gt; 5.0833333 1.7500000 4.416667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                  &lt;p:ph type="body" idx="1"/&gt; 0.5000000 1.6788200 4.418403</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9         &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33                        &lt;p:ph type="title"/&gt; 0.7899311 4.8194444 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35                     &lt;p:ph type="ctrTitle"/&gt; 0.7500000 2.3298611 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.5000000 4.2500000 7.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           cy rotation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  1.6406245       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  0.6996522       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  4.3211811       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  4.3211811       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  0.6996522       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33 1.4895833       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35 1.6076389       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36 1.9166667       NA</span>
+<span class='r-in'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span>, layout <span class='op'>=</span> <span class='st'>"Two Content"</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     master_name        name   type id                   ph_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  Office Theme Two Content   body  3      Content Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  Office Theme Two Content   body  4      Content Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 Office Theme Two Content     dt  5         Date Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 Office Theme Two Content    ftr  6       Footer Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 Office Theme Two Content sldNum  7 Slide Number Placeholder 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32 Office Theme Two Content  title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                             ph     offx      offy       cx</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                    &lt;p:ph sz="half" idx="1"/&gt; 0.500000 1.7500000 4.416667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                    &lt;p:ph sz="half" idx="2"/&gt; 5.083333 1.7500000 4.416667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.500000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32                        &lt;p:ph type="title"/&gt; 0.500000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           cy rotation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32 1.2500000       NA</span>
+<span class='r-in'><span class='fu'>layout_properties</span> <span class='op'>(</span> x <span class='op'>=</span> <span class='va'>x</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     master_name              name     type id                   ph_label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Office Theme    Section Header     body  3         Text Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  Office Theme        Comparison     body  5         Text Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  Office Theme        Comparison     body  6      Content Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  Office Theme        Comparison     body  4      Content Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  Office Theme Title and Content     body  3      Content Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  Office Theme       Two Content     body  3      Content Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  Office Theme       Two Content     body  4      Content Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  Office Theme        Comparison     body  3         Text Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  Office Theme       Title Slide       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 Office Theme Title and Content       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 Office Theme        Title Only       dt  3         Date Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 Office Theme       Two Content       dt  5         Date Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 Office Theme    Section Header       dt  4         Date Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 Office Theme        Comparison       dt  7         Date Placeholder 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 Office Theme             Blank       dt  2         Date Placeholder 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 Office Theme       Two Content      ftr  6       Footer Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 Office Theme       Title Slide      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 Office Theme        Comparison      ftr  8       Footer Placeholder 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 Office Theme             Blank      ftr  3       Footer Placeholder 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 Office Theme        Title Only      ftr  4       Footer Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 Office Theme Title and Content      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 Office Theme    Section Header      ftr  5       Footer Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 Office Theme        Comparison   sldNum  9 Slide Number Placeholder 8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 Office Theme        Title Only   sldNum  5 Slide Number Placeholder 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 Office Theme Title and Content   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 Office Theme    Section Header   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 Office Theme       Title Slide   sldNum  6 Slide Number Placeholder 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28 Office Theme             Blank   sldNum  4 Slide Number Placeholder 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 Office Theme       Two Content   sldNum  7 Slide Number Placeholder 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30 Office Theme        Title Only    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31 Office Theme Title and Content    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32 Office Theme       Two Content    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33 Office Theme    Section Header    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34 Office Theme        Comparison    title  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35 Office Theme       Title Slide ctrTitle  2                    Title 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36 Office Theme       Title Slide subTitle  3                 Subtitle 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                             ph      offx      offy       cx</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                  &lt;p:ph type="body" idx="1"/&gt; 0.7899311 3.1788200 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2     &lt;p:ph type="body" sz="quarter" idx="3"/&gt; 5.0798611 1.6788200 4.420139</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                 &lt;p:ph sz="quarter" idx="4"/&gt; 5.0798611 2.3784722 4.420139</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                    &lt;p:ph sz="half" idx="2"/&gt; 0.5000000 2.3784722 4.418403</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                              &lt;p:ph idx="1"/&gt; 0.5000000 1.7500000 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                    &lt;p:ph sz="half" idx="1"/&gt; 0.5000000 1.7500000 4.416667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                    &lt;p:ph sz="half" idx="2"/&gt; 5.0833333 1.7500000 4.416667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                  &lt;p:ph type="body" idx="1"/&gt; 0.5000000 1.6788200 4.418403</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9         &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15        &lt;p:ph type="dt" sz="half" idx="10"/&gt; 0.5000000 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.4166667 6.9513889 3.166667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.1666667 6.9513889 2.333333</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33                        &lt;p:ph type="title"/&gt; 0.7899311 4.8194444 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35                     &lt;p:ph type="ctrTitle"/&gt; 0.7500000 2.3298611 8.500000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.5000000 4.2500000 7.000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           cy rotation</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  1.6406245       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  0.6996522       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  4.3211811       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  4.3211811       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  4.9496533       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  0.6996522       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 24 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 25 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 26 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 27 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 28 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 29 0.3993056       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 30 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 31 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 32 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 33 1.4895833       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 34 1.2500000       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 35 1.6076389       NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 36 1.9166667       NA</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -430,7 +434,7 @@ into a data.frame.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

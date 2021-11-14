@@ -51,7 +51,9 @@
 It should not be used by the end user.
 The function is a utility to facilitate the retrieval of table
 options supported by the 'flextable', 'officedown' and of
-course 'officer' packages." />
+course 'officer' packages.
+These options should be set with knitr::opts_chunk$set().
+The names and expected values are listed in the following sections." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -84,7 +86,7 @@ course 'officer' packages." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -128,6 +130,8 @@ course 'officer' packages." />
 The function is a utility to facilitate the retrieval of table
 options supported by the 'flextable', 'officedown' and of
 course 'officer' packages.</p>
+<p>These options should be set with <code>knitr::opts_chunk$set()</code>.
+The names and expected values are listed in the following sections.</p>
     </div>
 
     <pre class="usage"><span class='fu'>opts_current_table</span><span class='op'>(</span><span class='op'>)</span></pre>
@@ -139,6 +143,9 @@ course 'officer' packages.</p>
 <li><p>cap.style (default: NULL)</p></li>
 <li><p>cap.pre (default: "Table ")</p></li>
 <li><p>cap.sep (default: ":")</p></li>
+<li><p>cap.tnd (default: 0)</p></li>
+<li><p>cap.tns (default: "-")</p></li>
+<li><p>cap.fp_text (default: <code>fp_text_lite(bold = TRUE)</code>)</p></li>
 <li><p>id (default: NULL)</p></li>
 <li><p>cap (default: NULL)</p></li>
 <li><p>topcaption (default: TRUE)</p></li>
@@ -154,12 +161,64 @@ course 'officer' packages.</p>
 <li><p>no_vband (default: TRUE)</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="knitr-chunk-options-for-table-captions"><a class="anchor" href="#knitr-chunk-options-for-table-captions"></a>knitr chunk options for table captions</h2>
+
+    
+<table class='table'>
+<tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr>
+<tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr>
+<tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr>
+<tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr>
+<tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="knitr-chunk-options-for-word-table-captions"><a class="anchor" href="#knitr-chunk-options-for-word-table-captions"></a>knitr chunk options for Word table captions</h2>
+
+    
+<table class='table'>
+<tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr>
+<tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr>
+<tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr>
+<tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr>
+<tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr>
+<tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr>
+<tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="knitr-chunk-options-for-word-tables"><a class="anchor" href="#knitr-chunk-options-for-word-tables"></a>knitr chunk options for Word tables</h2>
+
+    
+<table class='table'>
+<tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr>
+<tr><td>the Word stylename to use for tables</td><td>tab.style</td><td>NULL</td></tr>
+<tr><td>autofit' or 'fixed' algorithm.</td><td>tab.layout</td><td>"autofit"</td></tr>
+<tr><td>value of the preferred width of the table in percent (base 1).</td><td>tab.width</td><td>1</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="knitr-chunk-options-for-data-frame-with-officedown"><a class="anchor" href="#knitr-chunk-options-for-data-frame-with-officedown"></a>knitr chunk options for data.frame with officedown</h2>
+
+    
+<table class='table'>
+<tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr>
+<tr><td>apply or remove formatting from the first row in the table</td><td>first_row</td><td>TRUE</td></tr>
+<tr><td>apply or remove formatting from the first column in the table</td><td>first_column</td><td>FALSE</td></tr>
+<tr><td>apply or remove formatting from the last row in the table</td><td>last_row</td><td>FALSE</td></tr>
+<tr><td>apply or remove formatting from the last column in the table</td><td>last_column</td><td>FALSE</td></tr>
+<tr><td>don't display odd and even rows</td><td>no_hband</td><td>TRUE</td></tr>
+<tr><td>don't display odd and even columns</td><td>no_vband</td><td>TRUE</td></tr>
+</table>
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other functions for officer extensions: 
 <code><a href='docx_reference_img.html'>docx_reference_img</a>()</code>,
 <code><a href='fortify_location.html'>fortify_location</a>()</code>,
 <code><a href='get_reference_value.html'>get_reference_value</a>()</code>,
+<code><a href='to_html.html'>to_html</a>()</code>,
 <code><a href='to_pml.html'>to_pml</a>()</code>,
 <code><a href='to_wml.html'>to_wml</a>()</code>,
 <code><a href='wml_link_images.html'>wml_link_images</a>()</code></p></div>
@@ -176,7 +235,7 @@ course 'officer' packages.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

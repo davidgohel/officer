@@ -82,7 +82,7 @@ to allow other packages to work with officer." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -139,29 +139,30 @@ to allow other packages to work with officer.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'>docx_body_relationship</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;relationship&gt;
-#&gt;   Public:
-#&gt;     add: function (id, type, target, target_mode = NA) 
-#&gt;     add_drawing: function (src, root_target) 
-#&gt;     add_img: function (src, root_target) 
-#&gt;     clone: function (deep = FALSE) 
-#&gt;     feed_from_xml: function (path) 
-#&gt;     get_data: function () 
-#&gt;     get_images_path: function () 
-#&gt;     get_next_id: function () 
-#&gt;     initialize: function (id = character(0), type = character(0), target = character(0)) 
-#&gt;     remove: function (target) 
-#&gt;     show: function () 
-#&gt;     write: function (path) 
-#&gt;   Private:
-#&gt;     ext_src:      
-#&gt;     get_int_id: function () 
-#&gt;     id: rId3 rId2 rId1 rId6 rId5 rId4
-#&gt;     target: settings.xml styles.xml numbering.xml theme/theme1.xml f ...
-#&gt;     target_mode: NA NA NA NA NA NA
-#&gt;     type: http://schemas.openxmlformats.org/officeDocument/2006/re ...</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>docx_body_relationship</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;relationship&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Public:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     add: function (id, type, target, target_mode = NA) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     add_drawing: function (src, root_target) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     add_img: function (src, root_target) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     feed_from_xml: function (path) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_data: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_images_path: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_next_id: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     initialize: function (id = character(0), type = character(0), target = character(0)) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     remove: function (target) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     show: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     write: function (path) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Private:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     ext_src:      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_int_id: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     id: rId3 rId2 rId1 rId6 rId5 rId4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     target: settings.xml styles.xml numbering.xml theme/theme1.xml f ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     target_mode: NA NA NA NA NA NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     type: http://schemas.openxmlformats.org/officeDocument/2006/re ...</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -174,7 +175,7 @@ to allow other packages to work with officer.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -116,21 +116,54 @@
       <small>Source: <a href='https://github.com/davidgohel/officer/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="officer-040" class="section level1">
-<h1 class="page-header" data-toc-text="0.4.0">
-<a href="#officer-040" class="anchor"></a>officer 0.4.0<small> Unreleased </small>
+    <div id="officer-041" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.1">
+<a href="#officer-041" class="anchor"></a>officer 0.4.1<small> Unreleased </small>
 </h1>
+<div id="issues" class="section level2">
+<h2 class="hasAnchor">
+<a href="#issues" class="anchor"></a>Issues</h2>
+<ul>
+<li>fix a bug in <code><a href="../reference/ph_with.html">ph_with.external_img()</a></code> that could be seen when <code>alt_text</code> was null</li>
+<li>change default value for <code>tab.cap.sep</code> from “:” to “:”</li>
+<li>fix an issue with <code><a href="../reference/body_end_section_columns.html">body_end_section_columns()</a></code> that is expected as ‘continuous’.</li>
+</ul>
+</div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>new parameter <code>scale</code> added to <code>ph_with.gg</code>, <code>body_add_gg</code> and <code>body_add.gg</code> to set the scale of ggplot outputs (like in ggsave).</li>
+<li>new function <code><a href="../reference/set_autonum_bookmark.html">set_autonum_bookmark()</a></code> to recycle an object made by <code><a href="../reference/run_autonum.html">run_autonum()</a></code> by changing the bookmark value.</li>
+<li>add <code>tnd</code> argument to prefix a autonumber with the title number (i.e. 4.3-2 for figure 2 of chapter 4.3).</li>
+<li>
+<code><a href="../reference/unordered_list.html">unordered_list()</a></code> now supports <code>level_list</code> &lt; 1 which will be interpreted as ‘no bullet’.</li>
+<li>add support to knitr table options <code>tab.cap.fp_text</code> to let format caption prefix in function <code><a href="../reference/opts_current_table.html">opts_current_table()</a></code>.</li>
+</ul>
+</div>
+<div id="deprecation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deprecation" class="anchor"></a>Deprecation</h2>
+<ul>
+<li>deprecate <code>slip_in*()</code> and <code>ph_add*()</code> functions. Functions <code><a href="../reference/ftext.html">ftext()</a></code> and related used with <code><a href="../reference/fpar.html">fpar()</a></code> are to be used as replacement.</li>
+</ul>
+</div>
+</div>
+    <div id="officer-040" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#officer-040" class="anchor"></a>officer 0.4.0<small> 2021-09-06 </small>
+</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>new function <code><a href="../reference/fp_text.html">fp_text_lite()</a></code> that do not force to provide a value for each properties - if a value is not provided, its attribute will not be written and as a result, the default properties will be applied. Function <code><a href="../reference/fp_text.html">fp_text()</a></code> has also been adapted, it now supports NA meaning to not write the attributes as in <code><a href="../reference/fp_text.html">fp_text_lite()</a></code>.</li>
 <li>new function <code>run_footnote</code> to add footnotes in a Word document (it also makes possible to deprecate totally slip_in* functions).</li>
 </ul>
 </div>
-<div id="issues" class="section level2">
+<div id="issues-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues" class="anchor"></a>Issues</h2>
+<a href="#issues-1" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix a bug when creating the XML of table properties for Word documents</li>
 </ul>
@@ -140,9 +173,9 @@
 <h1 class="page-header" data-toc-text="0.3.19">
 <a href="#officer-0319" class="anchor"></a>officer 0.3.19<small> 2021-07-21 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>On Windows, the pptx file will not be overwritten if it is edited.</li>
 <li>
@@ -152,9 +185,9 @@
 </li>
 </ul>
 </div>
-<div id="issues-1" class="section level2">
+<div id="issues-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-1" class="anchor"></a>Issues</h2>
+<a href="#issues-2" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with document properties that are null</li>
 <li>angle was not always preserved in PowerPoint</li>
@@ -179,9 +212,9 @@
 <h1 class="page-header" data-toc-text="0.3.17">
 <a href="#officer-0317" class="anchor"></a>officer 0.3.17<small> 2021-03-05 </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>alt-text for images</li>
 <li>On Windows, the docx file will not be overwritten if it is edited.</li>
@@ -189,9 +222,9 @@
 <code>fp_text</code> gained arguments to specify different fonts when mixing CJK and latin characters: <code>cs.family</code>, <code>eastasia.family</code>, <code>hansi.family</code>.</li>
 </ul>
 </div>
-<div id="issues-2" class="section level2">
+<div id="issues-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-2" class="anchor"></a>Issues</h2>
+<a href="#issues-3" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with document properties where values have to be html-escaped</li>
 </ul>
@@ -201,9 +234,9 @@
 <h1 class="page-header" data-toc-text="0.3.16">
 <a href="#officer-0316" class="anchor"></a>officer 0.3.16<small> 2021-01-04 </small>
 </h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>New features</h2>
+<a href="#new-features-4" class="anchor"></a>New features</h2>
 <ul>
 <li>new chunk function <code><a href="../reference/hyperlink_ftext.html">hyperlink_ftext()</a></code>.</li>
 </ul>
@@ -215,9 +248,9 @@
 <li>drop cairo usage and let user settings do the job</li>
 </ul>
 </div>
-<div id="issues-3" class="section level2">
+<div id="issues-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-3" class="anchor"></a>Issues</h2>
+<a href="#issues-4" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix annotate_base that was not presenting the correct informatons (thanks to John Harrold).</li>
 </ul>
@@ -227,9 +260,9 @@
 <h1 class="page-header" data-toc-text="0.3.15">
 <a href="#officer-0315" class="anchor"></a>officer 0.3.15<small> 2020-11-01 </small>
 </h1>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>New features</h2>
+<a href="#new-features-5" class="anchor"></a>New features</h2>
 <ul>
 <li>new function <code><a href="../reference/body_add_plot.html">body_add_plot()</a></code> and <code><a href="../reference/body_add_caption.html">body_add_caption()</a></code>
 </li>
@@ -237,9 +270,9 @@
 <li>new function <code><a href="../reference/body_set_default_section.html">body_set_default_section()</a></code> that changes default section properties of a Word document.</li>
 </ul>
 </div>
-<div id="issues-4" class="section level2">
+<div id="issues-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-4" class="anchor"></a>Issues</h2>
+<a href="#issues-5" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix <a href='https://github.com/davidgohel/officer/issues/333'>#333</a>: issue with &amp;, &lt;, &gt; in <code>to_wml.block_table</code>.</li>
 <li>fix <a href="https://github.com/davidgohel/officedown/issues/41" class="uri">https://github.com/davidgohel/officedown/issues/41</a>: when a space was in the path, pandoc send the short path format instead of the real path name, it needed to be transformed with <code>normalizePath</code>.</li>
@@ -260,9 +293,9 @@
 <h1 class="page-header" data-toc-text="0.3.14">
 <a href="#officer-0314" class="anchor"></a>officer 0.3.14<small> 2020-09-07 </small>
 </h1>
-<div id="issues-5" class="section level2">
+<div id="issues-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-5" class="anchor"></a>Issues</h2>
+<a href="#issues-6" class="anchor"></a>Issues</h2>
 <ul>
 <li>revert PR<a href='https://github.com/davidgohel/officer/issues/319'>#319</a> that introduced a major issue with repeated images in Word document.</li>
 </ul>
@@ -279,9 +312,9 @@
 <h1 class="page-header" data-toc-text="0.3.13">
 <a href="#officer-0313" class="anchor"></a>officer 0.3.13<small> 2020-08-30 </small>
 </h1>
-<div id="issues-6" class="section level2">
+<div id="issues-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-6" class="anchor"></a>Issues</h2>
+<a href="#issues-7" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix sections issue with page margin (it effected also officedown).</li>
 <li>fix issue <a href='https://github.com/davidgohel/officer/issues/320'>#320</a> (with URL encoding in .rel files).</li>
@@ -290,9 +323,9 @@
 <li>ftext with a name for chunk style is fixed</li>
 </ul>
 </div>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>New features</h2>
+<a href="#new-features-6" class="anchor"></a>New features</h2>
 <ul>
 <li>change_styles - support for run/character, paragraph and table styles.</li>
 <li>new function <code><a href="../reference/table_stylenames.html">table_stylenames()</a></code> to define columns stylenames to be used in tables, it benefits to <code>block_table</code> and <code>body_add_table</code>.</li>
@@ -306,16 +339,16 @@
 <h1 class="page-header" data-toc-text="0.3.12">
 <a href="#officer-0312" class="anchor"></a>officer 0.3.12<small> 2020-06-26 </small>
 </h1>
-<div id="new-features-6" class="section level2">
+<div id="new-features-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>New features</h2>
+<a href="#new-features-7" class="anchor"></a>New features</h2>
 <ul>
 <li>added <code>body_end_block_section</code> and <code>body_add.block_section</code> so that users are free to add any section they want</li>
 </ul>
 </div>
-<div id="issues-7" class="section level2">
+<div id="issues-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-7" class="anchor"></a>Issues</h2>
+<a href="#issues-8" class="anchor"></a>Issues</h2>
 <ul>
 <li>Use pandoc.exe when platform is windows</li>
 </ul>
@@ -325,9 +358,9 @@
 <h1 class="page-header" data-toc-text="0.3.11">
 <a href="#officer-0311" class="anchor"></a>officer 0.3.11<small> 2020-05-18 </small>
 </h1>
-<div id="issues-8" class="section level2">
+<div id="issues-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-8" class="anchor"></a>Issues</h2>
+<a href="#issues-9" class="anchor"></a>Issues</h2>
 <ul>
 <li>pandoc availability is now checked (for solaris and CRAN policy)</li>
 </ul>
@@ -337,17 +370,17 @@
 <h1 class="page-header" data-toc-text="0.3.10">
 <a href="#officer-0310" class="anchor"></a>officer 0.3.10<small> 2020-05-14 </small>
 </h1>
-<div id="new-features-7" class="section level2">
+<div id="new-features-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>New features</h2>
+<a href="#new-features-8" class="anchor"></a>New features</h2>
 <ul>
 <li>new argument <code>level_list</code> in function <code>ph_with.block_list</code> ; you can now format block_list as lists in PowerPoint.</li>
 <li>functions <code>body_add_table</code>, <code>ph_with.data.frame</code>, <code>body_add.data.frame</code> get new argument <code>alignment</code> for column alignments.</li>
 </ul>
 </div>
-<div id="issues-9" class="section level2">
+<div id="issues-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-9" class="anchor"></a>Issues</h2>
+<a href="#issues-10" class="anchor"></a>Issues</h2>
 <ul>
 <li>run_reference now bookmarks only the number.</li>
 </ul>
@@ -357,18 +390,18 @@
 <h1 class="page-header" data-toc-text="0.3.9">
 <a href="#officer-039" class="anchor"></a>officer 0.3.9<small> 2020-05-04 </small>
 </h1>
-<div id="issues-10" class="section level2">
+<div id="issues-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-10" class="anchor"></a>Issues</h2>
+<a href="#issues-11" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issues with invisible images when using ph_location_fullsize and a <em>blank</em> layout</li>
 <li>Embedded files in initial Word document were lost when they were read and printed</li>
 <li>fix run_reference issue with characters ‘-’, ’_’.</li>
 </ul>
 </div>
-<div id="new-features-8" class="section level2">
+<div id="new-features-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-8" class="anchor"></a>New features</h2>
+<a href="#new-features-9" class="anchor"></a>New features</h2>
 <ul>
 <li><p>enrich table blocks (<code><a href="../reference/block_table.html">block_table()</a></code>) with table parameters such as width, layout. See <code><a href="../reference/prop_table.html">prop_table()</a></code>.</p></li>
 <li>
@@ -378,9 +411,9 @@
 </li>
 </ul>
 </div>
-<div id="issues-11" class="section level2">
+<div id="issues-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-11" class="anchor"></a>Issues</h2>
+<a href="#issues-12" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix border issues with word paragraphs</li>
 <li>reverse changes to <code>body_add_blocks</code> and <code>body_add_gg</code> as it generated issues with cursor</li>
@@ -399,9 +432,9 @@
 <h1 class="page-header" data-toc-text="0.3.7">
 <a href="#officer-037" class="anchor"></a>officer 0.3.7<small> 2020-03-02 </small>
 </h1>
-<div id="new-features-9" class="section level2">
+<div id="new-features-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-9" class="anchor"></a>New features</h2>
+<a href="#new-features-10" class="anchor"></a>New features</h2>
 <ul>
 <li>new function <code>get_reference_value</code> to read reference template used by R Markdown.</li>
 <li>
@@ -416,9 +449,9 @@
 <li>internals ; drop Rcpp and htmltools dependencies</li>
 </ul>
 </div>
-<div id="issues-12" class="section level2">
+<div id="issues-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-12" class="anchor"></a>Issues</h2>
+<a href="#issues-13" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix ph_with.external_img <a href='https://github.com/davidgohel/officer/issues/265'>#265</a> (placeholder properties were not used)</li>
 <li>fix ph_add_text when paragraph was empty and no content was rendered</li>
@@ -445,9 +478,9 @@
 <code>id_chr</code> is now depreacted in favor of <code>id</code> in function <code>ph_remove</code>, <code>ph_slidelink</code>, <code>ph_hyperlink</code>, <code>ph_add_text</code>, <code>ph_add_par</code>, <code>ph_add_fpar</code>.</li>
 </ul>
 </div>
-<div id="issues-13" class="section level2">
+<div id="issues-14" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-13" class="anchor"></a>Issues</h2>
+<a href="#issues-14" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix ph_with.xml_document so that placeholders’ labels are not forgotten (for rvg, flextable, etc.)</li>
 <li>fix underline text issue when used with powerpoint (<a href='https://github.com/davidgohel/officer/issues/229'>#229</a>).</li>
@@ -467,9 +500,9 @@
 <li>new method <code>ph_with.xml_document</code> that will replace <code>ph_with</code> and <code>ph_with_at</code>.</li>
 </ul>
 </div>
-<div id="issues-14" class="section level2">
+<div id="issues-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-14" class="anchor"></a>Issues</h2>
+<a href="#issues-15" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix properties inheritance with <code>ph_with</code> function.</li>
 </ul>
@@ -487,9 +520,9 @@
 <li>svg support (will require rsvg package)</li>
 </ul>
 </div>
-<div id="issues-15" class="section level2">
+<div id="issues-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-15" class="anchor"></a>Issues</h2>
+<a href="#issues-16" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix <code>external_img</code> size issue with method <code>ph_with</code>.</li>
 <li>fix bg inheritance when using `ph_with functions.</li>
@@ -508,9 +541,9 @@
 <li>new function <code><a href="../reference/slide_size.html">slide_size()</a></code> provide size of slides.</li>
 </ul>
 </div>
-<div id="issues-16" class="section level2">
+<div id="issues-17" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-16" class="anchor"></a>Issues</h2>
+<a href="#issues-17" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with fonts when east asian characters are used in Word.</li>
 </ul>
@@ -529,9 +562,9 @@
 <li>fix body_add_docx examples</li>
 </ul>
 </div>
-<div id="issues-17" class="section level2">
+<div id="issues-18" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-17" class="anchor"></a>Issues</h2>
+<a href="#issues-18" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with text underlined and justified paragraphs in Word.</li>
 <li>skip errored test on macOS that can be read on CRAN check page.</li>
@@ -543,9 +576,9 @@
 <h1 class="page-header" data-toc-text="0.3.1">
 <a href="#officer-031" class="anchor"></a>officer 0.3.1<small> 2018-06-12 </small>
 </h1>
-<div id="issues-18" class="section level2">
+<div id="issues-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-18" class="anchor"></a>Issues</h2>
+<a href="#issues-19" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix function <code><a href="../reference/body_add_fpar.html">body_add_fpar()</a></code> when argument <code>style</code> was used.</li>
 <li>
@@ -570,9 +603,9 @@
 <li>PowerPoint processing optimisation when generating more than few slides.</li>
 </ul>
 </div>
-<div id="issues-19" class="section level2">
+<div id="issues-20" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-19" class="anchor"></a>Issues</h2>
+<a href="#issues-20" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix an issue with <code>layout_properties</code> when master layout is empty.</li>
 </ul>
@@ -592,9 +625,9 @@
 <li>Function annotate_base will generate a slide to identify the placeholder indexes, master names and indexes.</li>
 </ul>
 </div>
-<div id="issues-20" class="section level2">
+<div id="issues-21" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-20" class="anchor"></a>Issues</h2>
+<a href="#issues-21" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with duplicated lines in layout_properties(<a href='https://github.com/davidgohel/officer/issues/103'>#103</a>)</li>
 <li>new argument par_default in ph_add_fpar so fpar par. properties can be kept as is.</li>
@@ -606,9 +639,9 @@
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#officer-021" class="anchor"></a>officer 0.2.1<small> 2018-01-08 </small>
 </h1>
-<div id="issues-21" class="section level2">
+<div id="issues-22" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-21" class="anchor"></a>Issues</h2>
+<a href="#issues-22" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue <a href='https://github.com/davidgohel/officer/issues/97'>#97</a> with function <code><a href="../reference/pptx_summary.html">pptx_summary()</a></code>
 </li>
@@ -629,9 +662,9 @@
 <li>new functions <code>ph_with_ul()</code> to make easier production of unordered lists of text in PowerPoint</li>
 </ul>
 </div>
-<div id="issues-22" class="section level2">
+<div id="issues-23" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-22" class="anchor"></a>Issues</h2>
+<a href="#issues-23" class="anchor"></a>Issues</h2>
 <ul>
 <li>an error is raised when adding an image with blank(s) in its basename (i.e. /home/user/bla bla.png).</li>
 </ul>
@@ -641,9 +674,9 @@
 <h1 class="page-header" data-toc-text="0.1.8">
 <a href="#officer-018" class="anchor"></a>officer 0.1.8<small> 2017-10-05 </small>
 </h1>
-<div id="issues-23" class="section level2">
+<div id="issues-24" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-23" class="anchor"></a>Issues</h2>
+<a href="#issues-24" class="anchor"></a>Issues</h2>
 <ul>
 <li>decrease execution time necessary to add elements into big slide deck</li>
 <li>fix encoding issue in function "*_add_table"</li>
@@ -672,9 +705,9 @@
 <code>layout_properties</code> now returns placeholder id when available.</li>
 </ul>
 </div>
-<div id="issues-24" class="section level2">
+<div id="issues-25" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-24" class="anchor"></a>Issues</h2>
+<a href="#issues-25" class="anchor"></a>Issues</h2>
 <ul>
 <li>an error is now occurring when an incorrect index is used with ph_with_* functions.</li>
 </ul>
@@ -712,9 +745,9 @@
 <li>fp_border supports width in double precision</li>
 </ul>
 </div>
-<div id="issues-25" class="section level2">
+<div id="issues-26" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-25" class="anchor"></a>Issues</h2>
+<a href="#issues-26" class="anchor"></a>Issues</h2>
 <ul>
 <li>characters &lt;, &gt; and &amp; are now html encoded</li>
 <li>on_slide index is now the correct slide number id.</li>
@@ -733,9 +766,9 @@
 <h1 class="page-header" data-toc-text="0.1.4">
 <a href="#officer-014" class="anchor"></a>officer 0.1.4<small> 2017-06-06 </small>
 </h1>
-<div id="issues-26" class="section level2">
+<div id="issues-27" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-26" class="anchor"></a>Issues</h2>
+<a href="#issues-27" class="anchor"></a>Issues</h2>
 <ul>
 <li>
 <code>body_end_section</code> is supposed to only work with cursor on a paragraph, an error is raised now if ending a section on something else than a paragraph.</li>
@@ -760,9 +793,9 @@
 <li>new function media_extract to extract a media file from a document object. This function can be used to access images stored in a PowerPoint file.</li>
 </ul>
 </div>
-<div id="issues-27" class="section level2">
+<div id="issues-28" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-27" class="anchor"></a>Issues</h2>
+<a href="#issues-28" class="anchor"></a>Issues</h2>
 <ul>
 <li>drop magick dependence</li>
 </ul>
@@ -772,9 +805,9 @@
 <h1 class="page-header" data-toc-text="0.1.2">
 <a href="#officer-012" class="anchor"></a>officer 0.1.2<small> 2017-04-29 </small>
 </h1>
-<div id="new-features-10" class="section level2">
+<div id="new-features-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-10" class="anchor"></a>new features</h2>
+<a href="#new-features-11" class="anchor"></a>new features</h2>
 <ul>
 <li>new functions <code>docx_summary</code> and <code>pptx_summary</code> to import content of an Office document into a tidy data.frame.</li>
 <li>new function <code><a href="../reference/docx_dim.html">docx_dim()</a></code> is returning current page dimensions.</li>
@@ -783,9 +816,9 @@
 <li>Content can be inserted at any arbitrary location in PowerPoint (functions <code>ph_empty_at</code>, <code>ph_with_img_at</code> and <code>ph_with_table_at</code>).</li>
 </ul>
 </div>
-<div id="issues-28" class="section level2">
+<div id="issues-29" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-28" class="anchor"></a>Issues</h2>
+<a href="#issues-29" class="anchor"></a>Issues</h2>
 <ul>
 <li>cast all columns of data.frame as character when using ph_with_table and body_add_table</li>
 <li>fix pptx when more than 9 slides</li>
@@ -827,7 +860,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -82,7 +82,7 @@ content in an exiisting shape, existing paragraphs will be preserved." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ content in an exiisting shape, existing paragraphs will be preserved." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>append paragraph</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/ppt_ph_manipulate.R'><code>R/ppt_ph_manipulate.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/davidgohel/officer/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
     <div class="hidden name"><code>ph_add_par.Rd</code></div>
     </div>
 
@@ -173,21 +173,6 @@ formatted paragraphs.</p>
 <p>If your goal is to add formatted text in a new shape, use <code><a href='ph_with.html'>ph_with</a></code>
 with a <code><a href='block_list.html'>block_list</a></code> instead of this function.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>fileout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
-<span class='va'>default_text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fp_text.html'>fp_text</a></span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>0</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span>, color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
-
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span>, layout <span class='op'>=</span> <span class='st'>"Title and Content"</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"A text"</span>, location <span class='op'>=</span> <span class='fu'><a href='ph_location_type.html'>ph_location_type</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"body"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>ph_add_par</span><span class='op'>(</span><span class='va'>doc</span>, level <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_add_text.html'>ph_add_text</a></span><span class='op'>(</span><span class='va'>doc</span>, str <span class='op'>=</span> <span class='st'>"and another, "</span>, style <span class='op'>=</span> <span class='va'>default_text</span> <span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'>ph_add_par</span><span class='op'>(</span><span class='va'>doc</span>, level <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ph_add_text.html'>ph_add_text</a></span><span class='op'>(</span><span class='va'>doc</span>, str <span class='op'>=</span> <span class='st'>"and another!"</span>,
-              style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span><span class='op'>(</span><span class='va'>default_text</span>, color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='va'>fileout</span><span class='op'>)</span>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -200,7 +185,7 @@ with a <code><a href='block_list.html'>block_list</a></code> instead of this fun
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.4.0 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
