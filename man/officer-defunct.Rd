@@ -2,16 +2,22 @@
 % Please edit documentation in R/defunct.R
 \name{officer-defunct}
 \alias{officer-defunct}
-\alias{ph_with_gg_at}
-\alias{ph_with_table_at}
-\alias{ph_with_text}
+\alias{ph_add_text}
+\alias{ph_add_par}
+\alias{ph_add_fpar}
+\alias{slip_in_seqfield}
+\alias{slip_in_img}
 \title{Defunct Functions in Package officer}
 \usage{
-ph_with_gg_at(...)
+ph_add_text(...)
 
-ph_with_table_at(...)
+ph_add_par(...)
 
-ph_with_text(...)
+ph_add_fpar(...)
+
+slip_in_seqfield(...)
+
+slip_in_img(...)
 }
 \arguments{
 \item{...}{unused arguments}
@@ -20,9 +26,13 @@ ph_with_text(...)
 Defunct Functions in Package officer
 }
 \details{
-\code{ph_with()} is replaced by \code{ph_with.gg}.
+\code{ph_add_text()} is replaced by \code{ph_with(value = fpar(...))}.
 
-\code{ph_with_table_at()} is replaced by \code{ph_with.data.frame}.
+\code{ph_add_par()} is replaced by \code{ph_with(value = fpar(...))}.
 
-\code{ph_with_text()} is replaced by \code{ph_with.character}.
+\code{ph_add_fpar()} is replaced by \code{ph_with(value = fpar(...))}.
+
+\code{slip_in_seqfield()} is replaced by \code{run_word_field()}.
+
+\code{slip_in_img()} is replaced by \code{external_img()}.
 }

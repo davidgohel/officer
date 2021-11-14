@@ -2,26 +2,45 @@
 #' @title Defunct Functions in Package officer
 NULL
 
+
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_with()` is replaced by `ph_with.gg`.
+#' @details `ph_add_text()` is replaced by `ph_with(value = fpar(...))`.
 #' @param ... unused arguments
-ph_with_gg_at <- function(...){
+ph_add_text <- function(...){
   .Defunct("ph_with")
 }
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_with_table_at()` is replaced by `ph_with.data.frame`.
+#' @details `ph_add_par()` is replaced by `ph_with(value = fpar(...))`.
 #' @param ... unused arguments
-ph_with_table_at <- function(...){
+ph_add_par <- function(...){
   .Defunct("ph_with")
 }
 
 #' @export
 #' @rdname officer-defunct
-#' @details `ph_with_text()` is replaced by `ph_with.character`.
+#' @details `ph_add_fpar()` is replaced by `ph_with(value = fpar(...))`.
 #' @param ... unused arguments
-ph_with_text <- function(...){
+ph_add_fpar <- function(...){
   .Defunct("ph_with")
+}
+
+
+#' @export
+#' @rdname officer-defunct
+#' @details `slip_in_seqfield()` is replaced by `run_word_field()`.
+#' @param ... unused arguments
+slip_in_seqfield <- function(...){
+  .Defunct("run_word_field")
+}
+
+
+#' @export
+#' @rdname officer-defunct
+#' @details `slip_in_img()` is replaced by `external_img()`.
+#' @param ... unused arguments
+slip_in_img <- function(...){
+  .Defunct("external_img")
 }
