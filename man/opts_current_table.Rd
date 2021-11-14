@@ -44,12 +44,6 @@ The names and expected values are listed in the following sections.
 \section{knitr chunk options for table captions}{
 \tabular{lcc}{
    \strong{label} \tab \strong{name} \tab \strong{value} \cr
-   Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
-   prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
-   suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
-   title number depth \tab tab.cap.tnd \tab 0 \cr
-   separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
-   caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
    caption id/bookmark \tab tab.id \tab NULL \cr
    caption \tab tab.cap \tab NULL \cr
    display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
@@ -57,7 +51,19 @@ The names and expected values are listed in the following sections.
 }
 }
 
-\section{knitr chunk options for tables}{
+\section{knitr chunk options for Word table captions}{
+\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
+   prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
+   suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
+   title number depth \tab tab.cap.tnd \tab 0 \cr
+   separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
+   caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
+}
+}
+
+\section{knitr chunk options for Word tables}{
 \tabular{lcc}{
    \strong{label} \tab \strong{name} \tab \strong{value} \cr
    the Word stylename to use for tables \tab tab.style \tab NULL \cr

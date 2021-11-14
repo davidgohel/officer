@@ -110,6 +110,15 @@ knitr_opts_current <- function(x, default = FALSE){
 #'
 #' @section knitr chunk options for table captions:
 #'
+#' | **label**                                        |    **name**     | **value**  |
+#' |:-------------------------------------------------|:---------------:|:----------:|
+#' | caption id/bookmark                              | tab.id          |    NULL    |
+#' | caption                                          | tab.cap         |    NULL    |
+#' | display table caption on top of the table or not | tab.topcaption  |    TRUE    |
+#' | caption table sequence identifier.               | tab.lp          |   "tab:"   |
+#'
+#' @section knitr chunk options for Word table captions:
+#'
 #' | **label**                                               |    **name**     | **value**                 |
 #' |:--------------------------------------------------------|:---------------:|:-------------------------:|
 #' | Word stylename to use for table captions.               | tab.cap.style   |            NULL           |
@@ -118,12 +127,8 @@ knitr_opts_current <- function(x, default = FALSE){
 #' | title number depth                                      | tab.cap.tnd     |              0            |
 #' | separator to use between title number and table number. | tab.cap.tns     |             "-"           |
 #' | caption prefix formatting properties                    | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
-#' | caption id/bookmark                                     | tab.id          |          NULL             |
-#' | caption                                                 | tab.cap         |          NULL             |
-#' | display table caption on top of the table or not        | tab.topcaption  |          TRUE             |
-#' | caption table sequence identifier.                      | tab.lp          |         "tab:"            |
 #'
-#' @section knitr chunk options for tables:
+#' @section knitr chunk options for Word tables:
 #'
 #' | **label**                                                     |    **name**  | **value**  |
 #' |:--------------------------------------------------------------|:------------:|:----------:|
