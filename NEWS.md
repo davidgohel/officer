@@ -21,7 +21,7 @@ in function `opts_current_table()`.
 
 ## Deprecation 
 
-* deprecate `slip_in*()` and `ph_add*()` functions. Functions `ftext()` and related 
+* deprecate almost all `slip_in*()` and `ph_add*()` functions. Functions `ftext()` and related 
 used with `fpar()` are to be used as replacement.
 
 # officer 0.4.0
