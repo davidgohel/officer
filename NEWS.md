@@ -18,6 +18,7 @@ title number (i.e. 4.3-2 for figure 2 of chapter 4.3).
 will be interpreted as 'no bullet'.
 * add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
 in function `opts_current_table()`.
+* add ph_with method for tables from package gt.
 
 ## Deprecation 
 
