@@ -360,6 +360,43 @@ ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...){
   ph_with(x, ext_img, location = location, alt_text = alt_text )
 }
 
+
+#' @export
+#' @describeIn ph_with add a gt object to a new shape on the
+#' current slide.
+#' @param res resolution of the png image in ppi
+#' @param alt_text Alt-text for screen-readers
+#' @param zoom Zoom factor, passed to gtsave
+#' @param true_height if FALSE (default) the table is stretched vertically to the location size, if TRUE the aspect ratio if kept (requires the png package)
+ph_with.gt_tbl <- function(x, value, location, alt_text, res = 300, zoom = 1, true_height = FALSE, ...){
+  location_ <- fortify_location(location, doc = x)
+  slide <- x$slide$get_slide(x$cursor)
+  if( !requireNamespace("gt") )
+    stop("package gt is required to use this function")
+
+  slide <- x$slide$get_slide(x$cursor)
+  width <- location_$width
+  height <- location_$height
+
+  stopifnot(inherits(value, "gt_tbl") )
+  file <- tempfile(fileext = ".png")
+  gt::gtsave(value, filename = file, vwidth = width*res, zoom = zoom)
+  on.exit(unlink(file))
+
+
+  # browser()
+  ## Corrects height for ture size of table, using the png package, maybe other ways to do it
+  if(true_height) {
+    if( !requireNamespace("png") )  stop("package png is required for true_height to be TRUE")
+    res_height = dim(png::readPNG(file))[1]/res
+  } else {
+    res_height = height
+  }
+
+  ext_img <- external_img(file, width = width, height = res_height)
+  ph_with(x, ext_img, location = location, alt_text = alt_text, use_loc_size = FALSE)
+}
+
 #' @export
 #' @describeIn ph_with add an R plot to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.

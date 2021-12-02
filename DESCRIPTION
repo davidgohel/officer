@@ -33,5 +33,5 @@ Roxygen: list(markdown = TRUE)
 Suggests: testthat, devEMF, ggplot2,
     rmarkdown,
     base64enc,
-    knitr, rsvg
+    knitr, rsvg, gt, png
 VignetteBuilder: knitr

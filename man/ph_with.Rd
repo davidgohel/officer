@@ -10,6 +10,7 @@
 \alias{ph_with.unordered_list}
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
+\alias{ph_with.gt_tbl}
 \alias{ph_with.plot_instr}
 \alias{ph_with.external_img}
 \alias{ph_with.fpar}
@@ -42,6 +43,17 @@ ph_with(x, value, location, ...)
 )
 
 \method{ph_with}{gg}(x, value, location, res = 300, alt_text, scale = 1, ...)
+
+\method{ph_with}{gt_tbl}(
+  x,
+  value,
+  location,
+  alt_text,
+  res = 300,
+  zoom = 1,
+  true_height = FALSE,
+  ...
+)
 
 \method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
 
@@ -90,6 +102,10 @@ and 'c' for center. Default to NULL.}
 
 \item{scale}{Multiplicative scaling factor, same as in ggsave}
 
+\item{zoom}{Zoom factor, passed to gtsave}
+
+\item{true_height}{if FALSE (default) the table is stretched vertically to the location size, if TRUE the aspect ratio if kept (requires the png package)}
+
 \item{use_loc_size}{if set to FALSE, external_img width and height will
 be used.}
 }
@@ -123,6 +139,9 @@ advanced formattings.
 
 \item \code{gg}: add a ggplot object to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
+
+\item \code{gt_tbl}: add a gt object to a new shape on the
+current slide.
 
 \item \code{plot_instr}: add an R plot to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
