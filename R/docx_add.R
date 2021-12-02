@@ -579,6 +579,7 @@ body_remove <- function(x){
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{body_add_doc_1.png}{options: width=70\%}}
+#' @keywords internal
 body_add <- function(x, value, ...){
   UseMethod("body_add", value)
 }

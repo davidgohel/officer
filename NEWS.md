@@ -1,3 +1,29 @@
+# officer 0.4.1
+
+## Issues
+
+* fix a bug in `ph_with.external_img()` that could be seen when `alt_text` was null
+* change default value for `tab.cap.sep` from ":" to ": "
+* fix an issue with `body_end_section_columns()` that is expected as 'continuous'.
+
+## New features
+
+* new parameter `scale` added to `ph_with.gg`, `body_add_gg` and `body_add.gg` 
+to set the scale of ggplot outputs (like in ggsave).
+* new function `set_autonum_bookmark()` to recycle an object 
+made by `run_autonum()` by changing the bookmark value.
+* add `tnd` argument to prefix a autonumber with the 
+title number (i.e. 4.3-2 for figure 2 of chapter 4.3).
+* `unordered_list()` now supports `level_list` < 1 which 
+will be interpreted as 'no bullet'.
+* add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
+in function `opts_current_table()`.
+
+## Deprecation 
+
+* deprecate almost all `slip_in*()` and `ph_add*()` functions. Functions `ftext()` and related 
+used with `fpar()` are to be used as replacement.
+
 # officer 0.4.0
 
 ## New features

@@ -11,7 +11,9 @@ run_autonum(
   bkm = NULL,
   bkm_all = FALSE,
   prop = NULL,
-  start_at = NULL
+  start_at = NULL,
+  tnd = 0,
+  tns = "-"
 )
 }
 \arguments{
@@ -33,6 +35,15 @@ text).}
 \item{start_at}{If not NULL, it must be a positive integer, it
 specifies the new number to use, at which number the auto
 numbering will restart.}
+
+\item{tnd}{\emph{title number depth}, a positive integer (only applies if positive)
+that specify the depth (or heading of level \emph{depth}) to use for prefixing
+the caption number with this last reference number. For example, setting
+\code{tnd=2} will generate numbered captions like '4.3-2' (figure 2 of
+chapter 4.3).}
+
+\item{tns}{separator to use between title number and table
+number. Default is "-".}
 }
 \description{
 Create an autonumbered chunk, i.e. a string
@@ -52,6 +63,8 @@ officedown.
 run_autonum()
 run_autonum(seq_id = "fig", pre_label = "fig. ")
 run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
+run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable",
+  tnd = 2, tns= " ")
 }
 \seealso{
 Other run functions for reporting: 

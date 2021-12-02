@@ -9,7 +9,8 @@ unordered_list(str_list = character(0), level_list = integer(0), style = NULL)
 \arguments{
 \item{str_list}{list of strings to be included in the object}
 
-\item{level_list}{list of levels for hierarchy structure}
+\item{level_list}{list of levels for hierarchy structure. Use
+0 for 'no bullet', 1 for level 1, 2 for level 2 and so on.}
 
 \item{style}{text style, a \code{fp_text} object list or a
 single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to

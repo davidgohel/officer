@@ -8,8 +8,6 @@ officer R package
 [![R build
 status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
-[![codecov test
-coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://codecov.io/gh/davidgohel/officer)
 
 <a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
 The officer package lets R users manipulate Word (`.docx`) and

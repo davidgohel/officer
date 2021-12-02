@@ -12,6 +12,9 @@ a list with following elements:
 \item cap.style (default: NULL)
 \item cap.pre (default: "Table ")
 \item cap.sep (default: ":")
+\item cap.tnd (default: 0)
+\item cap.tns (default: "-")
+\item cap.fp_text (default: \code{fp_text_lite(bold = TRUE)})
 \item id (default: NULL)
 \item cap (default: NULL)
 \item topcaption (default: TRUE)
@@ -34,12 +37,59 @@ It should not be used by the end user.
 The function is a utility to facilitate the retrieval of table
 options supported by the 'flextable', 'officedown' and of
 course 'officer' packages.
+
+These options should be set with \code{knitr::opts_chunk$set()}.
+The names and expected values are listed in the following sections.
 }
+\section{knitr chunk options for table captions}{
+\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   caption id/bookmark \tab tab.id \tab NULL \cr
+   caption \tab tab.cap \tab NULL \cr
+   display table caption on top of the table or not \tab tab.topcaption \tab TRUE \cr
+   caption table sequence identifier. \tab tab.lp \tab "tab:" \cr
+}
+}
+
+\section{knitr chunk options for Word table captions}{
+\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   Word stylename to use for table captions. \tab tab.cap.style \tab NULL \cr
+   prefix for numbering chunk (default to   "Table "). \tab tab.cap.pre \tab Table \cr
+   suffix for numbering chunk (default to   ": "). \tab tab.cap.sep \tab " :" \cr
+   title number depth \tab tab.cap.tnd \tab 0 \cr
+   separator to use between title number and table number. \tab tab.cap.tns \tab "-" \cr
+   caption prefix formatting properties \tab tab.cap.fp_text \tab fp_text_lite(bold = TRUE) \cr
+}
+}
+
+\section{knitr chunk options for Word tables}{
+\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   the Word stylename to use for tables \tab tab.style \tab NULL \cr
+   autofit' or 'fixed' algorithm. \tab tab.layout \tab "autofit" \cr
+   value of the preferred width of the table in percent (base 1). \tab tab.width \tab 1 \cr
+}
+}
+
+\section{knitr chunk options for data.frame with officedown}{
+\tabular{lcc}{
+   \strong{label} \tab \strong{name} \tab \strong{value} \cr
+   apply or remove formatting from the first row in the table \tab first_row \tab TRUE \cr
+   apply or remove formatting from the first column in the table \tab first_column \tab FALSE \cr
+   apply or remove formatting from the last row in the table \tab last_row \tab FALSE \cr
+   apply or remove formatting from the last column in the table \tab last_column \tab FALSE \cr
+   don't display odd and even rows \tab no_hband \tab TRUE \cr
+   don't display odd and even columns \tab no_vband \tab TRUE \cr
+}
+}
+
 \seealso{
 Other functions for officer extensions: 
 \code{\link{docx_reference_img}()},
 \code{\link{fortify_location}()},
 \code{\link{get_reference_value}()},
+\code{\link{to_html}()},
 \code{\link{to_pml}()},
 \code{\link{to_wml}()},
 \code{\link{wml_link_images}()}

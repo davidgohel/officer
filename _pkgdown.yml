@@ -46,7 +46,6 @@ reference:
     - body_add_plot
     - body_end_block_section
     - body_set_default_section
-    - starts_with("body_end_section_")
   - title: Word sections
     contents:
     - prop_section

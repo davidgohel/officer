@@ -169,3 +169,4 @@ doc_1 <- body_add(doc_1,
 print(doc_1, target = tempfile(fileext = ".docx"))
 # print(doc_1, target = "test.docx")
 }
+\keyword{internal}

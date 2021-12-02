@@ -10,56 +10,12 @@
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
 slip_in_column_break <- function( x, pos = "before" ){
+  .Deprecated("slip_in_xml()")
   xml_elt <- paste0( wr_ns_yes, "<w:br w:type=\"column\"/>", "</w:r>")
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
 
 
-#' @export
-#' @title append seq field
-#' @description append seq field into a paragraph of an rdocx object.
-#' This feature is only available when document are edited with Word,
-#' when edited with Libre Office or another program, seq field will not
-#' be calculated and not displayed.
-#'
-#' This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
-#' formatted paragraphs.
-#' @param x an rdocx object
-#' @param str seq field value
-#' @param style text style
-#' @param pos where to add the new element relative to the cursor,
-#' "after" or "before".
-slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
-
-  if( is.null(style) )
-    style <- x$default_styles$character
-
-  style_id <- get_style_id(data = x$styles, style=style, type = "character")
-  xml_elt_1 <- paste0(wr_ns_yes,
-                      "<w:rPr/>",
-                      "<w:fldChar w:fldCharType=\"begin\"/>",
-                      "</w:r>")
-  xml_elt_2 <- paste0(wr_ns_yes,
-                      "<w:rPr/>",
-                      sprintf("<w:instrText xml:space=\"preserve\">%s</w:instrText>", str ),
-                      "</w:r>")
-  xml_elt_3 <- paste0(wr_ns_yes,
-                      "<w:rPr/>",
-                      "<w:fldChar w:fldCharType=\"end\"/>",
-                      "</w:r>")
-
-  if( pos == "after"){
-    slip_in_xml(x = x, str = xml_elt_1, pos = pos)
-    slip_in_xml(x = x, str = xml_elt_2, pos = pos)
-    slip_in_xml(x = x, str = xml_elt_3, pos = pos)
-  } else {
-    slip_in_xml(x = x, str = xml_elt_3, pos = pos)
-    slip_in_xml(x = x, str = xml_elt_2, pos = pos)
-    slip_in_xml(x = x, str = xml_elt_1, pos = pos)
-  }
-
-}
 
 #' @export
 #' @title append text
@@ -75,7 +31,7 @@ slip_in_seqfield <- function( x, str, style = NULL, pos = "after" ){
 #' "after" or "before".
 #' @param hyperlink turn the text into an external hyperlink
 slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL ){
-
+  .Deprecated("slip_in_xml()")
   if( is.null(style) )
     style <- x$default_styles$character
 
@@ -102,46 +58,6 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 
   slip_in_xml(x = x, str = xml_elt, pos = pos)
 }
-
-
-
-
-#' @export
-#' @title append an image
-#' @description append an image into a paragraph of an rdocx object.
-#'
-#' This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
-#' formatted paragraphs.
-#' @param x an rdocx object
-#' @param src image filename, the basename of the file must not contain any blank.
-#' @param style text style
-#' @param width height in inches
-#' @param height height in inches
-#' @param pos where to add the new element relative to the cursor,
-#' "after" or "before".
-slip_in_img <- function( x, src, style = NULL, width, height, pos = "after" ){
-
-  if( is.null(style) )
-    style <- x$default_styles$character
-
-  new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src) )
-  file.copy( src, to = new_src )
-
-  style_id <- get_style_id(data = x$styles, style=style, type = "character")
-
-  ext_img <- external_img(new_src, width = width, height = height)
-  xml_elt <- to_wml(ext_img)
-  xml_elt <- paste0(wp_ns_yes, "<w:pPr/>", xml_elt, "</w:p>")
-
-  drawing_node <- xml_find_first(as_xml_document(xml_elt), "//w:r/w:drawing")
-
-  wml_ <- paste0(wr_ns_yes, "<w:rPr><w:rStyle w:val=\"%s\"/></w:rPr>%s</w:r>")
-  xml_elt <- sprintf(wml_, style_id, as.character(drawing_node) )
-
-  slip_in_xml(x = x, str = xml_elt, pos = pos)
-}
-
 
 #' @export
 #' @title add a wml string into a Word document

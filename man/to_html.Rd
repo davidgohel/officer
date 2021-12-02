@@ -15,4 +15,15 @@ to_html(x, ...)
 Convert an object made with package officer
 to HTML. The result is a string.
 }
+\seealso{
+Other functions for officer extensions: 
+\code{\link{docx_reference_img}()},
+\code{\link{fortify_location}()},
+\code{\link{get_reference_value}()},
+\code{\link{opts_current_table}()},
+\code{\link{to_pml}()},
+\code{\link{to_wml}()},
+\code{\link{wml_link_images}()}
+}
+\concept{functions for officer extensions}
 \keyword{internal}

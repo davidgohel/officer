@@ -1029,7 +1029,8 @@ to_html.block_list <- function(x, add_ns = FALSE, ...) {
 #' presentations. Each text is associated with
 #' a hierarchy level.
 #' @param str_list list of strings to be included in the object
-#' @param level_list list of levels for hierarchy structure
+#' @param level_list list of levels for hierarchy structure. Use
+#' 0 for 'no bullet', 1 for level 1, 2 for level 2 and so on.
 #' @param style text style, a \code{fp_text} object list or a
 #' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
 #' inherit from default sizes of the presentation.
@@ -1088,10 +1089,11 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
     style_str <- sapply(x$style, format, type = "pml")
     style_str <- rep_len(style_str, length.out = length(x$str))
   } else style_str <- rep("<a:rPr/>", length(x$str))
-  tmpl <- "%s<a:pPr%s/><a:r>%s<a:t>%s</a:t></a:r></a:p>"
+  tmpl <- "%s<a:pPr%s>%s</a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p>"
   lvl <- sprintf(" lvl=\"%.0f\"", x$lvl - 1)
   lvl <- ifelse(x$lvl > 1, lvl, "")
-  p <- sprintf(tmpl, open_tag, lvl, style_str, htmlEscapeCopy(x$str) )
+  bu_none <- ifelse(x$lvl < 1, "<a:buNone/>", "")
+  p <- sprintf(tmpl, open_tag, lvl, bu_none, style_str, htmlEscapeCopy(x$str) )
   p <- paste(p, collapse = "")
   p
 }

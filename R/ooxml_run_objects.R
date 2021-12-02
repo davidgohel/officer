@@ -32,6 +32,7 @@ to_pml <- function(x, add_ns = FALSE, ...) {
 #' to HTML. The result is a string.
 #' @param x object
 #' @param ... Arguments to be passed to methods
+#' @family functions for officer extensions
 #' @keywords internal
 to_html <- function(x, ...) {
   UseMethod("to_html")
@@ -194,15 +195,25 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 #' @param start_at If not NULL, it must be a positive integer, it
 #' specifies the new number to use, at which number the auto
 #' numbering will restart.
+#' @param tnd *title number depth*, a positive integer (only applies if positive)
+#' that specify the depth (or heading of level *depth*) to use for prefixing
+#' the caption number with this last reference number. For example, setting
+#' `tnd=2` will generate numbered captions like '4.3-2' (figure 2 of
+#' chapter 4.3).
+#' @param tns separator to use between title number and table
+#' number. Default is "-".
 #' @examples
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
 #' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
+#' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable",
+#'   tnd = 2, tns= " ")
 #' @family run functions for reporting
 #' @family Word computed fields
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
                         bkm = NULL, bkm_all = FALSE, prop = NULL,
-                        start_at = NULL) {
+                        start_at = NULL,
+                        tnd = 0, tns = "-") {
   bkm <- check_bookmark_id(bkm)
   z <- list(
     seq_id = seq_id,
@@ -211,11 +222,32 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
     bookmark = bkm,
     bookmark_all = bkm_all,
     pr = prop,
-    start_at = start_at
+    start_at = start_at,
+    tnd = tnd, tns = tns
   )
   class(z) <- c("run_autonum", "run")
 
   z
+}
+
+#' @export
+#' @title update bookmark of an autonumber run
+#' @description This function lets recycling a object
+#' made by [run_autonum()] by changing the bookmark value. This
+#' is useful to avoid calling `run_autonum()` several times
+#' because of many tables.
+#' @param x an object of class [run_autonum()]
+#' @param bkm bookmark id to associate with autonumber run.
+#' Value can only be made of alpha numeric characters, ':', -' and '_'.
+#' @examples
+#' z <- run_autonum(seq_id = "tab", pre_label = "Table ",
+#'   bkm = "anytable")
+#' set_autonum_bookmark(z, bkm = "anothertable")
+#' @seealso [run_autonum()]
+set_autonum_bookmark <- function(x, bkm = NULL){
+  stopifnot(inherits(x, "run_autonum"))
+  x$bookmark <- bkm
+  x
 }
 
 #' @export
@@ -225,7 +257,7 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
 
   run_str_pre <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$pre_label)
-  run_str_post <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$post_label)
+  run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
 
   seq_str <- paste0("SEQ ", x$seq_id, " \u005C* Arabic")
   if(!is.null(x$start_at) && is.numeric(x$start_at)){
@@ -234,6 +266,16 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 
   sqf <- run_word_field(seqfield = seq_str, prop = x$pr)
   sf_str <- to_wml(sqf)
+
+  if(x$tnd > 0){
+    z <- paste0(
+      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
+      to_wml(ftext(x$tns, prop = x$pr))
+    )
+    sf_str <- paste0(z, sf_str)
+  }
+
+
   if(!is.null(x$bookmark)){
     if(x$bookmark_all){
       out <- paste0(
@@ -652,7 +694,7 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
     ">",
     if(!is.null(x$page_margins)) to_wml(x$page_margins),
     if(!is.null(x$page_size)) to_wml(x$page_size),
-    if(!is.null(x$type)) "<w:type w:val=\"", x$type, "\"/>",
+    if(!is.null(x$type)) paste0("<w:type w:val=\"", x$type, "\"/>"),
     if(!is.null(x$section_columns)) to_wml(x$section_columns) else "<w:cols/>",
     "</w:sectPr>"
   )
@@ -710,7 +752,7 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
 
   bg_str <- solid_fill_pml(bg)
 
-  if (missing(alt_text)) alt_text <- ""
+  if (missing(alt_text) || is.null(alt_text)) alt_text <- ""
 
 
   xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
