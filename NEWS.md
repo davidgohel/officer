@@ -1,3 +1,9 @@
+# officer 0.4.2.001
+
+## New features
+* add ph_with method for tables from package gt.
+
+
 # officer 0.4.1
 
 ## Issues
@@ -18,7 +24,6 @@ title number (i.e. 4.3-2 for figure 2 of chapter 4.3).
 will be interpreted as 'no bullet'.
 * add support to knitr table options `tab.cap.fp_text` to let format caption prefix 
 in function `opts_current_table()`.
-* add ph_with method for tables from package gt.
 
 ## Deprecation 
 
@@ -36,8 +41,6 @@ Function `fp_text()` has also been adapted, it now supports NA meaning
 to not write the attributes as in `fp_text_lite()`.
 * new function `run_footnote` to add footnotes in a Word document (it 
 also makes possible to deprecate totally slip_in* functions).
-* new parameter `scale` added to `ph_with.gg`, `body_add_gg` and `body_add.gg` 
-to set the scale of ggplot outputs (like in ggsave).
 
 ## Issues
 
