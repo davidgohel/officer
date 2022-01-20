@@ -13,6 +13,11 @@
 #'   cells with the value.
 #' @return A matrix with the data, or if \code{slide_id=NULL}, a list of
 #'   matrices
+#' @examples
+#' library(officer)
+#' pptx_file <- system.file(package="officer", "doc_examples", "example.pptx")
+#' z <- read_pptx(pptx_file)
+#' as.matrix(z, slide_id = NULL)
 #' @export
 as.matrix.rpptx <- function(x, ..., slide_id=NA_integer_, id=NA_character_, span=c(NA_character_, "fill")) {
   span <- match.arg(span)

@@ -37,3 +37,9 @@ matrices
 Convert the data in an a powerpoint table to a matrix (or all data to a list
 of matrices)
 }
+\examples{
+library(officer)
+pptx_file <- system.file(package="officer", "doc_examples", "example.pptx")
+z <- read_pptx(pptx_file)
+as.matrix(z, slide_id = NULL)
+}
