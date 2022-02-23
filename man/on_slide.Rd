@@ -33,6 +33,7 @@ print(doc, target = file )
 \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=ph_with]{ph_with()}}
 
 Other functions slide manipulation: 
+\code{\link{add_notes}()},
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},
 \code{\link{remove_slide}()}

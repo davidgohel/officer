@@ -42,6 +42,14 @@ content_type <- R6Class(
       private$override <- override
       self
     },
+    add_notesSlide = function(partname){
+      partname <- basename(partname)
+      partname <- file.path("/ppt", "notesSlides", partname )
+      content_type <- setNames("application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml", partname )
+      override <- c( private$override, content_type )
+      private$override <- override
+      self
+    },
     add_override = function(value){
       override <- c( private$override, value )
       private$override <- override

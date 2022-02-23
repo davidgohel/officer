@@ -21,7 +21,6 @@ add_slide <- function( x, layout = "Title and Content", master = "Office Theme" 
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
-  xml_layout <- file.path(x$package_dir, "ppt/slideLayouts", slide_info$filename)
   layout_obj <- x$slideLayouts$collection_get(slide_info$filename)
   layout_obj$write_template(xml_file)
 

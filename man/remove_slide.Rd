@@ -26,6 +26,7 @@ my_pres <- remove_slide(my_pres)
 \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=ph_remove]{ph_remove()}}
 
 Other functions slide manipulation: 
+\code{\link{add_notes}()},
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},
 \code{\link{on_slide}()}

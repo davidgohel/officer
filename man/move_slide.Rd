@@ -31,6 +31,7 @@ x <- move_slide(x, index = 1, to = 2)
 \code{\link[=read_pptx]{read_pptx()}}
 
 Other functions slide manipulation: 
+\code{\link{add_notes}()},
 \code{\link{add_slide}()},
 \code{\link{on_slide}()},
 \code{\link{remove_slide}()}

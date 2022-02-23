@@ -26,6 +26,7 @@ my_pres <- add_slide(my_pres,
 \code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=layout_summary]{layout_summary()}}
 
 Other functions slide manipulation: 
+\code{\link{add_notes}()},
 \code{\link{move_slide}()},
 \code{\link{on_slide}()},
 \code{\link{remove_slide}()}
