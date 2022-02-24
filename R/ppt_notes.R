@@ -162,7 +162,13 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' @title add notes to a slide
 #' @description add speaker notes to a slide in a pptx presentation
 #' @param x an rpptx object
-#' @seealso [print.rpptx()], [read_pptx()], [add_slide()]
+#' @param value text to be added to notes
+#' @param location a placeholder location object.
+#' It will be used to specify the location of the new shape. This location
+#' can be defined with a call to one of the notes_ph functions. See
+#' section \code{"see also"}.
+#' @param ... further arguments passed to or from other methods.
+#' @seealso [print.rpptx()], [read_pptx()], [add_slide()], [notes_ph_label()], [notes_ph_type()]
 #' @family functions slide manipulation
 add_notes <- function(x, value, location, ...){
   UseMethod("add_notes", value)

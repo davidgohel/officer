@@ -11,6 +11,15 @@ add_notes(x, value, location, ...)
 }
 \arguments{
 \item{x}{an rpptx object}
+
+\item{value}{text to be added to notes}
+
+\item{location}{a placeholder location object.
+It will be used to specify the location of the new shape. This location
+can be defined with a call to one of the notes_ph functions. See
+section \code{"see also"}.}
+
+\item{...}{further arguments passed to or from other methods.}
 }
 \description{
 add speaker notes to a slide in a pptx presentation
@@ -22,7 +31,7 @@ current slide, values will be added as paragraphs.
 }}
 
 \seealso{
-\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=add_slide]{add_slide()}}
+\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=add_slide]{add_slide()}}, \code{\link[=notes_ph_label]{notes_ph_label()}}, \code{\link[=notes_ph_type]{notes_ph_type()}}
 
 Other functions slide manipulation: 
 \code{\link{add_slide}()},
