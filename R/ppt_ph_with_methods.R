@@ -140,11 +140,14 @@ ph_with.character <- function(x, value, location, ...){
   new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg)
+               rot = location$rotation, bg = location$bg,
+               ln = location$ln, geom = location$geom)
+
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( psp_ns_yes, new_ph,
+  xml_elt <- sprintf(paste0( psp_ns_yes, new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" )
+                     pars, "</p:txBody></p:sp>" ))
+
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
@@ -166,7 +169,8 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
   new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg)
+               rot = location$rotation, bg = location$bg,
+               ln = location$ln, geom = location$geom)
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
   xml_elt <- paste0( psp_ns_yes, new_ph,
@@ -192,7 +196,8 @@ ph_with.factor <- function(x, value, location, ...){
   new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg)
+               rot = location$rotation, bg = location$bg,
+               ln = location$ln, geom = location$geom)
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
   xml_elt <- paste0( psp_ns_yes, new_ph,
@@ -257,11 +262,13 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
   new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg)
+               rot = location$rotation, bg = location$bg,
+               ln = location$ln, geom = location$geom)
 
-  xml_elt <- paste0( psp_ns_yes, new_ph,
-                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" )
+  xml_elt <- sprintf(paste0( psp_ns_yes, new_ph,
+                             "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                             pars, "</p:txBody></p:sp>" ))
+
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
@@ -283,7 +290,8 @@ ph_with.unordered_list <- function(x, value, location, ...){
   new_ph <- sh_props_pml(left = location$left, top = location$top,
                width = location$width, height = location$height,
                label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg)
+               rot = location$rotation, bg = location$bg,
+               ln = location$ln, geom = location$geom)
 
   xml_elt <- paste0( psp_ns_yes, new_ph,
           "<p:txBody><a:bodyPr/><a:lstStyle/>", p, "</p:txBody></p:sp>" )
@@ -324,7 +332,8 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
     bt, left = location$left, top = location$top,
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
-    rot = location$rotation, bg = location$bg)
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom)
 
   value <- as_xml_document(xml_elt)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
@@ -472,7 +481,8 @@ ph_with.empty_content <- function( x, value, location, ... ){
   new_ph <- sh_props_pml(left = location$left, top = location$top,
                        width = location$width, height = location$height,
                        label = location$ph_label, ph = location$ph,
-                       rot = location$rotation, bg = location$bg)
+                       rot = location$rotation, bg = location$bg,
+                       ln = location$ln, geom = location$geom)
   xml_elt <- paste0( psp_ns_yes, new_ph, "</p:sp>" )
   node <- as_xml_document(xml_elt)
 
