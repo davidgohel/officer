@@ -7,14 +7,14 @@
 media_extract(x, path, target)
 }
 \arguments{
-\item{x}{an rpptx object or an rdocx object}
+\item{x}{an rpptx object}
 
 \item{path}{media path, should be a relative path}
 
 \item{target}{target file}
 }
 \description{
-Extract files from an \code{rdocx} or \code{rpptx} object.
+Extract files from a \code{rpptx} object.
 }
 \examples{
 example_pptx <- system.file(package = "officer",
