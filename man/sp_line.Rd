@@ -13,8 +13,8 @@ sp_line(
   linecmpd = "sng",
   lineend = "rnd",
   linejoin = "round",
-  headend = sp_lineend(),
-  tailend = sp_lineend()
+  headend = sp_lineend(type = "none"),
+  tailend = sp_lineend(type = "none")
 )
 
 \method{print}{sp_line}(x, ...)
