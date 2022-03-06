@@ -12,6 +12,8 @@ ph_location(
   newlabel = "",
   bg = NULL,
   rotation = NULL,
+  ln = NULL,
+  geom = NULL,
   ...
 )
 }
@@ -24,6 +26,10 @@ in inches.}
 \item{bg}{background color}
 
 \item{rotation}{rotation angle}
+
+\item{ln}{a \code{sp_line} object specifying the outline style.}
+
+\item{geom}{shape geometry}
 
 \item{...}{unused arguments}
 }

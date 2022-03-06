@@ -77,6 +77,8 @@ fortify_location <- function( x, doc, ... ){
 #' @param newlabel a label for the placeholder. See section details.
 #' @param bg background color
 #' @param rotation rotation angle
+#' @param ln a \code{sp_line} object specifying the outline style.
+#' @param geom shape geometry
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @details
@@ -105,11 +107,11 @@ fortify_location <- function( x, doc, ... ){
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         newlabel = "",
                         bg = NULL, rotation = NULL,
+                        ln = NULL, geom = NULL,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation)
-
+    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom)
 
   class(x) <- c("location_manual", "location_str")
   x
