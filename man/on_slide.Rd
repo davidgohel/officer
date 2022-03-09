@@ -35,6 +35,7 @@ print(doc, target = file )
 Other functions slide manipulation: 
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},
-\code{\link{remove_slide}()}
+\code{\link{remove_slide}()},
+\code{\link{set_notes}()}
 }
 \concept{functions slide manipulation}

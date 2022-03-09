@@ -50,6 +50,8 @@ read_pptx <- function( path = NULL ){
                                       master_xfrm = obj$masterLayouts$xfrm() )
 
   obj$slide <- dir_slide$new( package_dir, obj$slideLayouts$get_xfrm_data() )
+  obj$notesSlide <- dir_notesSlide$new(package_dir)
+  obj$notesMaster <- dir_notesMaster$new(package_dir, slide_master$new("ppt/notesMasters"))
   obj$content_type <- content_type$new( package_dir )
   obj$core_properties <- read_core_properties(package_dir)
 
@@ -104,6 +106,8 @@ print.rpptx <- function(x, target = NULL, ...){
   x$content_type$save()
 
   x$slide$save_slides()
+
+  x$notesSlide$save_slides()
 
   x$core_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$core_properties['lastModifiedBy','value'] <- Sys.getenv("USER")

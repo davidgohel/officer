@@ -201,3 +201,114 @@ dir_master <- R6Class(
   )
 )
 
+# dir_notesMaster ---------------------------------------------------------
+
+dir_notesMaster <- R6Class(
+  "dir_notesMaster",
+  inherit = dir_collection,
+  public = list(
+
+    get_metadata = function( ){
+      unames <- sapply(private$collection, function(x) x$name())
+      ufnames <- sapply(private$collection, function(x) x$file_name())
+      data.frame(stringsAsFactors = FALSE, master_name = unames, filename = ufnames)
+    },
+
+    add_notesMaster = function(file){
+
+      nmaster <- slide_master$new("ppt/notesMasters")
+      nmaster$feed(file)
+
+      collect <- private$collection
+      new_elt <- list(nmaster)
+      names(new_elt) <- basename(file)
+      collect <- append(collect, new_elt)
+
+      sl_id <- as.integer( gsub( "(notesMaster)([0-9]+)(\\.xml)$", "\\2", names(collect) ) )
+      private$collection <- collect[order(sl_id)]
+
+      self
+    }
+
+  )
+)
+
+
+# dir_notesSlide ---------------------------------------------------------
+dir_notesSlide <- R6Class(
+  "dir_notesSlide",
+  inherit = dir_collection,
+  public = list(
+
+    initialize = function( package_dir ) {
+      super$initialize(package_dir, notesSlide$new("ppt/notesSlides"))
+
+
+    },
+
+    add_slide = function(slide_file){
+
+      nslide <- notesSlide$new("ppt/notesSlides")
+      nslide$feed(slide_file)
+
+      collect <- private$collection
+      new_elt <- list(nslide)
+      names(new_elt) <- basename(slide_file)
+      collect <- append(collect, new_elt)
+
+      sl_id <- as.integer( gsub( "(notesSlide)([0-9]+)(\\.xml)$", "\\2", names(collect) ) )
+      private$collection <- collect[order(sl_id)]
+
+      self
+    },
+    slide_index = function( name ){
+      which( names(private$collection) %in% name )
+    },
+
+    remove_slide = function(index ){
+      slide_obj <- private$collection[[index]]
+      private$collection <- private$collection[-index]
+      slide_obj$remove()
+    },
+
+    save_slides = function(){
+      lapply( private$collection, function(x){
+        x$save()
+      } )
+      self
+    },
+
+
+    get_slide = function(id){
+      l_ <- self$length()
+      if( is.null(id) || !between(id, 1, l_ ) ){
+        stop("unvalid id ", id, " (", l_," slide(s))", call. = FALSE)
+      }
+      private$collection[[id]]
+    },
+
+    get_metadata = function(){
+      super$get_metadata()
+    },
+
+    length = function(){
+      length(private$collection)
+    },
+
+    get_new_slidename = function(){
+      slide_dir <- file.path(private$package_dir, "ppt/notesSlides")
+      if( !file.exists(slide_dir)){
+        dir.create(file.path(slide_dir, "_rels"), showWarnings = FALSE, recursive = TRUE)
+      }
+
+      slide_files <- names(private$collection)
+      slidename <- "notesSlide1.xml"
+      if( length(slide_files)){
+        slide_index <- as.integer(gsub("^(notesSlide)([0-9]+)(\\.xml)$", "\\2", slide_files ))
+        slidename <- gsub(pattern = "[0-9]+", replacement = max(slide_index) + 1, slidename)
+      }
+      slidename
+    }
+  )
+)
+
