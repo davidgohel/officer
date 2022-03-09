@@ -110,7 +110,7 @@ get_or_create_notesSlide <- function(x) {
 #' to find the corresponding location in the slide notes.
 #' @param ph_label placeholder label of the used notes master
 #' @param ... unused arguments
-notes_ph_label <- function( ph_label, ...){
+notes_location_label <- function( ph_label, ...){
   x <- list(ph_label = ph_label)
   class(x) <- c("location_label", "location_str")
   x
@@ -122,7 +122,7 @@ notes_ph_label <- function( ph_label, ...){
 #' to find the corresponding location.
 #' @param type placeholder label of the used notes master
 #' @param ... unused arguments
-notes_ph_type <- function( type = "body", ...){
+notes_location_type <- function( type = "body", ...){
 
   ph_types <- c("ftr", "sldNum", "hdr", "body", "sldImg")
   if(!type %in% ph_types){
@@ -145,7 +145,7 @@ ph_from_location.location_label <- function(loc, doc, ...) {
   if (nrow(location) < 1) stop("No placeholder with label ", loc$ph_label, " found!")
   str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
   new_ph <- sprintf(str, location$ph_label, location$ph)
-  return(new_ph)
+  return(list(ph = new_ph, label = location$ph_label))
 }
 
 
@@ -155,12 +155,12 @@ ph_from_location.location_type <- function(loc, doc, ...) {
   if (nrow(location) < 1) stop("No placeholder of type ", loc$type, " found!")
   str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
   new_ph <- sprintf(str, location$ph_label[1], location$ph[1])
-  return(new_ph)
+  return(list(ph = new_ph, label = location$ph_label[1]))
 }
 
 #' @export
-#' @title add notes to a slide
-#' @description add speaker notes to a slide in a pptx presentation
+#' @title set notes for current slide slide
+#' @description set speaker notes for the current slide in a pptx presentation
 #' @param x an rpptx object
 #' @param value text to be added to notes
 #' @param location a placeholder location object.
@@ -168,16 +168,33 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' can be defined with a call to one of the notes_ph functions. See
 #' section \code{"see also"}.
 #' @param ... further arguments passed to or from other methods.
-#' @seealso [print.rpptx()], [read_pptx()], [add_slide()], [notes_ph_label()], [notes_ph_type()]
+#' @examples
+#' # this name will be used to print the file
+#' # change it to "youfile.pptx" to write the pptx
+#' # file in your working directory.
+#' fileout <- tempfile(fileext = ".pptx")
+#'
+#' doc <- read_pptx()
+#' # add a slide with some text ----
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with(x = doc, value = "Slide Title",
+#'    location = ph_location_type(type = "title") )
+#' # set speaker notes for the slide ----
+#' doc <- set_notes(doc, value = "This text will only be visible for the speaker.",
+#'    location = notes_location_type("body"))
+#'
+#' print(doc, target = fileout)
+#'
+#' @seealso [print.rpptx()], [read_pptx()], [add_slide()], [notes_location_label()], [notes_location_type()]
 #' @family functions slide manipulation
-add_notes <- function(x, value, location, ...){
-  UseMethod("add_notes", value)
+set_notes <- function(x, value, location, ...){
+  UseMethod("set_notes", value)
 }
 
 #' @export
-#' @describeIn add_notes add a character vector to a place holder in the notes on the
+#' @describeIn set_notes add a character vector to a place holder in the notes on the
 #' current slide, values will be added as paragraphs.
-add_notes.character <- function( x, value, location, ... ){
+set_notes.character <- function( x, value, location, ... ){
 
   # get or create notesSlide for current slide
   nslidename <- get_or_create_notesSlide(x)
@@ -187,8 +204,12 @@ add_notes.character <- function( x, value, location, ... ){
 
   new_ph <- ph_from_location(location, x)
 
+  # remove placeholder if already used
+  xml_remove(xml_find_first(nSlide$get(), paste0("//p:spTree/p:sp[p:nvSpPr/p:cNvPr[@name='", new_ph$label, "']]")))
+
+
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- as_xml_document(paste0( psp_ns_yes, new_ph,
+  xml_elt <- as_xml_document(paste0( psp_ns_yes, new_ph$ph,
                                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                                      pars, "</p:txBody></p:sp>" ))
 
@@ -196,5 +217,4 @@ add_notes.character <- function( x, value, location, ... ){
   nSlide$fortify_id()
 
   return(x)
-
 }

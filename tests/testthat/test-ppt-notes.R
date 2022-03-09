@@ -64,7 +64,7 @@ test_that("add notesSlide", {
 test_that("add notes to notesSlide", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- add_notes(doc, "I am a test!", notes_ph_label("Notes Placeholder 4"))
+  doc <- set_notes(doc, "I am a test!", notes_location_label("Notes Placeholder 4"))
 
   nslide <- doc$notesSlide$get_slide(1)
   xml <- nslide$get()
@@ -77,7 +77,7 @@ test_that("add notes to notesSlide", {
 test_that("add notes to notesSlide", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- add_notes(doc, "I am a test!", notes_ph_type("body"))
+  doc <- set_notes(doc, "I am a test!", notes_location_type("body"))
 
   nslide <- doc$notesSlide$get_slide(1)
   xml <- nslide$get()
@@ -85,4 +85,18 @@ test_that("add notes to notesSlide", {
   node_ <- xml_find_all(xml, xpath_)
   expect_false( inherits(node_, "xml_missing") )
   expect_equal(xml_text(node_), "I am a test!")
+})
+
+test_that("replace notes on notesSlide", {
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- set_notes(doc, "I am a test!", notes_location_type("body"))
+  doc <- set_notes(doc, "I am a new test!", notes_location_type("body"))
+
+  nslide <- doc$notesSlide$get_slide(1)
+  xml <- nslide$get()
+  xpath_ <- "//p:sp[p:nvSpPr/p:nvPr/p:ph/@type='body']"
+  node_ <- xml_find_all(xml, xpath_)
+  expect_false( inherits(node_, "xml_missing") )
+  expect_equal(xml_text(node_), "I am a new test!")
 })
