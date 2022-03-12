@@ -34,6 +34,8 @@ openxml_document <- R6Class(
       private$reldir
     },
     save = function() {
+      # remove duplicate namespace definitions
+      private$doc <- read_xml(as.character(private$doc), options = "NSCLEAN")
       write_xml(private$doc, file = private$filename)
       if( nrow(self$rel_df()) > 0 ){
         private$rels_doc$write(private$rels_filename)

@@ -4,6 +4,7 @@
 
 * new as.matrix method for pptx to automatically extract one or all matrices
 from the file.
+* simple (character) speaker notes can now be added to a pptx presentation
 
 ## Changes
 

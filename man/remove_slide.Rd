@@ -28,6 +28,7 @@ my_pres <- remove_slide(my_pres)
 Other functions slide manipulation: 
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},
-\code{\link{on_slide}()}
+\code{\link{on_slide}()},
+\code{\link{set_notes}()}
 }
 \concept{functions slide manipulation}

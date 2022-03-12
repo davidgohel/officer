@@ -76,8 +76,8 @@ embed_img_raster  <- function(node, img_src ){
 
 #' @export
 #' @title Extract media from a document object
-#' @description Extract files from an \code{rdocx} or \code{rpptx} object.
-#' @param x an rpptx object or an rdocx object
+#' @description Extract files from a \code{rpptx} object.
+#' @param x an rpptx object
 #' @param path media path, should be a relative path
 #' @param target target file
 #' @examples

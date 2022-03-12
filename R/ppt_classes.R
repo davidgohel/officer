@@ -319,4 +319,29 @@ slide <- R6Class(
 )
 
 
+# notesSlide ------------------------------------------------------------
+notesSlide <- R6Class(
+  "notesSlide",
+  inherit = openxml_document,
+  public = list(
+
+    feed = function( file ) {
+      super$feed(file)
+      self
+    },
+
+    fortify_id = function(){
+      cnvpr <- xml_find_all(private$doc, "//p:cNvPr")
+      for(i in seq_along(cnvpr))
+        xml_attr( cnvpr[[i]], "id") <- i
+      self
+    },
+
+    get_metadata = function( ){
+      rels <- self$rel_df()
+    }
+
+  )
+
+)
 
