@@ -35,7 +35,7 @@ in inches.}
 }
 \description{
 The function will return a list that complies with
-expected format for argument \code{location} of function\code{ph_with}.
+expected format for argument \code{location} of function \code{ph_with}.
 }
 \details{
 The location of the bounding box associated to a placeholder
@@ -60,6 +60,10 @@ doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(doc, "Hello world",
   location = ph_location(width = 4, height = 3, newlabel = "hello") )
+loc <- ph_location(left = 1, top = 5, width = 4, height = 3,
+                   ln = sp_line(color = "red", lwd = 2.5),
+                   geom = "trapezoid")
+doc <- ph_with(doc, "", loc = loc)
 print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{

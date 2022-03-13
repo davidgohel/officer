@@ -103,6 +103,10 @@ fortify_location <- function( x, doc, ... ){
 #' doc <- add_slide(doc)
 #' doc <- ph_with(doc, "Hello world",
 #'   location = ph_location(width = 4, height = 3, newlabel = "hello") )
+#' loc <- ph_location(left = 1, top = 5, width = 4, height = 3,
+#'                    ln = sp_line(color = "red", lwd = 2.5),
+#'                    geom = "trapezoid")
+#' doc <- ph_with(doc, "", loc = loc)
 #' print(doc, target = tempfile(fileext = ".pptx") )
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         newlabel = "",
