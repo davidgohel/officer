@@ -3,7 +3,7 @@ test_that("add outline to placeholder", {
     sp_line(color = "#FFFF00", lwd = 4.5, lty = "solid", linecmpd = "sng"),
     sp_line(color = "black", lwd = 9, lty = "dash", linecmpd = "dbl")
   )
-  width <- 8  / 2.54; height <- 6 / 2.54; top <- 7.5 / 2 - height / 2
+  width <- 4; height <- 3; top <- 7.5 / 2 - height / 2
   left <- c(1, 10 - width - 1);
 
   loc_ <- lapply(seq_along(sp_line_), function(x) ph_location(left = left[x], top = top, width = width, height = height, bg = "orange", ln = sp_line_[[x]]))
@@ -25,10 +25,10 @@ test_that("add outline to placeholder", {
   expect_equal( xml_attr(xml_find_all(xmldoc, "//a:ln/a:prstDash"), "val"), c("solid", "dash"))
 })
 
-test_that("add shape to placeholder", {
+test_that("add geometry to placeholder", {
   sp_line_ <- sp_line(color = "#FFFF00", lwd = 4.5, lty = "solid", linecmpd = "sng")
 
-  width <- 8  / 2.54; height <- 6 / 2.54; top <- 7.5 / 2 - height / 2
+  width <- 4; height <- 3; top <- 7.5 / 2 - height / 2
   left <- c(1, 10 - width - 1);
 
   loc_ <- list(
@@ -55,20 +55,20 @@ test_that("add shape to placeholder", {
   expect_equal( xml_attr(xml_find_all(xmldoc, "//a:ln/a:prstDash"), "val"), c("solid", "solid"))
 })
 
-test_that("add a placeholder containing a line", {
+test_that("add line geometry with lineends", {
 
   headend <- sp_lineend(type = "oval", width = "sm", length = "sm")
   tailend <- sp_lineend(type = "triangle", width = "lg", length = "lg")
 
-  sp_line_ <- sp_line(color = "steelblue", lwd = 4.5, lty = "solid", linecmpd = "sng", headend = headend, tailend = tailend)
+  sp_line1 <- sp_line(color = "steelblue", lwd = 4.5, lty = "solid", linecmpd = "sng", headend = headend, tailend = tailend)
+  sp_line2 <- update(sp_line1, linecmpd = "dbl", headend = tailend, tailend = headend)
 
-  width <- 8  / 2.54; height <- 6 / 2.54;
-  top <- 7.5 / 2 - height / 2
-  left <- c(1, 10 - width - 1);
+  width <- 4; height <- 3
+  top <- 7.5 / 2 - height / 2; left <- c(1, 10 - width - 1)
 
   loc_ <- list(
-    ph_location(left = left[1], top = top, width = width, height = height, ln = sp_line_, geom = "line"),
-    ph_location(left = left[2], top = top, width = width, height = height, ln = sp_line_, rotation = 180, geom = "line")
+    ph_location(left = left[1], top = top, width = width, height = height, ln = sp_line1, geom = "line"),
+    ph_location(left = left[2], top = top, width = width, height = height, ln = sp_line2, rotation = 180, geom = "line")
   )
 
   doc <- read_pptx()
@@ -83,6 +83,9 @@ test_that("add a placeholder containing a line", {
   expect_equal( xml_attr(xml_find_all(xmldoc, "//a:prstGeom"), "prst"), c("line", "line"))
   cols <- xml_attr(xml_find_all(xmldoc, "//a:ln/a:solidFill/a:srgbClr"), "val")
   expect_equal(cols, c("4682B4", "4682B4") )
-  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:ln"), "w"), as.character(c(4.5, 4.5) * 12700))
-  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:ln/a:prstDash"), "val"), c("solid", "solid"))
+  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:ln"), "cmpd"), c("sng", "dbl"))
+  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:headEnd"), "type"), c("oval", "triangle"))
+  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:tailEnd"), "type"), c("triangle", "oval"))
+  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:headEnd"), "w"), c("sm", "lg"))
+  expect_equal( xml_attr(xml_find_all(xmldoc, "//a:tailEnd"), "len"), c("lg", "sm"))
 })
