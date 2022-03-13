@@ -1,6 +1,6 @@
-validate_geom <- function(x) {
+validate_shape <- function(x) {
   # http://www.datypic.com/sc/ooxml/t-a_ST_ShapeType.html
-  geom_shapes <- c(
+  shape_types <- c(
     "line", "lineInv", "triangle",
     "rtTriangle", "rect", "diamond", "parallelogram",
     "trapezoid", "nonIsoscelesTrapezoid", "pentagon", "hexagon",
@@ -58,9 +58,9 @@ validate_geom <- function(x) {
     "chartX", "chartStar", "chartPlus"
   )
 
-  if(!x %in% geom_shapes) {
-    stop("'", x, "' is no valid geometric shape.\n\n",
-        "The geometric shape has to be one of ", paste0(paste0("'", geom_shapes, "'"), collapse = ", "), ".")
+  if(!x %in% shape_types) {
+    stop("'", x, "' is no valid shape type.\n\n",
+        "The shape type has to be one of ", paste0(paste0("'", shape_types, "'"), collapse = ", "), ".")
   } else {
     return(TRUE)
   }
