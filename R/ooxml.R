@@ -129,8 +129,7 @@ solid_fill_pml <- function(bg){
 
 prst_geom_pml <- function(x) {
   geom_str <- ""
-  if (!is.null(x)) {
-    x <- check_set_shape(x)
+  if (!is.null(x) && validate_shape(x)) {
     tagname <- paste0("a:prstGeom")
     geom_str <- sprintf("<%s prst=\"%s\"><a:avLst/></%s>", tagname, x, tagname)
   }
