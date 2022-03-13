@@ -2,9 +2,15 @@
 % Please edit documentation in R/sp-line.R
 \name{sp_lineend}
 \alias{sp_lineend}
+\alias{print.sp_lineend}
+\alias{update.sp_lineend}
 \title{Line end properties}
 \usage{
 sp_lineend(type = "none", width = "med", length = "med")
+
+\method{print}{sp_lineend}(x, ...)
+
+\method{update}{sp_lineend}(object, type, width, length, ...)
 }
 \arguments{
 \item{type}{single character value specifying the line end type.
@@ -19,6 +25,10 @@ or \code{'med'} or \code{'lg'}}
 \item{length}{single character value specifying the line end length
 Expected value is one of the following : default \code{'sm'}
 or \code{'med'} or \code{'lg'}}
+
+\item{x, object}{\code{sp_lineend} object}
+
+\item{...}{further arguments - not used}
 }
 \value{
 a \code{sp_lineend} object
@@ -31,6 +41,9 @@ line end properties.
 sp_lineend()
 sp_lineend(type = "triangle")
 sp_lineend(type = "arrow", width = "lg", length = "lg")
+print( sp_lineend (type="triangle", width = "lg") )
+obj <- sp_lineend (type="triangle", width = "lg")
+update( obj, type = "arrow" )
 }
 \seealso{
 \link{sp_line}

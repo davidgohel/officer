@@ -152,4 +152,39 @@ sp_lineend <- function(type = "none", width = "med", length = "med") {
   out
 }
 
+#' @param x,object \code{sp_lineend} object
+#' @param ... further arguments - not used
+#' @examples
+#' print( sp_lineend (type="triangle", width = "lg") )
+#' @rdname sp_lineend
+#' @export
+print.sp_lineend = function (x, ...){
+  out <- data.frame(
+    type = x$type,
+    width = x$width,
+    length = x$length
+  )
+  print(out)
+  invisible()
+}
 
+#' @rdname sp_lineend
+#' @examples
+#' obj <- sp_lineend (type="triangle", width = "lg")
+#' update( obj, type = "arrow" )
+#' @export
+update.sp_lineend <- function(object, type, width, length,
+                           ...) {
+  if( !missing(type) )
+    object <- check_set_choice( obj = object, value = type,
+                                choices = c("none","triangle","stealth",
+                                            "diamond","oval","arrow") )
+  if( !missing(width) )
+    object <- check_set_choice( obj = object, value = width,
+                                choices = c("sm", "med", "lg") )
+  if( !missing(length) )
+    object <- check_set_choice( obj = object, value = length,
+                                choices = c("sm", "med", "lg") )
+
+  object
+}
