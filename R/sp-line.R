@@ -118,9 +118,9 @@ update.sp_line <- function(object, color, lwd, lty,
                            choices = c("round", "bevel", "miter") )
 
   if( !missing(headend) )
-    object$headend <- check_set_class( obj = object, value = headend, cl = "sp_lineend" )
+    object <- check_set_class( obj = object, value = headend, cl = "sp_lineend" )
   if( !missing(tailend) )
-    object$tailend <- check_set_class( obj = object, value = tailend, cl = "sp_lineend" )
+    object <- check_set_class( obj = object, value = tailend, cl = "sp_lineend" )
 
   object
 }
