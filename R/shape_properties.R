@@ -62,7 +62,7 @@ check_set_geom <- function(x) {
 
   if(!x %in% geom_types) {
     stop("'", x, "' must be a valid geometry\n\n",
-         "A valid geometry has to be one of ", paste0(paste0("'", shape_types, "'"), collapse = ", "), ".")
+         "A valid geometry has to be one of ", paste0(paste0("'", geom_types, "'"), collapse = ", "), ".")
   } else {
     return(x)
   }
