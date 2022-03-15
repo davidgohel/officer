@@ -1,8 +1,8 @@
 # check properties helpers ----
 
-check_set_shape <- function(x) {
+check_set_geom <- function(x) {
   # http://www.datypic.com/sc/ooxml/t-a_ST_ShapeType.html
-  shape_types <- c(
+  geom_types <- c(
     "line", "lineInv", "triangle",
     "rtTriangle", "rect", "diamond", "parallelogram",
     "trapezoid", "nonIsoscelesTrapezoid", "pentagon", "hexagon",
@@ -60,9 +60,9 @@ check_set_shape <- function(x) {
     "chartX", "chartStar", "chartPlus"
   )
 
-  if(!x %in% shape_types) {
-    stop("'", x, "' must be a valid shape type.\n\n",
-         "A valid shape type has to be one of ", paste0(paste0("'", shape_types, "'"), collapse = ", "), ".")
+  if(!x %in% geom_types) {
+    stop("'", x, "' must be a valid geometry\n\n",
+         "A valid geometry has to be one of ", paste0(paste0("'", shape_types, "'"), collapse = ", "), ".")
   } else {
     return(x)
   }
