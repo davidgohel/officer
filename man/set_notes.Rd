@@ -3,11 +3,14 @@
 \name{set_notes}
 \alias{set_notes}
 \alias{set_notes.character}
+\alias{set_notes.block_list}
 \title{set notes for current slide slide}
 \usage{
 set_notes(x, value, location, ...)
 
 \method{set_notes}{character}(x, value, location, ...)
+
+\method{set_notes}{block_list}(x, value, location, ...)
 }
 \arguments{
 \item{x}{an rpptx object}
@@ -28,6 +31,9 @@ set speaker notes for the current slide in a pptx presentation
 \itemize{
 \item \code{character}: add a character vector to a place holder in the notes on the
 current slide, values will be added as paragraphs.
+
+\item \code{block_list}: add a \code{\link[=block_list]{block_list()}} to a place holder in the notes on the
+current slide.
 }}
 
 \examples{
@@ -35,14 +41,25 @@ current slide, values will be added as paragraphs.
 # change it to "youfile.pptx" to write the pptx
 # file in your working directory.
 fileout <- tempfile(fileext = ".pptx")
-
+fpt_blue_bold <- fp_text_lite(color = "#006699", bold = TRUE)
 doc <- read_pptx()
 # add a slide with some text ----
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with(x = doc, value = "Slide Title",
+doc <- ph_with(x = doc, value = "Slide Title 1",
    location = ph_location_type(type = "title") )
 # set speaker notes for the slide ----
 doc <- set_notes(doc, value = "This text will only be visible for the speaker.",
+   location = notes_location_type("body"))
+
+# add a slide with some text ----
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with(x = doc, value = "Slide Title 2",
+   location = ph_location_type(type = "title") )
+bl <- block_list(
+  fpar(ftext("hello world", fpt_blue_bold)),
+  fpar(ftext("Turlututu chapeau pointu", fpt_blue_bold))
+)
+doc <- set_notes(doc, value = bl,
    location = notes_location_type("body"))
 
 print(doc, target = fileout)

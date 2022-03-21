@@ -173,14 +173,25 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' # change it to "youfile.pptx" to write the pptx
 #' # file in your working directory.
 #' fileout <- tempfile(fileext = ".pptx")
-#'
+#' fpt_blue_bold <- fp_text_lite(color = "#006699", bold = TRUE)
 #' doc <- read_pptx()
 #' # add a slide with some text ----
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with(x = doc, value = "Slide Title",
+#' doc <- ph_with(x = doc, value = "Slide Title 1",
 #'    location = ph_location_type(type = "title") )
 #' # set speaker notes for the slide ----
 #' doc <- set_notes(doc, value = "This text will only be visible for the speaker.",
+#'    location = notes_location_type("body"))
+#'
+#' # add a slide with some text ----
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with(x = doc, value = "Slide Title 2",
+#'    location = ph_location_type(type = "title") )
+#' bl <- block_list(
+#'   fpar(ftext("hello world", fpt_blue_bold)),
+#'   fpar(ftext("Turlututu chapeau pointu", fpt_blue_bold))
+#' )
+#' doc <- set_notes(doc, value = bl,
 #'    location = notes_location_type("body"))
 #'
 #' print(doc, target = fileout)
@@ -209,6 +220,35 @@ set_notes.character <- function( x, value, location, ... ){
 
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
+  xml_elt <- as_xml_document(paste0( psp_ns_yes, new_ph$ph,
+                                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                                     pars, "</p:txBody></p:sp>" ))
+
+  xml_add_child(xml_find_first(nSlide$get(), "//p:spTree"), xml_elt)
+  nSlide$fortify_id()
+
+  return(x)
+}
+
+#' @export
+#' @describeIn set_notes add a [block_list()] to a place holder in the notes on the
+#' current slide.
+set_notes.block_list <- function( x, value, location, ... ){
+
+  # get or create notesSlide for current slide
+  nslidename <- get_or_create_notesSlide(x)
+
+  idx <- x$notesSlide$slide_index(nslidename)
+  nSlide <- x$notesSlide$get_slide(idx)
+
+  new_ph <- ph_from_location(location, x)
+
+  # remove placeholder if already used
+  xml_remove(xml_find_first(nSlide$get(), paste0("//p:spTree/p:sp[p:nvSpPr/p:cNvPr[@name='", new_ph$label, "']]")))
+
+  pars <- sapply(value, to_pml)
+  pars <- paste0(pars, collapse = "")
+
   xml_elt <- as_xml_document(paste0( psp_ns_yes, new_ph$ph,
                                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
                                      pars, "</p:txBody></p:sp>" ))
