@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_section.R
 \name{body_end_section_columns_landscape}
 \alias{body_end_section_columns_landscape}
-\title{add multi columns section within landscape orientation}
+\title{Add a landscape multi columns section}
 \usage{
 body_end_section_columns_landscape(
   x,

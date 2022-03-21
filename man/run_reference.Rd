@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_reference}
 \alias{run_reference}
-\title{reference}
+\title{Cross reference}
 \usage{
 run_reference(id, prop = NULL)
 }

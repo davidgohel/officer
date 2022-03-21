@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{styles_info}
 \alias{styles_info}
-\title{read Word styles}
+\title{Read 'Word' styles}
 \usage{
 styles_info(
   x,

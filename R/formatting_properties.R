@@ -272,7 +272,7 @@ update.fp_text <- function(object, color, font.size,
 # fp_border ----
 border_styles = c( "none", "solid", "dotted", "dashed" )
 
-#' @title border properties object
+#' @title Border properties object
 #'
 #' @description create a border properties object.
 #'

@@ -4,8 +4,10 @@
 #' is used to add a break in a multi columns section in a Word
 #' Document.
 #'
-#' This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code, use [run_columnbreak()] instead.
+#' This function is deprecated and will be marked as defunct in
+#' the next release because it is not efficient and
+#' make users write complex code, use [run_columnbreak()]
+#' instead.
 #' @param x an rdocx object
 #' @param pos where to add the new element relative to the cursor,
 #' "after" or "before".
@@ -21,8 +23,10 @@ slip_in_column_break <- function( x, pos = "before" ){
 #' @title append text
 #' @description append text into a paragraph of an rdocx object.
 #'
-#' This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
+#' This function is deprecated and will be marked as defunct
+#' in the next release because it is not
+#' efficient and make users write complex code.
+#' Use instead [fpar()] to build
 #' formatted paragraphs.
 #' @param x an rdocx object
 #' @param str text
@@ -64,8 +68,9 @@ slip_in_text <- function( x, str, style = NULL, pos = "after", hyperlink = NULL 
 #' @description The function add a wml string into
 #' the document after, before or on a cursor location.
 #'
-#' This function will be deprecated in the next release because it is not
-#' efficient and make users write complex code. Use instead [fpar()] to build
+#' This function is deprecated and will be marked as defunct
+#' in the next release because it is not efficient and make
+#' users write complex code. Use instead [fpar()] to build
 #' formatted paragraphs.
 #' @param x an rdocx object
 #' @param str a wml string

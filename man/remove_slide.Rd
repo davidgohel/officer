@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_slide_manip.R
 \name{remove_slide}
 \alias{remove_slide}
-\title{remove a slide}
+\title{Remove a slide}
 \usage{
 remove_slide(x, index = NULL)
 }
@@ -12,7 +12,7 @@ remove_slide(x, index = NULL)
 \item{index}{slide index, default to current slide position.}
 }
 \description{
-remove a slide from a pptx presentation
+Remove a slide from a pptx presentation.
 }
 \note{
 cursor is set on the last slide.

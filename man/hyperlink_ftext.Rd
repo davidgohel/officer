@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{hyperlink_ftext}
 \alias{hyperlink_ftext}
-\title{formatted chunk of text with hyperlink}
+\title{Formatted chunk of text with hyperlink}
 \usage{
 hyperlink_ftext(text, prop = NULL, href)
 }

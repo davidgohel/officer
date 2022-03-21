@@ -7,7 +7,7 @@
 \alias{headers_replace_img_at_bkm}
 \alias{footers_replace_text_at_bkm}
 \alias{footers_replace_img_at_bkm}
-\title{replace text at a bookmark location}
+\title{Replace text at a bookmark location}
 \usage{
 body_replace_text_at_bkm(x, bookmark, value)
 
@@ -29,7 +29,7 @@ footers_replace_img_at_bkm(x, bookmark, value)
 \item{value}{the replacement string, of type character}
 }
 \description{
-replace text content enclosed in a bookmark
+Replace text content enclosed in a bookmark
 with different text. A bookmark will be considered as valid if enclosing words
 within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
 a bookmark set on a whole paragraph is also invalid, but bookmarking few words

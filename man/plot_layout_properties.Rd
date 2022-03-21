@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{plot_layout_properties}
 \alias{plot_layout_properties}
-\title{Plot slide layout properties}
+\title{Slide layout properties plot}
 \usage{
 plot_layout_properties(x, layout = NULL, master = NULL, labels = TRUE)
 }

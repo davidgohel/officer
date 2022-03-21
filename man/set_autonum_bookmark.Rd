@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{set_autonum_bookmark}
 \alias{set_autonum_bookmark}
-\title{update bookmark of an autonumber run}
+\title{Update bookmark of an autonumber run}
 \usage{
 set_autonum_bookmark(x, bkm = NULL)
 }

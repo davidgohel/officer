@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_break}
 \alias{body_add_break}
-\title{add page break}
+\title{Add a page break in a 'Word' document}
 \usage{
 body_add_break(x, pos = "after")
 }

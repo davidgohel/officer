@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{doc_properties}
 \alias{doc_properties}
-\title{read document properties}
+\title{Read document properties}
 \usage{
 doc_properties(x)
 }
@@ -13,7 +13,7 @@ doc_properties(x)
 a data.frame
 }
 \description{
-read Word or PowerPoint document properties
+Read Word or PowerPoint document properties
 and get results in a data.frame.
 }
 \examples{

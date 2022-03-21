@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_img}
 \alias{body_add_img}
-\title{add image}
+\title{Add an image in a 'Word' document}
 \usage{
 body_add_img(x, src, style = NULL, width, height, pos = "after")
 }

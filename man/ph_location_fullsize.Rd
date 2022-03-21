@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{ph_location_fullsize}
 \alias{ph_location_fullsize}
-\title{location of a full size element}
+\title{Location of a full size element}
 \usage{
 ph_location_fullsize(newlabel = "", ...)
 }

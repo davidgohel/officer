@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{annotate_base}
 \alias{annotate_base}
-\title{PowerPoint placeholder parameters annotation}
+\title{Placeholder parameters annotation}
 \usage{
 annotate_base(path = NULL, output_file = "annotated_layout.pptx")
 }

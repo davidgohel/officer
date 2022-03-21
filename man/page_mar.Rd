@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{page_mar}
 \alias{page_mar}
-\title{page margins object}
+\title{Page margins object}
 \usage{
 page_mar(
   bottom = 1,

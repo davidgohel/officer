@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{ph_location_template}
 \alias{ph_location_template}
-\title{create a location for a placeholder based on a template}
+\title{Location for a placeholder based on a template}
 \usage{
 ph_location_template(
   left = 1,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{docx_dim}
 \alias{docx_dim}
-\title{Word page layout}
+\title{'Word' page layout}
 \usage{
 docx_dim(x)
 }
@@ -10,7 +10,7 @@ docx_dim(x)
 \item{x}{an \code{rdocx} object}
 }
 \description{
-get page width, page height and margins (in inches). The return values
+Get page width, page height and margins (in inches). The return values
 are those corresponding to the section where the cursor is.
 }
 \examples{

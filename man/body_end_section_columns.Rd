@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_section.R
 \name{body_end_section_columns}
 \alias{body_end_section_columns}
-\title{add multi columns section}
+\title{Add multi columns section}
 \usage{
 body_end_section_columns(x, widths = c(2.5, 2.5), space = 0.25, sep = FALSE)
 }

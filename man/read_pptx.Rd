@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pptx.R
 \name{read_pptx}
 \alias{read_pptx}
-\title{open a connexion to a 'PowerPoint' file}
+\title{Create a 'PowerPoint' document object}
 \usage{
 read_pptx(path = NULL)
 }
@@ -10,8 +10,9 @@ read_pptx(path = NULL)
 \item{path}{path to the pptx file to use as base document.}
 }
 \description{
-read and import a pptx file as an R object
+Read and import a pptx file as an R object
 representing the document.
+
 The function is called \code{read_pptx} because it allows you to initialize an
 object of class \code{rpptx} from an existing PowerPoint file. Content will be
 added to the existing presentation. By default, an empty document is used.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_replace.R
 \name{sanitize_images}
 \alias{sanitize_images}
-\title{remove unused media from a document}
+\title{Remove unused media from a document}
 \usage{
 sanitize_images(x)
 }
@@ -10,7 +10,7 @@ sanitize_images(x)
 \item{x}{\code{rdocx} or \code{rpptx} object}
 }
 \description{
-the function will scan the media
+The function will scan the media
 directory and delete images that are not used
 anymore. This function is to be used when images
 have been replaced many times.

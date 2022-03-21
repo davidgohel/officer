@@ -1,6 +1,6 @@
 #' @export
-#' @title create empty blocks
-#' @description an empty object to include as an empty placeholder shape in a
+#' @title Empty block for 'PowerPoint'
+#' @description Create an empty object to include as an empty placeholder shape in a
 #' presentation. This comes in handy when presentation are updated
 #' through R, but a user still wants to write the takeaway statements in
 #' PowerPoint.

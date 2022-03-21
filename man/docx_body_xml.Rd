@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{docx_body_xml}
 \alias{docx_body_xml}
-\title{body xml document}
+\title{Body xml document}
 \usage{
 docx_body_xml(x)
 }

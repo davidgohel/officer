@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_manipulate.R
 \name{ph_remove}
 \alias{ph_remove}
-\title{remove a shape}
+\title{Remove a shape}
 \usage{
 ph_remove(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL)
 }
@@ -22,7 +22,7 @@ Values can be read from \code{\link{slide_summary}}.}
 \item{id_chr}{deprecated.}
 }
 \description{
-remove a shape in a slide
+Remove a shape in a slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")

@@ -3,7 +3,7 @@
 \name{run_word_field}
 \alias{run_word_field}
 \alias{run_seqfield}
-\title{seqfield}
+\title{'Word' computed field}
 \usage{
 run_word_field(field, prop = NULL, seqfield = field)
 
@@ -16,7 +16,7 @@ totally superseded by \code{field} in the future).}
 \item{prop}{formatting text properties returned by \link{fp_text}.}
 }
 \description{
-Create a Word computed field.
+Create a 'Word' computed field.
 }
 \note{
 In the previous version, this function was called \code{run_seqfield}

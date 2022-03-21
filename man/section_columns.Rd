@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{section_columns}
 \alias{section_columns}
-\title{section columns}
+\title{Section columns}
 \usage{
 section_columns(widths = c(2.5, 2.5), space = 0.25, sep = FALSE)
 }

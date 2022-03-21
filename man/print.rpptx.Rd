@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pptx.R
 \name{print.rpptx}
 \alias{print.rpptx}
-\title{write a 'PowerPoint' file.}
+\title{Write a 'PowerPoint' file.}
 \usage{
 \method{print}{rpptx}(x, target = NULL, ...)
 }
@@ -14,7 +14,9 @@
 \item{...}{unused}
 }
 \description{
-write a 'PowerPoint' file.
+Write a 'PowerPoint' file
+with an object of class 'rpptx' (created with
+\code{\link[=read_pptx]{read_pptx()}}).
 }
 \examples{
 # write a rdocx object in a docx file ----

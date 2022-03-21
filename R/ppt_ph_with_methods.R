@@ -1,5 +1,5 @@
 #' @export
-#' @title add objects into a new shape on the current slide
+#' @title Add objects on the current slide
 #' @description add object into a new shape in the current slide. This
 #' function is able to add all supported outputs to a presentation. See
 #' section **Methods (by class)** to see supported outputs.

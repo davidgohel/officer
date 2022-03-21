@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_gg}
 \alias{body_add_gg}
-\title{add ggplot}
+\title{Add a 'ggplot' in a 'Word' document}
 \usage{
 body_add_gg(
   x,
@@ -33,7 +33,7 @@ body_add_gg(
 \item{...}{Arguments to be passed to png function.}
 }
 \description{
-add a ggplot as a png image into an rdocx object
+add a ggplot as a png image into an rdocx object.
 }
 \examples{
 if( require("ggplot2") ){

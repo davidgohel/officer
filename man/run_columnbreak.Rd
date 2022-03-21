@@ -2,12 +2,12 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_columnbreak}
 \alias{run_columnbreak}
-\title{column break}
+\title{Column break for 'Word'}
 \usage{
 run_columnbreak()
 }
 \description{
-Create a representation of a column break
+Create a representation of a column break.
 }
 \section{usage}{
 

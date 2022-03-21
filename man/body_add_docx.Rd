@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_docx}
 \alias{body_add_docx}
-\title{insert an external docx}
+\title{Add an external docx in a 'Word' document}
 \usage{
 body_add_docx(x, src, pos = "after")
 }
@@ -15,7 +15,7 @@ body_add_docx(x, src, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add content of a docx into an rdocx object.
+Add content of a docx into an rdocx object.
 }
 \note{
 The function is using a 'Microsoft Word' feature: when the

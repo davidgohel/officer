@@ -201,8 +201,8 @@ dir_sheet <- R6Class(
 
 # read_xlsx ----
 #' @export
-#' @title open a connexion to an 'Excel' file
-#' @description read and import an xlsx file as an R object
+#' @title Create an 'Excel' document object
+#' @description Read and import an xlsx file as an R object
 #' representing the document. This function is experimental.
 #' @param path path to the xlsx file to use as base document.
 #' @param x an rxlsx object
@@ -236,8 +236,8 @@ read_xlsx <- function( path = NULL ){
 }
 
 #' @export
-#' @title add a sheet
-#' @description add a sheet into an xlsx worksheet
+#' @title Add a sheet
+#' @description Add a sheet into an xlsx worksheet.
 #' @param x rxlsx object
 #' @param label sheet label
 #' @examples
@@ -282,8 +282,8 @@ length.rxlsx <- function( x ){
 }
 
 #' @export
-#' @title select sheet
-#' @description set a particular sheet selected when workbook will be
+#' @title Select sheet
+#' @description Set a particular sheet selected when workbook will be
 #' edited.
 #' @param x rxlsx object
 #' @param sheet sheet name

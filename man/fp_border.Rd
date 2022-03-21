@@ -3,7 +3,7 @@
 \name{fp_border}
 \alias{fp_border}
 \alias{update.fp_border}
-\title{border properties object}
+\title{Border properties object}
 \usage{
 fp_border(color = "black", style = "solid", width = 1)
 

@@ -3,7 +3,7 @@
 \name{fpar}
 \alias{fpar}
 \alias{update.fpar}
-\title{Concatenate formatted text as a paragraph}
+\title{Formatted paragraph}
 \usage{
 fpar(..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL)
 

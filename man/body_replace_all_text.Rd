@@ -4,7 +4,7 @@
 \alias{body_replace_all_text}
 \alias{headers_replace_all_text}
 \alias{footers_replace_all_text}
-\title{Replace text anywhere in the document, or at a cursor}
+\title{Replace text anywhere in the document}
 \usage{
 body_replace_all_text(
   x,
@@ -49,6 +49,8 @@ cursor; if \code{FALSE} (default), search-and-replace in the entire document
 \item{...}{optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})}
 }
 \description{
+Replace text anywhere in the document, or at a cursor.
+
 Replace all occurrences of old_value with new_value. This method
 uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
 supply arguments as required (and therefore use \code{\link{regex}} features)

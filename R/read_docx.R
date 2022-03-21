@@ -290,7 +290,7 @@ process_images <- function( doc_obj, package_dir ){
 
 
 #' @export
-#' @title number of blocks inside an rdocx object
+#' @title Number of blocks inside an rdocx object
 #' @description return the number of blocks inside an rdocx object.
 #' This number also include the default section definition of a
 #' Word document - default Word section is an uninvisible element.
@@ -305,7 +305,7 @@ length.rdocx <- function( x ){
 }
 
 #' @export
-#' @title read Word styles
+#' @title Read 'Word' styles
 #' @description read Word styles and get results in
 #' a data.frame.
 #' @param x an rdocx object
@@ -324,8 +324,8 @@ styles_info <- function( x, type = c("paragraph", "character", "table", "numberi
 }
 
 #' @export
-#' @title read document properties
-#' @description read Word or PowerPoint document properties
+#' @title Read document properties
+#' @description Read Word or PowerPoint document properties
 #' and get results in a data.frame.
 #' @param x an \code{rdocx} or \code{rpptx} object
 #' @examples
@@ -345,7 +345,7 @@ doc_properties <- function( x ){
 }
 
 #' @export
-#' @title set document properties
+#' @title Set document properties
 #' @description set Word or PowerPoint document properties. These are not visible
 #' in the document but are available as metadata of the document.
 #' @note
@@ -385,8 +385,8 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 
 
 #' @export
-#' @title Word page layout
-#' @description get page width, page height and margins (in inches). The return values
+#' @title 'Word' page layout
+#' @description Get page width, page height and margins (in inches). The return values
 #' are those corresponding to the section where the cursor is.
 #' @param x an \code{rdocx} object
 #' @examples
@@ -413,7 +413,7 @@ docx_dim <- function(x){
 #' @export
 #' @title List Word bookmarks
 #' @description List bookmarks id that can be found in a
-#' Word document.
+#' 'Word' document.
 #' @param x an \code{rdocx} object
 #' @examples
 #' library(officer)
@@ -436,8 +436,8 @@ docx_bookmarks <- function(x){
 }
 
 #' @export
-#' @title Replace Styles in a Word Document
-#' @description Replace styles with others in a Word document. This function
+#' @title Replace styles in a 'Word' Document
+#' @description Replace styles with others in a 'Word' document. This function
 #' can be used for paragraph, run/character and table styles.
 #' @param x an rdocx object
 #' @param mapstyles a named list, names are the replacement style,
@@ -505,7 +505,7 @@ change_styles <- function( x, mapstyles ){
 
 
 #' @export
-#' @title body xml document
+#' @title Body xml document
 #' @description Get the body document as xml. This function
 #' is not to be used by end users, it has been implemented
 #' to allow other packages to work with officer.
@@ -519,7 +519,7 @@ docx_body_xml <- function( x ){
 }
 
 #' @export
-#' @title body xml document
+#' @title Body xml document
 #' @description Get the body document as xml. This function
 #' is not to be used by end users, it has been implemented
 #' to allow other packages to work with officer.

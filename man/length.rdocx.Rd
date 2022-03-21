@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{length.rdocx}
 \alias{length.rdocx}
-\title{number of blocks inside an rdocx object}
+\title{Number of blocks inside an rdocx object}
 \usage{
 \method{length}{rdocx}(x)
 }

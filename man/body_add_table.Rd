@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_table}
 \alias{body_add_table}
-\title{add table}
+\title{Add table in a 'Word' document}
 \usage{
 body_add_table(
   x,
@@ -57,7 +57,7 @@ applied.}
 \item{no_vband}{Specifies that the first column conditional formatting should be applied.}
 }
 \description{
-add a table into an rdocx object
+Add a table into an rdocx object.
 }
 \examples{
 doc <- read_docx()

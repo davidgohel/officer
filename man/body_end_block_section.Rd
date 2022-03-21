@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_section.R
 \name{body_end_block_section}
 \alias{body_end_block_section}
-\title{add any section}
+\title{Add any section}
 \usage{
 body_end_block_section(x, value)
 }

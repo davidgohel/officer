@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{prop_section}
 \alias{prop_section}
-\title{section properties}
+\title{Section properties}
 \usage{
 prop_section(
   page_size = NULL,

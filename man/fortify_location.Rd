@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{fortify_location}
 \alias{fortify_location}
-\title{eval a location on the current slide}
+\title{Eval a location on the current slide}
 \usage{
 fortify_location(x, doc, ...)
 }

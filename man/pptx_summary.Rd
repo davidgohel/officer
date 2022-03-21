@@ -2,7 +2,7 @@
 % Please edit documentation in R/fortify_pptx.R
 \name{pptx_summary}
 \alias{pptx_summary}
-\title{get PowerPoint content in a data.frame}
+\title{PowerPoint content in a data.frame}
 \usage{
 pptx_summary(x)
 }
@@ -10,7 +10,7 @@ pptx_summary(x)
 \item{x}{an rpptx object}
 }
 \description{
-read content of a PowerPoint document and
+Read content of a PowerPoint document and
 return a dataset representing the document.
 }
 \examples{

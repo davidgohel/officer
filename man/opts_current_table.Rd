@@ -2,7 +2,7 @@
 % Please edit documentation in R/knitr_utils.R
 \name{opts_current_table}
 \alias{opts_current_table}
-\title{Get table options in a 'knitr' context}
+\title{Table options in a 'knitr' context}
 \usage{
 opts_current_table()
 }
@@ -31,9 +31,11 @@ a list with following elements:
 }
 }
 \description{
-Get options for table rendering.
+Get options for table rendering in a 'knitr'
+context. It should not be used by the end user, but
+its documentation should be read as a place where
+table options are documented when 'knitr' is used.
 
-It should not be used by the end user.
 The function is a utility to facilitate the retrieval of table
 options supported by the 'flextable', 'officedown' and of
 course 'officer' packages.

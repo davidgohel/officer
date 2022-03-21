@@ -1,6 +1,6 @@
 #' @export
-#' @title add a slide
-#' @description add a slide into a pptx presentation
+#' @title Add a slide
+#' @description Add a slide into a pptx presentation.
 #' @param x an rpptx object
 #' @param layout slide layout name to use
 #' @param master master layout name where \code{layout} is located
@@ -37,8 +37,8 @@ add_slide <- function( x, layout = "Title and Content", master = "Office Theme" 
 
 
 #' @export
-#' @title change current slide
-#' @description change current slide index of an rpptx object.
+#' @title Change current slide
+#' @description Change current slide index of an rpptx object.
 #' @param x an rpptx object
 #' @param index slide index
 #' @examples
@@ -76,8 +76,8 @@ on_slide <- function( x, index ){
 }
 
 #' @export
-#' @title remove a slide
-#' @description remove a slide from a pptx presentation
+#' @title Remove a slide
+#' @description Remove a slide from a pptx presentation.
 #' @param x an rpptx object
 #' @param index slide index, default to current slide position.
 #' @note cursor is set on the last slide.
@@ -116,8 +116,8 @@ remove_slide <- function( x, index = NULL ){
 
 
 #' @export
-#' @title move a slide
-#' @description move a slide in a pptx presentation
+#' @title Move a slide
+#' @description Move a slide in a pptx presentation.
 #' @inheritParams remove_slide
 #' @param to new slide index.
 #' @note cursor is set on the last slide.

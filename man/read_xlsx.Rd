@@ -4,7 +4,7 @@
 \alias{read_xlsx}
 \alias{length.rxlsx}
 \alias{print.rxlsx}
-\title{open a connexion to an 'Excel' file}
+\title{Create an 'Excel' document object}
 \usage{
 read_xlsx(path = NULL)
 
@@ -22,7 +22,7 @@ read_xlsx(path = NULL)
 \item{...}{unused}
 }
 \description{
-read and import an xlsx file as an R object
+Read and import an xlsx file as an R object
 representing the document. This function is experimental.
 }
 \examples{

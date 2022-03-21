@@ -2,13 +2,14 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_linebreak}
 \alias{run_linebreak}
-\title{page break for Word}
+\title{Page break for 'Word'}
 \usage{
 run_linebreak()
 }
 \description{
-Object representing a line break for a Word document. The
-result must be used within a call to \link{fpar}.
+Object representing a line break
+for a Word document. The result must be used
+within a call to \link{fpar}.
 }
 \section{usage}{
 

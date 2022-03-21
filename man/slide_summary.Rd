@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{slide_summary}
 \alias{slide_summary}
-\title{get PowerPoint slide content in a data.frame}
+\title{Slide content in a data.frame}
 \usage{
 slide_summary(x, index = NULL)
 }
@@ -12,7 +12,7 @@ slide_summary(x, index = NULL)
 \item{index}{slide index}
 }
 \description{
-get content and positions of current slide
+Get content and positions of current slide
 into a data.frame. Data for any tables, images, or paragraphs are
 imported into the resulting data.frame.
 }

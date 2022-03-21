@@ -45,7 +45,7 @@ as_ph_location <- function(x, ...){
 }
 
 #' @export
-#' @title eval a location on the current slide
+#' @title Eval a location on the current slide
 #' @description Eval a shape location against the current slide.
 #' This function is to be used to add custom openxml code. A
 #' list is returned, it contains informations width, height, left
@@ -69,7 +69,7 @@ fortify_location <- function( x, doc, ... ){
 # main ----
 
 #' @export
-#' @title create a location for a placeholder
+#' @title Location for a placeholder from scratch
 #' @description The function will return a list that complies with
 #' expected format for argument \code{location} of function\code{ph_with}.
 #' @param left,top,width,height place holder coordinates
@@ -120,7 +120,7 @@ fortify_location.location_manual <- function( x, doc, ...){
   x
 }
 
-#' @title create a location for a placeholder based on a template
+#' @title Location for a placeholder based on a template
 #' @description The function will return a list that complies with
 #' expected format for argument \code{location} of function
 #' \code{ph_with}. A placeholder will be used as template
@@ -172,7 +172,7 @@ fortify_location.location_template <- function( x, doc, ...){
 }
 
 #' @export
-#' @title location of a placeholder based on a type
+#' @title Location of a placeholder based on a type
 #' @description The function will use the type name of the placeholder (e.g. body, title),
 #' the layout name and few other criterias to find the corresponding location.
 #' @param type placeholder type to look for in the slide layout, one
@@ -227,7 +227,7 @@ fortify_location.location_type <- function( x, doc, ...){
 }
 
 #' @export
-#' @title location of a named placeholder
+#' @title Location of a named placeholder
 #' @description The function will use the label of a placeholder
 #' to find the corresponding location.
 #' @param ph_label placeholder label of the used layout. It can be read in PowerPoint or
@@ -277,7 +277,7 @@ fortify_location.location_label <- function( x, doc, ...){
 }
 
 #' @export
-#' @title location of a full size element
+#' @title Location of a full size element
 #' @description The function will return the location corresponding
 #' to a full size display.
 #' @param newlabel a label to associate with the placeholder.
@@ -311,7 +311,7 @@ fortify_location.location_fullsize <- function( x, doc, ...){
 }
 
 #' @export
-#' @title location of a left body element
+#' @title Location of a left body element
 #' @description The function will return the location corresponding
 #' to a left bounding box. The function assume the layout 'Two Content'
 #' is existing. This is an helper function, if you don't have a layout
@@ -350,7 +350,7 @@ fortify_location.location_left <- function( x, doc, ...){
 }
 
 #' @export
-#' @title location of a right body element
+#' @title Location of a right body element
 #' @description The function will return the location corresponding
 #' to a right bounding box. The function assume the layout 'Two Content'
 #' is existing. This is an helper function, if you don't have a layout

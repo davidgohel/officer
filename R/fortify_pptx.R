@@ -95,8 +95,8 @@ media_extract <- function( x, path, target ){
   file.copy(from = media, to = target)
 }
 
-#' @title get PowerPoint content in a data.frame
-#' @description read content of a PowerPoint document and
+#' @title PowerPoint content in a data.frame
+#' @description Read content of a PowerPoint document and
 #' return a dataset representing the document.
 #' @param x an rpptx object
 #' @examples

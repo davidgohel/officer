@@ -4,7 +4,7 @@
 \alias{set_notes}
 \alias{set_notes.character}
 \alias{set_notes.block_list}
-\title{set notes for current slide slide}
+\title{Set notes for current slide}
 \usage{
 set_notes(x, value, location, ...)
 
@@ -25,7 +25,7 @@ section \code{"see also"}.}
 \item{...}{further arguments passed to or from other methods.}
 }
 \description{
-set speaker notes for the current slide in a pptx presentation
+Set speaker notes for the current slide in a pptx presentation.
 }
 \section{Methods (by class)}{
 \itemize{

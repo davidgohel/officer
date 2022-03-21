@@ -1,5 +1,5 @@
 #' @export
-#' @title add continuous section
+#' @title Add continuous section
 #' @description Section break starts the new section on the same page. This
 #' type of section break is often used to change the number of columns
 #' without starting a new page.
@@ -27,7 +27,7 @@ body_end_section_continuous <- function( x ){
 }
 
 #' @export
-#' @title add landscape section
+#' @title Add landscape section
 #' @description A section with landscape orientation is added to the document.
 #' @param x an rdocx object
 #' @param w,h page width, page height (in inches)
@@ -51,7 +51,7 @@ body_end_section_landscape <- function( x, w = 21 / 2.54, h = 29.7 / 2.54){
 }
 
 #' @export
-#' @title add portrait section
+#' @title Add portrait section
 #' @description A section with portrait orientation is added to the document.
 #' @param x an rdocx object
 #' @param w,h page width, page height (in inches)
@@ -75,7 +75,7 @@ body_end_section_portrait <- function( x, w = 21 / 2.54, h = 29.7 / 2.54){
 }
 
 #' @export
-#' @title add multi columns section
+#' @title Add multi columns section
 #' @description A section with multiple columns is added to the
 #' document.
 #'
@@ -106,7 +106,7 @@ body_end_section_columns <- function(x, widths = c(2.5,2.5), space = .25, sep = 
 
 
 #' @export
-#' @title add multi columns section within landscape orientation
+#' @title Add a landscape multi columns section
 #' @description A landscape section with multiple columns is added to the document.
 #' @param x an rdocx object
 #' @inheritParams section_columns
@@ -134,7 +134,7 @@ body_end_section_columns_landscape <- function(x, widths = c(2.5,2.5), space = .
   body_add_xml(x, str = str, pos = "after")
 }
 #' @export
-#' @title add any section
+#' @title Add any section
 #' @description Add a section to the document. You can
 #' define any section with a [block_section] object. All other
 #' `body_end_section_*` are specialized, this one is highly flexible

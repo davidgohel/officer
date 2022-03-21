@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_notes.R
 \name{notes_location_label}
 \alias{notes_location_label}
-\title{location of a named placeholder for notes}
+\title{Location of a named placeholder for notes}
 \usage{
 notes_location_label(ph_label, ...)
 }

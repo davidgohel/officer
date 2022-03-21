@@ -11,7 +11,7 @@ docx_bookmarks(x)
 }
 \description{
 List bookmarks id that can be found in a
-Word document.
+'Word' document.
 }
 \examples{
 library(officer)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_xlsx.R
 \name{sheet_select}
 \alias{sheet_select}
-\title{select sheet}
+\title{Select sheet}
 \usage{
 sheet_select(x, sheet)
 }
@@ -12,7 +12,7 @@ sheet_select(x, sheet)
 \item{sheet}{sheet name}
 }
 \description{
-set a particular sheet selected when workbook will be
+Set a particular sheet selected when workbook will be
 edited.
 }
 \examples{

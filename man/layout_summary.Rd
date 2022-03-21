@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{layout_summary}
 \alias{layout_summary}
-\title{presentation layouts summary}
+\title{Presentation layouts summary}
 \usage{
 layout_summary(x)
 }
@@ -10,7 +10,7 @@ layout_summary(x)
 \item{x}{an rpptx object}
 }
 \description{
-get informations about slide layouts and
+Get informations about slide layouts and
 master layouts into a data.frame. This function returns
 a data.frame containing all layout and master names.
 }

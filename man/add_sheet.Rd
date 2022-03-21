@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_xlsx.R
 \name{add_sheet}
 \alias{add_sheet}
-\title{add a sheet}
+\title{Add a sheet}
 \usage{
 add_sheet(x, label)
 }
@@ -12,7 +12,7 @@ add_sheet(x, label)
 \item{label}{sheet label}
 }
 \description{
-add a sheet into an xlsx worksheet
+Add a sheet into an xlsx worksheet.
 }
 \examples{
 my_ws <- read_xlsx()

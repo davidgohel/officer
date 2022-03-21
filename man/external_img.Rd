@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{external_img}
 \alias{external_img}
-\title{external image}
+\title{External image}
 \usage{
 external_img(src, width = 0.5, height = 0.2, alt = "")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_caption}
 \alias{body_add_caption}
-\title{add Word caption}
+\title{Add Word caption in a 'Word' document}
 \usage{
 body_add_caption(x, value, pos = "after")
 }
@@ -15,7 +15,7 @@ body_add_caption(x, value, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add a Word caption into an rdocx object.
+Add a Word caption into an rdocx object.
 }
 \examples{
 doc <- read_docx()

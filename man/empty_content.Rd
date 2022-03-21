@@ -2,12 +2,12 @@
 % Please edit documentation in R/empty_content.R
 \name{empty_content}
 \alias{empty_content}
-\title{create empty blocks}
+\title{Empty block for 'PowerPoint'}
 \usage{
 empty_content()
 }
 \description{
-an empty object to include as an empty placeholder shape in a
+Create an empty object to include as an empty placeholder shape in a
 presentation. This comes in handy when presentation are updated
 through R, but a user still wants to write the takeaway statements in
 PowerPoint.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_xml}
 \alias{body_add_xml}
-\title{add an xml string as document element}
+\title{Add an xml string as document element}
 \usage{
 body_add_xml(x, str, pos)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_section.R
 \name{body_end_section_portrait}
 \alias{body_end_section_portrait}
-\title{add portrait section}
+\title{Add portrait section}
 \usage{
 body_end_section_portrait(x, w = 21/2.54, h = 29.7/2.54)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_section.R
 \name{body_end_section_landscape}
 \alias{body_end_section_landscape}
-\title{add landscape section}
+\title{Add landscape section}
 \usage{
 body_end_section_landscape(x, w = 21/2.54, h = 29.7/2.54)
 }

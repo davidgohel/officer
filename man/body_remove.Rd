@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_remove}
 \alias{body_remove}
-\title{remove an element}
+\title{Remove an element in a 'Word' document}
 \usage{
 body_remove(x)
 }
@@ -10,7 +10,8 @@ body_remove(x)
 \item{x}{an rdocx object}
 }
 \description{
-remove element pointed by cursor from a Word document
+Remove element pointed by cursor from a
+'Word' document.
 }
 \examples{
 library(officer)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_blocks}
 \alias{body_add_blocks}
-\title{add a list of blocks into a document}
+\title{Add a list of blocks into a 'Word' document}
 \usage{
 body_add_blocks(x, blocks, pos = "after")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_slide_manip.R
 \name{on_slide}
 \alias{on_slide}
-\title{change current slide}
+\title{Change current slide}
 \usage{
 on_slide(x, index)
 }
@@ -12,7 +12,7 @@ on_slide(x, index)
 \item{index}{slide index}
 }
 \description{
-change current slide index of an rpptx object.
+Change current slide index of an rpptx object.
 }
 \examples{
 doc <- read_pptx()

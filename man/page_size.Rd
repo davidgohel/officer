@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{page_size}
 \alias{page_size}
-\title{page size object}
+\title{Page size object}
 \usage{
 page_size(width = 21/2.54, height = 29.7/2.54, orient = "portrait")
 }

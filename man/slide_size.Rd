@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{slide_size}
 \alias{slide_size}
-\title{slides width and height}
+\title{Slides width and height}
 \usage{
 slide_size(x)
 }
@@ -10,7 +10,7 @@ slide_size(x)
 \item{x}{an rpptx object}
 }
 \description{
-get the width and height of slides in inches as
+Get the width and height of slides in inches as
 a named vector.
 }
 \examples{

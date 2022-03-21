@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_fpar}
 \alias{body_add_fpar}
-\title{add fpar}
+\title{Add fpar in a 'Word' document}
 \usage{
 body_add_fpar(x, value, style = NULL, pos = "after")
 }
@@ -20,7 +20,8 @@ ignored.}
 one of "after", "before", "on".}
 }
 \description{
-add an \code{fpar} (a formatted paragraph) into an rdocx object
+Add an \code{fpar} (a formatted paragraph)
+into an rdocx object.
 }
 \examples{
 bold_face <- shortcuts$fp_bold(font.size = 30)

@@ -15,7 +15,7 @@
 \alias{ph_with.fpar}
 \alias{ph_with.empty_content}
 \alias{ph_with.xml_document}
-\title{add objects into a new shape on the current slide}
+\title{Add objects on the current slide}
 \usage{
 ph_with(x, value, location, ...)
 

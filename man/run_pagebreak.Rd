@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_pagebreak}
 \alias{run_pagebreak}
-\title{page break for Word}
+\title{Page break for 'Word'}
 \usage{
 run_pagebreak()
 }

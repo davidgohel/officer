@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_slide_manip.R
 \name{add_slide}
 \alias{add_slide}
-\title{add a slide}
+\title{Add a slide}
 \usage{
 add_slide(x, layout = "Title and Content", master = "Office Theme")
 }
@@ -14,7 +14,7 @@ add_slide(x, layout = "Title and Content", master = "Office Theme")
 \item{master}{master layout name where \code{layout} is located}
 }
 \description{
-add a slide into a pptx presentation
+Add a slide into a pptx presentation.
 }
 \examples{
 my_pres <- read_pptx()

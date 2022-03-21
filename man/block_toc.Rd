@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_block_objects.R
 \name{block_toc}
 \alias{block_toc}
-\title{Table of content}
+\title{Table of content for 'Word'}
 \usage{
 block_toc(level = 3, style = NULL, seq_id = NULL, separator = ";")
 }
@@ -19,7 +19,8 @@ TOC. See also \code{\link[=run_autonum]{run_autonum()}} to specify a sequence id
 \item{separator}{optional. Some configurations need "," (i.e. from Canada) separator instead of ";"}
 }
 \description{
-Create a representation of a table of content.
+Create a representation of a table
+of content for Word documents.
 }
 \examples{
 block_toc(level = 2)

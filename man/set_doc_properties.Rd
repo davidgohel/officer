@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{set_doc_properties}
 \alias{set_doc_properties}
-\title{set document properties}
+\title{Set document properties}
 \usage{
 set_doc_properties(
   x,

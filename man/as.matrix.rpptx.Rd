@@ -2,8 +2,7 @@
 % Please edit documentation in R/pptx_matrix.R
 \name{as.matrix.rpptx}
 \alias{as.matrix.rpptx}
-\title{Convert the data in an a powerpoint table to a matrix (or all data to a list
-of matrices)}
+\title{PowerPoint table to matrix}
 \usage{
 \method{as.matrix}{rpptx}(
   x,
@@ -34,8 +33,8 @@ A matrix with the data, or if \code{slide_id=NULL}, a list of
 matrices
 }
 \description{
-Convert the data in an a powerpoint table to a matrix (or all data to a list
-of matrices)
+Convert the data in an a 'PowerPoint' table
+to a matrix or all data to a list of matrices.
 }
 \examples{
 library(officer)

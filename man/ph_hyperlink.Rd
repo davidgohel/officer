@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_manipulate.R
 \name{ph_hyperlink}
 \alias{ph_hyperlink}
-\title{hyperlink a placeholder}
+\title{Hyperlink a placeholder}
 \usage{
 ph_hyperlink(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href)
 }
@@ -24,7 +24,7 @@ Values can be read from \code{\link{slide_summary}}.}
 \item{href}{hyperlink (do not forget http or https prefix)}
 }
 \description{
-add hyperlink to a placeholder in the current slide.
+Add hyperlink to a placeholder in the current slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")

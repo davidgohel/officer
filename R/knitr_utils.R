@@ -97,10 +97,12 @@ knitr_opts_current <- function(x, default = FALSE){
 
 
 #' @export
-#' @title Get table options in a 'knitr' context
-#' @description Get options for table rendering.
+#' @title Table options in a 'knitr' context
+#' @description Get options for table rendering in a 'knitr'
+#' context. It should not be used by the end user, but
+#' its documentation should be read as a place where
+#' table options are documented when 'knitr' is used.
 #'
-#' It should not be used by the end user.
 #' The function is a utility to facilitate the retrieval of table
 #' options supported by the 'flextable', 'officedown' and of
 #' course 'officer' packages.

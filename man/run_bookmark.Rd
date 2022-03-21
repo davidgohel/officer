@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_bookmark}
 \alias{run_bookmark}
-\title{bookmark for Word}
+\title{Bookmark for 'Word'}
 \usage{
 run_bookmark(bkm, run)
 }

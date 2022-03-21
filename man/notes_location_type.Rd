@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_notes.R
 \name{notes_location_type}
 \alias{notes_location_type}
-\title{location of a placeholder for notes}
+\title{Location of a placeholder for notes}
 \usage{
 notes_location_type(type = "body", ...)
 }

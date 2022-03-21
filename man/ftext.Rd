@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{ftext}
 \alias{ftext}
-\title{formatted chunk of text}
+\title{Formatted chunk of text}
 \usage{
 ftext(text, prop = NULL)
 }

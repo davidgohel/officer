@@ -50,7 +50,7 @@ bookmark <- function(id, str) {
 
 # ftext -----
 #' @export
-#' @title formatted chunk of text
+#' @title Formatted chunk of text
 #' @description Format a chunk of text with text formatting properties (bold, color, ...).
 #' The function allows you to create pieces of text formatted the way you want.
 #' @param text text value, a single character value
@@ -119,8 +119,8 @@ to_html.ftext <- function(x, ...) {
 
 # Word computed field ----
 #' @export
-#' @title seqfield
-#' @description Create a Word computed field.
+#' @title 'Word' computed field
+#' @description Create a 'Word' computed field.
 #' @note
 #' In the previous version, this function was called `run_seqfield`
 #' but the name was wrong and should have been `run_word_field`.
@@ -176,7 +176,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
 # autonum ----
 
 #' @export
-#' @title auto number
+#' @title Auto number
 #' @description Create an autonumbered chunk, i.e. a string
 #' representation of a sequence, each item will be numbered.
 #' These runs can also be bookmarked and be used later for
@@ -231,7 +231,7 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
 }
 
 #' @export
-#' @title update bookmark of an autonumber run
+#' @title Update bookmark of an autonumber run
 #' @description This function lets recycling a object
 #' made by [run_autonum()] by changing the bookmark value. This
 #' is useful to avoid calling `run_autonum()` several times
@@ -296,7 +296,7 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 # reference ----
 
 #' @export
-#' @title reference
+#' @title Cross reference
 #' @description Create a representation of a reference
 #' @param id reference id, a string
 #' @param prop formatting text properties returned by [fp_text].
@@ -325,7 +325,7 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
 # hyperlink text ----
 
 #' @export
-#' @title formatted chunk of text with hyperlink
+#' @title Formatted chunk of text with hyperlink
 #' @description Format a chunk of text with text formatting properties (bold, color, ...),
 #' the chunk is associated with an hyperlink.
 #' @param text text value, a single character value
@@ -395,7 +395,7 @@ to_html.hyperlink_ftext <- function(x, ...) {
 # bookmark ----
 
 #' @export
-#' @title bookmark for Word
+#' @title Bookmark for 'Word'
 #' @description Add a bookmark on a run object.
 #' @param bkm bookmark id to associate with run. Value can only be
 #' made of alpha numeric characters, '-' and '_'.
@@ -439,7 +439,7 @@ to_wml.run_bookmark <- function(x, add_ns = FALSE, ...) {
 # breaks ----
 
 #' @export
-#' @title page break for Word
+#' @title Page break for 'Word'
 #' @description Object representing a page break for a Word document.
 #' @inheritSection ftext usage
 #' @examples
@@ -459,8 +459,8 @@ to_wml.run_pagebreak <- function(x, add_ns = FALSE, ...) {
 }
 
 #' @export
-#' @title column break
-#' @description Create a representation of a column break
+#' @title Column break for 'Word'
+#' @description Create a representation of a column break.
 #' @inheritSection ftext usage
 #' @examples
 #' run_columnbreak()
@@ -479,9 +479,10 @@ to_wml.run_columnbreak <- function(x, add_ns = FALSE, ...) {
 }
 
 #' @export
-#' @title page break for Word
-#' @description Object representing a line break for a Word document. The
-#' result must be used within a call to [fpar].
+#' @title Page break for 'Word'
+#' @description Object representing a line break
+#' for a Word document. The result must be used
+#' within a call to [fpar].
 #' @inheritSection ftext usage
 #' @examples
 #'
@@ -504,7 +505,7 @@ to_wml.run_linebreak <- function(x, add_ns = FALSE, ...) {
 inch_to_tweep <- function(x) round(x * 72 * 20, digits = 0)
 
 #' @export
-#' @title page size object
+#' @title Page size object
 #' @description The function creates a representation of the dimensions of a page. The
 #' dimensions are defined by length, width and orientation. If the orientation is
 #' in landscape mode then the length becomes the width and the width becomes the length.
@@ -537,7 +538,7 @@ to_wml.page_size <- function(x, add_ns = FALSE, ...) {
 }
 
 #' @export
-#' @title section columns
+#' @title Section columns
 #' @description The function creates a representation of the columns of a section.
 #' @param widths columns widths in inches. If 3 values, 3 columns
 #' will be produced.
@@ -571,7 +572,7 @@ to_wml.section_columns <- function(x, add_ns = FALSE, ...) {
 }
 
 #' @export
-#' @title page margins object
+#' @title Page margins object
 #' @description The margins for each page of a sectionThe function creates a representation of the dimensions of a page. The
 #' dimensions are defined by length, width and orientation. If the orientation is
 #' in landscape mode then the length becomes the width and the width becomes the length.
@@ -604,7 +605,7 @@ to_wml.page_mar <- function(x, add_ns = FALSE, ...) {
 docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddPage")
 
 #' @export
-#' @title section properties
+#' @title Section properties
 #' @description A section is a grouping of blocks (ie. paragraphs and tables)
 #' that have a set of properties that define pages on which the text will appear.
 #'
@@ -703,7 +704,7 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 
 # external_img ----
 #' @export
-#' @title external image
+#' @title External image
 #' @description Wraps an image in an object that can then be embedded
 #' in a PowerPoint slide or within a Word paragraph.
 #'
@@ -882,7 +883,7 @@ to_wml.run_footnoteref <- function(x, add_ns = FALSE, ...) {
 
 # run_footnote ----
 #' @export
-#' @title Word footnote
+#' @title Footnote for 'Word'
 #' @description Wraps a footnote in an object that can then be inserted
 #' as a run/chunk with [fpar()] or within an R Markdown document.
 #' @param x a set of blocks to be used as footnote content returned by

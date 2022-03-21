@@ -12,8 +12,8 @@ is_scalar_logical <- function( x ) {
 
 
 #' @export
-#' @title replace text at a bookmark location
-#' @description replace text content enclosed in a bookmark
+#' @title Replace text at a bookmark location
+#' @description Replace text content enclosed in a bookmark
 #' with different text. A bookmark will be considered as valid if enclosing words
 #' within a paragraph; i.e., a bookmark along two or more paragraphs is invalid,
 #' a bookmark set on a whole paragraph is also invalid, but bookmarking few words
@@ -121,8 +121,10 @@ footers_replace_img_at_bkm <- function( x, bookmark, value ){
 
 
 #' @export
-#' @title Replace text anywhere in the document, or at a cursor
-#' @description Replace all occurrences of old_value with new_value. This method
+#' @title Replace text anywhere in the document
+#' @description Replace text anywhere in the document, or at a cursor.
+#'
+#' Replace all occurrences of old_value with new_value. This method
 #' uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
 #' supply arguments as required (and therefore use \code{\link{regex}} features)
 #' using the optional \code{...} argument.
@@ -242,8 +244,8 @@ footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
 }
 
 #' @export
-#' @title remove unused media from a document
-#' @description the function will scan the media
+#' @title Remove unused media from a document
+#' @description The function will scan the media
 #' directory and delete images that are not used
 #' anymore. This function is to be used when images
 #' have been replaced many times.

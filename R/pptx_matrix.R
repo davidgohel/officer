@@ -1,6 +1,6 @@
-#' Convert the data in an a powerpoint table to a matrix (or all data to a list
-#' of matrices)
-#'
+#' @title PowerPoint table to matrix
+#' @description Convert the data in an a 'PowerPoint' table
+#' to a matrix or all data to a list of matrices.
 #' @param x The rpptx object to convert (as created by
 #'   \code{officer::read_pptx()})
 #' @param ... Ignored

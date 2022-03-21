@@ -1,7 +1,8 @@
 #' @export
-#' @title open a connexion to a 'PowerPoint' file
-#' @description read and import a pptx file as an R object
+#' @title Create a 'PowerPoint' document object
+#' @description Read and import a pptx file as an R object
 #' representing the document.
+#'
 #' The function is called `read_pptx` because it allows you to initialize an
 #' object of class `rpptx` from an existing PowerPoint file. Content will be
 #' added to the existing presentation. By default, an empty document is used.
@@ -73,9 +74,10 @@ read_table_style <- function(path){
              stringsAsFactors = FALSE )
 }
 
-#' write a 'PowerPoint' file.
-#'
-#'
+#' @title Write a 'PowerPoint' file.
+#' @description Write a 'PowerPoint' file
+#' with an object of class 'rpptx' (created with
+#' [read_pptx()]).
 #' @param x an rpptx object
 #' @param target path to the pptx file to write
 #' @param ... unused

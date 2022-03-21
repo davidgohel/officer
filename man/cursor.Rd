@@ -7,7 +7,7 @@
 \alias{cursor_reach}
 \alias{cursor_forward}
 \alias{cursor_backward}
-\title{set cursor in an rdocx object}
+\title{Set cursor in a 'Word' document}
 \usage{
 cursor_begin(x)
 
@@ -29,7 +29,7 @@ cursor_backward(x)
 \item{keyword}{keyword to look for as a regular expression}
 }
 \description{
-a set of functions is available to manipulate
+A set of functions is available to manipulate
 the position of a virtual cursor. This cursor will be used when
 inserting, deleting or updating elements in the document.
 }

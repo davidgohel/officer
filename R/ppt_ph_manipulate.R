@@ -19,8 +19,8 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 
 
 #' @export
-#' @title remove a shape
-#' @description remove a shape in a slide
+#' @title Remove a shape
+#' @description Remove a shape in a slide.
 #' @param x an rpptx object
 #' @param type placeholder type
 #' @param id placeholder index (integer) for a duplicated type. This is to be used when a placeholder
@@ -73,8 +73,8 @@ ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL 
 
 
 #' @export
-#' @title slide link to a placeholder
-#' @description add slide link to a placeholder in the current slide.
+#' @title Slide link to a placeholder
+#' @description Add slide link to a placeholder in the current slide.
 #' @inheritParams ph_remove
 #' @param slide_index slide index to reach
 #' @examples
@@ -115,8 +115,8 @@ ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 
 
 #' @export
-#' @title hyperlink a placeholder
-#' @description add hyperlink to a placeholder in the current slide.
+#' @title Hyperlink a placeholder
+#' @description Add hyperlink to a placeholder in the current slide.
 #' @inheritParams ph_remove
 #' @param href hyperlink (do not forget http or https prefix)
 #' @examples

@@ -1,5 +1,5 @@
 #' @export
-#' @title number of slides
+#' @title Number of slides
 #' @description Function \code{length} will return the number of slides.
 #' @param x an rpptx object
 #' @examples
@@ -13,8 +13,8 @@ length.rpptx <- function( x ){
 }
 
 #' @export
-#' @title slides width and height
-#' @description get the width and height of slides in inches as
+#' @title Slides width and height
+#' @description Get the width and height of slides in inches as
 #' a named vector.
 #' @inheritParams length.rpptx
 #' @examples
@@ -34,8 +34,8 @@ slide_size <- function(x) {
 
 
 #' @export
-#' @title presentation layouts summary
-#' @description get informations about slide layouts and
+#' @title Presentation layouts summary
+#' @description Get informations about slide layouts and
 #' master layouts into a data.frame. This function returns
 #' a data.frame containing all layout and master names.
 #' @inheritParams length.rpptx
@@ -49,8 +49,8 @@ layout_summary <- function( x ){
 }
 
 #' @export
-#' @title slide layout properties
-#' @description get information about a particular slide layout
+#' @title Slide layout properties
+#' @description Get information about a particular slide layout
 #' into a data.frame.
 #' @inheritParams length.rpptx
 #' @param layout slide layout name to use
@@ -84,7 +84,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 }
 
 #' @export
-#' @title Plot slide layout properties
+#' @title Slide layout properties plot
 #' @description Plot slide layout properties and print informations
 #' into defined placeholders. This can be useful to help
 #' visualise placeholders locations and identifier.
@@ -130,7 +130,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
 }
 
 #' @export
-#' @title PowerPoint placeholder parameters annotation
+#' @title Placeholder parameters annotation
 #' @description generates a slide from each layout in the base document to
 #' identify the placeholder indexes, types, names, master names and layout names.
 #'
@@ -196,8 +196,8 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 }
 
 #' @export
-#' @title get PowerPoint slide content in a data.frame
-#' @description get content and positions of current slide
+#' @title Slide content in a data.frame
+#' @description Get content and positions of current slide
 #' into a data.frame. Data for any tables, images, or paragraphs are
 #' imported into the resulting data.frame.
 #' @note
@@ -254,8 +254,9 @@ slide_summary <- function( x, index = NULL ){
 
 
 #' @export
-#' @title color scheme
-#' @description get master layout color scheme into a data.frame.
+#' @title Color scheme of a PowerPoint file
+#' @description Get the color scheme of a
+#' 'PowerPoint' master layout into a data.frame.
 #' @inheritParams length.rpptx
 #' @examples
 #' x <- read_pptx()

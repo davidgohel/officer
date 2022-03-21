@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_autonum}
 \alias{run_autonum}
-\title{auto number}
+\title{Auto number}
 \usage{
 run_autonum(
   seq_id = "table",

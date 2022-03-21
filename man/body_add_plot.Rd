@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_add_plot}
 \alias{body_add_plot}
-\title{add plot}
+\title{Add plot in a 'Word' document}
 \usage{
 body_add_plot(
   x,
@@ -30,7 +30,7 @@ body_add_plot(
 \item{...}{Arguments to be passed to png function.}
 }
 \description{
-add a plot as a png image into an rdocx object
+Add a plot as a png image into an rdocx object.
 }
 \examples{
 doc <- read_docx()

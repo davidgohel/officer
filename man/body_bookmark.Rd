@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_add.R
 \name{body_bookmark}
 \alias{body_bookmark}
-\title{add bookmark}
+\title{Add bookmark in a 'Word' document}
 \usage{
 body_bookmark(x, id)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_footnote}
 \alias{run_footnote}
-\title{Word footnote}
+\title{Footnote for 'Word'}
 \usage{
 run_footnote(x, prop = NULL)
 }

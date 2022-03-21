@@ -2,7 +2,7 @@
 % Please edit documentation in R/pptx_informations.R
 \name{length.rpptx}
 \alias{length.rpptx}
-\title{number of slides}
+\title{Number of slides}
 \usage{
 \method{length}{rpptx}(x)
 }

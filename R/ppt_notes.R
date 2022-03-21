@@ -105,7 +105,7 @@ get_or_create_notesSlide <- function(x) {
 
 
 #' @export
-#' @title location of a named placeholder for notes
+#' @title Location of a named placeholder for notes
 #' @description The function will use the label of a placeholder
 #' to find the corresponding location in the slide notes.
 #' @param ph_label placeholder label of the used notes master
@@ -117,7 +117,7 @@ notes_location_label <- function( ph_label, ...){
 }
 
 #' @export
-#' @title location of a placeholder for notes
+#' @title Location of a placeholder for notes
 #' @description The function will use the type name of the placeholder (e.g. body, hdr),
 #' to find the corresponding location.
 #' @param type placeholder label of the used notes master
@@ -159,8 +159,8 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 }
 
 #' @export
-#' @title set notes for current slide slide
-#' @description set speaker notes for the current slide in a pptx presentation
+#' @title Set notes for current slide
+#' @description Set speaker notes for the current slide in a pptx presentation.
 #' @param x an rpptx object
 #' @param value text to be added to notes
 #' @param location a placeholder location object.

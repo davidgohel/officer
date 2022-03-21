@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_docx.R
 \name{change_styles}
 \alias{change_styles}
-\title{Replace Styles in a Word Document}
+\title{Replace styles in a 'Word' Document}
 \usage{
 change_styles(x, mapstyles)
 }
@@ -14,7 +14,7 @@ content (as a character vector) are the styles to be replaced.
 Use \code{\link[=styles_info]{styles_info()}} to display available styles.}
 }
 \description{
-Replace styles with others in a Word document. This function
+Replace styles with others in a 'Word' document. This function
 can be used for paragraph, run/character and table styles.
 }
 \examples{

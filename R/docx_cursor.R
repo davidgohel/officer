@@ -1,7 +1,7 @@
 #' @export
 #' @rdname cursor
-#' @title set cursor in an rdocx object
-#' @description a set of functions is available to manipulate
+#' @title Set cursor in a 'Word' document
+#' @description A set of functions is available to manipulate
 #' the position of a virtual cursor. This cursor will be used when
 #' inserting, deleting or updating elements in the document.
 #' @section cursor_begin:

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{ph_location_label}
 \alias{ph_location_label}
-\title{location of a named placeholder}
+\title{Location of a named placeholder}
 \usage{
 ph_location_label(ph_label, newlabel = NULL, ...)
 }

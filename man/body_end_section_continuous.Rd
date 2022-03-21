@@ -2,7 +2,7 @@
 % Please edit documentation in R/docx_section.R
 \name{body_end_section_continuous}
 \alias{body_end_section_continuous}
-\title{add continuous section}
+\title{Add continuous section}
 \usage{
 body_end_section_continuous(x)
 }

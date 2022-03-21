@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{ph_location_left}
 \alias{ph_location_left}
-\title{location of a left body element}
+\title{Location of a left body element}
 \usage{
 ph_location_left(newlabel = NULL, ...)
 }
