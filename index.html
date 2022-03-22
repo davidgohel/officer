@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
       </span>
     </div>
 
@@ -53,12 +55,12 @@
   <a href="reference/index.html">Function reference</a>
 </li>
 <li>
-  <a href="https://ardata-fr.github.io/officeverse/">User Documentation</a>
+  <a href="https://ardata-fr.github.io/officeverse/" class="external-link">User Documentation</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/davidgohel/officer/">
+  <a href="https://github.com/davidgohel/officer/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -75,26 +77,26 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="officer-r-package" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#officer-r-package" class="anchor"></a>officer R package</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="officer-r-package">officer R package<a class="anchor" aria-label="anchor" href="#officer-r-package"></a>
+</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <blockquote>
 <p>Make corporate reporting with minimum hassle</p>
 </blockquote>
-<p><a href="https://github.com/davidgohel/officer/actions"><img src="https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://CRAN.R-project.org/package=officer"><img src="https://www.r-pkg.org/badges/version/officer" alt="version"></a></p>
-<p><a href="https://github.com/davidgohel/flextable"><img src="reference/figures/logo.png" alt="flextable logo" align="right"></a> The officer package lets R users manipulate Word (<code>.docx</code>) and PowerPoint (<code>*.pptx</code>) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available.</p>
-<div id="ressources" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ressources" class="anchor"></a>Ressources</h2>
+<p><a href="https://github.com/davidgohel/officer/actions" class="external-link"><img src="https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://CRAN.R-project.org/package=officer" class="external-link"><img src="https://www.r-pkg.org/badges/version/officer" alt="version"></a></p>
+<p><a href="https://github.com/davidgohel/flextable" class="external-link"><img src="reference/figures/logo.png" alt="flextable logo" align="right"></a> The officer package lets R users manipulate Word (<code>.docx</code>) and PowerPoint (<code>*.pptx</code>) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available.</p>
+<div class="section level2">
+<h2 id="ressources">Ressources<a class="anchor" aria-label="anchor" href="#ressources"></a>
+</h2>
 <p>The help pages are in a bookdown located at:</p>
-<p><a href="https://ardata-fr.github.io/officeverse/" class="uri">https://ardata-fr.github.io/officeverse/</a></p>
+<p><a href="https://ardata-fr.github.io/officeverse/" class="external-link uri">https://ardata-fr.github.io/officeverse/</a></p>
 <p>Manuals are available at:</p>
-<p><a href="https://davidgohel.github.io/officer/" class="uri">https://davidgohel.github.io/officer/</a>.</p>
+<p><a href="https://davidgohel.github.io/officer/" class="external-link uri">https://davidgohel.github.io/officer/</a>.</p>
 </div>
-<div id="word-documents" class="section level2">
-<h2 class="hasAnchor">
-<a href="#word-documents" class="anchor"></a>Word documents</h2>
+<div class="section level2">
+<h2 id="word-documents">Word documents<a class="anchor" aria-label="anchor" href="#word-documents"></a>
+</h2>
 <p>The <code><a href="reference/read_docx.html">read_docx()</a></code> function will read an initial Word document (an empty one by default) and lets you modify its content later.</p>
 <p>The package provides functions to add R outputs into a Word document:</p>
 <ul>
@@ -104,15 +106,15 @@
 <li>field codes: add Word field codes inside paragraphs. Field codes is an old feature of MS Word to create calculated elements such as tables of contents, automatic numbering and hyperlinks.</li>
 </ul>
 <p>File generation is performed with the <code>print</code> function.</p>
-<div id="import-word-document-in-a-dataframe" class="section level3">
-<h3 class="hasAnchor">
-<a href="#import-word-document-in-a-dataframe" class="anchor"></a>import Word document in a data.frame</h3>
+<div class="section level3">
+<h3 id="import-word-document-in-a-dataframe">import Word document in a data.frame<a class="anchor" aria-label="anchor" href="#import-word-document-in-a-dataframe"></a>
+</h3>
 <p>The function <code><a href="reference/docx_summary.html">docx_summary()</a></code> reads and imports content of a Word document into a data.frame. The function handles paragraphs, tables and section breaks.</p>
 </div>
 </div>
-<div id="powerpoint-documents" class="section level2">
-<h2 class="hasAnchor">
-<a href="#powerpoint-documents" class="anchor"></a>PowerPoint documents</h2>
+<div class="section level2">
+<h2 id="powerpoint-documents">PowerPoint documents<a class="anchor" aria-label="anchor" href="#powerpoint-documents"></a>
+</h2>
 <p>The function <code><a href="reference/read_pptx.html">read_pptx()</a></code> will read an initial PowerPoint document (an empty one by default) and let you modify its content later.</p>
 <p>The package provides functions to add R outputs into existing or new PowerPoint slides:</p>
 <ul>
@@ -121,72 +123,72 @@
 <li>text: add text as paragraphs or inside an existing paragraph, format is defined in the corresponding layout of the slide.</li>
 </ul>
 <p>In a PowerPoint document, one can set a slide as selected and reach a particular shape (and remove it or add text).</p>
-<p>File generation is performed with the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> function.</p>
-<div id="import-powerpoint-document-in-a-dataframe" class="section level3">
-<h3 class="hasAnchor">
-<a href="#import-powerpoint-document-in-a-dataframe" class="anchor"></a>import PowerPoint document in a data.frame</h3>
+<p>File generation is performed with the <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> function.</p>
+<div class="section level3">
+<h3 id="import-powerpoint-document-in-a-dataframe">import PowerPoint document in a data.frame<a class="anchor" aria-label="anchor" href="#import-powerpoint-document-in-a-dataframe"></a>
+</h3>
 <p>The <code><a href="reference/pptx_summary.html">pptx_summary()</a></code> function reads and imports content of a PowerPoint document into a data.frame. The function handles paragraphs, tables and images.</p>
 </div>
 </div>
-<div id="extensions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extensions" class="anchor"></a>Extensions</h2>
-<div id="tables-and-package-flextable" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tables-and-package-flextable" class="anchor"></a>Tables and package <code>flextable</code>
+<div class="section level2">
+<h2 id="extensions">Extensions<a class="anchor" aria-label="anchor" href="#extensions"></a>
+</h2>
+<div class="section level3">
+<h3 id="tables-and-package-flextable">Tables and package <code>flextable</code>
+<a class="anchor" aria-label="anchor" href="#tables-and-package-flextable"></a>
 </h3>
-<p>The package <a href="https://ardata-fr.github.io/flextable-book/index.html">flextable</a> brings a full API to produce nice tables and use them with packages officer and rmarkdown.</p>
+<p>The package <a href="https://ardata-fr.github.io/flextable-book/index.html" class="external-link">flextable</a> brings a full API to produce nice tables and use them with packages officer and rmarkdown.</p>
 </div>
-<div id="vector-graphics-with-package-rvg" class="section level3">
-<h3 class="hasAnchor">
-<a href="#vector-graphics-with-package-rvg" class="anchor"></a>Vector graphics with package <code>rvg</code>
+<div class="section level3">
+<h3 id="vector-graphics-with-package-rvg">Vector graphics with package <code>rvg</code>
+<a class="anchor" aria-label="anchor" href="#vector-graphics-with-package-rvg"></a>
 </h3>
-<p>The package <a href="https://github.com/davidgohel/rvg">rvg</a> brings an API to produce nice vector graphics that can be embedded in PowerPoint documents or Excel workbooks with <code>officer</code>.</p>
+<p>The package <a href="https://github.com/davidgohel/rvg" class="external-link">rvg</a> brings an API to produce nice vector graphics that can be embedded in PowerPoint documents or Excel workbooks with <code>officer</code>.</p>
 </div>
-<div id="native-office-charts-with-package-mschart" class="section level3">
-<h3 class="hasAnchor">
-<a href="#native-office-charts-with-package-mschart" class="anchor"></a>Native office charts with package <code>mschart</code>
+<div class="section level3">
+<h3 id="native-office-charts-with-package-mschart">Native office charts with package <code>mschart</code>
+<a class="anchor" aria-label="anchor" href="#native-office-charts-with-package-mschart"></a>
 </h3>
-<p>The package <a href="https://github.com/ardata-fr/mschart">mschart</a> combined with <code>officer</code> can produce native office charts in PowerPoint and Word documents.</p>
+<p>The package <a href="https://github.com/ardata-fr/mschart" class="external-link">mschart</a> combined with <code>officer</code> can produce native office charts in PowerPoint and Word documents.</p>
 </div>
-<div id="advance-word-documents-with-r-markdown-with-package-officedown" class="section level3">
-<h3 class="hasAnchor">
-<a href="#advance-word-documents-with-r-markdown-with-package-officedown" class="anchor"></a>Advance Word documents with R Markdown with package <code>officedown</code>
+<div class="section level3">
+<h3 id="advance-word-documents-with-r-markdown-with-package-officedown">Advance Word documents with R Markdown with package <code>officedown</code>
+<a class="anchor" aria-label="anchor" href="#advance-word-documents-with-r-markdown-with-package-officedown"></a>
 </h3>
-<p>The package <a href="https://ardata-fr.github.io/officeverse/">officedown</a> facilitates the formatting of Microsoft Word documents produced by R Markdown documents.</p>
+<p>The package <a href="https://ardata-fr.github.io/officeverse/" class="external-link">officedown</a> facilitates the formatting of Microsoft Word documents produced by R Markdown documents.</p>
 </div>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can get the development version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"davidgohel/officer"</span><span class="op">)</span></code></pre></div>
 <p>Or the latest version on CRAN:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"officer"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"officer"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="getting-help" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-help" class="anchor"></a>Getting help</h2>
-<p>If you have questions about how to use the package, <a href="https://stackoverflow.com/questions/tagged/officer">visit Stack Overflow’s <code>officer</code> tag</a> and post your question there. I usually read them and answer when possible.</p>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>If you have questions about how to use the package, <a href="https://stackoverflow.com/questions/tagged/officer" class="external-link">visit Stack Overflow’s <code>officer</code> tag</a> and post your question there. I usually read them and answer when possible.</p>
 </div>
-<div id="contributing-to-the-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contributing-to-the-package" class="anchor"></a>Contributing to the package</h2>
-<div id="code-of-conduct" class="section level3">
-<h3 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h3>
-<p>Anyone getting involved in this package agrees to our <a href="https://github.com/davidgohel/officer/blob/master/CONDUCT.md">Code of Conduct</a>.</p>
+<div class="section level2">
+<h2 id="contributing-to-the-package">Contributing to the package<a class="anchor" aria-label="anchor" href="#contributing-to-the-package"></a>
+</h2>
+<div class="section level3">
+<h3 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h3>
+<p>Anyone getting involved in this package agrees to our <a href="https://github.com/davidgohel/officer/blob/master/CONDUCT.md" class="external-link">Code of Conduct</a>.</p>
 </div>
-<div id="bug-reports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-reports" class="anchor"></a>Bug reports</h3>
-<p>When you file a <a href="https://github.com/davidgohel/officer/issues">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
+<div class="section level3">
+<h3 id="bug-reports">Bug reports<a class="anchor" aria-label="anchor" href="#bug-reports"></a>
+</h3>
+<p>When you file a <a href="https://github.com/davidgohel/officer/issues" class="external-link">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
 </div>
-<div id="contributing-to-the-package-development" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contributing-to-the-package-development" class="anchor"></a>Contributing to the package development</h3>
+<div class="section level3">
+<h3 id="contributing-to-the-package-development">Contributing to the package development<a class="anchor" aria-label="anchor" href="#contributing-to-the-package-development"></a>
+</h3>
 <p>A great way to start is to contribute an example or improve the documentation.</p>
 <p>If you want to submit a Pull Request to integrate functions of yours, please provide:</p>
 <ul>
@@ -202,33 +204,41 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=officer">https://​cloud.r-project.org/​package=officer</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/davidgohel/officer/">https://​github.com/​davidgohel/​officer/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/davidgohel/officer/issues">https://​github.com/​davidgohel/​officer/​issues</a>
-</li>
-<li>The user documentation is in the <strong>officeverse</strong> book at <br><a href="https://ardata-fr.github.io/officeverse/">https://​ardata-fr.github.io/​officeverse/​</a>
-</li>
-<li>Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website at <br><a href="https://www.ardata.fr">https://​www.ardata.fr</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=officer" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/davidgohel/officer/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/davidgohel/officer/discussions" class="external-link">Report a bug</a></li>
+<li><a href="https://ardata-fr.github.io/officeverse/" class="external-link">The user documentation is in the <strong>officeverse</strong> book</a></li>
+<li>
+<a href="https://www.ardata.fr" class="external-link">Visit </a><a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website</li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing officer</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>David Gohel <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
@@ -236,26 +246,20 @@
 
       <footer><link href="ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.4.1 - Developed by David Gohel - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> .</p>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48354045-1', 'auto');
-  ga('send', 'pageview');
-</script></footer>
+      </footer>
 </div>
 
   
 
+
+  
 
   </body>
 </html>
