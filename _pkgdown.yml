@@ -118,7 +118,20 @@ reference:
     - fp_par
     - fp_border
     - fp_cell
-
+  - title: Excel
+    contents:
+    - read_xlsx
+    - add_sheet
+    - sheet_select
+  - title: Misc
+    contents:
+    - read_xlsx
+    - add_sheet
+    - sheet_select
+    - shortcuts
+    - sanitize_images
+    - officer-defunct
+    - starts_with("slip_in")
 navbar:
   title: officer
   type: default

@@ -250,6 +250,7 @@ footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
 #' anymore. This function is to be used when images
 #' have been replaced many times.
 #' @param x \code{rdocx} or \code{rpptx} object
+#' @keywords internal
 sanitize_images <- function(x){
 
   rel_files <- list.files(x$package_dir, pattern = "\\.xml.rels$", recursive = TRUE, full.names = TRUE)

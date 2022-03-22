@@ -15,3 +15,4 @@ directory and delete images that are not used
 anymore. This function is to be used when images
 have been replaced many times.
 }
+\keyword{internal}
