@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.4.2.006
+Version: 0.4.2
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -29,11 +29,10 @@ Imports:
     xml2 (>= 1.1.0)
 URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
 Encoding: UTF-8
-BugReports: https://github.com/davidgohel/officer/issues
+BugReports: https://github.com/davidgohel/officer/discussions
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Suggests: testthat, devEMF, ggplot2,
     rmarkdown,
     base64enc,
     knitr, rsvg
-VignetteBuilder: knitr

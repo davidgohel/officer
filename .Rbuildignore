@@ -6,6 +6,7 @@
 ^inst\/medias$
 ^cran-comments\.md$
 ^revdep$
+^pkgdown$
 ^_pkgdown\.yml$
 ^CONDUCT\.md$
 ^examples$

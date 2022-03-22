@@ -24,6 +24,7 @@ reference:
     - doc_properties
     - docx_dim
     - docx_show_chunk
+    - length.rdocx
   - title: Navigate into Word documents
     contents:
     - starts_with("cursor_")
@@ -46,6 +47,7 @@ reference:
     - body_add_plot
     - body_end_block_section
     - body_set_default_section
+    - starts_with("body_end_section")
   - title: Word sections
     contents:
     - prop_section
@@ -80,6 +82,9 @@ reference:
     - ph_slidelink
     - ph_hyperlink
     - ph_remove
+    - set_notes
+    - notes_location_label
+    - notes_location_type
   - title: Read PowerPoint information
     contents:
     - pptx_summary
@@ -92,6 +97,7 @@ reference:
     - slide_summary
     - color_scheme
     - media_extract
+    - as.matrix.rpptx
   - title: Content formatting
     desc: Define formatted paragraphs or parts of paragraphs, such as text, calculated Word fields, sets of paragraphs, etc.
     contents:
@@ -101,7 +107,9 @@ reference:
     - plot_instr
     - ftext
     - starts_with("run_")
+    - set_autonum_bookmark
     - external_img
+    - hyperlink_ftext
     - empty_content
   - title: Formatting properties
     contents:

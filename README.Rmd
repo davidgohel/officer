@@ -132,7 +132,7 @@ Anyone getting involved in this package agrees to our [Code of Conduct](https://
 
 ### Bug reports
 
-When you file a [bug report](https://github.com/davidgohel/officer/issues), please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.
+When you file a [bug report](https://github.com/davidgohel/officer/discussions/categories/q-a), please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.
 
 ### Contributing to the package development
 

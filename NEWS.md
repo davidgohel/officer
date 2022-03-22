@@ -11,7 +11,7 @@ now be added to a pptx presentation
 
 * deprecate slip_in_column_break and slip_in_text
 * doc: use 'title case' for the titles of function manuals
-
+* closing issues tab, opening discussion 
 # officer 0.4.1
 
 ## Issues
