@@ -125,6 +125,7 @@ reference:
     - sheet_select
   - title: Misc
     contents:
+    - officer
     - read_xlsx
     - add_sheet
     - sheet_select

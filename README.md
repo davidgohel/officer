@@ -9,7 +9,7 @@ officer R package
 status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
 
-<a href="https://github.com/davidgohel/flextable"><img src="man/figures/logo.png" alt="flextable logo" align="right" /></a>
+<a href="https://github.com/davidgohel/officer"><img src="man/figures/logo.png" alt="officer logo" align="right" /></a>
 The officer package lets R users manipulate Word (`.docx`) and
 PowerPoint (`*.pptx`) documents. In short, one can add images, tables
 and text into documents from R. An initial document can be provided;
@@ -135,10 +135,10 @@ Conduct](https://github.com/davidgohel/officer/blob/master/CONDUCT.md).
 ### Bug reports
 
 When you file a [bug
-report](https://github.com/davidgohel/officer/issues), please spend some
-time making it easy for me to follow and reproduce. The more time you
-spend on making the bug report coherent, the more time I can dedicate to
-investigate the bug as opposed to the bug report.
+report](https://github.com/davidgohel/officer/discussions/categories/q-a),
+please spend some time making it easy for me to follow and reproduce.
+The more time you spend on making the bug report coherent, the more time
+I can dedicate to investigate the bug as opposed to the bug report.
 
 ### Contributing to the package development
 
