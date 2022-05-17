@@ -12,6 +12,8 @@ ph_location(
   newlabel = "",
   bg = NULL,
   rotation = NULL,
+  ln = NULL,
+  geom = NULL,
   ...
 )
 }
@@ -25,11 +27,15 @@ in inches.}
 
 \item{rotation}{rotation angle}
 
+\item{ln}{a \code{sp_line} object specifying the outline style.}
+
+\item{geom}{shape geometry}
+
 \item{...}{unused arguments}
 }
 \description{
 The function will return a list that complies with
-expected format for argument \code{location} of function\code{ph_with}.
+expected format for argument \code{location} of function \code{ph_with}.
 }
 \details{
 The location of the bounding box associated to a placeholder
@@ -54,6 +60,15 @@ doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(doc, "Hello world",
   location = ph_location(width = 4, height = 3, newlabel = "hello") )
+print(doc, target = tempfile(fileext = ".pptx") )
+
+# Set geometry and outline
+doc <- read_pptx()
+doc <- add_slide(doc)
+loc <- ph_location(left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
+                   ln = sp_line(color = "red", lwd = 2.5),
+                   geom = "trapezoid")
+doc <- ph_with(doc, "", loc = loc)
 print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{

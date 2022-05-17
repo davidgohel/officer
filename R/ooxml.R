@@ -37,20 +37,24 @@ runs_to_p_wml <- function(..., add_ns = FALSE, style_id = NULL){
 }
 
 sh_props_pml <- function( left = 0, top = 0, width = 3, height = 3,
-                          bg = "transparent", rot = 0, label = "", ph = "<p:ph/>"){
+                          bg = "transparent", rot = 0, label = "", ph = "<p:ph/>",
+                          ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"), geom = NULL) {
 
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
   bg_str <- solid_fill_pml(bg)
+  ln_str <- ln_pml(ln)
+  geom_str <- prst_geom_pml(geom)
 
   xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
   if( is.null(ph) || is.na(ph)){
     ph = "<p:ph/>"
   }
 
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s</p:spPr>"
-  sprintf(str, label, ph, xfrm_str, bg_str )
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
+
+  sprintf(str, label, ph, xfrm_str, geom_str, bg_str, ln_str)
 
 }
 
@@ -119,6 +123,74 @@ solid_fill_pml <- function(bg){
     bg_str <- solid_fill(bg)
   }
   bg_str
+}
+
+# geom ----
+
+prst_geom_pml <- function(x) {
+  geom_str <- ""
+  if (!is.null(x)) {
+    x <- check_set_geom(x)
+    tagname <- paste0("a:prstGeom")
+    geom_str <- sprintf("<%s prst=\"%s\"><a:avLst/></%s>", tagname, x, tagname)
+  }
+  geom_str
+}
+
+# line ----
+
+ln_pml <- function(x) {
+  ln_str <- ""
+  if (!is.null(x)) {
+    color_ <- ""
+    if(is_transparent(x$color) || x$lwd < .001) {
+      color_ <- "<a:noFill/>"
+    } else {
+      color_ <- solid_fill(x$color)
+    }
+
+    dash_ <- dash_pml(x$lty)
+    join_ <- linejoin_pml(x$linejoin)
+    head_ <- lineend_pml(x$headend, "head")
+    tail_ <- lineend_pml(x$tailend, "tail")
+
+    ln_str <- sprintf(
+      paste0("<a:ln w=\"%s\" cap=\"%s\" cmpd=\"%s\">",
+             color_,
+             dash_,
+             join_,
+             head_,
+             tail_,
+             "</a:ln>"),
+      12700 * x$lwd, x$lineend, x$linecmpd)
+
+  }
+  ln_str
+}
+
+lineend_pml <- function(x, side) {
+  lineend_str <- ""
+  if (!is.null(x)) {
+    tagname <- paste0("a:", side, "End")
+    lineend_str <- sprintf("<%s type=\"%s\" w=\"%s\" len=\"%s\"/>", tagname, x$type, x$width, x$length)
+  }
+  lineend_str
+}
+
+dash_pml <- function(x) {
+  dash_str <- ""
+  if (!is.null(x)) {
+    dash_str <- sprintf("<a:prstDash val=\"%s\"/>", x)
+  }
+  dash_str
+}
+
+linejoin_pml <- function(x) {
+  linejoin_str <- ""
+  if (!is.null(x)) {
+    linejoin_str <- sprintf("<a:%s/>", x)
+  }
+  linejoin_str
 }
 
 # border ----

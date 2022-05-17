@@ -97,6 +97,15 @@ check_set_choice <- function( obj, value, choices){
   obj
 }
 
+check_set_class <- function( obj, value, cl){
+  varname <- as.character(substitute(value))
+  cl_str <- sprintf(" must be a %s object.", cl)
+  if( !inherits( value, cl ) )
+    stop(varname, cl_str, call. = FALSE)
+  else obj[[varname]] <- value
+  obj
+}
+
 # fp_text ----
 #' @title Text formatting properties
 #'

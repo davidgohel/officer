@@ -71,12 +71,14 @@ fortify_location <- function( x, doc, ... ){
 #' @export
 #' @title Location for a placeholder from scratch
 #' @description The function will return a list that complies with
-#' expected format for argument \code{location} of function\code{ph_with}.
+#' expected format for argument \code{location} of function \code{ph_with}.
 #' @param left,top,width,height place holder coordinates
 #' in inches.
 #' @param newlabel a label for the placeholder. See section details.
 #' @param bg background color
 #' @param rotation rotation angle
+#' @param ln a \code{sp_line} object specifying the outline style.
+#' @param geom shape geometry
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @details
@@ -102,14 +104,23 @@ fortify_location <- function( x, doc, ... ){
 #' doc <- ph_with(doc, "Hello world",
 #'   location = ph_location(width = 4, height = 3, newlabel = "hello") )
 #' print(doc, target = tempfile(fileext = ".pptx") )
+#'
+#' # Set geometry and outline
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' loc <- ph_location(left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
+#'                    ln = sp_line(color = "red", lwd = 2.5),
+#'                    geom = "trapezoid")
+#' doc <- ph_with(doc, "", loc = loc)
+#' print(doc, target = tempfile(fileext = ".pptx") )
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         newlabel = "",
                         bg = NULL, rotation = NULL,
+                        ln = NULL, geom = NULL,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation)
-
+    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom)
 
   class(x) <- c("location_manual", "location_str")
   x
