@@ -144,9 +144,9 @@ ph_with.character <- function(x, value, location, ...){
                ln = location$ln, geom = location$geom)
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- sprintf(paste0( psp_ns_yes, new_ph,
+  xml_elt <- paste0( psp_ns_yes, new_ph,
                      "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" ))
+                     pars, "</p:txBody></p:sp>" )
 
   node <- as_xml_document(xml_elt)
 
@@ -265,9 +265,9 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
                rot = location$rotation, bg = location$bg,
                ln = location$ln, geom = location$geom)
 
-  xml_elt <- sprintf(paste0( psp_ns_yes, new_ph,
-                             "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                             pars, "</p:txBody></p:sp>" ))
+  xml_elt <- paste0( psp_ns_yes, new_ph,
+                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                     pars, "</p:txBody></p:sp>" )
 
   node <- as_xml_document(xml_elt)
 
