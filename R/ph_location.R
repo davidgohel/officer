@@ -120,7 +120,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom)
+    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom, fld_type = NA_character_, fld_id = NA_character_)
 
   class(x) <- c("location_manual", "location_str")
   x
