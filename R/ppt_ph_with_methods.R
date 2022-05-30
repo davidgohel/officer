@@ -483,7 +483,15 @@ ph_with.empty_content <- function( x, value, location, ... ){
                        label = location$ph_label, ph = location$ph,
                        rot = location$rotation, bg = location$bg,
                        ln = location$ln, geom = location$geom)
-  xml_elt <- paste0( psp_ns_yes, new_ph, "</p:sp>" )
+
+  if (is.na(location$fld_id)) {
+    xml_elt <- paste0( psp_ns_yes, new_ph, "</p:sp>" )
+  } else {
+    pars <- paste0("<a:p><a:fld id=\"", location$fld_id, "\" type = \"", location$fld_type, "\"><a:rPr/><a:t>", x$cursor, "</a:t></a:fld></a:p>", collapse = "")
+    xml_elt <- sprintf(paste0( psp_ns_yes, new_ph,
+                               "<p:txBody><a:bodyPr/><a:lstStyle/>",
+                               pars, "</p:txBody></p:sp>" ))
+  }
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
