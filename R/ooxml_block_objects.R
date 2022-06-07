@@ -8,8 +8,22 @@
 #' @param style paragraph style name
 #' @param autonum an object generated with function [run_autonum]
 #' @examples
+#' library(officer)
 #'
-#' @example examples/block_caption.R
+#' run_num <- run_autonum(seq_id = "tab", pre_label = "tab. ",
+#'   bkm = "mtcars_table")
+#' caption <- block_caption("mtcars table",
+#'   style = "Normal",
+#'   autonum = run_num
+#' )
+#'
+#' doc_1 <- read_docx()
+#' doc_1 <- body_add(doc_1, "A title", style = "heading 1")
+#' doc_1 <- body_add(doc_1, "Hello world!", style = "Normal")
+#' doc_1 <- body_add(doc_1, caption)
+#' doc_1 <- body_add(doc_1, mtcars, style = "table_template")
+#'
+#' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family block functions for reporting
 block_caption <- function(label, style, autonum = NULL) {
   z <- list(
@@ -989,8 +1003,44 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' [block_caption()], [block_pour_docx()], [block_section()],
 #' [block_table()], [block_toc()], [fpar()], [plot_instr()].
 #' @examples
+#' # block list ------
 #'
-#' @example examples/block_list.R
+#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' fpt_blue_bold <- fp_text(color = "#006699", bold = TRUE)
+#' fpt_red_italic <- fp_text(color = "#C32900", italic = TRUE)
+#'
+#'
+#' ## This can be only be used in a MS word output as pptx does
+#' ## not support paragraphs made of text and images.
+#' ## (actually it can be used but image will not appear in the
+#' ## pptx output)
+#' value <- block_list(
+#'   fpar(ftext("hello world", fpt_blue_bold)),
+#'   fpar(ftext("hello", fpt_blue_bold), " ",
+#'        ftext("world", fpt_red_italic)),
+#'   fpar(
+#'     ftext("hello world", fpt_red_italic),
+#'           external_img(
+#'             src = img.file, height = 1.06, width = 1.39)))
+#' value
+#'
+#' doc <- read_docx()
+#' doc <- body_add(doc, value)
+#' print(doc, target = tempfile(fileext = ".docx"))
+#'
+#'
+#' value <- block_list(
+#'   fpar(ftext("hello world", fpt_blue_bold)),
+#'   fpar(ftext("hello", fpt_blue_bold), " ",
+#'        ftext("world", fpt_red_italic)),
+#'   fpar(
+#'     ftext("blah blah blah", fpt_red_italic)))
+#' value
+#'
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(doc, value, location = ph_location_type(type = "body"))
+#' print(doc, target = tempfile(fileext = ".pptx"))
 #' @seealso [ph_with()], [body_add_blocks()], [fpar()]
 #' @family block functions for reporting
 block_list <- function(...){
@@ -1111,8 +1161,24 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
 #'
 #' @param code plotting instructions
 #' @examples
+#' # plot_instr demo ----
 #'
-#' @example examples/plot_instr.R
+#' anyplot <- plot_instr(code = {
+#'   barplot(1:5, col = 2:6)
+#'   })
+#'
+#' doc <- read_docx()
+#' doc <- body_add(doc, anyplot, width = 5, height = 4)
+#' print(doc, target = tempfile(fileext = ".docx"))
+#'
+#'
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(
+#'   doc, anyplot,
+#'   location = ph_location_fullsize(),
+#'   bg = "#00000066", pointsize = 12)
+#' print(doc, target = tempfile(fileext = ".pptx"))
 #' @export
 #' @import graphics
 #' @seealso [ph_with()], [body_add_plot()]

@@ -32,7 +32,6 @@ officedown.
 }
 
 \examples{
-
 # wrap r logo with external_img ----
 srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
 extimg <- external_img(src = srcfile, height = 1.06/2,

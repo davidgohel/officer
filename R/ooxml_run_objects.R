@@ -443,8 +443,12 @@ to_wml.run_bookmark <- function(x, add_ns = FALSE, ...) {
 #' @description Object representing a page break for a Word document.
 #' @inheritSection ftext usage
 #' @examples
+#' fp_t <- fp_text(font.size = 12, bold = TRUE)
+#' an_fpar <- fpar("let's add a break page", run_pagebreak(), ftext("and blah blah!", fp_t))
 #'
-#' @example examples/run_pagebreak.R
+#' x <- read_docx()
+#' x <- body_add(x, an_fpar)
+#' print(x, target = tempfile(fileext = ".docx"))
 #' @family run functions for reporting
 run_pagebreak <- function() {
   z <- list()
@@ -485,8 +489,12 @@ to_wml.run_columnbreak <- function(x, add_ns = FALSE, ...) {
 #' within a call to [fpar].
 #' @inheritSection ftext usage
 #' @examples
+#' fp_t <- fp_text(font.size = 12, bold = TRUE)
+#' an_fpar <- fpar("let's add a line break", run_linebreak(), ftext("and blah blah!", fp_t))
 #'
-#' @example examples/run_linebreak.R
+#' x <- read_docx()
+#' x <- body_add(x, an_fpar)
+#' print(x, target = tempfile(fileext = ".docx"))
 #' @family run functions for reporting
 run_linebreak <- function() {
   z <- list()
@@ -717,8 +725,26 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' @param alt alternative text for images
 #' @inheritSection ftext usage
 #' @examples
+#' # wrap r logo with external_img ----
+#' srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' extimg <- external_img(src = srcfile, height = 1.06/2,
+#'                        width = 1.39/2)
 #'
-#' @example examples/external_img.R
+#' # pptx example ----
+#' doc <- read_pptx()
+#' doc <- add_slide(doc)
+#' doc <- ph_with(x = doc, value = extimg,
+#'                location = ph_location_type(type = "body"),
+#'                use_loc_size = FALSE )
+#' print(doc, target = tempfile(fileext = ".pptx"))
+#'
+#' fp_t <- fp_text(font.size = 20, color = "red")
+#' an_fpar <- fpar(extimg, ftext(" is cool!", fp_t))
+#'
+#' # docx example ----
+#' x <- read_docx()
+#' x <- body_add(x, an_fpar)
+#' print(x, target = tempfile(fileext = ".docx"))
 #' @seealso [ph_with], [body_add], [fpar]
 #' @family run functions for reporting
 external_img <- function(src, width = .5, height = .2, alt = "") {

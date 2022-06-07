@@ -37,7 +37,6 @@ This label can then be reused by other functions such as \code{ph_location_label
 It can be set with argument \code{newlabel}.
 }
 \examples{
-
 # ph_location_label demo ----
 
 doc <- read_pptx()
@@ -54,8 +53,6 @@ doc <- ph_with(doc, "This is a title",
   location = ph_location_label(ph_label = "Title 1") )
 
 print(doc, target = tempfile(fileext = ".pptx"))
-
-
 }
 \seealso{
 Other functions for placeholder location: 

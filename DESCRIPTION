@@ -31,7 +31,7 @@ Imports:
 URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
 Encoding: UTF-8
 BugReports: https://github.com/davidgohel/officer/discussions
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 Suggests: testthat, devEMF, ggplot2,
     rmarkdown,
