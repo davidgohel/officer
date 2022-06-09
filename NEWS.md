@@ -1,3 +1,14 @@
+# officer 0.4.3
+
+## New features
+
+* `set_doc_properties()` now supports any character property. 
+It provides an easy way to insert arbitrary fields. Given the challenges 
+that can be encountered with find-and-replace in word with officer, the 
+use of document fields and quick text fields provides a much more robust 
+approach to automatic document generation from R.
+
+
 # officer 0.4.2
 
 ## New features
