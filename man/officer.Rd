@@ -41,6 +41,8 @@ Other contributors:
   \item John Muschelli \email{muschellij2@gmail.com} (google doc compatibility) [contributor]
   \item Bill Denney \email{wdenney@humanpredictions.com} (\href{https://orcid.org/0000-0002-5759-428X}{ORCID}) (function as.matrix.rpptx) [contributor]
   \item Nikolai Beck \email{beck.nikolai@gmail.com} (set speaker notes for .pptx documents) [contributor]
+  \item Stefan Moog \email{moogs@gmx.de} (added functionality to set shape geometry and outline) [contributor]
+  \item Greg Leleu \email{gregoire.leleu@gmail.com} (fields functionality in ppt) [contributor]
 }
 
 }
