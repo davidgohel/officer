@@ -37,6 +37,7 @@ slide_summary(my_pres, index = 1)
 Other functions for reading presentation informations: 
 \code{\link{annotate_base}()},
 \code{\link{color_scheme}()},
+\code{\link{doc_properties}()},
 \code{\link{layout_properties}()},
 \code{\link{layout_summary}()},
 \code{\link{length.rpptx}()},

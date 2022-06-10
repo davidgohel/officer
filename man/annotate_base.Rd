@@ -35,6 +35,7 @@ annotate_base(output_file = tempfile(fileext = ".pptx"))
 \seealso{
 Other functions for reading presentation informations: 
 \code{\link{color_scheme}()},
+\code{\link{doc_properties}()},
 \code{\link{layout_properties}()},
 \code{\link{layout_summary}()},
 \code{\link{length.rpptx}()},

@@ -55,6 +55,11 @@ read_pptx <- function( path = NULL ){
   obj$notesMaster <- dir_notesMaster$new(package_dir, slide_master$new("ppt/notesMasters"))
   obj$content_type <- content_type$new( package_dir )
   obj$core_properties <- read_core_properties(package_dir)
+  obj$doc_properties_custom <- read_custom_properties(package_dir)
+
+  obj$rel <- relationship$new()
+  obj$rel$feed_from_xml(file.path(package_dir, "_rels", ".rels"))
+
 
   obj$cursor = obj$slide$length()
   class(obj) <- "rpptx"
@@ -104,6 +109,8 @@ print.rpptx <- function(x, target = NULL, ...){
     stop(target , " is already edited.",
          " You must close the document in order to be able to write the file.")
 
+  x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
+
   x$presentation$save()
   x$content_type$save()
 
@@ -114,6 +121,10 @@ print.rpptx <- function(x, target = NULL, ...){
   x$core_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
   x$core_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
   write_core_properties(x$core_properties, x$package_dir)
+
+  if(nrow(x$doc_properties_custom$data) >0 ){
+    write_custom_properties(x$doc_properties_custom, x$package_dir)
+  }
 
   invisible(pack_folder(folder = x$package_dir, target = target ))
 }

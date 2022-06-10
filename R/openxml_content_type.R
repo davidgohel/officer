@@ -51,8 +51,10 @@ content_type <- R6Class(
       self
     },
     add_override = function(value){
-      override <- c( private$override, value )
-      private$override <- override
+      if (!names(value) %in% names(private$override)){
+        override <- c( private$override, value )
+        private$override <- override
+      }
       self
     },
     remove_slide = function(partname){

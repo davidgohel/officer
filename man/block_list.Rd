@@ -21,8 +21,7 @@ object. The result can be added into a Word document or a
 PowerPoint presentation.
 }
 \examples{
-
-#' # block list ------
+# block list ------
 
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 fpt_blue_bold <- fp_text(color = "#006699", bold = TRUE)
@@ -60,8 +59,6 @@ doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(doc, value, location = ph_location_type(type = "body"))
 print(doc, target = tempfile(fileext = ".pptx"))
-
-
 }
 \seealso{
 \code{\link[=ph_with]{ph_with()}}, \code{\link[=body_add_blocks]{body_add_blocks()}}, \code{\link[=fpar]{fpar()}}
