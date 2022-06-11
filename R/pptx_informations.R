@@ -73,7 +73,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
   } else if( !is.null(layout) && is.null(master) ){
     data <- data[data$name == layout,]
   }
-  data <- data[,c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation")]
+  data <- data[,c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400

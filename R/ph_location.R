@@ -25,8 +25,8 @@ get_ph_loc <- function(x, layout, master, type, position_right, position_top, id
   if( nrow(props) > 1) {
     warning("more than a row have been selected")
   }
-  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "rotation")]
-  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "rotation")
+  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")]
+  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")
   as_ph_location(props)
 }
 
@@ -35,7 +35,7 @@ as_ph_location <- function(x, ...){
     stop("x should be a data.frame")
   }
   ref_names <- c( "width", "height", "left", "top",
-                  "ph_label", "ph", "type", "rotation")
+                  "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")
   if (!all(is.element(ref_names, names(x) ))) {
     stop("missing column values:", paste0(setdiff(ref_names, names(x)), collapse = ","))
   }
@@ -120,7 +120,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom)
+    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom, fld_type = NA_character_, fld_id = NA_character_)
 
   class(x) <- c("location_manual", "location_str")
   x
@@ -314,8 +314,8 @@ fortify_location.location_label <- function( x, doc, ...){
          " in the slide layout is duplicated. It needs to be unique.")
   }
 
-  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "rotation")]
-  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "rotation")
+  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")]
+  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")
   row.names(props) <- NULL
   out <- as_ph_location(props)
   if( !is.null(x$label) )
@@ -354,6 +354,8 @@ fortify_location.location_fullsize <- function( x, doc, ...){
   layout_data$ph <- NA_character_
   layout_data$type <- "body"
   layout_data$rotation <- 0L
+  layout_data$fld_id <- NA_character_
+  layout_data$fld_type <- NA_character_
 
   as_ph_location(as.data.frame(layout_data, stringsAsFactors = FALSE))
 }
