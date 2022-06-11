@@ -16,8 +16,12 @@ add_slide <- function( x, layout = "Title and Content", master = "Office Theme" 
   slide_info <- x$slideLayouts$get_metadata()
   slide_info <- slide_info[slide_info$name == layout & slide_info$master_name == master, ]
 
-  if( nrow( slide_info ) < 1 )
+  if( nrow( slide_info ) < 1 ){
     stop("could not find layout named ", shQuote(layout), " in master named ", shQuote(master))
+  } else if( nrow( slide_info ) > 1 ) {
+    stop("found two layouts named ", shQuote(layout), " in master named ", shQuote(master),
+         ". Layout names should not be duplicated.")
+  }
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
