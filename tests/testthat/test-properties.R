@@ -42,6 +42,52 @@ test_that("set docx properties", {
 
 })
 
+test_that("set custom properties", {
+  filename <- tempfile(fileext = ".docx")
+  doc <- read_docx()
+  doc <- set_doc_properties(doc, coco = "coucou", zozo = "zuzu")
+  print(doc, target = filename )
+
+  doc <- read_docx(path = filename)
+  properties <- doc_properties(doc)
+
+  expect_equal( properties$value[properties$tag %in% "coco"], "coucou" )
+  expect_equal( properties$value[properties$tag %in% "zozo"], "zuzu" )
+
+  filename <- tempfile(fileext = ".pptx")
+  doc <- read_pptx()
+  doc <- set_doc_properties(doc, coco = "coucou", zozo = "zuzu")
+  print(doc, target = filename )
+
+  doc <- read_pptx(path = filename)
+  properties <- doc_properties(doc)
+
+  expect_equal( properties$value[properties$tag %in% "coco"], "coucou" )
+  expect_equal( properties$value[properties$tag %in% "zozo"], "zuzu" )
+
+  doc <- read_docx()
+  filename <- tempfile(fileext = ".docx")
+  doc <- set_doc_properties(doc, values = list(coco = "coucou", zozo = "zuzu"))
+  print(doc, target = filename )
+
+  doc <- read_docx(path = filename)
+  properties <- doc_properties(doc)
+
+  expect_equal( properties$value[properties$tag %in% "coco"], "coucou" )
+  expect_equal( properties$value[properties$tag %in% "zozo"], "zuzu" )
+
+  doc <- read_pptx()
+  filename <- tempfile(fileext = ".pptx")
+  doc <- set_doc_properties(doc, values = list(coco = "coucou", zozo = "zuzu"))
+  print(doc, target = filename )
+
+  doc <- read_pptx(path = filename)
+  properties <- doc_properties(doc)
+
+  expect_equal( properties$value[properties$tag %in% "coco"], "coucou" )
+  expect_equal( properties$value[properties$tag %in% "zozo"], "zuzu" )
+})
+
 
 
 test_that("set pptx properties", {

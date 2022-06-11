@@ -19,7 +19,6 @@ The function enable usage of any R plot with argument \code{code}. Wrap your cod
 between curly bracket if more than a single expression.
 }
 \examples{
-
 # plot_instr demo ----
 
 anyplot <- plot_instr(code = {

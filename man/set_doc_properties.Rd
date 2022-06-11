@@ -10,7 +10,9 @@ set_doc_properties(
   subject = NULL,
   creator = NULL,
   description = NULL,
-  created = NULL
+  created = NULL,
+  ...,
+  values = NULL
 )
 }
 \arguments{
@@ -19,10 +21,23 @@ set_doc_properties(
 \item{title, subject, creator, description}{text fields}
 
 \item{created}{a date object}
+
+\item{...}{named arguments (names are field names), each element is a single
+character value specifying value associated with the corresponding field name.}
+
+\item{values}{a named list (names are field names), each element is a single
+character value specifying value associated with the corresponding field name.
+If \code{values} is provided, argument \code{...} will be ignored.}
 }
 \description{
 set Word or PowerPoint document properties. These are not visible
 in the document but are available as metadata of the document.
+
+Any character property can be added as a document property.
+It provides an easy way to insert arbitrary fields. Given the challenges
+that can be encountered with find-and-replace in word with officer, the
+use of document fields and quick text fields provides a much more robust
+approach to automatic document generation from R.
 }
 \note{
 The "last modified" and "last modified by" fields will be automatically be updated
@@ -33,7 +48,9 @@ x <- read_docx()
 x <- set_doc_properties(x, title = "title",
   subject = "document subject", creator = "Me me me",
   description = "this document is empty",
-  created = Sys.time())
+  created = Sys.time(),
+  yoyo = "yok yok",
+  glop = "pas glop")
 x <- doc_properties(x)
 }
 \seealso{
