@@ -1,3 +1,5 @@
+#' @name officer-defunct
+#' @title Defunct Functions in Package officer
 #' @export
 #' @rdname officer-defunct
 #' @details `slip_in_seqfield()` is replaced by `run_word_field()`.
