@@ -16,10 +16,10 @@
 #' doc <- ph_with(x = doc, value = empty_content(),
 #'  location = ph_location_type(type = "title") )
 #'
-#' x <- add_slide(x)
+#' doc <- add_slide(doc)
 #' # add slide number as a computer field
-#' x <- ph_with(
-#'   x = x, value = empty_content(),
+#' doc <- ph_with(
+#'   x = doc, value = empty_content(),
 #'   location = ph_location_type(type = "sldNum"))
 #'
 #' print(doc, target = fileout )
