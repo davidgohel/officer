@@ -8,6 +8,14 @@ that can be encountered with find-and-replace in word with officer, the
 use of document fields and quick text fields provides a much more robust 
 approach to automatic document generation from R.
 
+## Changes
+
+- drop shortcuts$slip_in_tableref() and shortcuts$slip_in_plotref()
+- defunct slip_in_column_break() and slip_in_xml()
+- defunct slip_in_text()
+- remove defunct functions `slip_in_img()`, `ph_add_fpar()`, 
+`ph_add_par()` and `ph_add_text()`
+
 
 # officer 0.4.2
 

@@ -110,7 +110,7 @@ test_that("body_add_img", {
   getncheck(node, "w:r/w:drawing")
 })
 
-test_that("slip_in_img", {
+test_that("external_img add", {
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   x <- read_docx()
   x <- body_add_fpar(
