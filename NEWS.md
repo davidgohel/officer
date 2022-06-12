@@ -7,6 +7,10 @@ It provides an easy way to insert arbitrary fields. Given the challenges
 that can be encountered with find-and-replace in word with officer, the 
 use of document fields and quick text fields provides a much more robust 
 approach to automatic document generation from R.
+* Adding support for fields (e.g. auto slide number) in Powerpoint (#429), 
+see `empty_content()`.
+* add functionality to set shape geometry and outline, 
+see `ph_location(geam=...)`.
 
 ## Changes
 

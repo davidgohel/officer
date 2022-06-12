@@ -111,6 +111,8 @@ reference:
     - external_img
     - hyperlink_ftext
     - empty_content
+    - sp_line
+    - sp_lineend
   - title: Formatting properties
     contents:
     - fp_text_lite

@@ -77,8 +77,8 @@ fortify_location <- function( x, doc, ... ){
 #' @param newlabel a label for the placeholder. See section details.
 #' @param bg background color
 #' @param rotation rotation angle
-#' @param ln a \code{sp_line} object specifying the outline style.
-#' @param geom shape geometry
+#' @param ln a [sp_line()] object specifying the outline style.
+#' @param geom shape geometry, see http://www.datypic.com/sc/ooxml/t-a_ST_ShapeType.html
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @details

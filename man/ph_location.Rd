@@ -27,9 +27,9 @@ in inches.}
 
 \item{rotation}{rotation angle}
 
-\item{ln}{a \code{sp_line} object specifying the outline style.}
+\item{ln}{a \code{\link[=sp_line]{sp_line()}} object specifying the outline style.}
 
-\item{geom}{shape geometry}
+\item{geom}{shape geometry, see http://www.datypic.com/sc/ooxml/t-a_ST_ShapeType.html}
 
 \item{...}{unused arguments}
 }
