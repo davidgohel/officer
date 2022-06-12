@@ -20,7 +20,7 @@ cross references."><meta property="og:image" content="/logo.png"><!-- mathjax --
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -76,32 +76,47 @@ cross references.</p>
     <h2>Arguments</h2>
     <dl><dt>seq_id</dt>
 <dd><p>sequence identifier</p></dd>
+
+
 <dt>pre_label, post_label</dt>
 <dd><p>text to add before and after number</p></dd>
+
+
 <dt>bkm</dt>
 <dd><p>bookmark id to associate with autonumber run. If NULL, no bookmark
 is added. Value can only be made of alpha numeric characters, ':', -' and '_'.</p></dd>
+
+
 <dt>bkm_all</dt>
 <dd><p>if TRUE, the bookmark will be set on the whole string, if
 FALSE, the bookmark will be set on the number only. Default to FALSE.
 As an effect when a reference to this bookmark is used, the text can
 be like "Table 1" or "1" (pre_label is not included in the referenced
 text).</p></dd>
+
+
 <dt>prop</dt>
 <dd><p>formatting text properties returned by <a href="fp_text.html">fp_text</a>.</p></dd>
+
+
 <dt>start_at</dt>
 <dd><p>If not NULL, it must be a positive integer, it
 specifies the new number to use, at which number the auto
 numbering will restart.</p></dd>
+
+
 <dt>tnd</dt>
 <dd><p><em>title number depth</em>, a positive integer (only applies if positive)
 that specify the depth (or heading of level <em>depth</em>) to use for prefixing
 the caption number with this last reference number. For example, setting
 <code>tnd=2</code> will generate numbered captions like '4.3-2' (figure 2 of
 chapter 4.3).</p></dd>
+
+
 <dt>tns</dt>
 <dd><p>separator to use between title number and table
 number. Default is "-".</p></dd>
+
 </dl></div>
     <div id="usage">
     <h2>usage</h2>
@@ -264,7 +279,7 @@ officedown.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

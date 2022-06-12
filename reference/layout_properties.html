@@ -18,7 +18,7 @@ into a data.frame."><meta property="og:image" content="/logo.png"><!-- mathjax -
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -62,16 +62,22 @@ into a data.frame.</p>
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>an rpptx object</p></dd>
+
+
 <dt>layout</dt>
 <dd><p>slide layout name to use</p></dd>
+
+
 <dt>master</dt>
 <dd><p>master layout name where <code>layout</code> is located</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other functions for reading presentation informations: 
 <code><a href="annotate_base.html">annotate_base</a>()</code>,
 <code><a href="color_scheme.html">color_scheme</a>()</code>,
+<code><a href="doc_properties.html">doc_properties</a>()</code>,
 <code><a href="layout_summary.html">layout_summary</a>()</code>,
 <code><a href="length.rpptx.html">length.rpptx</a>()</code>,
 <code><a href="plot_layout_properties.html">plot_layout_properties</a>()</code>,
@@ -95,12 +101,12 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.951389 2.333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35                     &lt;p:ph type="ctrTitle"/&gt; 0.750000 2.329861 8.500000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.500000 4.250000 7.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation                                 fld_id          fld_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span> <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name              name     type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Office Theme    Section Header     body  3         Text Placeholder 2</span>
@@ -176,43 +182,43 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35                     &lt;p:ph type="ctrTitle"/&gt; 0.7500000 2.3298611 8.500000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.5000000 4.2500000 7.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.6406245       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6996522       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  4.3211811       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4.3211811       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.6996522       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 1.4895833       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation                                 fld_id          fld_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.6406245       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6996522       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  4.3211811       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4.3211811       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.6996522       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 1.4895833       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Two Content"</span> <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name        name   type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  Office Theme Two Content   body  3      Content Placeholder 2</span>
@@ -228,13 +234,13 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.9513889 3.166667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.9513889 2.333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 32                        &lt;p:ph type="title"/&gt; 0.500000 0.3003478 9.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation                                 fld_id          fld_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span> <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name              name     type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Office Theme    Section Header     body  3         Text Placeholder 2</span>
@@ -310,43 +316,43 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34                        &lt;p:ph type="title"/&gt; 0.5000000 0.3003478 9.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35                     &lt;p:ph type="ctrTitle"/&gt; 0.7500000 2.3298611 8.500000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36             &lt;p:ph type="subTitle" idx="1"/&gt; 1.5000000 4.2500000 7.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.6406245       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6996522       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  4.3211811       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4.3211811       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.6996522       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 1.4895833       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 1.2500000       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation                                 fld_id          fld_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.6406245       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6996522       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  4.3211811       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4.3211811       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.6996522       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 1.4895833       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </div>
@@ -357,7 +363,7 @@ into a data.frame.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

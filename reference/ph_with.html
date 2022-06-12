@@ -19,7 +19,7 @@ section Methods (by class) to see supported outputs."><meta property="og:image" 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -111,43 +111,68 @@ section <strong>Methods (by class)</strong> to see supported outputs.</p>
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>an rpptx object</p></dd>
+
+
 <dt>value</dt>
 <dd><p>object to add as a new shape. Supported objects
 are vectors, data.frame, graphics, block of formatted paragraphs,
 unordered list of formatted paragraphs,
 pretty tables with package flextable, editable graphics with
 package rvg, 'Microsoft' charts with package mschart.</p></dd>
+
+
 <dt>location</dt>
 <dd><p>a placeholder location object.
 It will be used to specify the location of the new shape. This location
 can be defined with a call to one of the ph_location functions. See
 section <code>"see also"</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments passed to or from other methods. When
 adding a <code>ggplot</code> object or <code>plot_instr</code>, these arguments will be used
 by png function.</p></dd>
+
+
 <dt>format_fun</dt>
 <dd><p>format function for non character vectors</p></dd>
+
+
 <dt>level_list</dt>
 <dd><p>The list of levels for hierarchy structure as integer values.
 If used the object is formated as an unordered list. If 1 and 2,
 item 1 level will be 1, item 2 level will be 2.</p></dd>
+
+
 <dt>header</dt>
 <dd><p>display header if TRUE</p></dd>
+
+
 <dt>tcf</dt>
 <dd><p>conditional formatting settings defined by <code><a href="table_conditional_formatting.html">table_conditional_formatting()</a></code></p></dd>
+
+
 <dt>alignment</dt>
 <dd><p>alignment for each columns, 'l' for left, 'r' for right
 and 'c' for center. Default to NULL.</p></dd>
+
+
 <dt>res</dt>
 <dd><p>resolution of the png image in ppi</p></dd>
+
+
 <dt>alt_text</dt>
 <dd><p>Alt-text for screen-readers</p></dd>
+
+
 <dt>scale</dt>
 <dd><p>Multiplicative scaling factor, same as in ggsave</p></dd>
+
+
 <dt>use_loc_size</dt>
 <dd><p>if set to FALSE, external_img width and height will
 be used.</p></dd>
+
 </dl></div>
     <div id="methods-by-class-">
     <h2>Methods (by class)</h2>
@@ -252,7 +277,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 <span class="r-in">    width <span class="op">=</span> <span class="va">sz</span><span class="op">$</span><span class="va">width</span>, height <span class="op">=</span> <span class="va">sz</span><span class="op">$</span><span class="va">height</span>, bg <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">svg_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span>component <span class="op">=</span> <span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html/Rlogo.svg"</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/jeroen/rsvg" class="external-link">"rsvg"</a></span><span class="op">)</span> <span class="op">)</span><span class="op">{</span></span>
+<span class="r-in"><span class="kw">if</span><span class="op">(</span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://docs.ropensci.org/rsvg/" class="external-link">"rsvg"</a></span><span class="op">)</span> <span class="op">)</span><span class="op">{</span></span>
 <span class="r-in">  <span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc_1</span>, value <span class="op">=</span> <span class="st">"External images"</span>,</span>
 <span class="r-in">                   location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span> <span class="op">)</span></span>
 <span class="r-in">  <span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc_1</span>, <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span><span class="va">svg_file</span>, <span class="fl">100</span><span class="op">/</span><span class="fl">72</span>, <span class="fl">76</span><span class="op">/</span><span class="fl">72</span><span class="op">)</span>,</span>
@@ -315,7 +340,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

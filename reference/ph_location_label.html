@@ -18,7 +18,7 @@ to find the corresponding location."><meta property="og:image" content="/logo.pn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -63,10 +63,15 @@ to find the corresponding location.</p>
     <dl><dt>ph_label</dt>
 <dd><p>placeholder label of the used layout. It can be read in PowerPoint or
 with function <code><a href="layout_properties.html">layout_properties()</a></code> in column <code>ph_label</code>.</p></dd>
+
+
 <dt>newlabel</dt>
 <dd><p>a label to associate with the placeholder.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>unused arguments</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -105,8 +110,7 @@ It can be set with argument <code>newlabel</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># ph_location_label demo ----</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># ph_location_label demo ----</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span><span class="op">)</span></span>
@@ -125,12 +129,12 @@ It can be set with argument <code>newlabel</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21    &lt;p:ph type="ftr" sz="quarter" idx="11"/&gt; 3.416667 6.9513889 3.166667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25 &lt;p:ph type="sldNum" sz="quarter" idx="12"/&gt; 7.166667 6.9513889 2.333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31                        &lt;p:ph type="title"/&gt; 0.500000 0.3003478 9.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.9496533       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           cy rotation                                 fld_id          fld_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.9496533       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3993056       NA {E6744CE3-0875-4B69-89C0-6F72D8139561} datetimeFigureOut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span>
 <span class="r-in">  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Content Placeholder 2"</span><span class="op">)</span> <span class="op">)</span></span>
@@ -140,8 +144,6 @@ It can be set with argument <code>newlabel</code>.</p>
 <span class="r-in">  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Title 1"</span><span class="op">)</span> <span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
@@ -152,7 +154,7 @@ It can be set with argument <code>newlabel</code>.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

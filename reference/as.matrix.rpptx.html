@@ -18,7 +18,7 @@ to a matrix or all data to a list of matrices."><meta property="og:image" conten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -70,22 +70,33 @@ to a matrix or all data to a list of matrices.</p>
     <dl><dt>x</dt>
 <dd><p>The rpptx object to convert (as created by
 <code><a href="read_pptx.html">officer::read_pptx()</a></code>)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Ignored</p></dd>
+
+
 <dt>slide_id</dt>
 <dd><p>The slide number to load from (NA indicates first slide with
 a table, NULL indicates all slides and all tables)</p></dd>
+
+
 <dt>id</dt>
 <dd><p>The table ID to load from (ignored it <code>is.null(slide_id)</code>, NA
 indicates to load the first table from the <code>slide_id</code>)</p></dd>
+
+
 <dt>span</dt>
 <dd><p>How should col_span/row_span values be handled?  <code>NA</code> means
 to leave the value as <code>NA</code>, and <code>"fill"</code> means to fill matrix
 cells with the value.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A matrix with the data, or if <code>slide_id=NULL</code>, a list of
+    
+
+<p>A matrix with the data, or if <code>slide_id=NULL</code>, a list of
 matrices</p>
     </div>
 
@@ -125,7 +136,7 @@ matrices</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

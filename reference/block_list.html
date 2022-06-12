@@ -20,7 +20,7 @@ PowerPoint presentation."><meta property="og:image" content="/logo.png"><!-- mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -71,6 +71,7 @@ also be used in fpar construction to mix text and images
 in a single paragraph. Supported objects are:
 <code><a href="block_caption.html">block_caption()</a></code>, <code><a href="block_pour_docx.html">block_pour_docx()</a></code>, <code><a href="block_section.html">block_section()</a></code>,
 <code><a href="block_table.html">block_table()</a></code>, <code><a href="block_toc.html">block_toc()</a></code>, <code><a href="fpar.html">fpar()</a></code>, <code><a href="plot_instr.html">plot_instr()</a></code>.</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -88,8 +89,7 @@ in a single paragraph. Supported objects are:
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">#' # block list ------</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># block list ------</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span>
 <span class="r-in"><span class="va">fpt_blue_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#006699"</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -201,7 +201,7 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/opt/R/4.1.3/lib/R/doc/html/logo.jpg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/opt/R/4.2.0/lib/R/doc/html/logo.jpg"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "external_img" "cot"          "run"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"dims")</span>
@@ -377,8 +377,6 @@ in a single paragraph. Supported objects are:
 <span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">value</span>, location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
@@ -389,7 +387,7 @@ in a single paragraph. Supported objects are:
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -18,7 +18,7 @@ the layout name and few other criterias to find the corresponding location."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -70,24 +70,35 @@ the layout name and few other criterias to find the corresponding location.</p>
     <dl><dt>type</dt>
 <dd><p>placeholder type to look for in the slide layout, one
 of 'body', 'title', 'ctrTitle', 'subTitle', 'dt', 'ftr', 'sldNum'.</p></dd>
+
+
 <dt>position_right</dt>
 <dd><p>the parameter is used when a selection with above
 parameters does not provide a unique position (for example
 layout 'Two Content' contains two element of type 'body').
 If <code>TRUE</code>, the element the most on the right side will be selected,
 otherwise the element the most on the left side will be selected.</p></dd>
+
+
 <dt>position_top</dt>
 <dd><p>same than <code>position_right</code> but applied
 to top versus bottom.</p></dd>
+
+
 <dt>newlabel</dt>
 <dd><p>a label to associate with the placeholder.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>index of the placeholder. If two body placeholder, there can be
 two different index: 1 and 2 for the first and second body placeholders defined
 in the layout. If this argument is used, <code>position_right</code> and <code>position_top</code>
 will be ignored.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>unused arguments</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -126,8 +137,7 @@ It can be set with argument <code>newlabel</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># ph_location_type demo ----</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># ph_location_type demo ----</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">loc_title</span> <span class="op">&lt;-</span> <span class="fu">ph_location_type</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">loc_footer</span> <span class="op">&lt;-</span> <span class="fu">ph_location_type</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"ftr"</span><span class="op">)</span></span>
@@ -151,10 +161,7 @@ It can be set with argument <code>newlabel</code>.</p>
 <span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, <span class="st">"Un titre"</span>, location <span class="op">=</span> <span class="va">loc_ctrtitle</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">fileout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span><span class="op">)</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -165,7 +172,7 @@ It can be set with argument <code>newlabel</code>.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

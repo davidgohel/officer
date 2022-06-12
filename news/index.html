@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
@@ -48,7 +48,25 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.4.2" id="officer-042">officer 0.4.2<a class="anchor" aria-label="anchor" href="#officer-042"></a></h2>
+<h2 class="page-header" data-toc-text="0.4.3" id="officer-043">officer 0.4.3<a class="anchor" aria-label="anchor" href="#officer-043"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-4-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-3"></a></h3>
+<ul><li>
+<code><a href="../reference/set_doc_properties.html">set_doc_properties()</a></code> now supports any character property. It provides an easy way to insert arbitrary fields. Given the challenges that can be encountered with find-and-replace in word with officer, the use of document fields and quick text fields provides a much more robust approach to automatic document generation from R.</li>
+<li>Adding support for fields (e.g. auto slide number) in Powerpoint (<a href="https://github.com/davidgohel/officer/issues/429" class="external-link">#429</a>), see <code><a href="../reference/empty_content.html">empty_content()</a></code>.</li>
+<li>add functionality to set shape geometry and outline, see <code>ph_location(geam=...)</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-4-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-4-3"></a></h3>
+<ul><li>drop shortcuts<span class="math inline"><em>s</em><em>l</em><em>i</em><em>p</em><sub><em>i</em></sub><em>n</em><sub><em>t</em></sub><em>a</em><em>b</em><em>l</em><em>e</em><em>r</em><em>e</em><em>f</em>()<em>a</em><em>n</em><em>d</em><em>s</em><em>h</em><em>o</em><em>r</em><em>t</em><em>c</em><em>u</em><em>t</em><em>s</em></span>slip_in_plotref()</li>
+<li>defunct slip_in_column_break() and slip_in_xml()</li>
+<li>defunct slip_in_text()</li>
+<li>remove defunct functions <code>slip_in_img()</code>, <code>ph_add_fpar()</code>, <code>ph_add_par()</code> and <code>ph_add_text()</code>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.2" id="officer-042">officer 0.4.2<small>2022-03-23</small><a class="anchor" aria-label="anchor" href="#officer-042"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-4-2">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-2"></a></h3>
 <ul><li>new as.matrix method for pptx to automatically extract one or all matrices from the file.</li>
@@ -77,8 +95,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="deprecation-0-4-2">Deprecation<a class="anchor" aria-label="anchor" href="#deprecation-0-4-2"></a></h3>
-<ul><li>deprecate almost all <code>slip_in*()</code> and <code>ph_add*()</code> functions. Functions <code><a href="../reference/ftext.html">ftext()</a></code> and related used with <code><a href="../reference/fpar.html">fpar()</a></code> are to be used as replacement.</li>
-</ul></div>
+<ul><li>deprecate almost all <code>slip_in*()</code> and <code>ph_add*()</code> functions. Functions <code><a href="../reference/ftext.html">ftext()</a></code> and related used with <code><a href="../reference/fpar.html">fpar()</a></code> are to be used as replacement.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="officer-040">officer 0.4.0<small>2021-09-06</small><a class="anchor" aria-label="anchor" href="#officer-040"></a></h2>
@@ -89,8 +106,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-4-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-4-0"></a></h3>
-<ul><li>fix a bug when creating the XML of table properties for Word documents</li>
-</ul></div>
+<ul><li>fix a bug when creating the XML of table properties for Word documents</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.19" id="officer-0319">officer 0.3.19<small>2021-07-21</small><a class="anchor" aria-label="anchor" href="#officer-0319"></a></h2>
@@ -131,23 +147,19 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-17">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-17"></a></h3>
-<ul><li>fix issue with document properties where values have to be html-escaped</li>
-</ul></div>
+<ul><li>fix issue with document properties where values have to be html-escaped</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.16" id="officer-0316">officer 0.3.16<small>2021-01-04</small><a class="anchor" aria-label="anchor" href="#officer-0316"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-3-16">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-16"></a></h3>
-<ul><li>new chunk function <code><a href="../reference/hyperlink_ftext.html">hyperlink_ftext()</a></code>.</li>
-</ul></div>
+<ul><li>new chunk function <code><a href="../reference/hyperlink_ftext.html">hyperlink_ftext()</a></code>.</li></ul></div>
 <div class="section level3">
 <h3 id="change-0-3-16">Change<a class="anchor" aria-label="anchor" href="#change-0-3-16"></a></h3>
-<ul><li>drop cairo usage and let user settings do the job</li>
-</ul></div>
+<ul><li>drop cairo usage and let user settings do the job</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-16">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-16"></a></h3>
-<ul><li>fix annotate_base that was not presenting the correct informatons (thanks to John Harrold).</li>
-</ul></div>
+<ul><li>fix annotate_base that was not presenting the correct informatons (thanks to John Harrold).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.15" id="officer-0315">officer 0.3.15<small>2020-11-01</small><a class="anchor" aria-label="anchor" href="#officer-0315"></a></h2>
@@ -175,12 +187,10 @@
 <h2 class="page-header" data-toc-text="0.3.14" id="officer-0314">officer 0.3.14<small>2020-09-07</small><a class="anchor" aria-label="anchor" href="#officer-0314"></a></h2>
 <div class="section level3">
 <h3 id="issues-0-3-14">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-14"></a></h3>
-<ul><li>revert PR#319 that introduced a major issue with repeated images in Word document.</li>
-</ul></div>
+<ul><li>revert PR#319 that introduced a major issue with repeated images in Word document.</li></ul></div>
 <div class="section level3">
 <h3 id="changes-0-3-14">Changes<a class="anchor" aria-label="anchor" href="#changes-0-3-14"></a></h3>
-<ul><li>remove defunct functions (ph_with_<em>at) and set deprecated as defunct (other ph_with_</em>at)</li>
-</ul></div>
+<ul><li>remove defunct functions (ph_with_<em>at) and set deprecated as defunct (other ph_with_</em>at)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.13" id="officer-0313">officer 0.3.13<small>2020-08-30</small><a class="anchor" aria-label="anchor" href="#officer-0313"></a></h2>
@@ -205,19 +215,16 @@
 <h2 class="page-header" data-toc-text="0.3.12" id="officer-0312">officer 0.3.12<small>2020-06-26</small><a class="anchor" aria-label="anchor" href="#officer-0312"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-3-12">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-12"></a></h3>
-<ul><li>added <code>body_end_block_section</code> and <code>body_add.block_section</code> so that users are free to add any section they want</li>
-</ul></div>
+<ul><li>added <code>body_end_block_section</code> and <code>body_add.block_section</code> so that users are free to add any section they want</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-12">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-12"></a></h3>
-<ul><li>Use pandoc.exe when platform is windows</li>
-</ul></div>
+<ul><li>Use pandoc.exe when platform is windows</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.11" id="officer-0311">officer 0.3.11<small>2020-05-18</small><a class="anchor" aria-label="anchor" href="#officer-0311"></a></h2>
 <div class="section level3">
 <h3 id="issues-0-3-11">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-11"></a></h3>
-<ul><li>pandoc availability is now checked (for solaris and CRAN policy)</li>
-</ul></div>
+<ul><li>pandoc availability is now checked (for solaris and CRAN policy)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.10" id="officer-0310">officer 0.3.10<small>2020-05-14</small><a class="anchor" aria-label="anchor" href="#officer-0310"></a></h2>
@@ -228,8 +235,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-10">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-10"></a></h3>
-<ul><li>run_reference now bookmarks only the number.</li>
-</ul></div>
+<ul><li>run_reference now bookmarks only the number.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.9" id="officer-039">officer 0.3.9<small>2020-05-04</small><a class="anchor" aria-label="anchor" href="#officer-039"></a></h2>
@@ -252,8 +258,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-3-9">Changes<a class="anchor" aria-label="anchor" href="#changes-0-3-9"></a></h3>
-<ul><li>internals ; drop digest from dependencies</li>
-</ul></div>
+<ul><li>internals ; drop digest from dependencies</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.7" id="officer-037">officer 0.3.7<small>2020-03-02</small><a class="anchor" aria-label="anchor" href="#officer-037"></a></h2>
@@ -266,8 +271,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-3-7">Changes<a class="anchor" aria-label="anchor" href="#changes-0-3-7"></a></h3>
-<ul><li>internals ; drop Rcpp and htmltools dependencies</li>
-</ul></div>
+<ul><li>internals ; drop Rcpp and htmltools dependencies</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-7"></a></h3>
 <ul><li>fix ph_with.external_img <a href="https://github.com/davidgohel/officer/issues/265" class="external-link">#265</a> (placeholder properties were not used)</li>
@@ -284,8 +288,7 @@
 <div class="section level3">
 <h3 id="changes-0-3-6">Changes<a class="anchor" aria-label="anchor" href="#changes-0-3-6"></a></h3>
 <ul><li>
-<code>id_chr</code> is now depreacted in favor of <code>id</code> in function <code>ph_remove</code>, <code>ph_slidelink</code>, <code>ph_hyperlink</code>, <code>ph_add_text</code>, <code>ph_add_par</code>, <code>ph_add_fpar</code>.</li>
-</ul></div>
+<code>id_chr</code> is now depreacted in favor of <code>id</code> in function <code>ph_remove</code>, <code>ph_slidelink</code>, <code>ph_hyperlink</code>, <code>ph_add_text</code>, <code>ph_add_par</code>, <code>ph_add_fpar</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-6">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-6"></a></h3>
 <ul><li>fix ph_with.xml_document so that placeholders’ labels are not forgotten (for rvg, flextable, etc.)</li>
@@ -298,12 +301,10 @@
 <h2 class="page-header" data-toc-text="0.3.5" id="officer-035">officer 0.3.5<small>2019-06-23</small><a class="anchor" aria-label="anchor" href="#officer-035"></a></h2>
 <div class="section level3">
 <h3 id="enhancement-0-3-5">Enhancement<a class="anchor" aria-label="anchor" href="#enhancement-0-3-5"></a></h3>
-<ul><li>new method <code>ph_with.xml_document</code> that will replace <code>ph_with</code> and <code>ph_with_at</code>.</li>
-</ul></div>
+<ul><li>new method <code>ph_with.xml_document</code> that will replace <code>ph_with</code> and <code>ph_with_at</code>.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-5">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-5"></a></h3>
-<ul><li>fix properties inheritance with <code>ph_with</code> function.</li>
-</ul></div>
+<ul><li>fix properties inheritance with <code>ph_with</code> function.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.4" id="officer-034">officer 0.3.4<small>2019-04-30</small><a class="anchor" aria-label="anchor" href="#officer-034"></a></h2>
@@ -327,8 +328,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-3">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-3"></a></h3>
-<ul><li>fix issue with fonts when east asian characters are used in Word.</li>
-</ul></div>
+<ul><li>fix issue with fonts when east asian characters are used in Word.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.2" id="officer-032">officer 0.3.2<small>2018-07-23</small><a class="anchor" aria-label="anchor" href="#officer-032"></a></h2>
@@ -368,8 +368,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-3-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-3-0"></a></h3>
-<ul><li>fix an issue with <code>layout_properties</code> when master layout is empty.</li>
-</ul></div>
+<ul><li>fix an issue with <code>layout_properties</code> when master layout is empty.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.2" id="officer-022">officer 0.2.2<small>2018-03-14</small><a class="anchor" aria-label="anchor" href="#officer-022"></a></h2>
@@ -392,8 +391,7 @@
 <div class="section level3">
 <h3 id="issues-0-2-1">Issues<a class="anchor" aria-label="anchor" href="#issues-0-2-1"></a></h3>
 <ul><li>fix issue <a href="https://github.com/davidgohel/officer/issues/97" class="external-link">#97</a> with function <code><a href="../reference/pptx_summary.html">pptx_summary()</a></code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="officer-020">officer 0.2.0<small>2017-12-02</small><a class="anchor" aria-label="anchor" href="#officer-020"></a></h2>
@@ -406,8 +404,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-2-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-2-0"></a></h3>
-<ul><li>an error is raised when adding an image with blank(s) in its basename (i.e. /home/user/bla bla.png).</li>
-</ul></div>
+<ul><li>an error is raised when adding an image with blank(s) in its basename (i.e. /home/user/bla bla.png).</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.8" id="officer-018">officer 0.1.8<small>2017-10-05</small><a class="anchor" aria-label="anchor" href="#officer-018"></a></h2>
@@ -419,8 +416,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-1-8">Changes<a class="anchor" aria-label="anchor" href="#changes-0-1-8"></a></h3>
-<ul><li>Functions slide_summary and layout_properties now return inches.</li>
-</ul></div>
+<ul><li>Functions slide_summary and layout_properties now return inches.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.7" id="officer-017">officer 0.1.7<small>2017-09-16</small><a class="anchor" aria-label="anchor" href="#officer-017"></a></h2>
@@ -433,19 +429,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-1-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-1-7"></a></h3>
-<ul><li>an error is now occurring when an incorrect index is used with ph_with_* functions.</li>
-</ul></div>
+<ul><li>an error is now occurring when an incorrect index is used with ph_with_* functions.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.6" id="officer-016">officer 0.1.6<small>2017-08-30</small><a class="anchor" aria-label="anchor" href="#officer-016"></a></h2>
 <div class="section level3">
 <h3 id="enhancement-0-1-6">Enhancement<a class="anchor" aria-label="anchor" href="#enhancement-0-1-6"></a></h3>
-<ul><li>function <code>ph_empty_at</code> can now make new shapes inherit properties from template</li>
-</ul></div>
+<ul><li>function <code>ph_empty_at</code> can now make new shapes inherit properties from template</li></ul></div>
 <div class="section level3">
 <h3 id="changes-0-1-6">Changes<a class="anchor" aria-label="anchor" href="#changes-0-1-6"></a></h3>
-<ul><li>drop gdtools dependency</li>
-</ul></div>
+<ul><li>drop gdtools dependency</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.5" id="officer-015">officer 0.1.5<small>2017-07-27</small><a class="anchor" aria-label="anchor" href="#officer-015"></a></h2>
@@ -471,23 +464,19 @@
 <div class="section level3">
 <h3 id="issues-0-1-4">Issues<a class="anchor" aria-label="anchor" href="#issues-0-1-4"></a></h3>
 <ul><li>
-<code>body_end_section</code> is supposed to only work with cursor on a paragraph, an error is raised now if ending a section on something else than a paragraph.</li>
-</ul></div>
+<code>body_end_section</code> is supposed to only work with cursor on a paragraph, an error is raised now if ending a section on something else than a paragraph.</li></ul></div>
 <div class="section level3">
 <h3 id="enhancement-0-1-4">Enhancement<a class="anchor" aria-label="anchor" href="#enhancement-0-1-4"></a></h3>
-<ul><li>read_pptx run faster than in previous version thanks to some code refactoring</li>
-</ul></div>
+<ul><li>read_pptx run faster than in previous version thanks to some code refactoring</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.3" id="officer-013">officer 0.1.3<small>2017-05-01</small><a class="anchor" aria-label="anchor" href="#officer-013"></a></h2>
 <div class="section level3">
 <h3 id="new-feature-0-1-3">new feature<a class="anchor" aria-label="anchor" href="#new-feature-0-1-3"></a></h3>
-<ul><li>new function media_extract to extract a media file from a document object. This function can be used to access images stored in a PowerPoint file.</li>
-</ul></div>
+<ul><li>new function media_extract to extract a media file from a document object. This function can be used to access images stored in a PowerPoint file.</li></ul></div>
 <div class="section level3">
 <h3 id="issues-0-1-3">Issues<a class="anchor" aria-label="anchor" href="#issues-0-1-3"></a></h3>
-<ul><li>drop magick dependence</li>
-</ul></div>
+<ul><li>drop magick dependence</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.2" id="officer-012">officer 0.1.2<small>2017-04-29</small><a class="anchor" aria-label="anchor" href="#officer-012"></a></h2>
@@ -515,8 +504,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="api-changes-0-1-1">API changes<a class="anchor" aria-label="anchor" href="#api-changes-0-1-1"></a></h3>
-<ul><li>classes <code>docx</code> and <code>pptx</code> have been renamed <code>rdocx</code> and <code>pptx</code> to avoid conflict with package ReporteRs.</li>
-</ul></div>
+<ul><li>classes <code>docx</code> and <code>pptx</code> have been renamed <code>rdocx</code> and <code>pptx</code> to avoid conflict with package ReporteRs.</li></ul></div>
 </div>
   </div>
 
@@ -528,7 +516,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.2 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
