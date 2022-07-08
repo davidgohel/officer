@@ -248,19 +248,19 @@ is_windows <- function() {
   "windows" %in% .Platform$OS.type
 }
 
-is_office_doc_edited <- function(file){
-  is_docx <- grepl("\\.docx$", basename(file))
-  x <- gsub("\\.(docx|pptx)$", "", basename(file))
-  if( nchar(x) < 7)
-    z <- paste0("~$", x)
-  else if( nchar(x) < 8)
-    z <- paste0("~$", substring(x, 2))
-  else {
-    z <- paste0("~$", substring(x, 3))
-  }
-  z <- paste0(z, if(is_docx) ".docx" else ".pptx")
+is_office_doc_edited <- function(file) {
 
-  file.exists(file.path(dirname(file), z))
+  file_name <- sub("(.*)\\.(pptx|docx)$", "\\1", basename(file))
+
+  if (nchar(file_name) < 7 || endsWith(file, ".pptx")) {
+    edit_name <- paste0("~$", basename(file))
+  } else if (nchar(file_name) < 8) {
+    edit_name <- paste0("~$", substring(basename(file), 2))
+  } else {
+    edit_name <- paste0("~$", substring(basename(file), 3))
+  }
+
+  file.exists(file.path(dirname(file), edit_name))
 }
 
 # this is copied from package htmltools

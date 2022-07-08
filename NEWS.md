@@ -1,3 +1,9 @@
+# officer 0.4.4
+
+## Issues
+
+- fix for `is_office_doc_edited()` provided by Andrew Tungate.
+
 # officer 0.4.3
 
 ## New features
