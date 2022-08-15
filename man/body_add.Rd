@@ -111,39 +111,39 @@ be used in conjunction with the \verb{body_add_*} functions.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{character}: add a character vector.
+\item \code{body_add(character)}: add a character vector.
 
-\item \code{numeric}: add a numeric vector.
+\item \code{body_add(numeric)}: add a numeric vector.
 
-\item \code{factor}: add a factor vector.
+\item \code{body_add(factor)}: add a factor vector.
 
-\item \code{fpar}: add a \link{fpar} object. These objects enable
+\item \code{body_add(fpar)}: add a \link{fpar} object. These objects enable
 the creation of formatted paragraphs made of formatted chunks of text.
 
-\item \code{data.frame}: add a data.frame object with \code{\link[=block_table]{block_table()}}.
+\item \code{body_add(data.frame)}: add a data.frame object with \code{\link[=block_table]{block_table()}}.
 
-\item \code{block_caption}: add a \link{block_caption} object. These objects enable
+\item \code{body_add(block_caption)}: add a \link{block_caption} object. These objects enable
 the creation of set of formatted paragraphs made of formatted chunks of text.
 
-\item \code{block_list}: add a \link{block_list} object.
+\item \code{body_add(block_list)}: add a \link{block_list} object.
 
-\item \code{block_toc}: add a table of content (a \link{block_toc} object).
+\item \code{body_add(block_toc)}: add a table of content (a \link{block_toc} object).
 
-\item \code{external_img}: add an image (a \link{external_img} object).
+\item \code{body_add(external_img)}: add an image (a \link{external_img} object).
 
-\item \code{run_pagebreak}: add a \link{run_pagebreak} object.
+\item \code{body_add(run_pagebreak)}: add a \link{run_pagebreak} object.
 
-\item \code{run_columnbreak}: add a \link{run_columnbreak} object.
+\item \code{body_add(run_columnbreak)}: add a \link{run_columnbreak} object.
 
-\item \code{gg}: add a ggplot object.
+\item \code{body_add(gg)}: add a ggplot object.
 
-\item \code{plot_instr}: add a base plot with a \link{plot_instr} object.
+\item \code{body_add(plot_instr)}: add a base plot with a \link{plot_instr} object.
 
-\item \code{block_pour_docx}: pour content of an external docx file with with a \link{block_pour_docx} object
+\item \code{body_add(block_pour_docx)}: pour content of an external docx file with with a \link{block_pour_docx} object
 
-\item \code{block_section}: ends a section with a \link{block_section} object
+\item \code{body_add(block_section)}: ends a section with a \link{block_section} object
+
 }}
-
 \section{Illustrations}{
 
 

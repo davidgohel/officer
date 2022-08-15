@@ -29,12 +29,12 @@ uses a default empty file.
 Use then this object to add content to it and create Word files
 from R.
 }
-\section{Methods (by generic)}{
+\section{Functions}{
 \itemize{
-\item \code{print}: write docx to a file. It returns the path of the result
+\item \code{print(rdocx)}: write docx to a file. It returns the path of the result
 file.
-}}
 
+}}
 \section{styles}{
 
 

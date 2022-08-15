@@ -29,13 +29,13 @@ Set speaker notes for the current slide in a pptx presentation.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{character}: add a character vector to a place holder in the notes on the
+\item \code{set_notes(character)}: add a character vector to a place holder in the notes on the
 current slide, values will be added as paragraphs.
 
-\item \code{block_list}: add a \code{\link[=block_list]{block_list()}} to a place holder in the notes on the
+\item \code{set_notes(block_list)}: add a \code{\link[=block_list]{block_list()}} to a place holder in the notes on the
 current slide.
-}}
 
+}}
 \examples{
 # this name will be used to print the file
 # change it to "youfile.pptx" to write the pptx
