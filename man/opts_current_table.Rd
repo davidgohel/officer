@@ -37,8 +37,7 @@ its documentation should be read as a place where
 table options are documented when 'knitr' is used.
 
 The function is a utility to facilitate the retrieval of table
-options supported by the 'flextable', 'officedown' and of
-course 'officer' packages.
+options supported by the 'flextable', 'officedown' and 'officer' packages.
 
 These options should be set with \code{knitr::opts_chunk$set()}.
 The names and expected values are listed in the following sections.

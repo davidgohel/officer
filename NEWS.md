@@ -4,6 +4,11 @@
 
 - fix for `is_office_doc_edited()` provided by Andrew Tungate.
 
+## Changes
+
+- Function `opts_current_table()` read some Quarto values related to 
+captions in order to reuse them later.
+
 # officer 0.4.3
 
 ## New features

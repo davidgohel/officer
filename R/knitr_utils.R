@@ -95,7 +95,6 @@ knitr_opts_current <- function(x, default = FALSE){
   x
 }
 
-
 #' @export
 #' @title Table options in a 'knitr' context
 #' @description Get options for table rendering in a 'knitr'
@@ -104,8 +103,7 @@ knitr_opts_current <- function(x, default = FALSE){
 #' table options are documented when 'knitr' is used.
 #'
 #' The function is a utility to facilitate the retrieval of table
-#' options supported by the 'flextable', 'officedown' and of
-#' course 'officer' packages.
+#' options supported by the 'flextable', 'officedown' and 'officer' packages.
 #'
 #' These options should be set with `knitr::opts_chunk$set()`.
 #' The names and expected values are listed in the following sections.
@@ -173,18 +171,52 @@ knitr_opts_current <- function(x, default = FALSE){
 #' @family functions for officer extensions
 #' @keywords internal
 opts_current_table <- function() {
+
+  is_quarto <- isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
+  is_bookdown <- isTRUE(knitr::opts_knit$get('bookdown.internal.label'))
+
+  if (is_bookdown) {
+    tab.lp <- knitr_opts_current("tab.lp", default = "tab:")
+  } else if (is_quarto) {
+    tab.lp <- ""
+  } else {
+    tab.lp <- NULL
+  }
+  if (is_quarto) {
+    tab.topcaption <- knitr_opts_current("tbl-cap-location", default = "top") %in% "top"
+  } else {
+    tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
+  }
+
+  if (is_quarto) {
+    tab.cap.pre <- knitr_opts_current("tbl-title", default = "Table")
+    tab.cap.sep <- knitr_opts_current("title-delim", default = ":")
+  } else {
+    tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table ")
+    tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ":")
+  }
+
+  if (is_quarto) {
+    tab.cap <- knitr_opts_current("tbl-cap", default = NULL)
+  } else {
+    tab.cap <- knitr_opts_current("tab.cap", default = NULL)
+  }
+
+  if (is_quarto) {
+    tab.id <- knitr_opts_current("label", default = NULL)
+  } else if (is_bookdown) {
+    tab.id <- knitr_opts_current("label", default = NULL)
+    tab.id <- knitr_opts_current("tab.id", default = tab.id)
+  } else {
+    tab.id <- knitr_opts_current("tab.id", default = NULL)
+  }
+
   tab.cap.style <- knitr_opts_current("tab.cap.style", default = NULL)
-  tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table ")
-  tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ": ")
 
   tab.cap.tnd <- knitr_opts_current("tab.cap.tnd", default = 0)
   tab.cap.tns <- knitr_opts_current("tab.cap.tns", default = "-")
   tab.cap.fp_text <- knitr_opts_current("tab.cap.fp_text", default = fp_text_lite(bold = TRUE))
 
-  tab.cap <- knitr_opts_current("tab.cap", default = NULL)
-  tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
-  tab.id <- knitr_opts_current("tab.id", default = NULL)
-  tab.lp <- knitr_opts_current("tab.lp", default = "tab:")
   tab.style <- knitr_opts_current("tab.style", default = NULL)
   tab.layout <- knitr_opts_current("tab.layout", default = "autofit")
   tab.width <- knitr_opts_current("tab.width", default = 1)
