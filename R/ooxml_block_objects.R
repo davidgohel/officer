@@ -615,7 +615,7 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 
 
   width <- ""
-  if(!is.null(x$width) && "autofit" %in% x$type)
+  if(!is.null(x$width) && "autofit" %in% x$layout$type)
     width <- to_wml(x$width, add_ns= add_ns, base_document = base_document)
 
   colwidths <- to_wml(x$colsizes, add_ns= add_ns, base_document = base_document)
