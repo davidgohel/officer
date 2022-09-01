@@ -3,6 +3,7 @@
 ## New features
 
 - `fp_par()` now have argument `word_style_id`
+- Add support for `ln` for `external_img` provided by Angus Moore
 
 ## Issues
 
