@@ -5,7 +5,8 @@
 - `fp_par()` now have argument `word_style_id`
 - add support for `ln` for `external_img` provided by Angus Moore
 - add word_title and word_description to table properties (`prop_table()`). 
-These values can be used as alternative text for Word tables.
+These values can be used as alternative text for Word tables. These values 
+can also be set as "knitr" chunk options.
 
 ## Issues
 

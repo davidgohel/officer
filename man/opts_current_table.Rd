@@ -7,28 +7,7 @@
 opts_current_table()
 }
 \value{
-a list with following elements:
-\itemize{
-\item cap.style (default: NULL)
-\item cap.pre (default: "Table ")
-\item cap.sep (default: ":")
-\item cap.tnd (default: 0)
-\item cap.tns (default: "-")
-\item cap.fp_text (default: \code{fp_text_lite(bold = TRUE)})
-\item id (default: NULL)
-\item cap (default: NULL)
-\item topcaption (default: TRUE)
-\item style (default: NULL)
-\item tab.lp (default: "tab:")
-\item table_layout (default: "autofit")
-\item table_width (default: 1)
-\item first_row (default: TRUE)
-\item first_column (default: FALSE)
-\item last_row (default: FALSE)
-\item last_column (default: FALSE)
-\item no_hband (default: TRUE)
-\item no_vband (default: TRUE)
-}
+a list
 }
 \description{
 Get options for table rendering in a 'knitr'
@@ -70,6 +49,8 @@ The names and expected values are listed in the following sections.
    the Word stylename to use for tables \tab tab.style \tab NULL \cr
    autofit' or 'fixed' algorithm. \tab tab.layout \tab "autofit" \cr
    value of the preferred width of the table in percent (base 1). \tab tab.width \tab 1 \cr
+   Alternative title text \tab tab.alt.title \tab NULL \cr
+   Alternative description text \tab tab.alt.description \tab NULL \cr
 }
 }
 
@@ -82,6 +63,33 @@ The names and expected values are listed in the following sections.
    apply or remove formatting from the last column in the table \tab last_column \tab FALSE \cr
    don't display odd and even rows \tab no_hband \tab TRUE \cr
    don't display odd and even columns \tab no_vband \tab TRUE \cr
+}
+}
+
+\section{returned elements}{
+
+\itemize{
+\item cap.style (default: NULL)
+\item cap.pre (default: "Table ")
+\item cap.sep (default: ":")
+\item cap.tnd (default: 0)
+\item cap.tns (default: "-")
+\item cap.fp_text (default: \code{fp_text_lite(bold = TRUE)})
+\item id (default: NULL)
+\item cap (default: NULL)
+\item alt.title (default: NULL)
+\item alt.description (default: NULL)
+\item topcaption (default: TRUE)
+\item style (default: NULL)
+\item tab.lp (default: "tab:")
+\item table_layout (default: "autofit")
+\item table_width (default: 1)
+\item first_row (default: TRUE)
+\item first_column (default: FALSE)
+\item last_row (default: FALSE)
+\item last_column (default: FALSE)
+\item no_hband (default: TRUE)
+\item no_vband (default: TRUE)
 }
 }
 

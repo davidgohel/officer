@@ -130,11 +130,13 @@ knitr_opts_current <- function(x, default = FALSE){
 #'
 #' @section knitr chunk options for Word tables:
 #'
-#' | **label**                                                     |    **name**  | **value**  |
-#' |:--------------------------------------------------------------|:------------:|:----------:|
-#' | the Word stylename to use for tables                          | tab.style    |    NULL    |
-#' | autofit' or 'fixed' algorithm.                                | tab.layout   |  "autofit" |
-#' | value of the preferred width of the table in percent (base 1).| tab.width    |      1     |
+#' | **label**                                                     |       **name**      | **value**  |
+#' |:--------------------------------------------------------------|:-------------------:|:----------:|
+#' | the Word stylename to use for tables                          | tab.style           |    NULL    |
+#' | autofit' or 'fixed' algorithm.                                | tab.layout          |  "autofit" |
+#' | value of the preferred width of the table in percent (base 1).| tab.width           |      1     |
+#' | Alternative title text                                        | tab.alt.title       |    NULL    |
+#' | Alternative description text                                  | tab.alt.description |    NULL    |
 #'
 #' @section knitr chunk options for data.frame with officedown:
 #'
@@ -147,7 +149,9 @@ knitr_opts_current <- function(x, default = FALSE){
 #' | don't display odd and even rows                               | no_hband        |    TRUE    |
 #' | don't display odd and even columns                            | no_vband        |    TRUE    |
 #'
-#' @return a list with following elements:
+#' @return a list
+#'
+#' @section returned elements:
 #'
 #' * cap.style (default: NULL)
 #' * cap.pre (default: "Table ")
@@ -157,6 +161,8 @@ knitr_opts_current <- function(x, default = FALSE){
 #' * cap.fp_text (default: `fp_text_lite(bold = TRUE)`)
 #' * id (default: NULL)
 #' * cap (default: NULL)
+#' * alt.title (default: NULL)
+#' * alt.description (default: NULL)
 #' * topcaption (default: TRUE)
 #' * style (default: NULL)
 #' * tab.lp (default: "tab:")
@@ -212,6 +218,8 @@ opts_current_table <- function() {
   }
 
   tab.cap.style <- knitr_opts_current("tab.cap.style", default = NULL)
+  tab.alt.title <- knitr_opts_current("tab.alt.title", default = NULL)
+  tab.alt.description <- knitr_opts_current("tab.alt.description", default = NULL)
 
   tab.cap.tnd <- knitr_opts_current("tab.cap.tnd", default = 0)
   tab.cap.tns <- knitr_opts_current("tab.cap.tns", default = "-")
@@ -236,6 +244,8 @@ opts_current_table <- function() {
     cap.tns = tab.cap.tns,
     cap.fp_text = tab.cap.fp_text,
     id = tab.id,
+    alt.title = tab.alt.title,
+    alt.description = tab.alt.description,
     topcaption = tab.topcaption,
     cap = tab.cap,
     style = tab.style,
