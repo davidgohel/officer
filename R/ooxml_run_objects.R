@@ -779,12 +779,15 @@ as.data.frame.external_img <- function( x, ... ){
 
 
 pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
-                     bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", src, alt_text = ""){
+                     bg = "transparent", rot = 0, label = "",
+                     ph = "<p:ph/>", src, alt_text = "",
+                     ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd")){
 
   if( !is.null(bg) && !is.color( bg ) )
     stop("bg must be a valid color.", call. = FALSE )
 
   bg_str <- solid_fill_pml(bg)
+  ln_str <- ln_pml(ln)
 
   if (missing(alt_text) || is.null(alt_text)) alt_text <- ""
 
@@ -806,10 +809,10 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
     <p:nvPr>%s</p:nvPr>
   </p:nvPicPr>
   %s
-  <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s</p:spPr>
+  <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s%s</p:spPr>
 </p:pic>
 "
-  sprintf(str, label, alt_text, ph, blipfill, xfrm_str, bg_str )
+  sprintf(str, label, alt_text, ph, blipfill, xfrm_str, bg_str, ln_str)
 
 }
 

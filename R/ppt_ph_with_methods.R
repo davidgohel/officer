@@ -445,7 +445,9 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
   xml_str <- pic_pml(left = location$left, top = location$top,
                        width = width, height = height,
                        label = location$ph_label, ph = location$ph,
-                       rot = location$rotation, bg = location$bg, src = new_src, alt_text = attr(value, "alt"))
+                       rot = location$rotation, bg = location$bg,
+                       src = new_src, alt_text = attr(value, "alt"),
+                       ln = location$ln)
 
   slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
   xml_elt <- fortify_pml_images(x, xml_str)
