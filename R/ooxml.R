@@ -297,10 +297,12 @@ ppr_css <- function(x){
 
   paddings <- sprintf("padding-top:%.0fpt;padding-bottom:%.0fpt;padding-left:%.0fpt;padding-right:%.0fpt;",
                       x$padding.top, x$padding.bottom, x$padding.left, x$padding.right)
+  ls <- formatC(x$line_spacing, format = "f", digits = 2, decimal.mark = ".", drop0trailing = TRUE )
+  line_spacing <- sprintf("line-height: %s;", ls )
 
   shading.color <- sprintf("background-color:%s;", css_color(x$shading.color))
 
-  paste0("margin:0pt;", text.align, borders, paddings,
+  paste0("margin:0pt;", text.align, borders, paddings, line_spacing,
          shading.color)
 }
 
@@ -308,6 +310,10 @@ ppr_wml <- function(x){
 
   if("justify" %in% x$text.align ){
     x$text.align  <- "both";
+  }
+  pstyle <- ""
+  if(!is.null(x$word_style_id)) {
+    pstyle <- sprintf("<w:pStyle w:val=\"%s\"/>", x$word_style_id)
   }
   text_align_ <- sprintf("<w:jc w:val=\"%s\"/>", x$text.align)
   keep_with_next <- ""
@@ -332,6 +338,7 @@ ppr_wml <- function(x){
   }
 
   paste0("<w:pPr>",
+         pstyle,
          text_align_,
          keep_with_next,
          borders_,

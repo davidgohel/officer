@@ -361,6 +361,7 @@ print.fp_border <- function(x, ...) {
 #' a valid color (e.g. "#000000" or "black").
 #' @param keep_with_next a scalar logical. Specifies that the paragraph (or at least part of it) should be rendered
 #' on the same page as the next paragraph when possible.
+#' @param word_style_id Word paragraph style identifier
 #' @return a \code{fp_par} object
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
@@ -376,7 +377,8 @@ fp_par = function(text.align = "left",
                   border.bottom, border.left,
                   border.top, border.right,
                   shading.color = "transparent",
-                  keep_with_next = FALSE) {
+                  keep_with_next = FALSE,
+                  word_style_id = NULL) {
 
   out = list()
 
@@ -411,6 +413,7 @@ fp_par = function(text.align = "left",
     out <- check_set_border( obj = out, border.left)
   if( !missing(border.right) )
     out <- check_set_border( obj = out, border.right)
+  out$word_style_id <- word_style_id
 
   out$keep_with_next <- keep_with_next
   class( out ) = "fp_par"
@@ -473,11 +476,13 @@ print.fp_par = function (x, ...){
 update.fp_par <- function(object, text.align, padding, border,
                           padding.bottom, padding.top, padding.left, padding.right,
                           border.bottom, border.left,border.top, border.right,
-                          shading.color, ...) {
+                          shading.color, keep_with_next, word_style_id, ...) {
 
   if( !missing( text.align ) )
     object <- check_set_choice( obj = object, value = text.align,
                                 choices = c("left", "right", "center", "justify") )
+  if( !missing( word_style_id ) )
+    object$word_style_id <- word_style_id
 
   # padding checking
   if( !missing( padding ) )
@@ -509,6 +514,8 @@ update.fp_par <- function(object, text.align, padding, border,
 
   if( !missing( shading.color ) )
     object <- check_set_color(object, shading.color)
+  if( !missing( keep_with_next ) )
+    object <- check_set_bool(object, keep_with_next)
 
   object
 }
