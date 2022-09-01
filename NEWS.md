@@ -1,8 +1,14 @@
 # officer 0.4.4
 
+## New features
+
+- `fp_par()` now have argument `word_style_id`
+
 ## Issues
 
 - fix for `is_office_doc_edited()` provided by Andrew Tungate.
+- `tab.lp` is no more set to null with usual rmarkdown outputs
+- autofit was never used when outputting prop_table to xml
 
 ## Changes
 
