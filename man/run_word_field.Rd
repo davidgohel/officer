@@ -5,15 +5,16 @@
 \alias{run_seqfield}
 \title{'Word' computed field}
 \usage{
-run_word_field(field, prop = NULL, seqfield = field)
+run_word_field(field, prop = NULL, seqfield = NULL)
 
-run_seqfield(field, prop = NULL, seqfield = field)
+run_seqfield(field, prop = NULL, seqfield = NULL)
 }
 \arguments{
-\item{field, seqfield}{computed field string (\code{seqfield} will be
-totally superseded by \code{field} in the future).}
+\item{field}{Value for a "Word Computed Field" as a string.}
 
 \item{prop}{formatting text properties returned by \link{fp_text}.}
+
+\item{seqfield}{deprecated in favor of \code{field}.}
 }
 \description{
 Create a 'Word' computed field.

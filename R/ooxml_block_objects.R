@@ -165,8 +165,8 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
       open_tag,
       "<w:pPr/>",
       to_wml(
-        run_seqfield(
-          seqfield = sprintf(
+        run_word_field(
+          field = sprintf(
             "TOC \\o \"1-%.0f\" \\h \\z \\u",
             x$level
           )
@@ -179,8 +179,8 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
       open_tag,
       "<w:pPr/>",
       to_wml(
-        run_seqfield(
-          seqfield = sprintf(
+        run_word_field(
+          field = sprintf(
             "TOC \\h \\z \\t \"%s%s1\"",
             x$style, x$separator
           )
@@ -193,8 +193,8 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
       open_tag,
       "<w:pPr/>",
       to_wml(
-        run_seqfield(
-          seqfield = sprintf("TOC \\h \\z \\c \"%s\"", x$seq_id)
+        run_word_field(
+          field = sprintf("TOC \\h \\z \\c \"%s\"", x$seq_id)
         )
       ),
       "</w:p>"
@@ -859,7 +859,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' text and images are associated with formatting properties.
 #'
 #' \code{fpar} supports [ftext()], [external_img()], \code{run_*} functions
-#' (i.e. [run_autonum()], [run_seqfield()]) when output is Word, and simple strings.
+#' (i.e. [run_autonum()], [run_word_field()]) when output is Word, and simple strings.
 #'
 #' Default text and paragraph formatting properties can also be modified
 #' with function `update()`.

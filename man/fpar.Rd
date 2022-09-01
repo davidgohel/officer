@@ -32,7 +32,7 @@ All its arguments will be concatenated to create a paragraph where chunks of
 text and images are associated with formatting properties.
 
 \code{fpar} supports \code{\link[=ftext]{ftext()}}, \code{\link[=external_img]{external_img()}}, \code{run_*} functions
-(i.e. \code{\link[=run_autonum]{run_autonum()}}, \code{\link[=run_seqfield]{run_seqfield()}}) when output is Word, and simple strings.
+(i.e. \code{\link[=run_autonum]{run_autonum()}}, \code{\link[=run_word_field]{run_word_field()}}) when output is Word, and simple strings.
 
 Default text and paragraph formatting properties can also be modified
 with function \code{update()}.

@@ -125,19 +125,24 @@ to_html.ftext <- function(x, ...) {
 #' In the previous version, this function was called `run_seqfield`
 #' but the name was wrong and should have been `run_word_field`.
 #' @inheritSection ftext usage
-#' @param field,seqfield computed field string (`seqfield` will be
-#' totally superseded by `field` in the future).
+#' @param field Value for a "Word Computed Field" as a string.
+#' @param seqfield deprecated in favor of `field`.
 #' @param prop formatting text properties returned by [fp_text].
 #' @examples
 #' run_word_field(field = "PAGE  \\* MERGEFORMAT")
 #' run_word_field(field = "Date \\@ \"MMMM d yyyy\"")
 #' @family run functions for reporting
 #' @family Word computed fields
-run_word_field <- function(field, prop = NULL, seqfield = field) {
+run_word_field <- function(field, prop = NULL, seqfield = NULL) {
+
+  if(!is.null(seqfield)) {
+    field <- seqfield
+    message("`seqfield` argument is deprecated in favor of `field`")
+  }
   z <- list(
-    seqfield = seqfield, pr = prop
+    field = field, pr = prop
   )
-    class(z) <- c("run_seqfield", "run")
+    class(z) <- c("run_word_field", "run")
   z
 }
 
@@ -146,7 +151,7 @@ run_word_field <- function(field, prop = NULL, seqfield = field) {
 run_seqfield <- run_word_field
 
 #' @export
-to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
+to_wml.run_word_field <- function(x, add_ns = FALSE, ...) {
 
   pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
 
@@ -159,7 +164,7 @@ to_wml.run_seqfield <- function(x, add_ns = FALSE, ...) {
   xml_elt_2 <- paste0(
     wr_ns_yes,
     pr,
-    sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", x$seqfield),
+    sprintf("<w:instrText xml:space=\"preserve\" w:dirty=\"true\">%s</w:instrText>", x$field),
     "</w:r>"
   )
   xml_elt_3 <- paste0(
@@ -264,12 +269,12 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
     seq_str <- paste(seq_str, "\\r", as.integer(x$start_at))
   }
 
-  sqf <- run_word_field(seqfield = seq_str, prop = x$pr)
+  sqf <- run_word_field(field = seq_str, prop = x$pr)
   sf_str <- to_wml(sqf)
 
   if(x$tnd > 0){
     z <- paste0(
-      to_wml(run_word_field(seqfield = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
+      to_wml(run_word_field(field = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
       to_wml(ftext(x$tns, prop = x$pr))
     )
     sf_str <- paste0(z, sf_str)
@@ -318,7 +323,7 @@ run_reference <- function(id, prop = NULL) {
 
 #' @export
 to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
-  out <- to_wml(run_seqfield(seqfield = paste0(" REF ", x$id, " \\h "), prop = x$pr))
+  out <- to_wml(run_word_field(field = paste0(" REF ", x$id, " \\h "), prop = x$pr))
   out
 }
 
@@ -383,13 +388,15 @@ to_pml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
 
 #' @export
 to_html.hyperlink_ftext <- function(x, ...) {
-  out <- sprintf("<span style=\"%s\">%s</span>",
-                 if(!is.null(x$pr)) rpr_css(x$pr) else "",
-                 htmlEscapeCopy(x$value))
-  sprintf("<a href=\"%s\">%s</a>", x$href, out)
-  out
-}
 
+  if(!is.null(x$pr)) {
+    rpr_css <- paste0(" style=\"", rpr_css(x$pr), "\"")
+  } else {
+    rpr_css <- ""
+  }
+
+  sprintf("<a href=\"%s\"><span%s></span></a>", x$href, rpr_css)
+}
 
 
 # bookmark ----
