@@ -180,7 +180,7 @@ opts_current_table <- function() {
   } else if (is_quarto) {
     tab.lp <- ""
   } else {
-    tab.lp <- NULL
+    tab.lp <- knitr_opts_current("tab.lp", default = NULL)
   }
   if (is_quarto) {
     tab.topcaption <- knitr_opts_current("tbl-cap-location", default = "top") %in% "top"
