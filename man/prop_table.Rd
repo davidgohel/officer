@@ -11,7 +11,9 @@ prop_table(
   stylenames = table_stylenames(),
   colwidths = table_colwidths(),
   tcf = table_conditional_formatting(),
-  align = "center"
+  align = "center",
+  word_title = NULL,
+  word_description = NULL
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ prop_table(
 \item{tcf}{conditional formatting settings defined by \code{\link[=table_conditional_formatting]{table_conditional_formatting()}}}
 
 \item{align}{table alignment (one of left, center or right)}
+
+\item{word_title}{alternative text for Word table (used as title of the table)}
+
+\item{word_description}{alternative text for Word table (used as description of the table)}
 }
 \description{
 Define table properties such as fixed or autofit layout,
