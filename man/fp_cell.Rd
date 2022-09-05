@@ -20,7 +20,9 @@ fp_cell(
   margin.left,
   margin.right,
   background.color = "transparent",
-  text.direction = "lrtb"
+  text.direction = "lrtb",
+  rowspan = 1,
+  colspan = 1
 )
 
 \method{format}{fp_cell}(x, type = "wml", ...)
@@ -42,6 +44,8 @@ fp_cell(
   margin.right,
   background.color,
   text.direction,
+  rowspan = 1,
+  colspan = 1,
   ...
 )
 }
@@ -63,6 +67,10 @@ valid color (e.g. "#000000" or "black").}
 \item{text.direction}{cell text rotation - a single character value, expected
 value is one of "lrtb", "tbrl", "btlr".}
 
+\item{rowspan}{specify how many rows the cell is spanned over}
+
+\item{colspan}{specify how many columns the cell is spanned over}
+
 \item{x, object}{\code{fp_cell} object}
 
 \item{type}{output type - one of 'wml', 'pml', 'html'.}
@@ -74,7 +82,7 @@ Create a \code{fp_cell} object that describes cell formatting properties.
 }
 \examples{
 obj <- fp_cell(margin = 1)
-update( obj, margin.bottom = 5 )
+update(obj, margin.bottom = 5)
 }
 \seealso{
 Other functions for defining formatting properties: 
