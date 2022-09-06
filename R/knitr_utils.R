@@ -184,7 +184,7 @@ opts_current_table <- function() {
   if (is_bookdown) {
     tab.lp <- knitr_opts_current("tab.lp", default = "tab:")
   } else if (is_quarto) {
-    tab.lp <- ""
+    tab.lp <- "tab:"
   } else {
     tab.lp <- knitr_opts_current("tab.lp", default = NULL)
   }
@@ -198,9 +198,11 @@ opts_current_table <- function() {
     tab.cap.pre <- knitr_opts_current("tbl-title", default = "Table")
     tab.cap.sep <- knitr_opts_current("title-delim", default = ":")
   } else {
-    tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table ")
+    tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table")
     tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ":")
   }
+  tab.cap.pre <- paste0(tab.cap.pre, " ")
+  tab.cap.sep <- paste0(tab.cap.sep, " ")
 
   if (is_quarto) {
     tab.cap <- knitr_opts_current("tbl-cap", default = NULL)
