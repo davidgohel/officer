@@ -378,7 +378,7 @@ fp_par = function(text.align = "left",
                   border.top, border.right,
                   shading.color = "transparent",
                   keep_with_next = FALSE,
-                  word_style_id = NULL) {
+                  word_style_id = "Normal") {
 
   out = list()
 
@@ -413,7 +413,8 @@ fp_par = function(text.align = "left",
     out <- check_set_border( obj = out, border.left)
   if( !missing(border.right) )
     out <- check_set_border( obj = out, border.right)
-  out$word_style_id <- word_style_id
+
+  out <- check_set_chr(obj = out, word_style_id)
 
   out$keep_with_next <- keep_with_next
   class( out ) = "fp_par"
@@ -481,8 +482,9 @@ update.fp_par <- function(object, text.align, padding, border,
   if( !missing( text.align ) )
     object <- check_set_choice( obj = object, value = text.align,
                                 choices = c("left", "right", "center", "justify") )
-  if( !missing( word_style_id ) )
-    object$word_style_id <- word_style_id
+  if( !missing( word_style_id ) ){
+    object <- check_set_chr(obj = object, word_style_id)
+  }
 
   # padding checking
   if( !missing( padding ) )

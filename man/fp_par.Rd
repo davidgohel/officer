@@ -21,7 +21,7 @@ fp_par(
   border.right,
   shading.color = "transparent",
   keep_with_next = FALSE,
-  word_style_id = NULL
+  word_style_id = "Normal"
 )
 
 \method{print}{fp_par}(x, ...)
