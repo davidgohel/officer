@@ -212,6 +212,9 @@ opts_current_table <- function() {
 
   if (is_quarto) {
     tab.id <- knitr_opts_current("label", default = NULL)
+    if(is.null(tab.cap)) {
+      stop("if a label is defined, chunk option `tbl-cap` should also be defined.")
+    }
   } else if (is_bookdown) {
     tab.id <- knitr_opts_current("label", default = NULL)
     tab.id <- knitr_opts_current("tab.id", default = tab.id)
