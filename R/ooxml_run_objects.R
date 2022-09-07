@@ -262,7 +262,7 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
 
   run_str_pre <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$pre_label)
-  run_str_post <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", x$post_label)
+  run_str_post <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$post_label)
 
   seq_str <- paste0("SEQ ", x$seq_id, " \u005C* Arabic")
   if(!is.null(x$start_at) && is.numeric(x$start_at)){
