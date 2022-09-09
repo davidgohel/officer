@@ -21,7 +21,7 @@ fp_par(
   border.right,
   shading.color = "transparent",
   keep_with_next = FALSE,
-  word_style_id = "Normal"
+  word_style = "Normal"
 )
 
 \method{print}{fp_par}(x, ...)
@@ -41,7 +41,7 @@ fp_par(
   border.right,
   shading.color,
   keep_with_next,
-  word_style_id,
+  word_style,
   ...
 )
 }
@@ -67,7 +67,7 @@ a valid color (e.g. "#000000" or "black").}
 \item{keep_with_next}{a scalar logical. Specifies that the paragraph (or at least part of it) should be rendered
 on the same page as the next paragraph when possible.}
 
-\item{word_style_id}{Word paragraph style identifier}
+\item{word_style}{Word paragraph style name}
 
 \item{x, object}{\code{fp_par} object}
 

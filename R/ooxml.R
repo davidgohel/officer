@@ -312,8 +312,9 @@ ppr_wml <- function(x){
     x$text.align  <- "both";
   }
   pstyle <- ""
-  if(!is.null(x$word_style_id)) {
-    pstyle <- sprintf("<w:pStyle w:val=\"%s\"/>", x$word_style_id)
+  if(!is.null(x$word_style)) {
+    word_style_id <- gsub("[^a-zA-Z0-9]", "", x$word_style)
+    pstyle <- sprintf("<w:pStyle w:val=\"%s\"/>", word_style_id)
   }
   text_align_ <- sprintf("<w:jc w:val=\"%s\"/>", x$text.align)
   keep_with_next <- ""
