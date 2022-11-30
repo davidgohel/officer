@@ -220,6 +220,8 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
                         start_at = NULL,
                         tnd = 0, tns = "-") {
   bkm <- check_bookmark_id(bkm)
+
+  stopifnot(inherits(prop, "fp_text") || is.null(prop))
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,

@@ -1,8 +1,8 @@
 ## Test environments
 
-- local OS X install (R 4.1.2)
+- local OS X install (R 4.2.1)
 - ubuntu 20.04 (release)
-- winbuilder (with release and devel) 
+- winbuilder (with older, release and devel) 
 
 ## R CMD check results
 
