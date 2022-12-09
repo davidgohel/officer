@@ -64,6 +64,8 @@ check_set_numeric <- function( obj, value){
   obj
 }
 
+
+
 check_set_bool <- function( obj, value){
   varname <- as.character(substitute(value))
   if( is.na(value) || (is.logical( value ) && length(value) == 1) ){
@@ -106,6 +108,63 @@ check_set_class <- function( obj, value, cl){
   obj
 }
 
+default_rpr <- data.frame(
+  stringsAsFactors = FALSE,
+
+  font.size = NA_integer_,
+  bold = as.logical(NA),
+  italic = as.logical(NA),
+  underlined = as.logical(NA),
+  color = NA_character_,
+  font.family = NA_character_,
+
+  bold.cs = as.logical(NA),
+  font.size.cs = NA_integer_,
+  vertical.align = NA_character_,
+  shading.color = NA_character_,
+
+  hansi.family = NA_character_,
+  eastasia.family = NA_character_,
+  cs.family = NA_character_,
+
+  lang.val = NA_character_,
+  lang.eastasia = NA_character_,
+  lang.bidi = NA_character_
+
+)
+
+is_positive_numeric <- function(x) {
+  varname <- as.character(substitute(x))
+  test <- is.na(x) || (is.numeric(x) && length(x) == 1 && x >= 0)
+  if (!test){
+    stop(varname, " must be a positive numeric scalar.", call. = FALSE)
+  }
+  test
+}
+is_bool <- function(x) {
+  varname <- as.character(substitute(x))
+  test <- is.na(x) || (is.logical( x ) && length(x) == 1)
+  if (!test){
+    stop(varname, " must be a boolean.", call. = FALSE)
+  }
+  test
+}
+is_color <- function(x){
+  varname <- as.character(substitute(x))
+  test <- is.na(x) || is.color(x)
+  if (!test){
+    stop(varname, " must be a valid color.", call. = FALSE )
+  }
+  test
+}
+is_character <- function(x) {
+    varname <- as.character(substitute(x))
+    test <- is.na(x) || (is.character(x) && length(x) == 1)
+    if (!test){
+      stop(varname, " must be a string", call. = FALSE)
+    }
+    test
+}
 # fp_text ----
 #' @title Text formatting properties
 #'
@@ -148,23 +207,41 @@ fp_text <- function(color = "black", font.size = 10,
                     cs.family = NULL, eastasia.family = NULL, hansi.family = NULL,
                     vertical.align = "baseline",
                     shading.color = "transparent" ){
-
-  out <- list()
-
-  out <- check_set_numeric( obj = out, font.size)
-  out <- check_set_bool( obj = out, bold)
-  out <- check_set_bool( obj = out, italic)
-  out <- check_set_bool( obj = out, underlined)
-  out <- check_set_color(out, color)
-  out <- check_set_chr(out, font.family)
+  out <- default_rpr
+  if (is_positive_numeric(font.size)) {
+    out$font.size <- font.size
+    out$font.size.cs <- font.size
+  }
+  if (is_bool(bold)) {
+    out$bold <- bold
+    out$bold.cs <- bold
+  }
+  if (is_bool(italic)) {
+    out$italic <- italic
+  }
+  if (is_bool(underlined)) {
+    out$underlined <- underlined
+  }
+  if (is_color(color)) {
+    out$color <- color
+  }
+  if (is_character(font.family)) {
+    out$font.family <- font.family
+  }
 
   if(is.null(cs.family)) cs.family <- font.family
   if(is.null(eastasia.family)) eastasia.family <- font.family
   if(is.null(hansi.family)) hansi.family <- font.family
+  if (is_character(cs.family)) {
+    out$cs.family <- cs.family
+  }
+  if (is_character(eastasia.family)) {
+    out$eastasia.family <- eastasia.family
+  }
+  if (is_character(hansi.family)) {
+    out$hansi.family <- hansi.family
+  }
 
-  out <- check_set_chr(out, cs.family)
-  out <- check_set_chr(out, eastasia.family)
-  out <- check_set_chr(out, hansi.family)
 
   out <- check_set_choice( obj = out, value = vertical.align,
                            choices = c("subscript", "superscript", "baseline") )
@@ -174,6 +251,7 @@ fp_text <- function(color = "black", font.size = 10,
 
   out
 }
+
 
 #' @rdname fp_text
 #' @description Function `fp_text_lite()` is generating properties
@@ -225,7 +303,7 @@ to_wml.fp_text <- function(x, add_ns = FALSE, ...) {
 #' @export
 print.fp_text = function (x, ...){
   out <- data.frame(
-    size = as.double(x$font.size),
+    font.size = as.double(x$font.size),
     italic = x$italic,
     bold = x$bold,
     underlined = x$underlined,
@@ -279,7 +357,7 @@ update.fp_text <- function(object, color, font.size,
 }
 
 # fp_border ----
-border_styles = c( "none", "solid", "dotted", "dashed" )
+border_styles = c("none", "solid", "dotted", "dashed")
 
 #' @title Border properties object
 #'

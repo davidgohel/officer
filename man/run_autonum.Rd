@@ -78,7 +78,8 @@ Other run functions for reporting:
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
-\code{\link{run_word_field}()}
+\code{\link{run_word_field}()},
+\code{\link{run_wordtext}()}
 
 Other Word computed fields: 
 \code{\link{run_reference}()},

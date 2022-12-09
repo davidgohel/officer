@@ -39,6 +39,7 @@ Other run functions for reporting:
 \code{\link{run_footnote}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
-\code{\link{run_word_field}()}
+\code{\link{run_word_field}()},
+\code{\link{run_wordtext}()}
 }
 \concept{run functions for reporting}

@@ -16,6 +16,8 @@ reference:
     contents:
     - read_docx
     - set_doc_properties
+    - docx_set_paragraph_style
+    - docx_set_character_style
     - change_styles
   - title: Word documents information
     contents:

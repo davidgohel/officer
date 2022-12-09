@@ -117,6 +117,51 @@ to_html.ftext <- function(x, ...) {
 }
 
 
+# Word chunk ----
+#' @export
+#' @title Word chunk of text with a style
+#' @description Format a chunk of text associated with a 'Word' character style.
+#' The style is defined with its unique identifer.
+#' @param text text value, a single character value
+#' @param style_id 'Word' unique style identifier associated with the style to use.
+#' @examples
+#' run1 <- run_wordtext("hello", "DefaultParagraphFont")
+#' paragraph <- fpar(run1)
+#'
+#' x <- read_docx()
+#' x <- body_add_fpar(x, paragraph)
+#' print(x, target = tempfile(fileext = ".docx"))
+#' @seealso [ftext()]
+#' @family run functions for reporting
+run_wordtext <- function(text, style_id = NULL) {
+  if(is.character(text)) {
+    value <- enc2utf8(text)
+  } else {
+    value <- formatC(text)
+  }
+
+  out <- list( value = value, style_id = style_id )
+  class(out) <- c("run_wordtext", "cot", "run")
+  out
+}
+
+#' @export
+print.run_wordtext <- function (x, ...) {
+  cat("text: `", x$value, "`\nword style id: `", x$style_id, "`\n", sep = "")
+}
+#
+#' @export
+to_wml.run_wordtext <- function(x, add_ns = FALSE, ...) {
+  out <- paste0("<w:r>",
+                "<w:rPr>",
+                sprintf("<w:rStyle w:val=\"%s\"/>", x$style_id),
+                "</w:rPr>",
+                "<w:t xml:space=\"preserve\">",
+                htmlEscapeCopy(x$value), "</w:t></w:r>")
+  out
+}
+
+
 # Word computed field ----
 #' @export
 #' @title 'Word' computed field
