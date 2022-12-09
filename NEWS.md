@@ -1,3 +1,18 @@
+# officer 0.4.5
+
+## New features
+
+- new function `docx_set_character_style()` to add or 
+replace a Word character style.
+- new function `docx_set_paragraph_style()` to add or 
+replace a Word paragraph style.
+- new function `run_wordtext()` to add a chunk of text 
+associated with a Word character style.
+
+## Issues
+
+- close 'Slide Master View' automatically.
+
 # officer 0.4.4
 
 ## New features

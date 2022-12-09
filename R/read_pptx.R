@@ -111,6 +111,13 @@ print.rpptx <- function(x, target = NULL, ...){
 
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
 
+  # viewProps - drop lastView if available
+  viewProps <- read_xml(file.path(x$package_dir, "ppt/viewProps.xml"))
+  if (!is.na(xml_attr(viewProps, "lastView"))) {
+    xml_attr(viewProps, "lastView") <- NULL
+  }
+  write_xml(viewProps, file.path(x$package_dir, "ppt/viewProps.xml"))
+
   x$presentation$save()
   x$content_type$save()
 
