@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -53,22 +53,22 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">body_add_table</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">value</span>,
-  style <span class="op">=</span> <span class="cn">NULL</span>,
-  pos <span class="op">=</span> <span class="st">"after"</span>,
-  header <span class="op">=</span> <span class="cn">TRUE</span>,
-  alignment <span class="op">=</span> <span class="cn">NULL</span>,
-  align_table <span class="op">=</span> <span class="st">"center"</span>,
-  stylenames <span class="op">=</span> <span class="fu"><a href="table_stylenames.html">table_stylenames</a></span><span class="op">(</span><span class="op">)</span>,
-  first_row <span class="op">=</span> <span class="cn">TRUE</span>,
-  first_column <span class="op">=</span> <span class="cn">FALSE</span>,
-  last_row <span class="op">=</span> <span class="cn">FALSE</span>,
-  last_column <span class="op">=</span> <span class="cn">FALSE</span>,
-  no_hband <span class="op">=</span> <span class="cn">FALSE</span>,
-  no_vband <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_add_table</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pos <span class="op">=</span> <span class="st">"after"</span>,</span>
+<span>  header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  align_table <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>  stylenames <span class="op">=</span> <span class="fu"><a href="table_stylenames.html">table_stylenames</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  first_row <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  first_column <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  last_row <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  last_column <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  no_hband <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  no_vband <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -152,10 +152,10 @@ applied.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_add_table</span><span class="op">(</span><span class="va">doc</span>, <span class="va">iris</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_add_table</span><span class="op">(</span><span class="va">doc</span>, <span class="va">iris</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span> <span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -166,7 +166,7 @@ applied.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

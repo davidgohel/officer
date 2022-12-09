@@ -20,7 +20,7 @@ PowerPoint presentation."><meta property="og:image" content="/logo.png"><!-- mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@ PowerPoint presentation.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">block_list</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">block_list</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,33 +89,33 @@ in a single paragraph. Supported objects are:
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># block list ------</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">fpt_blue_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#006699"</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fpt_red_italic</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#C32900"</span>, italic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## This can be only be used in a MS word output as pptx does</span></span>
-<span class="r-in"><span class="co">## not support paragraphs made of text and images.</span></span>
-<span class="r-in"><span class="co">## (actually it can be used but image will not appear in the</span></span>
-<span class="r-in"><span class="co">## pptx output)</span></span>
-<span class="r-in"><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu">block_list</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span>, <span class="st">" "</span>,</span>
-<span class="r-in">       <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"world"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span>,</span>
-<span class="r-in">          <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span></span>
-<span class="r-in">            src <span class="op">=</span> <span class="va">img.file</span>, height <span class="op">=</span> <span class="fl">1.06</span>, width <span class="op">=</span> <span class="fl">1.39</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">value</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># block list ------</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fpt_blue_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#006699"</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fpt_red_italic</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#C32900"</span>, italic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## This can be only be used in a MS word output as pptx does</span></span></span>
+<span class="r-in"><span><span class="co">## not support paragraphs made of text and images.</span></span></span>
+<span class="r-in"><span><span class="co">## (actually it can be used but image will not appear in the</span></span></span>
+<span class="r-in"><span><span class="co">## pptx output)</span></span></span>
+<span class="r-in"><span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu">block_list</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span>, <span class="st">" "</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"world"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>            src <span class="op">=</span> <span class="va">img.file</span>, height <span class="op">=</span> <span class="fl">1.06</span>, width <span class="op">=</span> <span class="fl">1.39</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: hello world</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -136,8 +136,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -149,8 +149,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: hello</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -160,8 +160,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: world</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic  bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -182,8 +182,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -195,13 +195,13 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: hello world</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic  bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/opt/R/4.2.0/lib/R/doc/html/logo.jpg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/opt/R/4.2.2/lib/R/doc/html/logo.jpg"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "external_img" "cot"          "run"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"dims")</span>
@@ -231,8 +231,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -241,26 +241,26 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "block_list" "block"     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add.html">body_add</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">value</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu">block_list</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span>, <span class="st">" "</span>,</span>
-<span class="r-in">       <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"world"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"blah blah blah"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">value</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add.html">body_add</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">value</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">value</span> <span class="op">&lt;-</span> <span class="fu">block_list</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span>, <span class="st">" "</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"world"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"blah blah blah"</span>, <span class="va">fpt_red_italic</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: hello world</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -281,8 +281,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -294,8 +294,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: hello</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE #006699 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -305,8 +305,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: world</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic  bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -327,8 +327,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -340,8 +340,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: blah blah blah</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic  bold underlined   color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined   color     shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10   TRUE FALSE      FALSE #C32900 transparent    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -362,8 +362,8 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -372,11 +372,11 @@ in a single paragraph. Supported objects are:
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "block_list" "block"     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">value</span>, location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">value</span>, location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -387,7 +387,7 @@ in a single paragraph. Supported objects are:
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

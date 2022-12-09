@@ -145,6 +145,12 @@
     <loc>/reference/docx_reference_img.html</loc>
   </url>
   <url>
+    <loc>/reference/docx_set_character_style.html</loc>
+  </url>
+  <url>
+    <loc>/reference/docx_set_paragraph_style.html</loc>
+  </url>
+  <url>
     <loc>/reference/docx_show_chunk.html</loc>
   </url>
   <url>
@@ -320,6 +326,9 @@
   </url>
   <url>
     <loc>/reference/run_word_field.html</loc>
+  </url>
+  <url>
+    <loc>/reference/run_wordtext.html</loc>
   </url>
   <url>
     <loc>/reference/sanitize_images.html</loc>

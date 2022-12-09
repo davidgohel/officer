@@ -18,7 +18,7 @@ expected format for argument location of function ph_with."><meta property="og:i
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,18 +55,18 @@ expected format for argument <code>location</code> of function <code>ph_with</co
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ph_location</span><span class="op">(</span>
-  left <span class="op">=</span> <span class="fl">1</span>,
-  top <span class="op">=</span> <span class="fl">1</span>,
-  width <span class="op">=</span> <span class="fl">4</span>,
-  height <span class="op">=</span> <span class="fl">3</span>,
-  newlabel <span class="op">=</span> <span class="st">""</span>,
-  bg <span class="op">=</span> <span class="cn">NULL</span>,
-  rotation <span class="op">=</span> <span class="cn">NULL</span>,
-  ln <span class="op">=</span> <span class="cn">NULL</span>,
-  geom <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ph_location</span><span class="op">(</span></span>
+<span>  left <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  top <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  newlabel <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  bg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rotation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ln <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  geom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -137,20 +137,20 @@ It can be set with argument <code>newlabel</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Hello world"</span>,</span>
-<span class="r-in">  location <span class="op">=</span> <span class="fu">ph_location</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">4</span>, height <span class="op">=</span> <span class="fl">3</span>, newlabel <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Set geometry and outline</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu">ph_location</span><span class="op">(</span>left <span class="op">=</span> <span class="fl">1</span>, top <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="fl">4</span>, height <span class="op">=</span> <span class="fl">3</span>, bg <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
-<span class="r-in">                   ln <span class="op">=</span> <span class="fu"><a href="sp_line.html">sp_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,</span>
-<span class="r-in">                   geom <span class="op">=</span> <span class="st">"trapezoid"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">""</span>, loc <span class="op">=</span> <span class="va">loc</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Hello world"</span>,</span></span>
+<span class="r-in"><span>  location <span class="op">=</span> <span class="fu">ph_location</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">4</span>, height <span class="op">=</span> <span class="fl">3</span>, newlabel <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Set geometry and outline</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu">ph_location</span><span class="op">(</span>left <span class="op">=</span> <span class="fl">1</span>, top <span class="op">=</span> <span class="fl">1</span>, width <span class="op">=</span> <span class="fl">4</span>, height <span class="op">=</span> <span class="fl">3</span>, bg <span class="op">=</span> <span class="st">"steelblue"</span>,</span></span>
+<span class="r-in"><span>                   ln <span class="op">=</span> <span class="fu"><a href="sp_line.html">sp_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   geom <span class="op">=</span> <span class="st">"trapezoid"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">""</span>, loc <span class="op">=</span> <span class="va">loc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span> <span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -161,7 +161,7 @@ It can be set with argument <code>newlabel</code>.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

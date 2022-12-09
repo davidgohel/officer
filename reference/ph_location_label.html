@@ -18,7 +18,7 @@ to find the corresponding location."><meta property="og:image" content="/logo.pn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ to find the corresponding location.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ph_location_label</span><span class="op">(</span><span class="va">ph_label</span>, newlabel <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ph_location_label</span><span class="op">(</span><span class="va">ph_label</span>, newlabel <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -110,13 +110,13 @@ It can be set with argument <code>newlabel</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># ph_location_label demo ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># all ph_label can be read here</span></span>
-<span class="r-in"><span class="fu"><a href="layout_properties.html">layout_properties</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># ph_location_label demo ----</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># all ph_label can be read here</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="layout_properties.html">layout_properties</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name              name   type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  Office Theme Title and Content   body  3      Content Placeholder 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 Office Theme Title and Content     dt  4         Date Placeholder 3</span>
@@ -135,15 +135,15 @@ It can be set with argument <code>newlabel</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span>
-<span class="r-in">  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Content Placeholder 2"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Date Placeholder 3"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"This is a title"</span>,</span>
-<span class="r-in">  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Title 1"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Content Placeholder 2"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Date Placeholder 3"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"This is a title"</span>,</span></span>
+<span class="r-in"><span>  location <span class="op">=</span> <span class="fu">ph_location_label</span><span class="op">(</span>ph_label <span class="op">=</span> <span class="st">"Title 1"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -154,7 +154,7 @@ It can be set with argument <code>newlabel</code>.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

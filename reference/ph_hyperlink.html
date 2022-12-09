@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ph_hyperlink</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"body"</span>, id <span class="op">=</span> <span class="fl">1</span>, id_chr <span class="op">=</span> <span class="cn">NULL</span>, ph_label <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">href</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ph_hyperlink</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"body"</span>, id <span class="op">=</span> <span class="fl">1</span>, id_chr <span class="op">=</span> <span class="cn">NULL</span>, ph_label <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">href</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,18 +96,18 @@ Values can be read from <code><a href="slide_summary.html">slide_summary</a></co
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">fileout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">loc_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_location.html">ph_location</a></span><span class="op">(</span>bg <span class="op">=</span> <span class="st">"red"</span>, newlabel<span class="op">=</span> <span class="st">"mytitle"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, <span class="st">"Un titre 1"</span>, location <span class="op">=</span> <span class="va">loc_manual</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="slide_summary.html">slide_summary</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co"># read column ph_label here</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">fileout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">loc_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_location.html">ph_location</a></span><span class="op">(</span>bg <span class="op">=</span> <span class="st">"red"</span>, newlabel<span class="op">=</span> <span class="st">"mytitle"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, <span class="st">"Un titre 1"</span>, location <span class="op">=</span> <span class="va">loc_manual</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="slide_summary.html">slide_summary</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co"># read column ph_label here</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   type id ph_label offx offy cx cy rotation fld_id fld_type       text</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 body  2  mytitle    1    1  4  3       NA   &lt;NA&gt;     &lt;NA&gt; Un titre 1</span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">ph_hyperlink</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, ph_label <span class="op">=</span> <span class="st">"mytitle"</span>,</span>
-<span class="r-in">  href <span class="op">=</span> <span class="st">"https://cran.r-project.org"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">ph_hyperlink</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, ph_label <span class="op">=</span> <span class="st">"mytitle"</span>,</span></span>
+<span class="r-in"><span>  href <span class="op">=</span> <span class="st">"https://cran.r-project.org"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span> <span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -118,7 +118,7 @@ Values can be read from <code><a href="slide_summary.html">slide_summary</a></co
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

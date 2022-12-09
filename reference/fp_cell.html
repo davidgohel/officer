@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -53,46 +53,50 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fp_cell</span><span class="op">(</span>
-  border <span class="op">=</span> <span class="fu"><a href="fp_border.html">fp_border</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-  <span class="va">border.bottom</span>,
-  <span class="va">border.left</span>,
-  <span class="va">border.top</span>,
-  <span class="va">border.right</span>,
-  vertical.align <span class="op">=</span> <span class="st">"center"</span>,
-  margin <span class="op">=</span> <span class="fl">0</span>,
-  <span class="va">margin.bottom</span>,
-  <span class="va">margin.top</span>,
-  <span class="va">margin.left</span>,
-  <span class="va">margin.right</span>,
-  background.color <span class="op">=</span> <span class="st">"transparent"</span>,
-  text.direction <span class="op">=</span> <span class="st">"lrtb"</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for fp_cell</span>
-<span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"wml"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for fp_cell</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for fp_cell</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">border</span>,
-  <span class="va">border.bottom</span>,
-  <span class="va">border.left</span>,
-  <span class="va">border.top</span>,
-  <span class="va">border.right</span>,
-  <span class="va">vertical.align</span>,
-  margin <span class="op">=</span> <span class="fl">0</span>,
-  <span class="va">margin.bottom</span>,
-  <span class="va">margin.top</span>,
-  <span class="va">margin.left</span>,
-  <span class="va">margin.right</span>,
-  <span class="va">background.color</span>,
-  <span class="va">text.direction</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fp_cell</span><span class="op">(</span></span>
+<span>  border <span class="op">=</span> <span class="fu"><a href="fp_border.html">fp_border</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="va">border.bottom</span>,</span>
+<span>  <span class="va">border.left</span>,</span>
+<span>  <span class="va">border.top</span>,</span>
+<span>  <span class="va">border.right</span>,</span>
+<span>  vertical.align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>  margin <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">margin.bottom</span>,</span>
+<span>  <span class="va">margin.top</span>,</span>
+<span>  <span class="va">margin.left</span>,</span>
+<span>  <span class="va">margin.right</span>,</span>
+<span>  background.color <span class="op">=</span> <span class="st">"transparent"</span>,</span>
+<span>  text.direction <span class="op">=</span> <span class="st">"lrtb"</span>,</span>
+<span>  rowspan <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  colspan <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fp_cell</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"wml"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fp_cell</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fp_cell</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">border</span>,</span>
+<span>  <span class="va">border.bottom</span>,</span>
+<span>  <span class="va">border.left</span>,</span>
+<span>  <span class="va">border.top</span>,</span>
+<span>  <span class="va">border.right</span>,</span>
+<span>  <span class="va">vertical.align</span>,</span>
+<span>  margin <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">margin.bottom</span>,</span>
+<span>  <span class="va">margin.top</span>,</span>
+<span>  <span class="va">margin.left</span>,</span>
+<span>  <span class="va">margin.right</span>,</span>
+<span>  <span class="va">background.color</span>,</span>
+<span>  <span class="va">text.direction</span>,</span>
+<span>  rowspan <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  colspan <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -128,6 +132,14 @@ valid color (e.g. "#000000" or "black").</p></dd>
 value is one of "lrtb", "tbrl", "btlr".</p></dd>
 
 
+<dt>rowspan</dt>
+<dd><p>specify how many rows the cell is spanned over</p></dd>
+
+
+<dt>colspan</dt>
+<dd><p>specify how many columns the cell is spanned over</p></dd>
+
+
 <dt>x, object</dt>
 <dd><p><code>fp_cell</code> object</p></dd>
 
@@ -150,8 +162,8 @@ value is one of "lrtb", "tbrl", "btlr".</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">fp_cell</span><span class="op">(</span>margin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span> <span class="va">obj</span>, margin.bottom <span class="op">=</span> <span class="fl">5</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">fp_cell</span><span class="op">(</span>margin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">obj</span>, margin.bottom <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> background-color:transparent;vertical-align:middle;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;margin-bottom:5pt;margin-top:1pt;margin-left:1pt;margin-right:1pt;</span>
 </code></pre></div>
     </div>
@@ -163,7 +175,7 @@ value is one of "lrtb", "tbrl", "btlr".</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -21,7 +21,7 @@ inside a paragraph is valid."><meta property="og:image" content="/logo.png"><!--
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -61,17 +61,17 @@ inside a paragraph is valid.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">body_replace_text_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">body_replace_img_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">headers_replace_text_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">headers_replace_img_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">footers_replace_text_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span>
-
-<span class="fu">footers_replace_img_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_replace_text_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">body_replace_img_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">headers_replace_text_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">headers_replace_img_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">footers_replace_text_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">footers_replace_img_at_bkm</span><span class="op">(</span><span class="va">x</span>, <span class="va">bookmark</span>, <span class="va">value</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,24 +91,24 @@ inside a paragraph is valid.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"a paragraph to replace"</span>, style <span class="op">=</span> <span class="st">"centered"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_bookmark.html">body_bookmark</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_text_at_bkm</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span>, <span class="st">"new text"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># demo usage of bookmark and images ----</span></span>
-<span class="r-in"><span class="va">template</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">template</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">headers_replace_img_at_bkm</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, bookmark <span class="op">=</span> <span class="st">"bmk_header"</span>,</span>
-<span class="r-in">                                  value <span class="op">=</span> <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, width <span class="op">=</span> <span class="fl">.53</span>, height <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">footers_replace_img_at_bkm</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, bookmark <span class="op">=</span> <span class="st">"bmk_footer"</span>,</span>
-<span class="r-in">                                  value <span class="op">=</span> <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, width <span class="op">=</span> <span class="fl">.53</span>, height <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"a paragraph to replace"</span>, style <span class="op">=</span> <span class="st">"centered"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_bookmark.html">body_bookmark</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_text_at_bkm</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span>, <span class="st">"new text"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># demo usage of bookmark and images ----</span></span></span>
+<span class="r-in"><span><span class="va">template</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"officer"</span>, <span class="st">"doc_examples/example.docx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">template</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">headers_replace_img_at_bkm</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, bookmark <span class="op">=</span> <span class="st">"bmk_header"</span>,</span></span>
+<span class="r-in"><span>                                  value <span class="op">=</span> <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, width <span class="op">=</span> <span class="fl">.53</span>, height <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">footers_replace_img_at_bkm</span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, bookmark <span class="op">=</span> <span class="st">"bmk_footer"</span>,</span></span>
+<span class="r-in"><span>                                  value <span class="op">=</span> <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, width <span class="op">=</span> <span class="fl">.53</span>, height <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -119,7 +119,7 @@ inside a paragraph is valid.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

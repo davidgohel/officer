@@ -21,7 +21,7 @@ from R."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -61,10 +61,10 @@ from R.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_docx</span><span class="op">(</span>path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S3 method for rdocx</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, target <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_docx</span><span class="op">(</span>path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for rdocx</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, target <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,10 +91,10 @@ from R.</p>
 
 <p>an object of class <code>rdocx</code>.</p>
     </div>
-    <div id="methods-by-generic-">
-    <h2>Methods (by generic)</h2>
+    <div id="functions">
+    <h2>Functions</h2>
     
-<ul><li><p><code>print</code>: write docx to a file. It returns the path of the result
+<ul><li><p><code>print(rdocx)</code>: write docx to a file. It returns the path of the result
 file.</p></li>
 </ul></div>
     <div id="styles">
@@ -125,29 +125,29 @@ original document.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">pinst</span> <span class="op">&lt;-</span> <span class="fu"><a href="plot_instr.html">plot_instr</a></span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">read_docx</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"This is a table"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_1</span>, value <span class="op">=</span> <span class="va">mtcars</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"This is a plot"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_plot.html">body_add_plot</a></span><span class="op">(</span><span class="va">doc_1</span>, <span class="va">pinst</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">docx_file_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_1</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">template</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"officer"</span>,</span>
-<span class="r-in">  <span class="st">"doc_examples"</span>, <span class="st">"landscape.docx"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu">read_docx</span><span class="op">(</span>path <span class="op">=</span> <span class="va">template</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_2</span>, <span class="st">"This is a table"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_2</span>, value <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_2</span>, <span class="st">"This is a plot"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_plot.html">body_add_plot</a></span><span class="op">(</span><span class="va">doc_2</span>, <span class="va">pinst</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">docx_file_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_2</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pinst</span> <span class="op">&lt;-</span> <span class="fu"><a href="plot_instr.html">plot_instr</a></span><span class="op">(</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">read_docx</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"This is a table"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_1</span>, value <span class="op">=</span> <span class="va">mtcars</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"This is a plot"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_plot.html">body_add_plot</a></span><span class="op">(</span><span class="va">doc_1</span>, <span class="va">pinst</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">docx_file_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_1</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">template</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"officer"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"doc_examples"</span>, <span class="st">"landscape.docx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu">read_docx</span><span class="op">(</span>path <span class="op">=</span> <span class="va">template</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_2</span>, <span class="st">"This is a table"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_2</span>, value <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_2</span>, <span class="st">"This is a plot"</span>, style <span class="op">=</span> <span class="st">"heading 2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_plot.html">body_add_plot</a></span><span class="op">(</span><span class="va">doc_2</span>, <span class="va">pinst</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">docx_file_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_2</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +158,7 @@ original document.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

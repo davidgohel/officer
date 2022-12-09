@@ -18,7 +18,7 @@ line properties."><meta property="og:image" content="/logo.png"><!-- mathjax -->
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,33 +55,33 @@ line properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sp_line</span><span class="op">(</span>
-  color <span class="op">=</span> <span class="st">"transparent"</span>,
-  lwd <span class="op">=</span> <span class="fl">1</span>,
-  lty <span class="op">=</span> <span class="st">"solid"</span>,
-  linecmpd <span class="op">=</span> <span class="st">"sng"</span>,
-  lineend <span class="op">=</span> <span class="st">"rnd"</span>,
-  linejoin <span class="op">=</span> <span class="st">"round"</span>,
-  headend <span class="op">=</span> <span class="fu"><a href="sp_lineend.html">sp_lineend</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>,
-  tailend <span class="op">=</span> <span class="fu"><a href="sp_lineend.html">sp_lineend</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for sp_line</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for sp_line</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">color</span>,
-  <span class="va">lwd</span>,
-  <span class="va">lty</span>,
-  <span class="va">linecmpd</span>,
-  <span class="va">lineend</span>,
-  <span class="va">linejoin</span>,
-  <span class="va">headend</span>,
-  <span class="va">tailend</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sp_line</span><span class="op">(</span></span>
+<span>  color <span class="op">=</span> <span class="st">"transparent"</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  lty <span class="op">=</span> <span class="st">"solid"</span>,</span>
+<span>  linecmpd <span class="op">=</span> <span class="st">"sng"</span>,</span>
+<span>  lineend <span class="op">=</span> <span class="st">"rnd"</span>,</span>
+<span>  linejoin <span class="op">=</span> <span class="st">"round"</span>,</span>
+<span>  headend <span class="op">=</span> <span class="fu"><a href="sp_lineend.html">sp_lineend</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  tailend <span class="op">=</span> <span class="fu"><a href="sp_lineend.html">sp_lineend</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for sp_line</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for sp_line</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">color</span>,</span>
+<span>  <span class="va">lwd</span>,</span>
+<span>  <span class="va">lty</span>,</span>
+<span>  <span class="va">linecmpd</span>,</span>
+<span>  <span class="va">lineend</span>,</span>
+<span>  <span class="va">linejoin</span>,</span>
+<span>  <span class="va">headend</span>,</span>
+<span>  <span class="va">tailend</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -154,28 +154,28 @@ or <code>'bevel'</code> or <code>'miter'</code></p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">sp_line</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sp_line</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         color lwd   lty linecmpd lineend linejoin headend.type headend.width</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 transparent   1 solid      sng     rnd    round         none           med</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   headend.length tailend.type tailend.width tailend.length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1            med         none           med            med</span>
-<span class="r-in"><span class="fu">sp_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sp_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color lwd   lty linecmpd lineend linejoin headend.type headend.width</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   red   2 solid      sng     rnd    round         none           med</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   headend.length tailend.type tailend.width tailend.length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1            med         none           med            med</span>
-<span class="r-in"><span class="fu">sp_line</span><span class="op">(</span>lty <span class="op">=</span> <span class="st">"dot"</span>, linecmpd <span class="op">=</span> <span class="st">"dbl"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sp_line</span><span class="op">(</span>lty <span class="op">=</span> <span class="st">"dot"</span>, linecmpd <span class="op">=</span> <span class="st">"dbl"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         color lwd lty linecmpd lineend linejoin headend.type headend.width</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 transparent   1 dot      dbl     rnd    round         none           med</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   headend.length tailend.type tailend.width tailend.length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1            med         none           med            med</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span> <span class="fu">sp_line</span> <span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span> <span class="fu">sp_line</span> <span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color lwd   lty linecmpd lineend linejoin headend.type headend.width</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   red   2 solid      sng     rnd    round         none           med</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   headend.length tailend.type tailend.width tailend.length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1            med         none           med            med</span>
-<span class="r-in"><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">sp_line</span> <span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span> <span class="va">obj</span>, linecmpd <span class="op">=</span> <span class="st">"dbl"</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">sp_line</span> <span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span> <span class="va">obj</span>, linecmpd <span class="op">=</span> <span class="st">"dbl"</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color lwd   lty linecmpd lineend linejoin headend.type headend.width</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   red   2 solid      dbl     rnd    round         none           med</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   headend.length tailend.type tailend.width tailend.length</span>
@@ -190,7 +190,7 @@ or <code>'bevel'</code> or <code>'miter'</code></p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

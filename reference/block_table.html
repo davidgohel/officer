@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">block_table</span><span class="op">(</span><span class="va">x</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, properties <span class="op">=</span> <span class="fu"><a href="prop_table.html">prop_table</a></span><span class="op">(</span><span class="op">)</span>, alignment <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">block_table</span><span class="op">(</span><span class="va">x</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, properties <span class="op">=</span> <span class="fu"><a href="prop_table.html">prop_table</a></span><span class="op">(</span><span class="op">)</span>, alignment <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,19 +95,19 @@ and 'c' for center. Default to NULL.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">block_table</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">block_table</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	6 obs. of  5 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">block_table</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mtcars</span>, header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">  properties <span class="op">=</span> <span class="fu"><a href="prop_table.html">prop_table</a></span><span class="op">(</span></span>
-<span class="r-in">    tcf <span class="op">=</span> <span class="fu"><a href="table_conditional_formatting.html">table_conditional_formatting</a></span><span class="op">(</span></span>
-<span class="r-in">      first_row <span class="op">=</span> <span class="cn">TRUE</span>, first_column <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">block_table</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mtcars</span>, header <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  properties <span class="op">=</span> <span class="fu"><a href="prop_table.html">prop_table</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    tcf <span class="op">=</span> <span class="fu"><a href="table_conditional_formatting.html">table_conditional_formatting</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      first_row <span class="op">=</span> <span class="cn">TRUE</span>, first_column <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	32 obs. of  11 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...</span>
@@ -130,7 +130,7 @@ and 'c' for center. Default to NULL.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

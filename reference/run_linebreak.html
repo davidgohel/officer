@@ -19,7 +19,7 @@ within a call to fpar."><meta property="og:image" content="/logo.png"><!-- mathj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@ within a call to <a href="fpar.html">fpar</a>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">run_linebreak</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_linebreak</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="usage">
@@ -82,17 +82,18 @@ officedown.</p>
 <code><a href="run_footnote.html">run_footnote</a>()</code>,
 <code><a href="run_pagebreak.html">run_pagebreak</a>()</code>,
 <code><a href="run_reference.html">run_reference</a>()</code>,
-<code><a href="run_word_field.html">run_word_field</a>()</code></p></div>
+<code><a href="run_word_field.html">run_word_field</a>()</code>,
+<code><a href="run_wordtext.html">run_wordtext</a>()</code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">fp_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>font.size <span class="op">=</span> <span class="fl">12</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">an_fpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="st">"let's add a line break"</span>, <span class="fu">run_linebreak</span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"and blah blah!"</span>, <span class="va">fp_t</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add.html">body_add</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">an_fpar</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">fp_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text</a></span><span class="op">(</span>font.size <span class="op">=</span> <span class="fl">12</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">an_fpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="st">"let's add a line break"</span>, <span class="fu">run_linebreak</span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"and blah blah!"</span>, <span class="va">fp_t</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add.html">body_add</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">an_fpar</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -103,7 +104,7 @@ officedown.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -18,7 +18,7 @@ paragraph formatting properties."><meta property="og:image" content="/logo.png">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,43 +55,46 @@ paragraph formatting properties.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fp_par</span><span class="op">(</span>
-  text.align <span class="op">=</span> <span class="st">"left"</span>,
-  padding <span class="op">=</span> <span class="fl">0</span>,
-  line_spacing <span class="op">=</span> <span class="fl">1</span>,
-  border <span class="op">=</span> <span class="fu"><a href="fp_border.html">fp_border</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-  <span class="va">padding.bottom</span>,
-  <span class="va">padding.top</span>,
-  <span class="va">padding.left</span>,
-  <span class="va">padding.right</span>,
-  <span class="va">border.bottom</span>,
-  <span class="va">border.left</span>,
-  <span class="va">border.top</span>,
-  <span class="va">border.right</span>,
-  shading.color <span class="op">=</span> <span class="st">"transparent"</span>,
-  keep_with_next <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for fp_par</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for fp_par</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  <span class="va">text.align</span>,
-  <span class="va">padding</span>,
-  <span class="va">border</span>,
-  <span class="va">padding.bottom</span>,
-  <span class="va">padding.top</span>,
-  <span class="va">padding.left</span>,
-  <span class="va">padding.right</span>,
-  <span class="va">border.bottom</span>,
-  <span class="va">border.left</span>,
-  <span class="va">border.top</span>,
-  <span class="va">border.right</span>,
-  <span class="va">shading.color</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fp_par</span><span class="op">(</span></span>
+<span>  text.align <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>  padding <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  line_spacing <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  border <span class="op">=</span> <span class="fu"><a href="fp_border.html">fp_border</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="va">padding.bottom</span>,</span>
+<span>  <span class="va">padding.top</span>,</span>
+<span>  <span class="va">padding.left</span>,</span>
+<span>  <span class="va">padding.right</span>,</span>
+<span>  <span class="va">border.bottom</span>,</span>
+<span>  <span class="va">border.left</span>,</span>
+<span>  <span class="va">border.top</span>,</span>
+<span>  <span class="va">border.right</span>,</span>
+<span>  shading.color <span class="op">=</span> <span class="st">"transparent"</span>,</span>
+<span>  keep_with_next <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  word_style <span class="op">=</span> <span class="st">"Normal"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fp_par</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fp_par</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">text.align</span>,</span>
+<span>  <span class="va">padding</span>,</span>
+<span>  <span class="va">border</span>,</span>
+<span>  <span class="va">padding.bottom</span>,</span>
+<span>  <span class="va">padding.top</span>,</span>
+<span>  <span class="va">padding.left</span>,</span>
+<span>  <span class="va">padding.right</span>,</span>
+<span>  <span class="va">border.bottom</span>,</span>
+<span>  <span class="va">border.left</span>,</span>
+<span>  <span class="va">border.top</span>,</span>
+<span>  <span class="va">border.right</span>,</span>
+<span>  <span class="va">shading.color</span>,</span>
+<span>  <span class="va">keep_with_next</span>,</span>
+<span>  <span class="va">word_style</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -133,6 +136,10 @@ a valid color (e.g. "#000000" or "black").</p></dd>
 on the same page as the next paragraph when possible.</p></dd>
 
 
+<dt>word_style</dt>
+<dd><p>Word paragraph style name</p></dd>
+
+
 <dt>x, object</dt>
 <dd><p><code>fp_par</code> object</p></dd>
 
@@ -158,7 +165,7 @@ on the same page as the next paragraph when possible.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">fp_par</span><span class="op">(</span>text.align <span class="op">=</span> <span class="st">"center"</span>, padding <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fp_par</span><span class="op">(</span>text.align <span class="op">=</span> <span class="st">"center"</span>, padding <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text.align          center</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> padding.top              5</span>
@@ -172,8 +179,8 @@ on the same page as the next paragraph when possible.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bottom     0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> left       0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
-<span class="r-in"><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">fp_par</span><span class="op">(</span>text.align <span class="op">=</span> <span class="st">"center"</span>, padding <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span> <span class="va">obj</span>, padding.bottom <span class="op">=</span> <span class="fl">5</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">fp_par</span><span class="op">(</span>text.align <span class="op">=</span> <span class="st">"center"</span>, padding <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span> <span class="va">obj</span>, padding.bottom <span class="op">=</span> <span class="fl">5</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text.align          center</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> padding.top              1</span>
@@ -197,7 +204,7 @@ on the same page as the next paragraph when possible.</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

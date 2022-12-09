@@ -18,7 +18,7 @@ table width in the document, eventually column widths."><meta property="og:image
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,15 +55,17 @@ table width in the document, eventually column widths.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prop_table</span><span class="op">(</span>
-  style <span class="op">=</span> <span class="cn">NA_character_</span>,
-  layout <span class="op">=</span> <span class="fu"><a href="table_layout.html">table_layout</a></span><span class="op">(</span><span class="op">)</span>,
-  width <span class="op">=</span> <span class="fu"><a href="table_width.html">table_width</a></span><span class="op">(</span><span class="op">)</span>,
-  stylenames <span class="op">=</span> <span class="fu"><a href="table_stylenames.html">table_stylenames</a></span><span class="op">(</span><span class="op">)</span>,
-  colwidths <span class="op">=</span> <span class="fu"><a href="table_colwidths.html">table_colwidths</a></span><span class="op">(</span><span class="op">)</span>,
-  tcf <span class="op">=</span> <span class="fu"><a href="table_conditional_formatting.html">table_conditional_formatting</a></span><span class="op">(</span><span class="op">)</span>,
-  align <span class="op">=</span> <span class="st">"center"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prop_table</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  layout <span class="op">=</span> <span class="fu"><a href="table_layout.html">table_layout</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  width <span class="op">=</span> <span class="fu"><a href="table_width.html">table_width</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stylenames <span class="op">=</span> <span class="fu"><a href="table_stylenames.html">table_stylenames</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  colwidths <span class="op">=</span> <span class="fu"><a href="table_colwidths.html">table_colwidths</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  tcf <span class="op">=</span> <span class="fu"><a href="table_conditional_formatting.html">table_conditional_formatting</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>  word_title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  word_description <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,6 +97,14 @@ table width in the document, eventually column widths.</p>
 <dt>align</dt>
 <dd><p>table alignment (one of left, center or right)</p></dd>
 
+
+<dt>word_title</dt>
+<dd><p>alternative text for Word table (used as title of the table)</p></dd>
+
+
+<dt>word_description</dt>
+<dd><p>alternative text for Word table (used as description of the table)</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -108,7 +118,7 @@ table width in the document, eventually column widths.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">prop_table</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">prop_table</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $style</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -168,10 +178,16 @@ table width in the document, eventually column widths.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "center"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $word_title</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $word_description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "prop_table"</span>
-<span class="r-in"><span class="fu"><a href="to_wml.html">to_wml</a></span><span class="op">(</span><span class="fu">prop_table</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "&lt;w:tblPr&gt;&lt;w:tblLayout w:type=\"autofit\"/&gt;&lt;w:jc w:val=\"center\"/&gt;&lt;w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"0\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/&gt;&lt;/w:tblPr&gt;"</span>
+<span class="r-in"><span><span class="fu"><a href="to_wml.html">to_wml</a></span><span class="op">(</span><span class="fu">prop_table</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "&lt;w:tblPr&gt;&lt;w:tblLayout w:type=\"autofit\"/&gt;&lt;w:jc w:val=\"center\"/&gt;&lt;w:tblW w:type=\"pct\" w:w=\"5000\"/&gt;&lt;w:tblLook w:firstRow=\"1\" w:lastRow=\"0\" w:firstColumn=\"0\" w:lastColumn=\"0\" w:noHBand=\"0\" w:noVBand=\"1\"/&gt;&lt;/w:tblPr&gt;"</span>
 </code></pre></div>
     </div>
   </div>
@@ -182,7 +198,7 @@ table width in the document, eventually column widths.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

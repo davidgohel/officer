@@ -21,7 +21,7 @@ be used in conjunction with the body_add_* functions."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -61,69 +61,69 @@ be used in conjunction with the <code>body_add_*</code> functions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for numeric</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, format_fun <span class="op">=</span> <span class="va">formatC</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for factor</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, format_fun <span class="op">=</span> <span class="va">as.character</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for fpar</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">body_add</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">value</span>,
-  style <span class="op">=</span> <span class="cn">NULL</span>,
-  header <span class="op">=</span> <span class="cn">TRUE</span>,
-  tcf <span class="op">=</span> <span class="fu"><a href="table_conditional_formatting.html">table_conditional_formatting</a></span><span class="op">(</span><span class="op">)</span>,
-  alignment <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for block_caption</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for block_list</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for block_toc</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for external_img</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="st">"Normal"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for run_pagebreak</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for run_columnbreak</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for gg</span>
-<span class="fu">body_add</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">value</span>,
-  width <span class="op">=</span> <span class="fl">6</span>,
-  height <span class="op">=</span> <span class="fl">5</span>,
-  res <span class="op">=</span> <span class="fl">300</span>,
-  style <span class="op">=</span> <span class="st">"Normal"</span>,
-  scale <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for plot_instr</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, width <span class="op">=</span> <span class="fl">6</span>, height <span class="op">=</span> <span class="fl">5</span>, res <span class="op">=</span> <span class="fl">300</span>, style <span class="op">=</span> <span class="st">"Normal"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for block_pour_docx</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for block_section</span>
-<span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for numeric</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, format_fun <span class="op">=</span> <span class="va">formatC</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for factor</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, format_fun <span class="op">=</span> <span class="va">as.character</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for fpar</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  tcf <span class="op">=</span> <span class="fu"><a href="table_conditional_formatting.html">table_conditional_formatting</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for block_caption</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for block_list</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for block_toc</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for external_img</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="st">"Normal"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for run_pagebreak</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for run_columnbreak</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, style <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for gg</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  res <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"Normal"</span>,</span>
+<span>  scale <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for plot_instr</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, width <span class="op">=</span> <span class="fl">6</span>, height <span class="op">=</span> <span class="fl">5</span>, res <span class="op">=</span> <span class="fl">300</span>, style <span class="op">=</span> <span class="st">"Normal"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for block_pour_docx</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for block_section</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -187,23 +187,23 @@ values must be "l" (left), "r" (right) or "c" (center).</p></dd>
     <div id="methods-by-class-">
     <h2>Methods (by class)</h2>
     
-<ul><li><p><code>character</code>: add a character vector.</p></li>
-<li><p><code>numeric</code>: add a numeric vector.</p></li>
-<li><p><code>factor</code>: add a factor vector.</p></li>
-<li><p><code>fpar</code>: add a <a href="fpar.html">fpar</a> object. These objects enable
+<ul><li><p><code>body_add(character)</code>: add a character vector.</p></li>
+<li><p><code>body_add(numeric)</code>: add a numeric vector.</p></li>
+<li><p><code>body_add(factor)</code>: add a factor vector.</p></li>
+<li><p><code>body_add(fpar)</code>: add a <a href="fpar.html">fpar</a> object. These objects enable
 the creation of formatted paragraphs made of formatted chunks of text.</p></li>
-<li><p><code>data.frame</code>: add a data.frame object with <code><a href="block_table.html">block_table()</a></code>.</p></li>
-<li><p><code>block_caption</code>: add a <a href="block_caption.html">block_caption</a> object. These objects enable
+<li><p><code>body_add(data.frame)</code>: add a data.frame object with <code><a href="block_table.html">block_table()</a></code>.</p></li>
+<li><p><code>body_add(block_caption)</code>: add a <a href="block_caption.html">block_caption</a> object. These objects enable
 the creation of set of formatted paragraphs made of formatted chunks of text.</p></li>
-<li><p><code>block_list</code>: add a <a href="block_list.html">block_list</a> object.</p></li>
-<li><p><code>block_toc</code>: add a table of content (a <a href="block_toc.html">block_toc</a> object).</p></li>
-<li><p><code>external_img</code>: add an image (a <a href="external_img.html">external_img</a> object).</p></li>
-<li><p><code>run_pagebreak</code>: add a <a href="run_pagebreak.html">run_pagebreak</a> object.</p></li>
-<li><p><code>run_columnbreak</code>: add a <a href="run_columnbreak.html">run_columnbreak</a> object.</p></li>
-<li><p><code>gg</code>: add a ggplot object.</p></li>
-<li><p><code>plot_instr</code>: add a base plot with a <a href="plot_instr.html">plot_instr</a> object.</p></li>
-<li><p><code>block_pour_docx</code>: pour content of an external docx file with with a <a href="block_pour_docx.html">block_pour_docx</a> object</p></li>
-<li><p><code>block_section</code>: ends a section with a <a href="block_section.html">block_section</a> object</p></li>
+<li><p><code>body_add(block_list)</code>: add a <a href="block_list.html">block_list</a> object.</p></li>
+<li><p><code>body_add(block_toc)</code>: add a table of content (a <a href="block_toc.html">block_toc</a> object).</p></li>
+<li><p><code>body_add(external_img)</code>: add an image (a <a href="external_img.html">external_img</a> object).</p></li>
+<li><p><code>body_add(run_pagebreak)</code>: add a <a href="run_pagebreak.html">run_pagebreak</a> object.</p></li>
+<li><p><code>body_add(run_columnbreak)</code>: add a <a href="run_columnbreak.html">run_columnbreak</a> object.</p></li>
+<li><p><code>body_add(gg)</code>: add a ggplot object.</p></li>
+<li><p><code>body_add(plot_instr)</code>: add a base plot with a <a href="plot_instr.html">plot_instr</a> object.</p></li>
+<li><p><code>body_add(block_pour_docx)</code>: pour content of an external docx file with with a <a href="block_pour_docx.html">block_pour_docx</a> object</p></li>
+<li><p><code>body_add(block_section)</code>: ends a section with a <a href="block_section.html">block_section</a> object</p></li>
 </ul></div>
     <div id="illustrations">
     <h2>Illustrations</h2>
@@ -215,23 +215,23 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"Table of content"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="block_toc.html">block_toc</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="run_pagebreak.html">run_pagebreak</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"A title"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"Another title"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="va">letters</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="block_section.html">block_section</a></span><span class="op">(</span><span class="fu"><a href="prop_section.html">prop_section</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="plot_instr.html">plot_instr</a></span><span class="op">(</span>code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="block_section.html">block_section</a></span><span class="op">(</span><span class="fu"><a href="prop_section.html">prop_section</a></span><span class="op">(</span>page_size <span class="op">=</span> <span class="fu"><a href="page_size.html">page_size</a></span><span class="op">(</span>orient <span class="op">=</span> <span class="st">"landscape"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_1</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># print(doc_1, target = "test.docx")</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"Table of content"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="block_toc.html">block_toc</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="run_pagebreak.html">run_pagebreak</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"A title"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="st">"Another title"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="va">letters</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="block_section.html">block_section</a></span><span class="op">(</span><span class="fu"><a href="prop_section.html">prop_section</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"continuous"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>, <span class="fu"><a href="plot_instr.html">plot_instr</a></span><span class="op">(</span>code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_add</span><span class="op">(</span><span class="va">doc_1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="block_section.html">block_section</a></span><span class="op">(</span><span class="fu"><a href="prop_section.html">prop_section</a></span><span class="op">(</span>page_size <span class="op">=</span> <span class="fu"><a href="page_size.html">page_size</a></span><span class="op">(</span>orient <span class="op">=</span> <span class="st">"landscape"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_1</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># print(doc_1, target = "test.docx")</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -242,7 +242,7 @@ the creation of set of formatted paragraphs made of formatted chunks of text.</p
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

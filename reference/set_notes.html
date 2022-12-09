@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -53,13 +53,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">set_notes</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">set_notes</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for block_list</span>
-<span class="fu">set_notes</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_notes</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">set_notes</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for block_list</span></span>
+<span><span class="fu">set_notes</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,9 +86,9 @@ section <code>"see also"</code>.</p></dd>
     <div id="methods-by-class-">
     <h2>Methods (by class)</h2>
     
-<ul><li><p><code>character</code>: add a character vector to a place holder in the notes on the
+<ul><li><p><code>set_notes(character)</code>: add a character vector to a place holder in the notes on the
 current slide, values will be added as paragraphs.</p></li>
-<li><p><code>block_list</code>: add a <code><a href="block_list.html">block_list()</a></code> to a place holder in the notes on the
+<li><p><code>set_notes(block_list)</code>: add a <code><a href="block_list.html">block_list()</a></code> to a place holder in the notes on the
 current slide.</p></li>
 </ul></div>
     <div id="see-also">
@@ -103,33 +103,33 @@ current slide.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># this name will be used to print the file</span></span>
-<span class="r-in"><span class="co"># change it to "youfile.pptx" to write the pptx</span></span>
-<span class="r-in"><span class="co"># file in your working directory.</span></span>
-<span class="r-in"><span class="va">fileout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fpt_blue_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#006699"</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># add a slide with some text ----</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, value <span class="op">=</span> <span class="st">"Slide Title 1"</span>,</span>
-<span class="r-in">   location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="co"># set speaker notes for the slide ----</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">set_notes</span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="st">"This text will only be visible for the speaker."</span>,</span>
-<span class="r-in">   location <span class="op">=</span> <span class="fu"><a href="notes_location_type.html">notes_location_type</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># add a slide with some text ----</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, value <span class="op">=</span> <span class="st">"Slide Title 2"</span>,</span>
-<span class="r-in">   location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"Turlututu chapeau pointu"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">set_notes</span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">bl</span>,</span>
-<span class="r-in">   location <span class="op">=</span> <span class="fu"><a href="notes_location_type.html">notes_location_type</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># this name will be used to print the file</span></span></span>
+<span class="r-in"><span><span class="co"># change it to "youfile.pptx" to write the pptx</span></span></span>
+<span class="r-in"><span><span class="co"># file in your working directory.</span></span></span>
+<span class="r-in"><span><span class="va">fileout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fpt_blue_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#006699"</span>, bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># add a slide with some text ----</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, value <span class="op">=</span> <span class="st">"Slide Title 1"</span>,</span></span>
+<span class="r-in"><span>   location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># set speaker notes for the slide ----</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">set_notes</span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="st">"This text will only be visible for the speaker."</span>,</span></span>
+<span class="r-in"><span>   location <span class="op">=</span> <span class="fu"><a href="notes_location_type.html">notes_location_type</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add a slide with some text ----</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="ph_with.html">ph_with</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">doc</span>, value <span class="op">=</span> <span class="st">"Slide Title 2"</span>,</span></span>
+<span class="r-in"><span>   location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"Turlututu chapeau pointu"</span>, <span class="va">fpt_blue_bold</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">set_notes</span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">bl</span>,</span></span>
+<span class="r-in"><span>   location <span class="op">=</span> <span class="fu"><a href="notes_location_type.html">notes_location_type</a></span><span class="op">(</span><span class="st">"body"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -140,7 +140,7 @@ current slide.</p></li>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

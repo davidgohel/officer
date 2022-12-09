@@ -18,7 +18,7 @@ into a data.frame."><meta property="og:image" content="/logo.png"><!-- mathjax -
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ into a data.frame.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layout_properties</span><span class="op">(</span><span class="va">x</span>, layout <span class="op">=</span> <span class="cn">NULL</span>, master <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layout_properties</span><span class="op">(</span><span class="va">x</span>, layout <span class="op">=</span> <span class="cn">NULL</span>, master <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,8 +87,8 @@ into a data.frame.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Title Slide"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span> <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Title Slide"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name        name     type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  Office Theme Title Slide       dt  4         Date Placeholder 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17 Office Theme Title Slide      ftr  5       Footer Placeholder 4</span>
@@ -107,7 +107,7 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
-<span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name              name     type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Office Theme    Section Header     body  3         Text Placeholder 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Office Theme        Comparison     body  5         Text Placeholder 4</span>
@@ -219,7 +219,7 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35 1.6076389       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.9166667       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
-<span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Two Content"</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Two Content"</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name        name   type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  Office Theme Two Content   body  3      Content Placeholder 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7  Office Theme Two Content   body  4      Content Placeholder 3</span>
@@ -241,7 +241,7 @@ into a data.frame.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.3993056       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 32 1.2500000       NA                                   &lt;NA&gt;              &lt;NA&gt;</span>
-<span class="r-in"><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span> <span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">layout_properties</span> <span class="op">(</span> x <span class="op">=</span> <span class="va">x</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     master_name              name     type id                   ph_label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Office Theme    Section Header     body  3         Text Placeholder 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  Office Theme        Comparison     body  5         Text Placeholder 4</span>
@@ -363,7 +363,7 @@ into a data.frame.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

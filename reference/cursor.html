@@ -19,7 +19,7 @@ inserting, deleting or updating elements in the document."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -57,17 +57,17 @@ inserting, deleting or updating elements in the document.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cursor_begin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">cursor_bookmark</span><span class="op">(</span><span class="va">x</span>, <span class="va">id</span><span class="op">)</span>
-
-<span class="fu">cursor_end</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">cursor_reach</span><span class="op">(</span><span class="va">x</span>, <span class="va">keyword</span><span class="op">)</span>
-
-<span class="fu">cursor_forward</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">cursor_backward</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cursor_begin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cursor_bookmark</span><span class="op">(</span><span class="va">x</span>, <span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cursor_end</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cursor_reach</span><span class="op">(</span><span class="va">x</span>, <span class="va">keyword</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cursor_forward</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cursor_backward</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -127,41 +127,41 @@ The argument <code>keyword</code> is a regexpr pattern.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 1"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 2"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 3"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 4"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 5"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 6"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 7"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># default template contains only an empty paragraph</span></span>
-<span class="r-in"><span class="co"># Using cursor_begin and body_remove, we can delete it</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_begin</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_remove.html">body_remove</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_reach</span><span class="op">(</span><span class="va">doc</span>, keyword <span class="op">=</span> <span class="st">"paragraph 4"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># move the cursor forward</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_forward</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># move the cursor at the end of the document</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_end</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># cursor_bookmark ----</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"centered text"</span>, style <span class="op">=</span> <span class="st">"centered"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_bookmark.html">body_bookmark</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"A title"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Hello world!"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_bookmark</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">iris</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 1"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 2"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 3"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 4"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 5"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 6"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"paragraph 7"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># default template contains only an empty paragraph</span></span></span>
+<span class="r-in"><span><span class="co"># Using cursor_begin and body_remove, we can delete it</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_begin</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_remove.html">body_remove</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_reach</span><span class="op">(</span><span class="va">doc</span>, keyword <span class="op">=</span> <span class="st">"paragraph 4"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># move the cursor forward</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_forward</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># move the cursor at the end of the document</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_end</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># cursor_bookmark ----</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"centered text"</span>, style <span class="op">=</span> <span class="st">"centered"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_bookmark.html">body_bookmark</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"A title"</span>, style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Hello world!"</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">cursor_bookmark</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"text_to_replace"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">iris</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -172,7 +172,7 @@ The argument <code>keyword</code> is a regexpr pattern.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

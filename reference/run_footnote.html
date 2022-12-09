@@ -18,7 +18,7 @@ as a run/chunk with fpar() or within an R Markdown document."><meta property="og
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@ as a run/chunk with <code><a href="fpar.html">fpar()</a></code> or within an R M
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">run_footnote</span><span class="op">(</span><span class="va">x</span>, prop <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_footnote</span><span class="op">(</span><span class="va">x</span>, prop <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,35 +84,36 @@ which case, no formatting is defined (the default is applied).</p></dd>
 <code><a href="run_linebreak.html">run_linebreak</a>()</code>,
 <code><a href="run_pagebreak.html">run_pagebreak</a>()</code>,
 <code><a href="run_reference.html">run_reference</a>()</code>,
-<code><a href="run_word_field.html">run_word_field</a>()</code></p></div>
+<code><a href="run_word_field.html">run_word_field</a>()</code>,
+<code><a href="run_wordtext.html">run_wordtext</a>()</code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">fp_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span>bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fp_refnote</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span>vertical.align <span class="op">=</span> <span class="st">"superscript"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span>
-<span class="r-in"><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="va">fp_bold</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fp_bold</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, height <span class="op">=</span> <span class="fl">1.06</span>, width <span class="op">=</span> <span class="fl">1.39</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">a_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"this paragraph contains a note "</span>,</span>
-<span class="r-in">  <span class="fu">run_footnote</span><span class="op">(</span>x <span class="op">=</span> <span class="va">bl</span>, prop <span class="op">=</span> <span class="va">fp_refnote</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="st">"."</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_fpar.html">body_add_fpar</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">a_par</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fp_bold</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span>bold <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fp_refnote</span> <span class="op">&lt;-</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span>vertical.align <span class="op">=</span> <span class="st">"superscript"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">img.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="st">"doc"</span><span class="op">)</span>, <span class="st">"html"</span>, <span class="st">"logo.jpg"</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="va">fp_bold</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"hello world"</span>, <span class="va">fp_bold</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="external_img.html">external_img</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">img.file</span>, height <span class="op">=</span> <span class="fl">1.06</span>, width <span class="op">=</span> <span class="fl">1.39</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">a_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"this paragraph contains a note "</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">run_footnote</span><span class="op">(</span>x <span class="op">=</span> <span class="va">bl</span>, prop <span class="op">=</span> <span class="va">fp_refnote</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"."</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_fpar.html">body_add_fpar</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">a_par</span>, style <span class="op">=</span> <span class="st">"Normal"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -123,7 +124,7 @@ which case, no formatting is defined (the default is applied).</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

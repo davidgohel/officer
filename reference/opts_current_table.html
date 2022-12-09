@@ -4,8 +4,7 @@ context. It should not be used by the end user, but
 its documentation should be read as a place where
 table options are documented when 'knitr' is used.
 The function is a utility to facilitate the retrieval of table
-options supported by the 'flextable', 'officedown' and of
-course 'officer' packages.
+options supported by the 'flextable', 'officedown' and 'officer' packages.
 These options should be set with knitr::opts_chunk$set().
 The names and expected values are listed in the following sections."><meta property="og:image" content="/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -25,7 +24,7 @@ The names and expected values are listed in the following sections."><meta prope
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -62,21 +61,42 @@ context. It should not be used by the end user, but
 its documentation should be read as a place where
 table options are documented when 'knitr' is used.</p>
 <p>The function is a utility to facilitate the retrieval of table
-options supported by the 'flextable', 'officedown' and of
-course 'officer' packages.</p>
+options supported by the 'flextable', 'officedown' and 'officer' packages.</p>
 <p>These options should be set with <code>knitr::opts_chunk$set()</code>.
 The names and expected values are listed in the following sections.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">opts_current_table</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">opts_current_table</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="value">
     <h2>Value</h2>
     
 
-<p>a list with following elements:</p><ul><li><p>cap.style (default: NULL)</p></li>
+<p>a list</p>
+    </div>
+    <div id="knitr-chunk-options-for-table-captions">
+    <h2>knitr chunk options for table captions</h2>
+    
+<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr></table></div>
+    <div id="knitr-chunk-options-for-word-table-captions">
+    <h2>knitr chunk options for Word table captions</h2>
+    
+<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table></div>
+    <div id="knitr-chunk-options-for-word-tables">
+    <h2>knitr chunk options for Word tables</h2>
+    
+<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>the Word stylename to use for tables</td><td>tab.style</td><td>NULL</td></tr><tr><td>autofit' or 'fixed' algorithm.</td><td>tab.layout</td><td>"autofit"</td></tr><tr><td>value of the preferred width of the table in percent (base 1).</td><td>tab.width</td><td>1</td></tr><tr><td>Alternative title text</td><td>tab.alt.title</td><td>NULL</td></tr><tr><td>Alternative description text</td><td>tab.alt.description</td><td>NULL</td></tr></table></div>
+    <div id="knitr-chunk-options-for-data-frame-with-officedown">
+    <h2>knitr chunk options for data.frame with officedown</h2>
+    
+<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>apply or remove formatting from the first row in the table</td><td>first_row</td><td>TRUE</td></tr><tr><td>apply or remove formatting from the first column in the table</td><td>first_column</td><td>FALSE</td></tr><tr><td>apply or remove formatting from the last row in the table</td><td>last_row</td><td>FALSE</td></tr><tr><td>apply or remove formatting from the last column in the table</td><td>last_column</td><td>FALSE</td></tr><tr><td>don't display odd and even rows</td><td>no_hband</td><td>TRUE</td></tr><tr><td>don't display odd and even columns</td><td>no_vband</td><td>TRUE</td></tr></table></div>
+    <div id="returned-elements">
+    <h2>returned elements</h2>
+    
+
+<ul><li><p>cap.style (default: NULL)</p></li>
 <li><p>cap.pre (default: "Table ")</p></li>
 <li><p>cap.sep (default: ":")</p></li>
 <li><p>cap.tnd (default: 0)</p></li>
@@ -84,6 +104,8 @@ The names and expected values are listed in the following sections.</p>
 <li><p>cap.fp_text (default: <code>fp_text_lite(bold = TRUE)</code>)</p></li>
 <li><p>id (default: NULL)</p></li>
 <li><p>cap (default: NULL)</p></li>
+<li><p>alt.title (default: NULL)</p></li>
+<li><p>alt.description (default: NULL)</p></li>
 <li><p>topcaption (default: TRUE)</p></li>
 <li><p>style (default: NULL)</p></li>
 <li><p>tab.lp (default: "tab:")</p></li>
@@ -96,22 +118,6 @@ The names and expected values are listed in the following sections.</p>
 <li><p>no_hband (default: TRUE)</p></li>
 <li><p>no_vband (default: TRUE)</p></li>
 </ul></div>
-    <div id="knitr-chunk-options-for-table-captions">
-    <h2>knitr chunk options for table captions</h2>
-    
-<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>caption id/bookmark</td><td>tab.id</td><td>NULL</td></tr><tr><td>caption</td><td>tab.cap</td><td>NULL</td></tr><tr><td>display table caption on top of the table or not</td><td>tab.topcaption</td><td>TRUE</td></tr><tr><td>caption table sequence identifier.</td><td>tab.lp</td><td>"tab:"</td></tr></table></div>
-    <div id="knitr-chunk-options-for-word-table-captions">
-    <h2>knitr chunk options for Word table captions</h2>
-    
-<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>Word stylename to use for table captions.</td><td>tab.cap.style</td><td>NULL</td></tr><tr><td>prefix for numbering chunk (default to   "Table ").</td><td>tab.cap.pre</td><td>Table</td></tr><tr><td>suffix for numbering chunk (default to   ": ").</td><td>tab.cap.sep</td><td>" :"</td></tr><tr><td>title number depth</td><td>tab.cap.tnd</td><td>0</td></tr><tr><td>separator to use between title number and table number.</td><td>tab.cap.tns</td><td>"-"</td></tr><tr><td>caption prefix formatting properties</td><td>tab.cap.fp_text</td><td>fp_text_lite(bold = TRUE)</td></tr></table></div>
-    <div id="knitr-chunk-options-for-word-tables">
-    <h2>knitr chunk options for Word tables</h2>
-    
-<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>the Word stylename to use for tables</td><td>tab.style</td><td>NULL</td></tr><tr><td>autofit' or 'fixed' algorithm.</td><td>tab.layout</td><td>"autofit"</td></tr><tr><td>value of the preferred width of the table in percent (base 1).</td><td>tab.width</td><td>1</td></tr></table></div>
-    <div id="knitr-chunk-options-for-data-frame-with-officedown">
-    <h2>knitr chunk options for data.frame with officedown</h2>
-    
-<table class="table table"><tr><td><strong>label</strong></td><td><strong>name</strong></td><td><strong>value</strong></td></tr><tr><td>apply or remove formatting from the first row in the table</td><td>first_row</td><td>TRUE</td></tr><tr><td>apply or remove formatting from the first column in the table</td><td>first_column</td><td>FALSE</td></tr><tr><td>apply or remove formatting from the last row in the table</td><td>last_row</td><td>FALSE</td></tr><tr><td>apply or remove formatting from the last column in the table</td><td>last_column</td><td>FALSE</td></tr><tr><td>don't display odd and even rows</td><td>no_hband</td><td>TRUE</td></tr><tr><td>don't display odd and even columns</td><td>no_vband</td><td>TRUE</td></tr></table></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other functions for officer extensions: 
@@ -132,7 +138,7 @@ The names and expected values are listed in the following sections.</p>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

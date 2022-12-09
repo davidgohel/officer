@@ -18,7 +18,7 @@ a data.frame."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -55,11 +55,11 @@ a data.frame.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">styles_info</span><span class="op">(</span>
-  <span class="va">x</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paragraph"</span>, <span class="st">"character"</span>, <span class="st">"table"</span>, <span class="st">"numbering"</span><span class="op">)</span>,
-  is_default <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">styles_info</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"paragraph"</span>, <span class="st">"character"</span>, <span class="st">"table"</span>, <span class="st">"numbering"</span><span class="op">)</span>,</span>
+<span>  is_default <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -85,36 +85,250 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">styles_info</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    style_type             style_id             style_name is_custom is_default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   paragraph               Normal                 Normal     FALSE       TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   paragraph               Titre1              heading 1     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   paragraph               Titre2              heading 2     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   paragraph               Titre3              heading 3     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   character       Policepardfaut Default Paragraph Font     FALSE       TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       table        TableauNormal           Normal Table     FALSE       TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   numbering          Aucuneliste                No List     FALSE       TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   character               strong                 strong      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   paragraph             centered               centered      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      table        tabletemplate         table_template      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      table  Listeclaire-Accent2    Light List Accent 2     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  character            Titre1Car            Titre 1 Car      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  character            Titre2Car            Titre 2 Car      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  character            Titre3Car            Titre 3 Car      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  paragraph         ImageCaption          Image Caption      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  paragraph         TableCaption          Table Caption      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17      table Tableauprofessionnel     Table Professional     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  paragraph                  TM1                  toc 1     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  paragraph                  TM2                  toc 2     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  paragraph        Textedebulles           Balloon Text     FALSE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  character     TextedebullesCar    Texte de bulles Car      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  character          referenceid           reference_id      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  paragraph         graphictitle          graphic title      TRUE      FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  paragraph           tabletitle            table title      TRUE      FALSE</span>
-<span class="r-in"><span class="fu">styles_info</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"paragraph"</span>, is_default <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   style_type style_id style_name is_custom is_default</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  paragraph   Normal     Normal     FALSE       TRUE</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">styles_info</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    style_type             style_id             style_name        base_on</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   paragraph               Normal                 Normal           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   paragraph               Titre1              heading 1         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   paragraph               Titre2              heading 2         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   paragraph               Titre3              heading 3         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   character       Policepardfaut Default Paragraph Font           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       table        TableauNormal           Normal Table           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   numbering          Aucuneliste                No List           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   character               strong                 strong Policepardfaut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   paragraph             centered               centered         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      table        tabletemplate         table_template  TableauNormal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      table  Listeclaire-Accent2    Light List Accent 2  TableauNormal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  character            Titre1Car            Titre 1 Car Policepardfaut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  character            Titre2Car            Titre 2 Car Policepardfaut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  character            Titre3Car            Titre 3 Car Policepardfaut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  paragraph         ImageCaption          Image Caption         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  paragraph         TableCaption          Table Caption   ImageCaption</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17      table Tableauprofessionnel     Table Professional  TableauNormal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  paragraph                  TM1                  toc 1         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  paragraph                  TM2                  toc 2         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  paragraph        Textedebulles           Balloon Text         Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  character     TextedebullesCar    Texte de bulles Car Policepardfaut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  character          referenceid           reference_id Policepardfaut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  paragraph         graphictitle          graphic title   ImageCaption</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  paragraph           tabletitle            table title   TableCaption</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    is_custom is_default  align keep_next line_spacing padding.bottom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      FALSE       TRUE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      FALSE      FALSE   &lt;NA&gt;      TRUE           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      FALSE      FALSE   &lt;NA&gt;      TRUE           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      FALSE      FALSE   &lt;NA&gt;      TRUE           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      FALSE       TRUE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      FALSE       TRUE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      FALSE       TRUE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       TRUE      FALSE center     FALSE           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      TRUE      FALSE  right     FALSE           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     FALSE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15      TRUE      FALSE center     FALSE           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     FALSE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     FALSE      FALSE   &lt;NA&gt;     FALSE           NA            100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     FALSE      FALSE   &lt;NA&gt;     FALSE           NA            100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     FALSE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24      TRUE      FALSE   &lt;NA&gt;        NA           NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    padding.top padding.left padding.right shading.color border.bottom.width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          480         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                 0.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          200         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          200         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        &lt;NA&gt;          240          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    border.bottom.color border.bottom.style border.top.width border.top.color</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 auto              single               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                &lt;NA&gt;                &lt;NA&gt;               NA             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    border.top.style border.left.width border.left.color border.left.style</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9              &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24             &lt;NA&gt;                NA              &lt;NA&gt;              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    border.right.width border.right.color border.right.style style_id font.size</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;        26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                  NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;        32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;        26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                 NA               &lt;NA&gt;               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    bold italic underlined color   font.family vertical.align shading.color</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt; Lucida Grande           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt; Lucida Grande           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;    superscript          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;          &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     hansi.family eastasia.family cs.family bold.cs font.size.cs lang.val</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;           32     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;           26     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;           32     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;           26     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 Lucida Grande            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;           18     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 Lucida Grande            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;           18     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24          &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    lang.eastasia lang.bidi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24          &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-in"><span><span class="fu">styles_info</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"paragraph"</span>, is_default <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   style_type style_id style_name base_on is_custom is_default align keep_next</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  paragraph   Normal     Normal    &lt;NA&gt;     FALSE       TRUE  &lt;NA&gt;        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   line_spacing padding.bottom padding.top padding.left padding.right</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           NA           &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   shading.color border.bottom.width border.bottom.color border.bottom.style</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          &lt;NA&gt;                  NA                &lt;NA&gt;                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border.top.width border.top.color border.top.style border.left.width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               NA             &lt;NA&gt;             &lt;NA&gt;                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border.left.color border.left.style border.right.width border.right.color</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1              &lt;NA&gt;              &lt;NA&gt;                 NA               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   border.right.style style_id font.size bold italic underlined color</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt; &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.family vertical.align shading.color hansi.family eastasia.family</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        &lt;NA&gt;           &lt;NA&gt;          &lt;NA&gt;         &lt;NA&gt;            &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   cs.family bold.cs font.size.cs lang.val lang.eastasia lang.bidi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;      &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </div>
@@ -125,7 +339,7 @@ default style (when <code>is_default</code> is TRUE or FALSE)</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

@@ -37,7 +37,7 @@ failures to find text.'><meta property="og:image" content="/logo.png"><!-- mathj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
       </span>
     </div>
 
@@ -93,32 +93,32 @@ failures to find text.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">body_replace_all_text</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">old_value</span>,
-  <span class="va">new_value</span>,
-  only_at_cursor <span class="op">=</span> <span class="cn">FALSE</span>,
-  warn <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">headers_replace_all_text</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">old_value</span>,
-  <span class="va">new_value</span>,
-  only_at_cursor <span class="op">=</span> <span class="cn">FALSE</span>,
-  warn <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">footers_replace_all_text</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">old_value</span>,
-  <span class="va">new_value</span>,
-  only_at_cursor <span class="op">=</span> <span class="cn">FALSE</span>,
-  warn <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_replace_all_text</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">old_value</span>,</span>
+<span>  <span class="va">new_value</span>,</span>
+<span>  only_at_cursor <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">headers_replace_all_text</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">old_value</span>,</span>
+<span>  <span class="va">new_value</span>,</span>
+<span>  only_at_cursor <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">footers_replace_all_text</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">old_value</span>,</span>
+<span>  <span class="va">new_value</span>,</span>
+<span>  only_at_cursor <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -168,33 +168,33 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Placeholder one"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Placeholder two"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show text chunk at cursor</span></span>
-<span class="r-in"><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span>  <span class="co"># Output is 'Placeholder two'</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Placeholder one"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"Placeholder two"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Show text chunk at cursor</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span>  <span class="co"># Output is 'Placeholder two'</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 text nodes found at this cursor. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;w:t&gt;: 'Placeholder two'</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_all_text</span><span class="op">(</span><span class="va">doc</span>, old_value <span class="op">=</span> <span class="st">"Placeholder"</span>,</span>
-<span class="r-in">  new_value <span class="op">=</span> <span class="st">"new"</span>, only_at_cursor <span class="op">=</span> <span class="cn">TRUE</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span>  <span class="co"># Output is 'new two'</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Simple search-and-replace at current cursor, with regex turned off</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_all_text</span><span class="op">(</span><span class="va">doc</span>, old_value <span class="op">=</span> <span class="st">"Placeholder"</span>,</span></span>
+<span class="r-in"><span>  new_value <span class="op">=</span> <span class="st">"new"</span>, only_at_cursor <span class="op">=</span> <span class="cn">TRUE</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span>  <span class="co"># Output is 'new two'</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 text nodes found at this cursor. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;w:t&gt;: 'new two'</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Do the same, but in the entire document and ignoring case</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_all_text</span><span class="op">(</span><span class="va">doc</span>, old_value <span class="op">=</span> <span class="st">"placeholder"</span>,</span>
-<span class="r-in">  new_value <span class="op">=</span> <span class="st">"new"</span>, only_at_cursor<span class="op">=</span><span class="cn">FALSE</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="cursor.html">cursor_backward</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co"># Output is 'new one'</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Do the same, but in the entire document and ignoring case</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_all_text</span><span class="op">(</span><span class="va">doc</span>, old_value <span class="op">=</span> <span class="st">"placeholder"</span>,</span></span>
+<span class="r-in"><span>  new_value <span class="op">=</span> <span class="st">"new"</span>, only_at_cursor<span class="op">=</span><span class="cn">FALSE</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="cursor.html">cursor_backward</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co"># Output is 'new one'</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 text nodes found at this cursor. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;w:t&gt;: 'new one'</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use regex : replace all words starting with "n" with the word "example"</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_all_text</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"\\bn.*?\\b"</span>, <span class="st">"example"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co"># Output is 'example one'</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use regex : replace all words starting with "n" with the word "example"</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">body_replace_all_text</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"\\bn.*?\\b"</span>, <span class="st">"example"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="docx_show_chunk.html">docx_show_chunk</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co"># Output is 'example one'</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 text nodes found at this cursor. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   &lt;w:t&gt;: 'example one'</span>
 </code></pre></div>
@@ -207,7 +207,7 @@ cursor; if <code>FALSE</code> (default), search-and-replace in the entire docume
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.3 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
