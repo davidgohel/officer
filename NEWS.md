@@ -8,10 +8,13 @@ replace a Word character style.
 replace a Word paragraph style.
 - new function `run_wordtext()` to add a chunk of text 
 associated with a Word character style.
+- `potx` and `dotx` files are now supported.
 
 ## Issues
 
 - close 'Slide Master View' automatically.
+
+
 
 # officer 0.4.4
 

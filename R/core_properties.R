@@ -88,3 +88,13 @@ write_core_properties <- function(core_matrix, package_dir){
   writeLines(enc2utf8(xml_), filename, useBytes=TRUE)
   invisible()
 }
+
+drop_templatenode_from_app <- function(package_dir){
+  file <- file.path(package_dir, "docProps", "app.xml")
+  doc <- read_xml(file)
+  node_template <- xml_child(doc, "d1:Template")
+  if (!inherits(node_template, "xml_missing")) {
+    xml_remove(node_template)
+    write_xml(doc, file)
+  }
+}

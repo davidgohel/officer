@@ -10,7 +10,8 @@ read_docx(path = NULL)
 \method{print}{rdocx}(x, target = NULL, ...)
 }
 \arguments{
-\item{path}{path to the docx file to use as base document.}
+\item{path}{path to the docx file to use as base document.
+\code{dotx} file are supported.}
 
 \item{x}{an rdocx object}
 

@@ -6,7 +6,8 @@
 #' The function is called `read_pptx` because it allows you to initialize an
 #' object of class `rpptx` from an existing PowerPoint file. Content will be
 #' added to the existing presentation. By default, an empty document is used.
-#' @param path path to the pptx file to use as base document.
+#'
+#' @param path path to the pptx file to use as base document. `potx` file are supported.
 #' @section master layouts and slide layouts:
 #' `read_pptx()` uses a PowerPoint file as the initial document. This is the original
 #' PowerPoint document where all slide layouts, placeholders for shapes and
@@ -30,7 +31,7 @@ read_pptx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.pptx")
 
-  if(!grepl("\\.pptx$", path, ignore.case = TRUE)){
+  if(!grepl("\\.(pptx|potx)$", path, ignore.case = TRUE)){
     stop("read_pptx only support pptx files", call. = FALSE)
   }
 
@@ -117,6 +118,8 @@ print.rpptx <- function(x, target = NULL, ...){
     xml_attr(viewProps, "lastView") <- NULL
   }
   write_xml(viewProps, file.path(x$package_dir, "ppt/viewProps.xml"))
+
+  drop_templatenode_from_app(x$package_dir)
 
   x$presentation$save()
   x$content_type$save()

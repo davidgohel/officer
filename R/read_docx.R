@@ -7,6 +7,7 @@
 #' Use then this object to add content to it and create Word files
 #' from R.
 #' @param path path to the docx file to use as base document.
+#' `dotx` file are supported.
 #' @return an object of class `rdocx`.
 #' @section styles:
 #'
@@ -57,7 +58,7 @@ read_docx <- function( path = NULL ){
   if( is.null(path) )
     path <- system.file(package = "officer", "template/template.docx")
 
-  if(!grepl("\\.docx$", path, ignore.case = TRUE)){
+  if(!grepl("\\.(docx|dotx)$", path, ignore.case = TRUE)){
     stop("read_docx only support docx files", call. = FALSE)
   }
 

@@ -7,7 +7,7 @@
 read_pptx(path = NULL)
 }
 \arguments{
-\item{path}{path to the pptx file to use as base document.}
+\item{path}{path to the pptx file to use as base document. \code{potx} file are supported.}
 }
 \description{
 Read and import a pptx file as an R object
