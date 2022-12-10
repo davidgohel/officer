@@ -59,9 +59,19 @@ fortify_pml_images <- function(x, str){
   ref <- ref[ref$ext_src != "",]
   doc <- as_xml_document(str)
   for(id in seq_along(ref$ext_src) ){
-    xpth <- paste0("//p:pic/p:blipFill/a:blip",
-                   sprintf( "[contains(@r:embed,'%s')]", ref$ext_src[id]),
-                   "")
+    if (grepl(".svg$", ref$ext_src[id])) {
+      xpth <- paste0(
+        "//p:pic/p:blipFill/a:blip/a:extLst/a:ext/asvg:svgBlip",
+        sprintf("[contains(@r:embed,'%s')]", ref$ext_src[id]),
+        ""
+      )
+    } else {
+      xpth <- paste0(
+        "//p:pic/p:blipFill/a:blip",
+        sprintf("[contains(@r:embed,'%s')]", ref$ext_src[id]),
+        ""
+      )
+    }
 
     src_nodes <- xml_find_all(doc, xpth)
     xml_attr(src_nodes, "r:embed") <- ref$id[id]

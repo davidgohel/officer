@@ -84,6 +84,7 @@ content_type <- R6Class(
       self$add_ext(extension = "jpeg", type = "image/jpeg")
       self$add_ext(extension = "gif", type = "image/gif")
       self$add_ext(extension = "png", type = "image/png")
+      self$add_ext(extension = "svg", type = "image/svg+xml")
       self$add_ext(extension = "bmp", type = "image/bmp")
       self$add_ext(extension = "emf", type = "image/x-emf")
       self$add_ext(extension = "wmf", type = "image/x-wmf")

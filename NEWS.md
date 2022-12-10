@@ -9,6 +9,7 @@ replace a Word paragraph style.
 - new function `run_wordtext()` to add a chunk of text 
 associated with a Word character style.
 - `potx` and `dotx` files are now supported.
+- SVG images are now supported
 
 ## Issues
 

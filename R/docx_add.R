@@ -41,7 +41,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 
   if( file_type %in% ".svg" ){
     if (!requireNamespace("rsvg")){
-      stop("package 'rsvg' is required to convert svg file to rasters")
+      stop("package 'rsvg' is required to convert svg file to rasters.")
     }
 
     file <- tempfile(fileext = ".png")
@@ -709,7 +709,7 @@ body_add.external_img <- function( x, value, style = "Normal", ... ){
 
   if( file_type %in% ".svg" ){
     if (!requireNamespace("rsvg")){
-      stop("package 'rsvg' is required to convert svg file to rasters")
+      stop("package 'rsvg' is required to convert svg file to rasters.")
     }
 
     file <- tempfile(fileext = ".png")

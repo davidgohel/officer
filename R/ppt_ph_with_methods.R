@@ -415,12 +415,12 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...){
 #' specified in call to \code{external_img} will be
 #' ignored, their values will be those of the location,
 #' unless use_loc_size is set to FALSE.
-ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
+ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
 
-  if( !use_loc_size ){
+  if (!use_loc_size) {
     location$width <- attr(value, "dims")$width
     location$height <- attr(value, "dims")$height
   }
@@ -429,9 +429,9 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
 
   file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", value)
 
-  if( file_type %in% ".svg" ){
-    if (!requireNamespace("rsvg")){
-      stop("package 'rsvg' is required to convert svg file to rasters")
+  if (file_type %in% ".svg") {
+    if (!requireNamespace("rsvg")) {
+      stop("package 'rsvg' is required to convert svg file to rasters.")
     }
 
     file <- tempfile(fileext = ".png")
@@ -439,24 +439,31 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...){
     value[1] <- file
     file_type <- ".png"
   }
-  new_src <- tempfile( fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)) )
-  file.copy( as.character(value), to = new_src )
-
-  xml_str <- pic_pml(left = location$left, top = location$top,
-                       width = width, height = height,
-                       label = location$ph_label, ph = location$ph,
-                       rot = location$rotation, bg = location$bg,
-                       src = new_src, alt_text = attr(value, "alt"),
-                       ln = location$ln)
+  new_src <- tempfile(fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)))
+  file.copy(as.character(value), to = new_src)
+  if (!exists("new_svg_src")) {
+    new_svg_src <- NULL
+  }
+  xml_str <- pic_pml(
+    left = location$left, top = location$top,
+    width = width, height = height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    src = new_src, svg_src = new_svg_src,
+    alt_text = attr(value, "alt"),
+    ln = location$ln
+  )
 
   slide$reference_img(src = new_src, dir_name = file.path(x$package_dir, "ppt/media"))
+  if (!is.null(new_svg_src)) {
+    slide$reference_img(src = new_svg_src, dir_name = file.path(x$package_dir, "ppt/media"))
+  }
   xml_elt <- fortify_pml_images(x, xml_str)
 
   value <- as_xml_document(xml_elt)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
   slide$fortify_id()
   x
-
 }
 
 
