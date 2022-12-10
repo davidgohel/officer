@@ -8,7 +8,9 @@ read_custom_properties <- function( package_dir ){
   all_children <- xml_children(doc)
   pid_values <- vapply(all_children, xml_attr, NA_character_, "pid")
   name_values <- vapply(all_children, xml_attr, NA_character_, "name")
-  value_values <- vapply(all_children, xml_text, NA_character_)
+  value_values <- vapply(all_children, function(x) {as.character(xml_child(x, 1))}, NA_character_)
+  value_values <- gsub("<vt:lpwstr>", "", value_values, fixed = TRUE)
+  value_values <- gsub("</vt:lpwstr>", "", value_values, fixed = TRUE)
   str <- c(pid_values, name_values, value_values)
 
   z <- matrix(str, ncol = 3,

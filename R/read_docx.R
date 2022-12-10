@@ -570,7 +570,7 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 
     custom_props <- x$doc_properties_custom
     for(i in seq_along(values)) {
-      custom_props[names(values)[i], 'value'] <- values[[i]]
+      custom_props[names(values)[i], 'value'] <- enc2utf8(values[[i]])
     }
     x$doc_properties_custom <- custom_props
   }

@@ -14,7 +14,7 @@ associated with a Word character style.
 ## Issues
 
 - close 'Slide Master View' automatically.
-
+- more careful reading of document properties
 
 
 # officer 0.4.4
