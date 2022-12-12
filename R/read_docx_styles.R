@@ -54,7 +54,6 @@ read_ppr = function(x) {
   border.left <- xml_child(bdr, "w:left")
   border.right <- xml_child(bdr, "w:right")
 
-  rstyle <- xml_child(node_ppr, "w:rStyle")
   spacing <- xml_child(node_ppr, "w:spacing")
   line_spacing <- as.integer(xml_attr(spacing, "line")) / 240
 
@@ -79,8 +78,7 @@ read_ppr = function(x) {
     border.left.style = xml_attr(border.left, "val"),
     border.right.width = as.integer(xml_attr(border.right, "sz")) / 8,
     border.right.color = xml_attr(border.right, "color"),
-    border.right.style = xml_attr(border.right, "val"),
-    style_id = xml_attr(rstyle, "val")
+    border.right.style = xml_attr(border.right, "val")
   )
 }
 
