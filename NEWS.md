@@ -16,6 +16,9 @@ associated with a Word character style.
 - close 'Slide Master View' automatically.
 - more careful reading of document properties
 
+## Changes
+
+- function `slip_in_footnote()` is deprecated. Use `run_footnote()` instead.
 
 # officer 0.4.4
 
