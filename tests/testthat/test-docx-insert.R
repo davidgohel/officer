@@ -33,26 +33,3 @@ test_that("seqfield add ", {
   node <- x$doc_obj$get_at_cursor()
   expect_equal(xml_text(node), "Figure: SEQ Figure \\* roman - This is a figure title")
 })
-
-
-
-test_that("hyperlink add ", {
-  href_ <- "https://github.com/davidgohel"
-  x <- read_docx()
-
-  zz <- fpar(
-    "Here is a link: ",
-    hyperlink_ftext(text = "the link", href = href_)
-  )
-  x <- body_add_fpar(x, zz, style = "Normal")
-  print(x, target = tempfile(fileext = ".docx"))
-
-  rel_df <- x$doc_obj$rel_df()
-  expect_true("https%3A//github.com/davidgohel" %in% rel_df$target)
-  expect_equal(rel_df[rel_df$target == "https%3A//github.com/davidgohel", ]$target_mode, "External")
-  expect_match(rel_df[rel_df$target == "https%3A//github.com/davidgohel", ]$type, "^http://schemas(.*)hyperlink$")
-
-  node <- x$doc_obj$get_at_cursor()
-  child_ <- getncheck(node, "w:hyperlink/w:r/w:t")
-  expect_equal(xml_text(child_), "the link")
-})

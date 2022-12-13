@@ -267,7 +267,7 @@ process_links <- function( doc_obj ){
 
     rel$add(
       id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
-      target = htmlEscapeCopy(hl_ref[i]), target_mode = "External" )
+      target = officer_url_decode(hl_ref[i]), target_mode = "External" )
 
     which_match_id <- grepl( hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE )
     xml_attr(which_to_add[which_match_id], "r:id") <- rep(rid, sum(which_match_id))
