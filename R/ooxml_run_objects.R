@@ -822,29 +822,28 @@ as.data.frame.external_img <- function( x, ... ){
   data.frame(path = as.character(x), width = dimx$width, height = dimx$height, alt = attr(x, "alt"), stringsAsFactors = FALSE)
 }
 
+temp_blipfill <- function(value, ns = "p") {
 
-pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
-                     bg = "transparent", rot = 0, label = "",
-                     ph = "<p:ph/>", src, svg_src = NULL, alt_text = "",
-                     ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd")){
+  svg_src <- NULL
+  if (grepl("\\.svg", value)) {
+    if (!requireNamespace("rsvg")) {
+      stop("package 'rsvg' is required to convert svg file to rasters.")
+    }
 
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
+    svg_src <- tempfile(fileext = ".svg")
+    file.copy(as.character(value), to = svg_src)
 
-  bg_str <- solid_fill_pml(bg)
-  ln_str <- ln_pml(ln)
-
-  if (missing(alt_text) || is.null(alt_text)) alt_text <- ""
-
-
-  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
-  if( is.null(ph) || is.na(ph)){
-    ph = "<p:ph/>"
+    img_src <- tempfile(fileext = ".png")
+    rsvg::rsvg_png(svg_src, file = img_src)
+  } else {
+    img_src <- tempfile(fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value)))
+    file.copy(as.character(value), to = img_src)
   }
+
   if (!is.null(svg_src)) {
     blipfill <- paste0(
-      "<p:blipFill>",
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\">", src),
+      "<", ns, ":blipFill>",
+      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\">", img_src),
       "<a:extLst>",
       "<a:ext uri=\"{96DAC541-7B7A-43D3-8B79-37D633B846F1}\">",
       sprintf("<asvg:svgBlip r:embed=\"%s\" xmlns:asvg=\"http://schemas.microsoft.com/office/drawing/2016/SVG/main\"/>", svg_src),
@@ -852,31 +851,18 @@ pic_pml <- function( left = 0, top = 0, width = 3, height = 3,
       "</a:extLst>",
       "</a:blip>",
       "<a:stretch><a:fillRect/></a:stretch>",
-      "</p:blipFill>"
+      "</", ns, ":blipFill>"
     )
   } else {
     blipfill <- paste0(
-      "<p:blipFill>",
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", src),
+      "<", ns, ":blipFill>",
+      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", img_src),
       "<a:stretch><a:fillRect/></a:stretch>",
-      "</p:blipFill>"
+      "</", ns, ":blipFill>"
     )
   }
-  str <- "
-<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
-  <p:nvPicPr>
-    <p:cNvPr id=\"0\" name=\"%s\" descr=\"%s\"/>
-    <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
-    <p:nvPr>%s</p:nvPr>
-  </p:nvPicPr>
-  %s
-  <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s%s</p:spPr>
-</p:pic>
-"
-  sprintf(str, label, alt_text, ph, blipfill, xfrm_str, bg_str, ln_str)
-
+  blipfill
 }
-
 
 #' @export
 to_wml.external_img <- function(x, add_ns = FALSE, ...) {
@@ -890,38 +876,7 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
   width <- dims$width
   height <- dims$height
 
-  filecp <- tempfile(fileext = gsub("(.*)(\\.[[:alnum:]]+)$", "\\2", as.character(x) ))
-  file.copy(as.character(x), filecp)
-
-  if (grepl(".svg$", filecp)) {
-
-    if (!requireNamespace("rsvg")) {
-      stop("package 'rsvg' is required to convert svg file to rasters.")
-    }
-
-    file_png <- tempfile(fileext = ".png")
-    rsvg::rsvg_png(filecp, file = file_png)
-
-    blipfill <- paste0(
-      "<pic:blipFill>",
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\">", file_png),
-      "<a:extLst>",
-      "<a:ext uri=\"{96DAC541-7B7A-43D3-8B79-37D633B846F1}\">",
-      sprintf("<asvg:svgBlip r:embed=\"%s\" xmlns:asvg=\"http://schemas.microsoft.com/office/drawing/2016/SVG/main\"/>", filecp),
-      "</a:ext>",
-      "</a:extLst>",
-      "</a:blip>",
-      "<a:stretch><a:fillRect/></a:stretch>",
-      "</pic:blipFill>"
-    )
-  } else {
-    blipfill <- paste0(
-      "<pic:blipFill>",
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", filecp),
-      "<a:stretch><a:fillRect/></a:stretch>",
-      "</pic:blipFill>"
-    )
-  }
+  blipfill <- temp_blipfill(x, ns = "pic")
 
   paste0(open_tag,
          "<w:rPr/><w:drawing xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
@@ -940,6 +895,45 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
   )
 
 }
+
+
+#' @export
+to_pml.external_img <- function(x, add_ns = FALSE,
+                                left = 0, top = 0,
+                                width = 3, height = 3,
+                                bg = "transparent",
+                                rot = 0,
+                                ph = "<p:ph/>",
+                                label = "",
+                                ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"),
+                                ...) {
+  if( !is.null(bg) && !is.color( bg ) )
+    stop("bg must be a valid color.", call. = FALSE )
+
+  bg_str <- solid_fill_pml(bg)
+  ln_str <- ln_pml(ln)
+
+  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  if( is.null(ph) || is.na(ph)){
+    ph = "<p:ph/>"
+  }
+  blipfill <- temp_blipfill(x, ns = "p")
+  str <- "
+<p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
+  <p:nvPicPr>
+    <p:cNvPr id=\"0\" name=\"%s\" descr=\"%s\"/>
+    <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
+    <p:nvPr>%s</p:nvPr>
+  </p:nvPicPr>
+  %s
+  <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s%s</p:spPr>
+</p:pic>
+"
+  sprintf(str, label, attr(x, "alt"), ph, blipfill, xfrm_str, bg_str, ln_str)
+
+}
+
+
 
 #' @export
 to_html.external_img <- function(x, ...) {

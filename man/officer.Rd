@@ -43,7 +43,6 @@ Other contributors:
   \item Nikolai Beck \email{beck.nikolai@gmail.com} (set speaker notes for .pptx documents) [contributor]
   \item Stefan Moog \email{moogs@gmx.de} (added functionality to set shape geometry and outline) [contributor]
   \item Greg Leleu \email{gregoire.leleu@gmail.com} (fields functionality in ppt) [contributor]
-  \item Zac Garland \email{zachary.garland@outlook.com} (support for external svg graphics) [contributor]
 }
 
 }

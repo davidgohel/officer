@@ -64,7 +64,7 @@ pptx_par_as_tibble <- function(node){
 
 
 
-embed_img_raster  <- function(node, img_src ){
+desc_pptx_img  <- function(node, img_src ){
   blip <- xml_child(node, "/p:blipFill/a:blip" )
   img_id <- xml_attr(blip, "embed")
 
@@ -147,7 +147,7 @@ pptx_summary <- function( x ){
         img_id <- names(images_)
         images_ <- normalizePath( file.path(dirname( slide$file_name() ), images_) )
         names( images_ ) <- img_id
-        ppt_tab <- embed_img_raster(node, images_)
+        ppt_tab <- desc_pptx_img(node, images_)
         ppt_tab$id <- id
         ppt_tab$content_type <- "image"
         ppt_tab$slide_id <- slide_id

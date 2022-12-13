@@ -12,19 +12,8 @@
 #' @param src a vector of character containing image filenames.
 #' @family functions for officer extensions
 #' @keywords internal
-docx_reference_img <- function( x, src){
-  x <- part_reference_img(x, src, "doc_obj")
-  x
-}
-
-part_reference_img <- function( x, src, part){
-  src <- unique( src )
-  x[[part]]$relationship()$add_img(src, root_target = "media")
-
-  img_path <- file.path(x$package_dir, "word", "media")
-  dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
-  file.copy(from = src, to = file.path(x$package_dir, "word", "media", basename(src)))
-
+docx_reference_img <- function(x, src) {
+  # x <- part_reference_img(x, src, "doc_obj")
   x
 }
 
@@ -40,27 +29,34 @@ part_reference_img <- function( x, src, part){
 #' @param str wml string
 #' @family functions for officer extensions
 #' @keywords internal
-wml_link_images <- function(x, str){
-  wml_part_link_images(x, str, "doc_obj")
+wml_link_images <- function(x, str) {
+  str
 }
 
-wml_part_link_images <- function(x, str, part){
-  ref <- x[[part]]$relationship()$get_data()
+process_images <- function(doc_obj, relationships, package_dir, media_dir = "word/media", media_rel_dir = "media") {
+  hl_nodes <- xml_find_all(
+    doc_obj$get(), "//a:blip[@r:embed]|//asvg:svgBlip[@r:embed]",
+    ns = c(
+      "a" = "http://schemas.openxmlformats.org/drawingml/2006/main",
+      "asvg" = "http://schemas.microsoft.com/office/drawing/2016/SVG/main",
+      "r" = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+    )
+  )
+  which_to_add <- hl_nodes[!grepl("^rId[0-9]+$", xml_attr(hl_nodes, "embed"))]
+  hl_ref <- unique(xml_attr(which_to_add, "embed"))
+  for (i in seq_along(hl_ref)) {
+    rid <- sprintf("rId%.0f", relationships$get_next_id())
 
-  ref <- ref[ref$ext_src != "",]
+    img_path <- file.path(package_dir, media_dir)
+    dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
+    file.copy(from = hl_ref[i], to = file.path(package_dir, media_dir, basename(hl_ref[i])))
 
-  doc <- as_xml_document(str)
-  for(id in seq_along(ref$ext_src) ){
-    xpth <- paste0("//w:drawing",
-                   "[wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip",
-                   sprintf( "[contains(@r:embed,'%s')]", ref$ext_src[id]),
-                   "]")
+    relationships$add(
+      id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+      target = file.path(media_rel_dir, basename(hl_ref[i]))
+    )
 
-    src_nodes <- xml_find_all(doc, xpth)
-    blip_nodes <- xml_find_all(src_nodes, "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip")
-    xml_attr(blip_nodes, "r:embed") <- ref$id[id]
+    which_match_id <- grepl(hl_ref[i], xml_attr(which_to_add, "embed"), fixed = TRUE)
+    xml_attr(which_to_add[which_match_id], "r:embed") <- rep(rid, sum(which_match_id))
   }
-  as.character(doc)
 }
-
-
