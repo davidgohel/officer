@@ -8,7 +8,13 @@ prop_section(
   page_size = NULL,
   page_margins = NULL,
   type = NULL,
-  section_columns = NULL
+  section_columns = NULL,
+  header_default = NULL,
+  header_even = NULL,
+  header_first = NULL,
+  footer_default = NULL,
+  footer_even = NULL,
+  footer_first = NULL
 )
 }
 \arguments{
@@ -23,7 +29,19 @@ even-numbered page), "nextColumn" (begins on the next column on the page),
 "nextPage" (begins on the following page), "oddPage" (begins on the next
 odd-numbered page).}
 
-\item{section_columns}{section columns, an object generated with function \link{section_columns}.}
+\item{section_columns}{section columns, an object generated with function \link{section_columns}. Use NULL (default value) for no content.}
+
+\item{header_default}{content as a \code{\link[=block_list]{block_list()}} for the default page header. Use NULL (default value) for no content.}
+
+\item{header_even}{content as a \code{\link[=block_list]{block_list()}} for the even page header. Use NULL (default value) for no content.}
+
+\item{header_first}{content as a \code{\link[=block_list]{block_list()}} for the first page header. Use NULL (default value) for no content.}
+
+\item{footer_default}{content as a \code{\link[=block_list]{block_list()}} for the default page footer. Use NULL (default value) for no content.}
+
+\item{footer_even}{content as a \code{\link[=block_list]{block_list()}} for the even page footer. Use NULL (default value) for no content.}
+
+\item{footer_first}{content as a \code{\link[=block_list]{block_list()}} for the default page footer. Use NULL (default value) for no content.}
 }
 \description{
 A section is a grouping of blocks (ie. paragraphs and tables)
@@ -71,6 +89,35 @@ doc_1 <- body_end_block_section(doc_1, value = landscape_two_columns)
 doc_1 <- body_add_table(doc_1, value = mtcars[1:25,], style = "table_template")
 
 print(doc_1, target = tempfile(fileext = ".docx"))
+
+
+# an example with headers and footers -----
+txt_lorem <- rep(
+  "Purus lectus eros metus turpis mattis platea praesent sed. ",
+  50)
+txt_lorem <- paste0(txt_lorem, collapse = "")
+
+header_first <- block_list(fpar(ftext("text for first page header")))
+header_even <- block_list(fpar(ftext("text for even page header")))
+header_default <- block_list(fpar(ftext("text for default page header")))
+footer_first <- block_list(fpar(ftext("text for first page footer")))
+footer_even <- block_list(fpar(ftext("text for even page footer")))
+footer_default <- block_list(fpar(ftext("text for default page footer")))
+
+ps <- prop_section(
+  header_default = header_default, footer_default = footer_default,
+  header_first = header_first, footer_first = footer_first,
+  header_even = header_even, footer_even = footer_even
+)
+x <- read_docx()
+for (i in 1:20) {
+  x <- body_add_par(x, value = txt_lorem)
+}
+x <- body_set_default_section(
+  x,
+  value = ps
+)
+print(x, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 \link{block_section}

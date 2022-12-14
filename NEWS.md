@@ -10,6 +10,7 @@ replace a Word paragraph style.
 associated with a Word character style.
 - `potx` and `dotx` files are now supported.
 - SVG images are now supported
+- Word sections can now have headers and footers. See `prop_section()`.
 
 ## Issues
 

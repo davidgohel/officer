@@ -23,12 +23,12 @@ define section propeerties (page size, orientation, ...) with a \link{prop_secti
 
 \examples{
 default_sect_properties <- prop_section(
-    page_size = page_size(orient = "landscape"), type = "continuous",
-    page_margins = page_mar(bottom = .75, top = 1.5, right = 2, left = 2)
-  )
+  page_size = page_size(orient = "landscape"), type = "continuous",
+  page_margins = page_mar(bottom = .75, top = 1.5, right = 2, left = 2)
+)
 
 doc_1 <- read_docx()
-doc_1 <- body_add_table(doc_1, value = mtcars[1:10,], style = "table_template")
+doc_1 <- body_add_table(doc_1, value = mtcars[1:10, ], style = "table_template")
 doc_1 <- body_add_par(doc_1, value = paste(rep(letters, 40), collapse = " "))
 doc_1 <- body_set_default_section(doc_1, default_sect_properties)
 

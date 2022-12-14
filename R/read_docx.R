@@ -65,9 +65,14 @@ read_docx <- function( path = NULL ){
   package_dir <- tempfile()
   unpack_folder( file = path, folder = package_dir )
 
-  obj <- structure(list( package_dir = package_dir ),
+  obj <- structure(list(package_dir = package_dir),
                    .Names = c("package_dir"),
                    class = "rdocx")
+
+  obj$settings <- update(
+    object = docx_settings(),
+    file = file.path(package_dir, "word", "settings.xml")
+  )
 
   obj$rel <- relationship$new()
   obj$rel$feed_from_xml(file.path(package_dir, "_rels", ".rels"))
@@ -200,6 +205,7 @@ print.rdocx <- function(x, target = NULL, ...){
   x$footnotes$save()
 
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
+  write_docx_settings(x)
 
   # save doc properties
   if(nrow(x$doc_properties$data) >0 ){
