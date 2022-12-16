@@ -93,7 +93,6 @@ test_that("annotate base template", {
 })
 
 test_that("no master do not generate an error", {
-  skip_if_not(file.exists("docs_dir/no_master.pptx"))
   x <- read_pptx("docs_dir/no_master.pptx")
   x <- add_slide(x, layout = "Page One", master = "Office Theme")
   x <- try(ph_with(x, i, value = "graphic title",

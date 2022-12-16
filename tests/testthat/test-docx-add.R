@@ -178,3 +178,30 @@ test_that("add docx into docx", {
 
 unlink("*.docx")
 unlink("*.emf")
+
+test_that("visual testing", {
+  local_edition(3)
+  testthat::skip_if_not_installed("doconv")
+  testthat::skip_if_not(doconv::msoffice_available())
+  library(doconv)
+  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+  fpt_blue_bold <- fp_text(color = "#006699", bold = TRUE)
+  fpt_red_italic <- fp_text(color = "#C32900", italic = TRUE)
+  bl <- block_list(
+    fpar(ftext("hello world", fpt_blue_bold)),
+    fpar(ftext("hello", fpt_blue_bold), " ",
+         ftext("world", fpt_red_italic)),
+    fpar(
+      ftext("hello world", fpt_red_italic),
+      external_img(
+        src = img.file, height = 1.06, width = 1.39)))
+
+  x <- read_docx()
+  x <- body_add_par(x, "Hello World")
+  x <- body_add_par(x, "Hello title", style = "heading 1")
+  x <- body_add_par(x, "Hello title", style = "heading 2")
+  x <- body_add_table(x, head(cars))
+  x <- body_add_par(x, "Hello fpars", style = "heading 2")
+  x <- body_add_blocks(x = x, blocks = bl)
+  expect_snapshot_doc(x = x, name = "docx-elements", engine = "testthat")
+})
