@@ -243,32 +243,13 @@ print.block_pour_docx <- function(x, ...) {
 }
 
 #' @export
-to_wml.block_pour_docx <- function(x, add_ns = FALSE, base_document = NULL, ...) {
-  if (is.null(base_document)) {
-    base_document <- get_reference_value("docx")
+to_wml.block_pour_docx <- function(x, add_ns = FALSE, ...) {
+  ns_str <- ""
+  if (add_ns) {
+    ns_str <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" "
   }
-
-  if (is.character(base_document)) {
-    base_document <- read_docx(path = base_document)
-  } else if (!inherits(base_document, "rdocx")) {
-    stop("base_document can only be the path to a docx file or an rdocx document.")
-  }
-
-  rel <- base_document$doc_obj$relationship()
-  new_rid <- sprintf("rId%.0f", rel$get_next_id())
-  new_docx_file <- basename(tempfile(fileext = ".docx"))
-  file.copy(x$file, to = file.path(base_document$package_dir, new_docx_file))
-  rel$add(
-    id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
-    target = file.path("../", new_docx_file) )
-  base_document$content_type$add_override(
-    setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml", paste0("/", new_docx_file) )
-  )
-  base_document$content_type$save()
-  out <- paste0("<w:altChunk xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
-                    "r:id=\"", new_rid, "\"/>")
-
-
+  out <- paste0("<w:altChunk ", ns_str,
+                    "r:id=\"", x$file, "\"/>")
   out
 }
 

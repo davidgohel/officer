@@ -92,20 +92,7 @@ body_add_img <- function( x, src, style = NULL, width, height, pos = "after" ){
 #' @export
 #' @family functions for adding content
 body_add_docx <- function( x, src, pos = "after" ){
-  src <- unique( src )
-  rel <- x$doc_obj$relationship()
-  new_rid <- sprintf("rId%.0f", rel$get_next_id())
-  new_docx_file <- basename(tempfile(fileext = ".docx"))
-  file.copy(src, to = file.path(x$package_dir, new_docx_file))
-  rel$add(
-    id = new_rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
-    target = file.path("../", new_docx_file) )
-  x$content_type$add_override(
-    setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml", paste0("/", new_docx_file) )
-  )
-  x$content_type$save()
-  xml_elt <- paste0("<w:altChunk xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
-                    "r:id=\"", new_rid, "\"/>")
+  xml_elt <- to_wml(block_pour_docx(file = src), add_ns = TRUE)
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
 
@@ -372,7 +359,7 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 #'   doc <- body_add_plot(doc,
 #'     value = plot_instr(
 #'       code = {barplot(1:5, col = 2:6)}),
-#'       style = "centered" )
+#'       style = "centered")
 #'
 #' print(doc, target = tempfile(fileext = ".docx") )
 #' @family functions for adding content

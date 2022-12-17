@@ -162,6 +162,8 @@ print.rdocx <- function(x, target = NULL, ...){
   process_links(x$doc_obj)
   for(header in x$headers) process_links(header)
   for(footer in x$footers) process_links(footer)
+  process_docx_poured(x$doc_obj, x$doc_obj$relationship(), x$content_type,
+                      x$package_dir)
   process_images(x$doc_obj, x$doc_obj$relationship(), x$package_dir)
   process_images(x$footnotes, x$footnotes$relationship(), x$package_dir)
   for(header in x$headers) process_images(header, header$relationship(), x$package_dir)
@@ -219,66 +221,6 @@ print.rdocx <- function(x, target = NULL, ...){
   invisible(pack_folder(folder = x$package_dir, target = target ))
 }
 
-#' @importFrom xml2 xml_remove as_xml_document xml_parent xml_child
-process_footnotes <- function( x ){
-
-  footnotes <- x$footnotes
-  doc_obj <- x$doc_obj
-
-  rel <- doc_obj$relationship()
-
-  hl_nodes <- xml_find_all(doc_obj$get(), "//w:footnoteReference[@w:id]")
-  which_to_add <- hl_nodes[grepl( "^footnote", xml_attr(hl_nodes, "id") )]
-  hl_ref <- xml_attr(which_to_add, "id")
-  for(i in seq_along(hl_ref) ){
-
-    next_id <- rel$get_next_id()
-    rel$add(
-      paste0("rId", next_id),
-      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes",
-      target = "footnotes.xml" )
-
-    index <- length(xml_find_all(footnotes$get(), "w:footnote")) - 1
-    xml_attr(which_to_add[[i]], "w:id") <- index
-
-    run <- xml_parent(which_to_add[[i]])
-
-    run_rstyle <- xml_child(run, "w:rPr/w:rStyle")
-
-    styles <- styles_info(x, type = "character")
-    style_id <- xml_attr(run_rstyle, "val")
-    style_id <- styles$style_id[styles$style_name %in% style_id]
-
-    xml_attr(run_rstyle, "w:val") <- style_id
-
-    footnote <- xml_child(which_to_add[[i]], "w:footnote")
-    xml_attr(footnote, "w:id") <- index
-
-    footnote_rstyle <- xml_child(footnote, "w:p/w:r/w:rPr/w:rStyle")
-    xml_attr(footnote_rstyle, "w:val") <- style_id
-
-    newfootnote <- as_xml_document(as.character(footnote))
-    xml_remove(footnote)
-
-    xml_add_child(footnotes$get(), newfootnote)
-  }
-}
-process_links <- function( doc_obj ){
-  rel <- doc_obj$relationship()
-  hl_nodes <- xml_find_all(doc_obj$get(), "//w:hyperlink[@r:id]")
-  which_to_add <- hl_nodes[!grepl( "^rId[0-9]+$", xml_attr(hl_nodes, "id") )]
-  hl_ref <- unique(xml_attr(which_to_add, "id"))
-  for(i in seq_along(hl_ref) ){
-    rid <- sprintf("rId%.0f", rel$get_next_id() )
-
-    rel$add(
-      id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
-      target = officer_url_decode(hl_ref[i]), target_mode = "External" )
-
-    which_match_id <- grepl( hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE )
-    xml_attr(which_to_add[which_match_id], "r:id") <- rep(rid, sum(which_match_id))
-  }
-}
 
 
 #' @export

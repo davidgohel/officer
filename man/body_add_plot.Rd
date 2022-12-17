@@ -39,7 +39,7 @@ if( capabilities(what = "png") )
   doc <- body_add_plot(doc,
     value = plot_instr(
       code = {barplot(1:5, col = 2:6)}),
-      style = "centered" )
+      style = "centered")
 
 print(doc, target = tempfile(fileext = ".docx") )
 }
