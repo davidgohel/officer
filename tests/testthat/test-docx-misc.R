@@ -142,6 +142,49 @@ test_that("cursor and position", {
 
 })
 
+test_that("cursor and replacement", {
+
+  doc <- read_docx()
+  doc <- body_add_par(doc, "blah blah blah")
+  doc <- body_add_par(doc, "blah blah blah")
+  doc <- body_add_par(doc, "blah blah blah")
+  doc <- body_add_par(doc, "Hello text to replace")
+  doc <- body_add_par(doc, "blah blah blah")
+  doc <- body_add_par(doc, "blah blah blah")
+  doc <- body_add_par(doc, "blah blah blah")
+  doc <- body_add_par(doc, "Hello text to replace")
+  doc <- body_add_par(doc, "blah blah blah")
+  template_file <- print(
+    x = doc,
+    target = tempfile(fileext = ".docx"))
+
+  doc <- read_docx(path = template_file)
+  while(cursor_reach_test(doc, "to replace")) {
+    doc <- cursor_reach(doc, "to replace")
+
+    doc <- body_add_fpar(
+      x = doc,
+      pos = "on",
+      value = fpar(
+        "Here is a link: ",
+        hyperlink_ftext(
+          text = "yopyop",
+          href = "https://cran.r-project.org/"
+        )
+      )
+    )
+  }
+
+  doc <- cursor_end(doc)
+  doc <- body_add_par(doc, "Yap yap yap yap...")
+  expect_equal(
+    xml_text(xml_find_all(docx_body_xml(doc), "//w:p")),
+    c("blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
+      "blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
+      "blah blah blah", "Yap yap yap yap...")
+  )
+})
+
 
 unlink("*.docx")
 unlink("*.emf")

@@ -11,6 +11,8 @@ associated with a Word character style.
 - `potx` and `dotx` files are now supported.
 - SVG images are now supported
 - Word sections can now have headers and footers. See `prop_section()`.
+- function `cursor_reach_test()` to test if an expression has 
+a match in the document.
 
 ## Issues
 

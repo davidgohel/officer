@@ -11,27 +11,45 @@
 #' @examples
 #' library(officer)
 #'
+#' # create a template ----
 #' doc <- read_docx()
-#' doc <- body_add_par(doc, "paragraph 1", style = "Normal")
-#' doc <- body_add_par(doc, "paragraph 2", style = "Normal")
-#' doc <- body_add_par(doc, "paragraph 3", style = "Normal")
-#' doc <- body_add_par(doc, "paragraph 4", style = "Normal")
-#' doc <- body_add_par(doc, "paragraph 5", style = "Normal")
-#' doc <- body_add_par(doc, "paragraph 6", style = "Normal")
-#' doc <- body_add_par(doc, "paragraph 7", style = "Normal")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' doc <- body_add_par(doc, "Hello text to replace")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' doc <- body_add_par(doc, "Hello text to replace")
+#' doc <- body_add_par(doc, "blah blah blah")
+#' template_file <- print(
+#'   x = doc,
+#'   target = tempfile(fileext = ".docx"))
 #'
-#' # default template contains only an empty paragraph
-#' # Using cursor_begin and body_remove, we can delete it
-#' doc <- cursor_begin(doc)
-#' doc <- body_remove(doc)
+#' # replace all pars containing "to replace" ----
+#' doc <- read_docx(path = template_file)
+#' while(cursor_reach_test(doc, "to replace")) {
+#'   doc <- cursor_reach(doc, "to replace")
 #'
-#' doc <- cursor_reach(doc, keyword = "paragraph 4")
+#'   doc <- body_add_fpar(
+#'     x = doc,
+#'     pos = "on",
+#'     value = fpar(
+#'       "Here is a link: ",
+#'       hyperlink_ftext(
+#'         text = "yopyop",
+#'         href = "https://cran.r-project.org/"
+#'       )
+#'     )
+#'   )
+#' }
 #'
-#' # move the cursor forward
-#' doc <- cursor_forward(doc)
-#'
-#' # move the cursor at the end of the document
 #' doc <- cursor_end(doc)
+#' doc <- body_add_par(doc, "Yap yap yap yap...")
+#'
+#' result_file <- print(
+#'   x = doc,
+#'   target = tempfile(fileext = ".docx"))
 cursor_begin <- function( x ){
   x$doc_obj$cursor_begin()
   x
@@ -78,8 +96,19 @@ cursor_end <- function( x ){
 #' that contains text specified in argument \code{keyword}.
 #' The argument \code{keyword} is a regexpr pattern.
 cursor_reach <- function( x, keyword ){
-  x$doc_obj$cursor_reach(keyword=keyword)
+  x$doc_obj$cursor_reach(keyword = keyword)
   x
+}
+
+#' @export
+#' @rdname cursor
+#' @param keyword keyword to look for as a regular expression
+#' @section cursor_reach_test:
+#' Test if an expression has a match in the document
+#' that contains text specified in argument \code{keyword}.
+#' The argument \code{keyword} is a regexpr pattern.
+cursor_reach_test <- function( x, keyword ){
+  x$doc_obj$cursor_reachable(keyword = keyword)
 }
 
 #' @export

@@ -192,6 +192,17 @@ docx_part <- R6Class(
       self
     },
 
+    cursor_reachable = function( keyword ){
+
+      nodes_with_text <- xml_find_all(
+        self$get(),
+        paste0(private$body_xpath, "/*[.//*/text()]")
+        )
+      text_ <- xml_text(nodes_with_text)
+      test_ <- grepl(pattern = keyword, x = text_)
+      any(test_)
+    },
+
     cursor_forward = function( ){
       xpath_ <- paste0(private$cursor, "/following-sibling::*" )
       node_at_cursor <- xml_find_first(self$get(), xpath_ )

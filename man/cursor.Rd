@@ -5,6 +5,7 @@
 \alias{cursor_bookmark}
 \alias{cursor_end}
 \alias{cursor_reach}
+\alias{cursor_reach_test}
 \alias{cursor_forward}
 \alias{cursor_backward}
 \title{Set cursor in a 'Word' document}
@@ -16,6 +17,8 @@ cursor_bookmark(x, id)
 cursor_end(x)
 
 cursor_reach(x, keyword)
+
+cursor_reach_test(x, keyword)
 
 cursor_forward(x)
 
@@ -57,6 +60,13 @@ that contains text specified in argument \code{keyword}.
 The argument \code{keyword} is a regexpr pattern.
 }
 
+\section{cursor_reach_test}{
+
+Test if an expression has a match in the document
+that contains text specified in argument \code{keyword}.
+The argument \code{keyword} is a regexpr pattern.
+}
+
 \section{cursor_forward}{
 
 Move the cursor forward, it increments the cursor in the document.
@@ -70,27 +80,45 @@ Move the cursor backward, it decrements the cursor in the document.
 \examples{
 library(officer)
 
+# create a template ----
 doc <- read_docx()
-doc <- body_add_par(doc, "paragraph 1", style = "Normal")
-doc <- body_add_par(doc, "paragraph 2", style = "Normal")
-doc <- body_add_par(doc, "paragraph 3", style = "Normal")
-doc <- body_add_par(doc, "paragraph 4", style = "Normal")
-doc <- body_add_par(doc, "paragraph 5", style = "Normal")
-doc <- body_add_par(doc, "paragraph 6", style = "Normal")
-doc <- body_add_par(doc, "paragraph 7", style = "Normal")
+doc <- body_add_par(doc, "blah blah blah")
+doc <- body_add_par(doc, "blah blah blah")
+doc <- body_add_par(doc, "blah blah blah")
+doc <- body_add_par(doc, "Hello text to replace")
+doc <- body_add_par(doc, "blah blah blah")
+doc <- body_add_par(doc, "blah blah blah")
+doc <- body_add_par(doc, "blah blah blah")
+doc <- body_add_par(doc, "Hello text to replace")
+doc <- body_add_par(doc, "blah blah blah")
+template_file <- print(
+  x = doc,
+  target = tempfile(fileext = ".docx"))
 
-# default template contains only an empty paragraph
-# Using cursor_begin and body_remove, we can delete it
-doc <- cursor_begin(doc)
-doc <- body_remove(doc)
+# replace all pars containing "to replace" ----
+doc <- read_docx(path = template_file)
+while(cursor_reach_test(doc, "to replace")) {
+  doc <- cursor_reach(doc, "to replace")
 
-doc <- cursor_reach(doc, keyword = "paragraph 4")
+  doc <- body_add_fpar(
+    x = doc,
+    pos = "on",
+    value = fpar(
+      "Here is a link: ",
+      hyperlink_ftext(
+        text = "yopyop",
+        href = "https://cran.r-project.org/"
+      )
+    )
+  )
+}
 
-# move the cursor forward
-doc <- cursor_forward(doc)
-
-# move the cursor at the end of the document
 doc <- cursor_end(doc)
+doc <- body_add_par(doc, "Yap yap yap yap...")
+
+result_file <- print(
+  x = doc,
+  target = tempfile(fileext = ".docx"))
 
 # cursor_bookmark ----
 
