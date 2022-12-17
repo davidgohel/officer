@@ -172,7 +172,8 @@ test_that("add docx into docx", {
   doc_parts <- xml_find_all(doc_parts, "d1:Override[@ContentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml']")
   doc_parts <- xml_attr(doc_parts, "PartName")
   doc_parts <- basename(doc_parts)
-  expect_equal(doc_parts[grepl("\\.docx$", doc_parts)], list.files(new_dir, pattern = "\\.docx$") )
+  expect_equal(doc_parts[grepl("\\.docx$", doc_parts)],
+               list.files(file.path(new_dir, "word"), pattern = "\\.docx$") )
 })
 
 
@@ -196,11 +197,21 @@ test_that("visual testing", {
       external_img(
         src = img.file, height = 1.06, width = 1.39)))
 
+  anyplot <- plot_instr(code = {
+    col <- c("#440154FF", "#443A83FF", "#31688EFF",
+             "#21908CFF", "#35B779FF", "#8FD744FF", "#FDE725FF")
+    barplot(1:7, col = col, yaxt="n")
+  })
+
+
   x <- read_docx()
+  # add text and a table ----
   x <- body_add_par(x, "Hello World")
   x <- body_add_par(x, "Hello title", style = "heading 1")
   x <- body_add_par(x, "Hello title", style = "heading 2")
   x <- body_add_table(x, head(cars))
+  x <- body_add_par(x, "Hello base plot", style = "heading 2")
+  x <- body_add_plot(x, anyplot)
   x <- body_add_par(x, "Hello fpars", style = "heading 2")
   x <- body_add_blocks(x = x, blocks = bl)
   expect_snapshot_doc(x = x, name = "docx-elements", engine = "testthat")
