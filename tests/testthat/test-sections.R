@@ -59,4 +59,3 @@ test_that("margin and sizes are copied", {
     expect_equal(as.character(xml_child(nodes_sectpr[[i]], "w:pgSz")), pgSz)
   }
 })
-

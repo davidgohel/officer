@@ -130,7 +130,7 @@ test_that("ggplot add", {
   gg_plot <- ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
   x <- read_docx()
-  x <- body_add(x, value = gg_plot, style = "centered" )
+  x <- body_add_gg(x, value = gg_plot, style = "centered" )
   x <- cursor_end(x)
   node <- x$doc_obj$get_at_cursor()
   getncheck(node, "w:r/w:drawing")
@@ -152,6 +152,22 @@ test_that("fpar add", {
   try({x <- body_add_fpar(x, fpar_, style = "centered")}, silent = TRUE)
   expect_is(x, "rdocx")
 
+})
+test_that("svg add", {
+  skip_if_not_installed("rsvg")
+  srcfile <- file.path( R.home("doc"), "html", "Rlogo.svg" )
+  x <- read_docx()
+  x <- body_add_fpar(x, fpar(external_img(srcfile)))
+  path <- print(x, target = tempfile(fileext = ".docx"))
+  x <- read_docx(path = path)
+  node <- x$doc_obj$get_at_cursor()
+  reldf <- x$doc_obj$rel_df()
+  relidsvg <- reldf[grepl("\\.svg$", reldf$target), "id"]
+  relidpng <- reldf[grepl("\\.png$", reldf$target), "id"]
+  node_blip <- xml_child(node, "w:r/w:drawing/wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip")
+  expect_equal(xml_attr(node_blip, "embed"), relidpng)
+  node_svgblip <- xml_child(node, "w:r/w:drawing/wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip/a:extLst/a:ext/asvg:svgBlip")
+  expect_equal(xml_attr(node_svgblip, "embed"), relidsvg)
 })
 
 test_that("add docx into docx", {
@@ -214,5 +230,6 @@ test_that("visual testing", {
   x <- body_add_plot(x, anyplot)
   x <- body_add_par(x, "Hello fpars", style = "heading 2")
   x <- body_add_blocks(x = x, blocks = bl)
+
   expect_snapshot_doc(x = x, name = "docx-elements", engine = "testthat")
 })

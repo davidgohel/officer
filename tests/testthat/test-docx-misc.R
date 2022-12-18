@@ -52,21 +52,6 @@ test_that("style is read from document", {
 })
 
 
-test_that("styles_info is returning a df", {
-  x <- read_docx()
-  df <- styles_info(x)
-
-  expect_is( df, "data.frame" )
-  expect_true( all( c("style_type", "style_id", "style_name", "is_custom", "is_default") %in% names(df)) )
-  expect_is( df$style_type, "character" )
-  expect_is( df$style_id, "character" )
-  expect_is( df$style_name, "character" )
-  expect_is( df$is_custom, "logical" )
-  expect_is( df$is_default, "logical" )
-
-})
-
-
 test_that("id are sequentially defined", {
   doc <- read_docx()
   any_img <- FALSE
@@ -134,7 +119,10 @@ test_that("cursor and position", {
   ds_ <- docx_summary(doc)
 
   expect_equal( ds_$text, c("new 1", "paragraph 1", "new 2", "paragraph 2") )
-
+  doc <- body_remove(doc)
+  doc <- body_remove(doc)
+  ds_ <- docx_summary(doc)
+  expect_equal( ds_$text, c("new 1", "paragraph 1") )
   doc <- read_docx()
   expect_warning(body_remove(doc), "There is nothing left to remove in the document")
 
