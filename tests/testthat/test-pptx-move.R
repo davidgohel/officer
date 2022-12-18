@@ -14,7 +14,9 @@ test_that("check errors", {
   sm <- slide_summary(x)
   expect_equal(sm[1,]$text, "Hello world 1")
 
-  x <- move_slide(x, index = 1, to = 3)
+  expect_error(move_slide(x, to = 4))
+  expect_error(move_slide(x, index = 5, to = 4))
+  x <- move_slide(x, to = 3)
   x <- on_slide(x, index = 3)
   sm <- slide_summary(x)
   expect_equal(sm[1, ]$text, "Hello world 1")

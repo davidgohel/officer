@@ -134,7 +134,7 @@ remove_slide <- function( x, index = NULL ){
 #' x <- move_slide(x, index = 1, to = 2)
 #' @family functions slide manipulation
 #' @seealso [read_pptx()]
-move_slide <- function( x, index, to ){
+move_slide <- function( x, index = NULL, to ){
 
   x$presentation$slide_data()
 

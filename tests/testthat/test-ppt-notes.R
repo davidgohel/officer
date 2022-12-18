@@ -1,5 +1,3 @@
-source("utils.R")
-
 test_that("add notesMaster", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
@@ -85,6 +83,26 @@ test_that("add notes to notesSlide", {
   node_ <- xml_find_all(xml, xpath_)
   expect_false( inherits(node_, "xml_missing") )
   expect_equal(xml_text(node_), "I am a test!")
+})
+test_that("add block_list to notesSlide", {
+
+  value <- block_list(
+    fpar(ftext("hello world")),
+    fpar(ftext("hello"), " ",
+         ftext("world")),
+    fpar(
+      ftext("blah blah blah")))
+
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- set_notes(doc, value, notes_location_type("body"))
+
+  nslide <- doc$notesSlide$get_slide(1)
+  xml <- nslide$get()
+  xpath_ <- "//p:sp[p:nvSpPr/p:nvPr/p:ph/@type='body']/p:txBody/a:p"
+  nodes <- xml_find_all(xml, xpath_)
+  expect_true(length(nodes)>0)
+  expect_equal(xml_text(nodes), c("hello world", "hello world", "blah blah blah"))
 })
 
 test_that("replace notes on notesSlide", {

@@ -1,4 +1,3 @@
-source("utils.R")
 
 check_all_types <- function(dat){
   expected_names <- c("id", "int_id", "type", "target", "target_mode", "ext_src")

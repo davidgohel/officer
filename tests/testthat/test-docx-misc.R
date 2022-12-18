@@ -1,5 +1,3 @@
-source("utils.R")
-
 test_that("default template", {
   x <- read_docx()
   expect_equal(length( x ), 1)

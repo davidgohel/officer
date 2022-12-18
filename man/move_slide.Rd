@@ -4,7 +4,7 @@
 \alias{move_slide}
 \title{Move a slide}
 \usage{
-move_slide(x, index, to)
+move_slide(x, index = NULL, to)
 }
 \arguments{
 \item{x}{an rpptx object}

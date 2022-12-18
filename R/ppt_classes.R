@@ -232,14 +232,6 @@ slide <- R6Class(
       self
     },
 
-    reference_img = function(src, dir_name){
-      src <- unique( src )
-      private$rels_doc$add_img(src, root_target = "../media")
-      dir.create(dir_name, recursive = TRUE, showWarnings = FALSE)
-      file.copy(from = src, to = file.path(dir_name, basename(src)))
-      self
-    },
-
     reference_slide = function(slide_file){
 
       rel_dat <- private$rels_doc$get_data()
@@ -279,24 +271,6 @@ slide <- R6Class(
         } else stop("type ", type, " is not available in the slide layout")
         out <- out[id, ]
       }
-      out
-    },
-    get_location = function(type = NULL, index = 1){
-      out <- private$element_data
-      if( !is.null(type) ){
-        if( type %in% out$type ){
-          type_matches <- which( out$type == type )
-          if( index <= length(type_matches) )
-            id <- type_matches[index]
-          else stop(type, " can only have ", length(type_matches), " element(s) but index is set to ", index)
-
-        } else stop("type ", type, " is not available in the slide layout")
-        out <- out[id, ]
-      }
-
-      out[c("offx", "offy", "cx", "cy")] <- lapply( out[c("offx", "offy", "cx", "cy")], function(x) x / 914400 )
-      out <- out[c("offx", "offy", "cx", "cy", "ph_label", "type", "ph")]
-      names(out) <- c("left", "top", "width", "height", "ph_label", "type", "ph")
       out
     },
 

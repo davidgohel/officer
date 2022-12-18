@@ -1,19 +1,7 @@
-source("utils.R")
-
-test_that("add img into placeholder", {
-  skip_on_os("windows")
-  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+test_that("add wrong arguments", {
   doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, external_img(img.file, height = 1.06, width = 1.39), location = ph_location_type(type = "body"),
-                use_loc_size = FALSE )
-  sm <- slide_summary(doc)
-
-  expect_equal(nrow(sm), 1)
-  expect_equal(sm$cx, 1.39)
-  expect_equal(sm$cy, 1.06)
-
-
+  expect_error(add_slide(doc, "Title and blah", "Office Theme"))
+  expect_error(add_slide(doc, "Title and Content", "Office Tddheme"))
 })
 
 test_that("add formatted par into placeholder", {
@@ -98,5 +86,35 @@ test_that("hyperlink shape", {
   expect_false( inherits(node_, "xml_missing") )
 })
 
-unlink("*.pptx")
+test_that("img dims in pptx", {
+  skip_on_os("windows")
+  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(doc, value = external_img(img.file), location = ph_location(left = 1, top = 1,
+                                                                             height = 1.06, width = 1.39) )
+  sm <- slide_summary(doc)
 
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$cx, 1.39)
+  expect_equal(sm$cy, 1.06)
+  expect_equal(sm$offx, 1)
+  expect_equal(sm$offy, 1)
+})
+
+test_that("empty_content in pptx", {
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(
+    x = doc, value = empty_content(),
+    location = ph_location(
+      left = 0, top = 0,
+      width = 2, height = 3, bg = "black"))
+
+  expect_equal(slide_summary(doc)$offy, 0)
+  expect_equal(slide_summary(doc)$offx, 0)
+  expect_equal(slide_summary(doc)$cy, 3)
+  expect_equal(slide_summary(doc)$cx, 2)
+})
+
+unlink("*.pptx")

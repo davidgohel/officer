@@ -1,4 +1,3 @@
-source("utils.R")
 
 test_that("fp_text - print", {
   fp <- fp_text(font.size = 10)
