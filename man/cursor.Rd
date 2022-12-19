@@ -93,11 +93,12 @@ doc <- body_add_par(doc, "Hello text to replace")
 doc <- body_add_par(doc, "blah blah blah")
 template_file <- print(
   x = doc,
-  target = tempfile(fileext = ".docx"))
+  target = tempfile(fileext = ".docx")
+)
 
 # replace all pars containing "to replace" ----
 doc <- read_docx(path = template_file)
-while(cursor_reach_test(doc, "to replace")) {
+while (cursor_reach_test(doc, "to replace")) {
   doc <- cursor_reach(doc, "to replace")
 
   doc <- body_add_fpar(
@@ -118,7 +119,8 @@ doc <- body_add_par(doc, "Yap yap yap yap...")
 
 result_file <- print(
   x = doc,
-  target = tempfile(fileext = ".docx"))
+  target = tempfile(fileext = ".docx")
+)
 
 # cursor_bookmark ----
 

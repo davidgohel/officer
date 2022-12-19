@@ -439,6 +439,8 @@ body_add_xml <- function(x, str, pos){
     }
     if(pos == "after")
       x <- cursor_forward(x)
+    else if(pos == "before" && !x$doc_obj$cursor_at_start())
+      x <- cursor_backward(x)
   }
 
 

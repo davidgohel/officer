@@ -219,6 +219,14 @@ docx_part <- R6Class(
         stop("cannot move backward the cursor as there is no previous content in this area", call. = FALSE)
       private$cursor <- xml_path( node_at_cursor )
       self
+    },
+
+    cursor_at_start = function(){
+      xpath_ <- paste0(private$cursor, "/preceding-sibling::*[1]" )
+      node_at_cursor <- xml_find_first(self$get(), xpath_ )
+      if( inherits(node_at_cursor, "xml_missing") )
+        TRUE
+      else FALSE
     }
 
   ),

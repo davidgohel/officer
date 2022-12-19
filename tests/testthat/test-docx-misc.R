@@ -1,6 +1,6 @@
 test_that("default template", {
   x <- read_docx()
-  expect_equal(length( x ), 1)
+  expect_equal(length(x), 1)
   expect_true(file.exists(x$package_dir))
 })
 
@@ -8,13 +8,12 @@ test_that("docx dim", {
   x <- read_docx()
   dims <- docx_dim(x)
 
-  expect_equal( names(dims), c("page", "landscape", "margins") )
-  expect_length( dims$page, 2 )
-  expect_length( dims$landscape, 1 )
-  expect_length( dims$margins, 6 )
+  expect_equal(names(dims), c("page", "landscape", "margins"))
+  expect_length(dims$page, 2)
+  expect_length(dims$landscape, 1)
+  expect_length(dims$margins, 6)
 
-  expect_equal( dims$page, c(width=8.263889, height=11.694444), tolerance = .001 )
-
+  expect_equal(dims$page, c(width = 8.263889, height = 11.694444), tolerance = .001)
 })
 
 test_that("list bookmarks", {
@@ -22,7 +21,7 @@ test_that("list bookmarks", {
   x <- read_docx(path = template_file)
   bookmarks <- docx_bookmarks(x)
 
-  expect_equal( bookmarks, c("bmk_1", "bmk_2") )
+  expect_equal(bookmarks, c("bmk_1", "bmk_2"))
 })
 
 test_that("console printing", {
@@ -32,10 +31,9 @@ test_that("console printing", {
 })
 
 test_that("check extention and print document", {
-
   x <- read_docx()
   print(x, target = "print.docx")
-  expect_true( file.exists("print.docx") )
+  expect_true(file.exists("print.docx"))
 
   expect_error(print(x, target = "print.docxxx"))
 })
@@ -55,12 +53,12 @@ test_that("style is read from document", {
 test_that("id are sequentially defined", {
   doc <- read_docx()
   any_img <- FALSE
-  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-  if( file.exists(img.file) ){
-    doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
+  img.file <- file.path(R.home("doc"), "html", "logo.jpg")
+  if (file.exists(img.file)) {
+    doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39)
     any_img <- TRUE
   }
-  print(doc, target = "body_add_img.docx" )
+  print(doc, target = "body_add_img.docx")
   skip_if_not(any_img)
 
   pack_dir <- tempfile(pattern = "dir")
@@ -70,11 +68,11 @@ test_that("id are sequentially defined", {
   all_ids <- xml_find_all(all_ids, "//*[@id]")
   all_ids <- xml_attr(all_ids, "id")
 
-  expect_equal(length(unique(all_ids)), length(all_ids) )
-  expect_true( all(grepl("[0-9]+", all_ids )) )
+  expect_equal(length(unique(all_ids)), length(all_ids))
+  expect_true(all(grepl("[0-9]+", all_ids)))
 
   ids <- as.integer(all_ids)
-  expect_true( all( diff(ids) == 1 ) )
+  expect_true(all(diff(ids) == 1))
 })
 
 
@@ -93,18 +91,17 @@ test_that("cursor behavior", {
 
   doc <- read_docx(path = "init_doc.docx")
   doc <- cursor_begin(doc)
-  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 1" )
+  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 1")
   doc <- cursor_forward(doc)
-  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 2" )
+  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 2")
   doc <- cursor_end(doc)
-  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 7" )
+  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 7")
   doc <- cursor_backward(doc)
-  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 6" )
+  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 6")
   doc <- cursor_reach(doc, keyword = "paragraph 5")
-  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 5" )
+  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 5")
   doc <- cursor_bookmark(doc, "bkm1")
-  expect_equal( xml_text(doc$doc_obj$get_at_cursor()), "paragraph 3" )
-
+  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 3")
 })
 
 test_that("cursor and position", {
@@ -118,18 +115,16 @@ test_that("cursor and position", {
 
   ds_ <- docx_summary(doc)
 
-  expect_equal( ds_$text, c("new 1", "paragraph 1", "new 2", "paragraph 2") )
+  expect_equal(ds_$text, c("new 1", "paragraph 1", "new 2", "paragraph 2"))
   doc <- body_remove(doc)
   doc <- body_remove(doc)
   ds_ <- docx_summary(doc)
-  expect_equal( ds_$text, c("new 1", "paragraph 1") )
+  expect_equal(ds_$text, c("new 1", "paragraph 1"))
   doc <- read_docx()
   expect_warning(body_remove(doc), "There is nothing left to remove in the document")
-
 })
 
 test_that("cursor and replacement", {
-
   doc <- read_docx()
   doc <- body_add_par(doc, "blah blah blah")
   doc <- body_add_par(doc, "blah blah blah")
@@ -142,10 +137,11 @@ test_that("cursor and replacement", {
   doc <- body_add_par(doc, "blah blah blah")
   template_file <- print(
     x = doc,
-    target = tempfile(fileext = ".docx"))
+    target = tempfile(fileext = ".docx")
+  )
 
   doc <- read_docx(path = template_file)
-  while(cursor_reach_test(doc, "to replace")) {
+  while (cursor_reach_test(doc, "to replace")) {
     doc <- cursor_reach(doc, "to replace")
 
     doc <- body_add_fpar(
@@ -165,13 +161,47 @@ test_that("cursor and replacement", {
   doc <- body_add_par(doc, "Yap yap yap yap...")
   expect_equal(
     xml_text(xml_find_all(docx_body_xml(doc), "//w:p")),
-    c("blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
+    c(
       "blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
-      "blah blah blah", "Yap yap yap yap...")
+      "blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
+      "blah blah blah", "Yap yap yap yap..."
+    )
+  )
+})
+
+to_docx <- function(docx, value, title, subtitle) {
+  # Add table
+  pre_label <- seq_id <- "Table"
+  docx <- body_add_table(docx, value = value, align_table = "center")
+
+  # Add title above table
+  run_num <- run_autonum(seq_id = seq_id, pre_label = pre_label)
+  title <- block_caption(title, style = "Image Caption", autonum = run_num)
+  docx <- body_add_caption(docx, title, pos = "before")
+  # Add subtitle above table
+  subtitle <- fpar(ftext(subtitle, prop = fp_text(color = "red")))
+  docx <- body_add_fpar(docx, subtitle, style = "Normal", pos = "after")
+  docx <- cursor_end(docx)
+
+  invisible(docx)
+}
+
+
+test_that("cursor before table", {
+  docx <- read_docx()
+  tab <- head(mtcars[1:3])
+
+  docx <- to_docx(docx, tab, "Title 1", "Subtitle 1")
+  docx <- to_docx(docx, tab, "Title 2", "Subtitle 2")
+
+  nodes_body <- xml_find_all(docx_body_xml(docx), "//w:body/*")
+
+  expect_equal(
+    xml_name(nodes_body),
+    c("p", "p", "tbl", "p", "p", "tbl", "sectPr")
   )
 })
 
 
 unlink("*.docx")
 unlink("*.emf")
-

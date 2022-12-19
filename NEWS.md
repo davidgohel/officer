@@ -18,6 +18,8 @@ a match in the document.
 
 - close 'Slide Master View' automatically.
 - more careful reading of document properties
+- fix cursor behavior, when `pos='before'`, cursor 
+is now set on element added 'before'.
 
 ## Changes
 

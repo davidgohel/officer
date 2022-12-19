@@ -24,11 +24,12 @@
 #' doc <- body_add_par(doc, "blah blah blah")
 #' template_file <- print(
 #'   x = doc,
-#'   target = tempfile(fileext = ".docx"))
+#'   target = tempfile(fileext = ".docx")
+#' )
 #'
 #' # replace all pars containing "to replace" ----
 #' doc <- read_docx(path = template_file)
-#' while(cursor_reach_test(doc, "to replace")) {
+#' while (cursor_reach_test(doc, "to replace")) {
 #'   doc <- cursor_reach(doc, "to replace")
 #'
 #'   doc <- body_add_fpar(
@@ -49,8 +50,9 @@
 #'
 #' result_file <- print(
 #'   x = doc,
-#'   target = tempfile(fileext = ".docx"))
-cursor_begin <- function( x ){
+#'   target = tempfile(fileext = ".docx")
+#' )
+cursor_begin <- function(x) {
   x$doc_obj$cursor_begin()
   x
 }
@@ -73,7 +75,7 @@ cursor_begin <- function( x ){
 #' doc <- body_add_table(doc, value = iris, style = "table_template")
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
-cursor_bookmark <- function( x, id ){
+cursor_bookmark <- function(x, id) {
   x$doc_obj$cursor_bookmark(id)
   x
 }
@@ -83,7 +85,7 @@ cursor_bookmark <- function( x, id ){
 #' @section cursor_end:
 #' Set the cursor at the end of the document, on the last element
 #' of the document.
-cursor_end <- function( x ){
+cursor_end <- function(x) {
   x$doc_obj$cursor_end()
   x
 }
@@ -95,7 +97,7 @@ cursor_end <- function( x ){
 #' Set the cursor on the first element of the document
 #' that contains text specified in argument \code{keyword}.
 #' The argument \code{keyword} is a regexpr pattern.
-cursor_reach <- function( x, keyword ){
+cursor_reach <- function(x, keyword) {
   x$doc_obj$cursor_reach(keyword = keyword)
   x
 }
@@ -107,7 +109,7 @@ cursor_reach <- function( x, keyword ){
 #' Test if an expression has a match in the document
 #' that contains text specified in argument \code{keyword}.
 #' The argument \code{keyword} is a regexpr pattern.
-cursor_reach_test <- function( x, keyword ){
+cursor_reach_test <- function(x, keyword) {
   x$doc_obj$cursor_reachable(keyword = keyword)
 }
 
@@ -115,7 +117,7 @@ cursor_reach_test <- function( x, keyword ){
 #' @rdname cursor
 #' @section cursor_forward:
 #' Move the cursor forward, it increments the cursor in the document.
-cursor_forward <- function( x ){
+cursor_forward <- function(x) {
   x$doc_obj$cursor_forward()
   x
 }
@@ -124,7 +126,7 @@ cursor_forward <- function( x ){
 #' @rdname cursor
 #' @section cursor_backward:
 #' Move the cursor backward, it decrements the cursor in the document.
-cursor_backward <- function( x ){
+cursor_backward <- function(x) {
   x$doc_obj$cursor_backward()
   x
 }
