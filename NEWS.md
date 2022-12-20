@@ -1,4 +1,4 @@
-# officer 0.4.5
+# officer 0.5.0
 
 ## New features
 

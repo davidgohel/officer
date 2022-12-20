@@ -8,6 +8,8 @@ officer R package
 [![R build
 status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
+[![codecov test
+coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/officer)
 
 <a href="https://github.com/davidgohel/officer"><img src="man/figures/logo.png" alt="officer logo" align="right" /></a>
 The officer package lets R users manipulate Word (`.docx`) and
@@ -33,15 +35,15 @@ one by default) and lets you modify its content later.
 
 The package provides functions to add R outputs into a Word document:
 
--   images: produce your plot in png or emf files and add them into the
-    document, as a whole paragraph or inside a paragraph.
--   tables: add data.frames as tables, format is defined by the
-    associated Word table style.
--   text: add text as paragraphs or inside an existing paragraph, format
-    is defined by the associated Word paragraph and text styles.
--   field codes: add Word field codes inside paragraphs. Field codes is
-    an old feature of MS Word to create calculated elements such as
-    tables of contents, automatic numbering and hyperlinks.
+- images: produce your plot in png or emf files and add them into the
+  document, as a whole paragraph or inside a paragraph.
+- tables: add data.frames as tables, format is defined by the associated
+  Word table style.
+- text: add text as paragraphs or inside an existing paragraph, format
+  is defined by the associated Word paragraph and text styles.
+- field codes: add Word field codes inside paragraphs. Field codes is an
+  old feature of MS Word to create calculated elements such as tables of
+  contents, automatic numbering and hyperlinks.
 
 File generation is performed with the `print` function.
 
@@ -59,12 +61,11 @@ empty one by default) and let you modify its content later.
 The package provides functions to add R outputs into existing or new
 PowerPoint slides:
 
--   images: produce your plot in png or emf files and add them in a
-    slide.
--   tables: add data.frames as tables, format is defined by the
-    associated PowerPoint table style.
--   text: add text as paragraphs or inside an existing paragraph, format
-    is defined in the corresponding layout of the slide.
+- images: produce your plot in png or emf files and add them in a slide.
+- tables: add data.frames as tables, format is defined by the associated
+  PowerPoint table style.
+- text: add text as paragraphs or inside an existing paragraph, format
+  is defined in the corresponding layout of the slide.
 
 In a PowerPoint document, one can set a slide as selected and reach a
 particular shape (and remove it or add text).
@@ -148,10 +149,10 @@ documentation.
 If you want to submit a Pull Request to integrate functions of yours,
 please provide:
 
--   the new function(s) with code and roxygen tags (with examples)
--   a new section in the appropriate vignette that describes how to use
-    the new function
--   add corresponding tests in directory `tests/testthat`.
+- the new function(s) with code and roxygen tags (with examples)
+- a new section in the appropriate vignette that describes how to use
+  the new function
+- add corresponding tests in directory `tests/testthat`.
 
 By using rhub (run `rhub::check_for_cran()`), you will see if everything
 is ok. When submitted, the PR will be evaluated automatically on travis
