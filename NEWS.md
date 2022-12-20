@@ -13,13 +13,16 @@ associated with a Word character style.
 - Word sections can now have headers and footers. See `prop_section()`.
 - function `cursor_reach_test()` to test if an expression has 
 a match in the document.
+- add function `docx_current_block_xml()` to let developpers access 
+the xml content where the cursor is.  
 
 ## Issues
 
 - close 'Slide Master View' automatically.
 - more careful reading of document properties
 - fix cursor behavior, when `pos='before'`, cursor 
-is now set on element added 'before'.
+is now set on element added 'before'. Internals about 
+cursors have been refactored.
 
 ## Changes
 

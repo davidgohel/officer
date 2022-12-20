@@ -4,7 +4,7 @@
 \alias{body_add_xml}
 \title{Add an xml string as document element}
 \usage{
-body_add_xml(x, str, pos)
+body_add_xml(x, str, pos = c("after", "before", "on"))
 }
 \arguments{
 \item{x}{an rdocx object}

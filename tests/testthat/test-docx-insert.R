@@ -16,7 +16,7 @@ test_that("seqfield add ", {
     style = "Normal"
   )
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")
   getncheck(node, "w:r/w:fldChar[@w:fldCharType='end']")
 
@@ -30,6 +30,6 @@ test_that("seqfield add ", {
   )
   x <- body_add_fpar(x, z, style = "centered", )
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_equal(xml_text(node), "Figure: SEQ Figure \\* roman - This is a figure title")
 })

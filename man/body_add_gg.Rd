@@ -12,6 +12,7 @@ body_add_gg(
   res = 300,
   style = "Normal",
   scale = 1,
+  pos = "after",
   ...
 )
 }
@@ -29,6 +30,9 @@ body_add_gg(
 \item{style}{paragraph style}
 
 \item{scale}{Multiplicative scaling factor, same as in ggsave}
+
+\item{pos}{where to add the new element relative to the cursor,
+one of "after", "before", "on".}
 
 \item{...}{Arguments to be passed to png function.}
 }

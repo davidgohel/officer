@@ -85,6 +85,7 @@ read_docx <- function( path = NULL ){
                                cursor = "/w:document/w:body/*[1]",
                                body_xpath = "/w:document/w:body")
   obj$styles <- read_docx_styles(package_dir)
+  obj$officer_cursor <- officer_cursor(obj$doc_obj$get())
 
   header_files <- list.files(file.path(package_dir, "word"),
                              pattern = "^header[0-9]*.xml$")
@@ -143,8 +144,7 @@ print.rdocx <- function(x, target = NULL, ...){
     names(style_sample) <- style_names$style_name
     print(style_sample)
 
-
-    cursor_elt <- x$doc_obj$get_at_cursor()
+    cursor_elt <- docx_current_block_xml(x)
     cat("\n* Content at cursor location:\n")
     print(node_content(cursor_elt, x))
     return(invisible())
@@ -516,20 +516,24 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 #' docx_dim(read_docx())
 #' @family functions for Word document informations
 docx_dim <- function(x){
-  cursor_elt <- x$doc_obj$get_at_cursor()
-  xpath_ <- paste0(
-    file.path( xml_path(cursor_elt), "following-sibling::w:sectPr"),
-    "|",
-    file.path( xml_path(cursor_elt), "following-sibling::w:p/w:pPr/w:sectPr"),
-    "|",
-    "//w:sectPr"
-  )
-  next_section <- xml_find_first(x$doc_obj$get(), xpath_)
+  cursor <- as.character(x$officer_cursor)
+  if (is.na(cursor)) {
+    next_section <- xml_find_first(x$doc_obj$get(), "/w:document/w:body/w:sectPr")
+  } else {
+    xpath_ <- paste0(
+      file.path( cursor, "following-sibling::w:sectPr"),
+      "|",
+      file.path( cursor, "following-sibling::w:p/w:pPr/w:sectPr"),
+      "|",
+      "//w:sectPr"
+    )
+    next_section <- xml_find_first(x$doc_obj$get(), xpath_)
+  }
+
   sd <- section_dimensions(next_section)
   sd$page <- sd$page / (20*72)
   sd$margins <- sd$margins / (20*72)
   sd
-
 }
 
 
@@ -639,6 +643,20 @@ change_styles <- function( x, mapstyles ){
 #' @keywords internal
 docx_body_xml <- function( x ){
   x$doc_obj$get()
+}
+#' @export
+#' @title xml element on which cursor is
+#' @description Get the current block element as xml. This function
+#' is not to be used by end users, it has been implemented
+#' to allow other packages to work with officer. If the
+#' document is empty, this block will be set to NULL.
+#' @param x an rdocx object
+#' @examples
+#' doc <- read_docx()
+#' docx_current_block_xml(doc)
+#' @keywords internal
+docx_current_block_xml <- function( x ){
+  ooxml_on_cursor(x$officer_cursor, x$doc_obj$get())
 }
 
 #' @export

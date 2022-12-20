@@ -14,6 +14,25 @@ test_that("docx dim", {
   expect_length(dims$margins, 6)
 
   expect_equal(dims$page, c(width = 8.263889, height = 11.694444), tolerance = .001)
+
+  ps <- prop_section(
+    page_size = page_size(width = 8.263889, height = 11.694444, orient = "landscape"),
+    page_margins = page_mar(top = 2),
+    type = "oddPage"
+  )
+  x <- read_docx()
+  x <- body_add_par(x = x, value = "paragraph 1", style = "Normal")
+  x <- body_end_block_section(x, block_section(ps))
+  x <- cursor_begin(x)
+  dims <- docx_dim(x)
+  expect_equivalent(
+    object = dims,
+    expected = list(
+      page = c(width = 11.694444, height = 8.263889),
+      landscape = TRUE,
+      margins = c(top = 2, bottom = 1, left = 1,
+                  right = 1, header = 0.5, footer = 0.5)),
+    tolerance = .00001)
 })
 
 test_that("list bookmarks", {
@@ -32,10 +51,10 @@ test_that("console printing", {
 
 test_that("check extention and print document", {
   x <- read_docx()
-  print(x, target = "print.docx")
-  expect_true(file.exists("print.docx"))
+  outfile <- print(x, target = tempfile(fileext = ".docx"))
+  expect_true(file.exists(outfile))
 
-  expect_error(print(x, target = "print.docxxx"))
+  expect_error(print(x, target = tempfile(fileext = ".docxxxx")))
 })
 
 test_that("style is read from document", {
@@ -58,11 +77,11 @@ test_that("id are sequentially defined", {
     doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39)
     any_img <- TRUE
   }
-  print(doc, target = "body_add_img.docx")
+  tmp_file <- print(doc, target = tempfile(fileext = ".docx"))
   skip_if_not(any_img)
 
   pack_dir <- tempfile(pattern = "dir")
-  unpack_folder(file = "body_add_img.docx", folder = pack_dir)
+  unpack_folder(file = tmp_file, folder = pack_dir)
 
   all_ids <- read_xml(x = file.path(pack_dir, "word/document.xml"))
   all_ids <- xml_find_all(all_ids, "//*[@id]")
@@ -87,21 +106,27 @@ test_that("cursor behavior", {
   doc <- body_add_par(doc, "paragraph 6", style = "Normal")
   doc <- body_add_par(doc, "paragraph 7", style = "Normal")
   doc <- cursor_begin(doc)
-  print(doc, target = "init_doc.docx")
+  init_file <- print(doc, target = tempfile(fileext = ".docx"))
 
-  doc <- read_docx(path = "init_doc.docx")
+  doc <- read_docx(path = init_file)
   doc <- cursor_begin(doc)
-  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 1")
+  current_node <- docx_current_block_xml(doc)
+  expect_equal(xml_text(current_node), "paragraph 1")
   doc <- cursor_forward(doc)
-  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 2")
+  current_node <- docx_current_block_xml(doc)
+  expect_equal(xml_text(current_node), "paragraph 2")
   doc <- cursor_end(doc)
-  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 7")
+  current_node <- docx_current_block_xml(doc)
+  expect_equal(xml_text(current_node), "paragraph 7")
   doc <- cursor_backward(doc)
-  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 6")
+  current_node <- docx_current_block_xml(doc)
+  expect_equal(xml_text(current_node), "paragraph 6")
   doc <- cursor_reach(doc, keyword = "paragraph 5")
-  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 5")
+  current_node <- docx_current_block_xml(doc)
+  expect_equal(xml_text(current_node), "paragraph 5")
   doc <- cursor_bookmark(doc, "bkm1")
-  expect_equal(xml_text(doc$doc_obj$get_at_cursor()), "paragraph 3")
+  current_node <- docx_current_block_xml(doc)
+  expect_equal(xml_text(current_node), "paragraph 3")
 })
 
 test_that("cursor and position", {
@@ -201,7 +226,3 @@ test_that("cursor before table", {
     c("p", "p", "tbl", "p", "p", "tbl", "sectPr")
   )
 })
-
-
-unlink("*.docx")
-unlink("*.emf")

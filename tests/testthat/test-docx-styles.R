@@ -28,8 +28,9 @@ test_that("set par style", {
     doc, value = "This is a test",
     style = "Explicit label")
 
+  current_node <- docx_current_block_xml(doc)
   expect_equal(
-    xml_attr(xml_child(doc$doc_obj$get_at_cursor(), "w:pPr/w:pStyle"), "val"),
+    xml_attr(xml_child(current_node, "w:pPr/w:pStyle"), "val"),
     "rightaligned")
 
   df <- styles_info(doc, type = "paragraph")
@@ -57,8 +58,9 @@ test_that("set char style", {
     doc, fpar(run_wordtext(text = "coco", style_id = "bold")),
     style = "Normal")
 
+  current_node <- docx_current_block_xml(doc)
   expect_equal(
-    xml_attr(xml_child(doc$doc_obj$get_at_cursor(), "w:pPr/w:pStyle"), "val"),
+    xml_attr(xml_child(current_node, "w:pPr/w:pStyle"), "val"),
     "Normal")
 
   df <- styles_info(doc, type = "character")

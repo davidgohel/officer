@@ -8,7 +8,7 @@ test_that("body_add_break", {
   x <- read_docx()
   x <- body_add_break(x)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_is( xml_child(node, "/w:r/w:br"), "xml_node" )
 })
 
@@ -19,7 +19,7 @@ test_that("body_end_sections", {
   x <- body_add_par(x, "paragraph 1", style = "Normal")
   x <- body_end_section_landscape(x)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
   ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
   expect_false( inherits(ps, "xml_missing") )
@@ -33,7 +33,7 @@ test_that("body_end_sections", {
   print(x, target = outfile)
   x <- read_docx(outfile)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
   sect <- xml_child(node, "w:pPr/w:sectPr")
 
@@ -44,7 +44,7 @@ test_that("body_end_sections", {
   x <- body_add_par(x, "paragraph 2", style = "Normal")
   x <- body_end_section_columns_landscape(x)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
 
   ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
@@ -63,7 +63,7 @@ test_that("body_end_sections", {
   print(x, target = outfile)
 
   x <- read_docx(outfile)
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_false( inherits(xml_child(node, "w:pPr/w:sectPr"), "xml_missing") )
 
   ps <- xml_child(node, "w:pPr/w:sectPr/w:pgSz")
@@ -78,7 +78,7 @@ test_that("body_add_toc", {
   x <- body_add_par(x, "paragraph 1")
   x <- body_add_toc(x)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")
 
@@ -89,7 +89,7 @@ test_that("body_add_toc", {
 
 
   x <- body_add_toc(x, style = "Normal")
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
 
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='begin']")
 
@@ -106,7 +106,7 @@ test_that("body_add_img", {
   x <- read_docx()
   x <- body_add_img(x, img.file, width=2.5, height=1.3)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   getncheck(node, "w:r/w:drawing")
 })
 
@@ -119,7 +119,7 @@ test_that("external_img add", {
       external_img(src = img.file, width = .3, height = .3)
     )
   )
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   getncheck(node, "w:r/w:drawing")
 })
 
@@ -132,7 +132,7 @@ test_that("ggplot add", {
   x <- read_docx()
   x <- body_add_gg(x, value = gg_plot, style = "centered" )
   x <- cursor_end(x)
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   getncheck(node, "w:r/w:drawing")
 })
 
@@ -145,7 +145,7 @@ test_that("fpar add", {
   x <- read_docx()
   x <- body_add_fpar(x, fpar_)
 
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   expect_equal(xml_text(node), "This is a big text" )
 
   x <- read_docx()
@@ -160,7 +160,7 @@ test_that("svg add", {
   x <- body_add_fpar(x, fpar(external_img(srcfile)))
   path <- print(x, target = tempfile(fileext = ".docx"))
   x <- read_docx(path = path)
-  node <- x$doc_obj$get_at_cursor()
+  node <- docx_current_block_xml(x)
   reldf <- x$doc_obj$rel_df()
   relidsvg <- reldf[grepl("\\.svg$", reldf$target), "id"]
   relidpng <- reldf[grepl("\\.png$", reldf$target), "id"]

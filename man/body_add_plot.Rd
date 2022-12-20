@@ -11,6 +11,7 @@ body_add_plot(
   height = 5,
   res = 300,
   style = "Normal",
+  pos = "after",
   ...
 )
 }
@@ -26,6 +27,9 @@ body_add_plot(
 \item{res}{resolution of the png image in ppi}
 
 \item{style}{paragraph style}
+
+\item{pos}{where to add the new element relative to the cursor,
+one of "after", "before", "on".}
 
 \item{...}{Arguments to be passed to png function.}
 }
