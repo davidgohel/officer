@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -47,6 +47,33 @@
       <small>Source: <a href="https://github.com/davidgohel/officer/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.0" id="officer-050">officer 0.5.0<a class="anchor" aria-label="anchor" href="#officer-050"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
+<ul><li>new function <code><a href="../reference/docx_set_character_style.html">docx_set_character_style()</a></code> to add or replace a Word character style.</li>
+<li>new function <code><a href="../reference/docx_set_paragraph_style.html">docx_set_paragraph_style()</a></code> to add or replace a Word paragraph style.</li>
+<li>new function <code><a href="../reference/run_wordtext.html">run_wordtext()</a></code> to add a chunk of text associated with a Word character style.</li>
+<li>
+<code>potx</code> and <code>dotx</code> files are now supported.</li>
+<li>SVG images are now supported</li>
+<li>Word sections can now have headers and footers. See <code><a href="../reference/prop_section.html">prop_section()</a></code>.</li>
+<li>function <code><a href="../reference/cursor.html">cursor_reach_test()</a></code> to test if an expression has a match in the document.</li>
+<li>add function <code><a href="../reference/docx_current_block_xml.html">docx_current_block_xml()</a></code> to let developpers access the xml content where the cursor is.<br></li>
+<li>
+<code>ph_with.xml_document</code> now manages images paths in slide and treats them in the relevant documents.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-5-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-5-0"></a></h3>
+<ul><li>close ‘Slide Master View’ automatically.</li>
+<li>more careful reading of document properties</li>
+<li>fix cursor behavior, when <code>pos='before'</code>, cursor is now set on element added ‘before’. Internals about cursors have been refactored.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-5-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-5-0"></a></h3>
+<ul><li>function <code><a href="../reference/slip_in_footnote.html">slip_in_footnote()</a></code> is deprecated. Use <code><a href="../reference/run_footnote.html">run_footnote()</a></code> instead.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.4" id="officer-044">officer 0.4.4<small>2022-09-09</small><a class="anchor" aria-label="anchor" href="#officer-044"></a></h2>
 <div class="section level3">
@@ -568,7 +595,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

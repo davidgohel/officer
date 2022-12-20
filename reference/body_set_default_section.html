@@ -18,7 +18,7 @@ define section propeerties (page size, orientation, ...) with a prop_section obj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -89,12 +89,12 @@ define section propeerties (page size, orientation, ...) with a <a href="prop_se
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">default_sect_properties</span> <span class="op">&lt;-</span> <span class="fu"><a href="prop_section.html">prop_section</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    page_size <span class="op">=</span> <span class="fu"><a href="page_size.html">page_size</a></span><span class="op">(</span>orient <span class="op">=</span> <span class="st">"landscape"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"continuous"</span>,</span></span>
-<span class="r-in"><span>    page_margins <span class="op">=</span> <span class="fu"><a href="page_mar.html">page_mar</a></span><span class="op">(</span>bottom <span class="op">=</span> <span class="fl">.75</span>, top <span class="op">=</span> <span class="fl">1.5</span>, right <span class="op">=</span> <span class="fl">2</span>, left <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  page_size <span class="op">=</span> <span class="fu"><a href="page_size.html">page_size</a></span><span class="op">(</span>orient <span class="op">=</span> <span class="st">"landscape"</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"continuous"</span>,</span></span>
+<span class="r-in"><span>  page_margins <span class="op">=</span> <span class="fu"><a href="page_mar.html">page_mar</a></span><span class="op">(</span>bottom <span class="op">=</span> <span class="fl">.75</span>, top <span class="op">=</span> <span class="fl">1.5</span>, right <span class="op">=</span> <span class="fl">2</span>, left <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_1</span>, value <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_1</span>, value <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">doc_1</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">40</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">body_set_default_section</span><span class="op">(</span><span class="va">doc_1</span>, <span class="va">default_sect_properties</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -109,7 +109,7 @@ define section propeerties (page size, orientation, ...) with a <a href="prop_se
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

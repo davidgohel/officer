@@ -20,7 +20,7 @@ such as page size, page orientation, borders and margins."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -63,7 +63,13 @@ such as page size, page orientation, borders and margins.</p>
 <span>  page_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  page_margins <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  section_columns <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  section_columns <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  header_default <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  header_even <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  header_first <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  footer_default <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  footer_even <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  footer_first <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,7 +93,31 @@ odd-numbered page).</p></dd>
 
 
 <dt>section_columns</dt>
-<dd><p>section columns, an object generated with function <a href="section_columns.html">section_columns</a>.</p></dd>
+<dd><p>section columns, an object generated with function <a href="section_columns.html">section_columns</a>. Use NULL (default value) for no content.</p></dd>
+
+
+<dt>header_default</dt>
+<dd><p>content as a <code><a href="block_list.html">block_list()</a></code> for the default page header. Use NULL (default value) for no content.</p></dd>
+
+
+<dt>header_even</dt>
+<dd><p>content as a <code><a href="block_list.html">block_list()</a></code> for the even page header. Use NULL (default value) for no content.</p></dd>
+
+
+<dt>header_first</dt>
+<dd><p>content as a <code><a href="block_list.html">block_list()</a></code> for the first page header. Use NULL (default value) for no content.</p></dd>
+
+
+<dt>footer_default</dt>
+<dd><p>content as a <code><a href="block_list.html">block_list()</a></code> for the default page footer. Use NULL (default value) for no content.</p></dd>
+
+
+<dt>footer_even</dt>
+<dd><p>content as a <code><a href="block_list.html">block_list()</a></code> for the even page footer. Use NULL (default value) for no content.</p></dd>
+
+
+<dt>footer_first</dt>
+<dd><p>content as a <code><a href="block_list.html">block_list()</a></code> for the default page footer. Use NULL (default value) for no content.</p></dd>
 
 </dl></div>
     <div id="note">
@@ -141,6 +171,35 @@ odd-numbered page).</p></dd>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_table.html">body_add_table</a></span><span class="op">(</span><span class="va">doc_1</span>, value <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="op">]</span>, style <span class="op">=</span> <span class="st">"table_template"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_1</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># an example with headers and footers -----</span></span></span>
+<span class="r-in"><span><span class="va">txt_lorem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"Purus lectus eros metus turpis mattis platea praesent sed. "</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">txt_lorem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">txt_lorem</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">header_first</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for first page header"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">header_even</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for even page header"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">header_default</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for default page header"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">footer_first</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for first page footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">footer_even</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for even page footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">footer_default</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for default page footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu">prop_section</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  header_default <span class="op">=</span> <span class="va">header_default</span>, footer_default <span class="op">=</span> <span class="va">footer_default</span>,</span></span>
+<span class="r-in"><span>  header_first <span class="op">=</span> <span class="va">header_first</span>, footer_first <span class="op">=</span> <span class="va">footer_first</span>,</span></span>
+<span class="r-in"><span>  header_even <span class="op">=</span> <span class="va">header_even</span>, footer_even <span class="op">=</span> <span class="va">footer_even</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_add_par.html">body_add_par</a></span><span class="op">(</span><span class="va">x</span>, value <span class="op">=</span> <span class="va">txt_lorem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="body_set_default_section.html">body_set_default_section</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span>,</span></span>
+<span class="r-in"><span>  value <span class="op">=</span> <span class="va">ps</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +210,7 @@ odd-numbered page).</p></dd>
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.4.5.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
