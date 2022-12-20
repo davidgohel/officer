@@ -231,6 +231,13 @@ slide <- R6Class(
         xml_attr( cnvpr[[i]], "id") <- i
       self
     },
+    reference_img = function(src, dir_name){
+      src <- unique( src )
+      private$rels_doc$add_img(src, root_target = "../media")
+      dir.create(dir_name, recursive = TRUE, showWarnings = FALSE)
+      file.copy(from = src, to = file.path(dir_name, basename(src)))
+      self
+    },
 
     reference_slide = function(slide_file){
 

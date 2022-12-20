@@ -15,6 +15,8 @@ associated with a Word character style.
 a match in the document.
 - add function `docx_current_block_xml()` to let developpers access 
 the xml content where the cursor is.  
+- `ph_with.xml_document` now manages images paths in slide and 
+treats them in the relevant documents.
 
 ## Issues
 

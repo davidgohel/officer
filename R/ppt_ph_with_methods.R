@@ -489,7 +489,7 @@ ph_with.empty_content <- function( x, value, location, ... ){
 
 
 
-xml_to_slide <- function(slide, location, value){
+xml_to_slide <- function(slide, location, value, package_dir){
   node <- xml_find_first( value, as_xpath_content_sel("//") )
   if(xml_name(node) == "grpSp"){
     node_sppr <- xml_child(node, "p:grpSpPr")
@@ -558,9 +558,10 @@ ph_with.xml_document <- function( x, value, location, ... ){
 
   location <- fortify_location(location, doc = x)
 
-  xml_to_slide(slide, location, value)
+  xml_to_slide(slide, location, value, x$package_dir)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
+  process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
 
   slide$fortify_id()
   x
