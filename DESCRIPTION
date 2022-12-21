@@ -1,10 +1,11 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.5.0
+Version: 0.5.1.001
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
+    person(given = "ArData", role = "cph"),
     person("Frank", "Hangler", role = "ctb", email = "frank@plotandscatter.com", comment = "function body_replace_all_text"),
     person("Liz", "Sander", role = "ctb", email = 'lsander@civisanalytics.com', comment = "several documentation fixes"),
     person("Anton", "Victorson", role = "ctb", email = 'anton@victorson.se',comment = "fixes xml structures"),
@@ -22,7 +23,7 @@ Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' d
   lets add and remove images, tables and paragraphs of text in new or existing documents. 
   The package does not require any installation of Microsoft products to be able to write Microsoft 
   files.
-License: GPL-3
+License: MIT + file LICENSE
 Imports:
     R6,
     grDevices, stats, graphics, utils,

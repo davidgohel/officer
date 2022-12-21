@@ -13,3 +13,4 @@
 ^todo\.md$
 ^\.github$
 ^tests/testthat/_snaps$
+^LICENSE\.md$
