@@ -33,6 +33,7 @@ manuals \url{https://davidgohel.github.io/officer/}
 
 Other contributors:
 \itemize{
+  \item ArData [copyright holder]
   \item Frank Hangler \email{frank@plotandscatter.com} (function body_replace_all_text) [contributor]
   \item Liz Sander \email{lsander@civisanalytics.com} (several documentation fixes) [contributor]
   \item Anton Victorson \email{anton@victorson.se} (fixes xml structures) [contributor]

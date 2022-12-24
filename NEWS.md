@@ -1,3 +1,15 @@
+# officer 0.5.1
+
+## Issues
+
+- manage also even/first/default sections not defined with officer (indicate 
+there is even/first/default parts).
+
+## Changes
+
+- Change license to MIT.
+
+
 # officer 0.5.0
 
 ## New features

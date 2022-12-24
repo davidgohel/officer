@@ -263,9 +263,9 @@ officer_section_fortify <- function(node, x) {
       if (xml_attr(headers[[i]], "type") %in% "first" && inherits(xml_child(node, "w:titlePg"), "xml_missing")) {
         xml_add_child(node, as_xml_document(title_page_tag))
       }
-      if (xml_attr(headers[[i]], "type") %in% "even") {
-        x$settings$even_and_odd_headers <- TRUE
-      }
+    }
+    if (xml_attr(headers[[i]], "type") %in% "even") {
+      x$settings$even_and_odd_headers <- TRUE
     }
   }
 
@@ -278,9 +278,9 @@ officer_section_fortify <- function(node, x) {
       if (xml_attr(footers[[i]], "type") %in% "first" && inherits(xml_child(node, "w:titlePg"), "xml_missing")) {
         xml_add_child(node, as_xml_document(title_page_tag))
       }
-      if (xml_attr(footers[[i]], "type") %in% "even") {
-        x$settings$even_and_odd_headers <- TRUE
-      }
+    }
+    if (xml_attr(footers[[i]], "type") %in% "even") {
+      x$settings$even_and_odd_headers <- TRUE
     }
   }
   x
