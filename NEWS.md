@@ -8,7 +8,7 @@ there is even/first/default parts).
 ## Changes
 
 - Change license to MIT.
-
+- drop internal `get_at_cursor()`
 
 # officer 0.5.0
 
