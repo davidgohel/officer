@@ -63,8 +63,9 @@ xml_replace_text_at_bkm <- function(node, bookmark, value){
   text <- enc2utf8(value)
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", bookmark)
   bm_start <- xml_find_first(node, xpath_)
-  if( inherits(bm_start, "xml_missing") )
-    stop("cannot find bookmark ", shQuote(bookmark), call. = FALSE)
+  if( inherits(bm_start, "xml_missing") ) {
+    return(FALSE)
+  }
 
   str_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r", bookmark )
   following_start <- sapply( xml_find_all(node, str_), xml_path )
@@ -81,7 +82,7 @@ xml_replace_text_at_bkm <- function(node, bookmark, value){
     xml_remove(node)
 
   xml_text(run_nodes[[1]] ) <- text
-
+  TRUE
 }
 
 docxpart_replace_img_at_bkm <- function(node, bookmark, value) {

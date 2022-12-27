@@ -4,6 +4,9 @@
 
 - manage also even/first/default sections not defined with officer (indicate 
 there is even/first/default parts).
+- fix behavior regression with headers and footers replace_text_at_bkm. 
+The previous behavior "don't trigger an error if a bookmark is missing" 
+is back. 
 
 ## Changes
 
