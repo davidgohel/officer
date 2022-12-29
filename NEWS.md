@@ -15,6 +15,11 @@ page footer/header if it is seen.
 - Change license to MIT.
 - drop internal `get_at_cursor()`
 
+## Features
+
+- export `pptx_fortify_slides()` and `shape_properties_tags()` 
+for pptx.
+
 # officer 0.5.0
 
 ## New features

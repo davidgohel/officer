@@ -262,7 +262,6 @@ slide <- R6Class(
                              type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
                              target = href, target_mode = "External" )
       }
-      # <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slide3.xml"/>
       self
     },
 

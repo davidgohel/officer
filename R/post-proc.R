@@ -75,7 +75,7 @@ process_docx_poured <- function(doc_obj, relationships, content_type,
       target = file.path(media_rel_dir, basename(hl_ref[i]))
     )
     content_type$add_override(
-      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml", paste0("/", media_dir, "/", basename(hl_ref[i])) )
+      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml", paste0("/", media_dir, "/", basename(hl_ref[i])))
     )
 
     which_match_id <- grepl(hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE)
@@ -84,23 +84,22 @@ process_docx_poured <- function(doc_obj, relationships, content_type,
 }
 
 #' @importFrom xml2 xml_remove as_xml_document xml_parent xml_child
-process_footnotes <- function( x ){
-
+process_footnotes <- function(x) {
   footnotes <- x$footnotes
   doc_obj <- x$doc_obj
 
   rel <- doc_obj$relationship()
 
   hl_nodes <- xml_find_all(doc_obj$get(), "//w:footnoteReference[@w:id]")
-  which_to_add <- hl_nodes[grepl( "^footnote", xml_attr(hl_nodes, "id") )]
+  which_to_add <- hl_nodes[grepl("^footnote", xml_attr(hl_nodes, "id"))]
   hl_ref <- xml_attr(which_to_add, "id")
-  for(i in seq_along(hl_ref) ){
-
+  for (i in seq_along(hl_ref)) {
     next_id <- rel$get_next_id()
     rel$add(
       paste0("rId", next_id),
       type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes",
-      target = "footnotes.xml" )
+      target = "footnotes.xml"
+    )
 
     index <- length(xml_find_all(footnotes$get(), "w:footnote")) - 1
     xml_attr(which_to_add[[i]], "w:id") <- index
@@ -127,19 +126,24 @@ process_footnotes <- function( x ){
     xml_add_child(footnotes$get(), newfootnote)
   }
 }
-process_links <- function( doc_obj ){
+process_links <- function(doc_obj, type = "wml") {
   rel <- doc_obj$relationship()
-  hl_nodes <- xml_find_all(doc_obj$get(), "//w:hyperlink[@r:id]")
-  which_to_add <- hl_nodes[!grepl( "^rId[0-9]+$", xml_attr(hl_nodes, "id") )]
+  if ("wml" %in% type) {
+    hl_nodes <- xml_find_all(doc_obj$get(), "//w:hyperlink[@r:id]")
+  } else {
+    hl_nodes <- xml_find_all(doc_obj$get(), "//a:hlinkClick[@r:id]")
+  }
+  which_to_add <- hl_nodes[!grepl("^rId[0-9]+$", xml_attr(hl_nodes, "id"))]
   hl_ref <- unique(xml_attr(which_to_add, "id"))
-  for(i in seq_along(hl_ref) ){
-    rid <- sprintf("rId%.0f", rel$get_next_id() )
+  for (i in seq_along(hl_ref)) {
+    rid <- sprintf("rId%.0f", rel$get_next_id())
 
     rel$add(
       id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
-      target = officer_url_decode(hl_ref[i]), target_mode = "External" )
+      target = officer_url_decode(hl_ref[i]), target_mode = "External"
+    )
 
-    which_match_id <- grepl( hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE )
+    which_match_id <- grepl(hl_ref[i], xml_attr(which_to_add, "id"), fixed = TRUE)
     xml_attr(which_to_add[which_match_id], "r:id") <- rep(rid, sum(which_match_id))
   }
 }
