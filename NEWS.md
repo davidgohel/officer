@@ -17,8 +17,7 @@ page footer/header if it is seen.
 
 ## Features
 
-- export `pptx_fortify_slides()` and `shape_properties_tags()` 
-for pptx.
+- export `shape_properties_tags()` for pptx extentions.
 
 # officer 0.5.0
 

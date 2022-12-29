@@ -109,7 +109,7 @@ print.rpptx <- function(x, target = NULL, ...){
   if(is_windows() && is_office_doc_edited(target))
     stop(target , " is already edited.",
          " You must close the document in order to be able to write the file.")
-
+  x <- pptx_fortify_slides(x)
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
 
   # viewProps - drop lastView if available

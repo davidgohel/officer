@@ -33,7 +33,6 @@ Other functions for officer extensions:
 \code{\link{docx_reference_img}()},
 \code{\link{get_reference_value}()},
 \code{\link{opts_current_table}()},
-\code{\link{pptx_fortify_slides}()},
 \code{\link{shape_properties_tags}()},
 \code{\link{to_html}()},
 \code{\link{to_pml}()},

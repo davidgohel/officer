@@ -163,7 +163,6 @@ move_slide <- function(x, index = NULL, to) {
 
 
 
-#' @export
 #' @title Correct pptx content references
 #' @description Content references are not managed directly
 #' but computed after the content is added. This function
@@ -171,8 +170,7 @@ move_slide <- function(x, index = NULL, to) {
 #' if necessary.
 #' @param x an rpptx object
 #' @return an rpptx object
-#' @family functions for officer extensions
-#' @keywords internal
+#' @noRd
 pptx_fortify_slides <- function(x) {
   for (cursor_index in seq_len(x$slide$length())) {
     slide <- x$slide$get_slide(cursor_index)
