@@ -174,9 +174,15 @@ move_slide <- function(x, index = NULL, to) {
 pptx_fortify_slides <- function(x) {
   for (cursor_index in seq_len(x$slide$length())) {
     slide <- x$slide$get_slide(cursor_index)
+
     process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
+
     process_links(slide, type = "pml")
-    slide$fortify_id()
+
+    cnvpr <- xml_find_all(slide$get(), "//p:cNvPr")
+    for(i in seq_along(cnvpr)){
+      xml_attr( cnvpr[[i]], "id") <- i
+    }
   }
 
   x

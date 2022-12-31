@@ -194,8 +194,6 @@ ph_with.character <- function(x, value, location, ...) {
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -226,8 +224,6 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...) {
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -257,8 +253,6 @@ ph_with.factor <- function(x, value, location, ...) {
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 #' @export
@@ -316,9 +310,6 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-  process_links(slide, type = "pml")
-
-  slide$fortify_id()
   x
 }
 
@@ -345,10 +336,7 @@ ph_with.unordered_list <- function(x, value, location, ...) {
     "<p:txBody><a:bodyPr/><a:lstStyle/>", p, "</p:txBody></p:sp>"
   )
   node <- as_xml_document(xml_elt)
-
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -389,7 +377,6 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 
   value <- as_xml_document(xml_elt)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  slide$fortify_id()
   x
 }
 
@@ -494,8 +481,6 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
 
   value <- as_xml_document(xml_str)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  slide$fortify_id()
-  process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
   x
 }
 
@@ -539,8 +524,6 @@ ph_with.empty_content <- function(x, value, location, ...) {
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -618,9 +601,5 @@ ph_with.xml_document <- function(x, value, location, ...) {
   xml_to_slide(slide, location, value, x$package_dir)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
-  process_links(slide, type = "pml")
-
-  slide$fortify_id()
   x
 }

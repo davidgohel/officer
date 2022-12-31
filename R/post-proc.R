@@ -25,9 +25,18 @@ wml_link_images <- function(x, str) {
 }
 
 # by capturing the path, we are making 'unique' new image names.
+#' @importFrom openssl sha1
 fake_newname <- function(filename) {
-  dest_basename <- paste0(gsub("[^0-9a-zA-Z]", "_", dirname(filename)), basename(filename))
-  dest_basename
+  which_files <- grepl("\\.[a-zA-Z0-0]+$", filename)
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", filename[which_files])
+  dest_basename <- sapply(filename[which_files], function(z) {
+    as.character(sha1(file(z)))
+  }
+  )
+  dest_basename <- paste0(dest_basename, file_type)
+  x <- filename
+  x[which_files] <- dest_basename
+  x
 }
 
 process_images <- function(doc_obj, relationships, package_dir, media_dir = "word/media", media_rel_dir = "media") {
@@ -42,16 +51,24 @@ process_images <- function(doc_obj, relationships, package_dir, media_dir = "wor
   which_to_add <- hl_nodes[!grepl("^rId[0-9]+$", xml_attr(hl_nodes, "embed"))]
   hl_ref <- unique(xml_attr(which_to_add, "embed"))
   for (i in seq_along(hl_ref)) {
-    rid <- sprintf("rId%.0f", relationships$get_next_id())
+
+
     dest_basename <- fake_newname(hl_ref[i])
     img_path <- file.path(package_dir, media_dir)
-    dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
-    file.copy(from = hl_ref[i], to = file.path(package_dir, media_dir, dest_basename))
-
-    relationships$add(
-      id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
-      target = file.path(media_rel_dir, dest_basename)
-    )
+    if (!file.exists(file.path(img_path, dest_basename))) {
+      dir.create(img_path, recursive = TRUE, showWarnings = FALSE)
+      file.copy(from = hl_ref[i], to = file.path(img_path, dest_basename))
+    }
+    if (!file.path(media_rel_dir, dest_basename) %in% relationships$get_data()$target){
+      rid <- sprintf("rId%.0f", relationships$get_next_id())
+      relationships$add(
+        id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+        target = file.path(media_rel_dir, dest_basename)
+      )
+    } else {
+      reldf <- relationships$get_data()
+      rid <- reldf$id[basename(reldf$target) %in% dest_basename]
+    }
     which_match_id <- grepl(dest_basename, fake_newname(xml_attr(which_to_add, "embed")), fixed = TRUE)
     xml_attr(which_to_add[which_match_id], "r:embed") <- rep(rid, sum(which_match_id))
   }

@@ -44,6 +44,8 @@ test_that("get shape id", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
   doc <- ph_with(doc, "hello", location = ph_location_type(type = "body"))
+  file <- print(doc, target = tempfile(fileext = ".pptx"))
+  doc <- read_pptx(file)
   expect_equal(officer:::get_shape_id(doc, type = "body", id = 1), "2")
   expect_equal(officer:::get_shape_id(doc, ph_label = "Content Placeholder 2", id = 1), "2")
   expect_error(officer:::get_shape_id(doc, type = "body", id = 4) )
