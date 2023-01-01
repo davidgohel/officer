@@ -20,7 +20,8 @@ Add a slide into a pptx presentation.
 my_pres <- read_pptx()
 layout_summary(my_pres)
 my_pres <- add_slide(my_pres,
-  layout = "Two Content", master = "Office Theme")
+  layout = "Two Content", master = "Office Theme"
+)
 }
 \seealso{
 \code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=layout_summary]{layout_summary()}}

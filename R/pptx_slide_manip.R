@@ -8,19 +8,21 @@
 #' my_pres <- read_pptx()
 #' layout_summary(my_pres)
 #' my_pres <- add_slide(my_pres,
-#'   layout = "Two Content", master = "Office Theme")
+#'   layout = "Two Content", master = "Office Theme"
+#' )
 #' @seealso [print.rpptx()], [read_pptx()], [plot_layout_properties()], [ph_with()], [layout_summary()]
 #' @family functions slide manipulation
-add_slide <- function( x, layout = "Title and Content", master = "Office Theme" ){
-
+add_slide <- function(x, layout = "Title and Content", master = "Office Theme") {
   slide_info <- x$slideLayouts$get_metadata()
   slide_info <- slide_info[slide_info$name == layout & slide_info$master_name == master, ]
 
-  if( nrow( slide_info ) < 1 ){
+  if (nrow(slide_info) < 1) {
     stop("could not find layout named ", shQuote(layout), " in master named ", shQuote(master))
-  } else if( nrow( slide_info ) > 1 ) {
-    stop("found two layouts named ", shQuote(layout), " in master named ", shQuote(master),
-         ". Layout names should not be duplicated.")
+  } else if (nrow(slide_info) > 1) {
+    stop(
+      "found two layouts named ", shQuote(layout), " in master named ", shQuote(master),
+      ". Layout names should not be duplicated."
+    )
   }
   new_slidename <- x$slide$get_new_slidename()
 
@@ -29,14 +31,13 @@ add_slide <- function( x, layout = "Title and Content", master = "Office Theme" 
   layout_obj$write_template(xml_file)
 
   # update presentation elements
-  x$presentation$add_slide(target = file.path( "slides", new_slidename) )
-  x$content_type$add_slide(partname = file.path( "/ppt/slides", new_slidename) )
+  x$presentation$add_slide(target = file.path("slides", new_slidename))
+  x$content_type$add_slide(partname = file.path("/ppt/slides", new_slidename))
 
-  x$slide$add_slide(xml_file, x$slideLayouts$get_xfrm_data() )
+  x$slide$add_slide(xml_file, x$slideLayouts$get_xfrm_data())
 
-  x$cursor = x$slide$length()
+  x$cursor <- x$slide$length()
   x
-
 }
 
 
@@ -50,29 +51,32 @@ add_slide <- function( x, layout = "Title and Content", master = "Office Theme" 
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- on_slide( doc, index = 1)
-#' doc <- ph_with(x = doc, "First title",
-#'   location = ph_location_type(type="title"))
-#' doc <- on_slide( doc, index = 3)
-#' doc <- ph_with(x = doc, "Third title",
-#'   location = ph_location_type(type="title"))
+#' doc <- on_slide(doc, index = 1)
+#' doc <- ph_with(
+#'   x = doc, "First title",
+#'   location = ph_location_type(type = "title")
+#' )
+#' doc <- on_slide(doc, index = 3)
+#' doc <- ph_with(
+#'   x = doc, "Third title",
+#'   location = ph_location_type(type = "title")
+#' )
 #'
 #' file <- tempfile(fileext = ".pptx")
-#' print(doc, target = file )
+#' print(doc, target = file)
 #' @family functions slide manipulation
 #' @seealso [read_pptx()], [ph_with()]
-on_slide <- function( x, index ){
-
+on_slide <- function(x, index) {
   l_ <- length(x)
-  if( l_ < 1 ){
+  if (l_ < 1) {
     stop("presentation contains no slide", call. = FALSE)
   }
-  if( !between(index, 1, l_ ) ){
-    stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
+  if (!between(index, 1, l_)) {
+    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
   }
 
-  filename <- basename( x$presentation$slide_data()$target[index])
-  location <- which( x$slide$get_metadata()$name %in% filename )
+  filename <- basename(x$presentation$slide_data()$target[index])
+  location <- which(x$slide$get_metadata()$name %in% filename)
 
   x$cursor <- x$slide$slide_index(filename)
 
@@ -91,30 +95,29 @@ on_slide <- function( x, index ){
 #' my_pres <- remove_slide(my_pres)
 #' @family functions slide manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
-remove_slide <- function( x, index = NULL ){
-
+remove_slide <- function(x, index = NULL) {
   l_ <- length(x)
-  if( l_ < 1 ){
+  if (l_ < 1) {
     stop("presentation contains no slide to delete", call. = FALSE)
   }
 
-  if( is.null(index) )
+  if (is.null(index)) {
     index <- x$cursor
-
-  if( !between(index, 1, l_ ) ){
-    stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
   }
-  filename <- basename( x$presentation$slide_data()$target[index])
-  location <- which( x$slide$get_metadata()$name %in% filename )
+
+  if (!between(index, 1, l_)) {
+    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
+  }
+  filename <- basename(x$presentation$slide_data()$target[index])
+  location <- which(x$slide$get_metadata()$name %in% filename)
 
   del_file <- x$slide$remove_slide(location)
 
   # update presentation elements
   x$presentation$remove_slide(del_file)
-  x$content_type$remove_slide(partname = del_file )
-  x$cursor = x$slide$length()
+  x$content_type$remove_slide(partname = del_file)
+  x$cursor <- x$slide$length()
   x
-
 }
 
 
@@ -134,23 +137,23 @@ remove_slide <- function( x, index = NULL ){
 #' x <- move_slide(x, index = 1, to = 2)
 #' @family functions slide manipulation
 #' @seealso [read_pptx()]
-move_slide <- function( x, index = NULL, to ){
-
+move_slide <- function(x, index = NULL, to) {
   x$presentation$slide_data()
 
-  if( is.null(index) )
+  if (is.null(index)) {
     index <- x$cursor
+  }
 
   l_ <- length(x)
 
-  if( l_ < 1 ){
+  if (l_ < 1) {
     stop("presentation contains no slide", call. = FALSE)
   }
-  if( !between(index, 1, l_ ) ){
-    stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
+  if (!between(index, 1, l_)) {
+    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
   }
-  if( !between(to, 1, l_ ) ){
-    stop("unvalid 'to' ", to, " (", l_," slide(s))", call. = FALSE)
+  if (!between(to, 1, l_)) {
+    stop("unvalid 'to' ", to, " (", l_, " slide(s))", call. = FALSE)
   }
 
   x$presentation$move_slide(from = index, to = to)
@@ -160,3 +163,63 @@ move_slide <- function( x, index = NULL, to ){
 
 
 
+#' @title Correct pptx content references
+#' @description Content references are not managed directly
+#' but computed after the content is added. This function
+#' loop over each slide and fix references (links and images)
+#' if necessary.
+#' @param x an rpptx object
+#' @return an rpptx object
+#' @noRd
+pptx_fortify_slides <- function(x) {
+  for (cursor_index in seq_len(x$slide$length())) {
+    slide <- x$slide$get_slide(cursor_index)
+
+    process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
+
+    process_links(slide, type = "pml")
+
+    cnvpr <- xml_find_all(slide$get(), "//p:cNvPr")
+    for(i in seq_along(cnvpr)){
+      xml_attr( cnvpr[[i]], "id") <- i
+    }
+  }
+
+  x
+}
+
+#' @export
+#' @title pptx tags for visual and non visual properties
+#' @description Visual and non visual properties of a
+#' shape can be returned by this function.
+#' @param left,top,width,height place holder coordinates
+#' in inches.
+#' @param bg background color
+#' @param rot rotation angle
+#' @param label a label for the placeholder.
+#' @param ph string containing xml code for ph tag
+#' @param ln a [sp_line()] object specifying the outline style.
+#' @param geom shape geometry, see http://www.datypic.com/sc/ooxml/t-a_ST_ShapeType.html
+#' @return a character value
+#' @family functions for officer extensions
+#' @keywords internal
+shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
+                                  bg = "transparent", rot = 0, label = "", ph = "<p:ph/>",
+                                  ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"), geom = NULL) {
+  if (!is.null(bg) && !is.color(bg)) {
+    stop("bg must be a valid color.", call. = FALSE)
+  }
+
+  bg_str <- solid_fill_pml(bg)
+  ln_str <- ln_pml(ln)
+  geom_str <- prst_geom_pml(geom)
+
+  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  if (is.null(ph) || is.na(ph)) {
+    ph <- "<p:ph/>"
+  }
+
+  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
+
+  sprintf(str, label, ph, xfrm_str, geom_str, bg_str, ln_str)
+}

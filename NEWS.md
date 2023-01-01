@@ -14,6 +14,12 @@ page footer/header if it is seen.
 
 - Change license to MIT.
 - drop internal `get_at_cursor()`
+- use images sha1 value for filename with package 'openssl'. This should fix 
+issues with duplicated images basenames, or non utf names, etc.
+
+## Features
+
+- export `shape_properties_tags()` for pptx extentions.
 
 # officer 0.5.0
 

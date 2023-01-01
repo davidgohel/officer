@@ -159,9 +159,9 @@ print.rdocx <- function(x, target = NULL, ...){
 
   process_footnotes(x)
 
-  process_links(x$doc_obj)
-  for(header in x$headers) process_links(header)
-  for(footer in x$footers) process_links(footer)
+  process_links(x$doc_obj, type = "wml")
+  for(header in x$headers) process_links(header, type = "wml")
+  for(footer in x$footers) process_links(footer, type = "wml")
   process_docx_poured(x$doc_obj, x$doc_obj$relationship(), x$content_type,
                       x$package_dir)
   process_images(x$doc_obj, x$doc_obj$relationship(), x$package_dir)

@@ -27,63 +27,92 @@
 #' sz <- slide_size(doc_1)
 #' # add text and a table ----
 #' doc_1 <- add_slide(doc_1, layout = "Two Content", master = "Office Theme")
-#' doc_1 <- ph_with(x = doc_1, value = c("Table cars"),
-#'    location = ph_location_type(type = "title") )
-#' doc_1 <- ph_with(x = doc_1, value = names(cars),
-#'    location = ph_location_left() )
-#' doc_1 <- ph_with(x = doc_1, value = cars,
-#'    location = ph_location_right() )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = c("Table cars"),
+#'   location = ph_location_type(type = "title")
+#' )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = names(cars),
+#'   location = ph_location_left()
+#' )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = cars,
+#'   location = ph_location_right()
+#' )
 #'
 #' # add a base plot ----
 #' anyplot <- plot_instr(code = {
-#'   col <- c("#440154FF", "#443A83FF", "#31688EFF",
-#'            "#21908CFF", "#35B779FF", "#8FD744FF", "#FDE725FF")
-#'   barplot(1:7, col = col, yaxt="n")
+#'   col <- c(
+#'     "#440154FF", "#443A83FF", "#31688EFF",
+#'     "#21908CFF", "#35B779FF", "#8FD744FF", "#FDE725FF"
+#'   )
+#'   barplot(1:7, col = col, yaxt = "n")
 #' })
 #'
 #' doc_1 <- add_slide(doc_1)
-#' doc_1 <- ph_with( doc_1, anyplot,
+#' doc_1 <- ph_with(doc_1, anyplot,
 #'   location = ph_location_fullsize(),
-#'   bg = "#006699")
+#'   bg = "#006699"
+#' )
 #'
 #' # add a ggplot2 plot ----
-#' if( require("ggplot2") ){
+#' if (require("ggplot2")) {
 #'   doc_1 <- add_slide(doc_1)
-#'   gg_plot <- ggplot(data = iris ) +
-#'     geom_point(mapping = aes(Sepal.Length, Petal.Length),
-#'                size = 3) +
+#'   gg_plot <- ggplot(data = iris) +
+#'     geom_point(
+#'       mapping = aes(Sepal.Length, Petal.Length),
+#'       size = 3
+#'     ) +
 #'     theme_minimal()
-#'   doc_1 <- ph_with(x = doc_1, value = gg_plot,
-#'                    location = ph_location_type(type = "body"),
-#'                    bg = "transparent" )
-#'   doc_1 <- ph_with(x = doc_1, value = "graphic title",
-#'                    location = ph_location_type(type="title") )
+#'   doc_1 <- ph_with(
+#'     x = doc_1, value = gg_plot,
+#'     location = ph_location_type(type = "body"),
+#'     bg = "transparent"
+#'   )
+#'   doc_1 <- ph_with(
+#'     x = doc_1, value = "graphic title",
+#'     location = ph_location_type(type = "title")
+#'   )
 #' }
 #'
 #' # add a external images ----
-#' doc_1 <- add_slide(doc_1, layout = "Title and Content",
-#'                    master = "Office Theme")
-#' doc_1 <- ph_with(x = doc_1, value = empty_content(),
-#'   location = ph_location(left = 0, top = 0,
-#'     width = sz$width, height = sz$height, bg = "black") )
+#' doc_1 <- add_slide(doc_1,
+#'   layout = "Title and Content",
+#'   master = "Office Theme"
+#' )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = empty_content(),
+#'   location = ph_location(
+#'     left = 0, top = 0,
+#'     width = sz$width, height = sz$height, bg = "black"
+#'   )
+#' )
 #'
 #' svg_file <- file.path(R.home(component = "doc"), "html/Rlogo.svg")
-#' if( require("rsvg") ){
-#'   doc_1 <- ph_with(x = doc_1, value = "External images",
-#'                    location = ph_location_type(type = "title") )
-#'   doc_1 <- ph_with(x = doc_1, external_img(svg_file, 100/72, 76/72),
-#'                    location = ph_location_right(), use_loc_size = FALSE )
-#'   doc_1 <- ph_with(x = doc_1, external_img(svg_file),
-#'                    location = ph_location_left(),
-#'                    use_loc_size = TRUE )
+#' if (require("rsvg")) {
+#'   doc_1 <- ph_with(
+#'     x = doc_1, value = "External images",
+#'     location = ph_location_type(type = "title")
+#'   )
+#'   doc_1 <- ph_with(
+#'     x = doc_1, external_img(svg_file, 100 / 72, 76 / 72),
+#'     location = ph_location_right(), use_loc_size = FALSE
+#'   )
+#'   doc_1 <- ph_with(
+#'     x = doc_1, external_img(svg_file),
+#'     location = ph_location_left(),
+#'     use_loc_size = TRUE
+#'   )
 #' }
 #'
 #' # add a block_list ----
-#' dummy_text <- readLines(system.file(package = "officer",
-#'   "doc_examples/text.txt"))
+#' dummy_text <- readLines(system.file(
+#'   package = "officer",
+#'   "doc_examples/text.txt"
+#' ))
 #' fp_1 <- fp_text(bold = TRUE, color = "pink", font.size = 0)
 #' fp_2 <- fp_text(bold = TRUE, font.size = 0)
-#' fp_3 <- fp_text(italic = TRUE, color="red", font.size = 0)
+#' fp_3 <- fp_text(italic = TRUE, color = "red", font.size = 0)
 #' bl <- block_list(
 #'   fpar(ftext("hello world", fp_1)),
 #'   fpar(
@@ -93,39 +122,49 @@
 #'   dummy_text
 #' )
 #' doc_1 <- add_slide(doc_1)
-#' doc_1 <- ph_with(x = doc_1, value = bl,
-#'    location = ph_location_type(type="body") )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = bl,
+#'   location = ph_location_type(type = "body")
+#' )
 #'
 #'
 #' # fpar ------
-#' fpt <- fp_text(bold = TRUE, font.family = "Bradley Hand",
-#'       font.size = 150, color = "#F5595B")
+#' fpt <- fp_text(
+#'   bold = TRUE, font.family = "Bradley Hand",
+#'   font.size = 150, color = "#F5595B"
+#' )
 #' hw <- fpar(
 #'   ftext("hello ", fpt),
 #'   hyperlink_ftext(
 #'     href = "https://cran.r-project.org/index.html",
-#'     text = "cran", prop = fpt)
+#'     text = "cran", prop = fpt
+#'   )
 #' )
 #' doc_1 <- add_slide(doc_1)
-#' doc_1 <- ph_with(x = doc_1, value = hw,
-#'                  location = ph_location_type(type="body") )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = hw,
+#'   location = ph_location_type(type = "body")
+#' )
 #' # unordered_list ----
 #' ul <- unordered_list(
 #'   level_list = c(1, 2, 2, 3, 3, 1),
 #'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
-#'   style = fp_text(color = "red", font.size = 0) )
+#'   style = fp_text(color = "red", font.size = 0)
+#' )
 #' doc_1 <- add_slide(doc_1)
-#' doc_1 <- ph_with(x = doc_1, value = ul,
-#'                  location = ph_location_type() )
+#' doc_1 <- ph_with(
+#'   x = doc_1, value = ul,
+#'   location = ph_location_type()
+#' )
 #'
-#' print(doc_1, target = fileout )
+#' print(doc_1, target = fileout)
 #' @seealso [ph_location_type], [ph_location], [ph_location_label],
 #' [ph_location_left], [ph_location_right], [ph_location_fullsize],
 #' [ph_location_template]
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}
-ph_with <- function(x, value, location, ...){
+ph_with <- function(x, value, location, ...) {
   UseMethod("ph_with", value)
 }
 
@@ -133,26 +172,28 @@ ph_with <- function(x, value, location, ...){
 #' @export
 #' @describeIn ph_with add a character vector to a new shape on the
 #' current slide, values will be added as paragraphs.
-ph_with.character <- function(x, value, location, ...){
+ph_with.character <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
-  new_ph <- sh_props_pml(left = location$left, top = location$top,
-               width = location$width, height = location$height,
-               label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg,
-               ln = location$ln, geom = location$geom)
+  new_ph <- shape_properties_tags(
+    left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom
+  )
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( psp_ns_yes, new_ph,
-                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" )
+  xml_elt <- paste0(
+    psp_ns_yes, new_ph,
+    "<p:txBody><a:bodyPr/><a:lstStyle/>",
+    pars, "</p:txBody></p:sp>"
+  )
 
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -161,26 +202,28 @@ ph_with.character <- function(x, value, location, ...){
 #' @describeIn ph_with add a numeric vector to a new shape on the
 #' current slide, values will be be first formatted then
 #' added as paragraphs.
-ph_with.numeric <- function(x, value, location, format_fun = format, ...){
+ph_with.numeric <- function(x, value, location, format_fun = format, ...) {
   slide <- x$slide$get_slide(x$cursor)
   value <- format_fun(value, ...)
   location <- fortify_location(location, doc = x)
 
-  new_ph <- sh_props_pml(left = location$left, top = location$top,
-               width = location$width, height = location$height,
-               label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg,
-               ln = location$ln, geom = location$geom)
+  new_ph <- shape_properties_tags(
+    left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom
+  )
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( psp_ns_yes, new_ph,
-                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" )
+  xml_elt <- paste0(
+    psp_ns_yes, new_ph,
+    "<p:txBody><a:bodyPr/><a:lstStyle/>",
+    pars, "</p:txBody></p:sp>"
+  )
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -188,26 +231,28 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...){
 #' @describeIn ph_with add a factor vector to a new shape on the
 #' current slide, values will be be converted as character and then
 #' added as paragraphs.
-ph_with.factor <- function(x, value, location, ...){
+ph_with.factor <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)
   value <- as.character(value)
   location <- fortify_location(location, doc = x)
 
-  new_ph <- sh_props_pml(left = location$left, top = location$top,
-               width = location$width, height = location$height,
-               label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg,
-               ln = location$ln, geom = location$geom)
+  new_ph <- shape_properties_tags(
+    left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom
+  )
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
-  xml_elt <- paste0( psp_ns_yes, new_ph,
-                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" )
+  xml_elt <- paste0(
+    psp_ns_yes, new_ph,
+    "<p:txBody><a:bodyPr/><a:lstStyle/>",
+    pars, "</p:txBody></p:sp>"
+  )
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 #' @export
@@ -220,27 +265,14 @@ ph_with.logical <- ph_with.numeric
 #' item 1 level will be 1, item 2 level will be 2.
 #' @describeIn ph_with add a \code{\link{block_list}} made
 #' of \code{\link{fpar}} to a new shape on the current slide.
-ph_with.block_list <- function(x, value, location, level_list = integer(0), ...){
+ph_with.block_list <- function(x, value, location, level_list = integer(0), ...) {
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
 
-  for(v in seq_along(value)){
-    for(iter in seq_along(value[[v]]$chunks)){
-      curr_chk <- value[[v]]$chunks[[iter]]
-      if( inherits(curr_chk, "hyperlink_ftext")){
-        slide$reference_hyperlink(curr_chk$href)
-        rel_df <- slide$rel_df()
-        id <- rel_df$id[match(curr_chk$href, rel_df$target)]
-        curr_chk$href <- id
-        value[[v]]$chunks[[iter]] <- curr_chk
-      }
-    }
-  }
-
   pars <- sapply(value, to_pml)
 
-  if( length(level_list)>0 ){
+  if (length(level_list) > 0) {
     pars <- gsub("<a:buNone/>", "", pars, fixed = TRUE)
 
     level_values <- rep(1L, length(pars))
@@ -250,30 +282,34 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
     lvl <- sprintf(" lvl=\"%.0f\"", level_values)
     lvl <- paste0("<a:pPr", ifelse(level_values > 0, lvl, ""), "/>")
 
-    pars <- mapply(function(par, lvl){
-      paste0(par[1], lvl, par[2])
-    }, strsplit(pars, split = "<a:pPr(.*)</a:pPr>"), lvl,
-    SIMPLIFY = FALSE)
+    pars <- mapply(
+      function(par, lvl) {
+        paste0(par[1], lvl, par[2])
+      }, strsplit(pars, split = "<a:pPr(.*)</a:pPr>"), lvl,
+      SIMPLIFY = FALSE
+    )
     pars <- unlist(pars)
   }
 
   pars <- paste0(pars, collapse = "")
 
-  new_ph <- sh_props_pml(left = location$left, top = location$top,
-               width = location$width, height = location$height,
-               label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg,
-               ln = location$ln, geom = location$geom)
+  new_ph <- shape_properties_tags(
+    left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom
+  )
 
-  xml_elt <- paste0( psp_ns_yes, new_ph,
-                     "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                     pars, "</p:txBody></p:sp>" )
+  xml_elt <- paste0(
+    psp_ns_yes, new_ph,
+    "<p:txBody><a:bodyPr/><a:lstStyle/>",
+    pars, "</p:txBody></p:sp>"
+  )
 
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -281,25 +317,26 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
 #' @export
 #' @describeIn ph_with add a \code{\link{unordered_list}} made
 #' of \code{\link{fpar}} to a new shape on the current slide.
-ph_with.unordered_list <- function(x, value, location, ...){
+ph_with.unordered_list <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)
   location <- fortify_location(location, doc = x)
 
   p <- to_pml(value)
 
-  new_ph <- sh_props_pml(left = location$left, top = location$top,
-               width = location$width, height = location$height,
-               label = location$ph_label, ph = location$ph,
-               rot = location$rotation, bg = location$bg,
-               ln = location$ln, geom = location$geom)
+  new_ph <- shape_properties_tags(
+    left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom
+  )
 
-  xml_elt <- paste0( psp_ns_yes, new_ph,
-          "<p:txBody><a:bodyPr/><a:lstStyle/>", p, "</p:txBody></p:sp>" )
+  xml_elt <- paste0(
+    psp_ns_yes, new_ph,
+    "<p:txBody><a:bodyPr/><a:lstStyle/>", p, "</p:txBody></p:sp>"
+  )
   node <- as_xml_document(xml_elt)
-
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
@@ -315,7 +352,7 @@ ph_with.unordered_list <- function(x, value, location, ...){
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                tcf = table_conditional_formatting(),
                                alignment = NULL,
-                               ...){
+                               ...) {
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
@@ -324,20 +361,22 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
   pt <- prop_table(
     style = style_id, layout = table_layout(),
     width = table_width(),
-    tcf = tcf)
+    tcf = tcf
+  )
 
   bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
 
   xml_elt <- to_pml(
-    bt, left = location$left, top = location$top,
+    bt,
+    left = location$left, top = location$top,
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom)
+    ln = location$ln, geom = location$geom
+  )
 
   value <- as_xml_document(xml_elt)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  slide$fortify_id()
   x
 }
 
@@ -348,31 +387,32 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' @param res resolution of the png image in ppi
 #' @param alt_text Alt-text for screen-readers
 #' @param scale Multiplicative scaling factor, same as in ggsave
-ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...){
+ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...) {
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
-  if( !requireNamespace("ggplot2") )
+  if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
+  }
 
   slide <- x$slide$get_slide(x$cursor)
   width <- location_$width
   height <- location_$height
 
-  stopifnot(inherits(value, "gg") )
+  stopifnot(inherits(value, "gg"))
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width*scale, height = height*scale, units = "in", res = res, ...)
+  png(filename = file, width = width * scale, height = height * scale, units = "in", res = res, ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
 
   ext_img <- external_img(file, width = width, height = height)
-  ph_with(x, ext_img, location = location, alt_text = alt_text )
+  ph_with(x, ext_img, location = location, alt_text = alt_text)
 }
 
 #' @export
 #' @describeIn ph_with add an R plot to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
-ph_with.plot_instr <- function(x, value, location, res = 300, ...){
+ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   slide <- x$slide$get_slide(x$cursor)
@@ -381,22 +421,24 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...){
 
   file <- tempfile(fileext = ".png")
 
-  dirname <- tempfile( )
-  dir.create( dirname )
-  filename <- paste( dirname, "/plot%03d.png" ,sep = "" )
+  dirname <- tempfile()
+  dir.create(dirname)
+  filename <- paste(dirname, "/plot%03d.png", sep = "")
   png(filename = filename, width = width, height = height, units = "in", res = res, ...)
 
-  tryCatch({
-    eval(value$code)
-  },
-  finally = {
-    dev.off()
-  } )
-  file = list.files( dirname , full.names = TRUE )
+  tryCatch(
+    {
+      eval(value$code)
+    },
+    finally = {
+      dev.off()
+    }
+  )
+  file <- list.files(dirname, full.names = TRUE)
   on.exit(unlink(dirname, recursive = TRUE, force = TRUE))
 
-  if( length( file ) > 1 ){
-    stop( length( file )," files have been produced. Multiple plot are not supported")
+  if (length(file) > 1) {
+    stop(length(file), " files have been produced. Multiple plot are not supported")
   }
 
   ext_img <- external_img(file, width = width, height = height)
@@ -439,8 +481,6 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
 
   value <- as_xml_document(xml_str)
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  slide$fortify_id()
-  process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
   x
 }
 
@@ -450,8 +490,7 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
 #' @export
 #' @describeIn ph_with add an \code{\link{fpar}} to a new shape
 #' on the current slide as a single paragraph in a \code{\link{block_list}}.
-ph_with.fpar <- function( x, value, location, ... ){
-
+ph_with.fpar <- function(x, value, location, ...) {
   ph_with.block_list(x, value = block_list(value), location = location)
 
   x
@@ -460,50 +499,51 @@ ph_with.fpar <- function( x, value, location, ... ){
 #' @export
 #' @describeIn ph_with add an \code{\link{empty_content}} to a new shape
 #' on the current slide.
-ph_with.empty_content <- function( x, value, location, ... ){
-
+ph_with.empty_content <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
-  new_ph <- sh_props_pml(left = location$left, top = location$top,
-                       width = location$width, height = location$height,
-                       label = location$ph_label, ph = location$ph,
-                       rot = location$rotation, bg = location$bg,
-                       ln = location$ln, geom = location$geom)
+  new_ph <- shape_properties_tags(
+    left = location$left, top = location$top,
+    width = location$width, height = location$height,
+    label = location$ph_label, ph = location$ph,
+    rot = location$rotation, bg = location$bg,
+    ln = location$ln, geom = location$geom
+  )
 
   if (is.na(location$fld_id)) {
-    xml_elt <- paste0( psp_ns_yes, new_ph, "</p:sp>" )
+    xml_elt <- paste0(psp_ns_yes, new_ph, "</p:sp>")
   } else {
     pars <- paste0("<a:p><a:fld id=\"", location$fld_id, "\" type = \"", location$fld_type, "\"><a:rPr/><a:t>", x$cursor, "</a:t></a:fld></a:p>", collapse = "")
-    xml_elt <- sprintf(paste0( psp_ns_yes, new_ph,
-                               "<p:txBody><a:bodyPr/><a:lstStyle/>",
-                               pars, "</p:txBody></p:sp>" ))
+    xml_elt <- sprintf(paste0(
+      psp_ns_yes, new_ph,
+      "<p:txBody><a:bodyPr/><a:lstStyle/>",
+      pars, "</p:txBody></p:sp>"
+    ))
   }
   node <- as_xml_document(xml_elt)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
-
-  slide$fortify_id()
   x
 }
 
 
 
-xml_to_slide <- function(slide, location, value, package_dir){
-  node <- xml_find_first( value, as_xpath_content_sel("//") )
-  if(xml_name(node) == "grpSp"){
+xml_to_slide <- function(slide, location, value, package_dir) {
+  node <- xml_find_first(value, as_xpath_content_sel("//"))
+  if (xml_name(node) == "grpSp") {
     node_sppr <- xml_child(node, "p:grpSpPr")
     node_xfrm <- xml_child(node, "p:grpSpPr/a:xfrm")
     node_name <- xml_child(node, "p:nvGrpSpPr/p:cNvPr")
-  } else if(xml_name(node) == "graphicFrame") {
+  } else if (xml_name(node) == "graphicFrame") {
     node_xfrm <- xml_child(node, "p:xfrm")
     node_name <- xml_child(node, "p:nvGraphicFramePr/p:cNvPr")
     node_sppr <- xml_missing()
-  } else if(xml_name(node) == "pic"){
+  } else if (xml_name(node) == "pic") {
     node_sppr <- xml_child(node, "p:spPr")
     node_xfrm <- xml_child(node, "p:spPr/a:xfrm")
     node_name <- xml_child(node, "p:nvPicPr/p:cNvPr")
-  } else if(xml_name(node) == "sp"){
+  } else if (xml_name(node) == "sp") {
     node_sppr <- xml_child(node, "p:spPr")
     node_xfrm <- xml_child(node, "p:spPr/a:xfrm")
     node_name <- xml_child(node, "p:nvSpPr/p:cNvPr")
@@ -514,35 +554,35 @@ xml_to_slide <- function(slide, location, value, package_dir){
   }
 
 
-  if( !inherits(node_name, "xml_missing") ){
-    xml_attr( node_name, "name") <- location$ph_label
+  if (!inherits(node_name, "xml_missing")) {
+    xml_attr(node_name, "name") <- location$ph_label
   }
 
-  if( !inherits(node_xfrm, "xml_missing") ){
+  if (!inherits(node_xfrm, "xml_missing")) {
     off <- xml_child(node_xfrm, "a:off")
     ext <- xml_child(node_xfrm, "a:ext")
     chOff <- xml_child(node_xfrm, "a:chOff")
     chExt <- xml_child(node_xfrm, "a:chExt")
-    xml_attr( off, "x") <- sprintf( "%.0f", location$left*914400 )
-    xml_attr( off, "y") <- sprintf( "%.0f", location$top*914400 )
-    xml_attr( ext, "cx") <- sprintf( "%.0f", location$width*914400 )
-    xml_attr( ext, "cy") <- sprintf( "%.0f", location$height*914400 )
-    xml_attr( chOff, "x") <- sprintf( "%.0f", location$left*914400 )
-    xml_attr( chOff, "y") <- sprintf( "%.0f", location$top*914400 )
-    xml_attr( chExt, "cx") <- sprintf( "%.0f", location$width*914400 )
-    xml_attr( chExt, "cy") <- sprintf( "%.0f", location$height*914400 )
+    xml_attr(off, "x") <- sprintf("%.0f", location$left * 914400)
+    xml_attr(off, "y") <- sprintf("%.0f", location$top * 914400)
+    xml_attr(ext, "cx") <- sprintf("%.0f", location$width * 914400)
+    xml_attr(ext, "cy") <- sprintf("%.0f", location$height * 914400)
+    xml_attr(chOff, "x") <- sprintf("%.0f", location$left * 914400)
+    xml_attr(chOff, "y") <- sprintf("%.0f", location$top * 914400)
+    xml_attr(chExt, "cx") <- sprintf("%.0f", location$width * 914400)
+    xml_attr(chExt, "cy") <- sprintf("%.0f", location$height * 914400)
 
     # add location$rotation to cNvPr:name
-    if( !is.null(location$rotation) &&
-        is.finite(location$rotation) &&
-        is.numeric(location$rotation) ) {
+    if (!is.null(location$rotation) &&
+      is.finite(location$rotation) &&
+      is.numeric(location$rotation)) {
       xml_attr(node_xfrm, "rot") <- sprintf("%.0f", -location$rotation * 60000)
     }
   }
 
-  if( !inherits(node_sppr, "xml_missing") ){
+  if (!inherits(node_sppr, "xml_missing")) {
     # add location$bg to SpPr
-    if( !is.null(location$bg) ) {
+    if (!is.null(location$bg)) {
       bg_str <- solid_fill_pml(location$bg)
       xml_add_child(node_sppr, as_xml_document(bg_str))
     }
@@ -553,7 +593,7 @@ xml_to_slide <- function(slide, location, value, package_dir){
 #' @export
 #' @describeIn ph_with add an xml_document object to a new shape on the
 #' current slide. This function is to be used to add custom openxml code.
-ph_with.xml_document <- function( x, value, location, ... ){
+ph_with.xml_document <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
@@ -561,8 +601,5 @@ ph_with.xml_document <- function( x, value, location, ... ){
   xml_to_slide(slide, location, value, x$package_dir)
 
   xml_add_child(xml_find_first(slide$get(), "//p:spTree"), value)
-  process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
-
-  slide$fortify_id()
   x
 }

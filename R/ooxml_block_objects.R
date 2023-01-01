@@ -1057,6 +1057,13 @@ to_wml.block_list <- function(x, add_ns = FALSE, ...) {
 }
 
 #' @export
+to_pml.block_list <- function(x, add_ns = FALSE, ...) {
+  pars <- sapply(x, to_pml)
+  pars <- paste0(pars, collapse = "")
+  pars
+}
+
+#' @export
 to_html.block_list <- function(x, add_ns = FALSE, ...) {
   str <- vapply(x, to_html, NA_character_)
   paste0(str, collapse = "")

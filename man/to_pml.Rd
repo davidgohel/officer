@@ -23,6 +23,7 @@ Other functions for officer extensions:
 \code{\link{fortify_location}()},
 \code{\link{get_reference_value}()},
 \code{\link{opts_current_table}()},
+\code{\link{shape_properties_tags}()},
 \code{\link{to_html}()},
 \code{\link{to_wml}()},
 \code{\link{wml_link_images}()}

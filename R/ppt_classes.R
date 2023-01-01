@@ -225,12 +225,6 @@ slide <- R6Class(
       private$element_data <- xfrm_ref[xfrm_ref$file == private$layout_file,]
       self
     },
-    fortify_id = function(){
-      cnvpr <- xml_find_all(private$doc, "//p:cNvPr")
-      for(i in seq_along(cnvpr))
-        xml_attr( cnvpr[[i]], "id") <- i
-      self
-    },
     reference_img = function(src, dir_name){
       src <- unique( src )
       private$rels_doc$add_img(src, root_target = "../media")
@@ -262,7 +256,6 @@ slide <- R6Class(
                              type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
                              target = href, target_mode = "External" )
       }
-      # <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slide3.xml"/>
       self
     },
 

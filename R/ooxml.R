@@ -36,27 +36,6 @@ runs_to_p_wml <- function(..., add_ns = FALSE, style_id = NULL){
   out
 }
 
-sh_props_pml <- function( left = 0, top = 0, width = 3, height = 3,
-                          bg = "transparent", rot = 0, label = "", ph = "<p:ph/>",
-                          ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"), geom = NULL) {
-
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
-
-  bg_str <- solid_fill_pml(bg)
-  ln_str <- ln_pml(ln)
-  geom_str <- prst_geom_pml(geom)
-
-  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
-  if( is.null(ph) || is.na(ph)){
-    ph = "<p:ph/>"
-  }
-
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
-
-  sprintf(str, label, ph, xfrm_str, geom_str, bg_str, ln_str)
-
-}
 
 a_xfrm_str <- function( left = 0, top = 0, width = 3, height = 3, rot = 0){
 
