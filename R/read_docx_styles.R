@@ -156,8 +156,8 @@ read_docx_styles <- function(package_dir) {
   main <- data.frame(stringsAsFactors = FALSE,
     style_type = xml_attr(all_styles, "type"),
     style_id = xml_attr(all_styles, "styleId"),
-    style_name = xml_attr(xml_child(all_styles, "w:name"), "w:val"),
-    base_on = xml_attr(xml_child(all_styles, "w:basedOn"), "w:val"),
+    style_name = xml_attr(xml_child(all_styles, "w:name"), "val"),
+    base_on = xml_attr(xml_child(all_styles, "w:basedOn"), "val"),
     is_custom = xml_attr(all_styles, "customStyle") %in% "1",
     is_default = xml_attr(all_styles, "default") %in% "1"
   )
