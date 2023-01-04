@@ -2,14 +2,18 @@ docx_settings <- function(zoom = 1,
                           default_tab_stop = .5,
                           hyphenation_zone = .25,
                           decimal_symbol = ".",
-                          list_separator = ";") {
+                          list_separator = ";",
+                          compatibility_mode = "15",
+                          even_and_odd_headers = FALSE
+                          ) {
   x <- list(
     zoom = zoom,
     default_tab_stop = default_tab_stop,
     hyphenation_zone = hyphenation_zone,
     decimal_symbol = decimal_symbol,
     list_separator = list_separator,
-    even_and_odd_headers = FALSE
+    even_and_odd_headers = even_and_odd_headers,
+    compatibility_mode = compatibility_mode
   )
   class(x) <- "docx_settings"
   x
@@ -22,6 +26,8 @@ update.docx_settings <- function(object,
                                  hyphenation_zone = NULL,
                                  decimal_symbol = NULL,
                                  list_separator = NULL,
+                                 compatibility_mode = NULL,
+                                 even_and_odd_headers = NULL,
                                  file = NULL,
                                  ...) {
   if (!is.null(zoom)) {
@@ -38,6 +44,12 @@ update.docx_settings <- function(object,
   }
   if (!is.null(list_separator)) {
     object$list_separator <- list_separator
+  }
+  if (!is.null(compatibility_mode)) {
+    object$compatibility_mode <- compatibility_mode
+  }
+  if (!is.null(even_and_odd_headers)) {
+    object$even_and_odd_headers <- even_and_odd_headers
   }
   if (!is.null(file) && file.exists(file)) {
     node_doc <- read_xml(file)
@@ -77,6 +89,7 @@ to_wml.docx_settings <- function(x, add_ns = FALSE, ...) {
     sprintf("<w:zoom w:percent=\"%.0f\"/>", x$zoom * 100),
     sprintf("<w:defaultTabStop w:val=\"%.0f\"/>", x$default_tab_stop * 1440),
     sprintf("<w:hyphenationZone w:val=\"%.0f\"/>", x$hyphenation_zone * 1440),
+    sprintf("<w:compat><w:compatSetting w:name=\"compatibilityMode\" w:uri=\"http://schemas.microsoft.com/office/word\" w:val=\"%s\"/></w:compat>", x$compatibility_mode),
     sprintf("<w:decimalSymbol w:val=\"%s\"/>", x$decimal_symbol),
     sprintf("<w:listSeparator w:val=\"%s\"/>", x$list_separator),
     if (x$even_and_odd_headers) "<w:evenAndOddHeaders/>",

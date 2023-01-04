@@ -9,6 +9,7 @@ The previous behavior "don't trigger an error if a bookmark is missing"
 is back. 
 - force Word default continuous section if no type is specified and first 
 page footer/header if it is seen.
+- drop "Compatibility Mode" from Word documents.
 
 ## Changes
 
