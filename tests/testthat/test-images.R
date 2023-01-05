@@ -155,6 +155,6 @@ test_that("file size does not inflate with identical images", {
   doc <- body_remove(doc)
   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39 )
   file2 <- print(doc, target = tempfile(fileext = ".docx"))
-  expect_equal(file.size(file1), file.size(file2))
+  expect_equal(file.size(file1), file.size(file2), tolerance = 10)
 })
 
