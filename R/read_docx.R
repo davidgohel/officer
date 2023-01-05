@@ -144,7 +144,7 @@ print.rdocx <- function(x, target = NULL, ...){
     names(style_sample) <- style_names$style_name
     print(style_sample)
 
-    if (length(read_docx()) > 1) {
+    if (length(x) > 1) {
       cursor_elt <- docx_current_block_xml(x)
       cat("\n* Content at cursor location:\n")
       print(node_content(cursor_elt, x))
