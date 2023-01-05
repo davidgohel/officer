@@ -7,6 +7,12 @@
     <loc>/CONDUCT.html</loc>
   </url>
   <url>
+    <loc>/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -347,6 +353,9 @@
   </url>
   <url>
     <loc>/reference/set_notes.html</loc>
+  </url>
+  <url>
+    <loc>/reference/shape_properties_tags.html</loc>
   </url>
   <url>
     <loc>/reference/sheet_select.html</loc>

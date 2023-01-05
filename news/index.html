@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">officer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1</span>
       </span>
     </div>
 
@@ -48,7 +48,28 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.5.0" id="officer-050">officer 0.5.0<a class="anchor" aria-label="anchor" href="#officer-050"></a></h2>
+<h2 class="page-header" data-toc-text="0.5.1" id="officer-051">officer 0.5.1<a class="anchor" aria-label="anchor" href="#officer-051"></a></h2>
+<div class="section level3">
+<h3 id="issues-0-5-1">Issues<a class="anchor" aria-label="anchor" href="#issues-0-5-1"></a></h3>
+<ul><li>manage also even/first/default sections not defined with officer (indicate there is even/first/default parts).</li>
+<li>fix behavior regression with headers and footers replace_text_at_bkm. The previous behavior “don’t trigger an error if a bookmark is missing” is back.</li>
+<li>force Word default continuous section if no type is specified and first page footer/header if it is seen.</li>
+<li>drop “Compatibility Mode” from Word documents.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-5-1">Changes<a class="anchor" aria-label="anchor" href="#changes-0-5-1"></a></h3>
+<ul><li>Change license to MIT.</li>
+<li>drop internal <code>get_at_cursor()</code>
+</li>
+<li>use images sha1 value for filename with package ‘openssl’. This should fix issues with duplicated images basenames, or non utf names, etc.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="features-0-5-1">Features<a class="anchor" aria-label="anchor" href="#features-0-5-1"></a></h3>
+<ul><li>export <code><a href="../reference/shape_properties_tags.html">shape_properties_tags()</a></code> for pptx extentions.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.0" id="officer-050">officer 0.5.0<small>2022-12-20</small><a class="anchor" aria-label="anchor" href="#officer-050"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
 <ul><li>new function <code><a href="../reference/docx_set_character_style.html">docx_set_character_style()</a></code> to add or replace a Word character style.</li>
@@ -595,7 +616,7 @@
 
 
       <footer><link href="../ardata.css" rel="stylesheet"><div class="author">
-  <p>Version 0.5.0 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.5.1 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
