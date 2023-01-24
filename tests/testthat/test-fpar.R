@@ -1,9 +1,15 @@
+source("utils.R")
+
 get_wml_node <- function(x){
   xml_ <- to_wml(x)
   read_xml( wml_str(xml_) )
 }
+get_pml_node <- function(x){
+  xml_ <- pml_str(to_pml(x))
+  read_xml( xml_ )
+}
 
-test_that("fpar", {
+test_that("fpar content", {
   fp <- fpar(
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
@@ -18,7 +24,7 @@ test_that("fpar", {
 })
 
 
-test_that("wml", {
+test_that("fpar wml", {
   fp <- fpar(
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
@@ -55,12 +61,9 @@ test_that("wml", {
   expect_equal(bold, c(FALSE, FALSE, TRUE) )
 })
 
-get_pml_node <- function(x){
-  xml_ <- pml_str(to_pml(x))
-  read_xml( xml_ )
-}
 
-test_that("pml", {
+
+test_that("fpar pml", {
   fp <- fpar(
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
@@ -83,7 +86,7 @@ test_that("pml", {
 
 
 
-test_that("css", {
+test_that("fpar css", {
   fp <- fpar(
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
@@ -111,3 +114,4 @@ test_that("css", {
   val <- has_css_attr(val, atname = "text-align", value = "center")
   expect_true(val)
 })
+

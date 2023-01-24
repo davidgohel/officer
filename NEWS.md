@@ -1,3 +1,9 @@
+# officer 0.5.2
+
+## Issues
+
+- check arguments of `run_autonum()` and add tests.
+
 # officer 0.5.1
 
 ## Issues

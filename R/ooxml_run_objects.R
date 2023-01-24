@@ -266,7 +266,14 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
                         tnd = 0, tns = "-") {
   bkm <- check_bookmark_id(bkm)
 
-  stopifnot(inherits(prop, "fp_text") || is.null(prop))
+  stopifnot(!is.null(tnd),
+            !is.null(tns),
+            is.numeric(tnd),
+            sign(tnd)>-1,
+            is.character(tns),
+            is.null(start_at) || is.numeric(start_at),
+            inherits(prop, "fp_text") || is.null(prop)
+            )
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,
