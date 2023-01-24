@@ -3,6 +3,7 @@
 ## Issues
 
 - check arguments of `run_autonum()` and add tests.
+- update only officer sections
 
 # officer 0.5.1
 

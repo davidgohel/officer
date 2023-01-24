@@ -827,7 +827,7 @@ prop_section <- function(page_size = NULL, page_margins = NULL,
 to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 
   paste0(
-    "<w:sectPr",
+    "<w:sectPr w:officer=\"true\"",
     if (add_ns) " xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"",
     ">",
     if(!is.null(x$header_default)) {

@@ -266,28 +266,35 @@ officer_section_fortify <- function(node, x) {
     if (!inherits(xml_child(headers[[i]], "w:hdr"), "xml_missing")) {
       hof_spread_to_file(node = headers[[i]], x = x, type = "header")
     }
-    if (xml_attr(headers[[i]], "type") %in% "first" && inherits(xml_child(node, "w:titlePg"), "xml_missing")) {
+    if (xml_attr(headers[[i]], "type") %in% "first" &&
+        inherits(xml_child(node, "w:titlePg"), "xml_missing") &&
+        "true" %in% xml_attr(node, "officer")) {
       xml_add_child(node, as_xml_document(title_page_tag))
     }
-    if (xml_attr(headers[[i]], "type") %in% "even") {
+    if (xml_attr(headers[[i]], "type") %in% "even" &&
+        "true" %in% xml_attr(node, "officer")) {
       x$settings$even_and_odd_headers <- TRUE
     }
   }
 
   footers <- Filter(function(x) {
     xml_name(x) %in% "footerReference"
-  }, xml2::xml_children(node))
+  }, xml_children(node))
   for (i in seq_along(footers)) {
     if (!inherits(xml_child(footers[[i]], "w:ftr"), "xml_missing")) {
       hof_spread_to_file(node = footers[[i]], x = x, type = "footer")
     }
-    if (xml_attr(footers[[i]], "type") %in% "first" && inherits(xml_child(node, "w:titlePg"), "xml_missing")) {
+    if (xml_attr(footers[[i]], "type") %in% "first" &&
+        inherits(xml_child(node, "w:titlePg"), "xml_missing") &&
+        "true" %in% xml_attr(node, "officer")) {
       xml_add_child(node, as_xml_document(title_page_tag))
     }
-    if (xml_attr(footers[[i]], "type") %in% "even") {
+    if (xml_attr(footers[[i]], "type") %in% "even" &&
+        "true" %in% xml_attr(node, "officer")) {
       x$settings$even_and_odd_headers <- TRUE
     }
   }
+  xml_set_attr(node, "w:officer", NULL)
   x
 }
 
