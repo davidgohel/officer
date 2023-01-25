@@ -2,9 +2,14 @@
 
 ## Issues
 
+- fix `body_add()` content order.
 - fix issue with properties in 'Office' documents.
 - check arguments of `run_autonum()` and add tests.
 - update only officer sections
+
+## Internals
+
+- remove `$get_at_cursor()`
 
 # officer 0.5.1
 

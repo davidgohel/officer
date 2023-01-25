@@ -439,10 +439,19 @@ body_add_xml <- function(x, str, pos = c("after", "before", "on")){
 }
 
 body_add_xml2 <- function(x, str){
+  x <- cursor_end(x)
   xml_elt <- as_xml_document(str)
-  last_elt <- xml_find_first(x$doc_obj$get(), "w:body/*[last()]")
-  xml_add_sibling(last_elt, xml_elt, .where = "before")
-  cursor_end(x)
+  cursor_elt <- docx_current_block_xml(x)
+  if (is.null(cursor_elt)) {
+    xml_add_child(xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
+                  xml_elt, .where = 0)
+    x$officer_cursor <- cursor_append(x$officer_cursor, xml_name(xml_elt))
+  } else {
+    xml_add_sibling(cursor_elt, xml_elt, .where = "after")
+    x$officer_cursor <- cursor_append(x$officer_cursor, xml_name(cursor_elt))
+  }
+
+  x
 }
 
 #' @export

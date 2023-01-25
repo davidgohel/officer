@@ -194,7 +194,6 @@ test_that("add docx into docx", {
 
 
 unlink("*.docx")
-unlink("*.emf")
 
 img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 fpt_blue_bold <- fp_text(color = "#006699", bold = TRUE)
