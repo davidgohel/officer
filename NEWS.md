@@ -2,6 +2,7 @@
 
 ## Issues
 
+- fix issue with properties in 'Office' documents.
 - check arguments of `run_autonum()` and add tests.
 - update only officer sections
 

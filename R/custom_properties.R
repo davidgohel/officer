@@ -9,17 +9,27 @@ read_custom_properties <- function(package_dir) {
 
   pid_values <- vapply(all_children, xml_attr, NA_character_, "pid")
   name_values <- vapply(all_children, xml_attr, NA_character_, "name")
+  properties_types <- vapply(all_children, function(x) {
+    xml_name(xml_child(x, 1))
+  }, NA_character_)
+
+  # this complicated thing is there because some unidentifed
+  # softwares fill this fields with invalid xml - so we have
+  # to consider it will not be correctly rewritten and will
+  # make an invalid document
   value_values <- vapply(all_children, function(x) {
     as.character(xml_child(x, 1))
   }, NA_character_)
-  value_values <- gsub("<vt:lpwstr/>", "", value_values, fixed = TRUE)
-  value_values <- gsub("<vt:lpwstr>", "", value_values, fixed = TRUE)
-  value_values <- gsub("</vt:lpwstr>", "", value_values, fixed = TRUE)
-  str <- c(pid_values, name_values, value_values)
-
+  pat1 <- sprintf("<vt\\:(%s)/>", paste0(properties_types, collapse = "|"))
+  pat2 <- sprintf("<vt\\:(%s)>", paste0(properties_types, collapse = "|"))
+  pat3 <- sprintf("</vt\\:(%s)>", paste0(properties_types, collapse = "|"))
+  value_values <- gsub(pat1, "", value_values)
+  value_values <- gsub(pat2, "", value_values)
+  value_values <- gsub(pat3, "", value_values)
+  str <- c(pid_values, name_values, properties_types, value_values)
   z <- matrix(str,
-    ncol = 3,
-    dimnames = list(NULL, c("pid", "name", "value"))
+    ncol = 4,
+    dimnames = list(NULL, c("pid", "name", "type", "value"))
   )
   z <- list(data = z)
   class(z) <- "custom_properties"
@@ -33,7 +43,7 @@ read_custom_properties <- function(package_dir) {
     } else {
       pid <- max(as.integer(x$data[, "pid"])) + 1L
     }
-    new <- matrix(c(as.character(pid), i, value), ncol = 3)
+    new <- matrix(c(as.character(pid), i, "lpwstr", value), ncol = 4)
     x$data <- rbind(x$data, new)
   } else {
     x$data[x$data[, "name"] %in% i, j] <- value
@@ -53,9 +63,11 @@ read_custom_properties <- function(package_dir) {
 
 write_custom_properties <- function(custom_props, package_dir) {
   xml_props <- sprintf(
-    "<property fmtid=\"{D5CDD505-2E9C-101B-9397-08002B2CF9AE}\" pid=\"%s\" name=\"%s\"><vt:lpwstr>%s</vt:lpwstr></property>",
+    "<property fmtid=\"{D5CDD505-2E9C-101B-9397-08002B2CF9AE}\" pid=\"%s\" name=\"%s\"><vt:%s>%s</vt:%s></property>",
     custom_props$data[, 1],
     custom_props$data[, 2],
+    custom_props$data[, 3],
+    custom_props$data[, 4],
     custom_props$data[, 3]
   )
 
