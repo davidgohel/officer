@@ -891,8 +891,15 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' images in a PowerPoint form). With a Word document, the image will be
 #' added inside a paragraph.
 #' @param src image file path
-#' @param width height in inches.
-#' @param height height in inches
+#' @param width,height size of the image file. It can be ignored
+#' if parameter `guess_size=TRUE`, see parameter `guess_size`.
+#' @param guess_size If package 'magick' is installed, this option
+#' can be used (set it to `TRUE` and don't provide values for paramters
+#' `width` and `height`). When the flextable will be printed,
+#' the images will be read and width and height will be guessed. This
+#' should be avoid if possible as it can be an extensive task when
+#' several images.
+#' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param alt alternative text for images
 #' @inheritSection ftext usage
 #' @examples
@@ -918,11 +925,33 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' print(x, target = tempfile(fileext = ".docx"))
 #' @seealso [ph_with], [body_add], [fpar]
 #' @family run functions for reporting
-external_img <- function(src, width = .5, height = .2, alt = "") {
+external_img <- function(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, alt = "") {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))
   if( !check_src ){
     stop("src must be a string starting with 'rId' or an existing image filename")
+  }
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
+
+  if( length(src) > 1 ){
+    if( length(width) == 1 ) width <- rep(width, length(src))
+    if( length(height) == 1 ) height <- rep(height, length(src))
+  }
+
+  if (guess_size && (is.null(width) || is.null(height))) {
+    if (!requireNamespace("magick", quietly = TRUE)) {
+      stop("package magick is required when using `guess_size` option.")
+    }
+    sizes <- lapply(src, function(x) {
+      z <- magick::image_read(x)
+      z <- magick::image_data(z)
+      attr(z, "dim")[-1]
+    })
+    sizes <- do.call(rbind, sizes)
+    width <- sizes[,1] / 72
+    height <- sizes[,2] / 72
   }
 
   class(src) <- c("external_img", "cot", "run")

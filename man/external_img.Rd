@@ -4,14 +4,29 @@
 \alias{external_img}
 \title{External image}
 \usage{
-external_img(src, width = 0.5, height = 0.2, alt = "")
+external_img(
+  src,
+  width = NULL,
+  height = NULL,
+  unit = "in",
+  guess_size = TRUE,
+  alt = ""
+)
 }
 \arguments{
 \item{src}{image file path}
 
-\item{width}{height in inches.}
+\item{width, height}{size of the image file. It can be ignored
+if parameter \code{guess_size=TRUE}, see parameter \code{guess_size}.}
 
-\item{height}{height in inches}
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
+
+\item{guess_size}{If package 'magick' is installed, this option
+can be used (set it to \code{TRUE} and don't provide values for paramters
+\code{width} and \code{height}). When the flextable will be printed,
+the images will be read and width and height will be guessed. This
+should be avoid if possible as it can be an extensive task when
+several images.}
 
 \item{alt}{alternative text for images}
 }

@@ -304,3 +304,19 @@ htmlEscapeCopy <- local({
     return(text)
   }
 })
+
+
+# metric units -----
+cm_to_inches <- function(x) {
+  x / 2.54
+}
+mm_to_inches <- function(x) {
+  x / 25.4
+}
+convin <- function(unit, x) {
+  unit <- match.arg(unit, choices = c("in", "cm", "mm"), several.ok = FALSE)
+  if (!identical("in", unit)) {
+    x <- do.call(paste0(unit, "_to_inches"), list(x = x))
+  }
+  x
+}

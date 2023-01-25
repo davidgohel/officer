@@ -210,8 +210,8 @@ test_that("img dims in pptx", {
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)
-  expect_equal(sm$cx, 0.5)
-  expect_equal(sm$cy, .2)
+  expect_equal(sm$cx, 1.39, tolerance = .01)
+  expect_equal(sm$cy, 1.06, tolerance = .01)
   expect_equal(sm$offx, 1)
   expect_equal(sm$offy, 1)
 })

@@ -7,6 +7,7 @@ openxml_document <- R6Class(
 
     initialize = function( dir ) {
       private$reldir = dir
+      private$rels_doc <- relationship$new()
     },
 
     feed = function( file ) {

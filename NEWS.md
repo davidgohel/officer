@@ -1,7 +1,14 @@
 # officer 0.5.2
 
+## Features
+
+- if magick is available, image size will be read and
+do not need to be provided.
+
+
 ## Issues
 
+- fix images and links in sections headers and footer.
 - fix `body_add()` content order.
 - fix issue with properties in 'Office' documents.
 - check arguments of `run_autonum()` and add tests.

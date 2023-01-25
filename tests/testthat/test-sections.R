@@ -1,6 +1,7 @@
 txt_lorem <- "Tellus nunc facilisis, quam tempor tempor. Purus lectus eros metus turpis mattis platea praesent sed. Sed ac, interdum tincidunt auctor mi tempor a pulvinar ut massa. Accumsan id fusce at platea! Magna tincidunt parturient ultricies netus vestibulum libero ex ornare in molestie, risus. Tempor nibh mollis pharetra vitae mauris nec cum et curabitur, lorem quam semper, lectus. Rutrum in in at eu non, diam. Eu fermentum ac donec eleifend. Condimentum neque etiam sit euismod mollis sollicitudin dictumst."
+img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
 
-value_first <- block_list(fpar(ftext("hello first")))
+value_first <- block_list(fpar(ftext("hello first "), external_img(src = img.file, height = 1.06/2, width = 1.39/2)))
 value_even <- block_list(fpar(ftext("hello even")))
 value_default <- block_list(fpar(ftext("hello default")))
 footer_first <- block_list(fpar(ftext("bye first")))
@@ -45,6 +46,9 @@ test_that("add header and footer in docx", {
     expect_length(nodes_def_sectpr, 2)
     nodes_def_sectpr <- xml_find_all(docx_body_xml(x), "//w:body/w:sectPr/w:footerReference")
     expect_length(nodes_def_sectpr, 2)
+
+    first_str <- readLines(file.path(x$package_dir, "word/_rels/header5.xml.rels"))
+    expect_true(any(grepl("\\.jpg", first_str)))
   }
 })
 

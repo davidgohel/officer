@@ -169,3 +169,25 @@ process_links <- function(doc_obj, type = "wml") {
     xml_attr(which_to_add[which_match_id], "r:id") <- rep(rid, sum(which_match_id))
   }
 }
+
+update_hf_list <- function(part_list = list(), type = "header", package_dir) {
+
+  files <- list.files(
+    path = file.path(package_dir, "word"),
+    pattern = sprintf("^%s[0-9]*.xml$", type))
+  files <- files[!basename(files) %in% names(part_list)]
+  if (type %in% "header") {
+    cursor <- "/w:hdr/*[1]"
+    body_xpath <- "/w:hdr"
+  } else {
+    cursor <- "/w:ftr/*[1]"
+    body_xpath <- "/w:ftr"
+  }
+
+  new_list <- lapply(files, function(x){
+    docx_part$new(path = package_dir, main_file = x, cursor = cursor, body_xpath = body_xpath)
+  })
+  names(new_list) <- basename(files)
+  append(part_list, new_list)
+}
+

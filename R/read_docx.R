@@ -50,24 +50,26 @@
 #' \if{html}{\figure{read_docx_doc_1.png}{options: width=80\%}}
 #'
 #' \if{html}{\figure{read_docx_doc_2.png}{options: width=80\%}}
-read_docx <- function( path = NULL ){
-
-  if( !is.null(path) && !file.exists(path))
+read_docx <- function(path = NULL) {
+  if (!is.null(path) && !file.exists(path)) {
     stop("could not find file ", shQuote(path), call. = FALSE)
+  }
 
-  if( is.null(path) )
+  if (is.null(path)) {
     path <- system.file(package = "officer", "template/template.docx")
+  }
 
-  if(!grepl("\\.(docx|dotx)$", path, ignore.case = TRUE)){
+  if (!grepl("\\.(docx|dotx)$", path, ignore.case = TRUE)) {
     stop("read_docx only support docx files", call. = FALSE)
   }
 
   package_dir <- tempfile()
-  unpack_folder( file = path, folder = package_dir )
+  unpack_folder(file = path, folder = package_dir)
 
   obj <- structure(list(package_dir = package_dir),
-                   .Names = c("package_dir"),
-                   class = "rdocx")
+    .Names = c("package_dir"),
+    class = "rdocx"
+  )
 
   obj$settings <- update(
     object = docx_settings(),
@@ -79,46 +81,36 @@ read_docx <- function( path = NULL ){
 
   obj$doc_properties_custom <- read_custom_properties(package_dir)
   obj$doc_properties <- read_core_properties(package_dir)
-  obj$content_type <- content_type$new( package_dir )
+  obj$content_type <- content_type$new(package_dir)
   obj$doc_obj <- docx_part$new(package_dir,
-                               main_file = "document.xml",
-                               cursor = "/w:document/w:body/*[1]",
-                               body_xpath = "/w:document/w:body")
+    main_file = "document.xml",
+    cursor = "/w:document/w:body/*[1]",
+    body_xpath = "/w:document/w:body"
+  )
   obj$styles <- read_docx_styles(package_dir)
   obj$officer_cursor <- officer_cursor(obj$doc_obj$get())
 
-  header_files <- list.files(file.path(package_dir, "word"),
-                             pattern = "^header[0-9]*.xml$")
-  headers <- lapply(header_files, function(x){
-    docx_part$new(path = package_dir, main_file = x, cursor = "/w:hdr/*[1]", body_xpath = "/w:hdr")
-  })
-  names(headers) <- header_files
-  obj$headers <- headers
+  obj$headers <- update_hf_list(part_list = list(), type = "header", package_dir = package_dir)
+  obj$footers <- update_hf_list(part_list = list(), type = "footer", package_dir = package_dir)
 
-  footer_files <- list.files(file.path(package_dir, "word"),
-                             pattern = "^footer[0-9]*.xml$")
-  footers <- lapply(footer_files, function(x){
-    docx_part$new(path = package_dir, main_file = x, cursor = "/w:ftr/*[1]", body_xpath = "/w:ftr")
-  })
-  names(footers) <- footer_files
-  obj$footers <- footers
-
-  if( !file.exists(file.path(package_dir, "word", "footnotes.xml")) ){
-    file.copy(system.file(package = "officer", "template", "footnotes.xml"),
-              file.path(package_dir, "word", "footnotes.xml")
-              )
+  if (!file.exists(file.path(package_dir, "word", "footnotes.xml"))) {
+    file.copy(
+      system.file(package = "officer", "template", "footnotes.xml"),
+      file.path(package_dir, "word", "footnotes.xml")
+    )
     obj$content_type$add_override(
-      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml", "/word/footnotes.xml" )
+      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml", "/word/footnotes.xml")
     )
   }
 
   obj$footnotes <- docx_part$new(
-    package_dir, main_file = "footnotes.xml",
+    package_dir,
+    main_file = "footnotes.xml",
     cursor = "/w:footnotes/*[last()]", body_xpath = "/w:footnotes"
   )
 
-  default_refs <- obj$styles[obj$styles$is_default,]
-  obj$default_styles <- setNames( as.list(default_refs$style_name), default_refs$style_type )
+  default_refs <- obj$styles[obj$styles$is_default, ]
+  obj$default_styles <- setNames(as.list(default_refs$style_name), default_refs$style_type)
 
   last_sect <- xml_find_first(obj$doc_obj$get(), "/w:document/w:body/w:sectPr[last()]")
   obj$sect_dim <- section_dimensions(last_sect)
@@ -133,9 +125,8 @@ read_docx <- function( path = NULL ){
 #' @param x an rdocx object
 #' @param target path to the docx file to write
 #' @param ... unused
-print.rdocx <- function(x, target = NULL, ...){
-
-  if( is.null( target) ){
+print.rdocx <- function(x, target = NULL, ...) {
+  if (is.null(target)) {
     cat("rdocx document with", length(x), "element(s)\n")
     cat("\n* styles:\n")
 
@@ -154,24 +145,36 @@ print.rdocx <- function(x, target = NULL, ...){
     return(invisible())
   }
 
-  if( !grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE) )
-    stop(target , " should have '.docx' extension.")
+  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
+    stop(target, " should have '.docx' extension.")
+  }
 
-  if(is_windows() && is_office_doc_edited(target))
-    stop(target , " is already edited.",
-         " You must close the document in order to be able to write the file.")
+  if (is_windows() && is_office_doc_edited(target)) {
+    stop(
+      target, " is already edited.",
+      " You must close the document in order to be able to write the file."
+    )
+  }
+
+  x <- process_sections(x)
 
   process_footnotes(x)
-
   process_links(x$doc_obj, type = "wml")
-  for(header in x$headers) process_links(header, type = "wml")
-  for(footer in x$footers) process_links(footer, type = "wml")
-  process_docx_poured(x$doc_obj, x$doc_obj$relationship(), x$content_type,
-                      x$package_dir)
+  process_docx_poured(
+    doc_obj = x$doc_obj,
+    relationships = x$doc_obj$relationship(),
+    content_type = x$content_type,
+    package_dir = x$package_dir
+  )
   process_images(x$doc_obj, x$doc_obj$relationship(), x$package_dir)
   process_images(x$footnotes, x$footnotes$relationship(), x$package_dir)
-  for(header in x$headers) process_images(header, header$relationship(), x$package_dir)
-  for(footer in x$footers) process_images(footer, footer$relationship(), x$package_dir)
+
+  x$headers <- update_hf_list(part_list = x$headers, type = "header", package_dir = x$package_dir)
+  x$footers <- update_hf_list(part_list = x$footers, type = "footer", package_dir = x$package_dir)
+  for (header in x$headers) process_links(header, type = "wml")
+  for (footer in x$footers) process_links(footer, type = "wml")
+  for (header in x$headers) process_images(header, header$relationship(), x$package_dir)
+  for (footer in x$footers) process_images(footer, footer$relationship(), x$package_dir)
 
   int_id <- 1 # unique id identifier
 
@@ -180,32 +183,31 @@ print.rdocx <- function(x, target = NULL, ...){
   # make all id unique for footnote
   int_id <- correct_id(x$footnotes$get(), int_id)
   # make all id unique for headers
-  for(docpart in x[["headers"]]){
+  for (docpart in x[["headers"]]) {
     int_id <- correct_id(docpart$get(), int_id)
   }
   # make all id unique for footers
-  for(docpart in x[["footers"]]){
+  for (docpart in x[["footers"]]) {
     int_id <- correct_id(docpart$get(), int_id)
   }
 
   body <- xml_find_first(x$doc_obj$get(), "w:body")
 
   # If body is not ending with an sectPr, create a continuous one append it
-  if( !xml_name(xml_child(body, search = xml_length(body))) %in% "sectPr" ){
-    str <- paste0( "<w:sectPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\">",
-                   "<w:type w:val=\"continuous\"/></w:sectPr>")
-    xml_add_child( body, as_xml_document(str) )
+  if (!xml_name(xml_child(body, search = xml_length(body))) %in% "sectPr") {
+    str <- paste0(
+      "<w:sectPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\">",
+      "<w:type w:val=\"continuous\"/></w:sectPr>"
+    )
+    xml_add_child(body, as_xml_document(str))
   }
 
-  for(header in x$headers){
+  for (header in x$headers) {
     header$save()
   }
-
-  for(footer in x$footers){
+  for (footer in x$footers) {
     footer$save()
   }
-
-  x <- process_sections(x)
   x$doc_obj$save()
   x$content_type$save()
   x$footnotes$save()
@@ -214,15 +216,15 @@ print.rdocx <- function(x, target = NULL, ...){
   write_docx_settings(x)
 
   # save doc properties
-  if(nrow(x$doc_properties$data) >0 ){
-    x$doc_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-    x$doc_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
+  if (nrow(x$doc_properties$data) > 0) {
+    x$doc_properties["modified", "value"] <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+    x$doc_properties["lastModifiedBy", "value"] <- Sys.getenv("USER")
     write_core_properties(x$doc_properties, x$package_dir)
   }
-  if(nrow(x$doc_properties_custom$data) >0 ){
+  if (nrow(x$doc_properties_custom$data) > 0) {
     write_custom_properties(x$doc_properties_custom, x$package_dir)
   }
-  invisible(pack_folder(folder = x$package_dir, target = target ))
+  invisible(pack_folder(folder = x$package_dir, target = target))
 }
 
 
