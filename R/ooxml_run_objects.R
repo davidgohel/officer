@@ -678,8 +678,6 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 #'
 #' A Section properties object stores information about page composition,
 #' such as page size, page orientation, borders and margins.
-#' @note
-#' There is no support yet for header and footer contents definition.
 #' @param page_size page dimensions, an object generated with function [page_size].
 #' @param page_margins page margins, an object generated with function [page_mar].
 #' @param type Section type. It defines how the contents of the section will be
@@ -894,11 +892,8 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' @param width,height size of the image file. It can be ignored
 #' if parameter `guess_size=TRUE`, see parameter `guess_size`.
 #' @param guess_size If package 'magick' is installed, this option
-#' can be used (set it to `TRUE` and don't provide values for paramters
-#' `width` and `height`). When the flextable will be printed,
-#' the images will be read and width and height will be guessed. This
-#' should be avoid if possible as it can be an extensive task when
-#' several images.
+#' can be used (set it to `TRUE`). The images will be read and
+#' width and height will be guessed.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param alt alternative text for images
 #' @inheritSection ftext usage
@@ -925,7 +920,7 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' print(x, target = tempfile(fileext = ".docx"))
 #' @seealso [ph_with], [body_add], [fpar]
 #' @family run functions for reporting
-external_img <- function(src, width = NULL, height = NULL, unit = "in", guess_size = TRUE, alt = "") {
+external_img <- function(src, width = .5, height = .2, unit = "in", guess_size = FALSE, alt = "") {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))
   if( !check_src ){
@@ -940,7 +935,7 @@ external_img <- function(src, width = NULL, height = NULL, unit = "in", guess_si
     if( length(height) == 1 ) height <- rep(height, length(src))
   }
 
-  if (guess_size && (is.null(width) || is.null(height))) {
+  if (guess_size) {
     if (!requireNamespace("magick", quietly = TRUE)) {
       stop("package magick is required when using `guess_size` option.")
     }

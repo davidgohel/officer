@@ -206,7 +206,7 @@ test_that("img dims in pptx", {
                  value = external_img(img.file),
                  location = ph_location(left = 1, top = 1,
                                         height = 1.06, width = 1.39),
-                 use_loc_size = FALSE)
+                 use_loc_size = TRUE)
   sm <- slide_summary(doc)
 
   expect_equal(nrow(sm), 1)

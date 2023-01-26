@@ -2,9 +2,8 @@
 
 ## Features
 
-- if magick is available, image size will be read and
-do not need to be provided.
-
+- if magick is available and argument `guess_size=TRUE`, image 
+size is read and do not need to be provided.
 
 ## Issues
 
