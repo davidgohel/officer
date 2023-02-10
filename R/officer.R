@@ -3,6 +3,7 @@
 #' @description
 #' The officer package facilitates access to and manipulation of
 #' 'Microsoft Word' and 'Microsoft PowerPoint' documents from R.
+#' It also supports the writing of 'RTF' documents.
 #'
 #' Examples of usage are:
 #'
@@ -12,7 +13,8 @@
 #' * Clinical reporting automation
 #' * Production of reports from a shiny application
 #'
-#' To start with officer, read about [read_docx()] and [read_pptx()].
+#' To start with officer, read about [read_docx()], [read_pptx()]
+#' or [rtf_doc()].
 #'
 #' The package is also providing several objects that can be printed
 #' in 'R Markdown' documents for advanced Word or PowerPoint

@@ -11,12 +11,11 @@ status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](
 [![codecov test
 coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/officer)
 
-<a href="https://github.com/davidgohel/officer"><img src="man/figures/logo.png" alt="officer logo" align="right" /></a>
 The officer package lets R users manipulate Word (`.docx`) and
 PowerPoint (`*.pptx`) documents. In short, one can add images, tables
 and text into documents from R. An initial document can be provided;
 contents, styles and properties of the original document will then be
-available.
+available. It also supports the writing of ‘RTF’ documents.
 
 ## Ressources
 

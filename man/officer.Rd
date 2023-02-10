@@ -8,6 +8,7 @@
 \description{
 The officer package facilitates access to and manipulation of
 'Microsoft Word' and 'Microsoft PowerPoint' documents from R.
+It also supports the writing of 'RTF' documents.
 
 Examples of usage are:
 \itemize{
@@ -18,7 +19,8 @@ Examples of usage are:
 \item Production of reports from a shiny application
 }
 
-To start with officer, read about \code{\link[=read_docx]{read_docx()}} and \code{\link[=read_pptx]{read_pptx()}}.
+To start with officer, read about \code{\link[=read_docx]{read_docx()}}, \code{\link[=read_pptx]{read_pptx()}}
+or \code{\link[=rtf_doc]{rtf_doc()}}.
 
 The package is also providing several objects that can be printed
 in 'R Markdown' documents for advanced Word or PowerPoint

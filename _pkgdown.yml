@@ -1,14 +1,32 @@
+url: https://davidgohel.github.io/officer/
+
 title: officer
 
+development:
+  mode: auto
+
 template:
-  package: pkgardata
+  bootstrap: 5
+  theme: breeze-light
   bootswatch: simplex
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font:
+      google: "Open Sans"
 
 home:
   links:
-  - text: 'The user documentation is in the <strong>officeverse</strong> book'
+  - text: 'Read the officeverse book'
     href: https://ardata-fr.github.io/officeverse/
-  - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
+  - text: 'Visit <img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"> website'
+    href: https://www.ardata.fr
+footer:
+  structure:
+    left: legal
+  components:
+    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+authors:
+  David Gohel:
     href: https://www.ardata.fr
 
 reference:
@@ -122,6 +140,11 @@ reference:
     - fp_par
     - fp_border
     - fp_cell
+  - title: RTF
+    contents:
+    - rtf_doc
+    - rtf_add
+    - print.rtf
   - title: Excel
     contents:
     - read_xlsx
@@ -145,3 +168,4 @@ navbar:
     href: reference/index.html
   - text: User Documentation
     href: https://ardata-fr.github.io/officeverse/
+
