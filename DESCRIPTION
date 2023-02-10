@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.5.2
+Version: 0.6.0.001
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -18,12 +18,12 @@ Authors@R: c(
     person("Greg", "Leleu", role = "ctb", email = 'gregoire.leleu@gmail.com', comment = "fields functionality in ppt"),
     person("Hongyuan", "Jia", role = "ctb", email = "hongyuanjia@cqust.edu.cn", comment = c(ORCID = "0000-0002-0075-8183"))
     )
-Description: Access and manipulate 'Microsoft Word' and 'Microsoft PowerPoint' documents from R. 
+Description: Access and manipulate 'Microsoft Word', 'RTF' and 'Microsoft PowerPoint' documents from R. 
   The package focuses on tabular and graphical reporting from R; it also provides two functions
   that let users get document content into data objects. A set of functions 
   lets add and remove images, tables and paragraphs of text in new or existing documents. 
   The package does not require any installation of Microsoft products to be able to write Microsoft 
-  files.
+  files. 
 License: MIT + file LICENSE
 Imports:
     grDevices, stats, graphics, utils,

@@ -275,12 +275,12 @@ fp_text_lite <- function(
 #' @rdname fp_text
 #' @param format format type, wml for MS word, pml for
 #' MS PowerPoint and html.
-#' @param type output type - one of 'wml', 'pml', 'html'.
+#' @param type output type - one of 'wml', 'pml', 'html', 'rtf'.
 #' @export
 format.fp_text <- function( x, type = "wml", ... ){
 
   stopifnot(length(type) == 1)
-  stopifnot( type %in% c("wml", "pml", "html") )
+  stopifnot( type %in% c("wml", "pml", "html", "rtf") )
 
   if( type == "wml" ){
     rpr_wml(x)
@@ -288,6 +288,8 @@ format.fp_text <- function( x, type = "wml", ... ){
     rpr_pml(x)
   } else if(type == "html") {
     rpr_css(x)
+  } else if(type == "rtf") {
+    rpr_rtf(x)
   } else stop("unimplemented type")
 }
 
@@ -505,7 +507,7 @@ fp_par = function(text.align = "left",
 format.fp_par = function (x, type = "wml", ...){
 
   stopifnot(length(type) == 1)
-  stopifnot( type %in% c("wml", "pml", "html") )
+  stopifnot( type %in% c("wml", "pml", "html", "rtf") )
 
   if( type == "wml" ){
     ppr_wml(x)
@@ -513,6 +515,8 @@ format.fp_par = function (x, type = "wml", ...){
     ppr_pml(x)
   } else if( type == "html" ){
     ppr_css(x)
+  } else if( type == "rtf" ){
+    ppr_rtf(x)
   } else stop("unimplemented")
 
 }
@@ -700,24 +704,12 @@ fp_cell <- function(border = fp_border(width = 0),
 #' @export
 #' @rdname fp_cell
 #' @param x,object \code{fp_cell} object
-#' @param type output type - one of 'wml', 'pml', 'html'.
+#' @param type output type - one of 'wml', 'pml', 'html', 'rtf'.
 #' @param ... further arguments - not used
 format.fp_cell <- function(x, type = "wml", ...) {
-  btlr_list <- list(
-    x$border.bottom, x$border.top,
-    x$border.left, x$border.right
-  )
 
-  btlr_cols <- lapply(
-    btlr_list,
-    function(x) {
-      as.vector(col2rgb(x$color, alpha = TRUE)[, 1])
-    }
-  )
-  colmat <- do.call("rbind", btlr_cols)
-  types <- sapply(btlr_list, function(x) x$style)
-  widths <- sapply(btlr_list, function(x) x$width)
-  shading <- col2rgb(x$background.color, alpha = TRUE)[, 1]
+  stopifnot(length(type) == 1)
+  stopifnot( type %in% c("wml", "pml", "html", "rtf") )
 
   if (type == "wml") {
     tcpr_wml(x)
@@ -725,6 +717,8 @@ format.fp_cell <- function(x, type = "wml", ...) {
     tcpr_pml(x)
   } else if (type == "html") {
     tcpr_css(x)
+  } else if (type == "rtf") {
+    tcpr_rtf(x)
   } else {
     stop("unimplemented")
   }

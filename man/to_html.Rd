@@ -22,7 +22,9 @@ Other functions for officer extensions:
 \code{\link{get_reference_value}()},
 \code{\link{opts_current_table}()},
 \code{\link{shape_properties_tags}()},
+\code{\link{str_encode_to_rtf}()},
 \code{\link{to_pml}()},
+\code{\link{to_rtf}()},
 \code{\link{to_wml}()},
 \code{\link{wml_link_images}()}
 }

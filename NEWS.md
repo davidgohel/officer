@@ -1,3 +1,9 @@
+# officer 0.6.0
+
+## Features
+
+- add RTF support, see `rtf_doc()` and `rtf_add()`.
+
 # officer 0.5.2
 
 ## Features

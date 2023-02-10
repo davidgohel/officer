@@ -73,7 +73,7 @@ value is one of "lrtb", "tbrl", "btlr".}
 
 \item{x, object}{\code{fp_cell} object}
 
-\item{type}{output type - one of 'wml', 'pml', 'html'.}
+\item{type}{output type - one of 'wml', 'pml', 'html', 'rtf'.}
 
 \item{...}{further arguments - not used}
 }

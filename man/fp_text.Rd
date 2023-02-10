@@ -92,7 +92,7 @@ a valid color (e.g. "#000000" or "black").}
 
 \item{x}{\code{fp_text} object}
 
-\item{type}{output type - one of 'wml', 'pml', 'html'.}
+\item{type}{output type - one of 'wml', 'pml', 'html', 'rtf'.}
 
 \item{...}{further arguments - not used}
 
