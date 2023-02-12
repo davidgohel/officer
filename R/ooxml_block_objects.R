@@ -46,14 +46,8 @@ print.block_caption <- function(x, ...) {
 }
 
 to_wml_block_caption_officer <- function(x, add_ns = FALSE, base_document = NULL){
-  if (is.null(base_document)) {
-    base_document <- get_reference_value("docx")
-  }
-
-  if (is.character(base_document)) {
-    base_document <- read_docx(path = base_document)
-  } else if (!inherits(base_document, "rdocx")) {
-    stop("base_document can only be the path to a docx file or an rdocx document.")
+  if (!inherits(base_document, "rdocx")) {
+    stop("`base_document` can only be a 'rdocx' object.")
   }
 
   open_tag <- wp_ns_no
@@ -66,7 +60,6 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE, base_document = NULL
   } else {
     style <- x$style
   }
-  style_id <- get_style_id(data = base_document$styles, style = style, type = "paragraph")
   autonum <- ""
   if (!is.null(x$autonum)) {
     autonum <- to_wml(x$autonum)
@@ -76,8 +69,8 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE, base_document = NULL
   run_str <- paste0(autonum, run_str)
 
   out <- sprintf(
-    "%s<w:pPr><w:pStyle w:val=\"%s\"/></w:pPr>%s</w:p>",
-    open_tag, style_id, run_str
+    "%s<w:pPr><w:pStyle w:stlname=\"%s\"/></w:pPr>%s</w:p>",
+    open_tag, style, run_str
   )
 
   out
@@ -501,16 +494,7 @@ table_stylenames <- function(stylenames = list()){
 
 #' @export
 #' @importFrom utils modifyList
-to_wml.table_stylenames <- function(x, add_ns = FALSE, base_document = NULL, dat, ...) {
-
-  if (is.null(base_document)) {
-    base_document <- get_reference_value("docx")
-  }
-  if (is.character(base_document)) {
-    base_document <- read_docx(path = base_document)
-  } else if (!inherits(base_document, "rdocx")) {
-    stop("base_document can only be the path to a docx file or an rdocx document.")
-  }
+to_wml.table_stylenames <- function(x, add_ns = FALSE, dat, ...) {
 
   stylenames <- rep("Normal", ncol(dat))
   names(stylenames) <- colnames(dat)
@@ -519,10 +503,7 @@ to_wml.table_stylenames <- function(x, add_ns = FALSE, base_document = NULL, dat
   x$stylenames <- x$stylenames[names(x$stylenames) %in% colnames(dat)]
   stylenames <- modifyList(stylenames, val = x$stylenames)
   stylenames <- lapply(stylenames, function(x){
-    get_style_id(data = base_document$styles, style = x, type = "paragraph")
-  })
-  stylenames <- lapply(stylenames, function(x){
-    sprintf("<w:pStyle w:val=\"%s\"/>", x)
+    sprintf("<w:pStyle w:stlname=\"%s\"/>", x)
   })
   stylenames
 }
@@ -579,38 +560,27 @@ prop_table <- function(style = NA_character_, layout = table_layout(),
 #' @export
 to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 
-  if (is.null(base_document)) {
-    base_document <- get_reference_value("docx")
-  }
-  if (is.character(base_document)) {
-    base_document <- read_docx(path = base_document)
-  } else if (!inherits(base_document, "rdocx")) {
-    stop("base_document can only be the path to a docx file or an rdocx document.")
-  }
-
-  style_id <- NA_character_
+  style <- NA_character_
   if(!is.null(x$style) && !is.na(x$style)){
-    if (is.null(x$style)) {
+    if (is.null(x$style) && !is.null(base_document$default_styles$table)) {
       style <- base_document$default_styles$table
     } else {
       style <- x$style
     }
-    style_id <- get_style_id(data = base_document$styles, style = style, type = "table")
   }
 
-  tbl_layout <- to_wml(x$layout, add_ns= add_ns, base_document = base_document)
-
+  tbl_layout <- to_wml(x$layout, add_ns= add_ns)
 
   width <- ""
   if(!is.null(x$width) && "autofit" %in% x$layout$type)
-    width <- to_wml(x$width, add_ns= add_ns, base_document = base_document)
+    width <- to_wml(x$width, add_ns= add_ns)
 
-  colwidths <- to_wml(x$colsizes, add_ns= add_ns, base_document = base_document)
-  tcf <- to_wml(x$tcf, add_ns= add_ns, base_document = base_document)
+  colwidths <- to_wml(x$colsizes, add_ns= add_ns)
+  tcf <- to_wml(x$tcf, add_ns= add_ns)
   paste0("<w:tblPr>",
          if(!is.null(x$word_title)) paste0("<w:tblCaption w:val=\"", htmlEscapeCopy(x$word_title), "\"/>"),
          if(!is.null(x$word_description)) paste0("<w:tblDescription w:val=\"", htmlEscapeCopy(x$word_description), "\"/>"),
-         if(!is.na(style_id)) paste0("<w:tblStyle w:val=\"", style_id, "\"/>"),
+         if(!is.na(style)) paste0("<w:tblStyle w:stlname=\"", style, "\"/>"),
          tbl_layout,
          sprintf( "<w:jc w:val=\"%s\"/>", x$align ),
          width, tcf,
@@ -776,15 +746,6 @@ print.block_table <- function(x, ...) {
 
 #' @export
 to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
-  if (is.null(base_document)) {
-    base_document <- get_reference_value("docx")
-  }
-
-  if (is.character(base_document)) {
-    base_document <- read_docx(path = base_document)
-  } else if (!inherits(base_document, "rdocx")) {
-    stop("base_document can only be the path to a docx file or an rdocx document.")
-  }
 
   value <- characterise_df(x$x)
 

@@ -159,6 +159,7 @@ print.rdocx <- function(x, target = NULL, ...) {
   x <- process_sections(x)
 
   process_footnotes(x)
+  process_stylenames(x$doc_obj, x$styles)
   process_links(x$doc_obj, type = "wml")
   process_docx_poured(
     doc_obj = x$doc_obj,
