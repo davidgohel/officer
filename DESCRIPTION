@@ -29,7 +29,7 @@ Imports:
     grDevices, stats, graphics, utils,
     zip (>= 2.1.0),
     xml2 (>= 1.1.0),
-    openssl, R6
+    openssl, R6, uuid
 URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
 Encoding: UTF-8
 BugReports: https://github.com/davidgohel/officer/discussions

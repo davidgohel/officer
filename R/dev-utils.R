@@ -39,25 +39,18 @@ image_to_base64 <- function(filepaths){
     FUN.VALUE = "")
 }
 
-#' @importFrom openssl rand_bytes
+#' @importFrom uuid UUIDgenerate
 #' @export
-#' @title generates pseudo unique identifiers
+#' @title generates unique identifiers
 #' @description generates unique identifiers based
-#' on [rand_bytes()].
+#' on [UUIDgenerate()].
 #' @param n integer, number of unique identifiers to generate.
-#' @param prefix a prefix to add
-#' @param ... unused arguments
+#' @param ... arguments sent to [UUIDgenerate()]
 #' @keywords internal
 #' @examples
-#' UUIDgenerate(n = 5)
-#' UUIDgenerate(n = 5, prefix = "cl-")
-UUIDgenerate <- function(n = 1, prefix = "", ...) {
-  sapply(
-    seq_len(n),
-    function(x) {
-      rnd <- openssl::rand_bytes(8)
-      paste0(prefix, paste0(format(rnd), collapse = ""))
-    })
+#' uuid_generate(n = 5)
+uuid_generate <- function(n = 1, ...) {
+  UUIDgenerate(n = n, ...)
 }
 
 .url_special_chars <- list(

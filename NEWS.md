@@ -6,8 +6,8 @@
 
 ## Internals
 
-- provides `image_to_base64()` and `UUIDgenerate()` 
-and drop dependancies 'uuid' and 'base64env'.
+- provides `image_to_base64()` and `uuid_generate()` as a tool 
+for other 'officeverse' packages.
 
 # officer 0.5.2
 

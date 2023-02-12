@@ -42,7 +42,7 @@ to_html <- function(x, ...) {
 # bookmark -----
 
 bookmark <- function(id, str) {
-  new_id <- UUIDgenerate()
+  new_id <- uuid_generate()
   bm_start_str <- sprintf("<w:bookmarkStart w:id=\"%s\" w:name=\"%s\"/>", new_id, id)
   bm_start_end <- sprintf("<w:bookmarkEnd w:id=\"%s\"/>", new_id)
   paste0(bm_start_str, str, bm_start_end)
