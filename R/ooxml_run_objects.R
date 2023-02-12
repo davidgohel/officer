@@ -1083,31 +1083,8 @@ to_html.external_img <- function(x, ...) {
   dims <- attr(x, "dims")
   width <- dims$width
   height <- dims$height
-
-  if(!requireNamespace("base64enc")) {
-    stop("package 'base64enc' is required for this function, please install it.")
-  }
-
-  if( grepl("\\.png", ignore.case = TRUE, x = x) ){
-    mime <- "image/png"
-  } else if( grepl("\\.gif", ignore.case = TRUE, x = x) ){
-    mime <- "image/gif"
-  } else if( grepl("\\.jpg", ignore.case = TRUE, x = x) ){
-    mime <- "image/jpeg"
-  } else if( grepl("\\.jpeg", ignore.case = TRUE, x = x) ){
-    mime <- "image/jpeg"
-  } else if( grepl("\\.svg", ignore.case = TRUE, x = x) ){
-    mime <- "image/svg+xml"
-  } else if( grepl("\\.tiff", ignore.case = TRUE, x = x) ){
-    mime <- "image/tiff"
-  } else if( grepl("\\.webp", ignore.case = TRUE, x = x) ){
-    mime <- "image/webp"
-  } else {
-    stop("this format is not implemented")
-  }
-  x <- base64enc::dataURI(file = as.character(x), mime = mime )
-  sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" alt=\"%s\"/>", width*72, height*72, x, attr(x, "alt"))
-
+  b64_str <- image_to_base64(as.character(x))
+  sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" alt=\"%s\"/>", width*72, height*72, b64_str, attr(x, "alt"))
 }
 
 # run_footnoteref ----

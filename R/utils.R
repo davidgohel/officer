@@ -245,28 +245,7 @@ is_office_doc_edited <- function(file) {
   file.exists(file.path(dirname(file), edit_name))
 }
 
-.url_special_chars <- list(
-  `&` = '&amp;',
-  `<` = '&lt;',
-  `>` = '&gt;',
-  `'` = '&#39;',
-  `"` = '&quot;',
-  ` ` = "&nbsp;"
-)
-officer_url_encode <- function(x) {
-  for (chr in names(.url_special_chars)) {
-    x <- gsub(chr, .url_special_chars[[chr]], x, fixed = TRUE, useBytes = TRUE)
-  }
-  Encoding(x) <- "UTF-8"
-  x
-}
-officer_url_decode <- function(x) {
-  for (chr in rev(names(.url_special_chars))) {
-    x <- gsub(.url_special_chars[[chr]], chr, x, fixed = TRUE, useBytes = TRUE)
-  }
-  Encoding(x) <- "UTF-8"
-  x
-}
+
 # htmlEscapeCopy ----
 htmlEscapeCopy <- local({
 

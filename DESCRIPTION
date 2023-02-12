@@ -1,7 +1,7 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.6.0.001
+Version: 0.6.0.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -28,7 +28,6 @@ License: MIT + file LICENSE
 Imports:
     grDevices, stats, graphics, utils,
     zip (>= 2.1.0),
-    uuid (>= 0.1-4), 
     xml2 (>= 1.1.0),
     openssl, R6
 URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
@@ -38,6 +37,5 @@ RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: testthat, devEMF, ggplot2,
     rmarkdown,
-    base64enc,
     doconv  (>= 0.3.0),
     knitr, rsvg, magick

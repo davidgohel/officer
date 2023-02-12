@@ -455,7 +455,6 @@ body_add_xml2 <- function(x, str){
 }
 
 #' @export
-#' @importFrom uuid UUIDgenerate
 #' @title Add bookmark in a 'Word' document
 #' @description Add a bookmark at the cursor location. The bookmark
 #' is added on the first run of text in the current paragraph.

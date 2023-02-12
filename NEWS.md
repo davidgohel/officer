@@ -4,6 +4,11 @@
 
 - add RTF support, see `rtf_doc()` and `rtf_add()`.
 
+## Internals
+
+- provides `image_to_base64()` and `UUIDgenerate()` 
+and drop dependancies 'uuid' and 'base64env'.
+
 # officer 0.5.2
 
 ## Features
