@@ -62,12 +62,18 @@ get_reference_value <- function(format = NULL) {
   if (!format %in% c("pptx", "docx")) {
     stop("format must be have value 'docx' or 'pptx'.")
   }
-
-  reference_doc <- lapply(rmarkdown::metadata$output, function(x) c(x$reference_docx, x$reference_doc))
+  reference_doc <- lapply(rmarkdown::metadata$output, function(x) {
+    if(!is.atomic(x)) c(x$reference_docx, x$reference_doc)
+    else character(0)
+  }
+  )
   reference_doc <- unlist(reference_doc)
   reference_doc <- unique(reference_doc)
   if (length(reference_doc) < 1) {
-    reference_doc <- lapply(rmarkdown::metadata$output, function(x) x$pandoc_args)
+    reference_doc <- lapply(rmarkdown::metadata$output, function(x) {
+      if(!is.atomic(x)) x$pandoc_args
+      else character(0)
+    })
     reference_doc <- unlist(reference_doc)
     reference_doc <- unique(reference_doc)
     reference_doc <- grep("--reference-doc=", reference_doc, fixed = TRUE, value = TRUE)
