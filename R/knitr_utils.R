@@ -55,32 +55,31 @@ get_reference_value <- function(format = NULL) {
       format <- "docx"
     } else if (grepl("pptx", knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
       format <- "pptx"
+    } else if (grepl("html", knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
+      format <- "html"
+    } else if (grepl("latex", knitr::opts_knit$get("rmarkdown.pandoc.to"))) {
+      format <- "latex"
     } else {
       stop("Unable to determine the format that should be used")
     }
   }
-  if (!format %in% c("pptx", "docx")) {
-    stop("format must be have value 'docx' or 'pptx'.")
+  if (!format %in% c("pptx", "docx", "html")) {
+    stop("format must be have value 'docx', 'pptx' or 'html'.")
   }
-  reference_doc <- lapply(rmarkdown::metadata$output, function(x) {
-    if(!is.atomic(x)) c(x$reference_docx, x$reference_doc)
-    else character(0)
+
+  output.dir <- knitr::opts_knit$get("output.dir")
+  if (is.null(output.dir)) {
+    output.dir <- getwd()
   }
-  )
-  reference_doc <- unlist(reference_doc)
-  reference_doc <- unique(reference_doc)
-  if (length(reference_doc) < 1) {
-    reference_doc <- lapply(rmarkdown::metadata$output, function(x) {
-      if(!is.atomic(x)) x$pandoc_args
-      else character(0)
-    })
-    reference_doc <- unlist(reference_doc)
-    reference_doc <- unique(reference_doc)
-    reference_doc <- grep("--reference-doc=", reference_doc, fixed = TRUE, value = TRUE)
-    reference_doc <- gsub("--reference-doc=", "", reference_doc, fixed = TRUE)
-  }
-  if (length(reference_doc) == 1) {
-    reference_data <- reference_doc
+
+  pandoc_args <- knitr::opts_knit$get("rmarkdown.pandoc.args")
+
+  rd <- grep("--reference-doc", pandoc_args)
+  if (length(rd)) {
+    reference_data <- pandoc_args[rd + 1]
+    if (!file.exists(reference_data)) {
+      reference_data <- file.path(output.dir, reference_data)
+    }
   } else {
     reference_data <- get_default_pandoc_data_file(format = format)
   }
