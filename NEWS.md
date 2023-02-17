@@ -11,13 +11,6 @@ for other 'officeverse' packages.
 - styles are now injected as is and updated with `process_stylenames()`,
 this allow to depend on a reference doc.
 
-## Issues
-
-- read pandoc_args and look for `reference-doc` so that 
-users that don't use rmarkdown arguments `reference_doc` or 
-`reference_docx` still can work.
-
-
 # officer 0.5.2
 
 ## Features
