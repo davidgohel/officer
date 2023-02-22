@@ -1,3 +1,9 @@
+# officer 0.6.1
+
+## Features
+
+- add support for flextable in `block_list()`.
+
 # officer 0.6.0
 
 ## Features

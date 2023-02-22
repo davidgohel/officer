@@ -999,6 +999,8 @@ block_list <- function(...){
   for(i in x){
     if(inherits(i, "block")) {
       z <- append(z, list(i))
+    } else if(inherits(i, "flextable")){
+      z <- append(z, list(i))
     } else if(is.character(i)){
       z <- append(z, lapply(i, fpar))
     }
