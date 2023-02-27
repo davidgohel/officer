@@ -3,6 +3,8 @@
 ## Features
 
 - add support for flextable in `block_list()`.
+- add RTF support for `run_autonum()` and `run_reference()`, 
+this enables captions support for flextable.
 
 # officer 0.6.0
 

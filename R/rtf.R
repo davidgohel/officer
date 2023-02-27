@@ -131,6 +131,56 @@ to_rtf.hyperlink_ftext <- function(x, ...) {
     str_encode_to_rtf(x$value)
   )
 }
+rtf_bookmark <- function(id, str) {
+  bm_start_str <- sprintf("{\\*\\bkmkstart %s}", id)
+  bm_start_end <- sprintf("{\\*\\bkmkend %s}", id)
+  paste0(bm_start_str, str, bm_start_end)
+}
+
+#' @export
+to_rtf.run_autonum <- function(x, ...) {
+  if(is.null(x$seq_id)) return("")
+
+  run_str_pre <- to_rtf(ftext(x$pre_label, prop = x$pr))
+  run_str_post <- to_rtf(ftext(x$post_label, prop = x$pr))
+
+  seq_str <- paste0("SEQ ", x$seq_id, " \\\\* Arabic")
+  if(!is.null(x$start_at) && is.numeric(x$start_at)){
+    seq_str <- paste(seq_str, "\\r", as.integer(x$start_at))
+  }
+
+  sqf <- run_word_field(field = seq_str, prop = x$pr)
+  sf_str <- to_rtf(sqf)
+
+  if(x$tnd > 0){
+    z <- paste0(
+      to_rtf(run_word_field(field = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
+      to_rtf(ftext(x$tns, prop = x$pr))
+    )
+    sf_str <- paste0(z, sf_str)
+  }
+
+  if(!is.null(x$bookmark)){
+    if(x$bookmark_all){
+      out <- paste0(
+        rtf_bookmark(id = x$bookmark, str = paste0(run_str_pre, sf_str)),
+        run_str_post)
+    } else {
+      sf_str <- rtf_bookmark(id = x$bookmark, sf_str)
+      out <- paste0(run_str_pre, sf_str, run_str_post)
+    }
+  } else {
+    out <- paste0(run_str_pre, sf_str, run_str_post)
+  }
+
+  out
+}
+
+#' @export
+to_rtf.run_reference <- function(x, ...) {
+  out <- to_rtf(run_word_field(field = paste0(" REF ", x$id, " \\\\h "), prop = x$pr))
+  out
+}
 
 ## to_rtf sections ----
 
