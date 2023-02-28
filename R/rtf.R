@@ -686,7 +686,7 @@ rtf_add.gg <- function(x, value, width = 6, height = 5, res = 300, scale = 1, pp
   }
 
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width * scale, height = height * scale, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
   tryCatch(
     {
       print(value)
@@ -708,7 +708,7 @@ rtf_add.gg <- function(x, value, width = 6, height = 5, res = 300, scale = 1, pp
 #' @describeIn rtf_add add a [plot_instr()] object
 rtf_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, scale = 1, ppr = fp_par(text.align = "center"), ...) {
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width * scale, height = height * scale, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
   tryCatch(
     {
       eval(value$code)

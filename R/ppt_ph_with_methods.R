@@ -400,7 +400,7 @@ ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...) 
 
   stopifnot(inherits(value, "gg"))
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width * scale, height = height * scale, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
@@ -424,7 +424,7 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
   dirname <- tempfile()
   dir.create(dirname)
   filename <- paste(dirname, "/plot%03d.png", sep = "")
-  png(filename = filename, width = width, height = height, units = "in", res = res, ...)
+  agg_png(filename = filename, width = width, height = height, units = "in", res = res, scaling = 1, background = "transparent", ...)
 
   tryCatch(
     {

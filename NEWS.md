@@ -6,6 +6,11 @@
 - add RTF support for `run_autonum()` and `run_reference()`, 
 this enables captions support for flextable.
 
+## Changes
+
+- 'ragg' is used instead of base png because it manages 
+any fonts.
+
 # officer 0.6.0
 
 ## Features

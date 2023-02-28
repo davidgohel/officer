@@ -109,7 +109,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @param ... Arguments to be passed to png function.
-#' @importFrom grDevices png dev.off
+#' @importFrom grDevices dev.off
 #' @examples
 #' if( require("ggplot2") ){
 #'   doc <- read_docx()
@@ -123,6 +123,7 @@ body_add_docx <- function( x, src, pos = "after" ){
 #'   print(doc, target = tempfile(fileext = ".docx") )
 #' }
 #' @family functions for adding content
+#' @importFrom ragg agg_png
 body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, pos = "after", ... ){
 
   if( !requireNamespace("ggplot2") )
@@ -130,7 +131,7 @@ body_add_gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 
   stopifnot(inherits(value, "gg") )
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width*scale, height = height*scale, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, scaling = scale, units = "in", res = res, background = "transparent", ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
@@ -348,7 +349,7 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @param ... Arguments to be passed to png function.
-#' @importFrom grDevices png dev.off
+#' @importFrom grDevices dev.off
 #' @examples
 #' doc <- read_docx()
 #'
@@ -363,7 +364,7 @@ body_add_toc <- function( x, level = 3, pos = "after", style = NULL, separator =
 body_add_plot <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", pos = "after", ... ){
 
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, units = "in", res = res, background = "transparent", ...)
   tryCatch({
     eval(value$code)
   },
@@ -766,7 +767,7 @@ body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
     stop("package ggplot2 is required to use this function")
 
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width*scale, height = height*scale, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
@@ -780,7 +781,7 @@ body_add.gg <- function( x, value, width = 6, height = 5, res = 300, style = "No
 body_add.plot_instr <- function( x, value, width = 6, height = 5, res = 300, style = "Normal", ... ){
 
   file <- tempfile(fileext = ".png")
-  png(filename = file, width = width, height = height, units = "in", res = res, ...)
+  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = 1, background = "transparent", ...)
   tryCatch({
     eval(value$code)
   },
