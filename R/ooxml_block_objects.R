@@ -45,10 +45,7 @@ print.block_caption <- function(x, ...) {
   cat("caption ", auton, ": ", x$label, "\n", sep = "")
 }
 
-to_wml_block_caption_officer <- function(x, add_ns = FALSE, base_document = NULL){
-  if (!inherits(base_document, "rdocx")) {
-    stop("`base_document` can only be a 'rdocx' object.")
-  }
+to_wml_block_caption_officer <- function(x, add_ns = FALSE){
 
   open_tag <- wp_ns_no
   if (add_ns) {
@@ -56,7 +53,7 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE, base_document = NULL
   }
 
   if (is.null(x$style)) {
-    style <- base_document$default_styles$paragraph
+    style <- "Normal"
   } else {
     style <- x$style
   }
@@ -99,11 +96,11 @@ to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL){
 }
 
 #' @export
-to_wml.block_caption <- function(x, add_ns = FALSE, base_document = NULL, knitting = FALSE, ...) {
+to_wml.block_caption <- function(x, add_ns = FALSE, knitting = FALSE, ...) {
   if(knitting)
     to_wml_block_caption_pandoc(x, bookdown_id = list(...)$bookdown_id)
   else
-    to_wml_block_caption_officer(x, add_ns = add_ns, base_document = base_document)
+    to_wml_block_caption_officer(x, add_ns = add_ns)
 }
 
 

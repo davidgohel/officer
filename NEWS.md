@@ -11,6 +11,11 @@ this enables captions support for flextable.
 - 'ragg' is used instead of base png because it manages 
 any fonts.
 
+## Issues
+
+- fix for `to_wml.block_caption()`
+
+
 # officer 0.6.0
 
 ## Features
