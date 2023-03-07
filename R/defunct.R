@@ -32,4 +32,11 @@ slip_in_text <- function(...){
   .Defunct("fpar()")
 }
 
+#' @export
+#' @rdname officer-defunct
+#' @details `slip_in_footnote()` is replaced by `run_footnote()`.
+#' @param ... unused arguments
+slip_in_footnote <- function(...){
+  .Defunct("run_footnote()")
+}
 

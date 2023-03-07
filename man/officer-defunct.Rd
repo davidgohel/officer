@@ -6,6 +6,7 @@
 \alias{slip_in_column_break}
 \alias{slip_in_xml}
 \alias{slip_in_text}
+\alias{slip_in_footnote}
 \title{Defunct Functions in Package officer}
 \usage{
 slip_in_seqfield(...)
@@ -15,6 +16,8 @@ slip_in_column_break(...)
 slip_in_xml(...)
 
 slip_in_text(...)
+
+slip_in_footnote(...)
 }
 \arguments{
 \item{...}{unused arguments}
@@ -30,4 +33,6 @@ Defunct Functions in Package officer
 \code{slip_in_xml()} is replaced by \code{fpar()}.
 
 \code{slip_in_text()} is replaced by \code{fpar()}.
+
+\code{slip_in_footnote()} is replaced by \code{run_footnote()}.
 }

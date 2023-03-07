@@ -10,6 +10,7 @@ this enables captions support for flextable.
 
 - 'ragg' is used instead of base png because it manages 
 any fonts.
+- defunct `slip_in_footnote()`.
 
 ## Issues
 
