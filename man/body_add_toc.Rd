@@ -27,7 +27,7 @@ edited with Word (i.e. Libre Office) the TOC will not be generated.
 doc <- read_docx()
 doc <- body_add_toc(doc)
 
-print(doc, target = tempfile(fileext = ".docx") )
+print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 Other functions for adding content: 

@@ -22,10 +22,10 @@ into an rdocx object.
 \examples{
 library(officer)
 
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 
 bl <- block_list(
-  fpar(ftext("hello", shortcuts$fp_bold(color="red"))),
+  fpar(ftext("hello", shortcuts$fp_bold(color = "red"))),
   fpar(
     ftext("hello world", shortcuts$fp_bold()),
     external_img(src = img.file, height = 1.06, width = 1.39),

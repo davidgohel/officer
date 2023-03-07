@@ -30,7 +30,8 @@ my_doc <- body_add_par(my_doc, value = str2, style = "centered")
 my_doc <- body_add_par(my_doc, value = str3, style = "Normal")
 
 new_doc_file <- print(my_doc,
-  target = tempfile(fileext = ".docx"))
+  target = tempfile(fileext = ".docx")
+)
 
 my_doc <- read_docx(path = new_doc_file)
 my_doc <- cursor_reach(my_doc, keyword = "that text")

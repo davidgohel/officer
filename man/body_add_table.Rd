@@ -63,7 +63,7 @@ Add a table into an rdocx object.
 doc <- read_docx()
 doc <- body_add_table(doc, iris, style = "table_template")
 
-print(doc, target = tempfile(fileext = ".docx") )
+print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 Other functions for adding content: 

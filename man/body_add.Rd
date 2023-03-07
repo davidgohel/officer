@@ -159,11 +159,13 @@ doc_1 <- body_add(doc_1, "A title", style = "heading 1")
 doc_1 <- body_add(doc_1, head(iris), style = "table_template")
 doc_1 <- body_add(doc_1, "Another title", style = "heading 1")
 doc_1 <- body_add(doc_1, letters, style = "Normal")
-doc_1 <- body_add(doc_1,
+doc_1 <- body_add(
+  doc_1,
   block_section(prop_section(type = "continuous"))
 )
 doc_1 <- body_add(doc_1, plot_instr(code = barplot(1:5, col = 2:6)))
-doc_1 <- body_add(doc_1,
+doc_1 <- body_add(
+  doc_1,
   block_section(prop_section(page_size = page_size(orient = "landscape")))
 )
 print(doc_1, target = tempfile(fileext = ".docx"))

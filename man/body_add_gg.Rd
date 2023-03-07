@@ -40,16 +40,17 @@ one of "after", "before", "on".}
 add a ggplot as a png image into an rdocx object.
 }
 \examples{
-if( require("ggplot2") ){
+if (require("ggplot2")) {
   doc <- read_docx()
 
-  gg_plot <- ggplot(data = iris ) +
+  gg_plot <- ggplot(data = iris) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
 
-  if( capabilities(what = "png") )
-    doc <- body_add_gg(doc, value = gg_plot, style = "centered" )
+  if (capabilities(what = "png")) {
+    doc <- body_add_gg(doc, value = gg_plot, style = "centered")
+  }
 
-  print(doc, target = tempfile(fileext = ".docx") )
+  print(doc, target = tempfile(fileext = ".docx"))
 }
 }
 \seealso{

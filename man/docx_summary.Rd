@@ -2,7 +2,7 @@
 % Please edit documentation in R/fortify_docx.R
 \name{docx_summary}
 \alias{docx_summary}
-\title{get Word content in a data.frame}
+\title{Get Word content in a data.frame}
 \usage{
 docx_summary(x)
 }

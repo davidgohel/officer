@@ -25,7 +25,7 @@ doc <- body_add_par(doc, "A title", style = "heading 1")
 doc <- body_add_par(doc, "Hello world!", style = "Normal")
 doc <- body_add_par(doc, "centered text", style = "centered")
 
-print(doc, target = tempfile(fileext = ".docx") )
+print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 Other functions for adding content: 

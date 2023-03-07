@@ -39,13 +39,18 @@ Add a plot as a png image into an rdocx object.
 \examples{
 doc <- read_docx()
 
-if( capabilities(what = "png") )
+if (capabilities(what = "png")) {
   doc <- body_add_plot(doc,
     value = plot_instr(
-      code = {barplot(1:5, col = 2:6)}),
-      style = "centered")
+      code = {
+        barplot(1:5, col = 2:6)
+      }
+    ),
+    style = "centered"
+  )
+}
 
-print(doc, target = tempfile(fileext = ".docx") )
+print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 Other functions for adding content: 
