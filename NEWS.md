@@ -1,3 +1,10 @@
+# officer 0.6.2
+
+## Issues
+
+- encode char to rtf from 128 instead of 256
+
+
 # officer 0.6.1
 
 ## Features

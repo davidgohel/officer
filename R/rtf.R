@@ -812,7 +812,7 @@ str_encode_to_rtf <- function(z) {
       is_tobeprotected <- charv %in% c("\\", "{", "}")
       # is_std_ansi <- intv < 128
       # is_ext_ansi <- !is_std_ansi & intv < 256
-      is_ext_ansi <- intv < 256
+      is_ext_ansi <- intv < 128
       is_unic2b <- !is_ext_ansi & intv < 32768
       is_unic4b <- !is_ext_ansi & !is_unic2b
       charv[is_unic2b] <- paste0("\\uc1\\u", intv[is_unic2b], "?")
