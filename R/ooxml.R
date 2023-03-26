@@ -306,7 +306,7 @@ ppr_wml <- function(x){
     border_wml(x$border.left, "left"),
     border_wml(x$border.right, "right"), "</w:pBdr>" )
 
-  leftright_padding <- sprintf("<w:ind w:firstLine=\"0\" w:left=\"%.0f\" w:right=\"%.0f\"/>",
+  leftright_padding <- sprintf("<w:ind w:left=\"%.0f\" w:right=\"%.0f\" w:firstLine=\"0\" w:firstLineChars=\"0\"/>",
                                x$padding.left*20, x$padding.right*20)
   topbot_spacing <- sprintf("<w:spacing w:after=\"%.0f\" w:before=\"%.0f\" w:line=\"%.0f\"/>",
                             x$padding.bottom*20, x$padding.top*20, x$line_spacing*240)

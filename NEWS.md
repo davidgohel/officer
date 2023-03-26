@@ -3,7 +3,8 @@
 ## Issues
 
 - encode char to rtf from 128 instead of 256
-
+- force 'firstLineChars' to 0 so that Chinese users don't get 
+unwanted first indentation.
 
 # officer 0.6.1
 
