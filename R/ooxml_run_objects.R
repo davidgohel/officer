@@ -940,7 +940,11 @@ external_img <- function(src, width = .5, height = .2, unit = "in", guess_size =
       stop("package magick is required when using `guess_size` option.")
     }
     sizes <- lapply(src, function(x) {
-      z <- magick::image_read(x)
+      if(grepl("\\.svg$", x)) {
+        z <- magick::image_read_svg(x)
+      } else {
+        z <- magick::image_read(x)
+      }
       z <- magick::image_data(z)
       attr(z, "dim")[-1]
     })
