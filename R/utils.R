@@ -233,7 +233,7 @@ is_windows <- function() {
 is_doc_open <- function(file) {
   # The function checks if the `file` is open (a.k.a. is being edited).
   # This function is valid on Windows operating system only.
-  suppressWarnings(!file.rename(from = file, to = file))
+  suppressWarnings(file.exists(file) && !file.rename(from = file, to = file))
 }
 
 
