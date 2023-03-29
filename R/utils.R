@@ -230,19 +230,10 @@ is_windows <- function() {
   "windows" %in% .Platform$OS.type
 }
 
-is_office_doc_edited <- function(file) {
-
-  file_name <- sub("(.*)\\.(pptx|docx)$", "\\1", basename(file))
-
-  if (nchar(file_name) < 7 || endsWith(file, ".pptx")) {
-    edit_name <- paste0("~$", basename(file))
-  } else if (nchar(file_name) < 8) {
-    edit_name <- paste0("~$", substring(basename(file), 2))
-  } else {
-    edit_name <- paste0("~$", substring(basename(file), 3))
-  }
-
-  file.exists(file.path(dirname(file), edit_name))
+is_doc_open <- function(file) {
+  # The function checks if the `file` is open (a.k.a. is being edited).
+  # This function is valid on Windows operating system only.
+  suppressWarnings(!file.rename(from = file, to = file))
 }
 
 
