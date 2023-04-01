@@ -106,9 +106,9 @@ print.rpptx <- function(x, target = NULL, ...){
   if( !grepl(x = target, pattern = "\\.(pptx)$", ignore.case = TRUE) )
     stop(target , " should have '.pptx' extension.")
 
-  if(is_windows() && is_office_doc_edited(target))
-    stop(target , " is already edited.",
-         " You must close the document in order to be able to write the file.")
+  if (is_windows() && is_doc_open(target)) {
+    stop(target, " is open. To write to this document, please, close it.")
+  }
   x <- pptx_fortify_slides(x)
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
 

@@ -1,3 +1,10 @@
+# officer 0.6.3
+
+## Issues
+
+- Internal function `is_doc_open()` replaces `is_office_doc_edited()` to check if a document is open on Windows. This solves the issue where RStudio crashed while trying to write to an open Office document.
+
+
 # officer 0.6.2
 
 ## Issues

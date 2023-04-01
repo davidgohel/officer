@@ -149,11 +149,8 @@ print.rdocx <- function(x, target = NULL, ...) {
     stop(target, " should have '.docx' extension.")
   }
 
-  if (is_windows() && is_office_doc_edited(target)) {
-    stop(
-      target, " is already edited.",
-      " You must close the document in order to be able to write the file."
-    )
+  if (is_windows() && is_doc_open(target)) {
+    stop(target, " is open. To write to this document, please, close it.")
   }
 
   x <- process_sections(x)
