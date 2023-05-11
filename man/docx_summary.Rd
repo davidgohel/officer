@@ -11,7 +11,8 @@ docx_summary(x, preserve = FALSE)
 
 \item{preserve}{If \code{FALSE} (default), text in table cells is collapsed into a
 single line. If \code{TRUE}, line breaks in table cells are preserved as a "\n"
-character. This feature is adapted from \code{\link[docxtractr:docx_extract_tbl]{docxtractr::docx_extract_tbl()}} in
+character. This feature is adapted from \code{\link[docxtractr:docx_extract_tbl]{docxtractr::docx_extract_tbl()}}
+published under a \href{https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE}{MIT licensed} in
 the \code{{docxtractr}} package by Bob Rudis.}
 }
 \description{
