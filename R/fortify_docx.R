@@ -1,11 +1,19 @@
-unfold_row_wml <- function(node, row_id){
+unfold_row_wml <- function(node, row_id, preserve = FALSE){
   is_header_1 <- !inherits(xml_child(node, "w:trPr/w:tblHeader"), "xml_missing")
   is_header_2 <- !inherits(xml_child(node, "w:trPr/w:cnfStyle[@w:firstRow='1']"), "xml_missing")
   is_header <- is_header_1 | is_header_2
   children_ <- xml_children(node)
   cell_nodes <- children_[sapply(children_, function(x) xml_name(x)=="tc" )]
 
-  txt <- sapply(cell_nodes, xml_text)
+  if (preserve) {
+    txt <- sapply(cell_nodes, function(x) {
+      paras <- xml2::xml_text(xml2::xml_find_all(x, "./w:p"))
+      paste0(paras, collapse="\n")
+    })
+  } else {
+    txt <- sapply(cell_nodes, xml2::xml_text)
+  }
+
   col_span <- sapply(cell_nodes, function(x) {
     gs <- xml_child(x, "w:tcPr/w:gridSpan")
     as.integer(xml_attr(gs, "val"))
@@ -57,12 +65,12 @@ unfold_row_wml <- function(node, row_id){
 }
 
 
-docxtable_as_tibble <- function( node, styles ){
+docxtable_as_tibble <- function( node, styles, preserve = FALSE ){
   xpath_ <- paste0( xml_path(node), "/w:tr")
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
 
-  row_details <- mapply(unfold_row_wml, rows, seq_along(rows), SIMPLIFY = FALSE)
+  row_details <- mapply(unfold_row_wml, rows, seq_along(rows), preserve = preserve,  SIMPLIFY = FALSE)
   row_details <- rbind.match.columns(row_details)
   row_details <- set_row_span(row_details)
 
@@ -98,11 +106,11 @@ par_as_tibble <- function(node, styles){
   par_data
 }
 
-node_content <- function(node, x){
+node_content <- function(node, x, preserve = FALSE){
   node_name <- xml_name(node)
   switch(node_name,
          p = par_as_tibble(node, styles_info(x)),
-         tbl = docxtable_as_tibble(node, styles_info(x)),
+         tbl = docxtable_as_tibble(node, styles_info(x), preserve = preserve),
          NULL)
 }
 
@@ -114,16 +122,20 @@ node_content <- function(node, x){
 #' Documents included with \code{body_add_docx()} will
 #' not be accessible in the results.
 #' @param x an rdocx object
+#' @param preserve If `FALSE` (default), text in table cells is collapsed into a
+#'   single line. If `TRUE`, line breaks in table cells are preserved as a "\n"
+#'   character. This feature is adapted from [docxtractr::docx_extract_tbl()] in
+#'   the `{docxtractr}` package by Bob Rudis.
 #' @examples
 #' example_pptx <- system.file(package = "officer",
 #'   "doc_examples/example.docx")
 #' doc <- read_docx(example_pptx)
 #' docx_summary(doc)
 #' @export
-docx_summary <- function( x ){
+docx_summary <- function( x, preserve = FALSE ){
 
   all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*[self::w:p or self::w:tbl]")
-  data <- lapply( all_nodes, node_content, x = x )
+  data <- lapply( all_nodes, node_content, x = x, preserve = preserve )
 
   data <- mapply(function(x, id) {
         x$doc_index <- id
