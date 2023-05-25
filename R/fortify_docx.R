@@ -123,7 +123,7 @@ node_content <- function(node, x, preserve = FALSE){
 #' not be accessible in the results.
 #' @param x an rdocx object
 #' @param preserve If `FALSE` (default), text in table cells is collapsed into a
-#'   single line. If `TRUE`, line breaks in table cells are preserved as a "\n"
+#'   single line. If `TRUE`, line breaks in table cells are preserved as a "\\n"
 #'   character. This feature is adapted from \code{docxtractr::docx_extract_tbl()}
 #'   published under a [MIT
 #'   licensed](https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE) in
