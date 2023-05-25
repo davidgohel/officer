@@ -4,10 +4,16 @@
 \alias{docx_summary}
 \title{Get Word content in a data.frame}
 \usage{
-docx_summary(x)
+docx_summary(x, preserve = FALSE)
 }
 \arguments{
 \item{x}{an rdocx object}
+
+\item{preserve}{If \code{FALSE} (default), text in table cells is collapsed into a
+single line. If \code{TRUE}, line breaks in table cells are preserved as a "\n"
+character. This feature is adapted from \code{docxtractr::docx_extract_tbl()}
+published under a \href{https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE}{MIT licensed} in
+the \code{{docxtractr}} package by Bob Rudis.}
 }
 \description{
 read content of a Word document and
@@ -22,4 +28,6 @@ example_pptx <- system.file(package = "officer",
   "doc_examples/example.docx")
 doc <- read_docx(example_pptx)
 docx_summary(doc)
+docx_summary(doc, preserve = TRUE)
+
 }
