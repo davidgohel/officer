@@ -156,10 +156,15 @@ process_comments <- function(x) {
 
   rel <- doc_obj$relationship()
 
-  hl_nodes <- xml_find_all(doc_obj$get(), "//w:commentReference[@w:id]")
-  which_to_add <- hl_nodes[grepl("^comment", xml_attr(hl_nodes, "id"))]
-  hl_ref <- xml_attr(which_to_add, "id")
-  for (i in seq_along(hl_ref)) {
+  cmt_ref_nodes <- xml_find_all(doc_obj$get(), "//w:commentReference[@w:id]")
+  cmt_start_nodes <- xml_find_all(doc_obj$get(), "//w:commentRangeStart[@w:id]")
+  cmt_end_nodes <- xml_find_all(doc_obj$get(), "//w:commentRangeEnd[@w:id]")
+  which_to_add <- cmt_ref_nodes[grepl("^comment", xml_attr(cmt_ref_nodes, "id"))]
+  which_to_add_start <- cmt_start_nodes[grepl("^comment", xml_attr(cmt_start_nodes, "id"))]
+  which_to_add_end <- cmt_end_nodes[grepl("^comment", xml_attr(cmt_end_nodes, "id"))]
+
+  cmt_ref <- xml_attr(which_to_add, "id")
+  for (i in seq_along(cmt_ref)) {
     next_id <- rel$get_next_id()
     rel$add(
       paste0("rId", next_id),
@@ -169,6 +174,8 @@ process_comments <- function(x) {
 
     index <- length(xml_find_all(comments$get(), "w:comment"))
     xml_attr(which_to_add[[i]], "w:id") <- index
+    xml_attr(which_to_add_start[[i]], "w:id") <- index
+    xml_attr(which_to_add_end[[i]], "w:id") <- index
 
     run <- xml_parent(which_to_add[[i]])
 
