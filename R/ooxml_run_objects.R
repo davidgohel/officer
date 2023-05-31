@@ -1263,6 +1263,7 @@ to_wml.run_comment <- function(x, add_ns = FALSE, ...) {
   comment_ref_xml <- paste0(
     "<w:commentRangeStart w:id=\"", id, "\"/>",
     runs,
+    "<w:commentRangeEnd w:id=\"", id, "\"/>",
     open_tag,
     if (!is.null(x$pr)) rpr_wml(x$pr),
     "<w:commentReference w:id=\"",
@@ -1270,8 +1271,7 @@ to_wml.run_comment <- function(x, add_ns = FALSE, ...) {
     "\">",
     comment_xml,
     "</w:commentReference>",
-    "</w:r>",
-    "<w:commentRangeEnd w:id=\"", id, "\"/>"
+    "</w:r>"
   )
 
   comment_ref_xml
