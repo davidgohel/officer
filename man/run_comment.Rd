@@ -34,8 +34,31 @@ which case, no formatting is defined (the default is applied).}
 Add a comment on a run object.
 }
 \examples{
-ft <- fp_text(font.size = 12, bold = TRUE)
-run_comment("Comment", ftext("some text", ft))
+fp_bold <- fp_text_lite(bold = TRUE)
+fp_red <- fp_text_lite(color = "red")
+
+bl <- block_list(
+  fpar(ftext("Comment multiple words.", fp_bold)),
+fpar(
+    ftext("Second line.", fp_red)
+  )
+)
+
+comment1 <- run_comment(cmt = bl, run = ftext("with a comment"), author = "Microsoft Office", date = Sys.Date(), initials = "SM")
+par1 <- fpar("A paragraph ", comment1)
+
+bl <- block_list(
+  fpar(ftext("Comment a paragraph."))
+)
+
+comment2 <- run_comment(cmt = bl, run = ftext("A commented paragraph"), author = "Microsoft Office", date = Sys.Date(), initials = "OM")
+par2 <- fpar(comment2)
+
+doc <- read_docx()
+doc <- body_add_fpar(doc, value = par1, style = "Normal")
+doc <- body_add_fpar(doc, value = par2, style = "Normal")
+
+print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{
 Other run functions for reporting: 
