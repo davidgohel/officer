@@ -1198,3 +1198,116 @@ to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
 
   footnote_ref_xml
 }
+
+# run_comment ----
+#' @export
+#' @title Comment for 'Word'
+#' @description Add a comment on a run object.
+#' @param cmt a set of blocks to be used as comment content returned by
+#'   function [block_list()].
+#' the "run functions for reporting".
+#' @param author comment author.
+#' @param date comment date
+#' @param initials comment initials
+#' @param prop formatting text properties returned by
+#' [fp_text_lite()] or [fp_text()]. It also can be NULL in
+#' which case, no formatting is defined (the default is applied).
+#' @param run a run object, made with a call to one of
+#' @examples
+#' fp_bold <- fp_text_lite(bold = TRUE)
+#' fp_red <- fp_text_lite(color = "red")
+#'
+#' bl <- block_list(
+#'   fpar(ftext("Comment multiple words.", fp_bold)),
+#' fpar(
+#'     ftext("Second line.", fp_red)
+#'   )
+#' )
+#'
+#' comment1 <- run_comment(
+#'    cmt = bl,
+#'    run = ftext("with a comment"),
+#'    author = "Author Me",
+#'    date = Sys.Date(),
+#'    initials = "AM"
+#' )
+#' par1 <- fpar("A paragraph ", comment1)
+#'
+#' bl <- block_list(
+#'   fpar(ftext("Comment a paragraph."))
+#' )
+#'
+#' comment2 <- run_comment(
+#'    cmt = bl, run = ftext("A commented paragraph"),
+#'    author = "Author You",
+#'    date = Sys.Date(),
+#'    initials = "AY"
+#' )
+#' par2 <- fpar(comment2)
+#'
+#' doc <- read_docx()
+#' doc <- body_add_fpar(doc, value = par1, style = "Normal")
+#' doc <- body_add_fpar(doc, value = par2, style = "Normal")
+#'
+#' print(doc, target = tempfile(fileext = ".docx"))
+#' @family run functions for reporting
+run_comment <- function(cmt, run = ftext(""), author = "", date = "", initials = "", prop = NULL) {
+  all_run <- FALSE
+
+  if(inherits(run, "run")){
+    run <- list(run)
+  }
+
+  if(is.list(run) && !inherits(run, "run")){
+    all_run <- all(vapply(run, inherits, FUN.VALUE = FALSE, what = "run" ))
+  }
+
+  if(!all_run)
+    stop("`run` must be a run object (ftext for example) or a list of run objects.")
+
+  z <- list(comment = cmt, run = run, author = author, date = date, initials = initials, pr = prop)
+  class(z) <- c("run_comment", "run")
+  z
+}
+
+#' @export
+to_wml.run_comment <- function(x, add_ns = FALSE, ...) {
+  runs <- lapply(x$run, to_wml, add_ns = add_ns, ...)
+  runs <- do.call(paste0, runs)
+
+  open_tag <- wr_ns_no
+  if (add_ns) {
+    open_tag <- wr_ns_yes
+  }
+
+  blocks <- sapply(x$comment, to_wml)
+  blocks <- paste(blocks, collapse = "")
+
+  id <- basename(tempfile(pattern = "comment"))
+  base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\""
+  comment_xml <- paste0(
+    sprintf(
+      "<w:comment %s  w:id=\"%s\" w:author=\"%s\" w:date=\"%s\" w:initials=\"%s\">",
+      base_ns, id, x$author, x$date, x$initials
+    ),
+    blocks,
+    "</w:comment>"
+  )
+
+  comment_ref_xml <- paste0(
+    "<w:commentRangeStart w:id=\"", id, "\"/>",
+    runs,
+    "<w:commentRangeEnd w:id=\"", id, "\"/>",
+    open_tag,
+    if (!is.null(x$pr)) rpr_wml(x$pr),
+    "<w:commentReference w:id=\"",
+    id,
+    "\">",
+    comment_xml,
+    "</w:commentReference>",
+    "</w:r>"
+  )
+
+  comment_ref_xml
+}
+
