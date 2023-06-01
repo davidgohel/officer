@@ -696,4 +696,3 @@ docx_current_block_xml <- function( x ){
 docx_body_relationship <- function( x ){
   x$doc_obj$relationship()
 }
-

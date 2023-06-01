@@ -44,14 +44,25 @@ fpar(
   )
 )
 
-comment1 <- run_comment(cmt = bl, run = ftext("with a comment"), author = "Microsoft Office", date = Sys.Date(), initials = "SM")
+comment1 <- run_comment(
+   cmt = bl,
+   run = ftext("with a comment"),
+   author = "Author Me",
+   date = Sys.Date(),
+   initials = "AM"
+)
 par1 <- fpar("A paragraph ", comment1)
 
 bl <- block_list(
   fpar(ftext("Comment a paragraph."))
 )
 
-comment2 <- run_comment(cmt = bl, run = ftext("A commented paragraph"), author = "Microsoft Office", date = Sys.Date(), initials = "OM")
+comment2 <- run_comment(
+   cmt = bl, run = ftext("A commented paragraph"),
+   author = "Author You",
+   date = Sys.Date(),
+   initials = "AY"
+)
 par2 <- fpar(comment2)
 
 doc <- read_docx()
