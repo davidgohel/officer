@@ -4,10 +4,16 @@
 \alias{pptx_summary}
 \title{PowerPoint content in a data.frame}
 \usage{
-pptx_summary(x)
+pptx_summary(x, preserve = FALSE)
 }
 \arguments{
 \item{x}{an rpptx object}
+
+\item{preserve}{If \code{FALSE} (default), text in table cells is collapsed into a
+single line. If \code{TRUE}, line breaks in table cells are preserved as a "\\n"
+character. This feature is adapted from \code{docxtractr::docx_extract_tbl()}
+published under a \href{https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE}{MIT licensed} in
+the \code{{docxtractr}} package by Bob Rudis.}
 }
 \description{
 Read content of a PowerPoint document and

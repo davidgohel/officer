@@ -5,6 +5,10 @@ test_that("docx summary", {
   doc_data <- docx_summary(doc)
   table_data <- subset(doc_data, content_type %in% "table cell" & is_header)
   expect_equal( table_data$text, c("Petals", "Internode", "Sepal", "Bract") )
+
+  doc_data_pr <- docx_summary(doc, preserve = TRUE)
+  expect_equal( doc_data_pr[28, ][["text"]], "Note\nNew line note" )
+
 })
 
 test_that("complex docx table", {
@@ -49,6 +53,9 @@ test_that("pptx summary", {
 
   slide2_data <- subset(doc_data, content_type %in% "paragraph" & slide_id == 2)
   expect_equal( slide2_data$text, c("coco", "line of text", "blah blah blah") )
+
+  doc_data_pr <- pptx_summary(doc, preserve = TRUE)
+  expect_equal( doc_data_pr[23, ][["text"]], "blah\n \nblah\n \nblah" )
 })
 
 
