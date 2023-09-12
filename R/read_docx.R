@@ -93,6 +93,22 @@ read_docx <- function(path = NULL) {
   obj$headers <- update_hf_list(part_list = list(), type = "header", package_dir = package_dir)
   obj$footers <- update_hf_list(part_list = list(), type = "footer", package_dir = package_dir)
 
+  if (!file.exists(file.path(package_dir, "word", "comments.xml"))) {
+    file.copy(
+      system.file(package = "officer", "template", "comments.xml"),
+      file.path(package_dir, "word", "comments.xml")
+    )
+    obj$content_type$add_override(
+      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml", "/word/comments.xml")
+    )
+  }
+
+  obj$comments <- docx_part$new(
+    package_dir,
+    main_file = "comments.xml",
+    cursor = "/w:comments/*[last()]", body_xpath = "/w:comments"
+  )
+
   if (!file.exists(file.path(package_dir, "word", "footnotes.xml"))) {
     file.copy(
       system.file(package = "officer", "template", "footnotes.xml"),
@@ -155,6 +171,7 @@ print.rdocx <- function(x, target = NULL, ...) {
 
   x <- process_sections(x)
 
+  process_comments(x)
   process_footnotes(x)
   process_stylenames(x$doc_obj, x$styles)
   process_links(x$doc_obj, type = "wml")
@@ -180,6 +197,8 @@ print.rdocx <- function(x, target = NULL, ...) {
   int_id <- correct_id(x$doc_obj$get(), int_id)
   # make all id unique for footnote
   int_id <- correct_id(x$footnotes$get(), int_id)
+  # make all id unique for footnote
+  int_id <- correct_id(x$comments$get(), int_id)
   # make all id unique for headers
   for (docpart in x[["headers"]]) {
     int_id <- correct_id(docpart$get(), int_id)
@@ -209,6 +228,7 @@ print.rdocx <- function(x, target = NULL, ...) {
   x$doc_obj$save()
   x$content_type$save()
   x$footnotes$save()
+  x$comments$save()
 
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
   write_docx_settings(x)
@@ -676,4 +696,3 @@ docx_current_block_xml <- function( x ){
 docx_body_relationship <- function( x ){
   x$doc_obj$relationship()
 }
-

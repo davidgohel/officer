@@ -1,5 +1,10 @@
 # officer 0.6.3
 
+## Features
+
+- new function `run_comment()` to create a run with a comment.
+- new function `docx_comments()` to read comments in a Word document as a data.frame.
+
 ## Issues
 
 - Internal function `is_doc_open()` replaces `is_office_doc_edited()` to check if a document is open on Windows. This solves the issue where RStudio crashed while trying to write to an open Office document.

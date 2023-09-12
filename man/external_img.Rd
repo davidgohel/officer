@@ -74,6 +74,7 @@ Other run functions for reporting:
 \code{\link{run_autonum}()},
 \code{\link{run_bookmark}()},
 \code{\link{run_columnbreak}()},
+\code{\link{run_comment}()},
 \code{\link{run_footnoteref}()},
 \code{\link{run_footnote}()},
 \code{\link{run_linebreak}()},

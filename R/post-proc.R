@@ -148,6 +148,58 @@ process_footnotes <- function(x) {
     xml_add_child(footnotes$get(), newfootnote)
   }
 }
+
+#' @importFrom xml2 xml_remove as_xml_document xml_parent xml_child
+process_comments <- function(x) {
+  comments <- x$comments
+  doc_obj <- x$doc_obj
+
+  rel <- doc_obj$relationship()
+
+  cmt_ref_nodes <- xml_find_all(doc_obj$get(), "//w:commentReference[@w:id]")
+  cmt_start_nodes <- xml_find_all(doc_obj$get(), "//w:commentRangeStart[@w:id]")
+  cmt_end_nodes <- xml_find_all(doc_obj$get(), "//w:commentRangeEnd[@w:id]")
+  which_to_add <- cmt_ref_nodes[grepl("^comment", xml_attr(cmt_ref_nodes, "id"))]
+  which_to_add_start <- cmt_start_nodes[grepl("^comment", xml_attr(cmt_start_nodes, "id"))]
+  which_to_add_end <- cmt_end_nodes[grepl("^comment", xml_attr(cmt_end_nodes, "id"))]
+
+  cmt_ref <- xml_attr(which_to_add, "id")
+  for (i in seq_along(cmt_ref)) {
+    next_id <- rel$get_next_id()
+    rel$add(
+      paste0("rId", next_id),
+      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
+      target = "comments.xml"
+    )
+
+    index <- length(xml_find_all(comments$get(), "w:comment"))
+    xml_attr(which_to_add[[i]], "w:id") <- index
+    xml_attr(which_to_add_start[[i]], "w:id") <- index
+    xml_attr(which_to_add_end[[i]], "w:id") <- index
+
+    run <- xml_parent(which_to_add[[i]])
+
+    run_rstyle <- xml_child(run, "w:rPr/w:rStyle")
+
+    styles <- styles_info(x, type = "character")
+    style_id <- xml_attr(run_rstyle, "val")
+    style_id <- styles$style_id[styles$style_name %in% style_id]
+
+    xml_attr(run_rstyle, "w:val") <- style_id
+
+    comment <- xml_child(which_to_add[[i]], "w:comment")
+    xml_attr(comment, "w:id") <- index
+
+    comment_rstyle <- xml_child(comment, "w:p/w:r/w:rPr/w:rStyle")
+    xml_attr(comment_rstyle, "w:val") <- style_id
+
+    newcomment <- as_xml_document(as.character(comment))
+    xml_remove(comment)
+
+    xml_add_child(comments$get(), newcomment)
+  }
+}
+
 process_links <- function(doc_obj, type = "wml") {
   rel <- doc_obj$relationship()
   if ("wml" %in% type) {
