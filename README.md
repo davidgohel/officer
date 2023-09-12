@@ -50,7 +50,8 @@ File generation is performed with the `print` function.
 
 The function `docx_summary()` reads and imports content of a Word
 document into a data.frame. The function handles paragraphs, tables and
-section breaks.
+section breaks. The function `docx_comments()` reads comments of a Word
+document and organise the into a data.frame.
 
 ## PowerPoint documents
 
