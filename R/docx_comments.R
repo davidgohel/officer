@@ -33,7 +33,7 @@ docx_comments <- function(x) {
 
   if (length(comment_nodes) > 0) {
     data <- lapply(comment_nodes, comment_as_tibble)
-    data <- rbind.match.columns(data)
+    data <- rbind_match_columns(data)
   } else {
     data <- data.frame(
       comment_id = integer(0),

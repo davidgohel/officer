@@ -274,6 +274,7 @@ guess_hfr_type <- function(x) {
   }
 }
 
+#' @export
 to_rtf.page_mar <- function(x, ...) {
   sprintf(
     "\\margb%.0f\\margt%.0f\\margr%.0f\\margl%.0f\\gutter%.0f\\headery%.0f\\footery%.0f",

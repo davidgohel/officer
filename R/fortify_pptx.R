@@ -29,7 +29,7 @@ unfold_row_pml <- function(node, row_id, preserve = FALSE){
                stringsAsFactors = FALSE
     )
   })
-  row_span <- rbind.match.columns(row_span)
+  row_span <- rbind_match_columns(row_span)
   row_span$row_merge <- !is.na(row_span$v_merged) | !is.na(row_span$row_span)
   row_span$first <- !is.na(row_span$row_span)
   row_span$row_span[!is.na(row_span$v_merged)] <- 0L
@@ -53,7 +53,7 @@ pptxtable_as_tibble <- function( node, preserve = FALSE ){
   rows <- xml_find_all(node, xpath_)
   if( length(rows) < 1 ) return(NULL)
   row_details <- mapply(unfold_row_pml, rows, seq_along(rows), preserve = preserve, SIMPLIFY = FALSE)
-  row_details <- rbind.match.columns(row_details)
+  row_details <- rbind_match_columns(row_details)
   row_details <- set_row_span(row_details)
   row_details$text[row_details$col_span < 1 | row_details$row_span < 1] <- NA_character_
   row_details
@@ -166,8 +166,8 @@ pptx_summary <- function( x, preserve = FALSE ){
       }
     }, nodes, slide_id = i, SIMPLIFY = FALSE)
 
-    list_content[[length(list_content)+1]] <- rbind.match.columns(content)
+    list_content[[length(list_content)+1]] <- rbind_match_columns(content)
   }
 
-  rbind.match.columns(list_content)
+  rbind_match_columns(list_content)
 }

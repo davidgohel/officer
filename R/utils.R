@@ -154,7 +154,7 @@ simple_lag <- function( x, default=0 ){
   c(default, x[-length(x)])
 }
 
-rbind.match.columns <- function(list_df) {
+rbind_match_columns <- function(list_df) {
 
   col <- unique(unlist(lapply(list_df, colnames)))
   x <- Filter(function(x) nrow(x)>0, list_df)
@@ -178,7 +178,7 @@ set_row_span <- function( row_details ){
     dat$row_span[rowspan_pos_at_breaks] <- rowspan_values_at_breaks
     dat
   }, row_details, SIMPLIFY = FALSE)
-  row_details <- rbind.match.columns(row_details)
+  row_details <- rbind_match_columns(row_details)
   row_details$first <- NULL
   row_details
 }

@@ -886,7 +886,7 @@ as.data.frame.fpar <- function( x, ...){
                bold = x$pr$bold, italic = x$pr$italic,
                font.family = x$pr$font.family, stringsAsFactors = FALSE )
   }, chks, SIMPLIFY = FALSE)
-  rbind.match.columns(chks)
+  rbind_match_columns(chks)
 }
 
 #' @export

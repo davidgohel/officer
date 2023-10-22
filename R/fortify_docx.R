@@ -28,7 +28,7 @@ unfold_row_wml <- function(node, row_id, preserve = FALSE){
            stringsAsFactors = FALSE
     )
   })
-  row_span <- rbind.match.columns(row_span)
+  row_span <- rbind_match_columns(row_span)
   txt[row_span$row_merge & !row_span$first] <- NA
 
   out <- data.frame(row_id = row_id, is_header = is_header,
@@ -58,7 +58,7 @@ unfold_row_wml <- function(node, row_id, preserve = FALSE){
   out_add_$col_span, out_add_$row_merge, out_add_$first, out_add_$row_span,
   SIMPLIFY = FALSE)
   if( length(out_add_) > 0 ){
-    out_add_ <- rbind.match.columns(out_add_)
+    out_add_ <- rbind_match_columns(out_add_)
     out <- rbind(out, out_add_)
   }
   out[order(out$cell_id),]
@@ -71,7 +71,7 @@ docxtable_as_tibble <- function( node, styles, preserve = FALSE ){
   if( length(rows) < 1 ) return(NULL)
 
   row_details <- mapply(unfold_row_wml, rows, seq_along(rows), preserve = preserve,  SIMPLIFY = FALSE)
-  row_details <- rbind.match.columns(row_details)
+  row_details <- rbind_match_columns(row_details)
   row_details <- set_row_span(row_details)
 
   style_node <- xml_child(node, "w:tblPr/w:tblStyle")
@@ -146,7 +146,7 @@ docx_summary <- function( x, preserve = FALSE ){
         x$doc_index <- id
         x
       }, data, seq_along(data), SIMPLIFY = FALSE)
-  data <- rbind.match.columns(data)
+  data <- rbind_match_columns(data)
 
   colnames <- c("doc_index", "content_type", "style_name", "text",
     "level", "num_id", "row_id", "is_header", "cell_id",

@@ -82,6 +82,7 @@ update.docx_settings <- function(object,
   object
 }
 
+#' @export
 to_wml.docx_settings <- function(x, add_ns = FALSE, ...) {
   out <- paste0(
     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n",

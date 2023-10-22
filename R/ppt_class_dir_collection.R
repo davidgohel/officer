@@ -20,7 +20,7 @@ dir_collection <- R6Class(
 
     get_metadata = function(){
       dat <- lapply(private$collection, function(x) x$get_metadata())
-      rbind.match.columns(dat)
+      rbind_match_columns(dat)
     },
     names = function(){
       sapply(private$collection, function(x) x$name())
@@ -195,7 +195,7 @@ dir_master <- R6Class(
     },
     get_color_scheme = function( ){
       dat <- lapply(private$collection, function(x) x$colors())
-      rbind.match.columns(dat)
+      rbind_match_columns(dat)
     }
 
   )
