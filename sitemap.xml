@@ -145,6 +145,9 @@
     <loc>https://davidgohel.github.io/officer/reference/docx_bookmarks.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/officer/reference/docx_comments.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/officer/reference/docx_current_block_xml.html</loc>
   </url>
   <url>
@@ -332,6 +335,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/officer/reference/run_columnbreak.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/officer/reference/run_comment.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/officer/reference/run_footnote.html</loc>
