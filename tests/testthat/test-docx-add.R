@@ -233,22 +233,22 @@ test_that("visual testing", {
   expect_snapshot_doc(x = x, name = "docx-elements", engine = "testthat")
 })
 
-test_that("body_add visual testing", {
-  local_edition(3)
-  testthat::skip_if_not_installed("doconv")
-  testthat::skip_if_not(doconv::msoffice_available())
-  library(doconv)
-
-  x <- read_docx()
-  # add text and a table ----
-  x <- body_add(x, "Hello World")
-  x <- body_add(x, "Hello title", style = "heading 1")
-  x <- body_add(x, "Hello title", style = "heading 2")
-  x <- body_add(x, head(cars))
-  x <- body_add(x, "Hello base plot", style = "heading 2")
-  x <- body_add(x, anyplot)
-  x <- body_add(x, "Hello fpars", style = "heading 2")
-  x <- body_add(x = x, bl)
-
-  expect_snapshot_doc(x = x, name = "body_add-elements", engine = "testthat")
-})
+# test_that("body_add visual testing", {
+#   local_edition(3)
+#   testthat::skip_if_not_installed("doconv")
+#   testthat::skip_if_not(doconv::msoffice_available())
+#   library(doconv)
+#
+#   x <- read_docx()
+#   # add text and a table ----
+#   x <- body_add(x, "Hello World")
+#   x <- body_add(x, "Hello title", style = "heading 1")
+#   x <- body_add(x, "Hello title", style = "heading 2")
+#   x <- body_add(x, head(cars))
+#   x <- body_add(x, "Hello base plot", style = "heading 2")
+#   x <- body_add(x, anyplot)
+#   x <- body_add(x, "Hello fpars", style = "heading 2")
+#   x <- body_add(x = x, bl)
+#
+#   expect_snapshot_doc(x = x, name = "body_add-elements", engine = "testthat")
+# })

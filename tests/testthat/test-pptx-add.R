@@ -171,7 +171,10 @@ test_that("hyperlink shape", {
   doc <- ph_with(x = doc, location = ph_location_type(type = "title"), value = "Un titre 2")
   doc <- on_slide(doc, 1)
   doc <- ph_hyperlink(x = doc, type = "title", href = "https://cran.r-project.org")
+  outputfile <- tempfile(fileext = ".pptx")
+  print(doc, target = outputfile)
 
+  doc <- read_pptx(outputfile)
   rel_df <- doc$slide$get_slide(1)$rel_df()
 
   expect_true( "https://cran.r-project.org" %in% rel_df$target )

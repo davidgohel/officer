@@ -12,7 +12,7 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
     sel <- sel[id]
     if( sum(is.finite(sel)) != 1 ) stop("no shape with label ", shQuote(ph_label), "and with id ", id, " has been found")
   }
-  slsmry$id[sel]
+  sel
 }
 
 
@@ -63,7 +63,7 @@ ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL 
 
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[*/p:cNvPr[@id='%s']]", office_id) )
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr][%.0f]", office_id) )
 
   xml_remove(current_elt)
 
@@ -96,7 +96,7 @@ ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id) )
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr][%.0f]", office_id) )
 
   # declare slide ref in relationships
   slide_name <- x$slide$names()[slide_index]
@@ -136,17 +136,12 @@ ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
-  node <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id) )
-
-  # declare link in relationships
-  slide$reference_hyperlink(href)
-  rel_df <- slide$rel_df()
-  id <- rel_df[rel_df$target == href, "id" ]
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr][%.0f]", office_id) )
 
   # add hlinkClick
-  cnvpr <- xml_child(node, "p:nvSpPr/p:cNvPr")
+  cnvpr <- xml_child(current_elt, "p:nvSpPr/p:cNvPr")
   str_ <- "<a:hlinkClick xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"%s\"/>"
-  str_ <- sprintf(str_, id)
+  str_ <- sprintf(str_, href)
   xml_add_child(cnvpr, as_xml_document(str_) )
   x
 }
