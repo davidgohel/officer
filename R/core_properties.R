@@ -91,6 +91,7 @@ write_core_properties <- function(core_matrix, package_dir){
 
 drop_templatenode_from_app <- function(package_dir){
   file <- file.path(package_dir, "docProps", "app.xml")
+  if (!file.exists(file)) return()
   doc <- read_xml(file)
   node_template <- xml_child(doc, "d1:Template")
   if (!inherits(node_template, "xml_missing")) {

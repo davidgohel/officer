@@ -4,6 +4,7 @@
 
 - new function `run_comment()` to create a run with a comment.
 - new function `docx_comments()` to read comments in a Word document as a data.frame.
+- Add pptx support for invalid pptx files downloaded from https://slides.new.
 
 ## Issues
 
