@@ -1,18 +1,39 @@
 get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
   slsmry <- slide_summary(x)
-
-  if( is.null(ph_label) ){
-    sel <- which( slsmry$type %in% type )
-    if( length(sel) < 1 ) stop("no shape of type ", shQuote(type), " has been found")
-    sel <- sel[id]
-    if( sum(is.finite(sel)) != 1 ) stop("no shape of type ", shQuote(type), " and with id ", id, " has been found")
-  } else {
-    sel <- which( slsmry$ph_label %in% ph_label )
-    if( length(sel) < 1 ) stop("no shape with label ", shQuote(ph_label), " has been found")
-    sel <- sel[id]
-    if( sum(is.finite(sel)) != 1 ) stop("no shape with label ", shQuote(ph_label), "and with id ", id, " has been found")
+  
+  if(is.null(type) & is.null(ph_label) & is.null(id)){
+    stop("Provide at least one shape identifier: type, id, or ph_label")
   }
-  sel
+  
+  error_message_prefix <- ""
+  
+  if( !is.null(type) ){
+    slsmry <- slsmry[slsmry$type %in% type,]
+    
+    if( nrow(slsmry) < 1 ) {
+      stop("no shape of type ", shQuote(type), " has been found")
+    }else{
+      error_message_prefix <- paste0(error_message_prefix," of type ", shQuote(type)," and")
+    }
+  }
+  
+  if( !is.null(ph_label)) {
+    slsmry <- slsmry[slsmry$ph_label %in% ph_label,]
+    if( nrow(slsmry) < 1 ){
+      stop("no shape",error_message_prefix," with label ", shQuote(ph_label), " has been found")
+    }else{
+      error_message_prefix <- paste0(error_message_prefix," with label ", shQuote(ph_label)," and")
+    }
+  } 
+  
+  if(!is.null(id)){
+    slsmry <- slsmry[slsmry$id %in% id,]
+    if( nrow(slsmry) < 1 ) {
+      stop("no shape",error_message_prefix," with id ", id, " has been found")
+    }
+  }
+  
+  slsmry$id
 }
 
 
