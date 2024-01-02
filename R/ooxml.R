@@ -208,13 +208,14 @@ border_pml <- function(x, side){
 border_wml <- function(x, side){
   tagname <- paste0("w:", side)
   x$style[x$style %in% "solid"] <- "single"
-  if( !x$style %in% c("dotted", "dashed", "single") ){
+  x$style[x$style %in% "ridge"] <- "threeDEmboss"
+  x$style[x$style %in% "groove"] <- "threeDEngrave"
+  if( !x$style %in% border_styles ){
     x$style <- "single"
   }
   if( x$width < 0.0001 || is_transparent(x$color) ){
     x$style <- "none"
   }
-
 
   style_ <- sprintf("w:val=\"%s\"", x$style)
   width_ <- sprintf("w:sz=\"%.0f\"", x$width*8)
@@ -236,7 +237,13 @@ border_css <- function(x, side){
 
   width_ <- sprintf("%.02fpt", x$width)
 
-  if( !x$style %in% c("dotted", "dashed", "solid") ){
+  x$style[x$style %in% "threeDEmboss"] <- "ridge"
+  x$style[x$style %in% "threeDEngrave"] <- "groove"
+  x$style[x$style %in% "nil"] <- "none"
+
+  if( !x$style %in% c("dotted", "dashed", "solid",
+                      "double", "inset", "outset",
+                      "ridge", "groove", "none") ){
     x$style <- "solid"
   }
   paste0("border-", side, ": ", width_, " ", x$style, " ", color_, ";")

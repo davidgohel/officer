@@ -1,3 +1,10 @@
+# officer 0.6.3.9000
+
+## Features 
+
+- `fp_border()` gains support for all line border styles listed in ECMA-376 
+  § 17.18.2 and allowed CSS border styles. Closes #165 and #443.
+
 # officer 0.6.3
 
 ## Features
