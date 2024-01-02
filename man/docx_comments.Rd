@@ -12,6 +12,25 @@ docx_comments(x)
 \description{
 return a data.frame representing the comments in a Word document.
 }
+\details{
+Each row of the returned data frame contains data for one comment. The
+columns contain the following information:
+\itemize{
+\item "comment_id" - unique comment id
+\item "author" - name of the comment author
+\item "initials" - initials of the comment author
+\item "date" - timestamp of the comment
+\item "text" - a list column of characters containing the comment text. Elements can
+be vectors of length > 1 if a comment contains multiple paragraphs,
+blocks or runs or of length 0 if the comment is empty.
+\item "para_id" - a list column of characters containing the parent paragraph IDs.
+Elememts can be vectors of length > 1 if a comment spans multiple paragraphs
+or of length 0 if the comment has no parent paragraph.
+\item "commented_text" - a list column of characters containing the
+commented text. Elememts can be vectors of length > 1 if a comment
+spans multiple paragraphs or runs or of length 0 if the commented text is empty.
+}
+}
 \examples{
 bl <- block_list(
   fpar("Comment multiple words."),
@@ -21,7 +40,7 @@ bl <- block_list(
 a_par <- fpar(
   "This paragraph contains",
   run_comment(
-  cmt = bl,
+    cmt = bl,
     run = ftext("a comment."),
     author = "Author Me",
     date = "2023-06-01"
