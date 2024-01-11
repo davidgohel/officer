@@ -61,6 +61,7 @@ test_that("slide remove", {
 
 
 test_that("ph remove", {
+
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")
   x <- ph_with(x, "Hello world 1", location = ph_location_type(type = "body"))
@@ -71,10 +72,33 @@ test_that("ph remove", {
   print(x, target = "template.pptx")
 
   x <- read_pptx(path = "template.pptx")
-  x <- ph_remove(x = x)
+  x <- ph_remove(x = x, type = "body")
 
   expect_equal(nrow(slide_summary(x)), 0)
 })
+
+test_that("ph remove specific node", {
+
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Hello world 1.1", location = ph_location_type(type = "body"))
+  x <- ph_with(x, "Hello world 1.2", location = ph_location_type(type = "body"))
+  x <- ph_with(x, "Hello world 1.3", location = ph_location_type(type = "body"))
+
+
+  ## remove just the second ph (with hello world 1.2)
+  id_to_remove <- slide_summary(x)$id[slide_summary(x)$text == "Hello world 1.2"]
+  x <- ph_remove(x = x, id = id_to_remove)
+
+  expect_equal(
+    slide_summary(x)$text,
+    c("Hello world 1.1","Hello world 1.3")
+  )
+  expect_equal(nrow(slide_summary(x)), 2)
+
+
+})
+
 
 
 test_that("cursor is incremented as expected", {
