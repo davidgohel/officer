@@ -264,10 +264,13 @@ slide <- R6Class(
       if( !is.null(type) ){
         if( type %in% out$type ){
           type_matches <- which( out$type == type )
-          if( index <= length(type_matches) )
-            id <- type_matches[index]
-          else stop(type, " can only have ", length(type_matches), " element(s) but index is set to ", index)
-
+          if(!is.null(index)){
+            if( index <= length(type_matches) )
+              id <- type_matches[index]
+            else stop(type, " can only have ", length(type_matches), " element(s) but index is set to ", index)
+          }else{
+            id <- type_matches[[1]]
+          }
         } else stop("type ", type, " is not available in the slide layout")
         out <- out[id, ]
       }
