@@ -205,7 +205,7 @@ pptx_fortify_slides <- function(x) {
 #' @keywords internal
 shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
                                   bg = "transparent", rot = 0, label = "", ph = "<p:ph/>",
-                                  ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"), geom = NULL) {
+                                  ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"), geom = NULL, ph_id = NULL) {
   if (!is.null(bg) && !is.color(bg)) {
     stop("bg must be a valid color.", call. = FALSE)
   }
@@ -219,7 +219,11 @@ shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
     ph <- "<p:ph/>"
   }
 
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
+  if(is.null(ph_id)){
+    ph_id <- 0
+  }
 
-  sprintf(str, label, ph, xfrm_str, geom_str, bg_str, ln_str)
+  str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
+
+  sprintf(str, ph_id, label, ph, xfrm_str, geom_str, bg_str, ln_str)
 }

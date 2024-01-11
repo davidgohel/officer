@@ -181,7 +181,8 @@ ph_with.character <- function(x, value, location, ...) {
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
@@ -212,7 +213,8 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...) {
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
@@ -241,7 +243,8 @@ ph_with.factor <- function(x, value, location, ...) {
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   pars <- paste0("<a:p><a:r><a:rPr/><a:t>", htmlEscapeCopy(value), "</a:t></a:r></a:p>", collapse = "")
@@ -298,7 +301,8 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   xml_elt <- paste0(
@@ -328,7 +332,8 @@ ph_with.unordered_list <- function(x, value, location, ...) {
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   xml_elt <- paste0(
@@ -372,7 +377,8 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   value <- as_xml_document(xml_elt)
@@ -476,7 +482,8 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
     width = width, height = height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln
+    ln = location$ln,
+    ph_id = location$ph_id
   )
 
   value <- as_xml_document(xml_str)
@@ -508,7 +515,8 @@ ph_with.empty_content <- function(x, value, location, ...) {
     width = location$width, height = location$height,
     label = location$ph_label, ph = location$ph,
     rot = location$rotation, bg = location$bg,
-    ln = location$ln, geom = location$geom
+    ln = location$ln, geom = location$geom,
+    ph_id = location$ph_id
   )
 
   if (is.na(location$fld_id)) {
