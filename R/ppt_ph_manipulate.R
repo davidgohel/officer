@@ -1,22 +1,23 @@
 get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
+
   slsmry <- slide_summary(x)
-  
+
   if(is.null(type) & is.null(ph_label) & is.null(id)){
     stop("Provide at least one shape identifier: type, id, or ph_label")
   }
-  
+
   error_message_prefix <- ""
-  
+
   if( !is.null(type) ){
     slsmry <- slsmry[slsmry$type %in% type,]
-    
+
     if( nrow(slsmry) < 1 ) {
       stop("no shape of type ", shQuote(type), " has been found")
     }else{
       error_message_prefix <- paste0(error_message_prefix," of type ", shQuote(type)," and")
     }
   }
-  
+
   if( !is.null(ph_label)) {
     slsmry <- slsmry[slsmry$ph_label %in% ph_label,]
     if( nrow(slsmry) < 1 ){
@@ -24,15 +25,15 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
     }else{
       error_message_prefix <- paste0(error_message_prefix," with label ", shQuote(ph_label)," and")
     }
-  } 
-  
+  }
+
   if(!is.null(id)){
     slsmry <- slsmry[slsmry$id %in% id,]
     if( nrow(slsmry) < 1 ) {
       stop("no shape",error_message_prefix," with id ", id, " has been found")
     }
   }
-  
+
   slsmry$id
 }
 
@@ -44,10 +45,8 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 #' @description Remove a shape in a slide.
 #' @param x an rpptx object
 #' @param type placeholder type
-#' @param id placeholder index (integer) for a duplicated type. This is to be used when a placeholder
-#' type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
-#' add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
-#' Values can be read from \code{\link{slide_summary}}.
+#' @param id id of the placeholder. Use column \code{id}
+#' of the result returned by \code{\link{slide_summary}}.
 #' @param ph_label label associated to the placeholder. Use column
 #' \code{ph_label} of result returned by \code{\link{slide_summary}}.
 #' @param id_chr deprecated.
@@ -80,13 +79,16 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL ){
 #' print(doc, target = fileout )
 #' @family functions for placeholders manipulation
 #' @seealso \code{\link{ph_with}}
-ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL ){
+ph_remove <- function( x, type = "body", id = NULL, ph_label = NULL){
+
+  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
 
   slide <- x$slide$get_slide(x$cursor)
-  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr][%.0f]", office_id) )
 
-  xml_remove(current_elt)
+  for(id in office_id){
+    current_elt <-  xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id=%s]]", id) )
+    xml_remove(current_elt)
+  }
 
   x
 }
@@ -113,11 +115,12 @@ ph_remove <- function( x, type = "body", id = 1, ph_label = NULL, id_chr = NULL 
 #' print(doc, target = fileout )
 #' @family functions for placeholders manipulation
 #' @seealso \code{\link{ph_with}}
-ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, slide_index){
+ph_slidelink <- function( x, type = "body", id = NULL, id_chr = NULL, ph_label = NULL, slide_index){
+
+  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )[1]
 
   slide <- x$slide$get_slide(x$cursor)
-  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr][%.0f]", office_id) )
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id=%s]]", office_id) )
 
   # declare slide ref in relationships
   slide_name <- x$slide$names()[slide_index]
@@ -153,11 +156,12 @@ ph_slidelink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NU
 #' print(doc, target = fileout )
 #' @family functions for placeholders manipulation
 #' @seealso \code{\link{ph_with}}
-ph_hyperlink <- function( x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href ){
+ph_hyperlink <- function( x, type = "body", id = NULL, id_chr = NULL, ph_label = NULL, href ){
+
+  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )[1]
 
   slide <- x$slide$get_slide(x$cursor)
-  office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label )
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr][%.0f]", office_id) )
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id=%s]]", office_id) )
 
   # add hlinkClick
   cnvpr <- xml_child(current_elt, "p:nvSpPr/p:cNvPr")
