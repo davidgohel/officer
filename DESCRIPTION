@@ -1,10 +1,10 @@
 Package: officer
 Type: Package
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.6.3
+Version: 0.6.4.002
 Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr"),
+    person("David", "Gohel", role = c("aut", "cre"), email = "david.gohel@ardata.fr"),
+    person("Stefan", "Moog", role = "aut", email = 'moogs@gmx.de'),
     person(given = "ArData", role = "cph"),
     person("Frank", "Hangler", role = "ctb", email = "frank@plotandscatter.com", comment = "function body_replace_all_text"),
     person("Liz", "Sander", role = "ctb", email = 'lsander@civisanalytics.com', comment = "several documentation fixes"),
@@ -14,7 +14,6 @@ Authors@R: c(
     person("John", "Muschelli", role = "ctb", email = 'muschellij2@gmail.com', comment = "google doc compatibility"),
     person("Bill", "Denney", email="wdenney@humanpredictions.com", role="ctb", comment=c(ORCID="0000-0002-5759-428X", "function as.matrix.rpptx")),
     person("Nikolai", "Beck", role = "ctb", email = 'beck.nikolai@gmail.com', comment = "set speaker notes for .pptx documents"),
-    person("Stefan", "Moog", role = "ctb", email = 'moogs@gmx.de', comment = "PowerPoint shape geometry and outline and Word comments"),
     person("Greg", "Leleu", role = "ctb", email = 'gregoire.leleu@gmail.com', comment = "fields functionality in ppt"),
     person("Hongyuan", "Jia", role = "ctb", email = "hongyuanjia@cqust.edu.cn", comment = c(ORCID = "0000-0002-0075-8183"))
     )
