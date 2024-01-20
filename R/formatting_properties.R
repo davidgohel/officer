@@ -359,15 +359,66 @@ update.fp_text <- function(object, color, font.size,
 }
 
 # fp_border ----
-border_styles = c("none", "solid", "dotted", "dashed")
+border_styles =  c(
+  "nil", "none", "solid", "single", "thick", "double", "dotted", "dashed",
+  "dotDash", "dotDotDash", "triple", "thinThickSmallGap", "thickThinSmallGap",
+  "thinThickThinSmallGap", "thinThickMediumGap", "thickThinMediumGap",
+  "thinThickThinMediumGap", "thinThickLargeGap", "thickThinLargeGap",
+  "thinThickThinLargeGap", "wave", "doubleWave", "dashSmallGap",
+  "dashDotStroked", "threeDEmboss", "ridge", "threeDEngrave", "groove",
+  "outset", "inset"
+)
 
 #' @title Border properties object
 #'
 #' @description create a border properties object.
 #'
 #' @param color border color - single character value (e.g. "#000000" or "black")
-#' @param style border style - single character value : "none" or "solid" or "dotted" or "dashed"
+#' @param style border style - single character value : See Details for supported
+#'  border styles.
 #' @param width border width - an integer value : 0>= value
+#' @details For Word output the following border styles are supported:
+#'
+#' * "none" or "nil" - No Border
+#' * "solid" or "single" - Single Line Border
+#' * "thick" - Single Line Border
+#' * "double" - Double Line Border
+#' * "dotted" - Dotted Line Border
+#' * "dashed" - Dashed Line Border
+#' * "dotDash" - Dot Dash Line Border
+#' * "dotDotDash" - Dot Dot Dash Line Border
+#' * "triple" - Triple Line Border
+#' * "thinThickSmallGap" - Thin, Thick Line Border
+#' * "thickThinSmallGap" - Thick, Thin Line Border
+#' * "thinThickThinSmallGap" - Thin, Thick, Thin Line Border
+#' * "thinThickMediumGap" - Thin, Thick Line Border
+#' * "thickThinMediumGap" - Thick, Thin Line Border
+#' * "thinThickThinMediumGap" - Thin, Thick, Thin Line Border
+#' * "thinThickLargeGap" - Thin, Thick Line Border
+#' * "thickThinLargeGap" - Thick, Thin Line Border
+#' * "thinThickThinLargeGap" - Thin, Thick, Thin Line Border
+#' * "wave" - Wavy Line Border
+#' * "doubleWave" - Double Wave Line Border
+#' * "dashSmallGap" - Dashed Line Border
+#' * "dashDotStroked" - Dash Dot Strokes Line Border
+#' * "threeDEmboss" or "ridge" - 3D Embossed Line Border
+#' * "threeDEngrave" or "groove" - 3D Engraved Line Border
+#' * "outset" - Outset Line Border
+#' * "inset" - Inset Line Border
+#'
+#' For HTML output only a limited amount of border styles are supported:
+#'
+#' * "none" or "nil" - No Border
+#' * "solid" or "single" - Single Line Border
+#' * "double" - Double Line Border
+#' * "dotted" - Dotted Line Border
+#' * "dashed" - Dashed Line Border
+#' * "threeDEmboss" or "ridge" - 3D Embossed Line Border
+#' * "threeDEngrave" or "groove" - 3D Engraved Line Border
+#' * "outset" - Outset Line Border
+#' * "inset" - Inset Line Border
+#'
+#' Non-supported Word border styles will default to "solid".
 #' @examples
 #' fp_border()
 #' fp_border(color="orange", style="solid", width=1)

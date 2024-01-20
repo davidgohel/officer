@@ -12,7 +12,8 @@ fp_border(color = "black", style = "solid", width = 1)
 \arguments{
 \item{color}{border color - single character value (e.g. "#000000" or "black")}
 
-\item{style}{border style - single character value : "none" or "solid" or "dotted" or "dashed"}
+\item{style}{border style - single character value : See Details for supported
+border styles.}
 
 \item{width}{border width - an integer value : 0>= value}
 
@@ -22,6 +23,52 @@ fp_border(color = "black", style = "solid", width = 1)
 }
 \description{
 create a border properties object.
+}
+\details{
+For Word output the following border styles are supported:
+\itemize{
+\item "none" or "nil" - No Border
+\item "solid" or "single" - Single Line Border
+\item "thick" - Single Line Border
+\item "double" - Double Line Border
+\item "dotted" - Dotted Line Border
+\item "dashed" - Dashed Line Border
+\item "dotDash" - Dot Dash Line Border
+\item "dotDotDash" - Dot Dot Dash Line Border
+\item "triple" - Triple Line Border
+\item "thinThickSmallGap" - Thin, Thick Line Border
+\item "thickThinSmallGap" - Thick, Thin Line Border
+\item "thinThickThinSmallGap" - Thin, Thick, Thin Line Border
+\item "thinThickMediumGap" - Thin, Thick Line Border
+\item "thickThinMediumGap" - Thick, Thin Line Border
+\item "thinThickThinMediumGap" - Thin, Thick, Thin Line Border
+\item "thinThickLargeGap" - Thin, Thick Line Border
+\item "thickThinLargeGap" - Thick, Thin Line Border
+\item "thinThickThinLargeGap" - Thin, Thick, Thin Line Border
+\item "wave" - Wavy Line Border
+\item "doubleWave" - Double Wave Line Border
+\item "dashSmallGap" - Dashed Line Border
+\item "dashDotStroked" - Dash Dot Strokes Line Border
+\item "threeDEmboss" or "ridge" - 3D Embossed Line Border
+\item "threeDEngrave" or "groove" - 3D Engraved Line Border
+\item "outset" - Outset Line Border
+\item "inset" - Inset Line Border
+}
+
+For HTML output only a limited amount of border styles are supported:
+\itemize{
+\item "none" or "nil" - No Border
+\item "solid" or "single" - Single Line Border
+\item "double" - Double Line Border
+\item "dotted" - Dotted Line Border
+\item "dashed" - Dashed Line Border
+\item "threeDEmboss" or "ridge" - 3D Embossed Line Border
+\item "threeDEngrave" or "groove" - 3D Engraved Line Border
+\item "outset" - Outset Line Border
+\item "inset" - Inset Line Border
+}
+
+Non-supported Word border styles will default to "solid".
 }
 \examples{
 fp_border()
