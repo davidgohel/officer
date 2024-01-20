@@ -33,6 +33,11 @@ manuals \url{https://davidgohel.github.io/officer/}
 \author{
 \strong{Maintainer}: David Gohel \email{david.gohel@ardata.fr}
 
+Authors:
+\itemize{
+  \item Stefan Moog \email{moogs@gmx.de}
+}
+
 Other contributors:
 \itemize{
   \item ArData [copyright holder]
@@ -44,7 +49,6 @@ Other contributors:
   \item John Muschelli \email{muschellij2@gmail.com} (google doc compatibility) [contributor]
   \item Bill Denney \email{wdenney@humanpredictions.com} (\href{https://orcid.org/0000-0002-5759-428X}{ORCID}) (function as.matrix.rpptx) [contributor]
   \item Nikolai Beck \email{beck.nikolai@gmail.com} (set speaker notes for .pptx documents) [contributor]
-  \item Stefan Moog \email{moogs@gmx.de} (PowerPoint shape geometry and outline and Word comments) [contributor]
   \item Greg Leleu \email{gregoire.leleu@gmail.com} (fields functionality in ppt) [contributor]
   \item Hongyuan Jia \email{hongyuanjia@cqust.edu.cn} (\href{https://orcid.org/0000-0002-0075-8183}{ORCID}) [contributor]
 }
