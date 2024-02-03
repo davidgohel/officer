@@ -29,6 +29,7 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL) {
 #' Values can be read from \code{\link{slide_summary}}.
 #' @param ph_label label associated to the placeholder. Use column
 #' \code{ph_label} of result returned by \code{\link{slide_summary}}.
+#' If used, `type` and `id` are ignored.
 #' @param id_chr deprecated.
 #' @examples
 #' fileout <- tempfile(fileext = ".pptx")

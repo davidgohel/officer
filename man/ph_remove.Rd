@@ -17,7 +17,8 @@ add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
 Values can be read from \code{\link{slide_summary}}.}
 
 \item{ph_label}{label associated to the placeholder. Use column
-\code{ph_label} of result returned by \code{\link{slide_summary}}.}
+\code{ph_label} of result returned by \code{\link{slide_summary}}.
+If used, \code{type} and \code{id} are ignored.}
 
 \item{id_chr}{deprecated.}
 }

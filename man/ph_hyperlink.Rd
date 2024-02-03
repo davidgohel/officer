@@ -19,7 +19,8 @@ Values can be read from \code{\link{slide_summary}}.}
 \item{id_chr}{deprecated.}
 
 \item{ph_label}{label associated to the placeholder. Use column
-\code{ph_label} of result returned by \code{\link{slide_summary}}.}
+\code{ph_label} of result returned by \code{\link{slide_summary}}.
+If used, \code{type} and \code{id} are ignored.}
 
 \item{href}{hyperlink (do not forget http or https prefix)}
 }
