@@ -28,15 +28,17 @@ Add hyperlink to a placeholder in the current slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")
-loc_manual <- ph_location(bg = "red", newlabel= "mytitle")
+loc_manual <- ph_location(bg = "red", newlabel = "mytitle")
 doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(x = doc, "Un titre 1", location = loc_manual)
 slide_summary(doc) # read column ph_label here
-doc <- ph_hyperlink(x = doc, ph_label = "mytitle",
-  href = "https://cran.r-project.org")
+doc <- ph_hyperlink(
+  x = doc, ph_label = "mytitle",
+  href = "https://cran.r-project.org"
+)
 
-print(doc, target = fileout )
+print(doc, target = fileout)
 }
 \seealso{
 \code{\link{ph_with}}

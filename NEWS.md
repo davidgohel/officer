@@ -19,6 +19,8 @@ The docs gain a description of the columns of the returned dataframe.
 multiple paragraphs, multiple comments in the same paragraph and replies. Closes #541.
 - Check and stop if `fp_text_lite()` is using a *shading.color* but no *color*.
 - Check used style in `body_add_caption()`.
+- fix `ph_remove()`, `ph_slidelink()` and `ph_hyperlink()` that were not working since
+the latest refactoring.
 - Use fake attribute `stlname` if available in `docx_summary()`.
 
 # officer 0.6.3

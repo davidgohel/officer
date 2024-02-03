@@ -180,8 +180,8 @@ pptx_fortify_slides <- function(x) {
     process_links(slide, type = "pml")
 
     cnvpr <- xml_find_all(slide$get(), "//p:cNvPr")
-    for(i in seq_along(cnvpr)){
-      xml_attr( cnvpr[[i]], "id") <- i
+    for (i in seq_along(cnvpr)) {
+      xml_attr(cnvpr[[i]], "id") <- i
     }
   }
 
@@ -219,7 +219,9 @@ shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
     ph <- "<p:ph/>"
   }
 
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
+  randomid <- officer::uuid_generate()
 
-  sprintf(str, label, ph, xfrm_str, geom_str, bg_str, ln_str)
+  str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
+
+  sprintf(str, randomid, label, ph, xfrm_str, geom_str, bg_str, ln_str)
 }

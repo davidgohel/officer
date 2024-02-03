@@ -779,10 +779,10 @@ to_pml.block_table <- function(x, add_ns = FALSE,
                         tcf = x$properties$tcf,
                         header = x$header )
 
-
+  id <- uuid_generate()
   str <- paste0("<p:graphicFrame xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
                 "<p:nvGraphicFramePr>",
-                sprintf("<p:cNvPr id=\"0\" name=\"%s\"/>", label),
+                sprintf("<p:cNvPr id=\"%s\" name=\"%s\"/>", id, label),
                 "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"1\"/></p:cNvGraphicFramePr>",
                 sprintf("<p:nvPr>%s</p:nvPr>", ph),
                 "</p:nvGraphicFramePr>",

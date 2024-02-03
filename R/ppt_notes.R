@@ -143,8 +143,10 @@ ph_from_location.location_label <- function(loc, doc, ...) {
   xfrm <- doc$notesMaster$xfrm()
   location <- xfrm[xfrm$ph_label == loc$ph_label, ]
   if (nrow(location) < 1) stop("No placeholder with label ", loc$ph_label, " found!")
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
-  new_ph <- sprintf(str, location$ph_label, location$ph)
+
+  id <- uuid_generate()
+  str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
+  new_ph <- sprintf(str, id, location$ph_label, location$ph)
   return(list(ph = new_ph, label = location$ph_label))
 }
 
@@ -153,8 +155,10 @@ ph_from_location.location_type <- function(loc, doc, ...) {
   xfrm <- doc$notesMaster$xfrm()
   location <- xfrm[xfrm$type == loc$type, ]
   if (nrow(location) < 1) stop("No placeholder of type ", loc$type, " found!")
-  str <- "<p:nvSpPr><p:cNvPr id=\"0\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
-  new_ph <- sprintf(str, location$ph_label[1], location$ph[1])
+
+  id <- uuid_generate()
+  str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
+  new_ph <- sprintf(str, id, location$ph_label[1], location$ph[1])
   return(list(ph = new_ph, label = location$ph_label[1]))
 }
 

@@ -26,20 +26,29 @@ Remove a shape in a slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")
-dummy_fun <- function(doc){
-  doc <- add_slide(doc, layout = "Two Content",
-    master = "Office Theme")
-  doc <- ph_with(x = doc, value = "Un titre",
-    location = ph_location_type(type = "title"))
-  doc <- ph_with(x = doc, value = "Un corps 1",
-    location = ph_location_type(type = "body", id = 1))
-  doc <- ph_with(x = doc, value = "Un corps 2",
-    location = ph_location_type(type = "body", id = 2))
+dummy_fun <- function(doc) {
+  doc <- add_slide(doc,
+    layout = "Two Content",
+    master = "Office Theme"
+  )
+  doc <- ph_with(
+    x = doc, value = "Un titre",
+    location = ph_location_type(type = "title")
+  )
+  doc <- ph_with(
+    x = doc, value = "Un corps 1",
+    location = ph_location_type(type = "body", id = 1)
+  )
+  doc <- ph_with(
+    x = doc, value = "Un corps 2",
+    location = ph_location_type(type = "body", id = 2)
+  )
   doc
 }
 doc <- read_pptx()
-for(i in 1:3)
+for (i in 1:3) {
   doc <- dummy_fun(doc)
+}
 
 doc <- on_slide(doc, index = 1)
 doc <- ph_remove(x = doc, type = "title")
@@ -50,7 +59,7 @@ doc <- ph_remove(x = doc, type = "body", id = 2)
 doc <- on_slide(doc, index = 3)
 doc <- ph_remove(x = doc, type = "body", id = 1)
 
-print(doc, target = fileout )
+print(doc, target = fileout)
 }
 \seealso{
 \code{\link{ph_with}}

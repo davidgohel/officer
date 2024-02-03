@@ -45,7 +45,7 @@ doc <- on_slide(doc, 1)
 slide_summary(doc) # read column ph_label here
 doc <- ph_slidelink(x = doc, ph_label = "Title 1", slide_index = 2)
 
-print(doc, target = fileout )
+print(doc, target = fileout)
 }
 \seealso{
 \code{\link{ph_with}}

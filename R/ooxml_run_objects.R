@@ -1065,10 +1065,11 @@ to_pml.external_img <- function(x, add_ns = FALSE,
     ph = "<p:ph/>"
   }
   blipfill <- temp_blipfill(x, ns = "p")
+  id <- uuid_generate()
   str <- "
 <p:pic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">
   <p:nvPicPr>
-    <p:cNvPr id=\"0\" name=\"%s\" descr=\"%s\"/>
+    <p:cNvPr id=\"%s\" name=\"%s\" descr=\"%s\"/>
     <p:cNvPicPr><a:picLocks noGrp=\"1\"/></p:cNvPicPr>
     <p:nvPr>%s</p:nvPr>
   </p:nvPicPr>
@@ -1076,7 +1077,7 @@ to_pml.external_img <- function(x, add_ns = FALSE,
   <p:spPr>%s<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>%s%s</p:spPr>
 </p:pic>
 "
-  sprintf(str, label, attr(x, "alt"), ph, blipfill, xfrm_str, bg_str, ln_str)
+  sprintf(str, id, label, attr(x, "alt"), ph, blipfill, xfrm_str, bg_str, ln_str)
 
 }
 
