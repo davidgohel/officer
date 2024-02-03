@@ -464,6 +464,9 @@ rpr_wml <- function(x){
   }
 
   if(!is.na(x$shading.color)){
+    if (is.na(x$color)) {
+      stop("shading.color must be used **with** a color.")
+    }
     if(!is_transparent(x$shading.color) ){
       out <- paste0(
         out,
