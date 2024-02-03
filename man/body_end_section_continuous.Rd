@@ -33,8 +33,8 @@ print(doc_1, target = tempfile(fileext = ".docx"))
 \seealso{
 Other functions for Word sections: 
 \code{\link{body_end_block_section}()},
-\code{\link{body_end_section_columns_landscape}()},
 \code{\link{body_end_section_columns}()},
+\code{\link{body_end_section_columns_landscape}()},
 \code{\link{body_end_section_landscape}()},
 \code{\link{body_end_section_portrait}()},
 \code{\link{body_set_default_section}()}

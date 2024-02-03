@@ -66,11 +66,11 @@ print(doc, target = tempfile(fileext = ".pptx") )
 }
 \seealso{
 Other functions for placeholder location: 
+\code{\link{ph_location}()},
 \code{\link{ph_location_fullsize}()},
 \code{\link{ph_location_label}()},
 \code{\link{ph_location_left}()},
 \code{\link{ph_location_right}()},
-\code{\link{ph_location_type}()},
-\code{\link{ph_location}()}
+\code{\link{ph_location_type}()}
 }
 \concept{functions for placeholder location}

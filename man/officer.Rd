@@ -2,8 +2,8 @@
 % Please edit documentation in R/officer.R
 \docType{package}
 \name{officer}
-\alias{officer}
 \alias{officer-package}
+\alias{officer}
 \title{Manipulate Microsoft Word and PowerPoint Documents with 'officer'}
 \description{
 The officer package facilitates access to and manipulation of

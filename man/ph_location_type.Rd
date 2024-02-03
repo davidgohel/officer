@@ -86,11 +86,11 @@ print(doc, target = fileout)
 }
 \seealso{
 Other functions for placeholder location: 
+\code{\link{ph_location}()},
 \code{\link{ph_location_fullsize}()},
 \code{\link{ph_location_label}()},
 \code{\link{ph_location_left}()},
 \code{\link{ph_location_right}()},
-\code{\link{ph_location_template}()},
-\code{\link{ph_location}()}
+\code{\link{ph_location_template}()}
 }
 \concept{functions for placeholder location}
