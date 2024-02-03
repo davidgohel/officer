@@ -86,11 +86,14 @@ docxtable_as_tibble <- function( node, styles, preserve = FALSE ){
   row_details
 }
 
+#' @importFrom xml2 xml_has_attr
 par_as_tibble <- function(node, styles){
 
   style_node <- xml_child(node, "w:pPr/w:pStyle")
   if( inherits(style_node, "xml_missing") ){
     style_name <- NA
+  } else if(xml_has_attr(style_node, "stlname")) {
+    style_name <- xml_attr( style_node, "stlname")
   } else {
     style_id <- xml_attr( style_node, "val")
     style_name <- styles$style_name[styles$style_id %in% style_id]

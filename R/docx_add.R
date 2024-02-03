@@ -426,6 +426,9 @@ body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "N
 #' print(doc, target = tempfile(fileext = ".docx"))
 body_add_caption <- function(x, value, pos = "after") {
   stopifnot(inherits(value, "block_caption"))
+  if (!value$style %in% x$styles$style_name) {
+    stop("caption is using style ", shQuote(value$style), " that does not exist in the Word document.")
+  }
   out <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml(x = x, str = out, pos = pos)
 }
@@ -697,6 +700,11 @@ body_add.data.frame <- function(x, value, style = NULL, header = TRUE,
 #' @describeIn body_add add a [block_caption] object. These objects enable
 #' the creation of set of formatted paragraphs made of formatted chunks of text.
 body_add.block_caption <- function(x, value, ...) {
+
+  if (!value$style %in% x$styles$style_name) {
+    stop("caption is using style ", shQuote(value$style), " that does not exist in the Word document.")
+  }
+
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
 }

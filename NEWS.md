@@ -18,6 +18,8 @@ The docs gain a description of the columns of the returned dataframe.
 - Fix. Refactor `docx_comments()` to (properly) account for comments spanning 
 multiple paragraphs, multiple comments in the same paragraph and replies. Closes #541.
 - Check and stop if `fp_text_lite()` is using a *shading.color* but no *color*.
+- Check used style in `body_add_caption()`.
+- Use fake attribute `stlname` if available in `docx_summary()`.
 
 # officer 0.6.3
 
