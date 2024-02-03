@@ -177,56 +177,28 @@ knitr_opts_current <- function(x, default = FALSE){
 #' @keywords internal
 opts_current_table <- function() {
 
-  is_quarto <- isTRUE(knitr::opts_knit$get("quarto.version") > numeric_version("0"))
   is_bookdown <- isTRUE(knitr::opts_knit$get('bookdown.internal.label'))
 
   if (is_bookdown) {
     tab.lp <- knitr_opts_current("tab.lp", default = "tab:")
-  } else if (is_quarto) {
-    tab.lp <- "tab:"
   } else {
     tab.lp <- knitr_opts_current("tab.lp", default = NULL)
   }
-  if (is_quarto) {
-    tab.topcaption <- knitr_opts_current("tbl-cap-location", default = "top") %in% "top"
-  } else {
-    tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
-  }
+  tab.topcaption <- knitr_opts_current("tab.topcaption", default = TRUE)
 
-  if (is_quarto) {
-    tab.cap.pre <- knitr_opts_current("tbl-title", default = "Table")
-    tab.cap.sep <- knitr_opts_current("title-delim", default = ":")
-  } else {
-    tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table")
-    tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ":")
-  }
+  tab.cap.pre <- knitr_opts_current("tab.cap.pre", default = "Table")
+  tab.cap.sep <- knitr_opts_current("tab.cap.sep", default = ":")
+
   tab.cap.pre <- paste0(tab.cap.pre, " ")
   tab.cap.sep <- paste0(tab.cap.sep, " ")
 
-  if (is_quarto) {
-    tab.cap <- knitr_opts_current("tbl-cap", default = NULL)
-  } else {
-    tab.cap <- knitr_opts_current("tab.cap", default = NULL)
-  }
+  tab.cap <- knitr_opts_current("tab.cap", default = NULL)
 
-  if (is_quarto) {
-    tab.id <- knitr_opts_current("label", default = NULL)
-    if(!is.null(tab.id)) {
-      if (grepl("^unnamed\\-chunk", tab.id)) {
-        tab.id <- NULL
-      }
-    }
-  } else if (is_bookdown) {
+  if (is_bookdown) {
     tab.id <- knitr_opts_current("label", default = NULL)
     tab.id <- knitr_opts_current("tab.id", default = tab.id)
   } else {
     tab.id <- knitr_opts_current("tab.id", default = NULL)
-  }
-
-  if (is_quarto) {
-    if(is.null(tab.cap) && !is.null(tab.id)) {
-      stop("if a label (", tab.id, ") is defined, chunk option `tbl-cap` should also be defined.")
-    }
   }
 
   tab.cap.style <- knitr_opts_current("tab.cap.style", default = NULL)

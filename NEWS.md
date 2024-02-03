@@ -11,6 +11,7 @@
 the id(s) of the parent paragraph(s). A possible breaking change is that the `commented_text` 
 is now returned as a list column to account for comments spanning multiple runs.
 The docs gain a description of the columns of the returned dataframe.
+- `opts_current_table()` now ignore 'Quarto' setting.
 
 ## Issues
 
