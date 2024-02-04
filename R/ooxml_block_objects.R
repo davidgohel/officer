@@ -25,12 +25,18 @@
 #'
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family block functions for reporting
-block_caption <- function(label, style, autonum = NULL) {
+block_caption <- function(label, style = NULL, autonum = NULL) {
+
+  if (is.null(style)) {
+    style <- "Normal"
+  }
+
   z <- list(
     label = label,
     autonum = autonum,
     style = style
   )
+
   class(z) <- c("block_caption", "block")
   z
 }
@@ -38,9 +44,9 @@ block_caption <- function(label, style, autonum = NULL) {
 #' @export
 print.block_caption <- function(x, ...) {
   if (is.null(x$autonum)) {
-    auton <- "[anto-num on]"
+    auton <- "[autonum off]"
   } else {
-    auton <- "[antonum off]"
+    auton <- "[autonum on]"
   }
   cat("caption ", auton, ": ", x$label, "\n", sep = "")
 }
@@ -52,11 +58,6 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE){
     open_tag <- wp_ns_yes
   }
 
-  if (is.null(x$style)) {
-    style <- "Normal"
-  } else {
-    style <- x$style
-  }
   autonum <- ""
   if (!is.null(x$autonum)) {
     autonum <- to_wml(x$autonum)
@@ -67,7 +68,7 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE){
 
   out <- sprintf(
     "%s<w:pPr><w:pStyle w:stlname=\"%s\"/></w:pPr>%s</w:p>",
-    open_tag, style, run_str
+    open_tag, x$style, run_str
   )
 
   out

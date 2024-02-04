@@ -98,6 +98,13 @@ test_that("body_add_toc", {
   child_ <- getncheck(node, "w:r/w:instrText")
   expect_equal( xml_text(child_), "TOC \\h \\z \\t \"Normal;1\"" )
 
+  expect_output(print(block_toc(level = 2)), "TOC - max level: 2")
+  expect_output(print(block_toc(level = 2, style = "Normal")), "TOC for style: Normal")
+  expect_output(print(block_toc(level = 2, seq_id = "tab")), "TOC for seq identifier: tab")
+
+  expect_match(to_wml(block_toc(seq_id = "tab")), "TOC \\\\h \\\\z \\\\c \"tab\"")
+  expect_match(to_wml(block_toc(style = "Normal")), "TOC \\\\h \\\\z \\\\t \"Normal;1\"")
+  expect_match(to_wml(block_toc(level = 2)), "TOC \\\\o \"1-2\" \\\\h \\\\z \\\\u")
 })
 
 test_that("body_add_img", {

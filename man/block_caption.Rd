@@ -4,7 +4,7 @@
 \alias{block_caption}
 \title{Caption block}
 \usage{
-block_caption(label, style, autonum = NULL)
+block_caption(label, style = NULL, autonum = NULL)
 }
 \arguments{
 \item{label}{a scalar character representing label to display}
