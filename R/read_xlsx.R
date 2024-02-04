@@ -254,14 +254,14 @@ add_sheet <- function( x, label ){
   xml_file <- file.path(x$package_dir, "xl/worksheets", new_slidename)
 
   template_file <- system.file(package = "officer", "template/sheet.xml")
-  file.copy(template_file, xml_file)
+  file.copy(template_file, xml_file, copy.mode = FALSE)
 
   rel_filename <- file.path(
     dirname(xml_file), "_rels",
     paste0(basename(xml_file), ".rels") )
   dir.create(dirname(rel_filename), showWarnings = FALSE)
   template_rel_file <- system.file(package = "officer", "template/sheet.xml.rels")
-  file.copy(template_rel_file, rel_filename)
+  file.copy(template_rel_file, rel_filename, copy.mode = FALSE)
 
   # update presentation elements
   x$worksheets$add_sheet(target = file.path( "worksheets", new_slidename), label = label )

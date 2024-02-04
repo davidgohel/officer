@@ -96,7 +96,8 @@ read_docx <- function(path = NULL) {
   if (!file.exists(file.path(package_dir, "word", "comments.xml"))) {
     file.copy(
       system.file(package = "officer", "template", "comments.xml"),
-      file.path(package_dir, "word", "comments.xml")
+      file.path(package_dir, "word", "comments.xml"),
+      copy.mode = FALSE
     )
     obj$content_type$add_override(
       setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml", "/word/comments.xml")
@@ -112,7 +113,8 @@ read_docx <- function(path = NULL) {
   if (!file.exists(file.path(package_dir, "word", "footnotes.xml"))) {
     file.copy(
       system.file(package = "officer", "template", "footnotes.xml"),
-      file.path(package_dir, "word", "footnotes.xml")
+      file.path(package_dir, "word", "footnotes.xml"),
+      copy.mode = FALSE
     )
     obj$content_type$add_override(
       setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml", "/word/footnotes.xml")

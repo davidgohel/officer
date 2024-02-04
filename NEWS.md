@@ -22,6 +22,8 @@ multiple paragraphs, multiple comments in the same paragraph and replies. Closes
 - fix `ph_remove()`, `ph_slidelink()` and `ph_hyperlink()` that were not working since
 the latest refactoring.
 - Use fake attribute `stlname` if available in `docx_summary()`.
+- calls to `file.copy(from = "template/*.xml")` are now done with argument 
+`copy.mode = FALSE` for compatibility with 'nix'.
 
 # officer 0.6.3
 
