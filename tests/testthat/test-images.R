@@ -4,6 +4,16 @@ svg_file <- file.path(R.home(component = "doc"), "html", "Rlogo.svg")
 ext_img <- external_img(img.file)
 ext_svg <- external_img(svg_file)
 
+test_that("add image in HTML", {
+  expect_match(
+    to_html(ext_svg),
+    "<img style=\"vertical-align:middle;width:36px;height:14px;\" src=\"data:image/svg\\+xml;base64,"
+  )
+  expect_match(
+    to_html(ext_img),
+    "<img style=\"vertical-align:middle;width:36px;height:14px;\" src=\"data:image/jpeg;base64,"
+  )
+})
 
 test_that("add image in docx", {
   x <- read_docx()
