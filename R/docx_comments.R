@@ -49,7 +49,7 @@ docx_comments <- function(x) {
     ), "id"
   )
 
-  comment_text_runs <- lapply(comment_ids, \(id) {
+  comment_text_runs <- lapply(comment_ids, function(id) {
     xml_find_all(
       x$doc_obj$get(),
       paste0(
