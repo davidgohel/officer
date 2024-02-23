@@ -63,8 +63,10 @@ officedown.
 run_autonum()
 run_autonum(seq_id = "fig", pre_label = "fig. ")
 run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
-run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable",
-  tnd = 2, tns= " ")
+run_autonum(
+  seq_id = "tab", pre_label = "Table ", bkm = "anytable",
+  tnd = 2, tns = " "
+)
 }
 \seealso{
 Other run functions for reporting: 
@@ -79,6 +81,7 @@ Other run functions for reporting:
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 

@@ -40,6 +40,7 @@ Other run functions for reporting:
 \code{\link{run_footnoteref}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 }

@@ -24,7 +24,7 @@ library(officer)
 fp_bold <- fp_text_lite(bold = TRUE)
 fp_refnote <- fp_text_lite(vertical.align = "superscript")
 
-img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 bl <- block_list(
   fpar(ftext("hello", fp_bold)),
   fpar(
@@ -57,6 +57,7 @@ Other run functions for reporting:
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 }

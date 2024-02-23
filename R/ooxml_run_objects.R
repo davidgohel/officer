@@ -76,28 +76,30 @@ bookmark <- function(id, str) {
 #' @seealso [fp_text]
 #' @family run functions for reporting
 ftext <- function(text, prop = NULL) {
-  if(is.character(text)) {
+  if (is.character(text)) {
     value <- enc2utf8(text)
   } else {
     value <- formatC(text)
   }
 
-  out <- list( value = value, pr = prop )
+  out <- list(value = value, pr = prop)
   class(out) <- c("ftext", "cot", "run")
   out
 }
 
 #' @export
-print.ftext <- function (x, ...) {
+print.ftext <- function(x, ...) {
   cat("text: ", x$value, "\nformat:\n", sep = "")
   print(x$pr)
 }
 
 #' @export
 to_wml.ftext <- function(x, add_ns = FALSE, ...) {
-  out <- paste0("<w:r>", if(!is.null(x$pr)) rpr_wml(x$pr),
-                "<w:t xml:space=\"preserve\">",
-                htmlEscapeCopy(x$value), "</w:t></w:r>")
+  out <- paste0(
+    "<w:r>", if (!is.null(x$pr)) rpr_wml(x$pr),
+    "<w:t xml:space=\"preserve\">",
+    htmlEscapeCopy(x$value), "</w:t></w:r>"
+  )
   out
 }
 
@@ -107,13 +109,15 @@ to_pml.ftext <- function(x, add_ns = FALSE, ...) {
   if (add_ns) {
     open_tag <- ar_ns_yes
   }
-  paste0(open_tag, if(!is.null(x$pr)) rpr_pml(x$pr),
-         "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>")
+  paste0(
+    open_tag, if (!is.null(x$pr)) rpr_pml(x$pr),
+    "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>"
+  )
 }
 
 #' @export
 to_html.ftext <- function(x, ...) {
-  sprintf("<span style=\"%s\">%s</span>", if(!is.null(x$pr)) rpr_css(x$pr) else "", htmlEscapeCopy(x$value))
+  sprintf("<span style=\"%s\">%s</span>", if (!is.null(x$pr)) rpr_css(x$pr) else "", htmlEscapeCopy(x$value))
 }
 
 
@@ -134,30 +138,32 @@ to_html.ftext <- function(x, ...) {
 #' @seealso [ftext()]
 #' @family run functions for reporting
 run_wordtext <- function(text, style_id = NULL) {
-  if(is.character(text)) {
+  if (is.character(text)) {
     value <- enc2utf8(text)
   } else {
     value <- formatC(text)
   }
 
-  out <- list( value = value, style_id = style_id )
+  out <- list(value = value, style_id = style_id)
   class(out) <- c("run_wordtext", "cot", "run")
   out
 }
 
 #' @export
-print.run_wordtext <- function (x, ...) {
+print.run_wordtext <- function(x, ...) {
   cat("text: `", x$value, "`\nword style id: `", x$style_id, "`\n", sep = "")
 }
 #
 #' @export
 to_wml.run_wordtext <- function(x, add_ns = FALSE, ...) {
-  out <- paste0("<w:r>",
-                "<w:rPr>",
-                sprintf("<w:rStyle w:val=\"%s\"/>", x$style_id),
-                "</w:rPr>",
-                "<w:t xml:space=\"preserve\">",
-                htmlEscapeCopy(x$value), "</w:t></w:r>")
+  out <- paste0(
+    "<w:r>",
+    "<w:rPr>",
+    sprintf("<w:rStyle w:val=\"%s\"/>", x$style_id),
+    "</w:rPr>",
+    "<w:t xml:space=\"preserve\">",
+    htmlEscapeCopy(x$value), "</w:t></w:r>"
+  )
   out
 }
 
@@ -179,15 +185,14 @@ to_wml.run_wordtext <- function(x, add_ns = FALSE, ...) {
 #' @family run functions for reporting
 #' @family Word computed fields
 run_word_field <- function(field, prop = NULL, seqfield = NULL) {
-
-  if(!is.null(seqfield)) {
+  if (!is.null(seqfield)) {
     field <- seqfield
     message("`seqfield` argument is deprecated in favor of `field`")
   }
   z <- list(
     field = field, pr = prop
   )
-    class(z) <- c("run_word_field", "run")
+  class(z) <- c("run_word_field", "run")
   z
 }
 
@@ -197,8 +202,7 @@ run_seqfield <- run_word_field
 
 #' @export
 to_wml.run_word_field <- function(x, add_ns = FALSE, ...) {
-
-  pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
+  pr <- if (!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
 
   xml_elt_1 <- paste0(
     wr_ns_yes,
@@ -256,8 +260,10 @@ to_wml.run_word_field <- function(x, add_ns = FALSE, ...) {
 #' run_autonum()
 #' run_autonum(seq_id = "fig", pre_label = "fig. ")
 #' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable")
-#' run_autonum(seq_id = "tab", pre_label = "Table ", bkm = "anytable",
-#'   tnd = 2, tns= " ")
+#' run_autonum(
+#'   seq_id = "tab", pre_label = "Table ", bkm = "anytable",
+#'   tnd = 2, tns = " "
+#' )
 #' @family run functions for reporting
 #' @family Word computed fields
 run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": ",
@@ -266,14 +272,15 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
                         tnd = 0, tns = "-") {
   bkm <- check_bookmark_id(bkm)
 
-  stopifnot(!is.null(tnd),
-            !is.null(tns),
-            is.numeric(tnd),
-            sign(tnd)>-1,
-            is.character(tns),
-            is.null(start_at) || is.numeric(start_at),
-            inherits(prop, "fp_text") || is.null(prop)
-            )
+  stopifnot(
+    !is.null(tnd),
+    !is.null(tns),
+    is.numeric(tnd),
+    sign(tnd) > -1,
+    is.character(tns),
+    is.null(start_at) || is.numeric(start_at),
+    inherits(prop, "fp_text") || is.null(prop)
+  )
   z <- list(
     seq_id = seq_id,
     pre_label = pre_label,
@@ -299,11 +306,13 @@ run_autonum <- function(seq_id = "table", pre_label = "Table ", post_label = ": 
 #' @param bkm bookmark id to associate with autonumber run.
 #' Value can only be made of alpha numeric characters, ':', -' and '_'.
 #' @examples
-#' z <- run_autonum(seq_id = "tab", pre_label = "Table ",
-#'   bkm = "anytable")
+#' z <- run_autonum(
+#'   seq_id = "tab", pre_label = "Table ",
+#'   bkm = "anytable"
+#' )
 #' set_autonum_bookmark(z, bkm = "anothertable")
 #' @seealso [run_autonum()]
-set_autonum_bookmark <- function(x, bkm = NULL){
+set_autonum_bookmark <- function(x, bkm = NULL) {
   stopifnot(inherits(x, "run_autonum"))
   x$bookmark <- bkm
   x
@@ -311,22 +320,24 @@ set_autonum_bookmark <- function(x, bkm = NULL){
 
 #' @export
 to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
-  if(is.null(x$seq_id)) return("")
+  if (is.null(x$seq_id)) {
+    return("")
+  }
 
-  pr <- if(!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
+  pr <- if (!is.null(x$pr)) rpr_wml(x$pr) else "<w:rPr/>"
 
   run_str_pre <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$pre_label)
   run_str_post <- sprintf("<w:r>%s<w:t xml:space=\"preserve\">%s</w:t></w:r>", pr, x$post_label)
 
   seq_str <- paste0("SEQ ", x$seq_id, " \u005C* Arabic")
-  if(!is.null(x$start_at) && is.numeric(x$start_at)){
+  if (!is.null(x$start_at) && is.numeric(x$start_at)) {
     seq_str <- paste(seq_str, "\\r", as.integer(x$start_at))
   }
 
   sqf <- run_word_field(field = seq_str, prop = x$pr)
   sf_str <- to_wml(sqf)
 
-  if(x$tnd > 0){
+  if (x$tnd > 0) {
     z <- paste0(
       to_wml(run_word_field(field = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
       to_wml(ftext(x$tns, prop = x$pr))
@@ -335,12 +346,15 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
   }
 
 
-  if(!is.null(x$bookmark)){
-    if(x$bookmark_all){
+  if (!is.null(x$bookmark)) {
+    if (x$bookmark_all) {
       out <- paste0(
-        bookmark(id = x$bookmark,
-                 str = paste0(run_str_pre, sf_str)),
-        run_str_post)
+        bookmark(
+          id = x$bookmark,
+          str = paste0(run_str_pre, sf_str)
+        ),
+        run_str_post
+      )
     } else {
       sf_str <- bookmark(id = x$bookmark, sf_str)
       out <- paste0(run_str_pre, sf_str, run_str_post)
@@ -361,7 +375,7 @@ to_wml.run_autonum <- function(x, add_ns = FALSE, ...) {
 #' @param prop formatting text properties returned by [fp_text].
 #' @inheritSection ftext usage
 #' @examples
-#' run_reference('a_ref')
+#' run_reference("a_ref")
 #' @family run functions for reporting
 #' @family Word computed fields
 run_reference <- function(id, prop = NULL) {
@@ -396,10 +410,11 @@ to_wml.run_reference <- function(x, add_ns = FALSE, ...) {
 #' ft <- fp_text(font.size = 12, bold = TRUE)
 #' hyperlink_ftext(
 #'   href = "https://cran.r-project.org/index.html",
-#'   text = "some text", prop = ft)
+#'   text = "some text", prop = ft
+#' )
 #' @family run functions for reporting
 hyperlink_ftext <- function(text, prop = NULL, href) {
-  if(is.character(text)) {
+  if (is.character(text)) {
     value <- enc2utf8(text)
   } else {
     value <- formatC(text)
@@ -412,9 +427,11 @@ hyperlink_ftext <- function(text, prop = NULL, href) {
 
 #' @export
 to_wml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
-  out <- paste0("<w:r>", if(!is.null(x$pr)) rpr_wml(x$pr),
-                "<w:t xml:space=\"preserve\">",
-                x$value, "</w:t></w:r>")
+  out <- paste0(
+    "<w:r>", if (!is.null(x$pr)) rpr_wml(x$pr),
+    "<w:t xml:space=\"preserve\">",
+    x$value, "</w:t></w:r>"
+  )
   paste0("<w:hyperlink r:id=\"", officer_url_encode(x$href), "\">", out, "</w:hyperlink>")
 }
 
@@ -426,22 +443,23 @@ to_pml.hyperlink_ftext <- function(x, add_ns = FALSE, ...) {
   }
   str_ <- sprintf("<a:hlinkClick r:id=\"%s\"/>", officer_url_encode(x$href))
 
-  if(!is.null(x$pr)) {
+  if (!is.null(x$pr)) {
     rpr_pml_ <- rpr_pml(x$pr)
     m <- regexpr(">", rpr_pml_)
-    regmatches(rpr_pml_, m) <- paste0(">",str_)
+    regmatches(rpr_pml_, m) <- paste0(">", str_)
   } else {
     rpr_pml_ <- paste0("<a:rPr>", str_, "</a:rPr>")
   }
 
-  paste0(open_tag, rpr_pml_,
-         "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>")
+  paste0(
+    open_tag, rpr_pml_,
+    "<a:t>", htmlEscapeCopy(x$value), "</a:t></a:r>"
+  )
 }
 
 #' @export
 to_html.hyperlink_ftext <- function(x, ...) {
-
-  if(!is.null(x$pr)) {
+  if (!is.null(x$pr)) {
     rpr_css <- paste0(" style=\"", rpr_css(x$pr), "\"")
   } else {
     rpr_css <- ""
@@ -466,20 +484,20 @@ to_html.hyperlink_ftext <- function(x, ...) {
 #' run_bookmark("par1", ftext("some text", ft))
 #' @family run functions for reporting
 run_bookmark <- function(bkm, run) {
-
   all_run <- FALSE
 
-  if(inherits(run, "run")){
+  if (inherits(run, "run")) {
     run <- list(run)
   }
 
-  if(is.list(run) && !inherits(run, "run")){
-    all_run <- all(vapply(run, inherits, FUN.VALUE = FALSE, what = "run" ))
+  if (is.list(run) && !inherits(run, "run")) {
+    all_run <- all(vapply(run, inherits, FUN.VALUE = FALSE, what = "run"))
   }
 
 
-  if(!all_run)
+  if (!all_run) {
     stop("`run` must be a run object (ftext for example) or a list of run objects.")
+  }
 
   bkm <- check_bookmark_id(bkm)
 
@@ -568,6 +586,53 @@ to_wml.run_linebreak <- function(x, add_ns = FALSE, ...) {
   out
 }
 
+#' @export
+#' @title Tab for 'Word'
+#' @description Object representing a tab
+#' in a Word document. The result must be used
+#' within a call to [fpar]. It will only have
+#' effects in Word output.
+#'
+#' Tabulation marks settings can be defined with [fp_tabs()] in
+#' paragraph settings defined with [fp_par()].
+#' @inheritSection ftext usage
+#' @examples
+#' z <- fp_tabs(
+#'   fp_tab(pos = 0.5, style = "decimal"),
+#'   fp_tab(pos = 1.5, style = "decimal")
+#' )
+#' par1 <- fpar(
+#'   run_tab(), ftext("88."),
+#'   run_tab(), ftext("987.45"),
+#'   fp_p = fp_par(
+#'     tabs = z
+#'   )
+#' )
+#' par2 <- fpar(
+#'   run_tab(), ftext("8."),
+#'   run_tab(), ftext("670987.45"),
+#'   fp_p = fp_par(
+#'     tabs = z
+#'   )
+#' )
+#' x <- read_docx()
+#' x <- body_add(x, par1)
+#' x <- body_add(x, par2)
+#' print(x, target = tempfile(fileext = ".docx"))
+#' @family run functions for reporting
+run_tab <- function() {
+  z <- list()
+  class(z) <- c("run_tab", "run")
+
+  z
+}
+
+#' @export
+to_wml.run_tab <- function(x, add_ns = FALSE, ...) {
+  out <- "<w:r><w:tab/></w:r>"
+  out
+}
+
 # sections ----
 inch_to_tweep <- function(x) round(x * 72 * 20, digits = 0)
 
@@ -614,9 +679,10 @@ to_wml.page_size <- function(x, add_ns = FALSE, ...) {
 #' @examples
 #' section_columns()
 #' @family functions for section definition
-section_columns <- function(widths = c(2.5,2.5), space = .25, sep = FALSE) {
-  if( length(widths) < 2 )
+section_columns <- function(widths = c(2.5, 2.5), space = .25, sep = FALSE) {
+  if (length(widths) < 2) {
     stop("length of widths should be at least 2")
+  }
 
   z <- list(widths = widths, space = space, sep = sep)
   class(z) <- c("section_columns")
@@ -627,15 +693,21 @@ to_wml.section_columns <- function(x, add_ns = FALSE, ...) {
   widths <- x$widths * 20 * 72
   space <- x$space * 20 * 72
 
-  columns_str_all_but_last <- sprintf("<w:col w:w=\"%.0f\" w:space=\"%.0f\"/>",
-                                      widths[-length(widths)], space)
-  columns_str_last <- sprintf("<w:col w:w=\"%.0f\"/>",
-                              widths[length(widths)])
+  columns_str_all_but_last <- sprintf(
+    "<w:col w:w=\"%.0f\" w:space=\"%.0f\"/>",
+    widths[-length(widths)], space
+  )
+  columns_str_last <- sprintf(
+    "<w:col w:w=\"%.0f\"/>",
+    widths[length(widths)]
+  )
   columns_str <- c(columns_str_all_but_last, columns_str_last)
 
-  sprintf("<w:cols w:num=\"%.0f\" w:sep=\"%.0f\" w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
-                         length(widths), as.integer(x$sep),
-                         space, paste0(columns_str, collapse = "") )
+  sprintf(
+    "<w:cols w:num=\"%.0f\" w:sep=\"%.0f\" w:space=\"%.0f\" w:equalWidth=\"0\">%s</w:cols>",
+    length(widths), as.integer(x$sep),
+    space, paste0(columns_str, collapse = "")
+  )
 }
 
 #' @export
@@ -710,7 +782,7 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 #'
 #' doc_1 <- read_docx()
 #' # there starts section with landscape_one_column
-#' doc_1 <- body_add_table(doc_1, value = mtcars[1:10,], style = "table_template")
+#' doc_1 <- body_add_table(doc_1, value = mtcars[1:10, ], style = "table_template")
 #' doc_1 <- body_end_block_section(doc_1, value = landscape_one_column)
 #' # there stops section with landscape_one_column
 #'
@@ -720,7 +792,7 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 #' doc_1 <- body_end_block_section(doc_1, value = landscape_two_columns)
 #' # there stops section with landscape_two_columns
 #'
-#' doc_1 <- body_add_table(doc_1, value = mtcars[1:25,], style = "table_template")
+#' doc_1 <- body_add_table(doc_1, value = mtcars[1:25, ], style = "table_template")
 #'
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #'
@@ -728,7 +800,8 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 #' # an example with headers and footers -----
 #' txt_lorem <- rep(
 #'   "Purus lectus eros metus turpis mattis platea praesent sed. ",
-#'   50)
+#'   50
+#' )
 #' txt_lorem <- paste0(txt_lorem, collapse = "")
 #'
 #' header_first <- block_list(fpar(ftext("text for first page header")))
@@ -760,9 +833,7 @@ docx_section_type <- c("continuous", "evenPage", "nextColumn", "nextPage", "oddP
 prop_section <- function(page_size = NULL, page_margins = NULL,
                          type = NULL, section_columns = NULL,
                          header_default = NULL, header_even = NULL, header_first = NULL,
-                         footer_default = NULL, footer_even = NULL, footer_first = NULL
-                         ) {
-
+                         footer_default = NULL, footer_even = NULL, footer_first = NULL) {
   z <- list()
 
   if (!is.null(header_default) && !inherits(header_default, "block_list")) {
@@ -823,57 +894,68 @@ prop_section <- function(page_size = NULL, page_margins = NULL,
 
 #' @export
 to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
-
   paste0(
     "<w:sectPr w:officer=\"true\"",
     if (add_ns) " xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"",
     ">",
-    if(!is.null(x$header_default)) {
-      paste0("<w:headerReference w:type=\"default\">",
-             "<w:hdr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
-             to_wml(x$header_default),
-             "</w:hdr>",
-             "</w:headerReference>")
+    if (!is.null(x$header_default)) {
+      paste0(
+        "<w:headerReference w:type=\"default\">",
+        "<w:hdr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
+        to_wml(x$header_default),
+        "</w:hdr>",
+        "</w:headerReference>"
+      )
     },
-    if(!is.null(x$header_even)) {
-      paste0("<w:headerReference w:type=\"even\">",
-             "<w:hdr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
-             to_wml(x$header_even),
-             "</w:hdr>",
-             "</w:headerReference>")
+    if (!is.null(x$header_even)) {
+      paste0(
+        "<w:headerReference w:type=\"even\">",
+        "<w:hdr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
+        to_wml(x$header_even),
+        "</w:hdr>",
+        "</w:headerReference>"
+      )
     },
-    if(!is.null(x$header_first)) {
-      paste0("<w:headerReference w:type=\"first\">",
-             "<w:hdr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
-             to_wml(x$header_first),
-             "</w:hdr>",
-             "</w:headerReference>")
+    if (!is.null(x$header_first)) {
+      paste0(
+        "<w:headerReference w:type=\"first\">",
+        "<w:hdr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
+        to_wml(x$header_first),
+        "</w:hdr>",
+        "</w:headerReference>"
+      )
     },
-    if(!is.null(x$footer_default)) {
-      paste0("<w:footerReference w:type=\"default\">",
-             "<w:ftr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
-             to_wml(x$footer_default),
-             "</w:ftr>",
-             "</w:footerReference>")
+    if (!is.null(x$footer_default)) {
+      paste0(
+        "<w:footerReference w:type=\"default\">",
+        "<w:ftr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
+        to_wml(x$footer_default),
+        "</w:ftr>",
+        "</w:footerReference>"
+      )
     },
-    if(!is.null(x$footer_even)) {
-      paste0("<w:footerReference w:type=\"even\">",
-             "<w:ftr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
-             to_wml(x$footer_even),
-             "</w:ftr>",
-             "</w:footerReference>")
+    if (!is.null(x$footer_even)) {
+      paste0(
+        "<w:footerReference w:type=\"even\">",
+        "<w:ftr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
+        to_wml(x$footer_even),
+        "</w:ftr>",
+        "</w:footerReference>"
+      )
     },
-    if(!is.null(x$footer_first)) {
-      paste0("<w:footerReference w:type=\"first\">",
-             "<w:ftr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
-             to_wml(x$footer_first),
-             "</w:ftr>",
-             "</w:footerReference>")
+    if (!is.null(x$footer_first)) {
+      paste0(
+        "<w:footerReference w:type=\"first\">",
+        "<w:ftr xmlns:wpc=\"http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas\" xmlns:cx=\"http://schemas.microsoft.com/office/drawing/2014/chartex\" xmlns:cx1=\"http://schemas.microsoft.com/office/drawing/2015/9/8/chartex\" xmlns:cx2=\"http://schemas.microsoft.com/office/drawing/2015/10/21/chartex\" xmlns:cx3=\"http://schemas.microsoft.com/office/drawing/2016/5/9/chartex\" xmlns:cx4=\"http://schemas.microsoft.com/office/drawing/2016/5/10/chartex\" xmlns:cx5=\"http://schemas.microsoft.com/office/drawing/2016/5/11/chartex\" xmlns:cx6=\"http://schemas.microsoft.com/office/drawing/2016/5/12/chartex\" xmlns:cx7=\"http://schemas.microsoft.com/office/drawing/2016/5/13/chartex\" xmlns:cx8=\"http://schemas.microsoft.com/office/drawing/2016/5/14/chartex\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:aink=\"http://schemas.microsoft.com/office/drawing/2016/ink\" xmlns:am3d=\"http://schemas.microsoft.com/office/drawing/2017/model3d\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:oel=\"http://schemas.microsoft.com/office/2019/extlst\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:w15=\"http://schemas.microsoft.com/office/word/2012/wordml\" xmlns:w16cex=\"http://schemas.microsoft.com/office/word/2018/wordml/cex\" xmlns:w16cid=\"http://schemas.microsoft.com/office/word/2016/wordml/cid\" xmlns:w16=\"http://schemas.microsoft.com/office/word/2018/wordml\" xmlns:w16sdtdh=\"http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash\" xmlns:w16se=\"http://schemas.microsoft.com/office/word/2015/wordml/symex\" xmlns:wpg=\"http://schemas.microsoft.com/office/word/2010/wordprocessingGroup\" xmlns:wpi=\"http://schemas.microsoft.com/office/word/2010/wordprocessingInk\" xmlns:wne=\"http://schemas.microsoft.com/office/word/2006/wordml\" xmlns:wps=\"http://schemas.microsoft.com/office/word/2010/wordprocessingShape\" mc:Ignorable=\"w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14\">",
+        to_wml(x$footer_first),
+        "</w:ftr>",
+        "</w:footerReference>"
+      )
     },
-    if(!is.null(x$page_margins)) to_wml(x$page_margins),
-    if(!is.null(x$page_size)) to_wml(x$page_size),
-    if(!is.null(x$type)) paste0("<w:type w:val=\"", x$type, "\"/>"),
-    if(!is.null(x$section_columns)) to_wml(x$section_columns) else "<w:cols/>",
+    if (!is.null(x$page_margins)) to_wml(x$page_margins),
+    if (!is.null(x$page_size)) to_wml(x$page_size),
+    if (!is.null(x$type)) paste0("<w:type w:val=\"", x$type, "\"/>"),
+    if (!is.null(x$section_columns)) to_wml(x$section_columns) else "<w:cols/>",
     "</w:sectPr>"
   )
 }
@@ -899,16 +981,20 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' @inheritSection ftext usage
 #' @examples
 #' # wrap r logo with external_img ----
-#' srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
-#' extimg <- external_img(src = srcfile, height = 1.06/2,
-#'                        width = 1.39/2)
+#' srcfile <- file.path(R.home("doc"), "html", "logo.jpg")
+#' extimg <- external_img(
+#'   src = srcfile, height = 1.06 / 2,
+#'   width = 1.39 / 2
+#' )
 #'
 #' # pptx example ----
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
-#' doc <- ph_with(x = doc, value = extimg,
-#'                location = ph_location_type(type = "body"),
-#'                use_loc_size = FALSE )
+#' doc <- ph_with(
+#'   x = doc, value = extimg,
+#'   location = ph_location_type(type = "body"),
+#'   use_loc_size = FALSE
+#' )
 #' print(doc, target = tempfile(fileext = ".pptx"))
 #'
 #' fp_t <- fp_text(font.size = 20, color = "red")
@@ -923,16 +1009,16 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 external_img <- function(src, width = .5, height = .2, unit = "in", guess_size = FALSE, alt = "") {
   # note: should it be vectorized
   check_src <- all(grepl("^rId", src)) || all(file.exists(src))
-  if( !check_src ){
+  if (!check_src) {
     stop("src must be a string starting with 'rId' or an existing image filename")
   }
 
   width <- convin(unit = unit, x = width)
   height <- convin(unit = unit, x = height)
 
-  if( length(src) > 1 ){
-    if( length(width) == 1 ) width <- rep(width, length(src))
-    if( length(height) == 1 ) height <- rep(height, length(src))
+  if (length(src) > 1) {
+    if (length(width) == 1) width <- rep(width, length(src))
+    if (length(height) == 1) height <- rep(height, length(src))
   }
 
   if (guess_size) {
@@ -940,7 +1026,7 @@ external_img <- function(src, width = .5, height = .2, unit = "in", guess_size =
       stop("package magick is required when using `guess_size` option.")
     }
     sizes <- lapply(src, function(x) {
-      if(grepl("\\.svg$", x)) {
+      if (grepl("\\.svg$", x)) {
         z <- magick::image_read_svg(x)
       } else {
         z <- magick::image_read(x)
@@ -949,8 +1035,8 @@ external_img <- function(src, width = .5, height = .2, unit = "in", guess_size =
       attr(z, "dim")[-1]
     })
     sizes <- do.call(rbind, sizes)
-    width <- sizes[,1] / 72
-    height <- sizes[,2] / 72
+    width <- sizes[, 1] / 72
+    height <- sizes[, 2] / 72
   }
 
   class(src) <- c("external_img", "cot", "run")
@@ -959,18 +1045,17 @@ external_img <- function(src, width = .5, height = .2, unit = "in", guess_size =
   src
 }
 
-dim.external_img <- function( x ){
+dim.external_img <- function(x) {
   x <- attr(x, "dims")
   data.frame(width = x$width, height = x$height)
 }
 
-as.data.frame.external_img <- function( x, ... ){
+as.data.frame.external_img <- function(x, ...) {
   dimx <- attr(x, "dims")
   data.frame(path = as.character(x), width = dimx$width, height = dimx$height, alt = attr(x, "alt"), stringsAsFactors = FALSE)
 }
 
 temp_blipfill <- function(value, ns = "p") {
-
   svg_src <- NULL
   if (grepl("\\.svg", value)) {
     if (!requireNamespace("rsvg")) {
@@ -1013,7 +1098,6 @@ temp_blipfill <- function(value, ns = "p") {
 
 #' @export
 to_wml.external_img <- function(x, add_ns = FALSE, ...) {
-
   open_tag <- wr_ns_no
   if (add_ns) {
     open_tag <- wr_ns_yes
@@ -1025,22 +1109,22 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
 
   blipfill <- temp_blipfill(x, ns = "pic")
 
-  paste0(open_tag,
-         "<w:rPr/><w:drawing xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
-         sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700*72, height * 12700*72),
-         "<wp:docPr id=\"\" name=\"\" descr=\"", attr(x, "alt"),"\"/>",
-         "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
-         "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
-         "<pic:nvPicPr>",
-         "<pic:cNvPr id=\"\" name=\"\"/>",
-         "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
-         "</pic:cNvPicPr></pic:nvPicPr>",
-         blipfill,
-         "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
-         sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
-         "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
+  paste0(
+    open_tag,
+    "<w:rPr/><w:drawing xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
+    sprintf("<wp:extent cx=\"%.0f\" cy=\"%.0f\"/>", width * 12700 * 72, height * 12700 * 72),
+    "<wp:docPr id=\"\" name=\"\" descr=\"", attr(x, "alt"), "\"/>",
+    "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
+    "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
+    "<pic:nvPicPr>",
+    "<pic:cNvPr id=\"\" name=\"\"/>",
+    "<pic:cNvPicPr><a:picLocks noChangeAspect=\"1\" noChangeArrowheads=\"1\"/>",
+    "</pic:cNvPicPr></pic:nvPicPr>",
+    blipfill,
+    "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
+    sprintf("<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>", width * 12700, height * 12700),
+    "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
   )
-
 }
 
 
@@ -1054,15 +1138,16 @@ to_pml.external_img <- function(x, add_ns = FALSE,
                                 label = "",
                                 ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"),
                                 ...) {
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
+  if (!is.null(bg) && !is.color(bg)) {
+    stop("bg must be a valid color.", call. = FALSE)
+  }
 
   bg_str <- solid_fill_pml(bg)
   ln_str <- ln_pml(ln)
 
   xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
-  if( is.null(ph) || is.na(ph)){
-    ph = "<p:ph/>"
+  if (is.null(ph) || is.na(ph)) {
+    ph <- "<p:ph/>"
   }
   blipfill <- temp_blipfill(x, ns = "p")
   id <- uuid_generate()
@@ -1078,7 +1163,6 @@ to_pml.external_img <- function(x, add_ns = FALSE,
 </p:pic>
 "
   sprintf(str, id, label, attr(x, "alt"), ph, blipfill, xfrm_str, bg_str, ln_str)
-
 }
 
 
@@ -1089,7 +1173,7 @@ to_html.external_img <- function(x, ...) {
   width <- dims$width
   height <- dims$height
   b64_str <- image_to_base64(as.character(x))
-  sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" alt=\"%s\"/>", width*72, height*72, b64_str, attr(x, "alt"))
+  sprintf("<img style=\"vertical-align:middle;width:%.0fpx;height:%.0fpx;\" src=\"%s\" alt=\"%s\"/>", width * 72, height * 72, b64_str, attr(x, "alt"))
 }
 
 # run_footnoteref ----
@@ -1142,7 +1226,7 @@ to_wml.run_footnoteref <- function(x, add_ns = FALSE, ...) {
 #' fp_bold <- fp_text_lite(bold = TRUE)
 #' fp_refnote <- fp_text_lite(vertical.align = "superscript")
 #'
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+#' img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 #' bl <- block_list(
 #'   fpar(ftext("hello", fp_bold)),
 #'   fpar(
@@ -1220,17 +1304,17 @@ to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
 #'
 #' bl <- block_list(
 #'   fpar(ftext("Comment multiple words.", fp_bold)),
-#' fpar(
+#'   fpar(
 #'     ftext("Second line.", fp_red)
 #'   )
 #' )
 #'
 #' comment1 <- run_comment(
-#'    cmt = bl,
-#'    run = ftext("with a comment"),
-#'    author = "Author Me",
-#'    date = Sys.Date(),
-#'    initials = "AM"
+#'   cmt = bl,
+#'   run = ftext("with a comment"),
+#'   author = "Author Me",
+#'   date = Sys.Date(),
+#'   initials = "AM"
 #' )
 #' par1 <- fpar("A paragraph ", comment1)
 #'
@@ -1239,10 +1323,10 @@ to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
 #' )
 #'
 #' comment2 <- run_comment(
-#'    cmt = bl, run = ftext("A commented paragraph"),
-#'    author = "Author You",
-#'    date = Sys.Date(),
-#'    initials = "AY"
+#'   cmt = bl, run = ftext("A commented paragraph"),
+#'   author = "Author You",
+#'   date = Sys.Date(),
+#'   initials = "AY"
 #' )
 #' par2 <- fpar(comment2)
 #'
@@ -1255,16 +1339,17 @@ to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
 run_comment <- function(cmt, run = ftext(""), author = "", date = "", initials = "", prop = NULL) {
   all_run <- FALSE
 
-  if(inherits(run, "run")){
+  if (inherits(run, "run")) {
     run <- list(run)
   }
 
-  if(is.list(run) && !inherits(run, "run")){
-    all_run <- all(vapply(run, inherits, FUN.VALUE = FALSE, what = "run" ))
+  if (is.list(run) && !inherits(run, "run")) {
+    all_run <- all(vapply(run, inherits, FUN.VALUE = FALSE, what = "run"))
   }
 
-  if(!all_run)
+  if (!all_run) {
     stop("`run` must be a run object (ftext for example) or a list of run objects.")
+  }
 
   z <- list(comment = cmt, run = run, author = author, date = date, initials = initials, pr = prop)
   class(z) <- c("run_comment", "run")
@@ -1311,4 +1396,3 @@ to_wml.run_comment <- function(x, add_ns = FALSE, ...) {
 
   comment_ref_xml
 }
-

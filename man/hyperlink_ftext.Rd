@@ -30,7 +30,8 @@ officedown.
 ft <- fp_text(font.size = 12, bold = TRUE)
 hyperlink_ftext(
   href = "https://cran.r-project.org/index.html",
-  text = "some text", prop = ft)
+  text = "some text", prop = ft
+)
 }
 \seealso{
 Other run functions for reporting: 
@@ -45,6 +46,7 @@ Other run functions for reporting:
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 }

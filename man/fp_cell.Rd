@@ -88,6 +88,8 @@ update(obj, margin.bottom = 5)
 Other functions for defining formatting properties: 
 \code{\link{fp_border}()},
 \code{\link{fp_par}()},
+\code{\link{fp_tab}()},
+\code{\link{fp_tabs}()},
 \code{\link{fp_text}()}
 }
 \concept{functions for defining formatting properties}

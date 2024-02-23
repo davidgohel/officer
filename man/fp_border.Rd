@@ -72,17 +72,19 @@ Non-supported Word border styles will default to "solid".
 }
 \examples{
 fp_border()
-fp_border(color="orange", style="solid", width=1)
-fp_border(color="gray", style="dotted", width=1)
+fp_border(color = "orange", style = "solid", width = 1)
+fp_border(color = "gray", style = "dotted", width = 1)
 
 # modify object ------
 border <- fp_border()
-update(border, style="dotted", width=3)
+update(border, style = "dotted", width = 3)
 }
 \seealso{
 Other functions for defining formatting properties: 
 \code{\link{fp_cell}()},
 \code{\link{fp_par}()},
+\code{\link{fp_tab}()},
+\code{\link{fp_tabs}()},
 \code{\link{fp_text}()}
 }
 \concept{functions for defining formatting properties}

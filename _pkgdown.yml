@@ -141,6 +141,8 @@ reference:
     - fp_par
     - fp_border
     - fp_cell
+    - fp_tabs
+    - fp_tab
   - title: RTF
     contents:
     - rtf_doc

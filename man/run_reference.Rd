@@ -23,7 +23,7 @@ officedown.
 }
 
 \examples{
-run_reference('a_ref')
+run_reference("a_ref")
 }
 \seealso{
 Other run functions for reporting: 
@@ -38,6 +38,7 @@ Other run functions for reporting:
 \code{\link{run_footnoteref}()},
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 

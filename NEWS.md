@@ -1,3 +1,14 @@
+# officer 0.6.5
+
+## Features 
+
+- new function `fp_tabs()` to enable tabulation marks settings 
+with flextable (for Word and RTF).
+
+## Issues
+
+- let the package be used with R < 4 by not using `\(x)` syntax
+
 # officer 0.6.4
 
 ## Features 

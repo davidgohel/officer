@@ -72,6 +72,12 @@ to_rtf.ftext <- function(x, ...) {
 }
 
 #' @export
+to_rtf.run_tab <- function(x, ...) {
+  "\\tab "
+}
+
+
+#' @export
 to_rtf.external_img <- function(x, ...) {
   dims <- attr(x, "dims")
   width <- dims$width
@@ -139,20 +145,22 @@ rtf_bookmark <- function(id, str) {
 
 #' @export
 to_rtf.run_autonum <- function(x, ...) {
-  if(is.null(x$seq_id)) return("")
+  if (is.null(x$seq_id)) {
+    return("")
+  }
 
   run_str_pre <- to_rtf(ftext(x$pre_label, prop = x$pr))
   run_str_post <- to_rtf(ftext(x$post_label, prop = x$pr))
 
   seq_str <- paste0("SEQ ", x$seq_id, " \\\\* Arabic")
-  if(!is.null(x$start_at) && is.numeric(x$start_at)){
+  if (!is.null(x$start_at) && is.numeric(x$start_at)) {
     seq_str <- paste(seq_str, "\\r", as.integer(x$start_at))
   }
 
   sqf <- run_word_field(field = seq_str, prop = x$pr)
   sf_str <- to_rtf(sqf)
 
-  if(x$tnd > 0){
+  if (x$tnd > 0) {
     z <- paste0(
       to_rtf(run_word_field(field = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
       to_rtf(ftext(x$tns, prop = x$pr))
@@ -160,11 +168,12 @@ to_rtf.run_autonum <- function(x, ...) {
     sf_str <- paste0(z, sf_str)
   }
 
-  if(!is.null(x$bookmark)){
-    if(x$bookmark_all){
+  if (!is.null(x$bookmark)) {
+    if (x$bookmark_all) {
       out <- paste0(
         rtf_bookmark(id = x$bookmark, str = paste0(run_str_pre, sf_str)),
-        run_str_post)
+        run_str_post
+      )
     } else {
       sf_str <- rtf_bookmark(id = x$bookmark, sf_str)
       out <- paste0(run_str_pre, sf_str, run_str_post)
@@ -353,6 +362,11 @@ ppr_rtf <- function(x) {
   } else if ("justified" %in% x$text.align) {
     text_align_ <- "\\qj"
   }
+  tabs <- ""
+  if (!is.null(x$tabs) && length(x$tabs) > 0) {
+    tabs <- paste0(sapply(x$tabs, rtf_fp_tab), collapse = "")
+  }
+
   keep_with_next <- ""
   if (x$keep_with_next) {
     keep_with_next <- "\\keepn"
@@ -374,6 +388,7 @@ ppr_rtf <- function(x) {
   out <- paste0(
     sprintf("\\sl%.0f\\slmult1", 240 * x$line_spacing),
     text_align_,
+    tabs,
     keep_with_next,
     topbot_spacing,
     leftright_padding
@@ -804,7 +819,6 @@ print.rtf <- function(x, target = NULL, ...) {
 #' @examples
 #' str_encode_to_rtf("Hello World")
 str_encode_to_rtf <- function(z) {
-
   # https://stackoverflow.com/questions/1368020/how-to-output-unicode-string-to-rtf-using-c
   char_list <- strsplit(z, "")
   int_list <- lapply(z, utf8ToInt)
@@ -851,6 +865,22 @@ rtf_color_code <- function(color) {
   sprintf(
     "\\red%.0f\\green%.0f\\blue%.0f;",
     color[1], color[2], color[3]
+  )
+}
+
+rtf_fp_tab <- function(x) {
+  tab_style <- "\\tqdec"
+  if (x$style %in% "left") {
+    tab_style <- ""
+  } else if (x$style %in% "center") {
+    tab_style <- "\\tqc"
+  } else if (x$style %in% "right") {
+    tab_style <- "\\tqr"
+  }
+
+  sprintf(
+    "\\tx%.0f%s",
+    inch_to_tweep(x$pos), tab_style
   )
 }
 
@@ -974,31 +1004,36 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
   # copied from R source, grep.R
   gregexec <- function(pattern, text, ignore.case = FALSE, perl = FALSE,
                        fixed = FALSE, useBytes = FALSE) {
-    if(is.factor(text) && length(levels(text)) < length(text)) {
-      out <- gregexec(pattern, c(levels(text), NA_character_),
-                      ignore.case, perl, fixed, useBytes)
+    if (is.factor(text) && length(levels(text)) < length(text)) {
+      out <- gregexec(
+        pattern, c(levels(text), NA_character_),
+        ignore.case, perl, fixed, useBytes
+      )
       outna <- out[length(out)]
       out <- out[text]
       out[is.na(text)] <- outna
       return(out)
     }
 
-    dat <- gregexpr(pattern = pattern, text=text, ignore.case = ignore.case,
-                    fixed = fixed, useBytes = useBytes, perl = perl)
-    if(perl && !fixed) {
+    dat <- gregexpr(
+      pattern = pattern, text = text, ignore.case = ignore.case,
+      fixed = fixed, useBytes = useBytes, perl = perl
+    )
+    if (perl && !fixed) {
       ## Perl generates match data, so use that
-      capt.attr <- c('capture.start', 'capture.length', 'capture.names')
+      capt.attr <- c("capture.start", "capture.length", "capture.names")
       process <- function(x) {
-        if(anyNA(x) || any(x < 0)) y <- x
-        else {
+        if (anyNA(x) || any(x < 0)) {
+          y <- x
+        } else {
           ## Interleave matches with captures
           y <- t(cbind(x, attr(x, "capture.start")))
           attributes(y)[names(attributes(x))] <- attributes(x)
           ml <- t(cbind(attr(x, "match.length"), attr(x, "capture.length")))
-          nm <- attr(x, 'capture.names')
+          nm <- attr(x, "capture.names")
           ## Remove empty names that `gregexpr` returns
           dimnames(ml) <- dimnames(y) <-
-            if(any(nzchar(nm))) list(c("", nm), NULL)
+            if (any(nzchar(nm))) list(c("", nm), NULL)
           attr(y, "match.length") <- ml
           y
         }
@@ -1009,21 +1044,23 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
     } else {
       ## For TRE or fixed we must compute the match data ourselves
       m1 <- lapply(regmatches(text, dat),
-                   regexec, pattern = pattern, ignore.case = ignore.case,
-                   perl = perl, fixed = fixed, useBytes = useBytes)
+        regexec,
+        pattern = pattern, ignore.case = ignore.case,
+        perl = perl, fixed = fixed, useBytes = useBytes
+      )
       mlen <- lengths(m1)
       res <- vector("list", length(m1))
       im <- mlen > 0
-      res[!im] <- dat[!im]   # -1, NA
+      res[!im] <- dat[!im] # -1, NA
       res[im] <- Map(
         function(outer, inner) {
           tmp <- do.call(cbind, inner)
           attributes(tmp)[names(attributes(inner))] <- attributes(inner)
-          attr(tmp, 'match.length') <-
-            do.call(cbind, lapply(inner, `attr`, 'match.length'))
+          attr(tmp, "match.length") <-
+            do.call(cbind, lapply(inner, `attr`, "match.length"))
           # useBytes/index.type should be same for all so use outer vals
-          attr(tmp, 'useBytes') <- attr(outer, 'useBytes')
-          attr(tmp, 'index.type') <- attr(outer, 'index.type')
+          attr(tmp, "useBytes") <- attr(outer, "useBytes")
+          attr(tmp, "index.type") <- attr(outer, "index.type")
           tmp + rep(outer - 1L, each = nrow(tmp))
         },
         dat[im],

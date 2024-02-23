@@ -39,17 +39,17 @@ fp_red <- fp_text_lite(color = "red")
 
 bl <- block_list(
   fpar(ftext("Comment multiple words.", fp_bold)),
-fpar(
+  fpar(
     ftext("Second line.", fp_red)
   )
 )
 
 comment1 <- run_comment(
-   cmt = bl,
-   run = ftext("with a comment"),
-   author = "Author Me",
-   date = Sys.Date(),
-   initials = "AM"
+  cmt = bl,
+  run = ftext("with a comment"),
+  author = "Author Me",
+  date = Sys.Date(),
+  initials = "AM"
 )
 par1 <- fpar("A paragraph ", comment1)
 
@@ -58,10 +58,10 @@ bl <- block_list(
 )
 
 comment2 <- run_comment(
-   cmt = bl, run = ftext("A commented paragraph"),
-   author = "Author You",
-   date = Sys.Date(),
-   initials = "AY"
+  cmt = bl, run = ftext("A commented paragraph"),
+  author = "Author You",
+  date = Sys.Date(),
+  initials = "AY"
 )
 par2 <- fpar(comment2)
 
@@ -84,6 +84,7 @@ Other run functions for reporting:
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 }

@@ -19,8 +19,10 @@ is useful to avoid calling \code{run_autonum()} several times
 because of many tables.
 }
 \examples{
-z <- run_autonum(seq_id = "tab", pre_label = "Table ",
-  bkm = "anytable")
+z <- run_autonum(
+  seq_id = "tab", pre_label = "Table ",
+  bkm = "anytable"
+)
 set_autonum_bookmark(z, bkm = "anothertable")
 }
 \seealso{

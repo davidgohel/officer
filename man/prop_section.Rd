@@ -73,7 +73,7 @@ landscape_two_columns <- block_section(
 
 doc_1 <- read_docx()
 # there starts section with landscape_one_column
-doc_1 <- body_add_table(doc_1, value = mtcars[1:10,], style = "table_template")
+doc_1 <- body_add_table(doc_1, value = mtcars[1:10, ], style = "table_template")
 doc_1 <- body_end_block_section(doc_1, value = landscape_one_column)
 # there stops section with landscape_one_column
 
@@ -83,7 +83,7 @@ doc_1 <- body_add_par(doc_1, value = paste(rep(letters, 50), collapse = " "))
 doc_1 <- body_end_block_section(doc_1, value = landscape_two_columns)
 # there stops section with landscape_two_columns
 
-doc_1 <- body_add_table(doc_1, value = mtcars[1:25,], style = "table_template")
+doc_1 <- body_add_table(doc_1, value = mtcars[1:25, ], style = "table_template")
 
 print(doc_1, target = tempfile(fileext = ".docx"))
 
@@ -91,7 +91,8 @@ print(doc_1, target = tempfile(fileext = ".docx"))
 # an example with headers and footers -----
 txt_lorem <- rep(
   "Purus lectus eros metus turpis mattis platea praesent sed. ",
-  50)
+  50
+)
 txt_lorem <- paste0(txt_lorem, collapse = "")
 
 header_first <- block_list(fpar(ftext("text for first page header")))

@@ -21,6 +21,7 @@ fp_par(
   border.right,
   shading.color = "transparent",
   keep_with_next = FALSE,
+  tabs = NULL,
   word_style = "Normal"
 )
 
@@ -67,6 +68,10 @@ a valid color (e.g. "#000000" or "black").}
 \item{keep_with_next}{a scalar logical. Specifies that the paragraph (or at least part of it) should be rendered
 on the same page as the next paragraph when possible.}
 
+\item{tabs}{NULL (default) for no tabulation marks setting
+or an object returned by \code{\link[=fp_tabs]{fp_tabs()}}. Note this can only have effect with Word
+or RTF outputs.}
+
 \item{word_style}{Word paragraph style name}
 
 \item{x, object}{\code{fp_par} object}
@@ -83,7 +88,7 @@ paragraph formatting properties.
 \examples{
 fp_par(text.align = "center", padding = 5)
 obj <- fp_par(text.align = "center", padding = 1)
-update( obj, padding.bottom = 5 )
+update(obj, padding.bottom = 5)
 }
 \seealso{
 \link{fpar}
@@ -91,6 +96,8 @@ update( obj, padding.bottom = 5 )
 Other functions for defining formatting properties: 
 \code{\link{fp_border}()},
 \code{\link{fp_cell}()},
+\code{\link{fp_tab}()},
+\code{\link{fp_tabs}()},
 \code{\link{fp_text}()}
 }
 \concept{functions for defining formatting properties}

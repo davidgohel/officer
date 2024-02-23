@@ -45,16 +45,20 @@ officedown.
 
 \examples{
 # wrap r logo with external_img ----
-srcfile <- file.path( R.home("doc"), "html", "logo.jpg" )
-extimg <- external_img(src = srcfile, height = 1.06/2,
-                       width = 1.39/2)
+srcfile <- file.path(R.home("doc"), "html", "logo.jpg")
+extimg <- external_img(
+  src = srcfile, height = 1.06 / 2,
+  width = 1.39 / 2
+)
 
 # pptx example ----
 doc <- read_pptx()
 doc <- add_slide(doc)
-doc <- ph_with(x = doc, value = extimg,
-               location = ph_location_type(type = "body"),
-               use_loc_size = FALSE )
+doc <- ph_with(
+  x = doc, value = extimg,
+  location = ph_location_type(type = "body"),
+  use_loc_size = FALSE
+)
 print(doc, target = tempfile(fileext = ".pptx"))
 
 fp_t <- fp_text(font.size = 20, color = "red")
@@ -80,6 +84,7 @@ Other run functions for reporting:
 \code{\link{run_linebreak}()},
 \code{\link{run_pagebreak}()},
 \code{\link{run_reference}()},
+\code{\link{run_tab}()},
 \code{\link{run_word_field}()},
 \code{\link{run_wordtext}()}
 }

@@ -116,7 +116,7 @@ undefined properties will inherit from the default settings.
 fp_text()
 fp_text(color = "red")
 fp_text(bold = TRUE, shading.color = "yellow")
-print( fp_text (color="red", font.size = 12) )
+print(fp_text(color = "red", font.size = 12))
 }
 \seealso{
 \link{ftext}, \link{fpar}
@@ -124,6 +124,8 @@ print( fp_text (color="red", font.size = 12) )
 Other functions for defining formatting properties: 
 \code{\link{fp_border}()},
 \code{\link{fp_cell}()},
-\code{\link{fp_par}()}
+\code{\link{fp_par}()},
+\code{\link{fp_tab}()},
+\code{\link{fp_tabs}()}
 }
 \concept{functions for defining formatting properties}
