@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,6 +105,7 @@ which case, no formatting is defined (the default is applied).</p></dd>
 <code><a href="run_linebreak.html">run_linebreak</a>()</code>,
 <code><a href="run_pagebreak.html">run_pagebreak</a>()</code>,
 <code><a href="run_reference.html">run_reference</a>()</code>,
+<code><a href="run_tab.html">run_tab</a>()</code>,
 <code><a href="run_word_field.html">run_word_field</a>()</code>,
 <code><a href="run_wordtext.html">run_wordtext</a>()</code></p></div>
     </div>
@@ -116,17 +117,17 @@ which case, no formatting is defined (the default is applied).</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">bl</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"Comment multiple words."</span>, <span class="va">fp_bold</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"Second line."</span>, <span class="va">fp_red</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">comment1</span> <span class="op">&lt;-</span> <span class="fu">run_comment</span><span class="op">(</span></span></span>
-<span class="r-in"><span>   cmt <span class="op">=</span> <span class="va">bl</span>,</span></span>
-<span class="r-in"><span>   run <span class="op">=</span> <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"with a comment"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   author <span class="op">=</span> <span class="st">"Author Me"</span>,</span></span>
-<span class="r-in"><span>   date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   initials <span class="op">=</span> <span class="st">"AM"</span></span></span>
+<span class="r-in"><span>  cmt <span class="op">=</span> <span class="va">bl</span>,</span></span>
+<span class="r-in"><span>  run <span class="op">=</span> <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"with a comment"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  author <span class="op">=</span> <span class="st">"Author Me"</span>,</span></span>
+<span class="r-in"><span>  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  initials <span class="op">=</span> <span class="st">"AM"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">par1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="st">"A paragraph "</span>, <span class="va">comment1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -135,10 +136,10 @@ which case, no formatting is defined (the default is applied).</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">comment2</span> <span class="op">&lt;-</span> <span class="fu">run_comment</span><span class="op">(</span></span></span>
-<span class="r-in"><span>   cmt <span class="op">=</span> <span class="va">bl</span>, run <span class="op">=</span> <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"A commented paragraph"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   author <span class="op">=</span> <span class="st">"Author You"</span>,</span></span>
-<span class="r-in"><span>   date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   initials <span class="op">=</span> <span class="st">"AY"</span></span></span>
+<span class="r-in"><span>  cmt <span class="op">=</span> <span class="va">bl</span>, run <span class="op">=</span> <span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"A commented paragraph"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  author <span class="op">=</span> <span class="st">"Author You"</span>,</span></span>
+<span class="r-in"><span>  date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  initials <span class="op">=</span> <span class="st">"AY"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">par2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="va">comment2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

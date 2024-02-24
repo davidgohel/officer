@@ -16,7 +16,7 @@ because of many tables."><meta property="og:image" content="https://davidgohel.g
     
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,8 +81,10 @@ Value can only be made of alpha numeric characters, ':', -' and '_'.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="run_autonum.html">run_autonum</a></span><span class="op">(</span>seq_id <span class="op">=</span> <span class="st">"tab"</span>, pre_label <span class="op">=</span> <span class="st">"Table "</span>,</span></span>
-<span class="r-in"><span>  bkm <span class="op">=</span> <span class="st">"anytable"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="run_autonum.html">run_autonum</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  seq_id <span class="op">=</span> <span class="st">"tab"</span>, pre_label <span class="op">=</span> <span class="st">"Table "</span>,</span></span>
+<span class="r-in"><span>  bkm <span class="op">=</span> <span class="st">"anytable"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">set_autonum_bookmark</span><span class="op">(</span><span class="va">z</span>, bkm <span class="op">=</span> <span class="st">"anothertable"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $seq_id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "tab"</span>

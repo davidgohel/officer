@@ -187,6 +187,12 @@
     <loc>https://davidgohel.github.io/officer/reference/fp_par.html</loc>
   </url>
   <url>
+    <loc>https://davidgohel.github.io/officer/reference/fp_tab.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/officer/reference/fp_tabs.html</loc>
+  </url>
+  <url>
     <loc>https://davidgohel.github.io/officer/reference/fp_text.html</loc>
   </url>
   <url>
@@ -353,6 +359,9 @@
   </url>
   <url>
     <loc>https://davidgohel.github.io/officer/reference/run_reference.html</loc>
+  </url>
+  <url>
+    <loc>https://davidgohel.github.io/officer/reference/run_tab.html</loc>
   </url>
   <url>
     <loc>https://davidgohel.github.io/officer/reference/run_word_field.html</loc>
