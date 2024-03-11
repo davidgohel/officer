@@ -4,7 +4,10 @@ docx_settings <- function(zoom = 1,
                           decimal_symbol = ".",
                           list_separator = ";",
                           compatibility_mode = "15",
-                          even_and_odd_headers = FALSE
+                          even_and_odd_headers = FALSE,
+                          embed_ttf = FALSE,
+                          embed_system = FALSE,
+                          embed_subset = FALSE
                           ) {
   x <- list(
     zoom = zoom,
@@ -13,7 +16,10 @@ docx_settings <- function(zoom = 1,
     decimal_symbol = decimal_symbol,
     list_separator = list_separator,
     even_and_odd_headers = even_and_odd_headers,
-    compatibility_mode = compatibility_mode
+    compatibility_mode = compatibility_mode,
+    embed_ttf = embed_ttf,
+    embed_system = embed_system,
+    embed_subset = embed_subset
   )
   class(x) <- "docx_settings"
   x
@@ -29,7 +35,11 @@ update.docx_settings <- function(object,
                                  compatibility_mode = NULL,
                                  even_and_odd_headers = NULL,
                                  file = NULL,
+                                 embed_ttf = NULL,
+                                 embed_system = NULL,
+                                 embed_subset = NULL,
                                  ...) {
+
   if (!is.null(zoom)) {
     object$zoom <- zoom
   }
@@ -50,6 +60,15 @@ update.docx_settings <- function(object,
   }
   if (!is.null(even_and_odd_headers)) {
     object$even_and_odd_headers <- even_and_odd_headers
+  }
+  if (!is.null(embed_ttf)) {
+    object$embed_ttf <- embed_ttf
+  }
+  if (!is.null(embed_system)) {
+    object$embed_system <- embed_system
+  }
+  if (!is.null(embed_subset)) {
+    object$embed_subset <- embed_subset
   }
   if (!is.null(file) && file.exists(file)) {
     node_doc <- read_xml(file)
@@ -94,6 +113,9 @@ to_wml.docx_settings <- function(x, add_ns = FALSE, ...) {
     sprintf("<w:decimalSymbol w:val=\"%s\"/>", x$decimal_symbol),
     sprintf("<w:listSeparator w:val=\"%s\"/>", x$list_separator),
     if (x$even_and_odd_headers) "<w:evenAndOddHeaders/>",
+    if (x$embed_ttf) "<w:embedTrueTypeFonts/>",
+    if (x$embed_system) "<w:embedSystemFonts/>",
+    if (x$embed_subset) "<w:saveSubsetFonts/>",
     "</w:settings>"
   )
   out
