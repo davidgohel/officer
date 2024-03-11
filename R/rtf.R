@@ -7,10 +7,12 @@
 #' objects are:
 #' - [ftext()]
 #' - [external_img()]
-#' - [run_word_field()]
-#' - [run_pagebreak()]
+#' - [run_autonum()]
 #' - [run_columnbreak()]
 #' - [run_linebreak()]
+#' - [run_word_field()]
+#' - [run_reference()]
+#' - [run_pagebreak()]
 #' - [hyperlink_ftext()]
 #' - [block_list()]
 #' - [fpar()]
@@ -958,6 +960,7 @@ rtf_par_style <- function(fp_p = fp_par(), fp_t = NULL) {
   paste0(ppr_rtf(fp_p), fp_t_rtf)
 }
 
+# Not used in {officer}
 rtf_set_paragraph_style <- function(x, style_name, fp_p = fp_par(), fp_t = NULL) {
   index <- which(x$styles$style_name %in% style_name)
   style_id <- if (length(index) < 1) {

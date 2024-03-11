@@ -45,7 +45,6 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
   fpt_def <- fp_text(font.size = 11, italic = TRUE, bold = TRUE, underline = TRUE)
 
   doc <- rtf_doc(normal_par = np, normal_chunk = fpt_def)
-  docx <- read_docx()
 
   expect_identical(doc$normal_par, np)
   expect_identical(doc$normal_chunk, fpt_def)
@@ -103,6 +102,34 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
   expect_s3_class(doc, "rtf")
 
   expect_identical(capture.output(print.rtf(doc)), "rtf document with 6 element(s)")
+
+  bl <- block_list(
+    fpar(ftext("hello world\\t", fpt_blue_bold)),
+    fpar(
+      ftext("hello", fpt_blue_bold), " ",
+      ftext("world", fpt_red_italic)
+    ),
+    fpar(
+      ftext("hello world", fpt_red_italic)
+    )
+  )
+
+  expect_silent(doc <- rtf_add(doc, bl))
+
+  ps <- prop_section(
+    page_size = page_size(orient = "landscape"),
+    page_margins = page_mar(top = 2),
+    type = "continuous"
+  )
+  bs <- block_section(ps)
+
+  expect_silent(doc <- rtf_add(doc, bs))
+  expect_silent(doc <- rtf_add(doc, "a character"))
+  expect_silent(doc <- rtf_add(doc, factor("a factor")))
+  expect_silent(doc <- rtf_add(doc, 1.1))
+
+  outfile <- print(doc, target = tempfile(fileext = ".rtf"))
+  expect_true(file.exists(outfile))
 
   local_edition(3)
   testthat::skip_if_not_installed("doconv")

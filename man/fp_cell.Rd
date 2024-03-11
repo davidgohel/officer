@@ -71,7 +71,7 @@ value is one of "lrtb", "tbrl", "btlr".}
 
 \item{colspan}{specify how many columns the cell is spanned over}
 
-\item{x, object}{\code{fp_cell} object}
+\item{x, }{object \code{fp_cell} object}
 
 \item{type}{output type - one of 'wml', 'pml', 'html', 'rtf'.}
 

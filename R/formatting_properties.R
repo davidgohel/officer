@@ -936,7 +936,7 @@ fp_cell <- function(border = fp_border(width = 0),
 
 #' @export
 #' @rdname fp_cell
-#' @param x,object \code{fp_cell} object
+#' @param x, object \code{fp_cell} object
 #' @param type output type - one of 'wml', 'pml', 'html', 'rtf'.
 #' @param ... further arguments - not used
 format.fp_cell <- function(x, type = "wml", ...) {
