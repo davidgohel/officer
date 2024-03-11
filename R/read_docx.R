@@ -71,8 +71,25 @@ read_docx <- function(path = NULL) {
     class = "rdocx"
   )
 
+  # Copy embedded font settings iff fonts are embedded in the current document
+  fonts <- list()
+  if (dir.exists(file.path(package_dir, "word/fonts"))) {
+    node_doc <- read_xml(file.path(package_dir, "word/settings.xml"))
+    if (!inherits(xml_child(node_doc, "w:embedTrueTypeFonts"), "xml_missing")) {
+      fonts$ttf <- TRUE
+    } else fonts$ttf <- FALSE
+    if (!inherits(xml_child(node_doc, "w:embedSystemFonts"), "xml_missing")) {
+      fonts$system <- TRUE
+    } else fonts$system <- FALSE
+    if (!inherits(xml_child(node_doc, "w:saveSubsetFonts"), "xml_missing")) {
+      fonts$subset <- TRUE
+    } else fonts$subset <- FALSE
+  }
+  
   obj$settings <- update(
-    object = docx_settings(),
+    object = docx_settings(embed_ttf = fonts$ttf,
+                           embed_system = fonts$system,
+                           embed_subset = fonts$subset),
     file = file.path(package_dir, "word", "settings.xml")
   )
 
