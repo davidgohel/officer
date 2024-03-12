@@ -271,7 +271,6 @@ test_that("visual testing", {
   doc <- body_add(doc, data.frame(mtcars))
   doc <- body_add(doc, bl)
   doc <- body_add(doc, bs)
-  doc <- body_add(doc, run_num)
   doc <- body_add(doc, caption)
   doc <- body_add(doc, block_toc(style = "Table Caption"))
   doc <- body_add(doc, an_fpar)
