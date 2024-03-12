@@ -12,10 +12,12 @@ objects are:
 \itemize{
 \item \code{\link[=ftext]{ftext()}}
 \item \code{\link[=external_img]{external_img()}}
-\item \code{\link[=run_word_field]{run_word_field()}}
-\item \code{\link[=run_pagebreak]{run_pagebreak()}}
+\item \code{\link[=run_autonum]{run_autonum()}}
 \item \code{\link[=run_columnbreak]{run_columnbreak()}}
 \item \code{\link[=run_linebreak]{run_linebreak()}}
+\item \code{\link[=run_word_field]{run_word_field()}}
+\item \code{\link[=run_reference]{run_reference()}}
+\item \code{\link[=run_pagebreak]{run_pagebreak()}}
 \item \code{\link[=hyperlink_ftext]{hyperlink_ftext()}}
 \item \code{\link[=block_list]{block_list()}}
 \item \code{\link[=fpar]{fpar()}}
