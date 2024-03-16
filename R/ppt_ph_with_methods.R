@@ -385,9 +385,10 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 #' @describeIn ph_with add a ggplot object to a new shape on the
 #' current slide. Use package \code{rvg} for more advanced graphical features.
 #' @param res resolution of the png image in ppi
-#' @param alt_text Alt-text for screen-readers
+#' @param alt_text Alt-text for screen-readers. Defaults to `""`. If `""` or `NULL`
+#'    an alt text added with `ggplot2::labs(alt = ...)` will be used if any.
 #' @param scale Multiplicative scaling factor, same as in ggsave
-ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...) {
+ph_with.gg <- function(x, value, location, res = 300, alt_text = "", scale = 1, ...) {
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
   if (!requireNamespace("ggplot2")) {
@@ -405,8 +406,14 @@ ph_with.gg <- function(x, value, location, res = 300, alt_text, scale = 1, ...) 
   dev.off()
   on.exit(unlink(file))
 
-  ext_img <- external_img(file, width = width, height = height)
-  ph_with(x, ext_img, location = location, alt_text = alt_text)
+  if (is.null(alt_text) || alt_text == "") {
+    alt_text <- ggplot2::get_alt_text(value)
+    if (is.null(alt_text)) alt_text <- ""
+  }
+
+  ext_img <- external_img(file, width = width, height = height, alt = alt_text)
+
+  ph_with(x, ext_img, location = location)
 }
 
 #' @export
