@@ -1,8 +1,12 @@
-# officer 0.6.5.9000
+# officer 0.6.6
 
 ## Issues
 
-- Fix. Add alt text to ggplot's added to a pptx with ph_with.gg. Closes ##556.
+- Fix. Add alt text to ggplot's added to a pptx with ph_with.gg. Closes #556.
+
+## Features
+
+- add coverage to rtf, contributions from Davide Garolini at roche.
 
 # officer 0.6.5
 
