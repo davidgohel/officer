@@ -23,6 +23,20 @@ anyplot <- plot_instr(code = {
   barplot(1:7, col = col, yaxt = "n")
 })
 
+test_that("visual testing", {
+  local_edition(3)
+  testthat::skip_if_not_installed("doconv")
+  testthat::skip_if_not(doconv::msoffice_available())
+  library(doconv)
+
+  x <- rtf_doc()
+  x <- rtf_add(x, "Hello World")
+  x <- rtf_add(x, anyplot)
+  x <- rtf_add(x = x, bl)
+
+  expect_snapshot_doc(x = x, name = "rtf-elements", engine = "testthat")
+})
+
 test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
   def_text <- fp_text_lite(color = "#006943", bold = TRUE)
   center_par <- fp_par(text.align = "left", padding = 1, line_spacing = 1.3)
@@ -67,8 +81,8 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
     gg <- gg_plot <- ggplot(data = iris) +
       geom_point(mapping = aes(Sepal.Length, Petal.Length))
     doc <- rtf_add(doc, gg,
-      width = 3, height = 4,
-      ppr = center_par
+                   width = 3, height = 4,
+                   ppr = center_par
     )
 
     expect_true(grepl("\\.png", doc$content[[5]]$chunks[[1]]))
@@ -79,8 +93,8 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
   })
 
   doc <- rtf_add(doc, anyplot,
-    width = 5, height = 4,
-    ppr = center_par
+                 width = 5, height = 4,
+                 ppr = center_par
   )
   expect_true(grepl("\\.png", doc$content[[6]]$chunks[[1]]))
   expect_identical(attr(doc$content[[6]]$chunks[[1]], "dims"), list(width = 5, height = 4))
@@ -100,7 +114,7 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
     )
   )
 
-  expect_silent({doc <- rtf_add(doc, bl)})
+  expect_silent(doc <- rtf_add(doc, bl))
 
   ps <- prop_section(
     page_size = page_size(orient = "landscape"),
@@ -109,11 +123,16 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
   )
   bs <- block_section(ps)
 
-  expect_silent({doc <- rtf_add(doc, bs)})
-  expect_silent({doc <- rtf_add(doc, "a character")})
-  expect_silent({doc <- rtf_add(doc, factor("a factor"))})
-  expect_silent({doc <- rtf_add(doc, 1.1)})
+  expect_silent(doc <- rtf_add(doc, bs))
+  expect_silent(doc <- rtf_add(doc, "a character"))
+  expect_silent(doc <- rtf_add(doc, factor("a factor")))
+  expect_silent(doc <- rtf_add(doc, 1.1))
 
   outfile <- print(doc, target = tempfile(fileext = ".rtf"))
   expect_true(file.exists(outfile))
+
+  local_edition(3)
+  testthat::skip_if_not_installed("doconv")
+  testthat::skip_if_not(doconv::msoffice_available())
+  doconv::expect_snapshot_doc(x = doc, name = "rtf-elements", engine = "testthat")
 })
