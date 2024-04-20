@@ -198,3 +198,46 @@ test_that("add docx into docx", {
   expect_equal(doc_parts[grepl("\\.docx$", doc_parts)],
                list.files(file.path(new_dir, "word"), pattern = "\\.docx$") )
 })
+
+test_that("Add comment at cursor position", {
+  fp_bold <- fp_text_lite(bold = TRUE)
+  fp_red <- fp_text_lite(color = "red")
+
+  doc <- read_docx()
+  doc <- body_add_par(doc, "This is a first Paragraph.")
+  doc <- body_comment(doc,
+                      cmt = block_list("Comment on first par."),
+                      author = "Proofreader",
+                      date = Sys.Date()
+  )
+  doc <- body_add_fpar(
+    doc,
+    fpar("This is a second Paragraph. ", "This is a third Paragraph."),
+    style = "Normal"
+  )
+
+  doc <- body_comment(doc,
+                      cmt = block_list(
+                        fpar(ftext("Comment on second par ...", fp_bold)),
+                        fpar(
+                          ftext("... with a second line.", fp_red)
+                        )
+                      ),
+                      author = "Proofreader 2",
+                      date = Sys.Date()
+  )
+
+  docx_file <- print(doc, target = tempfile(fileext = ".docx"))
+  docx_dir <- tempfile()
+  unpack_folder(docx_file, docx_dir)
+
+  doc <- read_xml(file.path(docx_dir, "word/comments.xml"))
+  comment1 <- xml_find_first(doc, "w:comment[@w:id='0']")
+  comment2 <- xml_find_first(doc, "w:comment[@w:id='1']")
+
+  expect_false(inherits(comment1, "xml_missing"))
+  expect_false(inherits(comment2, "xml_missing"))
+
+  expect_length(xml_children(comment1), 1)
+  expect_length(xml_children(comment2), 2)
+})
