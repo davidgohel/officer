@@ -16,7 +16,7 @@ cursor_bookmark(x, id)
 
 cursor_end(x)
 
-cursor_reach(x, keyword)
+cursor_reach(x, keyword, fixed = FALSE)
 
 cursor_reach_test(x, keyword)
 
@@ -30,6 +30,8 @@ cursor_backward(x)
 \item{id}{bookmark id}
 
 \item{keyword}{keyword to look for as a regular expression}
+
+\item{fixed}{logical. If TRUE, pattern is a string to be matched as is.}
 }
 \description{
 A set of functions is available to manipulate

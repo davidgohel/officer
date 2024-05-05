@@ -7,6 +7,8 @@
 ## Features
 
 - add coverage to rtf, contributions from Davide Garolini at roche.
+- `cursor_reach()` gains new argument `fixed` to enable exact matching.
+It defaults to FALSE for backward compatibility.
 
 # officer 0.6.5
 

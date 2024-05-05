@@ -131,11 +131,12 @@ cursor_end <- function(x) {
 #' @export
 #' @rdname cursor
 #' @param keyword keyword to look for as a regular expression
+#' @param fixed logical. If TRUE, pattern is a string to be matched as is.
 #' @section cursor_reach:
 #' Set the cursor on the first element of the document
 #' that contains text specified in argument \code{keyword}.
 #' The argument \code{keyword} is a regexpr pattern.
-cursor_reach <- function(x, keyword) {
+cursor_reach <- function(x, keyword, fixed = FALSE) {
   nodes_with_text <- xml_find_all(
     x$doc_obj$get(),
     "/w:document/w:body/*|/w:ftr/*|/w:hdr/*"
@@ -146,7 +147,7 @@ cursor_reach <- function(x, keyword) {
   }
 
   text_ <- xml_text(nodes_with_text)
-  test_ <- grepl(pattern = keyword, x = text_)
+  test_ <- grepl(pattern = keyword, x = text_, fixed = fixed)
   if (!any(test_)) {
     stop(keyword, " has not been found in the document", call. = FALSE)
   }
