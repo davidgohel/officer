@@ -89,6 +89,7 @@ docxtable_as_tibble <- function( node, styles, preserve = FALSE ){
 #' @importFrom xml2 xml_has_attr
 par_as_tibble <- function(node, styles){
 
+
   style_node <- xml_child(node, "w:pPr/w:pStyle")
   if( inherits(style_node, "xml_missing") ){
     style_name <- NA
@@ -140,9 +141,17 @@ node_content <- function(node, x, preserve = FALSE){
 #'
 #' docx_summary(doc, preserve = TRUE)[28, ]
 #' @export
-docx_summary <- function( x, preserve = FALSE ){
-
+docx_summary <- function( x, preserve = FALSE, remove_fields = FALSE){
+  
+  
+  if(remove_fields){
+    instrText_nodes <- xml_find_all(x$doc_obj$get(),"//w:instrText")
+    xml_remove(instrText_nodes)
+  }  
+  
   all_nodes <- xml_find_all(x$doc_obj$get(),"/w:document/w:body/*[self::w:p or self::w:tbl]")
+  
+
   data <- lapply( all_nodes, node_content, x = x, preserve = preserve )
 
   data <- mapply(function(x, id) {
