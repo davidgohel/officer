@@ -12,6 +12,8 @@
 It defaults to FALSE for backward compatibility.
 - `remove_slide()` gains new argument `rm_images` to enable images deletion
 from ppt/media.
+- new function `body_comment()` adds a comment on an existing paragraph 
+at the cursor position.
 
 # officer 0.6.5
 
