@@ -561,6 +561,71 @@ body_remove <- function(x) {
   x
 }
 
+#' @export
+#' @title Add comment in a 'Word' document
+#' @description Add a comment at the cursor location. The comment
+#' is added on the first run of text in the current paragraph.
+#' @param x an rdocx object
+#' @param cmt a set of blocks to be used as comment content returned by
+#'   function [block_list()].
+#' @param author comment author.
+#' @param date comment date
+#' @param initials comment initials
+#' @examples
+#' doc <- read_docx()
+#' doc <- body_add_par(doc, "Paragraph")
+#' doc <- body_comment(doc, block_list("This is a comment."))
+#' docx_file <- print(doc, target = tempfile(fileext = ".docx"))
+#' docx_comments(read_docx(docx_file))
+body_comment <- function(x,
+                         cmt = ftext(""),
+                         author = "",
+                         date = "",
+                         initials = "") {
+  cursor_elt <- docx_current_block_xml(x)
+  ns_ <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\""
+
+  open_tag <- wr_ns_yes
+
+  blocks <- sapply(cmt, to_wml)
+  blocks <- paste(blocks, collapse = "")
+
+  id <- basename(tempfile(pattern = "comment"))
+
+  cmt_xml <- paste0(
+    sprintf(
+      "<w:comment %s  w:id=\"%s\" w:author=\"%s\" w:date=\"%s\" w:initials=\"%s\">",
+      ns_, id, author, date, initials
+    ),
+    blocks,
+    "</w:comment>"
+  )
+
+  cmt_start_str <- sprintf("<w:commentRangeStart w:id=\"%s\" %s/>", id, ns_)
+  cmt_start_end <- sprintf("<w:commentRangeEnd %s w:id=\"%s\"/>", ns_, id)
+
+  path_ <- paste0(xml_path(cursor_elt), "//w:r")
+
+  cmt_ref_xml <- paste0(
+    open_tag,
+    if (!is.null(x$pr)) rpr_wml(x$pr),
+    "<w:commentReference w:id=\"",
+    id,
+    "\">",
+    cmt_xml,
+    "</w:commentReference>",
+    "</w:r>"
+  )
+
+  path_ <- paste0(xml_path(cursor_elt), "//w:r")
+
+  node <- xml_find_first(x$doc_obj$get(), path_)
+  xml_add_sibling(node, as_xml_document(cmt_start_str), .where = "before")
+  xml_add_sibling(node, as_xml_document(cmt_start_end), .where = "after")
+  xml_add_sibling(node, as_xml_document(cmt_ref_xml), .where = "after")
+
+  x
+}
 
 # body_add and methods -----
 #' @export
