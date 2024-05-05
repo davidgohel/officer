@@ -88,6 +88,8 @@ on_slide <- function(x, index) {
 #' @description Remove a slide from a pptx presentation.
 #' @param x an rpptx object
 #' @param index slide index, default to current slide position.
+#' @param rm_images if TRUE (defaults to FALSE), images presented in
+#' the slide to remove are also removed from the file.
 #' @note cursor is set on the last slide.
 #' @examples
 #' my_pres <- read_pptx()
@@ -95,7 +97,7 @@ on_slide <- function(x, index) {
 #' my_pres <- remove_slide(my_pres)
 #' @family functions slide manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
-remove_slide <- function(x, index = NULL) {
+remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   l_ <- length(x)
   if (l_ < 1) {
     stop("presentation contains no slide to delete", call. = FALSE)
@@ -110,6 +112,13 @@ remove_slide <- function(x, index = NULL) {
   }
   filename <- basename(x$presentation$slide_data()$target[index])
   location <- which(x$slide$get_metadata()$name %in% filename)
+
+  if (rm_images) {
+    media_files <- pptx_summary(x)$media_file
+    if (length(media_files)) {
+      unlink(file.path(x$package_dir, media_files), force = TRUE)
+    }
+  }
 
   del_file <- x$slide$remove_slide(location)
 

@@ -4,12 +4,15 @@
 \alias{remove_slide}
 \title{Remove a slide}
 \usage{
-remove_slide(x, index = NULL)
+remove_slide(x, index = NULL, rm_images = FALSE)
 }
 \arguments{
 \item{x}{an rpptx object}
 
 \item{index}{slide index, default to current slide position.}
+
+\item{rm_images}{if TRUE (defaults to FALSE), images presented in
+the slide to remove are also removed from the file.}
 }
 \description{
 Remove a slide from a pptx presentation.

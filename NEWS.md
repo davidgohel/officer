@@ -9,6 +9,8 @@
 - add coverage to rtf, contributions from Davide Garolini at roche.
 - `cursor_reach()` gains new argument `fixed` to enable exact matching.
 It defaults to FALSE for backward compatibility.
+- `remove_slide()` gains new argument `rm_images` to enable images deletion
+from ppt/media.
 
 # officer 0.6.5
 
