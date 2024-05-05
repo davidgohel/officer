@@ -16,6 +16,8 @@ It defaults to FALSE for backward compatibility.
 from ppt/media.
 - new function `body_comment()` adds a comment on an existing paragraph 
 at the cursor position.
+- `docx_summary()` gains parameter 'remove_field' to prevent field codes 
+from appearing in the returned data.frame. 
 
 # officer 0.6.5
 

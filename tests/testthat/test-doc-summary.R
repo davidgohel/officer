@@ -9,6 +9,16 @@ test_that("docx summary", {
   doc_data_pr <- docx_summary(doc, preserve = TRUE)
   expect_equal( doc_data_pr[28, ][["text"]], "Note\nNew line note" )
 
+  doc <- read_docx()
+  doc <- body_add_fpar(
+    x = doc,
+    value = fpar(run_word_field(field = "Date \\@ \"MMMM d yyyy\""))
+  )
+  x <- print(doc, tempfile(fileext = ".docx"))
+  doc <- read_docx(x)
+  expect_equal(docx_summary(doc)$text, "Date \\@ \"MMMM d yyyy\"")
+  doc <- read_docx(x)
+  expect_equal(docx_summary(doc, remove_fields = TRUE)$text, "")
 })
 
 test_that("complex docx table", {

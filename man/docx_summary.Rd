@@ -4,7 +4,7 @@
 \alias{docx_summary}
 \title{Get Word content in a data.frame}
 \usage{
-docx_summary(x, preserve = FALSE)
+docx_summary(x, preserve = FALSE, remove_fields = FALSE)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -14,6 +14,9 @@ single line. If \code{TRUE}, line breaks in table cells are preserved as a "\\n"
 character. This feature is adapted from \code{docxtractr::docx_extract_tbl()}
 published under a \href{https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE}{MIT licensed} in
 the \code{{docxtractr}} package by Bob Rudis.}
+
+\item{remove_fields}{if TRUE, prevent field codes from appearing in the
+returned data.frame.}
 }
 \description{
 read content of a Word document and
@@ -24,9 +27,9 @@ Documents included with \code{body_add_docx()} will
 not be accessible in the results.
 }
 \examples{
-example_pptx <- system.file(package = "officer",
+example_docx <- system.file(package = "officer",
   "doc_examples/example.docx")
-doc <- read_docx(example_pptx)
+doc <- read_docx(example_docx)
 
 docx_summary(doc)
 
