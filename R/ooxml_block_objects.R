@@ -223,6 +223,10 @@ block_pour_docx <- function(file){
   if(!grepl("\\.docx$", file, ignore.case = TRUE)){
     stop("file {", file, "} is not a docx file.", call. = FALSE)
   }
+  if(grepl("&", file, ignore.case = TRUE)){
+    stop("file path {", file, "} contains '&', please rename your file to use it with `block_pour_docx()`.", call. = FALSE)
+  }
+
   z <- list(file = file)
   class(z) <- c("block_pour_docx", "block")
   z
