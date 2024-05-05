@@ -1,0 +1,17 @@
+---
+title: "Untitled"
+output: md_document
+params:
+  rds_path: temp.RDS
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r tab.topcaption=FALSE, tab.cap.pre = "Tableau", tab.cap.sep = " :", tab.cap = "Coucou", label="plop", tab.cap.style = "Normal", tab.alt.title = "alt title", tab.alt.description = "alt description"}
+saveRDS(
+  object = officer::opts_current_table(),
+  params$rds_path
+)
+```

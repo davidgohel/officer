@@ -1,41 +1,63 @@
-Package: officer
 Type: Package
+Package: officer
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.6.6.008
+Version: 0.6.6.009
 Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"), email = "david.gohel@ardata.fr"),
-    person("Stefan", "Moog", role = "aut", email = 'moogs@gmx.de'),
-    person(given = "ArData", role = "cph"),
-    person("Frank", "Hangler", role = "ctb", email = "frank@plotandscatter.com", comment = "function body_replace_all_text"),
-    person("Liz", "Sander", role = "ctb", email = 'lsander@civisanalytics.com', comment = "several documentation fixes"),
-    person("Anton", "Victorson", role = "ctb", email = 'anton@victorson.se',comment = "fixes xml structures"),
-    person("Jon", "Calder", role = "ctb", email = 'jonmcalder@gmail.com', comment = "update vignettes"),
-    person("John", "Harrold", role = "ctb", email = 'john.m.harrold@gmail.com', comment = "function annotate_base"),
-    person("John", "Muschelli", role = "ctb", email = 'muschellij2@gmail.com', comment = "google doc compatibility"),
-    person("Bill", "Denney", email="wdenney@humanpredictions.com", role="ctb", comment=c(ORCID="0000-0002-5759-428X", "function as.matrix.rpptx")),
-    person("Nikolai", "Beck", role = "ctb", email = 'beck.nikolai@gmail.com', comment = "set speaker notes for .pptx documents"),
-    person("Greg", "Leleu", role = "ctb", email = 'gregoire.leleu@gmail.com', comment = "fields functionality in ppt"),
-    person("Hongyuan", "Jia", role = "ctb", email = "hongyuanjia@cqust.edu.cn", comment = c(ORCID = "0000-0002-0075-8183"))
-    )
-Description: Access and manipulate 'Microsoft Word', 'RTF' and 'Microsoft PowerPoint' documents from R. 
-  The package focuses on tabular and graphical reporting from R; it also provides two functions
-  that let users get document content into data objects. A set of functions 
-  lets add and remove images, tables and paragraphs of text in new or existing documents. 
-  The package does not require any installation of Microsoft products to be able to write Microsoft 
-  files. 
+    person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
+    person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
+    person("ArData", role = "cph"),
+    person("Frank", "Hangler", , "frank@plotandscatter.com", role = "ctb",
+           comment = "function body_replace_all_text"),
+    person("Liz", "Sander", , "lsander@civisanalytics.com", role = "ctb",
+           comment = "several documentation fixes"),
+    person("Anton", "Victorson", , "anton@victorson.se", role = "ctb",
+           comment = "fixes xml structures"),
+    person("Jon", "Calder", , "jonmcalder@gmail.com", role = "ctb",
+           comment = "update vignettes"),
+    person("John", "Harrold", , "john.m.harrold@gmail.com", role = "ctb",
+           comment = "function annotate_base"),
+    person("John", "Muschelli", , "muschellij2@gmail.com", role = "ctb",
+           comment = "google doc compatibility"),
+    person("Bill", "Denney", , "wdenney@humanpredictions.com", role = "ctb",
+           comment = c(ORCID = "0000-0002-5759-428X", "function as.matrix.rpptx")),
+    person("Nikolai", "Beck", , "beck.nikolai@gmail.com", role = "ctb",
+           comment = "set speaker notes for .pptx documents"),
+    person("Greg", "Leleu", , "gregoire.leleu@gmail.com", role = "ctb",
+           comment = "fields functionality in ppt"),
+    person("Hongyuan", "Jia", , "hongyuanjia@cqust.edu.cn", role = "ctb",
+           comment = c(ORCID = "0000-0002-0075-8183"))
+  )
+Description: Access and manipulate 'Microsoft Word', 'RTF' and 'Microsoft
+    PowerPoint' documents from R.  The package focuses on tabular and
+    graphical reporting from R; it also provides two functions that let
+    users get document content into data objects. A set of functions lets
+    add and remove images, tables and paragraphs of text in new or
+    existing documents.  The package does not require any installation of
+    Microsoft products to be able to write Microsoft files.
 License: MIT + file LICENSE
-Imports:
-    grDevices, stats, graphics, utils,
-    zip (>= 2.1.0),
-    xml2 (>= 1.1.0),
-    openssl, R6, uuid,
-    ragg
-URL: https://ardata-fr.github.io/officeverse/, https://davidgohel.github.io/officer/
-Encoding: UTF-8
+URL: https://ardata-fr.github.io/officeverse/,
+    https://davidgohel.github.io/officer/
 BugReports: https://github.com/davidgohel/officer/discussions
-RoxygenNote: 7.3.1
-Roxygen: list(markdown = TRUE)
-Suggests: testthat, devEMF, ggplot2,
-    rmarkdown,
+Imports:
+    graphics,
+    grDevices,
+    openssl,
+    R6,
+    ragg,
+    stats,
+    utils,
+    uuid,
+    xml2 (>= 1.1.0),
+    zip (>= 2.1.0)
+Suggests: 
+    devEMF,
     doconv  (>= 0.3.0),
-    knitr, rsvg, magick
+    ggplot2,
+    knitr,
+    magick,
+    rmarkdown,
+    rsvg,
+    testthat
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
