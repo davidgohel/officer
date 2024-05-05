@@ -1,6 +1,6 @@
 ## Test environments
 
-- local OS X install (R 4.3.2)
+- local OS X install (R 4.4.0)
 - ubuntu 20.04 (release)
 - winbuilder (with older, release and devel) 
 

@@ -69,6 +69,7 @@ reference:
     - body_end_block_section
     - body_set_default_section
     - starts_with("body_end_section")
+    - body_comment
   - title: Word sections
     contents:
     - prop_section
