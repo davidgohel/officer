@@ -3,6 +3,7 @@
 ## Issues
 
 - Fix. Add alt text to ggplot's added to a pptx with ph_with.gg. Closes #556.
+- embedded image in PPT can now be associated with an hyperlink
 
 ## Features
 

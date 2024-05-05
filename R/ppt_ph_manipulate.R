@@ -144,10 +144,14 @@ ph_slidelink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NUL
 ph_hyperlink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id))
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]|p:cSld/p:spTree/*[p:nvPicPr/p:cNvPr[@id='%s']]", office_id, office_id))
 
   # add hlinkClick
-  cnvpr <- xml_child(current_elt, "p:nvSpPr/p:cNvPr")
+  if (xml_name(current_elt) %in% "pic") {
+    cnvpr <- xml_child(current_elt, "p:nvPicPr/p:cNvPr")
+  } else {
+    cnvpr <- xml_child(current_elt, "p:nvSpPr/p:cNvPr")
+  }
   str_ <- "<a:hlinkClick xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"%s\"/>"
   str_ <- sprintf(str_, href)
   xml_add_child(cnvpr, as_xml_document(str_))
