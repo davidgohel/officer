@@ -79,6 +79,7 @@ presentation <- R6Class(
       private$slide_rid <- private$slide_rid[-dropid]
 
       private$update_xml()
+      self$clean_media()
 
       self
     }
