@@ -165,7 +165,7 @@ run_as_tibble <- function(node, styles) {
     text = xml_text(node),
     bold = val_child(node, "w:rPr/w:b", default = TRUE),
     italic = val_child(node, "w:rPr/w:i", default = TRUE),
-    underline = val_child(node, "w:rPr/w:u", default = TRUE),
+    underline = xml_attr(xml_child(node, "w:rPr/w:u"), "val"),
     sz = as.integer(xml_attr(xml_child(node, "w:rPr/w:sz"), "val")),
     szCs = as.integer(xml_attr(xml_child(node, "w:rPr/w:szCs"), "val")),
     color = xml_attr(xml_child(node, "w:rPr/w:color"), "val"),
