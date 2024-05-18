@@ -1,3 +1,12 @@
+# Replace non breaking hyphen with a text node containing a hyphen-minus = \u002D
+replace_no_break_hyphen <- function(x) {
+  xml2::xml_replace(
+    xml2::xml_find_all(x, ".//w:noBreakHyphen"),
+    "w:t",
+    "\u002D"
+  )
+}
+
 unfold_row_wml <- function(node, row_id, preserve = FALSE) {
   is_header_1 <- !inherits(xml_child(node, "w:trPr/w:tblHeader"), "xml_missing")
   is_header_2 <- !inherits(xml_child(node, "w:trPr/w:cnfStyle[@w:firstRow='1']"), "xml_missing")
@@ -7,11 +16,15 @@ unfold_row_wml <- function(node, row_id, preserve = FALSE) {
 
   if (preserve) {
     txt <- sapply(cell_nodes, function(x) {
+      replace_no_break_hyphen(x)
       paras <- xml2::xml_text(xml2::xml_find_all(x, "./w:p"))
       paste0(paras, collapse = "\n")
     })
   } else {
-    txt <- sapply(cell_nodes, xml2::xml_text)
+    txt <- sapply(cell_nodes, function(x) {
+      replace_no_break_hyphen(x)
+      xml2::xml_text(x)
+    })
   }
 
   col_span <- sapply(cell_nodes, function(x) {
@@ -106,6 +119,8 @@ par_as_tibble <- function(node, styles) {
     style_id <- xml_attr(style_node, "val")
     style_name <- styles$style_name[styles$style_id %in% style_id]
   }
+
+  replace_no_break_hyphen(node)
 
   par_data <- data.frame(
     level = as.integer(xml_attr(xml_child(node, "w:pPr/w:numPr/w:ilvl"), "val")) + 1,

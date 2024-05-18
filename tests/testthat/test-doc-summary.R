@@ -37,6 +37,32 @@ test_that("complex docx table", {
   expect_true( all( table_data$text[table_data$col_span < 1 | table_data$row_span < 1] %in% NA_character_ ) )
 })
 
+test_that("preserves non breaking hyphens", {
+  doc <- read_docx()
+
+  make_xml_elt <- function(x, y) {
+    sprintf(
+      paste0(
+        officer:::wp_ns_yes,
+        "<w:pPr><w:pStyle w:val=\"Normal\"/></w:pPr><w:r>",
+        "<w:t xml:space=\"preserve\">%s</w:t>",
+        "<w:noBreakHyphen/>",
+        "<w:t xml:space=\"preserve\">%s</w:t>",
+        "</w:r></w:p>"
+      ), x, y
+    )
+  }
+  doc <- officer:::body_add_xml(
+    x = doc, str = make_xml_elt("Inspector", "General")
+  )
+  doc <- officer:::body_add_xml(
+    x = doc, str = make_xml_elt("General", "Inspector")
+  )
+  expect_equal(
+    docx_summary(doc)[["text"]],
+    c("Inspector\u002DGeneral", "General\u002DInspector")
+  )
+})
 
 
 
