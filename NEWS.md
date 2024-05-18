@@ -1,3 +1,12 @@
+# officer 0.6.6.9000
+
+## Issues
+
+- Fix. `docx_summary` preserves non-breaking hyphens. Non-breaking hyphens are 
+replaced with a hyphen-minus (Unicode character 002D). Closes #573.
+
+
+
 # officer 0.6.6
 
 ## Issues
