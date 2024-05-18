@@ -4,7 +4,7 @@
 \alias{docx_summary}
 \title{Get Word content in a data.frame}
 \usage{
-docx_summary(x, preserve = FALSE, remove_fields = FALSE)
+docx_summary(x, preserve = FALSE, remove_fields = FALSE, detailed = FALSE)
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -17,6 +17,12 @@ the \code{{docxtractr}} package by Bob Rudis.}
 
 \item{remove_fields}{if TRUE, prevent field codes from appearing in the
 returned data.frame.}
+
+\item{detailed}{Should information on runs be included in summary dataframe?
+Defaults to \code{FALSE}. If \code{TRUE} a list column \code{run} is added to the summary
+containing a summary of formatting properties of runs as a dataframe with
+rows corresponding to a single run and columns containing the information
+on formatting properties.}
 }
 \description{
 read content of a Word document and

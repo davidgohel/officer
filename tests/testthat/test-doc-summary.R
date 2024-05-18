@@ -64,6 +64,46 @@ test_that("preserves non breaking hyphens", {
   )
 })
 
+test_that("detailed summary", {
+  doc <- read_docx()
+
+  fpar_ <- fpar(
+    ftext("Formatted ", prop = fp_text(bold = TRUE, color = "red")),
+    ftext("paragraph ", prop = fp_text(
+      shading.color = "blue"
+    )),
+    ftext("with multiple runs.",
+          prop = fp_text(italic = TRUE, font.size = 20, font.family = "Arial")
+    )
+  )
+
+  doc <- body_add_fpar(doc, fpar_, style = "Normal")
+
+  fpar_ <- fpar(
+    "Unformatted ",
+    "paragraph ",
+    "with multiple runs."
+  )
+
+  doc <- body_add_fpar(doc, fpar_, style = "Normal")
+
+  doc <- body_add_par(doc, "Single Run", style = "Normal")
+
+  doc <- body_add_fpar(doc,
+                       fpar(
+                         "Single formatetd run ",
+                         fp_t = fp_text(bold = TRUE, color = "red")
+                       )
+  )
+
+  doc_sum <- docx_summary(doc, detailed = TRUE)
+
+  expect_true("run" %in% names(doc_sum))
+  expect_type(doc_sum$run, "list")
+  expect_equal(lengths(doc_sum$run), rep(11, 4))
+  expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1))
+})
+
 
 
 test_that("pptx summary", {

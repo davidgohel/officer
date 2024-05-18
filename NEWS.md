@@ -5,7 +5,13 @@
 - Fix. `docx_summary` preserves non-breaking hyphens. Non-breaking hyphens are 
 replaced with a hyphen-minus (Unicode character 002D). Closes #573.
 
+## Features
 
+- `docx_summary()` gains parameter 'detailed' which allows to get a detailed 
+summary including formatting properties of runs in a paragraph. Formatting 
+properties are stored in a list column `run`, where each element 
+is a dataframe with rows corresponding to a single 
+run and columns containing the information on formatting properties.
 
 # officer 0.6.6
 
