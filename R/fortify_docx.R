@@ -145,6 +145,13 @@ par_as_tibble <- function(node, styles, detailed = FALSE) {
   par_data$content_type <- rep("paragraph", nrow(par_data))
   par_data
 }
+#' @importFrom xml2 xml_has_attr
+val_child <- function(node, child_path, default = NULL) {
+  child_node <- xml_child(node, child_path)
+  if (inherits(child_node, "xml_missing")) return(NA_character_)
+  if (!xml_has_attr(child_node, "val")) default
+  else xml_attr(child_node, "val")
+}
 
 run_as_tibble <- function(node, styles) {
   style_node <- xml_child(node, "w:rPr/w:rStyle")
@@ -154,12 +161,11 @@ run_as_tibble <- function(node, styles) {
     style_id <- xml_attr(style_node, "val")
     style_name <- styles$style_name[styles$style_id %in% style_id]
   }
-
   run_data <- data.frame(
     text = xml_text(node),
-    bold = xml_attr(xml_child(node, "w:rPr/w:b"), "val"),
-    italic = xml_attr(xml_child(node, "w:rPr/w:i"), "val"),
-    underline = xml_attr(xml_child(node, "w:rPr/w:u"), "val"),
+    bold = val_child(node, "w:rPr/w:b", default = TRUE),
+    italic = val_child(node, "w:rPr/w:i", default = TRUE),
+    underline = val_child(node, "w:rPr/w:u", default = TRUE),
     sz = as.integer(xml_attr(xml_child(node, "w:rPr/w:sz"), "val")),
     szCs = as.integer(xml_attr(xml_child(node, "w:rPr/w:szCs"), "val")),
     color = xml_attr(xml_child(node, "w:rPr/w:color"), "val"),
