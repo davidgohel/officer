@@ -109,7 +109,7 @@ docxtable_as_tibble <- function(node, styles, preserve = FALSE) {
 }
 
 #' @importFrom xml2 xml_has_attr
-par_as_tibble <- function(node, styles) {
+par_as_tibble <- function(node, styles, detailed = FALSE) {
   style_node <- xml_child(node, "w:pPr/w:pStyle")
   if (inherits(style_node, "xml_missing")) {
     style_name <- NA
@@ -129,14 +129,71 @@ par_as_tibble <- function(node, styles) {
     stringsAsFactors = FALSE
   )
 
+  if (detailed) {
+    nodes_run <- xml_find_all(node, "w:r")
+    run_data <- lapply(nodes_run, run_as_tibble)
+
+    run_data <- mapply(function(x, id) {
+      x$id <- id
+      x
+    }, run_data, seq_along(run_data), SIMPLIFY = FALSE)
+    run_data <- rbind_match_columns(run_data)
+
+    par_data$run <- I(list(run_data))
+  }
+
   par_data$content_type <- rep("paragraph", nrow(par_data))
   par_data
 }
+#' @importFrom xml2 xml_has_attr
+val_child <- function(node, child_path, attr = "val", default = NULL) {
+  child_node <- xml_child(node, child_path)
+  if (inherits(child_node, "xml_missing")) return(NA_character_)
+  if (!xml_has_attr(child_node, attr)) default
+  else xml_attr(child_node, attr)
+}
 
-node_content <- function(node, x, preserve = FALSE) {
+val_child_lgl <- function(node, child_path, attr = "val", default = NULL) {
+  val <- val_child(node = node, child_path = child_path, attr = attr, default = default)
+  if (is.na(val)) return(NA)
+  else (val %in% c("1", "on", "true"))
+}
+
+val_child_int <- function(node, child_path, attr = "val", default = NULL) {
+  as.integer(
+    val_child(node = node, child_path = child_path, attr = attr, default = default)
+  )
+}
+
+run_as_tibble <- function(node, styles) {
+  style_node <- xml_child(node, "w:rPr/w:rStyle")
+  if (inherits(style_node, "xml_missing")) {
+    style_name <- NA
+  } else {
+    style_id <- xml_attr(style_node, "val")
+    style_name <- styles$style_name[styles$style_id %in% style_id]
+  }
+  run_data <- data.frame(
+    text = xml_text(node),
+    bold = val_child_lgl(node, "w:rPr/w:b", default = "true"),
+    italic = val_child_lgl(node, "w:rPr/w:i", default = "true"),
+    underline = val_child(node, "w:rPr/w:u"),
+    sz = val_child_int(node, "w:rPr/w:sz"),
+    szCs = val_child_int(node, "w:rPr/w:szCs"),
+    color = val_child(node, "w:rPr/w:color"),
+    shading = val_child(node, "w:rPr/w:shd"),
+    shading_color = val_child(node, "w:rPr/w:shd", attr = "color"),
+    shading_fill = val_child(node, "w:rPr/w:shd", attr = "fill"),
+    stringsAsFactors = FALSE
+  )
+
+  run_data
+}
+
+node_content <- function(node, x, preserve = FALSE, detailed = FALSE) {
   node_name <- xml_name(node)
   switch(node_name,
-    p = par_as_tibble(node, styles_info(x)),
+    p = par_as_tibble(node, styles_info(x), detailed = detailed),
     tbl = docxtable_as_tibble(node, styles_info(x), preserve = preserve),
     NULL
   )
@@ -158,6 +215,12 @@ node_content <- function(node, x, preserve = FALSE) {
 #'   the `{docxtractr}` package by Bob Rudis.
 #' @param remove_fields if TRUE, prevent field codes from appearing in the
 #' returned data.frame.
+#' @param detailed Should information on runs be included in summary dataframe?
+#'   Defaults to `FALSE`. If `TRUE` a list column `run` is added to the summary
+#'   containing a summary of formatting properties of runs as a dataframe with
+#'   rows corresponding to a single run and columns containing the information
+#'   on formatting properties.
+#'
 #' @examples
 #' example_docx <- system.file(
 #'   package = "officer",
@@ -169,7 +232,7 @@ node_content <- function(node, x, preserve = FALSE) {
 #'
 #' docx_summary(doc, preserve = TRUE)[28, ]
 #' @export
-docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE) {
+docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = FALSE) {
   if (remove_fields) {
     instrText_nodes <- xml_find_all(x$doc_obj$get(), "//w:instrText")
     xml_remove(instrText_nodes)
@@ -178,18 +241,19 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE) {
   all_nodes <- xml_find_all(x$doc_obj$get(), "/w:document/w:body/*[self::w:p or self::w:tbl]")
 
 
-  data <- lapply(all_nodes, node_content, x = x, preserve = preserve)
+  data <- lapply(all_nodes, node_content, x = x, preserve = preserve, detailed = detailed)
 
   data <- mapply(function(x, id) {
     x$doc_index <- id
     x
   }, data, seq_along(data), SIMPLIFY = FALSE)
+
   data <- rbind_match_columns(data)
 
   colnames <- c(
     "doc_index", "content_type", "style_name", "text",
     "level", "num_id", "row_id", "is_header", "cell_id",
-    "col_span", "row_span"
+    "col_span", "row_span", "run"
   )
   colnames <- intersect(colnames, names(data))
   data[, colnames]
