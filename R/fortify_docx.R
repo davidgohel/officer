@@ -146,11 +146,23 @@ par_as_tibble <- function(node, styles, detailed = FALSE) {
   par_data
 }
 #' @importFrom xml2 xml_has_attr
-val_child <- function(node, child_path, default = NULL) {
+val_child <- function(node, child_path, attr = "val", default = NULL) {
   child_node <- xml_child(node, child_path)
   if (inherits(child_node, "xml_missing")) return(NA_character_)
-  if (!xml_has_attr(child_node, "val")) default
-  else xml_attr(child_node, "val")
+  if (!xml_has_attr(child_node, attr)) default
+  else xml_attr(child_node, attr)
+}
+
+val_child_lgl <- function(node, child_path, attr = "val", default = NULL) {
+  val <- val_child(node = node, child_path = child_path, attr = attr, default = default)
+  if (is.na(val)) return(NA)
+  else (val %in% c("1", "on", "true"))
+}
+
+val_child_int <- function(node, child_path, attr = "val", default = NULL) {
+  as.integer(
+    val_child(node = node, child_path = child_path, attr = attr, default = default)
+  )
 }
 
 run_as_tibble <- function(node, styles) {
@@ -163,15 +175,15 @@ run_as_tibble <- function(node, styles) {
   }
   run_data <- data.frame(
     text = xml_text(node),
-    bold = val_child(node, "w:rPr/w:b", default = TRUE),
-    italic = val_child(node, "w:rPr/w:i", default = TRUE),
-    underline = xml_attr(xml_child(node, "w:rPr/w:u"), "val"),
-    sz = as.integer(xml_attr(xml_child(node, "w:rPr/w:sz"), "val")),
-    szCs = as.integer(xml_attr(xml_child(node, "w:rPr/w:szCs"), "val")),
-    color = xml_attr(xml_child(node, "w:rPr/w:color"), "val"),
-    shading = xml_attr(xml_child(node, "w:rPr/w:shd"), "val"),
-    shading_color = xml_attr(xml_child(node, "w:rPr/w:shd"), "color"),
-    shading_fill = xml_attr(xml_child(node, "w:rPr/w:shd"), "fill"),
+    bold = val_child_lgl(node, "w:rPr/w:b", default = "true"),
+    italic = val_child_lgl(node, "w:rPr/w:i", default = "true"),
+    underline = val_child(node, "w:rPr/w:u"),
+    sz = val_child_int(node, "w:rPr/w:sz"),
+    szCs = val_child_int(node, "w:rPr/w:szCs"),
+    color = val_child(node, "w:rPr/w:color"),
+    shading = val_child(node, "w:rPr/w:shd"),
+    shading_color = val_child(node, "w:rPr/w:shd", attr = "color"),
+    shading_fill = val_child(node, "w:rPr/w:shd", attr = "fill"),
     stringsAsFactors = FALSE
   )
 

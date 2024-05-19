@@ -96,13 +96,42 @@ test_that("detailed summary", {
                        )
   )
 
+  xml_elt <- paste0(
+    officer:::wp_ns_yes,
+    "<w:pPr><w:pStyle w:val=\"Normal\"/></w:pPr>",
+    "<w:r><w:rPr></w:rPr><w:t>NA</w:t></w:r>",
+    "<w:r><w:rPr><w:b/><w:i/></w:rPr><w:t>toggle</w:t></w:r>",
+    "<w:r><w:rPr><w:b w:val=\"0\"/><w:i w:val=\"0\"/></w:rPr><w:t>0</w:t></w:r>",
+    "<w:r><w:rPr><w:b w:val=\"1\"/><w:i w:val=\"1\"/></w:rPr><w:t>1</w:t></w:r>",
+    "<w:r><w:rPr><w:b w:val=\"false\"/><w:i w:val=\"false\"/></w:rPr><w:t>false</w:t></w:r>",
+    "<w:r><w:rPr><w:b w:val=\"true\"/><w:i w:val=\"true\"/></w:rPr><w:t>true</w:t></w:r>",
+    "<w:r><w:rPr><w:b w:val=\"off\"/><w:i w:val=\"off\"/></w:rPr><w:t>off</w:t></w:r>",
+    "<w:r><w:rPr><w:b w:val=\"on\"/><w:i w:val=\"on\"/></w:rPr><w:t>on</w:t></w:r>",
+    "</w:p>"
+  )
+
+  doc <- officer:::body_add_xml(
+    x = doc, str = xml_elt
+  )
+
   doc_sum <- docx_summary(doc, detailed = TRUE)
 
   expect_true("run" %in% names(doc_sum))
   expect_type(doc_sum$run, "list")
-  expect_equal(lengths(doc_sum$run), rep(11, 4))
-  expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1))
+  expect_equal(lengths(doc_sum$run), rep(11, 5))
+  expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1, 8))
+
+  expect_true(all(sapply(doc_sum$run$bold, is.logical)))
+  expect_true(all(sapply(doc_sum$run$italic, is.logical)))
+  expect_true(all(sapply(doc_sum$run$sz, is.integer)))
+  expect_true(all(sapply(doc_sum$run$szCs, is.integer)))
+  expect_true(all(sapply(doc_sum$run$underline, is_character)))
+  expect_true(all(sapply(doc_sum$run$color, is_character)))
+  expect_true(all(sapply(doc_sum$run$shading, is_character)))
+  expect_true(all(sapply(doc_sum$run$shading_color, is_character)))
+  expect_true(all(sapply(doc_sum$run$shading_fill, is_character)))
 })
+
 
 
 
