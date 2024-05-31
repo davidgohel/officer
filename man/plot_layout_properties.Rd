@@ -4,7 +4,13 @@
 \alias{plot_layout_properties}
 \title{Slide layout properties plot}
 \usage{
-plot_layout_properties(x, layout = NULL, master = NULL, labels = TRUE)
+plot_layout_properties(
+  x,
+  layout = NULL,
+  master = NULL,
+  labels = TRUE,
+  title = FALSE
+)
 }
 \arguments{
 \item{x}{an rpptx object}
@@ -13,8 +19,10 @@ plot_layout_properties(x, layout = NULL, master = NULL, labels = TRUE)
 
 \item{master}{master layout name where \code{layout} is located}
 
-\item{labels}{if TRUE, placeholder labels will be printed, if FALSE
+\item{labels}{if \code{TRUE}, placeholder labels will be printed, if \code{FALSE}
 placeholder types and identifiers will be printed.}
+
+\item{title}{if \code{FALSE}, a title with the layout name will be printed.}
 }
 \description{
 Plot slide layout properties and print informations

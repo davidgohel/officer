@@ -7,6 +7,7 @@ replaced with a hyphen-minus (Unicode character 002D). Closes #573.
 
 ## Features
 
+- `plot_layout_properties()` gains a 'title' parameter, which will add the layout name as the plot title. Defaults to `FALSE`, to not alter the old behavior. Also, the slide width and height are now correctly displayed in the plot. Before, a box was drawn around the plot area. However, the plot area var with device size, not slide size.
 - `docx_summary()` gains parameter 'detailed' which allows to get a detailed 
 summary including formatting properties of runs in a paragraph. Formatting 
 properties are stored in a list column `run`, where each element 
