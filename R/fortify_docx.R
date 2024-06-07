@@ -235,8 +235,10 @@ node_content <- function(node, x, preserve = FALSE, detailed = FALSE) {
 docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = FALSE) {
   if (remove_fields) {
     instrText_nodes <- xml_find_all(x$doc_obj$get(), "//w:instrText")
-    instrText_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldData")
     xml_remove(instrText_nodes)
+    
+    fldData_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldData")
+    xml_remove(fldData_nodes)
   }
 
   all_nodes <- xml_find_all(x$doc_obj$get(), "/w:document/w:body/*[self::w:p or self::w:tbl]")
