@@ -7,6 +7,11 @@ replaced with a hyphen-minus (Unicode character 002D). Closes #573.
 
 ## Features
 
+- new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
+to replace text content enclosed in a bookmark with a ggplot or a base plot.
+
+#' with different text. 
+
 - `docx_summary()` gains parameter 'detailed' which allows to get a detailed 
 summary including formatting properties of runs in a paragraph. Formatting 
 properties are stored in a list column `run`, where each element 
