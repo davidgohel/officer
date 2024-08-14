@@ -3,6 +3,7 @@
 ## Issues
 
 - store paddings as numeric values and not integer values.
+- remove_fields in `docx_summary()` now also removes "w:fldData" nodes.
 
 ## Features
 
