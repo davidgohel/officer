@@ -663,16 +663,16 @@ fp_par <- function(text.align = "left",
     )
   )
   if (!missing(padding.bottom)) {
-    out <- check_set_integer(obj = out, padding.bottom)
+    out <- check_set_numeric(obj = out, padding.bottom)
   }
   if (!missing(padding.left)) {
-    out <- check_set_integer(obj = out, padding.left)
+    out <- check_set_numeric(obj = out, padding.left)
   }
   if (!missing(padding.top)) {
-    out <- check_set_integer(obj = out, padding.top)
+    out <- check_set_numeric(obj = out, padding.top)
   }
   if (!missing(padding.right)) {
-    out <- check_set_integer(obj = out, padding.right)
+    out <- check_set_numeric(obj = out, padding.right)
   }
 
   out <- check_set_numeric(obj = out, line_spacing)

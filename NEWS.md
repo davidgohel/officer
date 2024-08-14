@@ -1,4 +1,10 @@
-# officer 0.6.6.9000
+# officer 0.6.7
+
+## Issues
+
+- store paddings as numeric values and not integer values.
+
+# officer 0.6.6
 
 ## Issues
 
