@@ -19,7 +19,7 @@ with an object of class 'rpptx' (created with
 \code{\link[=read_pptx]{read_pptx()}}).
 }
 \examples{
-# write a rdocx object in a docx file ----
+# write a rdocx object in a pptx file ----
 file <- tempfile(fileext = ".pptx")
 doc <- read_pptx()
 print(doc, target = file)
