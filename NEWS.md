@@ -4,17 +4,18 @@
 
 - store paddings as numeric values and not integer values.
 
+## Features
+
+- new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
+to replace text content enclosed in a bookmark with a ggplot or a base plot.
+
+
 # officer 0.6.6
 
 ## Issues
 
 - Fix. `docx_summary` preserves non-breaking hyphens. Non-breaking hyphens are 
 replaced with a hyphen-minus (Unicode character 002D). Closes #573.
-
-## Features
-
-- new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
-to replace text content enclosed in a bookmark with a ggplot or a base plot.
 
 #' with different text. 
 
