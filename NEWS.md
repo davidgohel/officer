@@ -9,7 +9,7 @@
 
 - new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
 to replace text content enclosed in a bookmark with a ggplot or a base plot.
-
+- add `unit` (in, cm, mm) argument in function `page_size()`.
 
 # officer 0.6.6
 

@@ -4,12 +4,19 @@
 \alias{page_size}
 \title{Page size object}
 \usage{
-page_size(width = 21/2.54, height = 29.7/2.54, orient = "portrait")
+page_size(
+  width = 21/2.54,
+  height = 29.7/2.54,
+  orient = "portrait",
+  unit = "in"
+)
 }
 \arguments{
 \item{width, height}{page width, page height (in inches).}
 
 \item{orient}{page orientation, either 'landscape', either 'portrait'.}
+
+\item{unit}{unit for width and height, one of "in", "cm", "mm".}
 }
 \description{
 The function creates a representation of the dimensions of a page. The
