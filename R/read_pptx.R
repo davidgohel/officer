@@ -88,7 +88,7 @@ read_table_style <- function(path){
 #' @param target path to the pptx file to write
 #' @param ... unused
 #' @examples
-#' # write a rdocx object in a docx file ----
+#' # write a rdocx object in a pptx file ----
 #' file <- tempfile(fileext = ".pptx")
 #' doc <- read_pptx()
 #' print(doc, target = file)

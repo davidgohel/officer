@@ -114,8 +114,6 @@ docxpart_replace_img_at_bkm <- function(node, bookmark, value) {
   xml_replace(run_nodes[[1]], as_xml_document(out))
 }
 
-
-
 #' @export
 #' @rdname body_replace_text_at_bkm
 headers_replace_text_at_bkm <- function( x, bookmark, value ){
@@ -156,6 +154,75 @@ footers_replace_img_at_bkm <- function( x, bookmark, value ){
   x
 }
 
+#' @export
+#' @title Add plots at bookmark location in a 'Word' document
+#' @description
+#' Use these functions if you want to replace a paragraph containing
+#' a bookmark with a 'ggplot' or a base plot.
+#' @param value a ggplot object for body_replace_gg_at_bkm() or a set plot instructions
+#' body_replace_plot_at_bkm(), see plot_instr().
+#' @param bookmark bookmark id
+#' @param keep Should the bookmark be preserved? Defaults to `FALSE`,
+#' i.e.the bookmark will be lost as a side effect.
+#' @inheritParams body_add_gg
+#'
+#' @examples
+#' if (require("ggplot2")) {
+#'   gg_plot <- ggplot(data = iris) +
+#'     geom_point(mapping = aes(Sepal.Length, Petal.Length))
+#'
+#'   doc <- read_docx()
+#'   doc <- body_add_par(doc, "insert_plot_here")
+#'   doc <- body_bookmark(doc, "plot")
+#'   doc <- body_replace_gg_at_bkm(doc, bookmark = "plot", value = gg_plot)
+#'   print(doc, target = tempfile(fileext = ".docx"))
+#' }
+body_replace_gg_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
+                                   res = 300, style = "Normal", scale = 1,
+                                   keep = FALSE, ...) {
+  x <- cursor_bookmark(x, bookmark)
+  x <- body_add_gg(
+    x = x, value = value, width = width, height = height,
+    res = res, style = style, scale = scale, pos = "on", ...
+  )
+  if (keep) {
+    x <- body_bookmark(x, bookmark)
+  }
+
+  x
+}
+
+#' @export
+#' @rdname body_replace_gg_at_bkm
+#' @examples
+#' doc <- read_docx()
+#' doc <- body_add_par(doc, "insert_plot_here")
+#' doc <- body_bookmark(doc, "plot")
+#' if (capabilities(what = "png")) {
+#'   doc <- body_replace_plot_at_bkm(
+#'     doc, bookmark = "plot",
+#'     value = plot_instr(
+#'       code = {
+#'         barplot(1:5, col = 2:6)
+#'       }
+#'     )
+#'   )
+#' }
+#' print(doc, target = tempfile(fileext = ".docx"))
+body_replace_plot_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
+                                   res = 300, style = "Normal",
+                                   keep = FALSE, ...) {
+  x <- cursor_bookmark(x, bookmark)
+  x <- body_add_plot(
+    x = x, value = value, width = width, height = height,
+    res = res, style = style, pos = "on", ...
+  )
+  if (keep) {
+    x <- body_bookmark(x, bookmark)
+  }
+
+  x
+}
 
 #' @export
 #' @title Replace text anywhere in the document

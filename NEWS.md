@@ -1,11 +1,24 @@
-# officer 0.6.6.9000
+# officer 0.6.7
+
+## Issues
+
+- store paddings as numeric values and not integer values.
+- remove_fields in `docx_summary()` now also removes "w:fldData" nodes.
+
+## Features
+
+- new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
+to replace text content enclosed in a bookmark with a ggplot or a base plot.
+- add `unit` (in, cm, mm) argument in function `page_size()`.
+
+# officer 0.6.6
 
 ## Issues
 
 - Fix. `docx_summary` preserves non-breaking hyphens. Non-breaking hyphens are 
 replaced with a hyphen-minus (Unicode character 002D). Closes #573.
 
-## Features
+#' with different text. 
 
 - `plot_layout_properties()` gains a 'title' parameter, which will add the layout name as the plot title. Defaults to `FALSE`, to not alter the old behavior. Also, the slide width and height are now correctly displayed in the plot. Before, a box was drawn around the plot area. However, the plot area var with device size, not slide size.
 - `docx_summary()` gains parameter 'detailed' which allows to get a detailed 
