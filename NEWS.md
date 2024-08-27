@@ -4,6 +4,8 @@
 
 - store paddings as numeric values and not integer values.
 - remove_fields in `docx_summary()` now also removes "w:fldData" nodes.
+- complete the manual of `body_add_docx()` with a note about the file basename
+that can not contain ' ' and trigger an error if it contains a ' '. 
 
 ## Features
 

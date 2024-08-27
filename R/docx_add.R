@@ -64,15 +64,20 @@ body_add_img <- function(x, src, style = NULL, width, height, pos = "after") {
 #' @export
 #' @title Add an external docx in a 'Word' document
 #' @description Add content of a docx into an rdocx object.
-#' @note
+#'
 #' The function is using a 'Microsoft Word' feature: when the
 #' document will be edited, the content of the file will be
 #' inserted in the main document.
 #'
 #' This feature is unlikely to work as expected if the
 #' resulting document is edited by another software.
+#'
+#' The file is added when the method `print()` that
+#' produces the final Word file is called, so don't remove
+#' file defined with `src` before.
 #' @inheritParams body_add_break
-#' @param src docx filename
+#' @param src docx filename, the path of the file must not contain
+#' any '&' and the basename must not contain any space.
 #' @examples
 #' file1 <- tempfile(fileext = ".docx")
 #' file2 <- tempfile(fileext = ".docx")
@@ -92,6 +97,11 @@ body_add_img <- function(x, src, style = NULL, width, height, pos = "after") {
 #' @export
 #' @family functions for adding content
 body_add_docx <- function(x, src, pos = "after") {
+
+  if(grepl(" ", basename(src))){
+    stop("The basename of the file to be inserted cannot contain spaces.")
+  }
+
   xml_elt <- to_wml(block_pour_docx(file = src), add_ns = TRUE)
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }

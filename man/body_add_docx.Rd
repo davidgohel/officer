@@ -9,21 +9,25 @@ body_add_docx(x, src, pos = "after")
 \arguments{
 \item{x}{an rdocx object}
 
-\item{src}{docx filename}
+\item{src}{docx filename, the path of the file must not contain
+any '&' and the basename must not contain any space.}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
 }
 \description{
 Add content of a docx into an rdocx object.
-}
-\note{
+
 The function is using a 'Microsoft Word' feature: when the
 document will be edited, the content of the file will be
 inserted in the main document.
 
 This feature is unlikely to work as expected if the
 resulting document is edited by another software.
+
+The file is added when the method \code{print()} that
+produces the final Word file is called, so don't remove
+file defined with \code{src} before.
 }
 \examples{
 file1 <- tempfile(fileext = ".docx")
