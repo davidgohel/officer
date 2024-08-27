@@ -91,8 +91,9 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @param x an rpptx object
 #' @param layout slide layout name to use
 #' @param master master layout name where \code{layout} is located
-#' @param labels if TRUE, placeholder labels will be printed, if FALSE
+#' @param labels if \code{TRUE}, placeholder labels will be printed, if \code{FALSE}
 #' placeholder types and identifiers will be printed.
+#' @param title if \code{FALSE}, a title with the layout name will be printed.
 #' @importFrom graphics plot rect text box
 #' @examples
 #' x <- read_pptx()
@@ -100,34 +101,41 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #'   master = "Office Theme" )
 #' plot_layout_properties( x = x, layout = "Two Content" )
 #' @family functions for reading presentation informations
-plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE){
+plot_layout_properties <- function (x, layout = NULL, master = NULL, labels = TRUE, title = FALSE)
+{
+  old_par <- par(mar = c(2, 2, 1.5, 0))
+  on.exit(par(old_par))
+
   dat <- layout_properties(x, layout = layout, master = master)
-  if(length(unique(dat$name)) != 1 ){
+  if (length(unique(dat$name)) != 1) {
     stop("one single layout need to be choosen")
   }
-
-  w <- slide_size(x)
-  h <- w$height
-  w <- w$width
-
+  s <- slide_size(x)
+  h <- s$height
+  w <- s$width
   offx <- dat$offx
   offy <- dat$offy
   cx <- dat$cx
   cy <- dat$cy
-  if(labels) labels <- dat$ph_label
+  if (labels)
+    labels <- dat$ph_label
   else {
     labels <- dat$type[order(as.integer(dat$id))]
     rle_ <- rle(labels)
-    labels <- sprintf("type: '%s' - id: %.0f", labels,
-           unlist(lapply(rle_$lengths, seq_len))
-    )
+    labels <- sprintf("type: '%s' - id: %.0f", labels, unlist(lapply(rle_$lengths,
+                                                                     seq_len)))
   }
-
-  plot(x = c(0, w), y = -c(0,h), asp = 1, type = "n", axes = FALSE, xlab = "x (inches)", ylab = "y (inches)")
-  rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
-  text(x = offx + cx/2, y= -(offy + cy/2), labels = labels, cex = .5, col = "red")
-  box()
+  plot(x = c(0, w), y = -c(0, h), asp = 1, type = "n", axes = FALSE, xlab = NA, ylab = NA)
+  if (title) {
+    title(main = paste("Layout:", layout))
+  }
+  rect(xleft = 0, xright = w, ybottom = 0, ytop = -h, border = "darkgrey")
+  rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy +                                                                   cy))
+  text(x = offx + cx/2, y = -(offy + cy/2), labels = labels, cex = 0.5, col = "red")
+  mtext("y [inch]", side = 2, line = 0, cex = 1.2, col="darkgrey")
+  mtext("x [inch]", side = 1, line = 0, cex = 1.2, col="darkgrey")
 }
+
 
 #' @export
 #' @title Placeholder parameters annotation
