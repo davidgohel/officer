@@ -311,7 +311,7 @@ fortify_location.location_label <- function( x, doc, ...){
 
   if( nrow(props) > 1) {
     stop("Placeholder ", shQuote(x$ph_label),
-         " in the slide layout is duplicated. It needs to be unique.")
+         " in the slide layout is duplicated. It needs to be unique. Hint: layout_dedupe_ph_labels() helps handling duplicates.")
   }
 
   props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")]
