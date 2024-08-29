@@ -146,6 +146,7 @@ plot_layout_properties <- function (x, layout = NULL, master = NULL, labels = TR
 #' \code{ph_location*} calls. The parameters are printed in their corresponding shapes.
 #'
 #' Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label}.
+#' Hint: You can dedupe labels using \code{\link{layout_dedupe_ph_labels}}.
 #'
 #' @param path path to the pptx file to use as base document or NULL to use the officer default
 #' @param output_file filename to store the annotated powerpoint file or NULL to suppress generation
