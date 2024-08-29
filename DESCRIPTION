@@ -1,7 +1,7 @@
 Type: Package
 Package: officer
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.6.7.006
+Version: 0.6.7.007
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
@@ -24,6 +24,9 @@ Authors@R: c(
            comment = "set speaker notes for .pptx documents"),
     person("Greg", "Leleu", , "gregoire.leleu@gmail.com", role = "ctb",
            comment = "fields functionality in ppt"),
+    person("Majid", "Eismann", role = "ctb"),
+    person("Mark", "Heckmann", , "heckmann.mark@gmail.com", role = "ctb",
+           comment = c(ORCID = "0000-0002-0736-7417")),
     person("Hongyuan", "Jia", , "hongyuanjia@cqust.edu.cn", role = "ctb",
            comment = c(ORCID = "0000-0002-0075-8183"))
   )
@@ -39,6 +42,7 @@ URL: https://ardata-fr.github.io/officeverse/,
     https://davidgohel.github.io/officer/
 BugReports: https://github.com/davidgohel/officer/discussions
 Imports:
+    cli,
     graphics,
     grDevices,
     openssl,
@@ -48,8 +52,7 @@ Imports:
     utils,
     uuid,
     xml2 (>= 1.1.0),
-    zip (>= 2.1.0),
-    cli
+    zip (>= 2.1.0)
 Suggests: 
     devEMF,
     doconv  (>= 0.3.0),
