@@ -237,7 +237,68 @@ is_doc_open <- function(file) {
 }
 
 
+# Extract trailing numeric index in .xml filename
+#
+# Useful to for slideMaster and slideLayout .xml files.
+#
+# Examples:
+#   files <- c("slideLayout1.xml", "slideLayout2.xml", "slideLayout10.xml")
+#   get_file_index(files)
+#
+get_file_index <- function(file) {
+  sub(pattern = ".+?(\\d+).xml$", replacement = "\\1", x = basename(file), ignore.case = TRUE) |> as.numeric()
+}
+
+
+# Sort xml filenames by trailing numeric index
+#
+# Useful to for slideMaster and slideLayout xml files.
+#
+# Examples:
+#   files <- c("slideLayout1.xml", "slideLayout2.xml", "slideLayout12.xml")
+#   sort_vec_by_index(files)  # => order corresponding to trailing index
+#   sort(files)           # => incorrect lexicographical ordering
+#
+sort_vec_by_index <- function(x) {
+  indexes <- get_file_index(x)
+  x[order(indexes)]
+}
+
+
+# Sort dataframe column by trailing index
+#
+# df: A dataframe
+# ...: columsn to sort by, comma separated
+#
+# Examples:
+# df <- data.frame(
+#   a = paste0("file_", rep(3:1, each = 2), ".xml"),
+#   b = paste0("file_", rep(3:1, 2), ".xml")
+# )
+# sort_dataframe_by_index(df, "a", "b")
+# sort_dataframe_by_index(df, "b", "a")
+#
+sort_dataframe_by_index <- function(df, ...) {
+  sort_columns <- c(...)
+  l <- lapply(sort_columns, function(.col) {
+    get_file_index(df[[.col]])
+  })
+  df[do.call(order, l), , drop =FALSE]
+}
+
+
+# rename dataframe columns
+df_rename <- function(df, old, new) {
+  .nms <- names(df)
+  .nms[match(old, .nms)] <- new
+  stats::setNames(df, .nms)
+}
+
+
+
 # htmlEscapeCopy ----
+
+
 htmlEscapeCopy <- local({
 
   .htmlSpecials <- list(

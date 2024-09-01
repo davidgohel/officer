@@ -1,31 +1,3 @@
-# Extract trailing numeric index in .xml filename
-#
-# Useful to for slideMaster and slideLayout .xml files.
-#
-# Examples:
-#   files <- c("slideLayout1.xml", "slideLayout2.xml", "slideLayout10.xml")
-#   get_file_index(files)
-#
-get_file_index <- function(file) {
-  sub(pattern = ".+?(\\d+).xml$", replacement = "\\1", x = basename(file), ignore.case = TRUE) |> as.numeric()
-}
-
-
-# Sort xml filenames by trailing numeric index
-#
-# Useful to for slideMaster and slideLayout xml files.
-#
-# Examples:
-#   files <- c("slideLayout1.xml", "slideLayout2.xml", "slideLayout12.xml")
-#   sort_by_index(files)  # => order corresponding to trailing index
-#   sort(files)           # => incorrect lexicographical ordering
-#
-sort_by_index <- function(x) {
-  indexes <- get_file_index(x)  # only
-  x[order(indexes)]
-}
-
-
 # dir_collection ---------------------------------------------------------
 dir_collection <- R6Class(
   "dir_collection",
@@ -35,7 +7,7 @@ dir_collection <- R6Class(
       dir_ <- file.path(package_dir, container$dir_name())
       private$package_dir <- package_dir
       filenames <- list.files(path = dir_, pattern = "\\.xml$", full.names = TRUE)
-      filenames <- sort_by_index(filenames)  # see issue 596
+      filenames <- sort_vec_by_index(filenames)  # see issue 596
       private$collection <- lapply( filenames, function(x, container){
         container$clone()$feed(x)
       }, container = container)
