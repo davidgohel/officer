@@ -56,7 +56,16 @@ fortify_master_xfrm <- function(master_xfrm){
   master_xfrm <- as.data.frame(master_xfrm)
   has_type <- grepl("type=", master_xfrm$ph)
   master_xfrm <- master_xfrm[has_type, ]
-  master_xfrm <- master_xfrm[!duplicated(master_xfrm$type),]
+  # keeps first occurence of each ph type only. Why?
+  # I suspect this needs to be done per master, not for all masters at once
+  # master_xfrm <- master_xfrm[!duplicated(master_xfrm$type),]
+  if (nrow(master_xfrm) > 0 ) {  # otherwise will not remain dataframe
+    list_xfrm <- split(master_xfrm, master_xfrm$file)
+    list_xfrm <- lapply(list_xfrm, function(x) {
+      x[!duplicated(x$type), , drop=FALSE]
+    })
+    master_xfrm <- do.call("rbind", list_xfrm)
+  }
 
   tmp_names <- names(master_xfrm)
 
