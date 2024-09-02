@@ -6,9 +6,12 @@
 - remove_fields in `docx_summary()` now also removes "w:fldData" nodes.
 - complete the manual of `body_add_docx()` with a note about the file basename
 that can not contain ' ' and trigger an error if it contains a ' '. 
-- `plot_layout_properties()` gains a 'title' parameter, which will add the layout name as the plot title. Defaults to `FALSE`, to not alter the old behavior. Also, the slide width and height are now correctly displayed in the plot. Before, a box was drawn around the plot area. However, the plot area var with device size, not slide size.
+- `plot_layout_properties()` gains a 'title' parameter, which will add the layout name as the plot title. Defaults to 
+`FALSE`, to not alter the old behavior. Also, the slide width and height are now correctly displayed in the plot. 
+Before, a box was drawn around the plot area. However, the plot area var with device size, not slide size.
 - class `dir_collection`: Files are now added to a container in the order of their trailing numeric index (#596).
-For example, `slideLayout2.xml` will now preceed `slideLayout10.xml`. Before, alphabetical sorting was used, where `slideLayout10.xml` comes before `slideLayout2.xml`.
+For example, `slideLayout2.xml` will now preceed `slideLayout10.xml`. Before, alphabetical sorting was used, where 
+`slideLayout10.xml` comes before `slideLayout2.xml`.
 
 ## Features
 

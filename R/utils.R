@@ -210,9 +210,6 @@ correct_id <- function(doc, int_id){
 }
 
 
-
-
-
 check_bookmark_id <- function(bkm){
   if(!is.null(bkm)){
     invalid_bkm <- is.character(bkm) &&
@@ -288,6 +285,10 @@ sort_dataframe_by_index <- function(df, ...) {
 
 
 # rename dataframe columns
+#
+# Examples:
+#   df_rename(mtcars, c("mpg", "cyl"), c("A", "B"))
+#
 df_rename <- function(df, old, new) {
   .nms <- names(df)
   .nms[match(old, .nms)] <- new
@@ -295,9 +296,7 @@ df_rename <- function(df, old, new) {
 }
 
 
-
 # htmlEscapeCopy ----
-
 
 htmlEscapeCopy <- local({
 
