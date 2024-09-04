@@ -117,20 +117,19 @@ plot_layout_properties <- function (x, layout = NULL, master = NULL, labels = TR
   offy <- dat$offy
   cx <- dat$cx
   cy <- dat$cy
-  if (labels)
+  if (labels) {
     labels <- dat$ph_label
-  else {
+  } else {
     labels <- dat$type[order(as.integer(dat$id))]
     rle_ <- rle(labels)
-    labels <- sprintf("type: '%s' - id: %.0f", labels, unlist(lapply(rle_$lengths,
-                                                                     seq_len)))
+    labels <- sprintf("type: '%s' - id: %.0f", labels, unlist(lapply(rle_$lengths, seq_len)))
   }
   plot(x = c(0, w), y = -c(0, h), asp = 1, type = "n", axes = FALSE, xlab = NA, ylab = NA)
   if (title) {
     title(main = paste("Layout:", layout))
   }
   rect(xleft = 0, xright = w, ybottom = 0, ytop = -h, border = "darkgrey")
-  rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy +                                                                   cy))
+  rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
   text(x = offx + cx/2, y = -(offy + cy/2), labels = labels, cex = 0.5, col = "red")
   mtext("y [inch]", side = 2, line = 0, cex = 1.2, col="darkgrey")
   mtext("x [inch]", side = 1, line = 0, cex = 1.2, col="darkgrey")
