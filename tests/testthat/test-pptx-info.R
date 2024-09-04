@@ -99,8 +99,8 @@ test_that("plot layout properties", {
     labels = FALSE
   )
   dev.off()
-  expect_snapshot_doc(name = "plot-twocontent-layout", x = png1, engine = "testthat")
-  expect_snapshot_doc(name = "plot-twocontent-layout-nolabel", x = png2, engine = "testthat")
+  expect_snapshot_doc(name = "plot-titleslide-layout", x = png1, engine = "testthat")
+  expect_snapshot_doc(name = "plot-titleslide-layout-nolabel", x = png2, engine = "testthat")
 })
 
 
