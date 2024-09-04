@@ -124,6 +124,8 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
       !is.na(x$cx) &
       !is.na(x$cy),
   ]
+  rownames(x) <- NULL # no mixed up numbers
+  x
 }
 
 
