@@ -52,6 +52,21 @@ test_that("layout properties", {
 })
 
 
+test_that("layout properties - all phs for multiple masters (#597)", {
+  file <- test_path("docs_dir/test-three-identical-masters.pptx")
+  x <- read_pptx(file)
+  lap <- layout_properties(x)
+
+  expect_true(all(table(lap$ph) == 3)) # 3 identical masters => each ph 3 times
+
+  l_df <- split(lap, lap$master_name) # phs sorted by y coords
+  is_y_sorted <- vapply(l_df, function(x) {
+    all(diff(x$offy) >= 0)
+  }, logical(1))
+  expect_true(all(is_y_sorted))
+})
+
+
 save_png <- function(code, width = 700, height = 700) {
   path <- tempfile(fileext = ".png")
   png(path, width = width, height = height, res = 150)

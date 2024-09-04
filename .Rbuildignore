@@ -15,3 +15,4 @@
 ^tests/testthat/_snaps$
 ^inst/visual-testing$
 ^LICENSE\.md$
+dev_local
