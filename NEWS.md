@@ -12,6 +12,9 @@ Before, a box was drawn around the plot area. However, the plot area var with de
 - class `dir_collection`: Files are now added to a container in the order of their trailing numeric index (#596).
 For example, `slideLayout2.xml` will now preceed `slideLayout10.xml`. Before, alphabetical sorting was used, where 
 `slideLayout10.xml` comes before `slideLayout2.xml`.
+- `layout_properties()` now returns all placeholders in case of multiple master (#597). Also, the internal `xfrmize()` 
+now sorts the resulting data by placeholder position. This yields an intuitive order, with placeholders sorted from 
+top to bottom and left to right.
 
 ## Features
 
