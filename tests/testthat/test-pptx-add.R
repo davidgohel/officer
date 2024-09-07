@@ -1,7 +1,7 @@
 test_that("add wrong arguments", {
   doc <- read_pptx()
-  expect_error(add_slide(doc, "Title and blah", "Office Theme"))
-  expect_error(add_slide(doc, "Title and Content", "Office Tddheme"))
+  expect_error(add_slide(doc, "Title and blah", "Office Theme"), fixed = TRUE)
+  expect_error(add_slide(doc, "Title and Content", "Office Tddheme"), fixed = TRUE)
 })
 
 test_that("add simple elements into placeholder", {
@@ -271,6 +271,7 @@ test_that("empty_content in pptx", {
   expect_equal(slide_summary(doc)$cx, 2)
 })
 
+
 test_that("pptx ph locations", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
@@ -333,6 +334,32 @@ test_that("pptx ph locations", {
   observed_xfrm <- data.frame(offx = offx, offy = offy, cx = cx, cy = cy)
   expect_equivalent(observed_xfrm, theorical_xfrm)
 })
+
+
+test_that("pptx ph_location_type", {
+  opts <- options(cli.num_colors = 1) # suppress colors to check error message
+  on.exit(options(opts))
+
+  x <- read_pptx()
+  x <- x |> add_slide("Two Content")
+
+  expect_no_error({
+    x |> ph_with("correct ph type id", ph_location_type("body", id = 1))
+  })
+
+  expect_error({
+    x |> ph_with("out of range type id", ph_location_type("body", id = 3)) # 3 does not exists => no error or warning
+  }, regexp = "`id` is out of range.", fixed = TRUE)
+
+  expect_error({
+    x |> ph_with("type okay but not available in layout", ph_location_type("tbl")) # tbl not on layout
+  }, regexp = "Found no placeholder of type", fixed = TRUE)
+
+  expect_error({
+    x |> ph_with("xxx is unknown type", ph_location_type("xxx"))
+  }, regexp = 'type "xxx" is unknown', fixed = TRUE)
+})
+
 
 test_that("pptx ph labels", {
   doc <- read_pptx()
