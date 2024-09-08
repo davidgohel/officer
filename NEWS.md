@@ -15,8 +15,8 @@ For example, `slideLayout2.xml` will now preceed `slideLayout10.xml`. Before, al
 - `layout_properties()` now returns all placeholders in case of multiple master (#597). Also, the internal `xfrmize()` 
 now sorts the resulting data by placeholder position. This yields an intuitive order, with placeholders sorted from 
 top to bottom and left to right.
-- `ph_location_type()` now throws an informative error if the `id` for a `type` is our of range or if 
-the type is not present in layout (#602).
+- `ph_location_type()` now throws an error if the `id` for a `type` is out of range (#602) and a more 
+informative error message if the type is not present in layout (#601).
 
 ## Features
 
