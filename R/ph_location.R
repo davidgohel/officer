@@ -256,8 +256,6 @@ ph_location_type <- function(type = "body", position_right = TRUE, position_top 
       ),
       call = NULL
     )
-    # stop("argument type ('", type, "') expected to be a value of ",
-    #      paste0(shQuote(ph_types), collapse = ", "), ".")
   }
   x <- list(type = type, position_right = position_right, position_top = position_top, id = id, label = newlabel)
   class(x) <- c("location_type", "location_str")
