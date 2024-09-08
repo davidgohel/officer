@@ -18,6 +18,7 @@ top to bottom and left to right.
 - `ph_location_type()` now throws an error if the `id` for a `type` is out of range (#602) and a more 
 informative error message if the type is not present in layout (#601).
 
+
 ## Features
 
 - add `layout_dedupe_ph_labels()` to handle duplicate placholder labels (#589). 
