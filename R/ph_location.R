@@ -1,34 +1,49 @@
-get_ph_loc <- function(x, layout, master, type, position_right, position_top, id = NULL){
-
-  props <- layout_properties( x, layout = layout, master = master )
+get_ph_loc <- function(x, layout, master, type, position_right, position_top, id = NULL) {
+  props <- layout_properties(x, layout = layout, master = master)
+  types_on_layout <- unique(props$type)
   props <- props[props$type %in% type, , drop = FALSE]
-
-  if( nrow(props) < 1) {
-    stop("no selected row")
+  nr <- nrow(props)
+  if (nr < 1) {
+    cli::cli_abort(c(
+      "Found no placeholder of type {.val {type}} on layout {.val {layout}}.",
+      "x" = "Available types are {.val {types_on_layout}}",
+      "i" = cli::col_grey("see {.code layout_properties(x, '{layout}', '{master}')}")
+    ), call = NULL)
   }
-  if( !is.null(id) ){
-    props <- props[id,, drop = FALSE]
+
+  if (!is.null(id)) {
+    if (!id %in% 1L:nr) {
+      cli::cli_abort(
+        c(
+          "{.arg id} is out of range.",
+          "x" = "Must be between {.val {1L}} and {.val {nr}} for ph type {.val {type}}.",
+          "i" = cli::col_grey("see {.code layout_properties(x, '{layout}', '{master}')} for all phs with type '{type}'")
+        ),
+        call = NULL
+      )
+    }
+    props <- props[id, , drop = FALSE]
   } else {
-    if(position_right){
-      props <- props[props$offx + 0.0001 > max(props$offx),]
+    if (position_right) {
+      props <- props[props$offx + 0.0001 > max(props$offx), ]
     } else {
-      props <- props[props$offx - 0.0001 < min(props$offx),]
+      props <- props[props$offx - 0.0001 < min(props$offx), ]
     }
-    if(position_top){
-      props <- props[props$offy - 0.0001 < min(props$offy),]
+    if (position_top) {
+      props <- props[props$offy - 0.0001 < min(props$offy), ]
     } else {
-      props <- props[props$offy + 0.0001 > max(props$offy),]
+      props <- props[props$offy + 0.0001 > max(props$offy), ]
     }
   }
 
-
-  if( nrow(props) > 1) {
-    warning("more than a row have been selected")
+  if (nrow(props) > 1) {
+    cli::cli_alert_warning("More than one placeholder selected.")
   }
   props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")]
   names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")
   as_ph_location(props)
 }
+
 
 as_ph_location <- function(x, ...){
   if( !is.data.frame(x) ){
@@ -229,18 +244,25 @@ fortify_location.location_template <- function( x, doc, ...){
 #'
 #' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout)
-ph_location_type <- function( type = "body", position_right = TRUE, position_top = TRUE, newlabel = NULL, id = NULL, ...){
-
-  ph_types <- c("ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body",
-                "pic", "chart", "tbl", "dgm", "media", "clipArt")
-  if(!type %in% ph_types){
-    stop("argument type ('", type, "') expected to be a value of ",
-         paste0(shQuote(ph_types), collapse = ", "), ".")
+ph_location_type <- function(type = "body", position_right = TRUE, position_top = TRUE, newlabel = NULL, id = NULL, ...) {
+  ph_types <- c(
+    "ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body",
+    "pic", "chart", "tbl", "dgm", "media", "clipArt"
+  )
+  if (!type %in% ph_types) {
+    cli::cli_abort(
+      c("type {.val {type}} is unknown.",
+        "x" = "Must be one of {.or {.val {ph_types}}}"
+      ),
+      call = NULL
+    )
   }
   x <- list(type = type, position_right = position_right, position_top = position_top, id = id, label = newlabel)
   class(x) <- c("location_type", "location_str")
   x
 }
+
+
 #' @export
 fortify_location.location_type <- function( x, doc, ...){
 
@@ -250,7 +272,6 @@ fortify_location.location_type <- function( x, doc, ...){
 
   layout <- ifelse(is.null(args$layout), unique( xfrm$name ), args$layout)
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-
   out <- get_ph_loc(doc, layout = layout, master = master,
              type = x$type, position_right = x$position_right,
              position_top = x$position_top, id = x$id)
