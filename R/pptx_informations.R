@@ -97,12 +97,12 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @importFrom graphics plot rect text box
 #' @examples
 #' x <- read_pptx()
-#' plot_layout_properties( x = x, layout = "Title Slide",
-#'   master = "Office Theme" )
-#' plot_layout_properties( x = x, layout = "Two Content" )
+#' plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
+#' plot_layout_properties(x = x, layout = "Two Content")
+#' plot_layout_properties(x = x, layout = "Two Content", labels = FALSE)
 #' @family functions for reading presentation informations
-plot_layout_properties <- function (x, layout = NULL, master = NULL, labels = TRUE, title = FALSE)
-{
+#'
+plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = FALSE) {
   old_par <- par(mar = c(2, 2, 1.5, 0))
   on.exit(par(old_par))
 
@@ -110,29 +110,29 @@ plot_layout_properties <- function (x, layout = NULL, master = NULL, labels = TR
   if (length(unique(dat$name)) != 1) {
     stop("one single layout need to be choosen")
   }
+  dat <- dat[order(dat$type, as.integer(dat$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
+  dat$type_idx <- stats::ave(dat$type, dat$type, FUN = seq_along) # NB: returns character index
+
   s <- slide_size(x)
   h <- s$height
   w <- s$width
-  offx <- dat$offx
-  offy <- dat$offy
-  cx <- dat$cx
-  cy <- dat$cy
+  list2env(dat[, c("offx", "offy", "cx", "cy")], environment()) # make available inside functions
+
   if (labels) {
     labels <- dat$ph_label
   } else {
-    labels <- dat$type[order(as.integer(dat$id))]
-    rle_ <- rle(labels)
-    labels <- sprintf("type: '%s' - id: %.0f", labels, unlist(lapply(rle_$lengths, seq_len)))
+    labels <- sprintf("type: '%s' - id: %s", dat$type, dat$type_idx)
   }
+
   plot(x = c(0, w), y = -c(0, h), asp = 1, type = "n", axes = FALSE, xlab = NA, ylab = NA)
   if (title) {
     title(main = paste("Layout:", layout))
   }
   rect(xleft = 0, xright = w, ybottom = 0, ytop = -h, border = "darkgrey")
   rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
-  text(x = offx + cx/2, y = -(offy + cy/2), labels = labels, cex = 0.5, col = "red")
-  mtext("y [inch]", side = 2, line = 0, cex = 1.2, col="darkgrey")
-  mtext("x [inch]", side = 1, line = 0, cex = 1.2, col="darkgrey")
+  text(x = offx + cx / 2, y = -(offy + cy / 2), labels = labels, cex = 0.5, col = "red")
+  mtext("y [inch]", side = 2, line = 0, cex = 1.2, col = "darkgrey")
+  mtext("x [inch]", side = 1, line = 0, cex = 1.2, col = "darkgrey")
 }
 
 

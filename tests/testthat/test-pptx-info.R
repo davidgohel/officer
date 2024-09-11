@@ -91,6 +91,7 @@ test_that("plot layout properties", {
     master = "Office Theme"
   )
   dev.off()
+
   png2 <- tempfile(fileext = ".png")
   png(png2, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
@@ -99,8 +100,34 @@ test_that("plot layout properties", {
     labels = FALSE
   )
   dev.off()
+
   expect_snapshot_doc(name = "plot-titleslide-layout", x = png1, engine = "testthat")
   expect_snapshot_doc(name = "plot-titleslide-layout-nolabel", x = png2, engine = "testthat")
+
+  # issue #604
+  p <- test_path("docs_dir/test-content-order.pptx")
+  x <- read_pptx(p)
+
+  png3 <- tempfile(fileext = ".png")
+  png(png3, width = 7, height = 6, res = 150, units = "in")
+  plot_layout_properties(
+    x = x, layout = "Many Contents",
+    master = "Office Theme",
+    labels = TRUE
+  )
+  dev.off()
+
+  png4 <- tempfile(fileext = ".png")
+  png(png4, width = 7, height = 6, res = 150, units = "in")
+  plot_layout_properties(
+    x = x, layout = "Many Contents",
+    master = "Office Theme",
+    labels = FALSE
+  )
+  dev.off()
+
+  expect_snapshot_doc(name = "plot-content-order", x = png3, engine = "testthat")
+  expect_snapshot_doc(name = "plot-content-order-nolabel", x = png4, engine = "testthat")
 })
 
 
