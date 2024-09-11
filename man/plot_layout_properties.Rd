@@ -31,9 +31,9 @@ visualise placeholders locations and identifier.
 }
 \examples{
 x <- read_pptx()
-plot_layout_properties( x = x, layout = "Title Slide",
-  master = "Office Theme" )
-plot_layout_properties( x = x, layout = "Two Content" )
+plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
+plot_layout_properties(x = x, layout = "Two Content")
+plot_layout_properties(x = x, layout = "Two Content", labels = FALSE)
 }
 \seealso{
 Other functions for reading presentation informations: 
