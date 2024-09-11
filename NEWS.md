@@ -17,6 +17,7 @@ now sorts the resulting data by placeholder position. This yields an intuitive o
 top to bottom and left to right.
 - `ph_location_type()` now throws an error if the `id` for a `type` is out of range (#602) and a more 
 informative error message if the type is not present in layout (#601).
+- `plot_layout_properties()` assignment order fixed for `labels= FALSE` (#604)
 
 ## Features
 
