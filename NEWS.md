@@ -19,7 +19,6 @@ top to bottom and left to right.
 informative error message if the type is not present in layout (#601).
 - `plot_layout_properties()` assignment order fixed for `labels= FALSE` (#604)
 
-
 ## Features
 
 - add `layout_dedupe_ph_labels()` to handle duplicate placholder labels (#589). 
