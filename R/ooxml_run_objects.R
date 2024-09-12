@@ -1050,11 +1050,15 @@ external_img <- function(src, width = .5, height = .2, unit = "in", guess_size =
   src
 }
 
+
+#' @export
 dim.external_img <- function(x) {
   x <- attr(x, "dims")
   data.frame(width = x$width, height = x$height)
 }
 
+
+#' @export
 as.data.frame.external_img <- function(x, ...) {
   dimx <- attr(x, "dims")
   data.frame(path = as.character(x), width = dimx$width, height = dimx$height, alt = attr(x, "alt"), stringsAsFactors = FALSE)

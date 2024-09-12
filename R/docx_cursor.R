@@ -207,6 +207,9 @@ officer_cursor <- function(node) {
   class(x) <- "officer_cursor"
   x
 }
+
+
+#' @export
 as.character.officer_cursor <- function(x, ...) {
   if (length(x$nodes_names) < 1) {
     return(NA_character_)
