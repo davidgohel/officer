@@ -34,7 +34,7 @@ slide_summary(my_pres)
 slide_summary(my_pres, index = 1)
 }
 \seealso{
-Other functions for reading presentation informations: 
+Other functions for reading presentation information: 
 \code{\link{annotate_base}()},
 \code{\link{color_scheme}()},
 \code{\link{doc_properties}()},
@@ -44,4 +44,4 @@ Other functions for reading presentation informations:
 \code{\link{plot_layout_properties}()},
 \code{\link{slide_size}()}
 }
-\concept{functions for reading presentation informations}
+\concept{functions for reading presentation information}

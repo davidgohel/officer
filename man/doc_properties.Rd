@@ -28,7 +28,7 @@ Other functions for Word document informations:
 \code{\link{set_doc_properties}()},
 \code{\link{styles_info}()}
 
-Other functions for reading presentation informations: 
+Other functions for reading presentation information: 
 \code{\link{annotate_base}()},
 \code{\link{color_scheme}()},
 \code{\link{layout_properties}()},
@@ -39,4 +39,4 @@ Other functions for reading presentation informations:
 \code{\link{slide_summary}()}
 }
 \concept{functions for Word document informations}
-\concept{functions for reading presentation informations}
+\concept{functions for reading presentation information}

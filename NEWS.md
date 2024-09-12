@@ -18,6 +18,7 @@ top to bottom and left to right.
 - `ph_location_type()` now throws an error if the `id` for a `type` is out of range (#602) and a more 
 informative error message if the type is not present in layout (#601).
 - `plot_layout_properties()` assignment order fixed for `labels= FALSE` (#604)
+- `plot_layout_properties()` plots layout name, ph id, ph type + index by default now (#606).
 
 ## Features
 
