@@ -19,7 +19,7 @@ my_pres <- add_slide(my_pres)
 length(my_pres)
 }
 \seealso{
-Other functions for reading presentation informations: 
+Other functions for reading presentation information: 
 \code{\link{annotate_base}()},
 \code{\link{color_scheme}()},
 \code{\link{doc_properties}()},
@@ -29,4 +29,4 @@ Other functions for reading presentation informations:
 \code{\link{slide_size}()},
 \code{\link{slide_summary}()}
 }
-\concept{functions for reading presentation informations}
+\concept{functions for reading presentation information}
