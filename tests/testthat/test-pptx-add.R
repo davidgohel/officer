@@ -337,19 +337,19 @@ test_that("pptx ph locations", {
 
 
 test_that("pptx ph_location_type", {
-  opts <- options(cli.num_colors = 1) # suppress colors to check error message
+  opts <- options(cli.num_colors = 1) # suppress colors for easier error message check
   on.exit(options(opts))
 
   x <- read_pptx()
   x <- x |> add_slide("Two Content")
 
   expect_no_error({
-    x |> ph_with("correct ph type id", ph_location_type("body", id = 1))
+    x |> ph_with("correct ph type id", ph_location_type("body", type_idx = 1))
   })
 
   expect_error({
-    x |> ph_with("out of range type id", ph_location_type("body", id = 3)) # 3 does not exists => no error or warning
-  }, regexp = "`id` is out of range.", fixed = TRUE)
+    x |> ph_with("out of range type id", ph_location_type("body", type_idx = 3)) # 3 does not exists => no error or warning
+  }, regexp = "`type_idx` is out of range.", fixed = TRUE)
 
   expect_error({
     x |> ph_with("type okay but not available in layout", ph_location_type("tbl")) # tbl not on layout

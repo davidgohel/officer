@@ -6,6 +6,7 @@
 \usage{
 ph_location_type(
   type = "body",
+  type_idx = NULL,
   position_right = TRUE,
   position_top = TRUE,
   newlabel = NULL,
@@ -16,6 +17,13 @@ ph_location_type(
 \arguments{
 \item{type}{placeholder type to look for in the slide layout, one
 of 'body', 'title', 'ctrTitle', 'subTitle', 'dt', 'ftr', 'sldNum'.}
+
+\item{type_idx}{Type index of the placeholder. If there is more than one
+placeholder of a type (e.g., \code{body}), the type index can be supplied to uniquely
+identify a ph. The index is a running number starting at 1. It is assigned by
+placeholder position  (top -> bottom, left -> right). See \code{\link[=plot_layout_proprties]{plot_layout_proprties()}}
+for details. If \code{idx} argument is used, \code{position_right} and \code{position_top}
+are ignored.}
 
 \item{position_right}{the parameter is used when a selection with above
 parameters does not provide a unique position (for example
@@ -28,10 +36,7 @@ to top versus bottom.}
 
 \item{newlabel}{a label to associate with the placeholder.}
 
-\item{id}{index of the placeholder. If two body placeholder, there can be
-two different index: 1 and 2 for the first and second body placeholders defined
-in the layout. If this argument is used, \code{position_right} and \code{position_top}
-will be ignored.}
+\item{id}{(\strong{DEPRECATED}) Use \code{idx} instead.}
 
 \item{...}{unused arguments}
 }
@@ -83,6 +88,7 @@ doc <- ph_with(x = doc, "Un titre", location = loc_ctrtitle)
 
 fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)
+
 }
 \seealso{
 Other functions for placeholder location: 
