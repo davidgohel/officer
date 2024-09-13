@@ -103,15 +103,18 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @title Slide layout properties plot
 #' @description Plot slide layout properties into corresponding placeholders.
 #'  This can be useful to help visualize placeholders locations and identifiers.
-#'  *All* information in the plot stems from the [layout_properties()] output. See *details section*
-#'  for more info.
+#'  *All* information in the plot stems from the [layout_properties()] output.
+#'  See *Details* section for more info.
 #' @details
 #' The plot contains all relevant information to reference a placeholder via the `ph_location_*`
 #' function family:
 #'
 #' * `label`: ph label (red, center) to be used in [ph_location_label()].
+#'    _NB_: The label can be assigned by the user in PowerPoint.
 #' * `type[idx]`: ph type + type index in brackets (blue, upper left) to be used in [ph_location_type()].
+#'    _NB_: The index is consecutive and is sorted by ph position (top -> bottom, left -> right).
 #' * `id`: ph id (green, upper right) to be used in `ph_location_id()` (forthcoming).
+#'    _NB_: The id is set by PowerPoint automatically and lack a meaningful order.
 #'
 #' @param x an `rpptx` object
 #' @param layout slide layout name.
