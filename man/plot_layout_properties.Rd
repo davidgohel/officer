@@ -38,16 +38,19 @@ in the upper left corner (in \emph{blue}).}
 \description{
 Plot slide layout properties into corresponding placeholders.
 This can be useful to help visualize placeholders locations and identifiers.
-\emph{All} information in the plot stems from the \code{\link[=layout_properties]{layout_properties()}} output. See \emph{details section}
-for more info.
+\emph{All} information in the plot stems from the \code{\link[=layout_properties]{layout_properties()}} output.
+See \emph{Details} section for more info.
 }
 \details{
 The plot contains all relevant information to reference a placeholder via the \verb{ph_location_*}
 function family:
 \itemize{
 \item \code{label}: ph label (red, center) to be used in \code{\link[=ph_location_label]{ph_location_label()}}.
+\emph{NB}: The label can be assigned by the user in PowerPoint.
 \item \code{type[idx]}: ph type + type index in brackets (blue, upper left) to be used in \code{\link[=ph_location_type]{ph_location_type()}}.
+\emph{NB}: The index is consecutive and is sorted by ph position (top -> bottom, left -> right).
 \item \code{id}: ph id (green, upper right) to be used in \code{ph_location_id()} (forthcoming).
+\emph{NB}: The id is set by PowerPoint automatically and lack a meaningful order.
 }
 }
 \examples{
