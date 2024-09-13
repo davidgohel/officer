@@ -78,6 +78,7 @@ fortify_master_xfrm <- function(master_xfrm) {
   master_xfrm
 }
 
+
 xfrmize <- function(slide_xfrm, master_xfrm) {
   x <- as.data.frame(slide_xfrm)
 
@@ -115,16 +116,16 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
   x$fld_type_ref <- NULL
 
   x <- rbind(x, slide_xfrm_no_match, stringsAsFactors = FALSE)
+
   i_master <- get_file_index(x$master_file)
   i_layout <- get_file_index(x$file)
   x <- x[order(i_master, i_layout, x$offy, x$offx), , drop = FALSE] # intuitive sorting: top -> bottom, left -> right
-  x[
-    !is.na(x$offx) &
-      !is.na(x$offy) &
-      !is.na(x$cx) &
-      !is.na(x$cy),
-  ]
-  rownames(x) <- NULL # no mixed up numbers
+  x <- x[!(is.na(x$offx) | is.na(x$offy) | is.na(x$cx) | is.na(x$cy)),  ]
+
+  x$type_idx <- stats::ave(x$type, x$master_file, x$file, x$type, FUN = seq_along)
+  x$type_idx <- as.numeric(x$type_idx) # NB: ave returns character
+
+  rownames(x) <- NULL # prevent meaningless rownames
   x
 }
 

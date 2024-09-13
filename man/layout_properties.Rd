@@ -7,15 +7,33 @@
 layout_properties(x, layout = NULL, master = NULL)
 }
 \arguments{
-\item{x}{an rpptx object}
+\item{x}{an \code{rpptx} object}
 
-\item{layout}{slide layout name}
+\item{layout}{slide layout name. If \code{NULL}, returns all layouts.}
 
-\item{master}{master layout name where \code{layout} is located}
+\item{master}{master layout name where \code{layout} is located. If \code{NULL}, returns all masters.}
+}
+\value{
+Returns a data frame with one row per placeholder and the following columns:
+\itemize{
+\item \code{master_name}: Name of master (a \code{.pptx} file may have more than one)
+\item \code{name}: Name of layout
+\item \code{type}: Placeholder type
+\item \code{type_idx}: Running index for phs of the same type. Ordering by ph position
+(top -> bottom, left -> right)
+\item \code{id}: A unique placeholder id (assigned by PowerPoint automatically, starts at 2, potentially non-consecutive)
+\item \code{ph_label}: Placeholder label (can be set by the user in PowerPoint)
+\item \code{ph}: Placholder XML fragment (usually not needed)
+\item \code{offx},\code{offy}: placeholder's distance from left and top edge (in inch)
+\item \code{cx},\code{cy}: width and height of placeholder (in inch)
+\item \code{rotation}: rotation in degrees
+\item \code{fld_id} is generally stored as a hexadecimal or GUID value
+\item \code{fld_type}: a unique identifier for a particular field
+}
 }
 \description{
-Get information about a particular slide layout
-as a data.frame.
+Detailed information about the placeholders on the slide layouts (label, position, etc.).
+See \emph{Value} section below for more info.
 }
 \examples{
 x <- read_pptx()
