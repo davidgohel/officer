@@ -1,4 +1,8 @@
-get_ph_loc <- function(x, layout, master, type, position_right, position_top, id = NULL) {
+
+# id -> type_idx: index for type
+# id: will be used as ph id in the future again
+get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right, position_top,
+                       id = NULL) {
   props <- layout_properties(x, layout = layout, master = master)
   types_on_layout <- unique(props$type)
   props <- props[props$type %in% type, , drop = FALSE]
@@ -11,6 +15,7 @@ get_ph_loc <- function(x, layout, master, type, position_right, position_top, id
     ), call = NULL)
   }
 
+  # id and type_idx are both used for now. id is deprecated and will be removed in the future.
   if (!is.null(id)) {
     if (!id %in% 1L:nr) {
       cli::cli_abort(
@@ -23,6 +28,18 @@ get_ph_loc <- function(x, layout, master, type, position_right, position_top, id
       )
     }
     props <- props[id, , drop = FALSE]
+  } else if (!is.null(type_idx)) {
+    if (!type_idx %in% props$type_idx) {
+      cli::cli_abort(
+        c(
+          "{.arg type_idx} is out of range.",
+          "x" = "Must be between {.val {1L}} and {.val {max(props$type_idx)}} for ph type {.val {type}}.",
+          "i" = cli::col_grey("see {.code layout_properties(..., layout = '{layout}', master = '{master}')} for indexes of type '{type}'")
+        ),
+        call = NULL
+      )
+    }
+    props <- props[props$type_idx == type_idx, , drop = FALSE]
   } else {
     if (position_right) {
       props <- props[props$offx + 0.0001 > max(props$offx), ]
@@ -45,19 +62,23 @@ get_ph_loc <- function(x, layout, master, type, position_right, position_top, id
 }
 
 
-as_ph_location <- function(x, ...){
-  if( !is.data.frame(x) ){
-    stop("x should be a data.frame")
+as_ph_location <- function(x, ...) {
+  if (!is.data.frame(x)) {
+    cli::cli_abort(
+      c("{.arg x} must be a data frame.",
+        "x" =  "You provided {.cls {class(x)[1]}} instead.")
+      )
   }
-  ref_names <- c( "width", "height", "left", "top",
-                  "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")
-  if (!all(is.element(ref_names, names(x) ))) {
+  ref_names <- c(
+    "width", "height", "left", "top", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type"
+  )
+  if (!all(is.element(ref_names, names(x)))) {
     stop("missing column values:", paste0(setdiff(ref_names, names(x)), collapse = ","))
   }
-
   out <- x[ref_names]
   as.list(out)
 }
+
 
 #' @export
 #' @title Eval a location on the current slide
@@ -197,6 +218,7 @@ fortify_location.location_template <- function( x, doc, ...){
   fortify_location.location_manual(x)
 }
 
+
 #' @export
 #' @title Location of a placeholder based on a type
 #' @description The function will use the type name of the placeholder (e.g. body, title),
@@ -206,14 +228,17 @@ fortify_location.location_template <- function( x, doc, ...){
 #' @param position_right the parameter is used when a selection with above
 #' parameters does not provide a unique position (for example
 #' layout 'Two Content' contains two element of type 'body').
-#' If \code{TRUE}, the element the most on the right side will be selected,
+#' If `TRUE`, the element the most on the right side will be selected,
 #' otherwise the element the most on the left side will be selected.
-#' @param position_top same than \code{position_right} but applied
+#' @param position_top same than `position_right` but applied
 #' to top versus bottom.
-#' @param id index of the placeholder. If two body placeholder, there can be
-#' two different index: 1 and 2 for the first and second body placeholders defined
-#' in the layout. If this argument is used, \code{position_right} and \code{position_top}
-#' will be ignored.
+#' @param type_idx Type index of the placeholder. If there is more than one
+#' placeholder of a type (e.g., `body`), the type index can be supplied to uniquely
+#' identify a ph. The index is a running number starting at 1. It is assigned by
+#' placeholder position  (top -> bottom, left -> right). See [plot_layout_proprties()]
+#' for details. If `idx` argument is used, `position_right` and `position_top`
+#' are ignored.
+#' @param id (**DEPRECATED**) Old type index. Use `idx` instead.
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
@@ -244,7 +269,18 @@ fortify_location.location_template <- function( x, doc, ...){
 #'
 #' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout)
-ph_location_type <- function(type = "body", position_right = TRUE, position_top = TRUE, newlabel = NULL, id = NULL, ...) {
+#'
+ph_location_type <- function(type = "body", type_idx = NULL, position_right = TRUE, position_top = TRUE,
+                             newlabel = NULL, id = NULL, ...) {
+  if (!is.null(id)) {
+   cli::cli_warn(
+      c(
+        "!" = "The {.arg id} argument in {.fn ph_location_type} is deprecated as of {.pkg officer} 0.6.7.",
+        "i" = "Please use the {.arg type_idx} argument instead.",
+        "x" = "Be aware that the type index order logic has changed."
+      )
+    )
+  }
   ph_types <- c(
     "ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body",
     "pic", "chart", "tbl", "dgm", "media", "clipArt"
@@ -257,29 +293,35 @@ ph_location_type <- function(type = "body", position_right = TRUE, position_top 
       call = NULL
     )
   }
-  x <- list(type = type, position_right = position_right, position_top = position_top, id = id, label = newlabel)
+  x <- list(type = type, type_idx = type_idx, position_right = position_right,
+            position_top = position_top, id = id, label = newlabel)
   class(x) <- c("location_type", "location_str")
   x
 }
 
 
 #' @export
-fortify_location.location_type <- function( x, doc, ...){
-
+fortify_location.location_type <- function(x, doc, ...) {
   slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
   args <- list(...)
 
-  layout <- ifelse(is.null(args$layout), unique( xfrm$name ), args$layout)
-  master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-  out <- get_ph_loc(doc, layout = layout, master = master,
-             type = x$type, position_right = x$position_right,
-             position_top = x$position_top, id = x$id)
-  if( !is.null(x$label) )
-    out$ph_label <- x$label
-  out
+  layout <- ifelse(is.null(args$layout), unique(xfrm$name), args$layout)
+  master <- ifelse(is.null(args$master), unique(xfrm$master_name), args$master)
 
+  # to avoid a breaking change, the deprecated id is passed along.
+  # As type_idx uses a different index order than id, this is necessary until the id arg is removed.
+  out <- get_ph_loc(doc,
+    layout = layout, master = master,
+    type = x$type, position_right = x$position_right,
+    position_top = x$position_top, type_idx = x$type_idx, id = x$id # is is deprecated and will be removed
+  )
+  if (!is.null(x$label)) {
+    out$ph_label <- x$label
+  }
+  out
 }
+
 
 #' @export
 #' @title Location of a named placeholder
