@@ -22,18 +22,18 @@ plot_layout_properties(
 
 \item{master}{master layout name where \code{layout} is located.}
 
-\item{labels}{if \code{TRUE} (default), placeholder labels will be printed (in \emph{red}).}
+\item{labels}{if \code{TRUE} (default), adds placeholder labels (centered in \emph{red}).}
 
-\item{title}{if \code{TRUE} (default), a title with the layout name will be printed at the top.}
+\item{title}{if \code{TRUE} (default), adds a title with the layout name at the top.}
 
-\item{type}{if \code{TRUE} (default), the placeholder type and its index (in square brackets)
-is printed in the upper left corner (in \emph{blue}).}
+\item{type}{if \code{TRUE} (default), adds the placeholder type and its index (in square brackets)
+in the upper left corner (in \emph{blue}).}
 
-\item{id}{if \code{TRUE} (default), the placeholder's unique \code{id} (see column \code{id} from
-\code{\link[=layout_properties]{layout_properties()}}) is printed in the upper right corner in \emph{green}.}
+\item{id}{if \code{TRUE} (default), adds the placeholder's unique \code{id} (see column \code{id} from
+\code{\link[=layout_properties]{layout_properties()}}) in the upper right corner (in \emph{green}).}
 
-\item{cex}{Named list or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
-\code{c(labels = .5, type = .5, id = .5)}.}
+\item{cex}{named list or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
+\code{c(labels = .5, type = .5, id = .5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.}
 }
 \description{
 Plot slide layout properties into corresponding placeholders.
@@ -42,8 +42,8 @@ This can be useful to help visualize placeholders locations and identifiers.
 for more info.
 }
 \details{
-The plot contains all relevant information to address a placeholder using the \verb{ph_location_*}
-function family.
+The plot contains all relevant information to reference a placeholder via the \verb{ph_location_*}
+function family:
 \itemize{
 \item \code{label}: ph label (red, center) to be used in \code{\link[=ph_location_label]{ph_location_label()}}.
 \item \code{type[idx]}: ph type + type index in brackets (blue, upper left) to be used in \code{\link[=ph_location_type]{ph_location_type()}}.
@@ -55,6 +55,8 @@ x <- read_pptx()
 plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
 plot_layout_properties(x = x, layout = "Two Content")
 plot_layout_properties(x = x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
+
+# change font size
 plot_layout_properties(x = x, layout = "Two Content", cex = c(labels = 1, id = .7, type = .7))
 
 }

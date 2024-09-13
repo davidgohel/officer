@@ -9,20 +9,20 @@ layout_properties(x, layout = NULL, master = NULL)
 \arguments{
 \item{x}{an rpptx object}
 
-\item{layout}{slide layout name to use}
+\item{layout}{slide layout name}
 
 \item{master}{master layout name where \code{layout} is located}
 }
 \description{
 Get information about a particular slide layout
-into a data.frame.
+as a data.frame.
 }
 \examples{
 x <- read_pptx()
-layout_properties ( x = x, layout = "Title Slide", master = "Office Theme" )
-layout_properties ( x = x, master = "Office Theme" )
-layout_properties ( x = x, layout = "Two Content" )
-layout_properties ( x = x )
+layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
+layout_properties(x = x, master = "Office Theme")
+layout_properties(x = x, layout = "Two Content")
+layout_properties(x = x)
 }
 \seealso{
 Other functions for reading presentation information: 
