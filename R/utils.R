@@ -117,7 +117,7 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
   x <- rbind(x, slide_xfrm_no_match, stringsAsFactors = FALSE)
   i_master <- get_file_index(x$master_file)
   i_layout <- get_file_index(x$file)
-  x <- x[order(i_master, i_layout, x$offy, x$offx), , drop = FALSE] # natural sorting: top -> bottom, left -> right
+  x <- x[order(i_master, i_layout, x$offy, x$offx), , drop = FALSE] # intuitive sorting: top -> bottom, left -> right
   x[
     !is.na(x$offx) &
       !is.na(x$offy) &

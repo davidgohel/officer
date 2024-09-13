@@ -51,29 +51,29 @@ layout_summary <- function( x ){
 #' @export
 #' @title Slide layout properties
 #' @description Get information about a particular slide layout
-#' into a data.frame.
+#' as a data.frame.
 #' @inheritParams length.rpptx
-#' @param layout slide layout name to use
-#' @param master master layout name where \code{layout} is located
+#' @param layout slide layout name
+#' @param master master layout name where `layout` is located
 #' @examples
 #' x <- read_pptx()
-#' layout_properties ( x = x, layout = "Title Slide", master = "Office Theme" )
-#' layout_properties ( x = x, master = "Office Theme" )
-#' layout_properties ( x = x, layout = "Two Content" )
-#' layout_properties ( x = x )
+#' layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
+#' layout_properties(x = x, master = "Office Theme")
+#' layout_properties(x = x, layout = "Two Content")
+#' layout_properties(x = x)
 #' @family functions for reading presentation information
-layout_properties <- function( x, layout = NULL, master = NULL ){
-
+#'
+layout_properties <- function(x, layout = NULL, master = NULL) {
   data <- x$slideLayouts$get_xfrm_data()
 
-  if( !is.null(layout) && !is.null(master) ){
-    data <- data[data$name == layout & data$master_name %in% master,]
-  } else if( is.null(layout) && !is.null(master) ){
-    data <- data[data$master_name %in% master,]
-  } else if( !is.null(layout) && is.null(master) ){
-    data <- data[data$name == layout,]
+  if (!is.null(layout) && !is.null(master)) {
+    data <- data[data$name == layout & data$master_name %in% master, ]
+  } else if (is.null(layout) && !is.null(master)) {
+    data <- data[data$master_name %in% master, ]
+  } else if (!is.null(layout) && is.null(master)) {
+    data <- data[data$name == layout, ]
   }
-  data <- data[,c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
+  data <- data[, c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400
