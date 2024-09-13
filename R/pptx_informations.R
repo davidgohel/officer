@@ -121,8 +121,7 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @family functions for reading presentation information
 #'
 plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = TRUE,
-                                   type = TRUE, id = TRUE,
-                                   cex = NULL) {
+                                   type = TRUE, id = TRUE, cex = NULL) {
   old_par <- par(mar = c(2, 2, 1.5, 0))
   on.exit(par(old_par))
 
@@ -137,11 +136,17 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   .cex <- utils::modifyList(x = cex_default, val = as.list(cex), keep.null = TRUE)
 
   dat <- layout_properties(x, layout = layout, master = master)
-  if (length(unique(dat$name)) != 1) {
+  if (length(unique(dat$name)) > 1) {
     cli::cli_abort(c("One single layout must be chosen",
       "x" = "Did you supply a master?"
     ), call = NULL)
   }
+  if (length(unique(dat$name)) < 1) {
+    cli::cli_abort(c("One layout must be chosen",
+                     "x" = "Did you misspell the layout name?"
+    ), call = NULL)
+  }
+
   dat <- dat[order(dat$type, as.integer(dat$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
   dat$type_idx <- stats::ave(dat$type, dat$type, FUN = seq_along) # NB: returns character index
 
