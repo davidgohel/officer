@@ -87,22 +87,20 @@ test_that("plot layout properties", {
   png1 <- tempfile(fileext = ".png")
   png(png1, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Title Slide",
-    master = "Office Theme"
+    x = x, layout = "Title Slide", master = "Office Theme"
   )
   dev.off()
 
   png2 <- tempfile(fileext = ".png")
   png(png2, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Title Slide",
-    master = "Office Theme",
-    labels = FALSE
+    x = x, layout = "Title Slide", master = "Office Theme",
+    labels = TRUE, type = FALSE, id = FALSE, title = FALSE
   )
   dev.off()
 
-  expect_snapshot_doc(name = "plot-titleslide-layout", x = png1, engine = "testthat")
-  expect_snapshot_doc(name = "plot-titleslide-layout-nolabel", x = png2, engine = "testthat")
+  expect_snapshot_doc(name = "plot-titleslide-layout-default", x = png1, engine = "testthat")
+  expect_snapshot_doc(name = "plot-titleslide-layout-labels-only", x = png2, engine = "testthat")
 
   # issue #604
   p <- test_path("docs_dir/test-content-order.pptx")
@@ -111,23 +109,20 @@ test_that("plot layout properties", {
   png3 <- tempfile(fileext = ".png")
   png(png3, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Many Contents",
-    master = "Office Theme",
-    labels = TRUE
+    x = x, layout = "Many Contents", master = "Office Theme"
   )
   dev.off()
 
   png4 <- tempfile(fileext = ".png")
   png(png4, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Many Contents",
-    master = "Office Theme",
-    labels = FALSE
+    x = x, layout = "Many Contents", master = "Office Theme",
+    labels = TRUE, type = FALSE, id = FALSE, title = FALSE
   )
   dev.off()
 
-  expect_snapshot_doc(name = "plot-content-order", x = png3, engine = "testthat")
-  expect_snapshot_doc(name = "plot-content-order-nolabel", x = png4, engine = "testthat")
+  expect_snapshot_doc(name = "plot-content-order-default", x = png3, engine = "testthat")
+  expect_snapshot_doc(name = "plot-content-order-labels-only", x = png4, engine = "testthat")
 })
 
 
