@@ -35,7 +35,7 @@ slide_size <- function(x) {
 
 #' @export
 #' @title Presentation layouts summary
-#' @description Get informations about slide layouts and
+#' @description Get information about slide layouts and
 #' master layouts into a data.frame. This function returns
 #' a data.frame containing all layout and master names.
 #' @inheritParams length.rpptx
@@ -48,13 +48,29 @@ layout_summary <- function( x ){
   data.frame(layout = data$name, master = data$master_name, stringsAsFactors = FALSE)
 }
 
+
 #' @export
 #' @title Slide layout properties
-#' @description Get information about a particular slide layout
-#' as a data.frame.
-#' @inheritParams length.rpptx
-#' @param layout slide layout name
-#' @param master master layout name where `layout` is located
+#' @description Detailed information about the placeholders on the slide layouts (label, position, etc.).
+#' See *Value* section below for more info.
+#' @param x an `rpptx` object
+#' @param layout slide layout name. If `NULL`, returns all layouts.
+#' @param master master layout name where `layout` is located. If `NULL`, returns all masters.
+#' @returns Returns a data frame with one row per placeholder and the following columns:
+#' * `master_name`: Name of master (a `.pptx` file may have more than one)
+#' * `name`: Name of layout
+#' * `type`: Placeholder type
+#' * `type_idx`: Running index for phs of the same type. Ordering by ph position
+#'    (top -> bottom, left -> right)
+#' * `id`: A unique placeholder id (assigned by PowerPoint automatically, starts at 2, potentially non-consecutive)
+#' * `ph_label`: Placeholder label (can be set by the user in PowerPoint)
+#' * `ph`: Placholder XML fragment (usually not needed)
+#' * `offx`,`offy`: placeholder's distance from left and top edge (in inch)
+#' * `cx`,`cy`: width and height of placeholder (in inch)
+#' * `rotation`: rotation in degrees
+#' * `fld_id` is generally stored as a hexadecimal or GUID value
+#' * `fld_type`: a unique identifier for a particular field
+#'
 #' @examples
 #' x <- read_pptx()
 #' layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
@@ -62,10 +78,8 @@ layout_summary <- function( x ){
 #' layout_properties(x = x, layout = "Two Content")
 #' layout_properties(x = x)
 #' @family functions for reading presentation information
-#'
 layout_properties <- function(x, layout = NULL, master = NULL) {
   data <- x$slideLayouts$get_xfrm_data()
-
   if (!is.null(layout) && !is.null(master)) {
     data <- data[data$name == layout & data$master_name %in% master, ]
   } else if (is.null(layout) && !is.null(master)) {
@@ -73,7 +87,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
   } else if (!is.null(layout) && is.null(master)) {
     data <- data[data$name == layout, ]
   }
-  data <- data[, c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
+  data <- data[, c("master_name", "name", "type", "type_idx", "id", "ph_label", "ph",
+                   "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400
@@ -82,6 +97,7 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 
   data
 }
+
 
 #' @export
 #' @title Slide layout properties plot
@@ -146,9 +162,9 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
                      "x" = "Did you misspell the layout name?"
     ), call = NULL)
   }
-
-  dat <- dat[order(dat$type, as.integer(dat$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
-  dat$type_idx <- stats::ave(dat$type, dat$type, FUN = seq_along) # NB: returns character index
+  # # order and type_idx now in xfrmize()
+  # dat <- dat[order(dat$type, as.integer(dat$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
+  # dat$type_idx <- stats::ave(dat$type, dat$type, FUN = seq_along) # NB: returns character index
 
   s <- slide_size(x)
   h <- s$height

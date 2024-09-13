@@ -10,7 +10,7 @@ layout_summary(x)
 \item{x}{an rpptx object}
 }
 \description{
-Get informations about slide layouts and
+Get information about slide layouts and
 master layouts into a data.frame. This function returns
 a data.frame containing all layout and master names.
 }
