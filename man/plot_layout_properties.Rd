@@ -30,7 +30,7 @@ plot_layout_properties(
 is printed in the upper left corner (in \emph{blue}).}
 
 \item{id}{if \code{TRUE} (default), the placeholder's unique \code{id} (see column \code{id} from
-\link{layout_properties}) is printed in the upper right corner in \emph{green}.}
+\code{\link[=layout_properties]{layout_properties()}}) is printed in the upper right corner in \emph{green}.}
 
 \item{cex}{Named list or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
 \code{c(labels = .5, type = .5, id = .5)}.}
@@ -38,16 +38,16 @@ is printed in the upper left corner (in \emph{blue}).}
 \description{
 Plot slide layout properties into corresponding placeholders.
 This can be useful to help visualize placeholders locations and identifiers.
-\emph{All} information in the plot stems from the \link{layout_properties} output. See \emph{details section}
+\emph{All} information in the plot stems from the \code{\link[=layout_properties]{layout_properties()}} output. See \emph{details section}
 for more info.
 }
 \details{
 The plot contains all relevant information to address a placeholder using the \verb{ph_location_*}
 function family.
 \itemize{
-\item \code{label}: ph label (red, center) to be used in \link{ph_location_label}.
-\item \code{type[idx]}: ph type + type index in brackets (blue, upper left) to be used in \link{ph_location_type}.
-\item \code{id}: ph id (green, upper right) to be used in \code{ph_location_id} (forthcoming).
+\item \code{label}: ph label (red, center) to be used in \code{\link[=ph_location_label]{ph_location_label()}}.
+\item \code{type[idx]}: ph type + type index in brackets (blue, upper left) to be used in \code{\link[=ph_location_type]{ph_location_type()}}.
+\item \code{id}: ph id (green, upper right) to be used in \code{ph_location_id()} (forthcoming).
 }
 }
 \examples{

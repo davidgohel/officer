@@ -87,15 +87,15 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @title Slide layout properties plot
 #' @description Plot slide layout properties into corresponding placeholders.
 #'  This can be useful to help visualize placeholders locations and identifiers.
-#'  *All* information in the plot stems from the [layout_properties] output. See *details section*
+#'  *All* information in the plot stems from the [layout_properties()] output. See *details section*
 #'  for more info.
 #' @details
 #' The plot contains all relevant information to address a placeholder using the `ph_location_*`
 #' function family.
 #'
-#' * `label`: ph label (red, center) to be used in [ph_location_label].
-#' * `type[idx]`: ph type + type index in brackets (blue, upper left) to be used in [ph_location_type].
-#' * `id`: ph id (green, upper right) to be used in `ph_location_id` (forthcoming).
+#' * `label`: ph label (red, center) to be used in [ph_location_label()].
+#' * `type[idx]`: ph type + type index in brackets (blue, upper left) to be used in [ph_location_type()].
+#' * `id`: ph id (green, upper right) to be used in `ph_location_id()` (forthcoming).
 #'
 #' @param x an `rpptx` object
 #' @param layout slide layout name.
@@ -105,7 +105,7 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @param type if `TRUE` (default), the placeholder type and its index (in square brackets)
 #'   is printed in the upper left corner (in *blue*).
 #' @param id if `TRUE` (default), the placeholder's unique `id` (see column `id` from
-#'  [layout_properties]) is printed in the upper right corner in *green*.
+#'  [layout_properties()]) is printed in the upper right corner in *green*.
 #' @param cex Named list or vector to specify font size for `labels`, `type`, and `id`. Default is
 #'   `c(labels = .5, type = .5, id = .5)`.
 #' @importFrom graphics plot rect text box
