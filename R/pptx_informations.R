@@ -51,29 +51,29 @@ layout_summary <- function( x ){
 #' @export
 #' @title Slide layout properties
 #' @description Get information about a particular slide layout
-#' into a data.frame.
+#' as a data.frame.
 #' @inheritParams length.rpptx
-#' @param layout slide layout name to use
-#' @param master master layout name where \code{layout} is located
+#' @param layout slide layout name
+#' @param master master layout name where `layout` is located
 #' @examples
 #' x <- read_pptx()
-#' layout_properties ( x = x, layout = "Title Slide", master = "Office Theme" )
-#' layout_properties ( x = x, master = "Office Theme" )
-#' layout_properties ( x = x, layout = "Two Content" )
-#' layout_properties ( x = x )
+#' layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
+#' layout_properties(x = x, master = "Office Theme")
+#' layout_properties(x = x, layout = "Two Content")
+#' layout_properties(x = x)
 #' @family functions for reading presentation information
-layout_properties <- function( x, layout = NULL, master = NULL ){
-
+#'
+layout_properties <- function(x, layout = NULL, master = NULL) {
   data <- x$slideLayouts$get_xfrm_data()
 
-  if( !is.null(layout) && !is.null(master) ){
-    data <- data[data$name == layout & data$master_name %in% master,]
-  } else if( is.null(layout) && !is.null(master) ){
-    data <- data[data$master_name %in% master,]
-  } else if( !is.null(layout) && is.null(master) ){
-    data <- data[data$name == layout,]
+  if (!is.null(layout) && !is.null(master)) {
+    data <- data[data$name == layout & data$master_name %in% master, ]
+  } else if (is.null(layout) && !is.null(master)) {
+    data <- data[data$master_name %in% master, ]
+  } else if (!is.null(layout) && is.null(master)) {
+    data <- data[data$name == layout, ]
   }
-  data <- data[,c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
+  data <- data[, c("master_name", "name", "type", "id", "ph_label", "ph", "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400
@@ -90,8 +90,8 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #'  *All* information in the plot stems from the [layout_properties()] output. See *details section*
 #'  for more info.
 #' @details
-#' The plot contains all relevant information to address a placeholder using the `ph_location_*`
-#' function family.
+#' The plot contains all relevant information to reference a placeholder via the `ph_location_*`
+#' function family:
 #'
 #' * `label`: ph label (red, center) to be used in [ph_location_label()].
 #' * `type[idx]`: ph type + type index in brackets (blue, upper left) to be used in [ph_location_type()].
@@ -100,20 +100,22 @@ layout_properties <- function( x, layout = NULL, master = NULL ){
 #' @param x an `rpptx` object
 #' @param layout slide layout name.
 #' @param master master layout name where `layout` is located.
-#' @param labels if `TRUE` (default), placeholder labels will be printed (in *red*).
-#' @param title if `TRUE` (default), a title with the layout name will be printed at the top.
-#' @param type if `TRUE` (default), the placeholder type and its index (in square brackets)
-#'   is printed in the upper left corner (in *blue*).
-#' @param id if `TRUE` (default), the placeholder's unique `id` (see column `id` from
-#'  [layout_properties()]) is printed in the upper right corner in *green*.
-#' @param cex Named list or vector to specify font size for `labels`, `type`, and `id`. Default is
-#'   `c(labels = .5, type = .5, id = .5)`.
+#' @param title if `TRUE` (default), adds a title with the layout name at the top.
+#' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).
+#' @param type if `TRUE` (default), adds the placeholder type and its index (in square brackets)
+#'   in the upper left corner (in *blue*).
+#' @param id if `TRUE` (default), adds the placeholder's unique `id` (see column `id` from
+#'  [layout_properties()]) in the upper right corner (in *green*).
+#' @param cex named list or vector to specify font size for `labels`, `type`, and `id`. Default is
+#'   `c(labels = .5, type = .5, id = .5)`. See [graphics::text()] for details on how `cex` works.
 #' @importFrom graphics plot rect text box
 #' @examples
 #' x <- read_pptx()
 #' plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
 #' plot_layout_properties(x = x, layout = "Two Content")
 #' plot_layout_properties(x = x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
+#'
+#' # change font size
 #' plot_layout_properties(x = x, layout = "Two Content", cex = c(labels = 1, id = .7, type = .7))
 #'
 #' @family functions for reading presentation information
