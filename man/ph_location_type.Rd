@@ -36,7 +36,7 @@ to top versus bottom.}
 
 \item{newlabel}{a label to associate with the placeholder.}
 
-\item{id}{(\strong{DEPRECATED}) Use \code{idx} instead.}
+\item{id}{(\strong{DEPRECATED}) Old type index. Use \code{idx} instead.}
 
 \item{...}{unused arguments}
 }

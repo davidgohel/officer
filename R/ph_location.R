@@ -15,7 +15,7 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
     ), call = NULL)
   }
 
-  # id and type_idx are both used for now. id is deprecated and will be removed in the future.
+  # id and type_idx are both used for now. 'id' is deprecated and will be removed in the future.
   if (!is.null(id)) {
     if (!id %in% 1L:nr) {
       cli::cli_abort(
@@ -27,7 +27,11 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
         call = NULL
       )
     }
-    props <- props[id, , drop = FALSE]
+    # the ordering of 'type_idx' (top->bottom, left-righ) is different than for the 'id' arg (index
+    # along the id colomn). Here, we restore the old ordering, to avoid a breaking change.
+    props <- props[order(props$type, as.integer(props$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
+    props$.id <- stats::ave(props$type, props$master_name, props$name, props$type, FUN = seq_along)
+    props <- props[props$.id == id, , drop = FALSE]
   } else if (!is.null(type_idx)) {
     if (!type_idx %in% props$type_idx) {
       cli::cli_abort(
@@ -277,8 +281,8 @@ ph_location_type <- function(type = "body", type_idx = NULL, position_right = TR
       c(
         "!" = "The {.arg id} argument in {.fn ph_location_type} is deprecated as of {.pkg officer} 0.6.7.",
         "i" = "Please use the {.arg type_idx} argument instead.",
-        "x" = "Be aware that the type index order logic has changed."
-      )
+        "x" = cli::col_red("Caution: new index logic in {.arg type_idx} (see docs)."
+      ))
     )
   }
   ph_types <- c(
@@ -314,7 +318,7 @@ fortify_location.location_type <- function(x, doc, ...) {
   out <- get_ph_loc(doc,
     layout = layout, master = master,
     type = x$type, position_right = x$position_right,
-    position_top = x$position_top, type_idx = x$type_idx, id = x$id # is is deprecated and will be removed
+    position_top = x$position_top, type_idx = x$type_idx, id = x$id # id is deprecated and will be removed
   )
   if (!is.null(x$label)) {
     out$ph_label <- x$label
