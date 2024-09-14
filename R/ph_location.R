@@ -277,12 +277,12 @@ fortify_location.location_template <- function( x, doc, ...){
 ph_location_type <- function(type = "body", type_idx = NULL, position_right = TRUE, position_top = TRUE,
                              newlabel = NULL, id = NULL, ...) {
   if (!is.null(id)) {
-   cli::cli_warn(
+    cli::cli_warn(
       c(
         "!" = "The {.arg id} argument in {.fn ph_location_type} is deprecated as of {.pkg officer} 0.6.7.",
         "i" = "Please use the {.arg type_idx} argument instead.",
-        "x" = cli::col_red("Caution: new index logic in {.arg type_idx} (see docs)."
-      ))
+        "x" = cli::col_red("Caution: new index logic in {.arg type_idx} (see docs).")
+      )
     )
   }
   ph_types <- c(
@@ -297,8 +297,10 @@ ph_location_type <- function(type = "body", type_idx = NULL, position_right = TR
       call = NULL
     )
   }
-  x <- list(type = type, type_idx = type_idx, position_right = position_right,
-            position_top = position_top, id = id, label = newlabel)
+  x <- list(
+    type = type, type_idx = type_idx, position_right = position_right,
+    position_top = position_top, id = id, label = newlabel
+  )
   class(x) <- c("location_type", "location_str")
   x
 }
