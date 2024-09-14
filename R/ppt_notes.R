@@ -143,6 +143,7 @@ ph_from_location <- function(loc, doc, ...){
 }
 
 
+#' @export
 ph_from_location.location_label <- function(loc, doc, ...) {
   xfrm <- doc$notesMaster$xfrm()
   location <- xfrm[xfrm$ph_label == loc$ph_label, ]
@@ -155,6 +156,7 @@ ph_from_location.location_label <- function(loc, doc, ...) {
 }
 
 
+#' @export
 ph_from_location.location_type <- function(loc, doc, ...) {
   xfrm <- doc$notesMaster$xfrm()
   location <- xfrm[xfrm$type == loc$type, ]

@@ -36,6 +36,8 @@ read_custom_properties <- function(package_dir) {
   z
 }
 
+
+#' @export
 `[<-.custom_properties` <- function(x, i, j, value) {
   if (!i %in% x$data[, "name"]) {
     if (nrow(x$data) < 1) {
@@ -50,6 +52,9 @@ read_custom_properties <- function(package_dir) {
   }
   x
 }
+
+
+#' @export
 `[.custom_properties` <- function(x, i, j) {
   if (nrow(x$data) < 1) {
     return(character())

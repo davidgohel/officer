@@ -51,6 +51,8 @@ default_cp_tags <- list(
   category = list(ns = "cp", attrs = NA_character_)
 )
 
+
+#' @export
 `[<-.core_properties` <- function( x, i, j, value ){
   if( !i %in% x$data[,"name"] ) {
     attrs <- ifelse(is.na(default_cp_tags[[i]]$attrs), "", paste0(" ", default_cp_tags[[i]]$attrs))
@@ -61,9 +63,13 @@ default_cp_tags <- list(
   }
   x
 }
+
+
+#' @export
 `[.core_properties` <- function( x, i, j ){
   x$data[i,j]
 }
+
 
 write_core_properties <- function(core_matrix, package_dir){
   ns_ <- core_matrix$ns
