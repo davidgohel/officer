@@ -2,7 +2,11 @@
 # id -> type_idx: index for type
 # id: will be used as ph id in the future again
 get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right, position_top,
-                       id = NULL) {
+                       id = NULL, id_deprecated = NULL) {
+  # id will have a new meaning soon, prevent accidental use for now
+  if (!is.null(id)) {
+    cli::cli_abort("{.arg id} cannot be used for now.")
+  }
   props <- layout_properties(x, layout = layout, master = master)
   types_on_layout <- unique(props$type)
   props <- props[props$type %in% type, , drop = FALSE]
@@ -14,10 +18,9 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
       "i" = cli::col_grey("see {.code layout_properties(x, '{layout}', '{master}')}")
     ), call = NULL)
   }
-
-  # id and type_idx are both used for now. 'id' is deprecated and will be removed in the future.
-  if (!is.null(id)) {
-    if (!id %in% 1L:nr) {
+  # id (id_deprecated) and type_idx are both used for now. 'id' is deprecated and will be removed in the future.
+  if (!is.null(id_deprecated)) {
+    if (!id_deprecated %in% 1L:nr) {
       cli::cli_abort(
         c(
           "{.arg id} is out of range.",
@@ -31,7 +34,7 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
     # along the id colomn). Here, we restore the old ordering, to avoid a breaking change.
     props <- props[order(props$type, as.integer(props$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
     props$.id <- stats::ave(props$type, props$master_name, props$name, props$type, FUN = seq_along)
-    props <- props[props$.id == id, , drop = FALSE]
+    props <- props[props$.id == id_deprecated, , drop = FALSE]
   } else if (!is.null(type_idx)) {
     if (!type_idx %in% props$type_idx) {
       cli::cli_abort(
@@ -276,7 +279,11 @@ fortify_location.location_template <- function( x, doc, ...){
 #'
 ph_location_type <- function(type = "body", type_idx = NULL, position_right = TRUE, position_top = TRUE,
                              newlabel = NULL, id = NULL, ...) {
-  if (!is.null(id)) {
+  # the following two warnings can be deleted after the deprecated id arg is removed.
+  if (!is.null(id) && !is.null(type_idx)) {
+    cli::cli_warn("{.arg id} is ignored if {.arg type_idx} is provided ")
+  }
+  if (!is.null(id) && is.null(type_idx)) {
     cli::cli_warn(
       c(
         "!" = "The {.arg id} argument in {.fn ph_location_type} is deprecated as of {.pkg officer} 0.6.7.",
@@ -285,6 +292,7 @@ ph_location_type <- function(type = "body", type_idx = NULL, position_right = TR
       )
     )
   }
+
   ph_types <- c(
     "ctrTitle", "subTitle", "dt", "ftr", "sldNum", "title", "body",
     "pic", "chart", "tbl", "dgm", "media", "clipArt"
@@ -320,7 +328,8 @@ fortify_location.location_type <- function(x, doc, ...) {
   out <- get_ph_loc(doc,
     layout = layout, master = master,
     type = x$type, position_right = x$position_right,
-    position_top = x$position_top, type_idx = x$type_idx, id = x$id # id is deprecated and will be removed
+    position_top = x$position_top, type_idx = x$type_idx,
+    id_deprecated = x$id, id = NULL # id will have a new meaning soon, out of use for now
   )
   if (!is.null(x$label)) {
     out$ph_label <- x$label
