@@ -18,7 +18,10 @@ top to bottom and left to right.
 - `ph_location_type()` now throws an error if the `id` for a `type` is out of range (#602) and a more 
 informative error message if the type is not present in layout (#601).
 - `plot_layout_properties()` assignment order fixed for `labels= FALSE` (#604)
-- `plot_layout_properties()` plots layout name, ph id, ph type + index by default now (#606).
+- `layout_properties()` gains a `type_idx` column to index phs of the same type on a layout. Indexing is performed based on ph position, following a top-to-bottom, left-to-right order. (#606).
+- `plot_layout_properties()` plots more information by default now: layout name, ph label, ph id, ph type + index by default (#606).
+- `ph_location_type()`: new `type_idx` arg replaces the deprecated `id` arg (#606).
+
 
 ## Features
 
