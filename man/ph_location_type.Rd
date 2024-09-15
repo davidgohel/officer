@@ -36,7 +36,10 @@ to top versus bottom.}
 
 \item{newlabel}{a label to associate with the placeholder.}
 
-\item{id}{(\strong{DEPRECATED}) Old type index. Use \code{idx} instead.}
+\item{id}{(\strong{DEPRECATED, use \code{type_idx} instead}) Index of the placeholder.
+If two body placeholder, there can be two different index: 1 and 2 for the
+first and second body placeholders defined in the layout. If this argument
+is used, \code{position_right} and \code{position_top} will be ignored.}
 
 \item{...}{unused arguments}
 }

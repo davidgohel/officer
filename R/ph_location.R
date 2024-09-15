@@ -245,7 +245,10 @@ fortify_location.location_template <- function( x, doc, ...){
 #' placeholder position  (top -> bottom, left -> right). See [plot_layout_proprties()]
 #' for details. If `idx` argument is used, `position_right` and `position_top`
 #' are ignored.
-#' @param id (**DEPRECATED**) Old type index. Use `idx` instead.
+#' @param id (**DEPRECATED, use `type_idx` instead**) Index of the placeholder.
+#' If two body placeholder, there can be two different index: 1 and 2 for the
+#' first and second body placeholders defined in the layout. If this argument
+#' is used, `position_right` and `position_top` will be ignored.
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
