@@ -1,12 +1,7 @@
 
-# id -> type_idx: index for type
-# id: will be used as ph id in the future again
+# id is deprecated and replaced by type_idx. Will be removed soon
 get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right, position_top,
-                       id = NULL, id_deprecated = NULL) {
-  # id will have a new meaning soon, prevent accidental use for now
-  if (!is.null(id)) {
-    cli::cli_abort("{.arg id} cannot be used for now.")
-  }
+                       id = NULL, ph_id = NULL) {
   props <- layout_properties(x, layout = layout, master = master)
   types_on_layout <- unique(props$type)
   props <- props[props$type %in% type, , drop = FALSE]
@@ -18,9 +13,9 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
       "i" = cli::col_grey("see {.code layout_properties(x, '{layout}', '{master}')}")
     ), call = NULL)
   }
-  # id (id_deprecated) and type_idx are both used for now. 'id' is deprecated and will be removed in the future.
-  if (!is.null(id_deprecated)) {
-    if (!id_deprecated %in% 1L:nr) {
+  # id and type_idx are both used for now. 'id' is deprecated. The following code block can be removed in the future.
+  if (!is.null(id)) {
+    if (!id %in% 1L:nr) {
       cli::cli_abort(
         c(
           "{.arg id} is out of range.",
@@ -34,7 +29,7 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
     # along the id colomn). Here, we restore the old ordering, to avoid a breaking change.
     props <- props[order(props$type, as.integer(props$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
     props$.id <- stats::ave(props$type, props$master_name, props$name, props$type, FUN = seq_along)
-    props <- props[props$.id == id_deprecated, , drop = FALSE]
+    props <- props[props$.id == id, , drop = FALSE]
   } else if (!is.null(type_idx)) {
     if (!type_idx %in% props$type_idx) {
       cli::cli_abort(
@@ -332,7 +327,7 @@ fortify_location.location_type <- function(x, doc, ...) {
     layout = layout, master = master,
     type = x$type, position_right = x$position_right,
     position_top = x$position_top, type_idx = x$type_idx,
-    id_deprecated = x$id, id = NULL # id will have a new meaning soon, out of use for now
+    id = x$id, ph_id = NULL # id is deprecated and will be removed soon
   )
   if (!is.null(x$label)) {
     out$ph_label <- x$label
@@ -374,6 +369,7 @@ ph_location_label <- function( ph_label, newlabel = NULL, ...){
   x
 }
 
+
 #' @export
 fortify_location.location_label <- function( x, doc, ...){
 
@@ -404,6 +400,7 @@ fortify_location.location_label <- function( x, doc, ...){
   out
 
 }
+
 
 #' @export
 #' @title Location of a full size element
