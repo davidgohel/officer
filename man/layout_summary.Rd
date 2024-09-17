@@ -10,7 +10,7 @@ layout_summary(x)
 \item{x}{an rpptx object}
 }
 \description{
-Get informations about slide layouts and
+Get information about slide layouts and
 master layouts into a data.frame. This function returns
 a data.frame containing all layout and master names.
 }
@@ -19,7 +19,7 @@ my_pres <- read_pptx()
 layout_summary ( x = my_pres )
 }
 \seealso{
-Other functions for reading presentation informations: 
+Other functions for reading presentation information: 
 \code{\link{annotate_base}()},
 \code{\link{color_scheme}()},
 \code{\link{doc_properties}()},
@@ -29,4 +29,4 @@ Other functions for reading presentation informations:
 \code{\link{slide_size}()},
 \code{\link{slide_summary}()}
 }
-\concept{functions for reading presentation informations}
+\concept{functions for reading presentation information}

@@ -9,34 +9,62 @@ plot_layout_properties(
   layout = NULL,
   master = NULL,
   labels = TRUE,
-  title = FALSE
+  title = TRUE,
+  type = TRUE,
+  id = TRUE,
+  cex = NULL
 )
 }
 \arguments{
-\item{x}{an rpptx object}
+\item{x}{an \code{rpptx} object}
 
-\item{layout}{slide layout name to use}
+\item{layout}{slide layout name.}
 
-\item{master}{master layout name where \code{layout} is located}
+\item{master}{master layout name where \code{layout} is located.}
 
-\item{labels}{if \code{TRUE}, placeholder labels will be printed, if \code{FALSE}
-placeholder types and identifiers will be printed.}
+\item{labels}{if \code{TRUE} (default), adds placeholder labels (centered in \emph{red}).}
 
-\item{title}{if \code{FALSE}, a title with the layout name will be printed.}
+\item{title}{if \code{TRUE} (default), adds a title with the layout name at the top.}
+
+\item{type}{if \code{TRUE} (default), adds the placeholder type and its index (in square brackets)
+in the upper left corner (in \emph{blue}).}
+
+\item{id}{if \code{TRUE} (default), adds the placeholder's unique \code{id} (see column \code{id} from
+\code{\link[=layout_properties]{layout_properties()}}) in the upper right corner (in \emph{green}).}
+
+\item{cex}{named list or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
+\code{c(labels = .5, type = .5, id = .5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.}
 }
 \description{
-Plot slide layout properties and print informations
-into defined placeholders. This can be useful to help
-visualise placeholders locations and identifier.
+Plot slide layout properties into corresponding placeholders.
+This can be useful to help visualize placeholders locations and identifiers.
+\emph{All} information in the plot stems from the \code{\link[=layout_properties]{layout_properties()}} output.
+See \emph{Details} section for more info.
+}
+\details{
+The plot contains all relevant information to reference a placeholder via the \verb{ph_location_*}
+function family:
+\itemize{
+\item \code{label}: ph label (red, center) to be used in \code{\link[=ph_location_label]{ph_location_label()}}.
+\emph{NB}: The label can be assigned by the user in PowerPoint.
+\item \code{type[idx]}: ph type + type index in brackets (blue, upper left) to be used in \code{\link[=ph_location_type]{ph_location_type()}}.
+\emph{NB}: The index is consecutive and is sorted by ph position (top -> bottom, left -> right).
+\item \code{id}: ph id (green, upper right) to be used in \code{ph_location_id()} (forthcoming).
+\emph{NB}: The id is set by PowerPoint automatically and lack a meaningful order.
+}
 }
 \examples{
 x <- read_pptx()
 plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
 plot_layout_properties(x = x, layout = "Two Content")
-plot_layout_properties(x = x, layout = "Two Content", labels = FALSE)
+plot_layout_properties(x = x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
+
+# change font size
+plot_layout_properties(x = x, layout = "Two Content", cex = c(labels = 1, id = .7, type = .7))
+
 }
 \seealso{
-Other functions for reading presentation informations: 
+Other functions for reading presentation information: 
 \code{\link{annotate_base}()},
 \code{\link{color_scheme}()},
 \code{\link{doc_properties}()},
@@ -46,4 +74,4 @@ Other functions for reading presentation informations:
 \code{\link{slide_size}()},
 \code{\link{slide_summary}()}
 }
-\concept{functions for reading presentation informations}
+\concept{functions for reading presentation information}
