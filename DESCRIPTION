@@ -5,6 +5,8 @@ Version: 0.6.7.013
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
+    person("Mark", "Heckmann", , "heckmann.mark@gmail.com", role = "aut",
+           comment = c(ORCID = "0000-0002-0736-7417")),
     person("ArData", role = "cph"),
     person("Frank", "Hangler", , "frank@plotandscatter.com", role = "ctb",
            comment = "function body_replace_all_text"),
@@ -25,8 +27,6 @@ Authors@R: c(
     person("Greg", "Leleu", , "gregoire.leleu@gmail.com", role = "ctb",
            comment = "fields functionality in ppt"),
     person("Majid", "Eismann", role = "ctb"),
-    person("Mark", "Heckmann", , "heckmann.mark@gmail.com", role = "ctb",
-           comment = c(ORCID = "0000-0002-0736-7417")),
     person("Hongyuan", "Jia", , "hongyuanjia@cqust.edu.cn", role = "ctb",
            comment = c(ORCID = "0000-0002-0075-8183"))
   )
