@@ -237,7 +237,7 @@ fortify_location.location_template <- function( x, doc, ...){
 #' @param type_idx Type index of the placeholder. If there is more than one
 #' placeholder of a type (e.g., `body`), the type index can be supplied to uniquely
 #' identify a ph. The index is a running number starting at 1. It is assigned by
-#' placeholder position  (top -> bottom, left -> right). See [plot_layout_proprties()]
+#' placeholder position  (top -> bottom, left -> right). See [plot_layout_properties()]
 #' for details. If `idx` argument is used, `position_right` and `position_top`
 #' are ignored.
 #' @param id (**DEPRECATED, use `type_idx` instead**) Index of the placeholder.

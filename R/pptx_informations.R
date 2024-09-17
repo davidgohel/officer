@@ -172,6 +172,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   s <- slide_size(x)
   h <- s$height
   w <- s$width
+  offx <- offy <- cx <- cy <- NULL # avoid R CMD CHECK problem
   list2env(dat[, c("offx", "offy", "cx", "cy")], environment()) # make available inside functions
 
   plot(x = c(0, w), y = -c(0, h), asp = 1, type = "n", axes = FALSE, xlab = NA, ylab = NA)

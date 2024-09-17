@@ -21,7 +21,7 @@ of 'body', 'title', 'ctrTitle', 'subTitle', 'dt', 'ftr', 'sldNum'.}
 \item{type_idx}{Type index of the placeholder. If there is more than one
 placeholder of a type (e.g., \code{body}), the type index can be supplied to uniquely
 identify a ph. The index is a running number starting at 1. It is assigned by
-placeholder position  (top -> bottom, left -> right). See \code{\link[=plot_layout_proprties]{plot_layout_proprties()}}
+placeholder position  (top -> bottom, left -> right). See \code{\link[=plot_layout_properties]{plot_layout_properties()}}
 for details. If \code{idx} argument is used, \code{position_right} and \code{position_top}
 are ignored.}
 
