@@ -36,6 +36,7 @@ manuals \url{https://davidgohel.github.io/officer/}
 Authors:
 \itemize{
   \item Stefan Moog \email{moogs@gmx.de}
+  \item Mark Heckmann \email{heckmann.mark@gmail.com} (\href{https://orcid.org/0000-0002-0736-7417}{ORCID})
 }
 
 Other contributors:
@@ -51,7 +52,6 @@ Other contributors:
   \item Nikolai Beck \email{beck.nikolai@gmail.com} (set speaker notes for .pptx documents) [contributor]
   \item Greg Leleu \email{gregoire.leleu@gmail.com} (fields functionality in ppt) [contributor]
   \item Majid Eismann [contributor]
-  \item Mark Heckmann \email{heckmann.mark@gmail.com} (\href{https://orcid.org/0000-0002-0736-7417}{ORCID}) [contributor]
   \item Hongyuan Jia \email{hongyuanjia@cqust.edu.cn} (\href{https://orcid.org/0000-0002-0075-8183}{ORCID}) [contributor]
 }
 

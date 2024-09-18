@@ -1,8 +1,35 @@
 
+props_to_ph_location <- function(props) {
+  if (nrow(props) > 1) {
+    cli::cli_alert_warning("More than one placeholder selected.")
+  }
+  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")]
+  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")
+  as_ph_location(props)
+}
+
+
 # id is deprecated and replaced by type_idx. Will be removed soon
 get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right, position_top,
                        id = NULL, ph_id = NULL) {
   props <- layout_properties(x, layout = layout, master = master)
+
+  if (!is.null(ph_id)) {
+    ids <- sort(props$id)
+    if (!ph_id %in% ids) {
+      cli::cli_abort(
+        c(
+          "{.arg id} does not exist.",
+          "x" = "Must be one of  {.val {ids}}.",
+          "i" = cli::col_grey("see column {.val id} in {.code layout_properties(x, '{layout}', '{master}')}")
+        ),
+        call = NULL
+      )
+    }
+    props <- props[props$id == ph_id, , drop = FALSE]
+    return(props_to_ph_location(props))
+  }
+
   types_on_layout <- unique(props$type)
   props <- props[props$type %in% type, , drop = FALSE]
   nr <- nrow(props)
@@ -13,6 +40,7 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
       "i" = cli::col_grey("see {.code layout_properties(x, '{layout}', '{master}')}")
     ), call = NULL)
   }
+
   # id and type_idx are both used for now. 'id' is deprecated. The following code block can be removed in the future.
   if (!is.null(id)) {
     if (!id %in% 1L:nr) {
@@ -30,7 +58,10 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
     props <- props[order(props$type, as.integer(props$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
     props$.id <- stats::ave(props$type, props$master_name, props$name, props$type, FUN = seq_along)
     props <- props[props$.id == id, , drop = FALSE]
-  } else if (!is.null(type_idx)) {
+    return(props_to_ph_location(props))
+  }
+
+  if (!is.null(type_idx)) {
     if (!type_idx %in% props$type_idx) {
       cli::cli_abort(
         c(
@@ -42,25 +73,20 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
       )
     }
     props <- props[props$type_idx == type_idx, , drop = FALSE]
-  } else {
-    if (position_right) {
-      props <- props[props$offx + 0.0001 > max(props$offx), ]
-    } else {
-      props <- props[props$offx - 0.0001 < min(props$offx), ]
-    }
-    if (position_top) {
-      props <- props[props$offy - 0.0001 < min(props$offy), ]
-    } else {
-      props <- props[props$offy + 0.0001 > max(props$offy), ]
-    }
+    return(props_to_ph_location(props))
   }
 
-  if (nrow(props) > 1) {
-    cli::cli_alert_warning("More than one placeholder selected.")
+  if (position_right) {
+    props <- props[props$offx + 0.0001 > max(props$offx), ]
+  } else {
+    props <- props[props$offx - 0.0001 < min(props$offx), ]
   }
-  props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")]
-  names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "fld_id", "fld_type", "rotation")
-  as_ph_location(props)
+  if (position_top) {
+    props <- props[props$offy - 0.0001 < min(props$offy), ]
+  } else {
+    props <- props[props$offy + 0.0001 > max(props$offy), ]
+  }
+  props_to_ph_location(props)
 }
 
 
@@ -477,6 +503,7 @@ fortify_location.location_left <- function( x, doc, ...){
   out
 }
 
+
 #' @export
 #' @title Location of a right body element
 #' @description The function will return the location corresponding
@@ -500,6 +527,7 @@ ph_location_right <- function( newlabel = NULL, ... ){
   x
 }
 
+
 #' @export
 fortify_location.location_right <- function( x, doc, ...){
 
@@ -515,4 +543,88 @@ fortify_location.location_right <- function( x, doc, ...){
     out$ph_label <- x$label
   out
 }
+
+
+#' @export
+#' @title Location of a placeholder based on its id
+#' @description Each placeholder has an id (a low integer value). The ids are unique across a single
+#' layout. The function uses the placeholder's id to reference it. Different from a ph label,
+#' the id is auto-assigned by PowerPoint and cannot be modified by the user.
+#' Use [layout_properties()] (column `id`) and [plot_layout_properties()] (upper right
+#' corner, in green) to find a placeholder's id.
+#'
+#' @param id placeholder id.
+#' @param newlabel a new label to associate with the placeholder.
+#' @param ... not used.
+#' @family functions for placeholder location
+#' @inherit ph_location details
+#' @examples
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, "Comparison")
+#' plot_layout_properties(doc, "Comparison")
+#'
+#' doc <- ph_with(doc, "The Title", location = ph_location_id(id = 2)) # title
+#' doc <- ph_with(doc, "Left Header", location = ph_location_id(id = 3)) # left header
+#' doc <- ph_with(doc, "Left Content", location = ph_location_id(id = 4)) # left content
+#' doc <- ph_with(doc, "The Footer", location = ph_location_id(id = 8)) # footer
+#'
+#' file <- tempfile(fileext = ".pptx")
+#' print(doc, file)
+#' \dontrun{
+#' file.show(file) # may not work on your system
+#' }
+ph_location_id <- function(id, newlabel = NULL, ...) {
+  ph_id <- id # for disambiguation, store initial value
+
+  if (is.null(ph_id) || is.na(ph_id) || length(ph_id) == 0) {
+    cli::cli_abort("{.arg id} must be a positive number")
+  }
+  if (!is.integer(ph_id)) {
+    ph_id <- suppressWarnings(as.integer(ph_id))
+    if (is.na(ph_id)) {
+      cli::cli_abort(
+        c("Cannot convert {.val {id}} to integer",
+          "x" = "{.arg id} must be a number, you provided class {.cls {class(id)[1]}}"
+        )
+      )
+    }
+  }
+  if (length(ph_id) > 1) {
+    cli::cli_abort(
+      c("{.arg id} must be {cli::style_underline('one')} number",
+        "x" = "Found {.val {length(ph_id)}} numbers instead: {.val {ph_id}}"
+      )
+    )
+  }
+  if (ph_id < 1) {
+    cli::cli_abort(
+      c("{.arg id} must be a {cli::style_underline('positive')} number",
+        "x" = "Found {.val {ph_id}}"
+      )
+    )
+  }
+  x <- list(
+    type = NULL, type_idx = NULL, position_right = NULL, position_right = NULL,
+    position_top = NULL, id = NULL, ph_id = ph_id, label = newlabel
+  )
+  class(x) <- c("location_id", "location_num")
+  x
+}
+
+
+#' @export
+fortify_location.location_id <- function(x, doc, ...) {
+  slide <- doc$slide$get_slide(doc$cursor)
+  xfrm <- slide$get_xfrm()
+  args <- list(...)
+
+  layout <- ifelse(is.null(args$layout), unique(xfrm$name), args$layout)
+  master <- ifelse(is.null(args$master), unique(xfrm$master_name), args$master)
+  out <- get_ph_loc(doc, layout = layout, master = master, ph_id = x$ph_id)
+  if (!is.null(x$label)) {
+    out$ph_label <- x$label
+  }
+  out
+}
+
 
