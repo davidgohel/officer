@@ -387,6 +387,64 @@ test_that("pptx ph_location_type", {
 })
 
 
+test_that("pptx ph_location_id", {
+  opts <- options(cli.num_colors = 1) # no colors for easier error message check
+  on.exit(options(opts))
+
+  # direct errors
+  error_exp <- "`id` must be one number"
+  expect_error(ph_location_id(id = 1:2), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = -1:1), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = c("A", "B")), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = c(NA, NA)), regex = error_exp, fixed = TRUE)
+
+  error_exp <- "`id` must be a positive number"
+  expect_error(ph_location_id(id = NULL), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = NA), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = NaN), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = character(0)), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = integer(0)), regex = error_exp, fixed = TRUE)
+
+  expect_error(ph_location_id(id = "A"), regex = 'Cannot convert "A" to integer', fixed = TRUE)
+  expect_error(ph_location_id(id = ""), regex = 'Cannot convert "" to integer', fixed = TRUE)
+  expect_error(ph_location_id(id = Inf), regex = "Cannot convert Inf to integer", fixed = TRUE)
+  expect_error(ph_location_id(id = -Inf), regex = "Cannot convert -Inf to integer", fixed = TRUE)
+
+  error_exp <- "`id` must be a positive number"
+  expect_error(ph_location_id(id = 0), regex = error_exp, fixed = TRUE)
+  expect_error(ph_location_id(id = -1), regex = error_exp, fixed = TRUE)
+
+  # downstream errors
+  x <- read_pptx()
+  x <- x |> add_slide("Comparison")
+
+  expect_error(
+    {
+      x |> ph_with("id does not exist", ph_location_id(id = 1000))
+    },
+    "`id` 1000 does not exist",
+    fixed = TRUE
+  )
+
+  # test for correct results
+  expect_no_error({
+    ids <- layout_properties(x, "Comparison")$id
+    for (id in ids) {
+      x |> ph_with(paste("text:", id), ph_location_id(id, newlabel = paste("newlabel:", id)))
+    }
+  })
+  nodes <- xml_find_all(
+    x = x$slide$get_slide(1)$get(),
+    xpath = "/p:sld/p:cSld/p:spTree/p:sp"
+  )
+  # text inside phs
+  expect_true(all(xml_text(nodes) == paste("text:", ids)))
+  # assigned shape names
+  all_nvpr <- xml_find_all(nodes, "./p:nvSpPr/p:cNvPr")
+  expect_true(all(xml_attr(all_nvpr, "name") == paste("newlabel:", ids)))
+})
+
+
 test_that("pptx ph labels", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
@@ -427,6 +485,7 @@ test_that("pptx ph labels", {
     )
   })
 })
+
 
 
 test_that("as_ph_location", {

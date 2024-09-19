@@ -15,13 +15,18 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
   props <- layout_properties(x, layout = layout, master = master)
 
   if (!is.null(ph_id)) {
-    ids <- sort(props$id)
+    ids <- sort(na.omit(as.numeric(props$id)))
+    if (length(ids) <= 20) {
+      .all_ids_switch <- c("x" = "Available ids:  {.val {ids}}.") # only if few ids
+    } else {
+      .all_ids_switch <- NULL
+    }
     if (!ph_id %in% ids) {
       cli::cli_abort(
         c(
-          "{.arg id} does not exist.",
-          "x" = "Must be one of  {.val {ids}}.",
-          "i" = cli::col_grey("see column {.val id} in {.code layout_properties(x, '{layout}', '{master}')}")
+          "{.arg id} {.val {ph_id}} does not exist.",
+          .all_ids_switch,
+          "i" = cli::col_grey("see column {.val id} in {.code layout_properties(..., '{layout}', '{master}')}")
         ),
         call = NULL
       )
@@ -576,6 +581,13 @@ fortify_location.location_right <- function( x, doc, ...){
 ph_location_id <- function(id, newlabel = NULL, ...) {
   ph_id <- id # for disambiguation, store initial value
 
+  if (length(ph_id) > 1) {
+    cli::cli_abort(
+      c("{.arg id} must be {cli::style_underline('one')} number",
+        "x" = "Found more than one entry: {.val {ph_id}}"
+      )
+    )
+  }
   if (is.null(ph_id) || is.na(ph_id) || length(ph_id) == 0) {
     cli::cli_abort("{.arg id} must be a positive number")
   }
@@ -588,13 +600,6 @@ ph_location_id <- function(id, newlabel = NULL, ...) {
         )
       )
     }
-  }
-  if (length(ph_id) > 1) {
-    cli::cli_abort(
-      c("{.arg id} must be {cli::style_underline('one')} number",
-        "x" = "Found {.val {length(ph_id)}} numbers instead: {.val {ph_id}}"
-      )
-    )
   }
   if (ph_id < 1) {
     cli::cli_abort(
