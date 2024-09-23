@@ -29,6 +29,7 @@ print(doc, target = tempfile(fileext = ".pptx") )
 Other functions for placeholder location: 
 \code{\link{ph_location}()},
 \code{\link{ph_location_fullsize}()},
+\code{\link{ph_location_id}()},
 \code{\link{ph_location_label}()},
 \code{\link{ph_location_right}()},
 \code{\link{ph_location_template}()},
