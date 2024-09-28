@@ -125,6 +125,8 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
   x$type_idx <- stats::ave(x$type, x$master_file, x$file, x$type, FUN = seq_along)
   x$type_idx <- as.numeric(x$type_idx) # NB: ave returns character
 
+  x$id <- as.integer(x$id)
+
   rownames(x) <- NULL # prevent meaningless rownames
   x
 }
@@ -354,17 +356,39 @@ htmlEscapeCopy <- local({
 })
 
 
-# metric units -----
+# metric units -----------------------------------------------
+#
 cm_to_inches <- function(x) {
   x / 2.54
 }
+
 mm_to_inches <- function(x) {
   x / 25.4
 }
+
 convin <- function(unit, x) {
   unit <- match.arg(unit, choices = c("in", "cm", "mm"), several.ok = FALSE)
   if (!identical("in", unit)) {
     x <- do.call(paste0(unit, "_to_inches"), list(x = x))
   }
   x
+}
+
+
+# from rlang pkg  ------------------------------------------
+
+is_named <- function(x) {
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(FALSE)
+  }
+  if (any(detect_void_name(nms))) {
+    return(FALSE)
+  }
+  TRUE
+}
+
+
+detect_void_name <- function(x) {
+  x == "" | is.na(x)
 }

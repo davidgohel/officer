@@ -95,6 +95,7 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
   data[["cy"]] <- data[["cy"]] / 914400
   data[["rotation"]] <- data[["rotation"]] / 60000
 
+  rownames(data) <- NULL
   data
 }
 
