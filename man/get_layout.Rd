@@ -9,12 +9,14 @@ get_layout(x, layout, master = NULL)
 \arguments{
 \item{x}{An \code{rpptx} object.}
 
-\item{layout}{Layout name or index, see \code{\link[=layout_summary]{layout_summary()}}.}
+\item{layout}{Layout name or index. Index refers to the row index of the \code{\link[=layout_summary]{layout_summary()}}
+output.}
 
 \item{master}{Name of master. Only required if layout name is not unique across masters.}
 }
 \value{
-A list with the entries index, layout_name, layout_file, master_name, master_file
+A \verb{<layout_info>} object, i.e. a list with the entries \code{index}, \code{layout_name},
+\code{layout_file}, \code{master_name}, \code{master_file}, and \code{slide_layout}.
 }
 \description{
 Select a layout by name or index. The master name is inferred and only required

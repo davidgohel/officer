@@ -316,6 +316,25 @@ df_rename <- function(df, old, new) {
 }
 
 
+# replacement for stopifnot() with nicer user feedback
+stop_if_not_class <- function(x, class, arg = NULL) {
+  check <- inherits(x, what = class)
+  if (!check) {
+    msg_arg <- ifelse(is.null(arg), "Incorrect input.", "Incorrect input for {.arg {arg}}")
+    cli::cli_abort(c(
+      msg_arg,
+      "x" = "Expected {.cls {class}} but got {.cls {class(x)[1]}}"
+      ), call = NULL
+    )
+  }
+}
+
+
+stop_if_not_rpptx <- function(x, arg = NULL) {
+  stop_if_not_class(x, "rpptx", arg)
+}
+
+
 # htmlEscapeCopy ----
 
 htmlEscapeCopy <- local({

@@ -12,26 +12,33 @@ layout_rename_ph_labels(x, layout, master = NULL, id = NULL) <- value
 \arguments{
 \item{x}{An \code{rpptx} object.}
 
-\item{layout}{Layout name or index, see \code{\link[=layout_summary]{layout_summary()}}.}
+\item{layout}{Layout name or index. Index is the row index of \code{\link[=layout_summary]{layout_summary()}}.}
 
 \item{master}{Name of master. Only required if the layout name is not unique across masters.}
 
 \item{...}{Comma separated list of key-value pairs to rename phs. Either reference a ph via its label
-(\code{"old label"} = \code{"new label"}) or its unique id (\code{"id"} = \code{"new label"}). See examples.}
+(\code{"old label"} = \code{"new label"}) or its unique id (\code{"id"} = \code{"new label"}).}
 
 \item{.dots}{Provide a named list or vector of key-value pairs to rename phs
-(\verb{list("old label"} = \code{"new label"}). See examples.}
+(\verb{list("old label"} = \code{"new label"}).}
 
 \item{id}{Unique placeholder id (see column \code{id} in \code{\link[=layout_properties]{layout_properties()}} or \code{\link[=plot_layout_properties]{plot_layout_properties()}}).}
 }
+\value{
+Vector of renamed ph labels.
+}
 \description{
 There are two versions of the function. The first takes a set of key-value pairs to rename the
-ph labels. The second uses a right hand side (rhs) assignment to specify the new ph labels. \cr\cr
+ph labels. The second uses a right hand side (rhs) assignment to specify the new ph labels.
+See section \emph{Details}. \cr\cr
 \emph{NB:} You can also rename ph labels directly in PowerPoint. Open the master template view
 (\code{Alt} + \code{F10}) and go to \code{Home} > \code{Arrange} > \verb{Selection Pane}.
 }
 \details{
 \itemize{
+\item Note the difference between the terms \code{id} and \code{index}. Both can be found in the output of
+\code{\link[=layout_properties]{layout_properties()}}. The unique ph \code{id} is found in column \code{id}. The \code{index} refers to the
+index of the data frame row.
 \item In a right hand side (rhs) label assignment (\verb{<- new_labels}), there are two ways to
 optionally specify a subset of phs to rename. In both cases, the length of the rhs vector
 (the new labels) must match the length of the id or index:
@@ -39,9 +46,6 @@ optionally specify a subset of phs to rename. In both cases, the length of the r
 \item use the \code{id} argument to specify ph ids to rename: \code{layout_rename_ph_labels(..., id = 2:3) <- new_labels}
 \item use an \code{index} in squared brackets: \code{layout_rename_ph_labels(...)[1:2] <- new_labels}
 }
-\item Note the difference between the terms \code{id} and \code{index}. Both can be found in the output of
-\code{\link[=layout_properties]{layout_properties()}}. The unique ph \code{id} is found in column \code{id}. The \code{index} refers to the
-index of the data frame row.
 }
 }
 \examples{
@@ -63,12 +67,16 @@ layout_rename_ph_labels(x, "Comparison", "Title 1" = "LABEL MATCHED") # label ma
 layout_rename_ph_labels(x, "Comparison", "3" = "ID MATCHED") # id matching
 layout_rename_ph_labels(x, "Comparison", "Date Placeholder 6" = "DATE", "8" = "FOOTER") # label and id
 
+# rename using a named list and the .dots arg
+renames <- list("Content Placeholder 3" = "CONTENT_1", "6" = "CONTENT_2")
+layout_rename_ph_labels(x, "Comparison", .dots = renames)
+
 # rename via rhs assignment and optional index (not id!)
 layout_rename_ph_labels(x, "Comparison") <- LETTERS[1:8]
 layout_rename_ph_labels(x, "Comparison")[1:3] <- paste("CHANGED", 1:3)
 
 # rename via rhs assignment and ph id (not index)
-layout_rename_ph_labels(x, "Comparison", id = c(2,4)) <- paste("ID =", c(2,4))
+layout_rename_ph_labels(x, "Comparison", id = c(2, 4)) <- paste("ID =", c(2, 4))
 
 
 # MORE ------------
@@ -91,5 +99,4 @@ layout_rename_ph_labels(x, "2-dupes")[idx] <- paste("DUPLICATE", seq_along(idx))
 # warning: in case of duped labels only the first occurrence is renamed
 x <- read_pptx(file)
 layout_rename_ph_labels(x, "2-dupes", "Content 7" = "new label")
-
 }

@@ -25,7 +25,8 @@ informative error message if the type is not present in layout (#601).
 
 ## Features
 
-- add `layout_dedupe_ph_labels()` to handle duplicate placholder labels (#589). 
+- `layout_rename_ph_labels()` to rename ph labels (#610).
+- add `layout_dedupe_ph_labels()` to handle duplicate placeholder labels (#589). 
 By default, it will only detect duplicate labels, but apply no changes. With 
 `action = "rename"`, it auto-renames duplicate labels and `action = "delete"` 
 deletes duplicates, only keeping their first occurrence.

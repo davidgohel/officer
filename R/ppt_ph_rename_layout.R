@@ -1,35 +1,36 @@
 #' Change ph labels in a layout
 #'
 #' There are two versions of the function. The first takes a set of key-value pairs to rename the
-#' ph labels. The second uses a right hand side (rhs) assignment to specify the new ph labels. \cr\cr
+#' ph labels. The second uses a right hand side (rhs) assignment to specify the new ph labels.
+#' See section *Details*. \cr\cr
 #' _NB:_ You can also rename ph labels directly in PowerPoint. Open the master template view
 #' (`Alt` + `F10`) and go to `Home` > `Arrange` > `Selection Pane`.
 #'
 #' @details
+#' * Note the difference between the terms `id` and `index`. Both can be found in the output of
+#' [layout_properties()]. The unique ph `id` is found in column `id`. The `index` refers to the
+#' index of the data frame row.
 #' * In a right hand side (rhs) label assignment (`<- new_labels`), there are two ways to
 #' optionally specify a subset of phs to rename. In both cases, the length of the rhs vector
 #' (the new labels) must match the length of the id or index:
 #'   1. use the `id` argument to specify ph ids to rename: `layout_rename_ph_labels(..., id = 2:3) <- new_labels`
 #'   2. use an `index` in squared brackets: `layout_rename_ph_labels(...)[1:2] <- new_labels`
 #'
-#' * Note the difference between the terms `id` and `index`. Both can be found in the output of
-#' [layout_properties()]. The unique ph `id` is found in column `id`. The `index` refers to the
-#' index of the data frame row.
-#'
 #' @export
 #' @rdname layout_rename_ph_labels
 #' @param x An `rpptx` object.
-#' @param layout Layout name or index, see [layout_summary()].
+#' @param layout Layout name or index. Index is the row index of [layout_summary()].
 #' @param master Name of master. Only required if the layout name is not unique across masters.
 #' @param ... Comma separated list of key-value pairs to rename phs. Either reference a ph via its label
-#' (`"old label"` = `"new label"`) or its unique id (`"id"` = `"new label"`). See examples.
+#' (`"old label"` = `"new label"`) or its unique id (`"id"` = `"new label"`).
 #' @param .dots Provide a named list or vector of key-value pairs to rename phs
-#' (`list("old label"` = `"new label"`). See examples.
+#' (`list("old label"` = `"new label"`).
 #' @param id Unique placeholder id (see column `id` in [layout_properties()] or [plot_layout_properties()]).
 #' @return Vector of renamed ph labels.
 #' @example inst/examples/example_layout_rename_ph_labels.R
 #'
 layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL) {
+  stop_if_not_rpptx(x, "x")
   dots <- list(...)
   dots <- c(dots, .dots)
   if (length(dots) > 0 && !is_named(dots)) {
