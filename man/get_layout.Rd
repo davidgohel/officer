@@ -22,9 +22,4 @@ A \verb{<layout_info>} object, i.e. a list with the entries \code{index}, \code{
 Select a layout by name or index. The master name is inferred and only required
 for disambiguation in case the layout name is not unique across masters.
 }
-\examples{
-x <- read_pptx()
-get_layout(x, "Title Slide")
-
-}
 \keyword{internal}

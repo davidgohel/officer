@@ -10,10 +10,6 @@
 #' @return A `<layout_info>` object, i.e. a list with the entries `index`, `layout_name`,
 #' `layout_file`, `master_name`, `master_file`, and `slide_layout`.
 #' @keywords internal
-#' @examples
-#' x <- read_pptx()
-#' get_layout(x, "Title Slide")
-#'
 get_layout <- function(x, layout, master = NULL) {
   stop_if_not_rpptx(x, "x")
   if (!(is.numeric(layout) || is.character(layout))) {
@@ -68,7 +64,7 @@ get_layout <- function(x, layout, master = NULL) {
 #' @export
 print.layout_info <- function(x, ...) {
   cli::cli_h3("{.cls layout_info} object")
-  str(head(x, -1), give.attr = FALSE, no.list = TRUE)
+  str(utils::head(x, -1), give.attr = FALSE, no.list = TRUE)
   cat(" $ slide_layout: 'R6' <slide_layout>")
 }
 

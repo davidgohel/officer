@@ -15,7 +15,7 @@ get_ph_loc <- function(x, layout, master, type, type_idx = NULL, position_right,
   props <- layout_properties(x, layout = layout, master = master)
 
   if (!is.null(ph_id)) {
-    ids <- sort(na.omit(as.numeric(props$id)))
+    ids <- sort(stats::na.omit(as.numeric(props$id)))
     if (length(ids) <= 20) {
       .all_ids_switch <- c("x" = "Available ids:  {.val {ids}}.") # only if few ids
     } else {

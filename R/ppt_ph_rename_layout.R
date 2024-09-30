@@ -26,6 +26,7 @@
 #' @param .dots Provide a named list or vector of key-value pairs to rename phs
 #' (`list("old label"` = `"new label"`).
 #' @param id Unique placeholder id (see column `id` in [layout_properties()] or [plot_layout_properties()]).
+#' @param value Not relevant for user. A pure technical necessity for rhs assignments.
 #' @return Vector of renamed ph labels.
 #' @example inst/examples/example_layout_rename_ph_labels.R
 #'
@@ -66,7 +67,7 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
     if (length(id) != length(value)) {
       cli::cli_abort(
         c("{.arg id} and rhs vector must have the same length",
-          "x" = "Number of ids ({.val {length(id)}}) and assigned values ({.val {length(value)}}) differ",
+          "x" = "Number of ids ({.val {length(id)}}) and assigned values ({.val {length(value)}}) differ"
         )
       )
     }
@@ -75,12 +76,11 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
     if (n_wrong > 0) {
       cli::cli_abort(c(
         "{cli::qty(n_wrong)} {?This/These} id{?s} {?does/do} not exist: {.val {wrong_ids}}",
-        # "These {.arg id} do not exist: {.val {wrong_ids}}",
         "x" = "Choose one of: {.val {lp$id}}",
-        "i" = cli::col_grey("Also see {.code plot_layout_properties(..., '{l$layout_name}', '{l$master_nam}')} ")
+        "i" = cli::col_grey("Also see {.code plot_layout_properties(..., '{l$layout_name}', '{l$master_nam}')}")
       ))
     }
-    .idx <- match(id, lp$id) # user may enter ids in arbitrary order
+    .idx <- match(id, lp$id) # user might enter ids in arbitrary order
     lp$ph_label[.idx] <- value
     value <- lp$ph_label
   }
@@ -89,7 +89,6 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   .set_ph_labels(l, df_renames)
   reload_slidelayouts(x)
 }
-
 
 
 # heuristic: if a number, then treat as ph_id

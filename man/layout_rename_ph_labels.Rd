@@ -23,6 +23,8 @@ layout_rename_ph_labels(x, layout, master = NULL, id = NULL) <- value
 (\verb{list("old label"} = \code{"new label"}).}
 
 \item{id}{Unique placeholder id (see column \code{id} in \code{\link[=layout_properties]{layout_properties()}} or \code{\link[=plot_layout_properties]{plot_layout_properties()}}).}
+
+\item{value}{Not relevant for user. A pure technical necessity for rhs assignments.}
 }
 \value{
 Vector of renamed ph labels.
@@ -65,7 +67,7 @@ layout_properties(x, "Comparison")$ph_label
 # rename using key-value pairs: 'old label' = 'new label' or 'id' = 'new label'
 layout_rename_ph_labels(x, "Comparison", "Title 1" = "LABEL MATCHED") # label matching
 layout_rename_ph_labels(x, "Comparison", "3" = "ID MATCHED") # id matching
-layout_rename_ph_labels(x, "Comparison", "Date Placeholder 6" = "DATE", "8" = "FOOTER") # label and id
+layout_rename_ph_labels(x, "Comparison", "Date Placeholder 6" = "DATE", "8" = "FOOTER") # label, id
 
 # rename using a named list and the .dots arg
 renames <- list("Content Placeholder 3" = "CONTENT_1", "6" = "CONTENT_2")
