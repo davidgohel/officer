@@ -125,6 +125,8 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
   x$type_idx <- stats::ave(x$type, x$master_file, x$file, x$type, FUN = seq_along)
   x$type_idx <- as.numeric(x$type_idx) # NB: ave returns character
 
+  x$id <- as.integer(x$id)
+
   rownames(x) <- NULL # prevent meaningless rownames
   x
 }
@@ -314,6 +316,24 @@ df_rename <- function(df, old, new) {
 }
 
 
+# replacement for stopifnot() with nicer user feedback
+stop_if_not_class <- function(x, class, arg = NULL) {
+  check <- inherits(x, what = class)
+  if (!check) {
+    msg_arg <- ifelse(is.null(arg), "Incorrect input.", "Incorrect input for {.arg {arg}}")
+    cli::cli_abort(c(
+      msg_arg,
+      "x" = "Expected {.cls {class}} but got {.cls {class(x)[1]}}"
+    ), call = NULL)
+  }
+}
+
+
+stop_if_not_rpptx <- function(x, arg = NULL) {
+  stop_if_not_class(x, "rpptx", arg)
+}
+
+
 # htmlEscapeCopy ----
 
 htmlEscapeCopy <- local({
@@ -354,17 +374,39 @@ htmlEscapeCopy <- local({
 })
 
 
-# metric units -----
+# metric units -----------------------------------------------
+#
 cm_to_inches <- function(x) {
   x / 2.54
 }
+
 mm_to_inches <- function(x) {
   x / 25.4
 }
+
 convin <- function(unit, x) {
   unit <- match.arg(unit, choices = c("in", "cm", "mm"), several.ok = FALSE)
   if (!identical("in", unit)) {
     x <- do.call(paste0(unit, "_to_inches"), list(x = x))
   }
   x
+}
+
+
+# from rlang pkg  ------------------------------------------
+
+is_named <- function(x) {
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(FALSE)
+  }
+  if (any(detect_void_name(nms))) {
+    return(FALSE)
+  }
+  TRUE
+}
+
+
+detect_void_name <- function(x) {
+  x == "" | is.na(x)
 }

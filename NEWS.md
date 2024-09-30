@@ -25,10 +25,11 @@ informative error message if the type is not present in layout (#601).
 
 ## Features
 
-- add `layout_dedupe_ph_labels()` to handle duplicate placholder labels (#589). 
+- `layout_rename_ph_labels()` to rename ph labels (#610).
+- add `layout_dedupe_ph_labels()` to handle duplicate placeholder labels (#589). 
 By default, it will only detect duplicate labels, but apply no changes. With 
 `action = "rename"`, it auto-renames duplicate labels and `action = "delete"` 
-deletes duplicates, only keeping their first occurence.
+deletes duplicates, only keeping their first occurrence.
 - new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
 to replace text content enclosed in a bookmark with a ggplot or a base plot.
 - add `unit` (in, cm, mm) argument in function `page_size()`.
