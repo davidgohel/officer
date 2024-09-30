@@ -324,8 +324,7 @@ stop_if_not_class <- function(x, class, arg = NULL) {
     cli::cli_abort(c(
       msg_arg,
       "x" = "Expected {.cls {class}} but got {.cls {class(x)[1]}}"
-      ), call = NULL
-    )
+    ), call = NULL)
   }
 }
 
