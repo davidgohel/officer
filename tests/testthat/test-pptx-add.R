@@ -349,40 +349,40 @@ test_that("pptx ph_location_type", {
   on.exit(options(opts))
 
   x <- read_pptx()
-  x <- x |> add_slide("Two Content")
+  x <- add_slide(x, "Two Content")
 
   expect_no_error({
-    x |> ph_with("correct ph type id", ph_location_type("body", type_idx = 1))
+    ph_with(x, "correct ph type id", ph_location_type("body", type_idx = 1))
   })
 
   expect_warning({
-    x |> ph_with("cannot supply id AND type_idx", ph_location_type("body", type_idx = 1, id = 1))
+    ph_with(x, "cannot supply id AND type_idx", ph_location_type("body", type_idx = 1, id = 1))
   }, regexp = "`id` is ignored if `type_idx` is provided", fixed = TRUE)
 
   expect_warning({
-    x |> ph_with("id still working with warning to avoid breaking change", ph_location_type("body", id = 1))
+    ph_with(x, "id still working with warning to avoid breaking change", ph_location_type("body", id = 1))
   }, regexp = "The `id` argument in `ph_location_type()` is deprecated", fixed = TRUE)
 
   expect_error({
-      x |> ph_with("out of range type id", ph_location_type("body", type_idx = 3)) # 3 does not exists => no error or warning
+      ph_with(x, "out of range type id", ph_location_type("body", type_idx = 3)) # 3 does not exists => no error or warning
   }, regexp = "`type_idx` is out of range.", fixed = TRUE)
 
   expect_error({
     expect_warning({
-    x |> ph_with("out of range type id", ph_location_type("body", id = 3)) # 3 does not exists => no error or warning
+    ph_with(x, "out of range type id", ph_location_type("body", id = 3)) # 3 does not exists => no error or warning
     }, regexp = " The `id` argument in `ph_location_type()` is deprecated", fixed = TRUE)
   }, regexp = "`id` is out of range.", fixed = TRUE)
 
   expect_error({
-    x |> ph_with("type okay but not available in layout", ph_location_type("tbl")) # tbl not on layout
+    ph_with(x, "type okay but not available in layout", ph_location_type("tbl")) # tbl not on layout
   }, regexp = "Found no placeholder of type", fixed = TRUE)
 
   expect_error({
-    x |> ph_with("xxx is unknown type", ph_location_type("xxx"))
+    ph_with(x, "xxx is unknown type", ph_location_type("xxx"))
   }, regexp = 'type "xxx" is unknown', fixed = TRUE)
 
   expect_no_error({ # for complete coverage
-    x |> ph_with(" ph type position_right", ph_location_type("body", position_right = TRUE))
+    ph_with(x, " ph type position_right", ph_location_type("body", position_right = TRUE))
   })
 })
 
@@ -416,11 +416,11 @@ test_that("pptx ph_location_id", {
 
   # downstream errors
   x <- read_pptx()
-  x <- x |> add_slide("Comparison")
+  x <- add_slide(x, "Comparison")
 
   expect_error(
     {
-      x |> ph_with("id does not exist", ph_location_id(id = 1000))
+      ph_with(x, "id does not exist", ph_location_id(id = 1000))
     },
     "`id` 1000 does not exist",
     fixed = TRUE
@@ -430,7 +430,7 @@ test_that("pptx ph_location_id", {
   expect_no_error({
     ids <- layout_properties(x, "Comparison")$id
     for (id in ids) {
-      x |> ph_with(paste("text:", id), ph_location_id(id, newlabel = paste("newlabel:", id)))
+      ph_with(x, paste("text:", id), ph_location_id(id, newlabel = paste("newlabel:", id)))
     }
   })
   nodes <- xml_find_all(
