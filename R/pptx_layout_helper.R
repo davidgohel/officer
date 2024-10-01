@@ -50,17 +50,6 @@ get_layout <- function(x, layout, master = NULL) {
 }
 
 
-
-# else {
-#   # multiple layouts
-#   layout_exists(x, layout, must_exist = TRUE)
-#   layout_is_unique(x, layout, require_unique = TRUE)
-#   index <- which(df$layout_name == layout)
-# }
-# index <- which(df$layout_name == layout)
-# l <- df[index, ] |> as.list()
-# # l <- c(index = index, l, slide_layout = slide_layout)
-
 #' @export
 print.layout_info <- function(x, ...) {
   cli::cli_h3("{.cls layout_info} object")

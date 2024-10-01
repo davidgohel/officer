@@ -263,7 +263,8 @@ is_doc_open <- function(file) {
 #   get_file_index(files)
 #
 get_file_index <- function(file) {
-  sub(pattern = ".+?(\\d+).xml$", replacement = "\\1", x = basename(file), ignore.case = TRUE) |> as.numeric()
+  x <- sub(pattern = ".+?(\\d+).xml$", replacement = "\\1", x = basename(file), ignore.case = TRUE)
+  as.numeric(x)
 }
 
 

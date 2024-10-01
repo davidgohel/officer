@@ -73,7 +73,8 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
     if (xfrm$delete_flag[i]) {
       xml2::xml_remove(shape)
     } else {
-      xml2::xml_find_first(shape, ".//p:cNvPr") |> xml2::xml_set_attr("name", xfrm$ph_label_new[i])
+      nodes <- xml2::xml_find_first(shape, ".//p:cNvPr")
+      xml2::xml_set_attr(nodes, "name", xfrm$ph_label_new[i])
     }
   }
   layout$save() # persist changes in slideout xml file
@@ -118,7 +119,7 @@ has_ph_dupes <- function(x) {
     return(invisible(NULL))
   }
   .df_2 <- x$slideLayouts$get_xfrm_data()
-  .df_2 <- .df_2[, c("master_file", "master_name"), drop = FALSE] |> unique()
+  .df_2 <- unique(.df_2[, c("master_file", "master_name"), drop = FALSE])
   df <- merge(.df_1, .df_2, sort = FALSE)
   rownames(df) <- NULL
   df <- df[, c("master_name", "name", "ph_label", "ph_label_new", "delete_flag"), drop = FALSE]
