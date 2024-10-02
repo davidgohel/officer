@@ -237,13 +237,19 @@ shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
 
 
 # check if slide index exists
-ensure_slide_index_exists <- function(x, index) {
+ensure_slide_index_exists <- function(x, slide_idx) {
   stop_if_not_rpptx(x)
+  if (!is.numeric(slide_idx)) {
+    cli::cli_abort(
+      c("{.arg slide_idx} must be {.cls numeric}",
+        "x" = "You provided {.cls {class(slide_idx)[1]}} instead.")
+      , call = NULL)
+  }
   n <- length(x) # no of slides
-  check <- index %in% seq_len(n)
+  check <- slide_idx %in% seq_len(n)
   if (!check) {
     cli::cli_abort(
-      c("Slide index {.val {index}} is out of range.",
+      c("Slide index {.val {slide_idx}} is out of range.",
         "x" = "Presentation has {cli::no(n)} slide{?s}."
       ), call = NULL
     )

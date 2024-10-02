@@ -16,4 +16,3 @@ test_that("misc", {
   df <- df_rename(mtcars, c("mpg", "cyl"), c("A", "B"))
   expect_true(all(names(df)[1:2] == c("A", "B")))
 })
-

@@ -21,6 +21,7 @@ test_that("check slide selection", {
 
 })
 
+
 test_that("check errors", {
   x <- read_pptx()
   expect_error(slide_summary(x), "presentation contains no slide")
@@ -40,6 +41,7 @@ test_that("check errors", {
 
 })
 
+
 test_that("get shape id", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
@@ -54,3 +56,23 @@ test_that("get shape id", {
 
 unlink("*.pptx")
 
+
+test_that("ensure_slide_index_exists ", {
+  opts <- options(cli.num_colors = 1) # suppress colors for error message check
+  on.exit(options(opts))
+
+  x <- read_pptx()
+
+  expect_error(ensure_slide_index_exists(x, 0), "Slide index 0 is out of range")
+  expect_error(ensure_slide_index_exists(x, 2), "Slide index 2 is out of range")
+
+  x <- add_slide(x, "Comparison")
+  expect_no_error(ensure_slide_index_exists(x, 1))
+  expect_error(ensure_slide_index_exists(x, 0), "Slide index 0 is out of range")
+  expect_error(ensure_slide_index_exists(x, 2), "Slide index 2 is out of range")
+
+  error_msg <- "`slide_idx` must be <numeric>"
+  expect_error(ensure_slide_index_exists(x, "1"), error_msg)
+  expect_error(ensure_slide_index_exists(x, NA), error_msg)
+  expect_error(ensure_slide_index_exists(x, NULL), error_msg)
+})
