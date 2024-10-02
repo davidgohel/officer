@@ -103,3 +103,20 @@ get_row_by_name <- function(df, layout, master) {
   }
   df
 }
+
+
+# get <layout_info> object for layout of current slide
+get_layout_for_current_slide <- function(x) {
+  if (length(x) == 0) {
+    cli::cli_abort(
+      c("Presentation does not have any slides yet",
+        "i" = "You can add a slide using {.fn add_slide}")
+      , call = NULL)
+  }
+  slide_idx <- x$cursor
+  ensure_slide_index_exists(x, slide_idx)
+  df <- x$slide$get_xfrm()[[slide_idx]]
+  layout <- unique(df$name)
+  master <- unique(df$master_name)
+  get_layout(x, layout, master)
+}

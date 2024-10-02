@@ -12,6 +12,7 @@ length.rpptx <- function( x ){
   x$slide$length()
 }
 
+
 #' @export
 #' @title Slides width and height
 #' @description Get the width and height of slides in inches as
@@ -30,7 +31,6 @@ slide_size <- function(x) {
   names(dimensions) <- c("width", "height")
   dimensions
 }
-
 
 
 #' @export
@@ -118,8 +118,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'    _NB_: The id is set by PowerPoint automatically and lack a meaningful order.
 #'
 #' @param x an `rpptx` object
-#' @param layout slide layout name.
-#' @param master master layout name where `layout` is located.
+#' @param layout slide layout name or numeric index (row index from [layout_summary()).
+#' @param master master layout name where `layout` is located. Can be omitted if layout is unambiguous.
 #' @param title if `TRUE` (default), adds a title with the layout name at the top.
 #' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).
 #' @param type if `TRUE` (default), adds the placeholder type and its index (in square brackets)
@@ -129,19 +129,12 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @param cex named list or vector to specify font size for `labels`, `type`, and `id`. Default is
 #'   `c(labels = .5, type = .5, id = .5)`. See [graphics::text()] for details on how `cex` works.
 #' @importFrom graphics plot rect text box
-#' @examples
-#' x <- read_pptx()
-#' plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
-#' plot_layout_properties(x = x, layout = "Two Content")
-#' plot_layout_properties(x = x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
-#'
-#' # change font size
-#' plot_layout_properties(x = x, layout = "Two Content", cex = c(labels = 1, id = .7, type = .7))
-#'
 #' @family functions for reading presentation information
+#' @example inst/examples/example_plot_layout_properties.R
 #'
 plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = TRUE,
                                    type = TRUE, id = TRUE, cex = NULL) {
+  stop_if_not_rpptx(x, "x")
   old_par <- par(mar = c(2, 2, 1.5, 0))
   on.exit(par(old_par))
 
@@ -155,7 +148,21 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   }
   .cex <- utils::modifyList(x = cex_default, val = as.list(cex), keep.null = TRUE)
 
-  dat <- layout_properties(x, layout = layout, master = master)
+  # use current slides layout as default (if layout and master = NULL)
+  if (is.null(layout) && is.null(master)) {
+    if (length(x) == 0) {
+      cli::cli_abort(
+        c("No {.arg layout} selected and no slides in presentation.",
+        "x" = "Pass a layout name or index (see {.fn layout_summary})")
+      )
+    }
+    la <- get_layout_for_current_slide(x)
+    cli::cli_inform(c("i"="Showing current slide's layout: {.val {la$layout_name}}"))
+  } else {
+    la <- get_layout(x, layout, master)
+  }
+
+  dat <- layout_properties(x, layout = la$layout_name, master = la$master_name)
   if (length(unique(dat$name)) > 1) {
     cli::cli_abort(c("One single layout must be chosen",
       "x" = "Did you supply a master?"
@@ -166,9 +173,6 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
                      "x" = "Did you misspell the layout name?"
     ), call = NULL)
   }
-  # # order and type_idx now in xfrmize()
-  # dat <- dat[order(dat$type, as.integer(dat$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
-  # dat$type_idx <- stats::ave(dat$type, dat$type, FUN = seq_along) # NB: returns character index
 
   s <- slide_size(x)
   h <- s$height
@@ -183,7 +187,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   mtext("x [inch]", side = 1, line = 0, cex = 1.2, col = "darkgrey")
 
   if (title) {
-    title(main = paste("Layout:", layout))
+    title(main = paste("Layout:", la$layout_name))
   }
   if (labels) { # centered
     text(x = offx + cx / 2, y = -(offy + cy / 2), labels = dat$ph_label, cex = .cex$labels, col = "red", adj = c(.5, 1)) # adj-vert: avoid interference with type/id in small phs
@@ -265,6 +269,7 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
   ppt
 }
 
+
 #' @export
 #' @title Slide content in a data.frame
 #' @description Get content and positions of current slide
@@ -317,10 +322,6 @@ slide_summary <- function( x, index = NULL ){
   data$ph <- NULL
   data
 }
-
-
-
-
 
 
 #' @export

@@ -18,9 +18,9 @@ plot_layout_properties(
 \arguments{
 \item{x}{an \code{rpptx} object}
 
-\item{layout}{slide layout name.}
+\item{layout}{slide layout name or numeric index (row index from [layout_summary()).}
 
-\item{master}{master layout name where \code{layout} is located.}
+\item{master}{master layout name where \code{layout} is located. Can be omitted if layout is unambiguous.}
 
 \item{labels}{if \code{TRUE} (default), adds placeholder labels (centered in \emph{red}).}
 
@@ -55,12 +55,21 @@ function family:
 }
 \examples{
 x <- read_pptx()
-plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
-plot_layout_properties(x = x, layout = "Two Content")
-plot_layout_properties(x = x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
 
-# change font size
-plot_layout_properties(x = x, layout = "Two Content", cex = c(labels = 1, id = .7, type = .7))
+# select layout explicitly
+plot_layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
+plot_layout_properties(x = x, layout = "Title Slide") # no master needed if layout name unique
+plot_layout_properties(x = x, layout = 1) # use layout index instead of name
+
+# plot current slide's layout (default if no layout is passed)
+x <- read_pptx()
+x <- add_slide(x, "Title Slide")
+plot_layout_properties(x)
+
+# change info, font size etc.
+plot_layout_properties(x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
+plot_layout_properties(x, layout = 4, cex = c(labels = .8, id = .7, type = .7))
+# plot_layout_properties(x, 1, legend = TRUE)
 
 }
 \seealso{

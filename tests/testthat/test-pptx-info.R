@@ -146,6 +146,26 @@ test_that("slide summary", {
 })
 
 
+
+test_that("plot layout properties: layout arg takes numeric index", {
+  x <- read_pptx()
+  las <- layout_summary(x)
+  ii <- as.numeric(rownames(las))
+
+  discarded_plot <- function(x, layout = NULL, master = NULL) { # avoid Rplots.pdf creation
+    file <- tempfile(fileext = ".png")
+    png(file, width = 7, height = 6, res = 150, units = "in")
+      plot_layout_properties(x, layout, master)
+    dev.off()
+  }
+
+  for (idx in ii) {
+    expect_no_error(discarded_plot(x, idx))
+  }
+  expect_no_error(discarded_plot(x, 1, "Office Theme"))
+})
+
+
 test_that("color scheme", {
   x <- read_pptx()
   cs <- color_scheme(x)

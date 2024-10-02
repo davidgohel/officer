@@ -234,3 +234,18 @@ shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
 
   sprintf(str, randomid, label, ph, xfrm_str, geom_str, bg_str, ln_str)
 }
+
+
+# check if slide index exists
+ensure_slide_index_exists <- function(x, index) {
+  stop_if_not_rpptx(x)
+  n <- length(x) # no of slides
+  check <- index %in% seq_len(n)
+  if (!check) {
+    cli::cli_abort(
+      c("Slide index {.val {index}} is out of range.",
+        "x" = "Presentation has {cli::no(n)} slide{?s}."
+      ), call = NULL
+    )
+  }
+}
