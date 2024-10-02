@@ -23,7 +23,8 @@ informative error message if the type is not present in layout (#601).
 - `ph_location_type()`: new `type_idx` arg replaces the deprecated `id` arg (#606).
 - Add `ph_location_id()` as a new member to the `ph_location_*` family. It references a placeholder via its unique id (#606).
 - `plot_layout_properties()`: Now accepts the layout index (see `layout_summary()`) as an alternative to the layout name.
-  Also prints the current slide's layout by default now, if not layout name is provided explicitly (#595).
+  Gains an argument `legend` to add a legend to the plot. Also prints the current slide's layout by 
+  default now, if not layout name is provided explicitly (#595).
   
 ## Features
 

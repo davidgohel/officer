@@ -12,7 +12,8 @@ plot_layout_properties(
   title = TRUE,
   type = TRUE,
   id = TRUE,
-  cex = NULL
+  cex = NULL,
+  legend = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ in the upper left corner (in \emph{blue}).}
 
 \item{cex}{named list or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
 \code{c(labels = .5, type = .5, id = .5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.}
+
+\item{legend}{Add a legend to the plot (default \code{FALSE}).}
 }
 \description{
 Plot slide layout properties into corresponding placeholders.
@@ -66,10 +69,10 @@ x <- read_pptx()
 x <- add_slide(x, "Title Slide")
 plot_layout_properties(x)
 
-# change info, font size etc.
+# change appearance: what to show, font size, legend etc.
 plot_layout_properties(x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
 plot_layout_properties(x, layout = 4, cex = c(labels = .8, id = .7, type = .7))
-# plot_layout_properties(x, 1, legend = TRUE)
+plot_layout_properties(x, 1, legend = TRUE)
 
 }
 \seealso{

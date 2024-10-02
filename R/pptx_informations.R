@@ -128,14 +128,16 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'  [layout_properties()]) in the upper right corner (in *green*).
 #' @param cex named list or vector to specify font size for `labels`, `type`, and `id`. Default is
 #'   `c(labels = .5, type = .5, id = .5)`. See [graphics::text()] for details on how `cex` works.
+#' @param legend Add a legend to the plot (default `FALSE`).
 #' @importFrom graphics plot rect text box
 #' @family functions for reading presentation information
 #' @example inst/examples/example_plot_layout_properties.R
 #'
 plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = TRUE,
-                                   type = TRUE, id = TRUE, cex = NULL) {
+                                   type = TRUE, id = TRUE, cex = NULL, legend = FALSE) {
   stop_if_not_rpptx(x, "x")
-  old_par <- par(mar = c(2, 2, 1.5, 0))
+  loffset <- ifelse(legend, 1, 0) # make space for legend at top
+  old_par <- par(mar = c(2, 2, 1.5 + loffset, 0))
   on.exit(par(old_par))
 
   cex_default <- list(labels = .5, type = .5, id = .5)
@@ -183,11 +185,11 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   plot(x = c(0, w), y = -c(0, h), asp = 1, type = "n", axes = FALSE, xlab = NA, ylab = NA)
   rect(xleft = 0, xright = w, ybottom = 0, ytop = -h, border = "darkgrey")
   rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
-  mtext("y [inch]", side = 2, line = 0, cex = 1.2, col = "darkgrey")
-  mtext("x [inch]", side = 1, line = 0, cex = 1.2, col = "darkgrey")
+  mtext("y [inch]", side = 2, line = 0, cex = .9, col = "darkgrey")
+  mtext("x [inch]", side = 1, line = 0, cex = .9, col = "darkgrey")
 
   if (title) {
-    title(main = paste("Layout:", la$layout_name))
+    title(main = paste("Layout:", la$layout_name), line = 0 + loffset)
   }
   if (labels) { # centered
     text(x = offx + cx / 2, y = -(offy + cy / 2), labels = dat$ph_label, cex = .cex$labels, col = "red", adj = c(.5, 1)) # adj-vert: avoid interference with type/id in small phs
@@ -199,6 +201,16 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   if (id) { # upper right corner
     text(x = offx + cx, y = -offy, labels = dat$id, cex = .cex$id, col = "darkgreen", adj = c(1.3, 1.2))
   }
+  if (legend) {
+    legend(x = w / 2, y = 0, x.intersp = 0.4, xjust = .5, yjust = 0,
+      legend = c("type [type_idx]", "ph_label", "id"), fill = c("blue", "red", "darkgreen"),
+      bty = "n", pt.cex = 1.2, cex = .7, text.width = NA,
+      text.col = c("blue", "red", "darkgreen"), horiz = TRUE, xpd = TRUE
+    )
+  }
+
+
+
 }
 
 
