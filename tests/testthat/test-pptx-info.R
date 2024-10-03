@@ -108,7 +108,7 @@ test_that("plot layout properties", {
 
   expect_snapshot_doc(name = "plot-titleslide-layout-default", x = png1, engine = "testthat")
   expect_snapshot_doc(name = "plot-titleslide-layout-labels-only", x = png2, engine = "testthat")
-  #expect_snapshot_doc(name = "plot-titleslide-layout-default-with-legend", x = png3, engine = "testthat")
+  expect_snapshot_doc(name = "plot-titleslide-layout-default-with-legend", x = png3, engine = "testthat")
 
   # issue #604
   p <- test_path("docs_dir/test-content-order.pptx")
