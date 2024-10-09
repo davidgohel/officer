@@ -43,9 +43,9 @@ image_to_base64 <- function(filepaths){
 #' @export
 #' @title generates unique identifiers
 #' @description generates unique identifiers based
-#' on [UUIDgenerate()].
+#' on [uuid::UUIDgenerate()].
 #' @param n integer, number of unique identifiers to generate.
-#' @param ... arguments sent to [UUIDgenerate()]
+#' @param ... arguments sent to [uuid::UUIDgenerate()]
 #' @keywords internal
 #' @examples
 #' uuid_generate(n = 5)

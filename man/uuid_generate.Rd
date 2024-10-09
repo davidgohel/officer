@@ -9,11 +9,11 @@ uuid_generate(n = 1, ...)
 \arguments{
 \item{n}{integer, number of unique identifiers to generate.}
 
-\item{...}{arguments sent to \code{\link[=UUIDgenerate]{UUIDgenerate()}}}
+\item{...}{arguments sent to \code{\link[uuid:UUIDgenerate]{uuid::UUIDgenerate()}}}
 }
 \description{
 generates unique identifiers based
-on \code{\link[=UUIDgenerate]{UUIDgenerate()}}.
+on \code{\link[uuid:UUIDgenerate]{uuid::UUIDgenerate()}}.
 }
 \examples{
 uuid_generate(n = 5)
