@@ -116,6 +116,8 @@ reference:
     - layout_summary
     - layout_properties
     - plot_layout_properties
+    - layout_dedupe_ph_labels
+    - layout_rename_ph_labels
     - slide_summary
     - color_scheme
     - media_extract
