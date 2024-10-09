@@ -1,456 +1,159 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://davidgohel.github.io/officer/404.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/index.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/add_sheet.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/add_slide.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/annotate_base.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/as.matrix.rpptx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/block_caption.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/block_list.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/block_pour_docx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/block_section.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/block_table.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/block_toc.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_blocks.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_break.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_caption.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_docx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_fpar.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_gg.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_img.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_par.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_table.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_toc.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_add_xml.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_bookmark.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_comment.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_end_block_section.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_end_section_columns.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_end_section_columns_landscape.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_end_section_continuous.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_end_section_landscape.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_end_section_portrait.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_remove.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_replace_all_text.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/body_set_default_section.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/change_styles.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/color_scheme.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/cursor.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/doc_properties.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_body_relationship.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_body_xml.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_bookmarks.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_comments.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_current_block_xml.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_dim.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_reference_img.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_set_character_style.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_set_paragraph_style.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_show_chunk.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/docx_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/empty_content.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/external_img.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fortify_location.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fp_border.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fp_cell.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fp_par.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fp_tab.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fp_tabs.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fp_text.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/fpar.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ftext.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/get_reference_value.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/hyperlink_ftext.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/image_to_base64.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/layout_properties.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/layout_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/length.rdocx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/length.rpptx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/media_extract.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/move_slide.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/notes_location_label.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/notes_location_type.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/officer-defunct.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/officer.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/officer_url_encode.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/on_slide.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/opts_current_table.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/pack_folder.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/page_mar.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/page_size.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_hyperlink.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location_fullsize.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location_label.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location_left.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location_right.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location_template.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_location_type.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_remove.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_slidelink.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/ph_with.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/plot_instr.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/plot_layout_properties.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/pptx_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/print.rpptx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/print.rtf.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/prop_section.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/prop_table.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/read_docx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/read_pptx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/read_xlsx.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/remove_slide.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/rtf_add.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/rtf_doc.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_autonum.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_bookmark.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_columnbreak.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_comment.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_footnote.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_footnoteref.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_linebreak.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_pagebreak.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_reference.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_tab.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_word_field.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/run_wordtext.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/sanitize_images.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/section_columns.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/set_autonum_bookmark.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/set_doc_properties.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/set_notes.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/shape_properties_tags.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/sheet_select.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/shortcuts.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/slide_size.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/slide_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/sp_line.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/sp_lineend.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/str_encode_to_rtf.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/styles_info.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/table_colwidths.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/table_conditional_formatting.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/table_layout.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/table_stylenames.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/table_width.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/to_html.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/to_pml.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/to_rtf.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/to_wml.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/unordered_list.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/unpack_folder.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/uuid_generate.html</loc>
-  </url>
-  <url>
-    <loc>https://davidgohel.github.io/officer/reference/wml_link_images.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://davidgohel.github.io/officer/404.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/CONDUCT.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/LICENSE-text.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/LICENSE.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/authors.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/index.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/news/index.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/add_sheet.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/add_slide.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/annotate_base.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/as.matrix.rpptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_caption.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_list.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_pour_docx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_section.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_table.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_toc.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_blocks.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_break.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_caption.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_docx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_fpar.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_gg.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_img.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_par.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_plot.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_table.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_toc.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_xml.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_bookmark.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_comment.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_end_block_section.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_end_section_columns.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_end_section_columns_landscape.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_end_section_continuous.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_end_section_landscape.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_end_section_portrait.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_remove.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_replace_all_text.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_replace_gg_at_bkm.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_set_default_section.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/change_styles.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/color_scheme.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/cursor.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/doc_properties.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_body_relationship.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_body_xml.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_bookmarks.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_comments.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_current_block_xml.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_dim.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_reference_img.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_set_character_style.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_set_paragraph_style.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_show_chunk.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_summary.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/empty_content.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/external_img.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fortify_location.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fp_border.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fp_cell.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fp_par.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fp_tab.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fp_tabs.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fp_text.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/fpar.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ftext.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/get_layout.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/get_reference_value.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/hyperlink_ftext.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/image_to_base64.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/index.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/layout_dedupe_ph_labels.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/layout_properties.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/layout_rename_ph_labels.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/layout_summary.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/length.rdocx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/length.rpptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/media_extract.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/move_slide.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/notes_location_label.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/notes_location_type.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/officer-defunct.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/officer.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/officer_url_encode.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/on_slide.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/opts_current_table.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/pack_folder.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/page_mar.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/page_size.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_hyperlink.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_fullsize.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_id.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_label.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_left.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_right.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_template.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_location_type.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_remove.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_slidelink.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ph_with.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/plot_instr.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/plot_layout_properties.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/pptx_summary.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/print.rpptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/print.rtf.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/prop_section.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/prop_table.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/read_docx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/read_pptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/read_xlsx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/remove_slide.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/rtf_add.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/rtf_doc.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_autonum.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_bookmark.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_columnbreak.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_comment.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_footnote.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_footnoteref.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_linebreak.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_pagebreak.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_reference.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_tab.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_word_field.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/run_wordtext.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sanitize_images.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/section_columns.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/set_autonum_bookmark.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/set_doc_properties.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/set_notes.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/shape_properties_tags.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sheet_select.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/shortcuts.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/slide_size.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/slide_summary.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sp_line.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sp_lineend.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/str_encode_to_rtf.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/styles_info.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/table_colwidths.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/table_conditional_formatting.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/table_layout.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/table_stylenames.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/table_width.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/to_html.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/to_pml.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/to_rtf.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/to_wml.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/unordered_list.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/unpack_folder.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/uuid_generate.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/wml_link_images.html</loc></url>
 </urlset>
+
