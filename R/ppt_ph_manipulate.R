@@ -72,7 +72,7 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL) {
 ph_remove <- function(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id))
+  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[*/p:cNvPr[@id='%s']]", office_id))
   xml_remove(current_elt)
 
   x

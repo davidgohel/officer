@@ -1,3 +1,11 @@
+# officer 0.6.8
+
+## Issues
+
+- debug selector for `ph_remove()` (see #625) that was not working 
+for rvg outputs.
+
+
 # officer 0.6.7
 
 ## Issues
