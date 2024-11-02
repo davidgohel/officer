@@ -20,22 +20,34 @@ body_add_break <- function(x, pos = "after") {
 #' @inheritParams body_add_break
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param style paragraph style
-#' @param width height in inches
-#' @param height height in inches
+#' @param width,height image size in units expressed by the unit argument.
+#' Defaults to "in"ches.
+#' @param unit One of the following units in which the width and height
+#' arguments are expressed: "in", "cm" or "mm".
+#' @param ... Additional arguments passed on to methods. Not currently used.
 #' @examples
 #' doc <- read_docx()
 #'
 #' img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 #' if (file.exists(img.file)) {
 #'   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39)
+#'
+#'   # Set the unit in which the width and height arguments are expressed
+#'   doc <- body_add_img(
+#'     x = doc, src = img.file,
+#'     height = 2.69, width = 3.53,
+#'     unit = "cm"
+#'   )
 #' }
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_img <- function(x, src, style = NULL, width, height, pos = "after") {
+body_add_img <- function(x, src, style = NULL, width, height, unit = "in", pos = "after") {
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
+
+  unit <- check_unit(unit, c("in", "cm", "mm"))
 
   file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src)
 
@@ -55,7 +67,7 @@ body_add_img <- function(x, src, style = NULL, width, height, pos = "after") {
 
   style_id <- get_style_id(data = x$styles, style = style, type = "paragraph")
 
-  ext_img <- external_img(new_src, width = width, height = height)
+  ext_img <- external_img(new_src, width = width, height = height, unit = unit)
   xml_elt <- runs_to_p_wml(ext_img, add_ns = TRUE, style_id = style_id)
 
   body_add_xml(x = x, str = xml_elt, pos = pos)
@@ -112,8 +124,10 @@ body_add_docx <- function(x, src, pos = "after") {
 #' @inheritParams body_add_break
 #' @param value ggplot object
 #' @param style paragraph style
-#' @param width height in inches
-#' @param height height in inches
+#' @param width,height plot size in units expressed by the unit argument.
+#' Defaults to a width of 6 and a height of 5 "in"ches.
+#' @param unit One of the following units in which the width and height
+#' arguments are expressed: "in", "cm" or "mm".
 #' @param res resolution of the png image in ppi
 #' @param scale Multiplicative scaling factor, same as in ggsave
 #' @param pos where to add the new element relative to the cursor,
@@ -129,24 +143,37 @@ body_add_docx <- function(x, src, pos = "after") {
 #'
 #'   if (capabilities(what = "png")) {
 #'     doc <- body_add_gg(doc, value = gg_plot, style = "centered")
+#'
+#'     # Set the unit in which the width and height arguments are expressed
+#'     doc <- body_add_gg(doc, value = gg_plot, style = "centered", unit = "cm")
 #'   }
 #'
 #'   print(doc, target = tempfile(fileext = ".docx"))
 #' }
 #' @family functions for adding content
 #' @importFrom ragg agg_png
-body_add_gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, pos = "after", ...) {
+body_add_gg <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", scale = 1, pos = "after", ...) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
 
   stopifnot(inherits(value, "gg"))
+
+  if ("units" %in% names(list(...))) {
+    cli::cli_abort(
+      c("Found a {.arg units} argument. Did you mean {.arg unit}?")
+    )
+  }
+
+  unit <- check_unit(unit, c("in", "cm", "mm"))
+
+
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, scaling = scale, units = "in", res = res, background = "transparent", ...)
+  agg_png(filename = file, width = width, height = height, scaling = scale, units = unit, res = res, background = "transparent", ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height, pos = pos)
+  body_add_img(x, src = file, style = style, width = width, height = height, pos = pos, unit = unit)
 }
 
 
@@ -364,8 +391,10 @@ body_add_toc <- function(x, level = 3, pos = "after", style = NULL, separator = 
 #' @inheritParams body_add_break
 #' @param value plot instructions, see [plot_instr()].
 #' @param style paragraph style
-#' @param width height in inches
-#' @param height height in inches
+#' @param width,height plot size in units expressed by the unit argument.
+#' Defaults to a width of 6 and a height of 5 "in"ches.
+#' @param unit One of the following units in which the width and height
+#' arguments are expressed: "in", "cm" or "mm".
 #' @param res resolution of the png image in ppi
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
@@ -375,21 +404,25 @@ body_add_toc <- function(x, level = 3, pos = "after", style = NULL, separator = 
 #' doc <- read_docx()
 #'
 #' if (capabilities(what = "png")) {
-#'   doc <- body_add_plot(doc,
-#'     value = plot_instr(
+#'   p <- plot_instr(
 #'       code = {
 #'         barplot(1:5, col = 2:6)
 #'       }
-#'     ),
-#'     style = "centered"
-#'   )
+#'     )
+#'
+#'   doc <- body_add_plot(doc, value = p, style = "centered")
+#'
+#'   # Set the unit in which the width and height arguments are expressed
+#'   doc <- body_add_plot(doc, value = p, style = "centered", unit = "cm")
 #' }
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", pos = "after", ...) {
+body_add_plot <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", pos = "after", ...) {
+  unit <- check_unit(unit, c("in", "cm", "mm"))
+
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = "in", res = res, background = "transparent", ...)
+  agg_png(filename = file, width = width, height = height, units = unit, res = res, background = "transparent", ...)
   tryCatch(
     {
       eval(value$code)
@@ -399,7 +432,7 @@ body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "N
     }
   )
   on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height, pos = pos)
+  body_add_img(x, src = file, style = style, width = width, height = height, unit = unit, pos = pos)
 }
 
 
@@ -886,30 +919,36 @@ body_add.run_columnbreak <- function(x, value, style = NULL, ...) {
 
 #' @export
 #' @describeIn body_add add a ggplot object.
-#' @param width height in inches
-#' @param height height in inches
+#' @param width,height plot size in units expressed by the unit argument.
+#' Defaults to a width of 6 and a height of 5 "in"ches.
+#' @param unit One of the following units in which the width and height
+#' arguments are expressed: "in", "cm" or "mm".
 #' @param res resolution of the png image in ppi
 #' @param scale Multiplicative scaling factor, same as in ggsave
-body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, ...) {
+body_add.gg <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", scale = 1, ...) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
 
+  unit <- check_unit(unit, c("in", "cm", "mm"))
+
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
+  agg_png(filename = file, width = width, height = height, units = unit, res = res, scaling = scale, background = "transparent", ...)
   print(value)
   dev.off()
   on.exit(unlink(file))
 
-  value <- external_img(src = file, width = width, height = height)
+  value <- external_img(src = file, width = width, height = height, unit = unit)
   body_add(x, value, style = style)
 }
 
 #' @export
 #' @describeIn body_add add a base plot with a [plot_instr] object.
-body_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", ...) {
+body_add.plot_instr <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", ...) {
+  unit <- check_unit(unit, c("in", "cm", "mm"))
+
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = 1, background = "transparent", ...)
+  agg_png(filename = file, width = width, height = height, units = unit, res = res, scaling = 1, background = "transparent", ...)
   tryCatch(
     {
       eval(value$code)
@@ -920,11 +959,10 @@ body_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, styl
   )
   on.exit(unlink(file))
 
-  value <- external_img(src = file, width = width, height = height)
+  value <- external_img(src = file, width = width, height = height, unit = unit)
 
   body_add(x, value, style = style)
 }
-
 
 #' @export
 #' @describeIn body_add pour content of an external docx file with with a [block_pour_docx] object

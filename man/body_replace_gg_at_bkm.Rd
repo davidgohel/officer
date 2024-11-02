@@ -38,9 +38,8 @@ body_replace_plot_at_bkm(
 \item{value}{a ggplot object for body_replace_gg_at_bkm() or a set plot instructions
 body_replace_plot_at_bkm(), see plot_instr().}
 
-\item{width}{height in inches}
-
-\item{height}{height in inches}
+\item{width, height}{plot size in units expressed by the unit argument.
+Defaults to a width of 6 and a height of 5 "in"ches.}
 
 \item{res}{resolution of the png image in ppi}
 

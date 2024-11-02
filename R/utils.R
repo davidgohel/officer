@@ -334,6 +334,24 @@ stop_if_not_rpptx <- function(x, arg = NULL) {
   stop_if_not_class(x, "rpptx", arg)
 }
 
+check_unit <- function(unit, choices, several.ok = FALSE) {
+  if (!several.ok && length(unit) != 1) {
+    cli::cli_abort(
+      c("{.arg unit} is not length 1.",
+        "x" = "{.arg unit} must be {.emph a string}."
+      )
+    )
+  }
+  if (!unit %in% choices) {
+    cli::cli_abort(
+      c("{.arg unit} should be one of {.or {choices}}.",
+        "x" = "{.arg unit} was {.emph {unit}\"}."
+      )
+    )
+  }
+
+  unit
+}
 
 # htmlEscapeCopy ----
 

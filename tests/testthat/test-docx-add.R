@@ -4,6 +4,45 @@ getncheck <- function(x, str){
   child_
 }
 
+plot_with_unit_and_check <- function(value, body_add_fun, width = 6, height = 5, ...) {
+  .in_to_emu <- 914400
+  .cm_to_emu <- 360000
+  .mm_to_emu <- 36000
+
+  x <- read_docx()
+  x <- body_add_fun(x, value, width = width, height = height, ... )
+  x <- body_add_fun(x, value, unit = "in", width = width, height = height, ... )
+  x <- body_add_fun(x, value, unit = "cm", width = width, height = height,... )
+  x <- body_add_fun(x, value, unit = "mm", width = width, height = height,... )
+  x <- cursor_end(x)
+  node <- docx_current_block_xml(x)
+
+  expect_equal(
+    as.numeric(
+      xml_attr(xml_find_all(node, "//wp:extent"), "cx")
+    ) /  c(.in_to_emu, .in_to_emu, .cm_to_emu, .mm_to_emu),
+    rep(width, 4)
+  )
+  expect_equal(
+    as.numeric(
+      xml_attr(xml_find_all(node, "//wp:extent"), "cy")
+    ) /   c(.in_to_emu, .in_to_emu, .cm_to_emu, .mm_to_emu),
+    rep(height, 4)
+  )
+  # Non valid unit
+  expect_error(
+    body_add_fun(x, value, unit = "px", ... )
+  )
+  # Has "units="
+  expect_error(
+    body_add_fun(x, value, units = "cm", ... )
+  )
+  # Has multiple units
+  expect_error(
+    body_add_fun(x, value, unit = c("cm", "in", "mm"), ... )
+  )
+}
+
 test_that("body_add_break", {
   x <- read_docx()
   x <- body_add_break(x)
@@ -117,6 +156,14 @@ test_that("body_add_img", {
   getncheck(node, "w:r/w:drawing")
 })
 
+test_that("body_add_img with units", {
+
+  img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
+
+  plot_with_unit_and_check(img.file, body_add_img, height = 2.69, width = 3.53)
+
+})
+
 test_that("external_img add", {
   img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
   x <- read_docx()
@@ -130,6 +177,7 @@ test_that("external_img add", {
   getncheck(node, "w:r/w:drawing")
 })
 
+
 test_that("ggplot add", {
   testthat::skip_if_not(requireNamespace("ggplot2", quietly = TRUE))
   library("ggplot2")
@@ -141,6 +189,29 @@ test_that("ggplot add", {
   x <- cursor_end(x)
   node <- docx_current_block_xml(x)
   getncheck(node, "w:r/w:drawing")
+})
+
+test_that("ggplot add with unit", {
+  testthat::skip_if_not(requireNamespace("ggplot2", quietly = TRUE))
+  library("ggplot2")
+
+  gg_plot <- ggplot(data = iris ) +
+    geom_point(mapping = aes(Sepal.Length, Petal.Length))
+
+  plot_with_unit_and_check(gg_plot, body_add_gg)
+  plot_with_unit_and_check(gg_plot, body_add)
+})
+
+test_that("plot add with unit", {
+  base_plot <- plot_instr(
+    code = {
+      barplot(1:5, col = 2:6)
+    }
+  )
+
+  # Base plot errors for "mm" with default pointsize of 12.
+  plot_with_unit_and_check(base_plot, body_add_plot, pointsize = 1)
+  plot_with_unit_and_check(base_plot, body_add, pointsize = 1)
 })
 
 test_that("fpar add", {
