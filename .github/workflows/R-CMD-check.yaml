@@ -45,10 +45,3 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-
-      - name: Test coverage
-        if: success() && runner.os == 'Linux' && matrix.config.r == 'release'
-        run: |
-          pak::pkg_install('covr')
-          covr::codecov()
-        shell: Rscript {0}
