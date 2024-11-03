@@ -5,6 +5,9 @@
 - debug selector for `ph_remove()` (see #625) that was not working 
 for rvg outputs.
 
+## Internals
+
+- remove old visual tests
 
 # officer 0.6.7
 
