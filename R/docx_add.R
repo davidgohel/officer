@@ -24,7 +24,6 @@ body_add_break <- function(x, pos = "after") {
 #' Defaults to "in"ches.
 #' @param unit One of the following units in which the width and height
 #' arguments are expressed: "in", "cm" or "mm".
-#' @param ... Additional arguments passed on to methods. Not currently used.
 #' @examples
 #' doc <- read_docx()
 #'

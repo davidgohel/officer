@@ -21,8 +21,6 @@ arguments are expressed: "in", "cm" or "mm".}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
-
-\item{...}{Additional arguments passed on to methods. Not currently used.}
 }
 \description{
 add an image into an rdocx object.
