@@ -4,7 +4,7 @@
 \alias{body_add_img}
 \title{Add an image in a 'Word' document}
 \usage{
-body_add_img(x, src, style = NULL, width, height, pos = "after")
+body_add_img(x, src, style = NULL, width, height, unit = "in", pos = "after")
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -13,9 +13,11 @@ body_add_img(x, src, style = NULL, width, height, pos = "after")
 
 \item{style}{paragraph style}
 
-\item{width}{height in inches}
+\item{width, height}{image size in units expressed by the unit argument.
+Defaults to "in"ches.}
 
-\item{height}{height in inches}
+\item{unit}{One of the following units in which the width and height
+arguments are expressed: "in", "cm" or "mm".}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
@@ -29,6 +31,13 @@ doc <- read_docx()
 img.file <- file.path(R.home("doc"), "html", "logo.jpg")
 if (file.exists(img.file)) {
   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39)
+
+  # Set the unit in which the width and height arguments are expressed
+  doc <- body_add_img(
+    x = doc, src = img.file,
+    height = 2.69, width = 3.53,
+    unit = "cm"
+  )
 }
 
 print(doc, target = tempfile(fileext = ".docx"))

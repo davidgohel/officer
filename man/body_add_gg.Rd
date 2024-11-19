@@ -9,6 +9,7 @@ body_add_gg(
   value,
   width = 6,
   height = 5,
+  unit = "in",
   res = 300,
   style = "Normal",
   scale = 1,
@@ -21,9 +22,11 @@ body_add_gg(
 
 \item{value}{ggplot object}
 
-\item{width}{height in inches}
+\item{width, height}{plot size in units expressed by the unit argument.
+Defaults to a width of 6 and a height of 5 "in"ches.}
 
-\item{height}{height in inches}
+\item{unit}{One of the following units in which the width and height
+arguments are expressed: "in", "cm" or "mm".}
 
 \item{res}{resolution of the png image in ppi}
 
@@ -48,6 +51,9 @@ if (require("ggplot2")) {
 
   if (capabilities(what = "png")) {
     doc <- body_add_gg(doc, value = gg_plot, style = "centered")
+
+    # Set the unit in which the width and height arguments are expressed
+    doc <- body_add_gg(doc, value = gg_plot, style = "centered", unit = "cm")
   }
 
   print(doc, target = tempfile(fileext = ".docx"))
