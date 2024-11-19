@@ -56,10 +56,10 @@ body_add(x, value, ...)
   value,
   width = 6,
   height = 5,
-  unit = "in",
   res = 300,
   style = "Normal",
   scale = 1,
+  unit = "in",
   ...
 )
 
@@ -68,9 +68,9 @@ body_add(x, value, ...)
   value,
   width = 6,
   height = 5,
-  unit = "in",
   res = 300,
   style = "Normal",
+  unit = "in",
   ...
 )
 
@@ -106,12 +106,12 @@ values must be "l" (left), "r" (right) or "c" (center).}
 \item{width, height}{plot size in units expressed by the unit argument.
 Defaults to a width of 6 and a height of 5 "in"ches.}
 
-\item{unit}{One of the following units in which the width and height
-arguments are expressed: "in", "cm" or "mm".}
-
 \item{res}{resolution of the png image in ppi}
 
 \item{scale}{Multiplicative scaling factor, same as in ggsave}
+
+\item{unit}{One of the following units in which the width and height
+arguments are expressed: "in", "cm" or "mm".}
 }
 \description{
 This function add objects into a Word document. Values are added

@@ -9,11 +9,11 @@ body_add_gg(
   value,
   width = 6,
   height = 5,
-  unit = "in",
   res = 300,
   style = "Normal",
   scale = 1,
   pos = "after",
+  unit = "in",
   ...
 )
 }
@@ -25,9 +25,6 @@ body_add_gg(
 \item{width, height}{plot size in units expressed by the unit argument.
 Defaults to a width of 6 and a height of 5 "in"ches.}
 
-\item{unit}{One of the following units in which the width and height
-arguments are expressed: "in", "cm" or "mm".}
-
 \item{res}{resolution of the png image in ppi}
 
 \item{style}{paragraph style}
@@ -36,6 +33,9 @@ arguments are expressed: "in", "cm" or "mm".}
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
+
+\item{unit}{One of the following units in which the width and height
+arguments are expressed: "in", "cm" or "mm".}
 
 \item{...}{Arguments to be passed to png function.}
 }

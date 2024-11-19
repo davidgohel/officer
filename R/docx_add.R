@@ -41,7 +41,7 @@ body_add_break <- function(x, pos = "after") {
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_img <- function(x, src, style = NULL, width, height, unit = "in", pos = "after") {
+body_add_img <- function(x, src, style = NULL, width, height, pos = "after", unit = "in") {
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
@@ -151,7 +151,7 @@ body_add_docx <- function(x, src, pos = "after") {
 #' }
 #' @family functions for adding content
 #' @importFrom ragg agg_png
-body_add_gg <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", scale = 1, pos = "after", ...) {
+body_add_gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, pos = "after", unit = "in", ...) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
@@ -417,7 +417,7 @@ body_add_toc <- function(x, level = 3, pos = "after", style = NULL, separator = 
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_plot <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", pos = "after", ...) {
+body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", pos = "after", unit = "in", ...) {
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
   file <- tempfile(fileext = ".png")
@@ -924,7 +924,7 @@ body_add.run_columnbreak <- function(x, value, style = NULL, ...) {
 #' arguments are expressed: "in", "cm" or "mm".
 #' @param res resolution of the png image in ppi
 #' @param scale Multiplicative scaling factor, same as in ggsave
-body_add.gg <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", scale = 1, ...) {
+body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, unit = "in", ...) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
@@ -943,7 +943,7 @@ body_add.gg <- function(x, value, width = 6, height = 5, unit = "in", res = 300,
 
 #' @export
 #' @describeIn body_add add a base plot with a [plot_instr] object.
-body_add.plot_instr <- function(x, value, width = 6, height = 5, unit = "in", res = 300, style = "Normal", ...) {
+body_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", unit = "in", ...) {
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
   file <- tempfile(fileext = ".png")

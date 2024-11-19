@@ -4,7 +4,7 @@
 \alias{body_add_img}
 \title{Add an image in a 'Word' document}
 \usage{
-body_add_img(x, src, style = NULL, width, height, unit = "in", pos = "after")
+body_add_img(x, src, style = NULL, width, height, pos = "after", unit = "in")
 }
 \arguments{
 \item{x}{an rdocx object}
@@ -16,11 +16,11 @@ body_add_img(x, src, style = NULL, width, height, unit = "in", pos = "after")
 \item{width, height}{image size in units expressed by the unit argument.
 Defaults to "in"ches.}
 
-\item{unit}{One of the following units in which the width and height
-arguments are expressed: "in", "cm" or "mm".}
-
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
+
+\item{unit}{One of the following units in which the width and height
+arguments are expressed: "in", "cm" or "mm".}
 }
 \description{
 add an image into an rdocx object.
