@@ -122,7 +122,6 @@ test_that("no master do not generate an error", {
 unlink("*.pptx")
 unlink("*.emf")
 
-
 test_that("slide_visible", {
   opts <- options(cli.num_colors = 1) # suppress colors for error message check
   on.exit(options(opts))
@@ -145,7 +144,8 @@ test_that("slide_visible", {
   expect_false(any(slide_visible(x)))
   slide_visible(x) <- c(TRUE, FALSE, TRUE)
   expect_equal(slide_visible(x), c(TRUE, FALSE, TRUE))
-  expect_warning(regexp = "Value is not length 1 or same length as number of slides",
+  expect_warning(
+    regexp = "Value is not length 1 or same length as number of slides",
     slide_visible(x) <- c(TRUE, FALSE) # warns that rhs values are recycled
   )
   expect_equal(slide_visible(x), c(TRUE, FALSE, TRUE))
@@ -156,13 +156,32 @@ test_that("slide_visible", {
   expect_equal(slide_visible(x), c(FALSE, TRUE, FALSE))
 
   slide_visible(x) <- TRUE
-  expect_warning(regexp = "number of items to replace is not a multiple of replacement length",
+  expect_warning(
+    regexp = "number of items to replace is not a multiple of replacement length",
     slide_visible(x)[c(1, 2)] <- rep(FALSE, 4)
   )
   expect_equal(slide_visible(x), c(FALSE, FALSE, TRUE))
 
-  expect_error({
-    slide_visible(x) <- rep(FALSE, 4)
-  }, regexp = "More values \\(4\\) than slides \\(3\\)")
-})
+  expect_error(
+    {
+      slide_visible(x) <- rep(FALSE, 4)
+    },
+    regexp = "More values \\(4\\) than slides \\(3\\)"
+  )
 
+  # test that changes are written to file
+  path <- testthat::test_path("docs_dir", "test-slides-visible.pptx")
+  x <- read_pptx(path)
+
+  slide_visible(x) <- FALSE
+  path <- tempfile(fileext = ".pptx")
+  print(x, path)
+  x <- read_pptx(path)
+  expect_equal(slide_visible(x), c(FALSE, FALSE, FALSE))
+
+  slide_visible(x)[c(1, 3)] <- TRUE
+  path <- tempfile(fileext = ".pptx")
+  print(x, path)
+  x <- read_pptx(path)
+  expect_equal(slide_visible(x), c(TRUE, FALSE, TRUE))
+})
