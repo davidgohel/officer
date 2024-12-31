@@ -444,8 +444,6 @@ detect_void_name <- function(x) {
 }
 
 
-`%notin%` <- Negate(`%in%`)
-
 # is_integerish(1)
 # is_integerish(1.0)
 # is_integerish(c(1.0, 2.0))
