@@ -1,3 +1,4 @@
+
 #' @export
 #' @title Add a slide
 #' @description Add a slide into a pptx presentation.
@@ -253,5 +254,78 @@ ensure_slide_index_exists <- function(x, slide_idx) {
         "x" = "Presentation has {cli::no(n)} slide{?s}."
       ), call = NULL
     )
+  }
+}
+
+
+# internal workhorse get/set slide visibility
+# x : rpptx object
+# slide_idx: id of slide
+# value: Use TRUE / FALSE to set visibility.
+.slide_visible <- function(x, slide_idx, value = NULL) {
+  stop_if_not_rpptx(x)
+  slide <- x$slide$get_slide(slide_idx)
+  slide_xml <- slide$get()
+  node <- xml2::xml_find_first(slide_xml, "/p:sld")
+  if (is.null(value)) {
+    value <- xml2::xml_attr(node, "show")
+    value <- as.logical(as.numeric(value))
+    ifelse(is.na(value), TRUE, value) # if show is not set, the slide is shown
+  } else {
+    stop_if_not_class(value, "logical", arg = "value")
+    xml2::xml_set_attr(node, "show", value = as.numeric(value))
+    slide$save()
+    invisible(x)
+  }
+}
+
+
+#' Get or set slide visibility
+#'
+#' PPTX slides can be visible or hidden. This function gets or sets the visibility of slides.
+#' @param x An `rpptx` object.
+#' @param value Boolean vector with slide visibilities.
+#' @rdname slide-visible
+#' @export
+#' @example inst/examples/example_slide_visible.R
+#' @return Boolean vector with slide visibilities.
+`slide_visible<-` <- function(x, value) {
+  stop_if_not_rpptx(x)
+  stop_if_not_class(value, "logical", arg = "value")
+  n_vals <- length(value)
+  n_slides <- length(x)
+  if (n_vals > n_slides) {
+    cli::cli_abort("More values ({.val {n_vals}}) than slides ({.val {n_slides}})")
+  }
+  if (n_vals != 1 && n_vals != n_slides) {
+    cli::cli_alert_warning("Value is not length 1 or same length as number of slides ({.val {n_slides}}). Recycling values.")
+  }
+  value <- rep(value, length.out = n_slides)
+  for (i in seq_along(value)) {
+    .slide_visible(x, i, value[i])
+  }
+  invisible(x)
+}
+
+
+#' @param hide,show Indexes of slides to hide or show.
+#' @rdname slide-visible
+#' @export
+slide_visible <- function(x, hide = NULL, show = NULL) {
+  stop_if_not_rpptx(x)
+  if (!is.null(hide)) {
+    stop_if_not_integerish(hide, "hide")
+    slide_visible(x)[hide] <- FALSE
+  }
+  if (!is.null(show)) {
+    stop_if_not_integerish(show, "show")
+    slide_visible(x)[show] <- TRUE
+  }
+  n_slides <- length(x)
+  res <- vapply(seq_len(n_slides), function(idx) .slide_visible(x, idx), logical(1))
+  if (is.null(hide) && is.null(show)) {
+    res
+  } else {
+    invisible(res)
   }
 }

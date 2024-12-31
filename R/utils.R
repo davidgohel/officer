@@ -334,6 +334,19 @@ stop_if_not_rpptx <- function(x, arg = NULL) {
   stop_if_not_class(x, "rpptx", arg)
 }
 
+
+stop_if_not_integerish <- function(x, arg = NULL) {
+  check <- is_integerish(x)
+  if (!check) {
+    msg_arg <- ifelse(is.null(arg), "Incorrect input.", "Incorrect input for {.arg {arg}}")
+    cli::cli_abort(c(
+      msg_arg,
+      "x" = "Expected integerish values but got {.cls {class(x)[1]}}"
+    ), call = NULL)
+  }
+}
+
+
 check_unit <- function(unit, choices, several.ok = FALSE) {
   if (!several.ok && length(unit) != 1) {
     cli::cli_abort(
@@ -428,4 +441,16 @@ is_named <- function(x) {
 
 detect_void_name <- function(x) {
   x == "" | is.na(x)
+}
+
+
+`%notin%` <- Negate(`%in%`)
+
+# is_integerish(1)
+# is_integerish(1.0)
+# is_integerish(c(1.0, 2.0))
+is_integerish <- function(x) {
+  ii <- all(is.numeric(x) | is.integer(x))
+  jj <- all(x == as.integer(x))
+  ii && jj
 }
