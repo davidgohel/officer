@@ -13,6 +13,29 @@ test_that("trailing file index extraction / sorting", {
 
 
 test_that("misc", {
+  opts <- options(cli.num_colors = 1) # suppress colors for error message check
+  on.exit(options(opts))
+
   df <- df_rename(mtcars, c("mpg", "cyl"), c("A", "B"))
   expect_true(all(names(df)[1:2] == c("A", "B")))
+
+  expect_true(is_integerish(1))
+  expect_true(is_integerish(1:3))
+  expect_true(is_integerish(1.0))
+  expect_true(is_integerish(c(1.0, 2.0)))
+  expect_false(is_integerish(1.00001))
+  expect_false(is_integerish(c(1.1, 2.0)))
+  expect_false(is_integerish(TRUE))
+  expect_false(is_integerish(FALSE))
+  expect_error(
+    expect_warning(stop_if_not_integerish(LETTERS)),
+    regex = "Expected integerish values but got <character>"
+  )
+  expect_error(
+    stop_if_not_integerish(c(1.1, 1.2)),
+    regex = "Expected integerish values but got <numeric>"
+  )
 })
+
+
+
