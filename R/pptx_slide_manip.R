@@ -298,7 +298,7 @@ ensure_slide_index_exists <- function(x, slide_idx) {
     cli::cli_abort("More values ({.val {n_vals}}) than slides ({.val {n_slides}})")
   }
   if (n_vals != 1 && n_vals != n_slides) {
-    cli::cli_alert_warning("Value is not length 1 or same length as number of slides ({.val {n_slides}}). Recycling values.")
+    cli::cli_warn("Value is not length 1 or same length as number of slides ({.val {n_slides}}). Recycling values.")
   }
   value <- rep(value, length.out = n_slides)
   for (i in seq_along(value)) {
