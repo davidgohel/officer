@@ -36,6 +36,3 @@ test_that("misc", {
     regex = "Expected integerish values but got <numeric>"
   )
 })
-
-
-
