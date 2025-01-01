@@ -288,7 +288,7 @@ ensure_slide_index_exists <- function(x, slide_idx) {
 #' @rdname slide-visible
 #' @export
 #' @example inst/examples/example_slide_visible.R
-#' @return Boolean vector with slide visibilities.
+#' @return Boolean vector with slide visibilities or `rpptx` object if changes are made to the object.
 `slide_visible<-` <- function(x, value) {
   stop_if_not_rpptx(x)
   stop_if_not_class(value, "logical", arg = "value")
@@ -313,12 +313,20 @@ ensure_slide_index_exists <- function(x, slide_idx) {
 #' @export
 slide_visible <- function(x, hide = NULL, show = NULL) {
   stop_if_not_rpptx(x)
+  idx_in_both <- intersect(as.integer(hide), as.integer(show))
+  if (length(idx_in_both) > 1) {
+    cli::cli_abort(
+      "Overlap between indexes in {.arg hide} and {.arg show}: {.val {idx_in_both}}",
+      "x" = "Indexes must be mutually exclusive.")
+  }
   if (!is.null(hide)) {
     stop_if_not_integerish(hide, "hide")
+    stop_if_not_in_slide_range(x, hide, arg = "hide")
     slide_visible(x)[hide] <- FALSE
   }
   if (!is.null(show)) {
     stop_if_not_integerish(show, "show")
+    stop_if_not_in_slide_range(x, show, arg = "show")
     slide_visible(x)[show] <- TRUE
   }
   n_slides <- length(x)
@@ -326,6 +334,6 @@ slide_visible <- function(x, hide = NULL, show = NULL) {
   if (is.null(hide) && is.null(show)) {
     res
   } else {
-    invisible(res)
+    x
   }
 }

@@ -118,9 +118,9 @@ test_that("no master do not generate an error", {
 })
 
 
-
 unlink("*.pptx")
 unlink("*.emf")
+
 
 test_that("slide_visible", {
   opts <- options(cli.num_colors = 1) # suppress colors for error message check
@@ -133,12 +133,28 @@ test_that("slide_visible", {
   x <- read_pptx(path)
 
   expect_equal(slide_visible(x), c(FALSE, TRUE, FALSE))
-  slide_visible(x, hide = 1:2)
+  x <- slide_visible(x, hide = 1:2)
+  expect_s3_class(x, "rpptx")
   expect_equal(slide_visible(x), c(FALSE, FALSE, FALSE))
-  slide_visible(x, show = 1:2)
+  x <- slide_visible(x, show = 1:2)
+  expect_s3_class(x, "rpptx")
   expect_equal(slide_visible(x), c(TRUE, TRUE, FALSE))
-  slide_visible(x, hide = 1:2, show = 3)
+  x <- slide_visible(x, hide = 1:2, show = 3)
+  expect_s3_class(x, "rpptx")
   expect_equal(slide_visible(x), c(FALSE, FALSE, TRUE))
+
+  expect_error(
+    regex = "Overlap between indexes in `hide` and `show`",
+    slide_visible(x, hide = 1:2, show = 1:2)
+  )
+  expect_error(
+    regex = "2 indexes of `hide` outside slide range",
+    slide_visible(x, hide = 1:5)
+  )
+  expect_error(
+    regex = "1 index of `show` outside slide range",
+    slide_visible(x, show = -1)
+  )
 
   slide_visible(x) <- FALSE # hide all slides
   expect_false(any(slide_visible(x)))

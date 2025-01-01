@@ -347,6 +347,36 @@ stop_if_not_integerish <- function(x, arg = NULL) {
 }
 
 
+#' Check slide indexes
+#'
+#' @param x An `rpptx` object.
+#' @param idx Slide indexes.
+#' @param arg Name of argument to use in error message (optional).
+#' @param call Environment to display in error message-. Defaults to caller env.
+#'   Set `NULL` to suppress (see [cli::cli_abort]).
+#' @keywords internal
+stop_if_not_in_slide_range <- function(x, idx, arg = NULL, call = parent.frame()) {
+  stop_if_not_rpptx(x)
+  stop_if_not_integerish(idx)
+
+  n_slides <- length(x)
+  idx_available <- seq_len(n_slides)
+  idx_outside <- setdiff(idx, idx_available)
+  n_outside <- length(idx_outside)
+
+  if (n_outside == 0) {
+    return(invisible(NULL))
+  }
+  argname <- ifelse(is.null(arg), "", " of {.arg {arg}} ")
+  part_1 <- paste0("{n_outside} index{?es}", argname, "outside slide range: {.val {idx_outside}}")
+  part_2 <- ifelse(n_slides == 0,
+    "Presentation has no slides!",
+    "Slide indexes must be in the range [{min(idx_available)}..{max(idx_available)}]"
+  )
+  cli::cli_abort(c(part_1, "x" = part_2), call = call)
+}
+
+
 check_unit <- function(unit, choices, several.ok = FALSE) {
   if (!several.ok && length(unit) != 1) {
     cli::cli_abort(
