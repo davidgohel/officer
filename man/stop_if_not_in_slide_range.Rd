@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{stop_if_not_in_slide_range}
 \alias{stop_if_not_in_slide_range}
-\title{Check slide indexes}
+\title{Ensure valid slide indexes}
 \usage{
 stop_if_not_in_slide_range(x, idx, arg = NULL, call = parent.frame())
 }
@@ -13,10 +13,10 @@ stop_if_not_in_slide_range(x, idx, arg = NULL, call = parent.frame())
 
 \item{arg}{Name of argument to use in error message (optional).}
 
-\item{call}{Environment to display in error message-. Defaults to caller env.
+\item{call}{Environment to display in error message. Defaults to caller env.
 Set \code{NULL} to suppress (see \link[cli:cli_abort]{cli::cli_abort}).}
 }
 \description{
-Check slide indexes
+Ensure valid slide indexes
 }
 \keyword{internal}
