@@ -2,6 +2,7 @@
 
 ## Issues
 
+- Add `slide_visible()` to get and set the visibility of slides (#622).
 - debug selector for `ph_remove()` (see #625) that was not working 
 for rvg outputs.
 
