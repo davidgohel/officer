@@ -165,6 +165,12 @@
 #'
 #' \if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}
 ph_with <- function(x, value, location, ...) {
+  location <- resolve_location(location)
+  .ph_with(x, value, location, ...)
+}
+
+
+.ph_with <- function(x, value, location, ...) {
   UseMethod("ph_with", value)
 }
 

@@ -19,19 +19,19 @@
 \usage{
 ph_with(x, value, location, ...)
 
-\method{ph_with}{character}(x, value, location, ...)
+ph_with.character(x, value, location, ...)
 
-\method{ph_with}{numeric}(x, value, location, format_fun = format, ...)
+ph_with.numeric(x, value, location, format_fun = format, ...)
 
-\method{ph_with}{factor}(x, value, location, ...)
+ph_with.factor(x, value, location, ...)
 
-\method{ph_with}{logical}(x, value, location, format_fun = format, ...)
+ph_with.logical(x, value, location, format_fun = format, ...)
 
-\method{ph_with}{block_list}(x, value, location, level_list = integer(0), ...)
+ph_with.block_list(x, value, location, level_list = integer(0), ...)
 
-\method{ph_with}{unordered_list}(x, value, location, ...)
+ph_with.unordered_list(x, value, location, ...)
 
-\method{ph_with}{data.frame}(
+ph_with.data.frame(
   x,
   value,
   location,
@@ -41,17 +41,17 @@ ph_with(x, value, location, ...)
   ...
 )
 
-\method{ph_with}{gg}(x, value, location, res = 300, alt_text = "", scale = 1, ...)
+ph_with.gg(x, value, location, res = 300, alt_text = "", scale = 1, ...)
 
-\method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
+ph_with.plot_instr(x, value, location, res = 300, ...)
 
-\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
+ph_with.external_img(x, value, location, use_loc_size = TRUE, ...)
 
-\method{ph_with}{fpar}(x, value, location, ...)
+ph_with.fpar(x, value, location, ...)
 
-\method{ph_with}{empty_content}(x, value, location, ...)
+ph_with.empty_content(x, value, location, ...)
 
-\method{ph_with}{xml_document}(x, value, location, ...)
+ph_with.xml_document(x, value, location, ...)
 }
 \arguments{
 \item{x}{an rpptx object}
@@ -99,36 +99,36 @@ add object into a new shape in the current slide. This
 function is able to add all supported outputs to a presentation. See
 section \strong{Methods (by class)} to see supported outputs.
 }
-\section{Methods (by class)}{
+\section{Functions}{
 \itemize{
-\item \code{ph_with(character)}: add a character vector to a new shape on the
+\item \code{ph_with.character()}: add a character vector to a new shape on the
 current slide, values will be added as paragraphs.
 
-\item \code{ph_with(numeric)}: add a numeric vector to a new shape on the
+\item \code{ph_with.numeric()}: add a numeric vector to a new shape on the
 current slide, values will be be first formatted then
 added as paragraphs.
 
-\item \code{ph_with(factor)}: add a factor vector to a new shape on the
+\item \code{ph_with.factor()}: add a factor vector to a new shape on the
 current slide, values will be be converted as character and then
 added as paragraphs.
 
-\item \code{ph_with(block_list)}: add a \code{\link{block_list}} made
+\item \code{ph_with.block_list()}: add a \code{\link{block_list}} made
 of \code{\link{fpar}} to a new shape on the current slide.
 
-\item \code{ph_with(unordered_list)}: add a \code{\link{unordered_list}} made
+\item \code{ph_with.unordered_list()}: add a \code{\link{unordered_list}} made
 of \code{\link{fpar}} to a new shape on the current slide.
 
-\item \code{ph_with(data.frame)}: add a data.frame to a new shape on the current slide with
+\item \code{ph_with.data.frame()}: add a data.frame to a new shape on the current slide with
 function \code{\link[=block_table]{block_table()}}. Use package \code{flextable} instead for more
 advanced formattings.
 
-\item \code{ph_with(gg)}: add a ggplot object to a new shape on the
+\item \code{ph_with.gg()}: add a ggplot object to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
 
-\item \code{ph_with(plot_instr)}: add an R plot to a new shape on the
+\item \code{ph_with.plot_instr()}: add an R plot to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
 
-\item \code{ph_with(external_img)}: add a \code{\link{external_img}} to a new shape
+\item \code{ph_with.external_img()}: add a \code{\link{external_img}} to a new shape
 on the current slide.
 
 When value is a external_img object, image will be copied
@@ -137,13 +137,13 @@ specified in call to \code{external_img} will be
 ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.
 
-\item \code{ph_with(fpar)}: add an \code{\link{fpar}} to a new shape
+\item \code{ph_with.fpar()}: add an \code{\link{fpar}} to a new shape
 on the current slide as a single paragraph in a \code{\link{block_list}}.
 
-\item \code{ph_with(empty_content)}: add an \code{\link{empty_content}} to a new shape
+\item \code{ph_with.empty_content()}: add an \code{\link{empty_content}} to a new shape
 on the current slide.
 
-\item \code{ph_with(xml_document)}: add an xml_document object to a new shape on the
+\item \code{ph_with.xml_document()}: add an xml_document object to a new shape on the
 current slide. This function is to be used to add custom openxml code.
 
 }}

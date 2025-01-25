@@ -100,7 +100,7 @@ as_ph_location <- function(x, ...) {
     cli::cli_abort(
       c("{.arg x} must be a data frame.",
         "x" =  "You provided {.cls {class(x)[1]}} instead.")
-      )
+    )
   }
   ref_names <- c(
     "width", "height", "left", "top", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type"
@@ -110,6 +110,11 @@ as_ph_location <- function(x, ...) {
   }
   out <- x[ref_names]
   as.list(out)
+}
+
+
+is_ph_location <- function(x) {
+  inherits(x, "location_num") || inherits(x, "location_str")
 }
 
 
@@ -135,6 +140,7 @@ fortify_location <- function( x, doc, ... ){
   UseMethod("fortify_location")
 }
 
+# _________________ ----
 # main ----
 
 #' @export
@@ -189,7 +195,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom, fld_type = NA_character_, fld_id = NA_character_)
+            ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom, fld_type = NA_character_, fld_id = NA_character_)
 
   class(x) <- c("location_manual", "location_str")
   x
@@ -227,12 +233,12 @@ fortify_location.location_manual <- function( x, doc, ...){
 #' print(doc, target = tempfile(fileext = ".pptx") )
 #' @export
 ph_location_template <- function(left = 1, top = 1, width = 4, height = 3,
-                        newlabel = "", type = NULL, id = 1,
-                        ...){
+                                 newlabel = "", type = NULL, id = 1,
+                                 ...){
 
   x <- list(left = left, top = top, width = width, height = height,
-    ph_label = newlabel, ph = NA_character_,
-    type = type, id = id)
+            ph_label = newlabel, ph = NA_character_,
+            type = type, id = id)
 
   class(x) <- c("location_template", "location_str")
   x
@@ -246,7 +252,7 @@ fortify_location.location_template <- function( x, doc, ...){
     ph <- sprintf('<p:ph type="%s"/>', "body")
   }
   x <- ph_location(left = x$left, top = x$top, width = x$width, height = x$height,
-              label = x$ph_label)
+                   label = x$ph_label)
   x$ph <- ph
   fortify_location.location_manual(x)
 }
@@ -355,10 +361,10 @@ fortify_location.location_type <- function(x, doc, ...) {
   # to avoid a breaking change, the deprecated id is passed along.
   # As type_idx uses a different index order than id, this is necessary until the id arg is removed.
   out <- get_ph_loc(doc,
-    layout = layout, master = master,
-    type = x$type, position_right = x$position_right,
-    position_top = x$position_top, type_idx = x$type_idx,
-    id = x$id, ph_id = NULL # id is deprecated and will be removed soon
+                    layout = layout, master = master,
+                    type = x$type, position_right = x$position_right,
+                    position_top = x$position_top, type_idx = x$type_idx,
+                    id = x$id, ph_id = NULL # id is deprecated and will be removed soon
   )
   if (!is.null(x$label)) {
     out$ph_label <- x$label
@@ -501,8 +507,8 @@ fortify_location.location_left <- function( x, doc, ...){
   args <- list(...)
   master <- if(is.null(args$master)) unique( xfrm$master_name ) else args$master
   out <- get_ph_loc(doc, layout = "Two Content", master = master,
-             type = "body", position_right = FALSE,
-             position_top = TRUE)
+                    type = "body", position_right = FALSE,
+                    position_top = TRUE)
   if( !is.null(x$label) )
     out$ph_label <- x$label
   out
@@ -542,8 +548,8 @@ fortify_location.location_right <- function( x, doc, ...){
   args <- list(...)
   master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
   out <- get_ph_loc(doc, layout = "Two Content", master = master,
-             type = "body", position_right = TRUE,
-             position_top = TRUE)
+                    type = "body", position_right = TRUE,
+                    position_top = TRUE)
   if( !is.null(x$label) )
     out$ph_label <- x$label
   out
@@ -632,4 +638,171 @@ fortify_location.location_id <- function(x, doc, ...) {
   out
 }
 
+# _________________ ----
+# resolve ----
 
+
+# convert simplified location format, i.e. a numeric or string (e.g. "body [1]")
+# into corresponding location object. The following short forms are available:
+# - integer of length 1 = ph_location_id()
+# - integer of length 4 = ph_location_position()
+# - keyword left,right,fullsize = ph_location_left(), ph_location_right(), ph_location_fullsize()
+# - type keyword + type index = ph_location_type() [e.g. body, title, ctrTitle, subTitle, dt, ftr, sldNum = ]
+# - other string = ph_location_label()
+#
+resolve_location <- function(x) {
+  if (is_ph_location(x)) {
+    return(x)
+  }
+  if (is.numeric(x)) {
+    return(resolve_location_from_numeric(x))
+  }
+  if (is.character(x)) {
+    return(resolve_location_from_character(x))
+  }
+  cli::cli_abort("Cannot resolve class {.cls {class(x)[1]}} into a location")
+}
+
+
+resolve_location_from_numeric <- function(x) {
+  # length 1 integer => ph_location_id()
+  # length 4 numeric => ph_location()
+  len <- length(x)
+  if (len == 1) {
+    if (!is_integerish(x)) {
+      cli::cli_abort(
+        c("{.arg location} is a length 1 {.cls {class(x)[1]}}: {.val {x}}",
+          "x" = "If length 1, {.arg location} requires {.cls integer}"
+        ),
+        call = NULL
+      )
+    }
+    location <- resolve_ph_location_id(x)
+  } else if (len == 4) {
+    location <- resolve_ph_location(x)
+  } else {
+    cli::cli_abort(
+      c("{.arg location} has incorrect length.",
+        "x" = "Numeric vector passed to {.arg location} must have length 1 or 4"
+      ),
+      call = NULL
+    )
+  }
+  location
+}
+
+
+resolve_ph_location_id <- function(x) {
+  if (x < 0) {
+    cli::cli_abort(
+      c("{.arg location} is negative.",
+        "x" = "Integers passed to {.arg location} must be positive"
+      ),
+      call = NULL
+    )
+  }
+  ph_location_id(id = x)
+}
+
+
+# checks named numeric vector with position info [for ph_location_position()].
+# c(left =, top =, width =, height = )
+#
+fortify_named_location_position <- function(x) {
+  args <- names(x)
+  expected <- c("left", "top", "width", "height")
+  matched <- pmatch(args, expected, duplicates.ok = TRUE)
+  nms_new <- ifelse(is.na(matched), NA, expected[matched])
+
+  # unknown position
+  i_na <- is.na(nms_new)
+  if (any(i_na)) {
+    cli::cli_abort(
+      c("Found {sum(i_na)} unknown name{?s} in {.arg location}: {.val {args[i_na]}}",
+        "x" = "{.arg location} understands {.val {expected}}",
+        "i" = cli::col_silver("Partial name matching is supported")
+      )
+    )
+  }
+  # duplicate position
+  ii_dupes <- duplicated(nms_new)
+  if (any(ii_dupes)) {
+    cli::cli_abort(
+      c("Duplicate entries in {.arg location}: {.val {unique(nms_new[ii_dupes])}}",
+        "x" = "Each name in {.arg location} must be unique",
+        "i" = cli::col_silver("Partial name matching is supported")
+      )
+    )
+  }
+  # missing position
+  missings <- setdiff(expected, nms_new)
+  if (length(missings) > 0) {
+    cli::cli_abort(
+      c("Missing {.val {missings}} in {.arg location}",
+        "x" = "{.arg location} requinms_new {.val {expected}}",
+        "i" = cli::col_silver("Partial name matching is supported")
+      )
+    )
+  }
+  setNames(x, nms_new)
+}
+
+
+resolve_ph_location <- function(x) {
+  if (is.null(names(x))) {
+    names(x) <- c("left", "top", "width", "height")
+  }
+  x <- fortify_named_location_position(x)
+  do.call(ph_location, as.list(x))
+}
+
+
+resolve_location_from_character <- function(x) {
+  # - keyword left, => ph_location_left()
+  #           right => ph_location_right()
+  #           fullsize => ph_location_fullsize()
+  # - type: body, title, ctrTitle, subTitle, dt, ftr, sldNum
+  #         => ph_location_type()
+  # - label: <any> => ph_location_label()
+  if (x == "left") {
+    location <- ph_location_left()
+  } else if (x == "right") {
+    location <- ph_location_right()
+  } else if (x == "fullsize") {
+    location <- ph_location_fullsize()
+  } else if (has_ph_type_format(x)) {
+    location <- do.call(ph_location_type, get_ph_type_info(x))
+  } else {
+    location <- ph_location_label(x)
+  }
+}
+
+# matches pattern "type [type_idx ]",
+# e.g. "body", "body[1]", ""body [1]", "body    [1]" => all identical
+.ph_type_pattern <- "^(body|title|ctrTitle|subTitle|dt|ftr|sldNum)\\s*(\\[\\d+\\])?$"
+
+
+has_ph_type_format <- function(x) {
+  grepl(.ph_type_pattern, trimws(x))
+}
+
+
+# extract type name and idx from squared brackets
+# e.g. "body [1]" => list(type = "body", type_idx = 1)
+get_ph_type_info <- function(x) {
+  x <- trimws(x)
+  matches <- regexec(.ph_type_pattern, x)
+  extracted <- regmatches(x, matches)[[1]]
+  l <- setNames(as.list(extracted), c("input", "type", "type_idx"))
+  l$type_idx <- ifelse(l$type_idx == "", "[1]", l$type_idx) # if brackets with index is missing, "[1]" is used
+  l$type_idx <- extract_integers(l$type_idx)
+  l
+}
+
+
+# extract integers from text, e.g. "[1]" => 1
+extract_integers <- function(x) {
+  matches <- gregexpr("\\d+", x)
+  v <- unlist(regmatches(x, matches))
+  as.numeric(v)
+}
