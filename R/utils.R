@@ -334,6 +334,49 @@ stop_if_not_rpptx <- function(x, arg = NULL) {
   stop_if_not_class(x, "rpptx", arg)
 }
 
+
+stop_if_not_integerish <- function(x, arg = NULL) {
+  check <- is_integerish(x)
+  if (!check) {
+    msg_arg <- ifelse(is.null(arg), "Incorrect input.", "Incorrect input for {.arg {arg}}")
+    cli::cli_abort(c(
+      msg_arg,
+      "x" = "Expected integerish values but got {.cls {class(x)[1]}}"
+    ), call = NULL)
+  }
+}
+
+
+#' Ensure valid slide indexes
+#'
+#' @param x An `rpptx` object.
+#' @param idx Slide indexes.
+#' @param arg Name of argument to use in error message (optional).
+#' @param call Environment to display in error message. Defaults to caller env.
+#'   Set `NULL` to suppress (see [cli::cli_abort]).
+#' @keywords internal
+stop_if_not_in_slide_range <- function(x, idx, arg = NULL, call = parent.frame()) {
+  stop_if_not_rpptx(x)
+  stop_if_not_integerish(idx)
+
+  n_slides <- length(x)
+  idx_available <- seq_len(n_slides)
+  idx_outside <- setdiff(idx, idx_available)
+  n_outside <- length(idx_outside)
+
+  if (n_outside == 0) {
+    return(invisible(NULL))
+  }
+  argname <- ifelse(is.null(arg), "", "of {.arg {arg}} ")
+  part_1 <- paste0("{n_outside} index{?es} ", argname, "outside slide range: {.val {idx_outside}}")
+  part_2 <- ifelse(n_slides == 0,
+    "Presentation has no slides!",
+    "Slide indexes must be in the range [{min(idx_available)}..{max(idx_available)}]"
+  )
+  cli::cli_abort(c(part_1, "x" = part_2), call = call)
+}
+
+
 check_unit <- function(unit, choices, several.ok = FALSE) {
   if (!several.ok && length(unit) != 1) {
     cli::cli_abort(
@@ -428,4 +471,14 @@ is_named <- function(x) {
 
 detect_void_name <- function(x) {
   x == "" | is.na(x)
+}
+
+
+# is_integerish(1)
+# is_integerish(1.0)
+# is_integerish(c(1.0, 2.0))
+is_integerish <- function(x) {
+  ii <- all(is.numeric(x) | is.integer(x))
+  jj <- all(x == as.integer(x))
+  ii && jj
 }

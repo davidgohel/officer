@@ -1,7 +1,7 @@
 Type: Package
 Package: officer
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.6.8.003
+Version: 0.6.8.004
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
@@ -65,3 +65,49 @@ Suggests:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Collate: 
+    'core_properties.R'
+    'custom_properties.R'
+    'defunct.R'
+    'dev-utils.R'
+    'docx_add.R'
+    'docx_comments.R'
+    'docx_cursor.R'
+    'docx_part.R'
+    'docx_replace.R'
+    'docx_section.R'
+    'docx_settings.R'
+    'empty_content.R'
+    'formatting_properties.R'
+    'fortify_docx.R'
+    'fortify_pptx.R'
+    'knitr_utils.R'
+    'officer.R'
+    'ooxml.R'
+    'ooxml_block_objects.R'
+    'ooxml_run_objects.R'
+    'openxml_content_type.R'
+    'openxml_document.R'
+    'pack_folder.R'
+    'ph_location.R'
+    'post-proc.R'
+    'ppt_class_dir_collection.R'
+    'ppt_classes.R'
+    'ppt_notes.R'
+    'ppt_ph_dedupe_layout.R'
+    'ppt_ph_manipulate.R'
+    'ppt_ph_rename_layout.R'
+    'ppt_ph_with_methods.R'
+    'pptx_informations.R'
+    'pptx_layout_helper.R'
+    'pptx_matrix.R'
+    'utils.R'
+    'pptx_slide_manip.R'
+    'read_docx.R'
+    'read_docx_styles.R'
+    'read_pptx.R'
+    'read_xlsx.R'
+    'relationship.R'
+    'rtf.R'
+    'shape_properties.R'
+    'shorcuts.R'
