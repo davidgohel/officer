@@ -660,8 +660,6 @@ fortify_location.location_id <- function(x, doc, ...) {
 
 # _________________ ----
 # resolve ----
-
-
 # convert simplified location format, i.e. a numeric or string (e.g. "body [1]")
 # into corresponding location object. The following short forms are available:
 # - integer of length 1 = ph_location_id()
@@ -674,13 +672,31 @@ resolve_location <- function(x) {
   if (is_ph_location(x)) {
     return(x)
   }
+  if (is.null(x) || (is.vector(x) && is.na(x)[1])) {
+    raise_location_value_error(x)
+  }
   if (is.numeric(x)) {
-    return(resolve_location_from_numeric(x))
+    loc <- resolve_location_from_numeric(x)
+  } else if (is.character(x)) {
+    loc <- resolve_location_from_character(x)
+  } else {
+    cli::cli_abort(
+      call = NULL,
+      "Cannot resolve class {.cls {class(x)[1]}} into a location",
+      "x" = "Must be a character or numeric vector."
+    )
   }
-  if (is.character(x)) {
-    return(resolve_location_from_character(x))
-  }
-  cli::cli_abort("Cannot resolve class {.cls {class(x)[1]}} into a location")
+  loc
+}
+
+
+raise_location_value_error <- function(x) {
+  cli::cli_abort(
+    call = NULL,
+    c("Incorrect value for {.arg location}",
+      "x" = "Must be a vector (character or numeric) or a ph_location object"
+    )
+  )
 }
 
 
@@ -763,17 +779,6 @@ fortify_named_location_position <- function(x) {
       call = NULL
     )
   }
-  # # missing position
-  # missings <- setdiff(expected, nms_new)
-  # if (length(missings) > 0) {
-  #   cli::cli_abort(
-  #     c("Missing {.val {missings}} in {.arg location}",
-  #       "x" = "{.arg location} requires {.val {expected}}",
-  #       "i" = cli::col_silver("Partial name matching is supported")
-  #     ),
-  #     call = NULL
-  #   )
-  # }
   setNames(x, nms_new)
 }
 
@@ -817,9 +822,8 @@ resolve_location_from_character <- function(x) {
 }
 
 # matches pattern "type [type_idx ]",
-# e.g. "body", "body[1]", ""body [1]", "body    [1]" => all identical
-.ph_type_pattern <- "^(body|title|ctrTitle|subTitle|dt|ftr|sldNum)\\s*(\\[\\d+\\])?$"
-
+# e.g. "body", "body[1]", ""body [1]", "body    [ 1 ]" => all identical
+.ph_type_pattern <- "^(body|title|ctrTitle|subTitle|dt|ftr|sldNum)\\s*(\\[\\s*\\d+\\s*\\])?$"
 
 has_ph_type_format <- function(x) {
   grepl(.ph_type_pattern, trimws(x))
