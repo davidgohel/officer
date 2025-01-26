@@ -62,10 +62,10 @@ unordered list of formatted paragraphs,
 pretty tables with package flextable, editable graphics with
 package rvg, 'Microsoft' charts with package mschart.}
 
-\item{location}{a placeholder location object.
-It will be used to specify the location of the new shape. This location
-can be defined with a call to one of the ph_location functions. See
-section \code{"see also"}.}
+\item{location}{a placeholder location object or a location short form. It will be used
+to specify the location of the new shape. This location can be defined with a call to one
+of the \verb{ph_location_*} functions (see section \code{"see also"}). In \code{ph_with()}, several location
+short forms can be used, as listed in section \code{"Short forms"}.}
 
 \item{...}{further arguments passed to or from other methods. When
 adding a \code{ggplot} object or \code{plot_instr}, these arguments will be used
@@ -147,6 +147,21 @@ on the current slide.
 current slide. This function is to be used to add custom openxml code.
 
 }}
+\section{Short forms}{
+
+The \code{location} argument of \code{ph_with()} either expects a location object as returned by the
+\verb{ph_location_*} functions or a corresponding location \emph{short form} (string or numeric):\tabular{lll}{
+   \strong{Location function} \tab \strong{Short form} \tab \strong{Description} \cr
+   \code{ph_location_left()} \tab \code{"left"} \tab Keyword string \cr
+   \code{ph_location_right()} \tab \code{"right"} \tab Keyword string \cr
+   \code{ph_location_fullsize()} \tab \code{"fullsize"} \tab Keyword string \cr
+   \code{ph_location_type("body", 1)} \tab \code{"body [1]"} \tab String: type + index in brackets (\code{1} if omitted) \cr
+   \code{ph_location_label("my_label")} \tab \code{"my_label"} \tab Any string not matching a keyword or type \cr
+   \code{ph_location_id(1)} \tab \code{1} \tab Length 1 integer \cr
+   \code{ph_location(0, 0, 4, 5)} \tab \code{c(0,0,4,5)} \tab Length 4 numeric, optionally named, \code{c(top=0, left=0, ...)} \cr
+}
+}
+
 \section{Illustrations}{
 
 
@@ -158,7 +173,6 @@ current slide. This function is to be used to add custom openxml code.
 # change it to "youfile.pptx" to write the pptx
 # file in your working directory.
 fileout <- tempfile(fileext = ".pptx")
-
 
 doc_1 <- read_pptx()
 sz <- slide_size(doc_1)
@@ -295,6 +309,20 @@ doc_1 <- ph_with(
 )
 
 print(doc_1, target = fileout)
+
+
+# Example using short form locations ----
+x <- read_pptx()
+x <- add_slide(x, "Title Slide")
+x <- ph_with(x, "A title", "Title 1")        # label
+x <- ph_with(x, "A subtitle", 3)             # id
+x <- ph_with(x, "A left text", "left")       # keyword
+x <- ph_with(x, "A date", "dt[1]")           # type + index
+x <- ph_with(x, "More content", c(5,.5,9,2)) # numeric vector
+file <- tempfile(fileext = ".pptx")
+print(x, file)
+# browseURL(file)  # opens file on some systems
+
 }
 \seealso{
 \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},

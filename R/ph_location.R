@@ -172,7 +172,7 @@ fortify_location <- function(x, doc, ...) {
 #'
 #' In addition to these attributes, a label can be
 #' associated with the shape. Shapes, text boxes, images and other objects
-#' will be identified with that label in the Selection Pane of PowerPoint.
+#' will be identified with that label in the *Selection Pane* of PowerPoint.
 #' This label can then be reused by other functions such as `ph_location_label()`.
 #' It can be set with argument `newlabel`.
 #' @examples

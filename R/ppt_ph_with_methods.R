@@ -9,19 +9,33 @@
 #' unordered list of formatted paragraphs,
 #' pretty tables with package flextable, editable graphics with
 #' package rvg, 'Microsoft' charts with package mschart.
-#' @param location a placeholder location object.
-#' It will be used to specify the location of the new shape. This location
-#' can be defined with a call to one of the ph_location functions. See
-#' section \code{"see also"}.
+#' @param location a placeholder location object or a location short form. It will be used
+#' to specify the location of the new shape. This location can be defined with a call to one
+#' of the `ph_location_*` functions (see section `"see also"`). In `ph_with()`, several location
+#' short forms can be used, as listed in section `"Short forms"`.
 #' @param ... further arguments passed to or from other methods. When
 #' adding a `ggplot` object or `plot_instr`, these arguments will be used
 #' by png function.
+#'
+#' @section Short forms:
+#' The `location` argument of `ph_with()` either expects a location object as returned by the
+#' `ph_location_*` functions or a corresponding location *short form* (string or numeric):
+#'
+#' | **Location function**                       | **Short form**             | **Description**                                      |
+#' |---------------------------------------------|----------------------------|------------------------------------------------------|
+#' | `ph_location_left()`                        | `"left"`                   | Keyword string                                       |
+#' | `ph_location_right()`                       | `"right"`                  | Keyword string                                       |
+#' | `ph_location_fullsize()`                    | `"fullsize"`               | Keyword string                                       |
+#' | `ph_location_type("body", 1)`               | `"body [1]"`               | String: type + index in brackets (`1` if omitted)    |
+#' | `ph_location_label("my_label")`             | `"my_label"`               | Any string not matching a keyword or type            |
+#' | `ph_location_id(1)`                         | `1`                        | Length 1 integer                                     |
+#' | `ph_location(0, 0, 4, 5)`                   | `c(0,0,4,5)`               | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` |
+#'
 #' @examples
 #' # this name will be used to print the file
 #' # change it to "youfile.pptx" to write the pptx
 #' # file in your working directory.
 #' fileout <- tempfile(fileext = ".pptx")
-#'
 #'
 #' doc_1 <- read_pptx()
 #' sz <- slide_size(doc_1)
@@ -158,6 +172,20 @@
 #' )
 #'
 #' print(doc_1, target = fileout)
+#'
+#'
+#' # Example using short form locations ----
+#' x <- read_pptx()
+#' x <- add_slide(x, "Title Slide")
+#' x <- ph_with(x, "A title", "Title 1")        # label
+#' x <- ph_with(x, "A subtitle", 3)             # id
+#' x <- ph_with(x, "A left text", "left")       # keyword
+#' x <- ph_with(x, "A date", "dt[1]")           # type + index
+#' x <- ph_with(x, "More content", c(5,.5,9,2)) # numeric vector
+#' file <- tempfile(fileext = ".pptx")
+#' print(x, file)
+#' # browseURL(file)  # opens file on some systems
+#'
 #' @seealso [ph_location_type], [ph_location], [ph_location_label],
 #' [ph_location_left], [ph_location_right], [ph_location_fullsize],
 #' [ph_location_template]
