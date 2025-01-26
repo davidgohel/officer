@@ -189,17 +189,22 @@ fortify_location <- function( x, doc, ... ){
 #' doc <- ph_with(doc, "", loc = loc)
 #' print(doc, target = tempfile(fileext = ".pptx") )
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
-                        newlabel = "",
-                        bg = NULL, rotation = NULL,
-                        ln = NULL, geom = NULL,
-                        ...){
-
-  x <- list(left = left, top = top, width = width, height = height,
-            ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln, geom = geom, fld_type = NA_character_, fld_id = NA_character_)
-
+                        newlabel = "", bg = NULL, rotation = NULL,
+                        ln = NULL, geom = NULL, ...) {
+  # remove name in case of named vector entry, e.g. ph_location(top = x["top])
+  left <- unname(left)
+  top <- unname(top)
+  width <- unname(width)
+  height <- unname(height)
+  x <- list(
+    left = left, top = top, width = width, height = height,
+    ph_label = newlabel, ph = NA_character_, bg = bg, rotation = rotation, ln = ln,
+    geom = geom, fld_type = NA_character_, fld_id = NA_character_
+  )
   class(x) <- c("location_manual", "location_str")
   x
 }
+
 
 #' @export
 fortify_location.location_manual <- function( x, doc, ...){
