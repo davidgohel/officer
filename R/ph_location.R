@@ -785,7 +785,7 @@ fortify_named_location_position <- function(x) {
 
 resolve_ph_location <- function(x) {
   if (is.null(names(x))) {
-    names(x) <- c("top", "left", "width", "height") # name order matters!
+    names(x) <- c("left", "top", "width", "height") # same order as in ph_location() !
   }
   x <- fortify_named_location_position(x)
   do.call(ph_location, as.list(x))

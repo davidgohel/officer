@@ -317,7 +317,7 @@ test_that("short-form locations", {
   expect_error(resolve_location(-1), regex = "Integers passed to `location` must be positive", fixed = TRUE)
 
   ## numeric: (named) position vector
-  v2 <- v <- c(top = 0, left = 0.1, width = 5.2, height = 4)
+  v2 <- v <- c(left = 1, top = 2, width = 3.3, height = 4.4)
   names(v2) <- substr(names(v2), 1, 1)
   loc_1 <- resolve_location(unname(v))
   loc_2 <- resolve_location(v)
@@ -331,9 +331,9 @@ test_that("short-form locations", {
   expect_equal(loc_1, loc_5)
   expect_equal(loc_1, loc_6)
 
-  v <- c(top = 0, left = 0, width = 5, xxx = 10)
+  v <- c(top = 1, left = 2, width = 3, xxx = 10)
   expect_error(resolve_location(v), regex = 'Found 1 unknown name in `location`: "xxx"', fixed = TRUE)
-  v <- c(top = 0, top = 0, width = 5, width = 4)
+  v <- c(top = 1, top = 2, width = 3, width = 4)
   expect_error(resolve_location(v), regex = 'Duplicate entries in `location`: "top" and "width"', fixed = TRUE)
 
   # character input
