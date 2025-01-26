@@ -1,4 +1,3 @@
-
 props_to_ph_location <- function(props) {
   if (nrow(props) > 1) {
     cli::cli_alert_warning("More than one placeholder selected.")
@@ -99,7 +98,8 @@ as_ph_location <- function(x, ...) {
   if (!is.data.frame(x)) {
     cli::cli_abort(
       c("{.arg x} must be a data frame.",
-        "x" =  "You provided {.cls {class(x)[1]}} instead.")
+        "x" = "You provided {.cls {class(x)[1]}} instead."
+      )
     )
   }
   ref_names <- c(
@@ -130,13 +130,15 @@ is_ph_location <- function(x) {
 #' @param ... unused arguments
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content",
-#'   master = "Office Theme")
+#' doc <- add_slide(doc,
+#'   layout = "Title and Content",
+#'   master = "Office Theme"
+#' )
 #' fortify_location(ph_location_fullsize(), doc)
 #' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
 #' @family functions for officer extensions
 #' @keywords internal
-fortify_location <- function( x, doc, ... ){
+fortify_location <- function(x, doc, ...) {
   UseMethod("fortify_location")
 }
 
@@ -177,17 +179,20 @@ fortify_location <- function( x, doc, ... ){
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
 #' doc <- ph_with(doc, "Hello world",
-#'   location = ph_location(width = 4, height = 3, newlabel = "hello") )
-#' print(doc, target = tempfile(fileext = ".pptx") )
+#'   location = ph_location(width = 4, height = 3, newlabel = "hello")
+#' )
+#' print(doc, target = tempfile(fileext = ".pptx"))
 #'
 #' # Set geometry and outline
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
-#' loc <- ph_location(left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
-#'                    ln = sp_line(color = "red", lwd = 2.5),
-#'                    geom = "trapezoid")
+#' loc <- ph_location(
+#'   left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
+#'   ln = sp_line(color = "red", lwd = 2.5),
+#'   geom = "trapezoid"
+#' )
 #' doc <- ph_with(doc, "", loc = loc)
-#' print(doc, target = tempfile(fileext = ".pptx") )
+#' print(doc, target = tempfile(fileext = ".pptx"))
 ph_location <- function(left = 1, top = 1, width = 4, height = 3,
                         newlabel = "", bg = NULL, rotation = NULL,
                         ln = NULL, geom = NULL, ...) {
@@ -207,7 +212,7 @@ ph_location <- function(left = 1, top = 1, width = 4, height = 3,
 
 
 #' @export
-fortify_location.location_manual <- function( x, doc, ...){
+fortify_location.location_manual <- function(x, doc, ...) {
   x
 }
 
@@ -232,32 +237,37 @@ fortify_location.location_manual <- function( x, doc, ...){
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
 #' doc <- ph_with(doc, "Title",
-#'   location = ph_location_type(type = "title") )
+#'   location = ph_location_type(type = "title")
+#' )
 #' doc <- ph_with(doc, "Hello world",
-#'     location = ph_location_template(top = 4, type = "title") )
-#' print(doc, target = tempfile(fileext = ".pptx") )
+#'   location = ph_location_template(top = 4, type = "title")
+#' )
+#' print(doc, target = tempfile(fileext = ".pptx"))
 #' @export
 ph_location_template <- function(left = 1, top = 1, width = 4, height = 3,
                                  newlabel = "", type = NULL, id = 1,
-                                 ...){
-
-  x <- list(left = left, top = top, width = width, height = height,
-            ph_label = newlabel, ph = NA_character_,
-            type = type, id = id)
+                                 ...) {
+  x <- list(
+    left = left, top = top, width = width, height = height,
+    ph_label = newlabel, ph = NA_character_,
+    type = type, id = id
+  )
 
   class(x) <- c("location_template", "location_str")
   x
 }
 #' @export
-fortify_location.location_template <- function( x, doc, ...){
+fortify_location.location_template <- function(x, doc, ...) {
   slide <- doc$slide$get_slide(doc$cursor)
-  if( !is.null( x$type ) ){
+  if (!is.null(x$type)) {
     ph <- slide$get_xfrm(type = x$type, index = x$id)$ph
   } else {
     ph <- sprintf('<p:ph type="%s"/>', "body")
   }
-  x <- ph_location(left = x$left, top = x$top, width = x$width, height = x$height,
-                   label = x$ph_label)
+  x <- ph_location(
+    left = x$left, top = x$top, width = x$width, height = x$height,
+    label = x$ph_label
+  )
   x$ph <- ph
   fortify_location.location_manual(x)
 }
@@ -366,10 +376,10 @@ fortify_location.location_type <- function(x, doc, ...) {
   # to avoid a breaking change, the deprecated id is passed along.
   # As type_idx uses a different index order than id, this is necessary until the id arg is removed.
   out <- get_ph_loc(doc,
-                    layout = layout, master = master,
-                    type = x$type, position_right = x$position_right,
-                    position_top = x$position_top, type_idx = x$type_idx,
-                    id = x$id, ph_id = NULL # id is deprecated and will be removed soon
+    layout = layout, master = master,
+    type = x$type, position_right = x$position_right,
+    position_top = x$position_top, type_idx = x$type_idx,
+    id = x$id, ph_id = NULL # id is deprecated and will be removed soon
   )
   if (!is.null(x$label)) {
     out$ph_label <- x$label
@@ -398,49 +408,53 @@ fortify_location.location_type <- function(x, doc, ...) {
 #' layout_properties(doc, layout = "Title and Content")
 #'
 #' doc <- ph_with(doc, head(iris),
-#'   location = ph_location_label(ph_label = "Content Placeholder 2") )
+#'   location = ph_location_label(ph_label = "Content Placeholder 2")
+#' )
 #' doc <- ph_with(doc, format(Sys.Date()),
-#'   location = ph_location_label(ph_label = "Date Placeholder 3") )
+#'   location = ph_location_label(ph_label = "Date Placeholder 3")
+#' )
 #' doc <- ph_with(doc, "This is a title",
-#'   location = ph_location_label(ph_label = "Title 1") )
+#'   location = ph_location_label(ph_label = "Title 1")
+#' )
 #'
 #' print(doc, target = tempfile(fileext = ".pptx"))
-ph_location_label <- function( ph_label, newlabel = NULL, ...){
-  x <- list(ph_label = ph_label, label = newlabel)
+ph_location_label <- function(ph_label, newlabel = NULL, ...) {
+  x <- list(ph_label = unname(ph_label), label = unname(newlabel))
   class(x) <- c("location_label", "location_str")
   x
 }
 
 
 #' @export
-fortify_location.location_label <- function( x, doc, ...){
-
+fortify_location.location_label <- function(x, doc, ...) {
   slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
 
-  layout <- unique( xfrm$name )
+  layout <- unique(xfrm$name)
   master <- unique(xfrm$master_name)
 
-  props <- layout_properties( doc, layout = layout, master = master )
+  props <- layout_properties(doc, layout = layout, master = master)
   props <- props[props$ph_label %in% x$ph_label, , drop = FALSE]
 
-  if( nrow(props) < 1) {
+  if (nrow(props) < 1) {
     stop("no selected row")
   }
 
-  if( nrow(props) > 1) {
-    stop("Placeholder ", shQuote(x$ph_label),
-         " in the slide layout is duplicated. It needs to be unique. Hint: layout_dedupe_ph_labels() helps handling duplicates.")
+  if (nrow(props) > 1) {
+    stop(
+      "Placeholder ", shQuote(x$ph_label),
+      " in the slide layout is duplicated. It needs to be unique. Hint: layout_dedupe_ph_labels() helps handling duplicates."
+    )
   }
 
   props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")]
   names(props) <- c("left", "top", "width", "height", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")
   row.names(props) <- NULL
   out <- as_ph_location(props)
-  if( !is.null(x$label) )
+  if (!is.null(x$label)) {
     out$ph_label <- x$label
+  }
   out
-
 }
 
 
@@ -454,23 +468,22 @@ fortify_location.location_label <- function( x, doc, ...){
 #' @examples
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
-#' doc <- ph_with(doc, "Hello world", location = ph_location_fullsize() )
-#' print(doc, target = tempfile(fileext = ".pptx") )
-ph_location_fullsize <- function( newlabel = "", ... ){
-
+#' doc <- ph_with(doc, "Hello world", location = ph_location_fullsize())
+#' print(doc, target = tempfile(fileext = ".pptx"))
+ph_location_fullsize <- function(newlabel = "", ...) {
   x <- list(label = newlabel)
   class(x) <- c("location_fullsize", "location_str")
   x
 }
 
 #' @export
-fortify_location.location_fullsize <- function( x, doc, ...){
-
+fortify_location.location_fullsize <- function(x, doc, ...) {
   layout_data <- slide_size(doc)
   layout_data$left <- 0L
   layout_data$top <- 0L
-  if( !is.null(x$label) )
+  if (!is.null(x$label)) {
     layout_data$ph_label <- x$label
+  }
   layout_data$ph <- NA_character_
   layout_data$type <- "body"
   layout_data$rotation <- 0L
@@ -493,29 +506,30 @@ fortify_location.location_fullsize <- function( x, doc, ...){
 #' @examples
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
-#' doc <- ph_with(doc, "Hello left", location = ph_location_left() )
-#' doc <- ph_with(doc, "Hello right", location = ph_location_right() )
-#' print(doc, target = tempfile(fileext = ".pptx") )
-ph_location_left <- function( newlabel = NULL, ... ){
-
+#' doc <- ph_with(doc, "Hello left", location = ph_location_left())
+#' doc <- ph_with(doc, "Hello right", location = ph_location_right())
+#' print(doc, target = tempfile(fileext = ".pptx"))
+ph_location_left <- function(newlabel = NULL, ...) {
   x <- list(label = newlabel)
   class(x) <- c("location_left", "location_str")
   x
 }
 
 #' @export
-fortify_location.location_left <- function( x, doc, ...){
-
+fortify_location.location_left <- function(x, doc, ...) {
   slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
 
   args <- list(...)
-  master <- if(is.null(args$master)) unique( xfrm$master_name ) else args$master
-  out <- get_ph_loc(doc, layout = "Two Content", master = master,
-                    type = "body", position_right = FALSE,
-                    position_top = TRUE)
-  if( !is.null(x$label) )
+  master <- if (is.null(args$master)) unique(xfrm$master_name) else args$master
+  out <- get_ph_loc(doc,
+    layout = "Two Content", master = master,
+    type = "body", position_right = FALSE,
+    position_top = TRUE
+  )
+  if (!is.null(x$label)) {
     out$ph_label <- x$label
+  }
   out
 }
 
@@ -533,11 +547,10 @@ fortify_location.location_left <- function( x, doc, ...){
 #' @examples
 #' doc <- read_pptx()
 #' doc <- add_slide(doc)
-#' doc <- ph_with(doc, "Hello left", location = ph_location_left() )
-#' doc <- ph_with(doc, "Hello right", location = ph_location_right() )
-#' print(doc, target = tempfile(fileext = ".pptx") )
-ph_location_right <- function( newlabel = NULL, ... ){
-
+#' doc <- ph_with(doc, "Hello left", location = ph_location_left())
+#' doc <- ph_with(doc, "Hello right", location = ph_location_right())
+#' print(doc, target = tempfile(fileext = ".pptx"))
+ph_location_right <- function(newlabel = NULL, ...) {
   x <- list(label = newlabel)
   class(x) <- c("location_right", "location_str")
   x
@@ -545,18 +558,20 @@ ph_location_right <- function( newlabel = NULL, ... ){
 
 
 #' @export
-fortify_location.location_right <- function( x, doc, ...){
-
+fortify_location.location_right <- function(x, doc, ...) {
   slide <- doc$slide$get_slide(doc$cursor)
   xfrm <- slide$get_xfrm()
 
   args <- list(...)
-  master <- ifelse(is.null(args$master), unique( xfrm$master_name ), args$master)
-  out <- get_ph_loc(doc, layout = "Two Content", master = master,
-                    type = "body", position_right = TRUE,
-                    position_top = TRUE)
-  if( !is.null(x$label) )
+  master <- ifelse(is.null(args$master), unique(xfrm$master_name), args$master)
+  out <- get_ph_loc(doc,
+    layout = "Two Content", master = master,
+    type = "body", position_right = TRUE,
+    position_top = TRUE
+  )
+  if (!is.null(x$label)) {
     out$ph_label <- x$label
+  }
   out
 }
 
@@ -677,7 +692,7 @@ resolve_location_from_numeric <- function(x) {
     if (!is_integerish(x)) {
       cli::cli_abort(
         c("{.arg location} is a length 1 {.cls {class(x)[1]}}: {.val {x}}",
-          "x" = "If length 1, {.arg location} requires {.cls integer}"
+          "x" = "If a length 1 numeric, {.arg location} requires {.cls integer}"
         ),
         call = NULL
       )
@@ -714,6 +729,13 @@ resolve_ph_location_id <- function(x) {
 # c(left =, top =, width =, height = )
 #
 fortify_named_location_position <- function(x) {
+  if (!is_named(x)) {
+    cli::cli_abort(
+      c("Some vector elements have no names",
+        "x" = "{.arg x} must be a named vector"
+      )
+    )
+  }
   args <- names(x)
   expected <- c("left", "top", "width", "height")
   matched <- pmatch(args, expected, duplicates.ok = TRUE)
@@ -726,7 +748,8 @@ fortify_named_location_position <- function(x) {
       c("Found {sum(i_na)} unknown name{?s} in {.arg location}: {.val {args[i_na]}}",
         "x" = "{.arg location} understands {.val {expected}}",
         "i" = cli::col_silver("Partial name matching is supported")
-      )
+      ),
+      call = NULL
     )
   }
   # duplicate position
@@ -736,26 +759,28 @@ fortify_named_location_position <- function(x) {
       c("Duplicate entries in {.arg location}: {.val {unique(nms_new[ii_dupes])}}",
         "x" = "Each name in {.arg location} must be unique",
         "i" = cli::col_silver("Partial name matching is supported")
-      )
+      ),
+      call = NULL
     )
   }
-  # missing position
-  missings <- setdiff(expected, nms_new)
-  if (length(missings) > 0) {
-    cli::cli_abort(
-      c("Missing {.val {missings}} in {.arg location}",
-        "x" = "{.arg location} requinms_new {.val {expected}}",
-        "i" = cli::col_silver("Partial name matching is supported")
-      )
-    )
-  }
+  # # missing position
+  # missings <- setdiff(expected, nms_new)
+  # if (length(missings) > 0) {
+  #   cli::cli_abort(
+  #     c("Missing {.val {missings}} in {.arg location}",
+  #       "x" = "{.arg location} requires {.val {expected}}",
+  #       "i" = cli::col_silver("Partial name matching is supported")
+  #     ),
+  #     call = NULL
+  #   )
+  # }
   setNames(x, nms_new)
 }
 
 
 resolve_ph_location <- function(x) {
   if (is.null(names(x))) {
-    names(x) <- c("left", "top", "width", "height")
+    names(x) <- c("top", "left", "width", "height") # name order matters!
   }
   x <- fortify_named_location_position(x)
   do.call(ph_location, as.list(x))
@@ -763,6 +788,15 @@ resolve_ph_location <- function(x) {
 
 
 resolve_location_from_character <- function(x) {
+  if (is.character(x) && length(x) > 1) {
+    cli::cli_abort(
+      c("{.arg location} has incorrect length.",
+        "x" = "Character vector passed to {.arg location} must have length 1"
+      ),
+      call = NULL
+    )
+  }
+  # cases:
   # - keyword left, => ph_location_left()
   #           right => ph_location_right()
   #           fullsize => ph_location_fullsize()
