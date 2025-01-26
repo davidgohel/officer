@@ -819,6 +819,7 @@ resolve_location_from_character <- function(x) {
   } else {
     location <- ph_location_label(x)
   }
+  location
 }
 
 # matches pattern "type [type_idx ]",
