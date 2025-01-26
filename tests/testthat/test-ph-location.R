@@ -367,9 +367,10 @@ test_that("short-form locations", {
   expect_no_error({
     x <- read_pptx()
     x <- add_slide(x, "Title Slide")
-    x <- ph_with(x, "A title", "Title 1")
-    x <- ph_with(x, "A subtitle", 3)
-    x <- ph_with(x, "A date", "dt[1]")
-    x <- ph_with(x, "A left text", "left")
+    x <- ph_with(x, "A title", "Title 1")  # label
+    x <- ph_with(x, "A subtitle", 3)       # id
+    x <- ph_with(x, "A date", "dt[1]")     # type + index
+    x <- ph_with(x, "A left text", "left") # keyword
+    x <- ph_with(x, "More content", c(5, .5, 9, 2))  # numeric vector
   })
 })
