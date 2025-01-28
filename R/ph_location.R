@@ -660,14 +660,40 @@ fortify_location.location_id <- function(x, doc, ...) {
 
 # _________________ ----
 # resolve ----
-# convert simplified location format, i.e. a numeric or string (e.g. "body [1]")
-# into corresponding location object. The following short forms are available:
-# - integer of length 1 = ph_location_id()
-# - integer of length 4 = ph_location_position()
-# - keyword left,right,fullsize = ph_location_left(), ph_location_right(), ph_location_fullsize()
-# - type keyword + type index = ph_location_type() [e.g. body, title, ctrTitle, subTitle, dt, ftr, sldNum = ]
-# - other string = ph_location_label()
-#
+
+#' @export
+#' @keywords internal
+#' @title Resolve short form location
+#' @description
+#' Convert short form location format, a numeric or a string (e.g. `"body [1]"`),
+#' into its corresponding location object. Under the hood, we parse the short form location and
+#' call the corresponding function from the `ph_location_*` family. Note that short forms may not
+#' cover all function from the `ph_location_*` and offer less customization.
+#'
+#' @section Short forms:
+#' The following location short forms are implemented. The corresponding call of the function from the
+#' `ph_location_*` family is displayed on the right.
+#'
+#' | **Short form** | **Description**                                             | **Location function**           |
+#' |----------------|-------------------------------------------------------------|---------------------------------|
+#' | `"left"`       | Keyword string                                              | `ph_location_left()`            |
+#' | `"right"`      | Keyword string                                              | `ph_location_right()`           |
+#' | `"fullsize"`   | Keyword string                                              | `ph_location_fullsize()`        |
+#' | `"body [1]"`   | String: type + index in brackets (`1` if omitted)           | `ph_location_type("body", 1)`   |
+#' | `"my_label"`   | Any string not matching a keyword or type                   | `ph_location_label("my_label")` |
+#' | `2`            | Length 1 integer                                            | `ph_location_id(2)`             |
+#' | `c(0,0,4,5)`   | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` | `ph_location(0, 0, 4, 5)`       |
+#'
+#' @examples
+#' resolve_location("left")
+#' resolve_location("right")
+#' resolve_location("fullsize")
+#' resolve_location("body")
+#' resolve_location("body [1]")
+#' resolve_location("<some label>")
+#' resolve_location(2)
+#' resolve_location(c(0, 0, 4, 5))
+#'
 resolve_location <- function(x) {
   if (is_ph_location(x)) {
     return(x)
