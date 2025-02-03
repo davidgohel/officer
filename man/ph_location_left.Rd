@@ -21,9 +21,9 @@ to your specific needs.
 \examples{
 doc <- read_pptx()
 doc <- add_slide(doc)
-doc <- ph_with(doc, "Hello left", location = ph_location_left() )
-doc <- ph_with(doc, "Hello right", location = ph_location_right() )
-print(doc, target = tempfile(fileext = ".pptx") )
+doc <- ph_with(doc, "Hello left", location = ph_location_left())
+doc <- ph_with(doc, "Hello right", location = ph_location_right())
+print(doc, target = tempfile(fileext = ".pptx"))
 }
 \seealso{
 Other functions for placeholder location: 

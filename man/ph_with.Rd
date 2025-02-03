@@ -19,19 +19,19 @@
 \usage{
 ph_with(x, value, location, ...)
 
-\method{ph_with}{character}(x, value, location, ...)
+ph_with.character(x, value, location, ...)
 
-\method{ph_with}{numeric}(x, value, location, format_fun = format, ...)
+ph_with.numeric(x, value, location, format_fun = format, ...)
 
-\method{ph_with}{factor}(x, value, location, ...)
+ph_with.factor(x, value, location, ...)
 
-\method{ph_with}{logical}(x, value, location, format_fun = format, ...)
+ph_with.logical(x, value, location, format_fun = format, ...)
 
-\method{ph_with}{block_list}(x, value, location, level_list = integer(0), ...)
+ph_with.block_list(x, value, location, level_list = integer(0), ...)
 
-\method{ph_with}{unordered_list}(x, value, location, ...)
+ph_with.unordered_list(x, value, location, ...)
 
-\method{ph_with}{data.frame}(
+ph_with.data.frame(
   x,
   value,
   location,
@@ -41,17 +41,17 @@ ph_with(x, value, location, ...)
   ...
 )
 
-\method{ph_with}{gg}(x, value, location, res = 300, alt_text = "", scale = 1, ...)
+ph_with.gg(x, value, location, res = 300, alt_text = "", scale = 1, ...)
 
-\method{ph_with}{plot_instr}(x, value, location, res = 300, ...)
+ph_with.plot_instr(x, value, location, res = 300, ...)
 
-\method{ph_with}{external_img}(x, value, location, use_loc_size = TRUE, ...)
+ph_with.external_img(x, value, location, use_loc_size = TRUE, ...)
 
-\method{ph_with}{fpar}(x, value, location, ...)
+ph_with.fpar(x, value, location, ...)
 
-\method{ph_with}{empty_content}(x, value, location, ...)
+ph_with.empty_content(x, value, location, ...)
 
-\method{ph_with}{xml_document}(x, value, location, ...)
+ph_with.xml_document(x, value, location, ...)
 }
 \arguments{
 \item{x}{an rpptx object}
@@ -62,10 +62,10 @@ unordered list of formatted paragraphs,
 pretty tables with package flextable, editable graphics with
 package rvg, 'Microsoft' charts with package mschart.}
 
-\item{location}{a placeholder location object.
-It will be used to specify the location of the new shape. This location
-can be defined with a call to one of the ph_location functions. See
-section \code{"see also"}.}
+\item{location}{a placeholder location object or a location short form. It will be used
+to specify the location of the new shape. This location can be defined with a call to one
+of the \verb{ph_location_*} functions (see section \code{"see also"}). In \code{ph_with()}, several location
+short forms can be used, as listed in section \code{"Short forms"}.}
 
 \item{...}{further arguments passed to or from other methods. When
 adding a \code{ggplot} object or \code{plot_instr}, these arguments will be used
@@ -99,36 +99,36 @@ add object into a new shape in the current slide. This
 function is able to add all supported outputs to a presentation. See
 section \strong{Methods (by class)} to see supported outputs.
 }
-\section{Methods (by class)}{
+\section{Functions}{
 \itemize{
-\item \code{ph_with(character)}: add a character vector to a new shape on the
+\item \code{ph_with.character()}: add a character vector to a new shape on the
 current slide, values will be added as paragraphs.
 
-\item \code{ph_with(numeric)}: add a numeric vector to a new shape on the
+\item \code{ph_with.numeric()}: add a numeric vector to a new shape on the
 current slide, values will be be first formatted then
 added as paragraphs.
 
-\item \code{ph_with(factor)}: add a factor vector to a new shape on the
+\item \code{ph_with.factor()}: add a factor vector to a new shape on the
 current slide, values will be be converted as character and then
 added as paragraphs.
 
-\item \code{ph_with(block_list)}: add a \code{\link{block_list}} made
+\item \code{ph_with.block_list()}: add a \code{\link{block_list}} made
 of \code{\link{fpar}} to a new shape on the current slide.
 
-\item \code{ph_with(unordered_list)}: add a \code{\link{unordered_list}} made
+\item \code{ph_with.unordered_list()}: add a \code{\link{unordered_list}} made
 of \code{\link{fpar}} to a new shape on the current slide.
 
-\item \code{ph_with(data.frame)}: add a data.frame to a new shape on the current slide with
+\item \code{ph_with.data.frame()}: add a data.frame to a new shape on the current slide with
 function \code{\link[=block_table]{block_table()}}. Use package \code{flextable} instead for more
 advanced formattings.
 
-\item \code{ph_with(gg)}: add a ggplot object to a new shape on the
+\item \code{ph_with.gg()}: add a ggplot object to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
 
-\item \code{ph_with(plot_instr)}: add an R plot to a new shape on the
+\item \code{ph_with.plot_instr()}: add an R plot to a new shape on the
 current slide. Use package \code{rvg} for more advanced graphical features.
 
-\item \code{ph_with(external_img)}: add a \code{\link{external_img}} to a new shape
+\item \code{ph_with.external_img()}: add a \code{\link{external_img}} to a new shape
 on the current slide.
 
 When value is a external_img object, image will be copied
@@ -137,16 +137,31 @@ specified in call to \code{external_img} will be
 ignored, their values will be those of the location,
 unless use_loc_size is set to FALSE.
 
-\item \code{ph_with(fpar)}: add an \code{\link{fpar}} to a new shape
+\item \code{ph_with.fpar()}: add an \code{\link{fpar}} to a new shape
 on the current slide as a single paragraph in a \code{\link{block_list}}.
 
-\item \code{ph_with(empty_content)}: add an \code{\link{empty_content}} to a new shape
+\item \code{ph_with.empty_content()}: add an \code{\link{empty_content}} to a new shape
 on the current slide.
 
-\item \code{ph_with(xml_document)}: add an xml_document object to a new shape on the
+\item \code{ph_with.xml_document()}: add an xml_document object to a new shape on the
 current slide. This function is to be used to add custom openxml code.
 
 }}
+\section{Short forms}{
+
+The \code{location} argument of \code{ph_with()} either expects a location object as returned by the
+\verb{ph_location_*} functions or a corresponding location \emph{short form} (string or numeric):\tabular{lll}{
+   \strong{Location function} \tab \strong{Short form} \tab \strong{Description} \cr
+   \code{ph_location_left()} \tab \code{"left"} \tab Keyword string \cr
+   \code{ph_location_right()} \tab \code{"right"} \tab Keyword string \cr
+   \code{ph_location_fullsize()} \tab \code{"fullsize"} \tab Keyword string \cr
+   \code{ph_location_type("body", 1)} \tab \code{"body [1]"} \tab String: type + index in brackets (\code{1} if omitted) \cr
+   \code{ph_location_label("my_label")} \tab \code{"my_label"} \tab Any string not matching a keyword or type \cr
+   \code{ph_location_id(1)} \tab \code{1} \tab Length 1 integer \cr
+   \code{ph_location(0, 0, 4, 5)} \tab \code{c(0,0,4,5)} \tab Length 4 numeric, optionally named, \code{c(top=0, left=0, ...)} \cr
+}
+}
+
 \section{Illustrations}{
 
 
@@ -158,7 +173,6 @@ current slide. This function is to be used to add custom openxml code.
 # change it to "youfile.pptx" to write the pptx
 # file in your working directory.
 fileout <- tempfile(fileext = ".pptx")
-
 
 doc_1 <- read_pptx()
 sz <- slide_size(doc_1)
@@ -295,6 +309,20 @@ doc_1 <- ph_with(
 )
 
 print(doc_1, target = fileout)
+
+
+# Example using short form locations ----
+x <- read_pptx()
+x <- add_slide(x, "Title Slide")
+x <- ph_with(x, "A title", "Title 1")        # label
+x <- ph_with(x, "A subtitle", 3)             # id
+x <- ph_with(x, "A left text", "left")       # keyword
+x <- ph_with(x, "A date", "dt[1]")           # type + index
+x <- ph_with(x, "More content", c(5,.5,9,2)) # numeric vector
+file <- tempfile(fileext = ".pptx")
+print(x, file)
+# browseURL(file)  # opens file on some systems
+
 }
 \seealso{
 \link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
