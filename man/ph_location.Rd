@@ -51,7 +51,7 @@ the width and the height. These are defined in inches:
 
 In addition to these attributes, a label can be
 associated with the shape. Shapes, text boxes, images and other objects
-will be identified with that label in the Selection Pane of PowerPoint.
+will be identified with that label in the \emph{Selection Pane} of PowerPoint.
 This label can then be reused by other functions such as \code{ph_location_label()}.
 It can be set with argument \code{newlabel}.
 }
@@ -59,17 +59,20 @@ It can be set with argument \code{newlabel}.
 doc <- read_pptx()
 doc <- add_slide(doc)
 doc <- ph_with(doc, "Hello world",
-  location = ph_location(width = 4, height = 3, newlabel = "hello") )
-print(doc, target = tempfile(fileext = ".pptx") )
+  location = ph_location(width = 4, height = 3, newlabel = "hello")
+)
+print(doc, target = tempfile(fileext = ".pptx"))
 
 # Set geometry and outline
 doc <- read_pptx()
 doc <- add_slide(doc)
-loc <- ph_location(left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
-                   ln = sp_line(color = "red", lwd = 2.5),
-                   geom = "trapezoid")
+loc <- ph_location(
+  left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
+  ln = sp_line(color = "red", lwd = 2.5),
+  geom = "trapezoid"
+)
 doc <- ph_with(doc, "", loc = loc)
-print(doc, target = tempfile(fileext = ".pptx") )
+print(doc, target = tempfile(fileext = ".pptx"))
 }
 \seealso{
 Other functions for placeholder location: 
