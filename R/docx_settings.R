@@ -89,6 +89,7 @@ to_wml.docx_settings <- function(x, add_ns = FALSE, ...) {
     "<w:settings xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
     sprintf("<w:zoom w:percent=\"%.0f\"/>", x$zoom * 100),
     sprintf("<w:defaultTabStop w:val=\"%.0f\"/>", x$default_tab_stop * 1440),
+    if(TRUE) "<w:autoHyphenation/>",
     sprintf("<w:hyphenationZone w:val=\"%.0f\"/>", x$hyphenation_zone * 1440),
     sprintf("<w:compat><w:compatSetting w:name=\"compatibilityMode\" w:uri=\"http://schemas.microsoft.com/office/word\" w:val=\"%s\"/></w:compat>", x$compatibility_mode),
     sprintf("<w:decimalSymbol w:val=\"%s\"/>", x$decimal_symbol),
