@@ -5,7 +5,7 @@ docx_settings <- function(zoom = 1,
                           list_separator = ";",
                           compatibility_mode = "15",
                           even_and_odd_headers = FALSE,
-                          auto_hyphenation = NULL
+                          auto_hyphenation = FALSE
                           ) {
   x <- list(
     zoom = zoom,
@@ -78,7 +78,7 @@ update.docx_settings <- function(object,
 
     node_auto_hyphenation <- xml_child(node_doc, "w:autoHyphenation")
     if (!inherits(node_auto_hyphenation, "xml_missing")) {
-      object$auto_hyphenation <- xml_name(node_auto_hyphenation)
+      object$auto_hyphenation <- TRUE
     }
 
     node_decimal_symbol <- xml_child(node_doc, "w:decimalSymbol")
@@ -101,7 +101,7 @@ to_wml.docx_settings <- function(x, add_ns = FALSE, ...) {
     "<w:settings xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
     sprintf("<w:zoom w:percent=\"%.0f\"/>", x$zoom * 100),
     sprintf("<w:defaultTabStop w:val=\"%.0f\"/>", x$default_tab_stop * 1440),
-    if(!is.null(x$auto_hyphenation)) sprintf("<w:%s/>", x$auto_hyphenation),
+    if(x$auto_hyphenation) sprintf("<w:autoHyphenation/>"),
     sprintf("<w:hyphenationZone w:val=\"%.0f\"/>", x$hyphenation_zone * 1440),
     sprintf("<w:compat><w:compatSetting w:name=\"compatibilityMode\" w:uri=\"http://schemas.microsoft.com/office/word\" w:val=\"%s\"/></w:compat>", x$compatibility_mode),
     sprintf("<w:decimalSymbol w:val=\"%s\"/>", x$decimal_symbol),
