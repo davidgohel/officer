@@ -482,3 +482,9 @@ is_integerish <- function(x) {
   jj <- all(x == as.integer(x))
   ii && jj
 }
+
+
+# coalesce for R
+`%||%` <- function(l, r) {
+  if (is.null(l)) r else l
+}

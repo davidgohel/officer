@@ -9,8 +9,9 @@
   the corresponding location object automatically. Other examples are `"body [1]"` for 
   `ph_location_type(type = "body", type_idx = 1)`, or the integer `1` for `ph_location_id(id = 1)`
 - Add `slide_visible()` to get and set the visibility of slides (#622).
-- debug selector for `ph_remove()` (see #625) that was not working 
-for rvg outputs.
+- debug selector for `ph_remove()` (see #625) that was not working for rvg outputs.
+- `phs_with`: filling multiple placeholders on one or more slides at once using key-value pair syntax (#639).
+- `add_slide`: new args `...` and `.dots`, both passed to `phs_with` to create slide and fill placeholders in one step (#639).
 
 ## Internals
 
