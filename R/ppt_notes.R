@@ -207,7 +207,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' print(doc, target = fileout)
 #'
 #' @seealso [print.rpptx()], [read_pptx()], [add_slide()], [notes_location_label()], [notes_location_type()]
-#' @family functions slide manipulation
+#' @family slide_manipulation
 set_notes <- function(x, value, location, ...){
   UseMethod("set_notes", value)
 }

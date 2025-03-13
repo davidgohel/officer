@@ -30,10 +30,10 @@ x <- move_slide(x, index = 1, to = 2)
 \seealso{
 \code{\link[=read_pptx]{read_pptx()}}
 
-Other functions slide manipulation: 
+Other functions to manipulate slides:
 \code{\link{add_slide}()},
 \code{\link{on_slide}()},
 \code{\link{remove_slide}()},
 \code{\link{set_notes}()}
 }
-\concept{functions slide manipulation}
+\concept{slide_manipulation}
