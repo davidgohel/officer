@@ -407,6 +407,18 @@ get_shapetrees_string <- function(x, slide_idx = NULL) {
 test_that("ph_with, phs_with, add_slide equality", {
   x1 <- read_pptx()
   x1 <- add_slide(x1, "Two Content")
+
+  x2 <- read_pptx()
+  x2 <- add_slide(x2, "Two Content")
+  x2 <- phs_with(x2) # empty case, no changes to rpptx
+
+  st_1 <- get_shapetrees_string(x1)
+  st_2 <- get_shapetrees_string(x2)
+
+  expect_equal(st_1, st_2)
+
+  x1 <- read_pptx()
+  x1 <- add_slide(x1, "Two Content")
   x1 <- ph_with(x1, "A title", "Title 1")
   x1 <- ph_with(x1, "Jan. 26, 2025", "dt")
   x1 <- ph_with(x1, "Body text", "body [2]")
