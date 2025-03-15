@@ -24,6 +24,25 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme", 
       ". Layout names should not be duplicated."
     )
   }
+
+  dots_list <- list(...)
+  if (length(dots_list) > 0 && !is_named(dots_list)) {
+    cli::cli_abort(
+      c("Missing key in {.arg ...}",
+        "x" = "{.arg ...} requires a key-value syntax, with a ph short-form location as the key",
+        "i" = "Example: {.code add_slide(x, ..., title = 'My title', 'body[1]' = 'My body')}"
+      )
+    )
+  }
+  if (length(.dots) > 0 && !is_named(.dots)) {
+    cli::cli_abort(
+      c("Missing names in {.arg .dots}",
+        "x" = "{.arg .dots} must be a named list, with ph short-form locations as names",
+        "i" = "Example: {.code add_slide(x, ..., .dots = list(title = 'My title', 'body[1]' = 'My body'))}"
+      )
+    )
+  }
+
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
@@ -38,7 +57,7 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme", 
   x$cursor <- x$slide$length()
 
   # fill placeholders
-  dots <- utils::modifyList(list(...), .dots %||% list())
+  dots <- utils::modifyList(dots_list, .dots %||% list())
   if (length(dots) > 0) {
     x <- phs_with(x, .dots = dots)
   }

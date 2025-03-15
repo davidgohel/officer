@@ -475,8 +475,33 @@ test_that("phs_with .slide_idx arg", {
 
 
 test_that("add_slide, phs_with: ... and .dots", {
+  opts <- options(testthat.use_colours = FALSE)
+  on.exit(opts)
+
+  # errors
+  x0 <- read_pptx()
+  x0 <- add_slide(x0, "Two Content")
+  expect_error(
+    phs_with(x0, "A title", dt = "Jan. 26, 2025"),
+    regexp = "Missing key in `...`"
+  )
+  expect_error(
+    phs_with(x0, .dots = list("A title", dt = "Jan. 26, 2025")),
+    regexp = "Missing names in `.dots`"
+  )
+  expect_error(
+    add_slide(x0, "Two Content", master = "Office Theme", "A title", dt = "Jan. 26, 2025"),
+    regexp = "Missing key in `...`"
+  )
+  expect_error(
+    add_slide(x0, "Two Content", .dots = list("A title", dt = "Jan. 26, 2025")),
+    regexp = "Missing names in `.dots`"
+  )
+
+  # functionality
   x1 <- read_pptx()
   x1 <- add_slide(x1, "Two Content")
+  expect_no_error(phs_with(x1)) # empty case
   x1 <- phs_with(x1,
     `Title 1` = "A title", dt = "Jan. 26, 2025",
     `body[2]` = "Body text", `6` = "Footer"

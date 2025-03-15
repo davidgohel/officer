@@ -680,7 +680,24 @@ ph_with.xml_document <- function(x, value, location, ...) {
 #' @seealso [ph_with()], [add_slide()]
 #' @example inst/examples/example_phs_with.R
 phs_with <- function(x, ..., .dots = NULL, .slide_idx = NULL) {
-  dots <- utils::modifyList(list(...), .dots %||% list())
+  dots_list <- list(...)
+  if (length(dots_list) > 0 && !is_named(dots_list)) {
+    cli::cli_abort(
+      c("Missing key in {.arg ...}",
+        "x" = "{.arg ...} requires a key-value syntax, with a ph short-form location as the key",
+        "i" = "Example: {.code phs_with(x, title = 'My title', 'body[1]' = 'My body')}"
+      )
+    )
+  }
+  if (length(.dots) > 0 && !is_named(.dots)) {
+    cli::cli_abort(
+      c("Missing names in {.arg .dots}",
+        "x" = "{.arg .dots} must be a named list, with ph short-form locations as names",
+        "i" = "Example: {.code phs_with(x, .dots = list(title = 'My title', 'body[1]' = 'My body'))}"
+      )
+    )
+  }
+  dots <- utils::modifyList(dots_list, .dots %||% list())
   if (length(dots) == 0) {
     return(x)
   }
