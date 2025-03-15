@@ -68,9 +68,11 @@ x <- add_slide(x, "Two Content")
 x <- phs_with(x, `6` = "Footer", dt = "Jan. 26, 2025", .slide_idx = 1:2)
 
 # run to see results
+\dontrun{
 file <- tempfile(fileext = ".pptx")
 print(x, file)
 browseURL(file) # may not work on all systems
+}
 }
 \seealso{
 \code{\link[=ph_with]{ph_with()}}, \code{\link[=add_slide]{add_slide()}}
