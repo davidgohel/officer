@@ -73,9 +73,14 @@ process_images <- function(doc_obj, relationships, package_dir, media_dir = "wor
     xml_attr(which_to_add[which_match_id], "r:embed") <- rep(rid, sum(which_match_id))
   }
 }
-process_docx_poured <- function(doc_obj, relationships, content_type,
-                                package_dir,
-                                media_dir = "word", media_rel_dir = "./") {
+process_docx_poured <- function(
+    doc_obj,
+    relationships,
+    content_type,
+    package_dir,
+    media_dir = "word"
+  ) {
+
   hl_nodes <- xml_find_all(
     doc_obj$get(), "//w:altChunk[@r:id]",
     ns = c(
@@ -89,12 +94,14 @@ process_docx_poured <- function(doc_obj, relationships, content_type,
   for (i in seq_along(hl_ref)) {
     rid <- sprintf("rId%.0f", relationships$get_next_id())
 
-    img_path <- file.path(package_dir, media_dir)
-    file.copy(from = hl_ref[i], to = file.path(package_dir, media_dir, basename(hl_ref[i])))
+    file.copy(
+      from = hl_ref[i],
+      to = file.path(package_dir, media_dir, basename(hl_ref[i]))
+    )
 
     relationships$add(
       id = rid, type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/aFChunk",
-      target = file.path(media_rel_dir, basename(hl_ref[i]))
+      target = basename(hl_ref[i])
     )
     content_type$add_override(
       setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml", paste0("/", media_dir, "/", basename(hl_ref[i])))
