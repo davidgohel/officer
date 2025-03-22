@@ -226,3 +226,14 @@ test_that("cursor before table", {
     c("p", "p", "tbl", "p", "p", "tbl", "sectPr")
   )
 })
+
+test_that("autoHyphenation", {
+  x <- read_docx()
+  x$settings$auto_hyphenation <- TRUE
+  new_file <- print(x, target = tempfile(fileext = ".docx"))
+  new_dir <- unpack_folder(file = new_file, folder = tempfile(pattern = "dir"))
+  xml_settings_file <- file.path(new_dir, "word/settings.xml")
+  xml_settings <- read_xml(xml_settings_file)
+  autoHyphenation_node <- xml_find_first(xml_settings, "//w:autoHyphenation")
+  expect_false(inherits(autoHyphenation_node, "xml_missing"))
+})
