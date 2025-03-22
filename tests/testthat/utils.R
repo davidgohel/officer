@@ -25,3 +25,4 @@ has_css_attr <- function(x, atname, value){
   reg <- sprintf("%s:%s", atname, value)
   grepl(reg, css)
 }
+
