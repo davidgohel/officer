@@ -12,6 +12,7 @@
 - debug selector for `ph_remove()` (see #625) that was not working for rvg outputs.
 - `phs_with`: filling multiple placeholders on one or more slides at once using key-value pair syntax (#639).
 - `add_slide`: new args `...` and `.dots`, both passed to `phs_with` to create slide and fill placeholders in one step (#639).
+- add support for pdf in office extensions (#613).
 
 ## Internals
 

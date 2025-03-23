@@ -188,9 +188,10 @@
 #' print(x, file)
 #' # browseURL(file)  # opens file on some systems
 #'
-#' @seealso [ph_location_type], [ph_location], [ph_location_label],
-#' [ph_location_left], [ph_location_right], [ph_location_fullsize],
-#' [ph_location_template] [phs_with]
+#' @seealso Specify placeholder locations with [ph_location_type], [ph_location],
+#' [ph_location_label], [ph_location_left], [ph_location_right],
+#' [ph_location_fullsize], [ph_location_template]. [phs_with] is a sibling of
+#' `ph_with` that fills mutiple placeholders at once.
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}

@@ -1,3 +1,10 @@
+dev_png <- function(filename, width = 800, height = 700, units = "px", res = 150) {
+  gdtools::register_liberationsans()
+  ragg::agg_png(filename = filename, width = width, height = height, units = units, res = res)
+  par(family = "Liberation Sans")
+}
+
+
 test_that("layout summary", {
   x <- read_pptx()
   laysum <- layout_summary(x)
@@ -67,32 +74,23 @@ test_that("layout properties - all phs for multiple masters (#597)", {
 })
 
 
-save_png <- function(code, width = 700, height = 700) {
-  path <- tempfile(fileext = ".png")
-  png(path, width = width, height = height, res = 150)
-  on.exit(dev.off())
-  code
-
-  path
-}
-
-
 test_that("plot layout properties", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
+  skip_if_not_installed("gdtools")
   require(doconv)
   local_edition(3L)
   x <- read_pptx()
 
   png1 <- tempfile(fileext = ".png")
-  png(png1, width = 7, height = 6, res = 150, units = "in")
+  dev_png(png1, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
     x = x, layout = "Title Slide", master = "Office Theme"
   )
   dev.off()
 
   png2 <- tempfile(fileext = ".png")
-  png(png2, width = 7, height = 6, res = 150, units = "in")
+  dev_png(png2, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
     x = x, layout = "Title Slide", master = "Office Theme",
     labels = TRUE, type = FALSE, id = FALSE, title = FALSE
@@ -100,7 +98,7 @@ test_that("plot layout properties", {
   dev.off()
 
   png3 <- tempfile(fileext = ".png")
-  png(png3, width = 7, height = 6, res = 150, units = "in")
+  dev_png(png3, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
     x = x, layout = "Title Slide", master = "Office Theme", legend = TRUE
   )
@@ -115,14 +113,14 @@ test_that("plot layout properties", {
   x <- read_pptx(p)
 
   png4 <- tempfile(fileext = ".png")
-  png(png4, width = 7, height = 6, res = 150, units = "in")
+  dev_png(png4, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
     x = x, layout = "Many Contents", master = "Office Theme"
   )
   dev.off()
 
   png5 <- tempfile(fileext = ".png")
-  png(png5, width = 7, height = 6, res = 150, units = "in")
+  dev_png(png5, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
     x = x, layout = "Many Contents", master = "Office Theme",
     labels = TRUE, type = FALSE, id = FALSE, title = FALSE
@@ -133,6 +131,7 @@ test_that("plot layout properties", {
   expect_snapshot_doc(name = "plot-content-order-labels-only", x = png5, engine = "testthat")
 })
 
+par(family = "")
 
 test_that("slide summary", {
   x <- read_pptx()
@@ -162,7 +161,7 @@ test_that("plot layout properties: layout arg takes numeric index", {
 
   discarded_plot <- function(x, layout = NULL, master = NULL) { # avoid Rplots.pdf creation
     file <- tempfile(fileext = ".png")
-    png(file, width = 7, height = 6, res = 150, units = "in")
+    dev_png(file, width = 7, height = 6, res = 150, units = "in")
       plot_layout_properties(x, layout, master)
     dev.off()
   }

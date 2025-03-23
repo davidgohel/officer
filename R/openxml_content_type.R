@@ -89,6 +89,7 @@ content_type <- R6Class(
       self$add_ext(extension = "emf", type = "image/x-emf")
       self$add_ext(extension = "wmf", type = "image/x-wmf")
       self$add_ext(extension = "tiff", type = "image/tiff")
+      self$add_ext(extension = "pdf", type = "application/pdf")
       self$add_ext(extension = "jpg", type = "application/octet-stream")
       attribs <- attr_chunk(c(xmlns = "http://schemas.openxmlformats.org/package/2006/content-types"))
       out <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",

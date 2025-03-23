@@ -23,6 +23,8 @@ image_to_base64 <- function(filepaths){
         mime <- "image/svg+xml"
       } else if( grepl("\\.tiff", ignore.case = TRUE, x = filepath) ){
         mime <- "image/tiff"
+      } else if( grepl("\\.pdf", ignore.case = TRUE, x = filepath) ){
+        mime <- "application/pdf"
       } else if( grepl("\\.webp", ignore.case = TRUE, x = filepath) ){
         mime <- "image/webp"
       } else {
