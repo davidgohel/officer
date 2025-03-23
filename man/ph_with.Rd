@@ -325,7 +325,8 @@ print(x, file)
 
 }
 \seealso{
-\link{ph_location_type}, \link{ph_location}, \link{ph_location_label},
-\link{ph_location_left}, \link{ph_location_right}, \link{ph_location_fullsize},
-\link{ph_location_template} \link{phs_with}
+Specify placeholder locations with \link{ph_location_type}, \link{ph_location},
+\link{ph_location_label}, \link{ph_location_left}, \link{ph_location_right},
+\link{ph_location_fullsize}, \link{ph_location_template}. \link{phs_with} is a sibling of
+\code{ph_with} that fills mutiple placeholders at once.
 }
