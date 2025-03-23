@@ -103,6 +103,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/ph_remove.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/ph_slidelink.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/ph_with.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/phs_with.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/plot_instr.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/plot_layout_properties.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/pptx_summary.html</loc></url>
@@ -114,6 +115,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/read_pptx.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/read_xlsx.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/remove_slide.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/resolve_location.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/rtf_add.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/rtf_doc.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/run_autonum.html</loc></url>
@@ -136,10 +138,12 @@
 <url><loc>https://davidgohel.github.io/officer/reference/shape_properties_tags.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/sheet_select.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/shortcuts.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/slide-visible.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/slide_size.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/slide_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/sp_line.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/sp_lineend.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/stop_if_not_in_slide_range.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/str_encode_to_rtf.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/styles_info.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/table_colwidths.html</loc></url>
