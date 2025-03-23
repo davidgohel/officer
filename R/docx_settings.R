@@ -4,7 +4,8 @@ docx_settings <- function(zoom = 1,
                           decimal_symbol = ".",
                           list_separator = ";",
                           compatibility_mode = "15",
-                          even_and_odd_headers = FALSE
+                          even_and_odd_headers = FALSE,
+                          auto_hyphenation = FALSE
                           ) {
   x <- list(
     zoom = zoom,
@@ -13,6 +14,7 @@ docx_settings <- function(zoom = 1,
     decimal_symbol = decimal_symbol,
     list_separator = list_separator,
     even_and_odd_headers = even_and_odd_headers,
+    auto_hyphenation = auto_hyphenation,
     compatibility_mode = compatibility_mode
   )
   class(x) <- "docx_settings"
@@ -28,8 +30,10 @@ update.docx_settings <- function(object,
                                  list_separator = NULL,
                                  compatibility_mode = NULL,
                                  even_and_odd_headers = NULL,
+                                 auto_hyphenation = NULL,
                                  file = NULL,
                                  ...) {
+
   if (!is.null(zoom)) {
     object$zoom <- zoom
   }
@@ -51,6 +55,9 @@ update.docx_settings <- function(object,
   if (!is.null(even_and_odd_headers)) {
     object$even_and_odd_headers <- even_and_odd_headers
   }
+  if (!is.null(auto_hyphenation)) {
+    object$auto_hyphenation <- auto_hyphenation
+  }
   if (!is.null(file) && file.exists(file)) {
     node_doc <- read_xml(file)
 
@@ -67,6 +74,11 @@ update.docx_settings <- function(object,
     node_hyphenation_zone <- xml_child(node_doc, "w:hyphenationZone")
     if (!inherits(node_hyphenation_zone, "xml_missing")) {
       object$hyphenation_zone <- as.integer(xml_attr(node_hyphenation_zone, "val")) / 1440
+    }
+
+    node_auto_hyphenation <- xml_child(node_doc, "w:autoHyphenation")
+    if (!inherits(node_auto_hyphenation, "xml_missing")) {
+      object$auto_hyphenation <- TRUE
     }
 
     node_decimal_symbol <- xml_child(node_doc, "w:decimalSymbol")
@@ -89,6 +101,7 @@ to_wml.docx_settings <- function(x, add_ns = FALSE, ...) {
     "<w:settings xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
     sprintf("<w:zoom w:percent=\"%.0f\"/>", x$zoom * 100),
     sprintf("<w:defaultTabStop w:val=\"%.0f\"/>", x$default_tab_stop * 1440),
+    if(x$auto_hyphenation) sprintf("<w:autoHyphenation/>"),
     sprintf("<w:hyphenationZone w:val=\"%.0f\"/>", x$hyphenation_zone * 1440),
     sprintf("<w:compat><w:compatSetting w:name=\"compatibilityMode\" w:uri=\"http://schemas.microsoft.com/office/word\" w:val=\"%s\"/></w:compat>", x$compatibility_mode),
     sprintf("<w:decimalSymbol w:val=\"%s\"/>", x$decimal_symbol),

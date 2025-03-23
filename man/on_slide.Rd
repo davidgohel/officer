@@ -36,10 +36,10 @@ print(doc, target = file)
 \seealso{
 \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=ph_with]{ph_with()}}
 
-Other functions slide manipulation: 
+Other functions to manipulate slides:
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},
 \code{\link{remove_slide}()},
 \code{\link{set_notes}()}
 }
-\concept{functions slide manipulation}
+\concept{slide_manipulation}

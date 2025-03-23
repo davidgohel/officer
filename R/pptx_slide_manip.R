@@ -2,18 +2,17 @@
 #' @export
 #' @title Add a slide
 #' @description Add a slide into a pptx presentation.
-#' @param x an rpptx object
-#' @param layout slide layout name to use
-#' @param master master layout name where \code{layout} is located
-#' @examples
-#' my_pres <- read_pptx()
-#' layout_summary(my_pres)
-#' my_pres <- add_slide(my_pres,
-#'   layout = "Two Content", master = "Office Theme"
-#' )
-#' @seealso [print.rpptx()], [read_pptx()], [plot_layout_properties()], [ph_with()], [layout_summary()]
-#' @family functions slide manipulation
-add_slide <- function(x, layout = "Title and Content", master = "Office Theme") {
+#' @param x an `rpptx` object.
+#' @param layout slide layout name to use.
+#' @param master master layout name where `layout` is located.
+#' @param ... Key-value pairs of the form `"short form location" = object` passed to [phs_with]. See section
+#'   `"Short forms"` in [phs_with] for details, available short forms and examples.
+#' @param .dots List of key-value pairs of the form `list("short form location" = object)`. Alternative to `...`. See
+#'   [phs_with] for details.
+#' @example inst/examples/example_add_slide.R
+#' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()]
+#' @family slide_manipulation
+add_slide <- function(x, layout = "Title and Content", master = "Office Theme", ..., .dots = NULL) {
   slide_info <- x$slideLayouts$get_metadata()
   slide_info <- slide_info[slide_info$name == layout & slide_info$master_name == master, ]
 
@@ -25,6 +24,25 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme") 
       ". Layout names should not be duplicated."
     )
   }
+
+  dots_list <- list(...)
+  if (length(dots_list) > 0 && !is_named(dots_list)) {
+    cli::cli_abort(
+      c("Missing key in {.arg ...}",
+        "x" = "{.arg ...} requires a key-value syntax, with a ph short-form location as the key",
+        "i" = "Example: {.code add_slide(x, ..., title = 'My title', 'body[1]' = 'My body')}"
+      )
+    )
+  }
+  if (length(.dots) > 0 && !is_named(.dots)) {
+    cli::cli_abort(
+      c("Missing names in {.arg .dots}",
+        "x" = "{.arg .dots} must be a named list, with ph short-form locations as names",
+        "i" = "Example: {.code add_slide(x, ..., .dots = list(title = 'My title', 'body[1]' = 'My body'))}"
+      )
+    )
+  }
+
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
@@ -36,8 +54,13 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme") 
   x$content_type$add_slide(partname = file.path("/ppt/slides", new_slidename))
 
   x$slide$add_slide(xml_file, x$slideLayouts$get_xfrm_data())
-
   x$cursor <- x$slide$length()
+
+  # fill placeholders
+  dots <- utils::modifyList(dots_list, .dots %||% list())
+  if (length(dots) > 0) {
+    x <- phs_with(x, .dots = dots)
+  }
   x
 }
 
@@ -65,7 +88,7 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme") 
 #'
 #' file <- tempfile(fileext = ".pptx")
 #' print(doc, target = file)
-#' @family functions slide manipulation
+#' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()]
 on_slide <- function(x, index) {
   l_ <- length(x)
@@ -80,9 +103,9 @@ on_slide <- function(x, index) {
   location <- which(x$slide$get_metadata()$name %in% filename)
 
   x$cursor <- x$slide$slide_index(filename)
-
   x
 }
+
 
 #' @export
 #' @title Remove a slide
@@ -96,7 +119,7 @@ on_slide <- function(x, index) {
 #' my_pres <- read_pptx()
 #' my_pres <- add_slide(my_pres)
 #' my_pres <- remove_slide(my_pres)
-#' @family functions slide manipulation
+#' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
 remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   l_ <- length(x)
@@ -145,7 +168,7 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 #' x <- add_slide(x)
 #' x <- ph_with(x, "Hello world 2", location = ph_location_type())
 #' x <- move_slide(x, index = 1, to = 2)
-#' @family functions slide manipulation
+#' @family slide_manipulation
 #' @seealso [read_pptx()]
 move_slide <- function(x, index = NULL, to) {
   x$presentation$slide_data()
