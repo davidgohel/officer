@@ -51,6 +51,7 @@ Imports:
     stats,
     utils,
     uuid,
+    withr,
     xml2 (>= 1.1.0),
     zip (>= 2.1.0)
 Suggests: 
