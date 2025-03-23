@@ -97,9 +97,11 @@ reference:
     - on_slide
     - move_slide
     - remove_slide
+    - slide_visible<-
   - title: Slide content
     contents:
     - ph_with
+    - phs_with
     - starts_with("ph_location")
     - ph_slidelink
     - ph_hyperlink
