@@ -51,19 +51,19 @@ Imports:
     stats,
     utils,
     uuid,
-    withr,
     xml2 (>= 1.1.0),
     zip (>= 2.1.0)
 Suggests: 
     devEMF,
     doconv  (>= 0.3.0),
+    gdtools,
     ggplot2,
     knitr,
     magick,
     rmarkdown,
     rsvg,
     testthat,
-    gdtools
+    withr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
