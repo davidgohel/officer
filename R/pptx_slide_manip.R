@@ -3,7 +3,7 @@
 #' @title Add a slide
 #' @description Add a slide into a pptx presentation.
 #' @param x an `rpptx` object.
-#' @param layout slide layout name to use.
+#' @param layout slide layout name to use. Can be ommited of a default layout is set via [layout_default()].
 #' @param master master layout name where `layout` is located. Only required in case of several masters if layout is
 #'   not unique.
 #' @param ... Key-value pairs of the form `"short form location" = object` passed to [phs_with]. See section
@@ -11,9 +11,23 @@
 #' @param .dots List of key-value pairs of the form `list("short form location" = object)`. Alternative to `...`. See
 #'   [phs_with] for details.
 #' @example inst/examples/example_add_slide.R
-#' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()]
+#' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()], [layout_default()]
 #' @family slide_manipulation
-add_slide <- function(x, layout, master = NULL, ..., .dots = NULL) {
+add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
+
+  # check for default layout
+  if (is.null(layout)) {
+    if (has_layout_default(x)) {
+      ld <- x$layout_default
+      layout <- ld$layout
+      master <- ld$master
+    } else {
+      cli::cli_abort(
+        c("{.arg layout} is `NULL`",
+        "x" = "Either pass a {.arg layout} or set a default layout via {.fn layout_default}")
+      )
+    }
+  }
 
   la <- get_layout(x, layout, master, layout_by_id = FALSE)
 

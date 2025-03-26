@@ -4,7 +4,7 @@
 \alias{get_layout}
 \title{Layout selection helper}
 \usage{
-get_layout(x, layout, master = NULL, layout_by_id = TRUE)
+get_layout(x, layout = NULL, master = NULL, layout_by_id = TRUE)
 }
 \arguments{
 \item{x}{An \code{rpptx} object.}

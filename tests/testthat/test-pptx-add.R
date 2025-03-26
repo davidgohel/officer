@@ -1,7 +1,18 @@
 test_that("add wrong arguments", {
-  doc <- read_pptx()
-  expect_error(add_slide(doc, "Title and blah", "Office Theme"), fixed = TRUE)
-  expect_error(add_slide(doc, "Title and Content", "Office Tddheme"), fixed = TRUE)
+  x <- read_pptx()
+  expect_error(add_slide(x, "Title and XXXX", "Office Theme"), fixed = TRUE)
+  expect_error(add_slide(x, "Title and Content", "Office XXXX"), fixed = TRUE)
+})
+
+
+test_that("default layout", {
+  opts <- options(cli.num_colors = 1) # suppress colors for error message check
+  on.exit(options(opts))
+
+  x <- read_pptx()
+  expect_error(add_slide(x), "Either pass a `layout` or set a default layout via `layout_default()`", fixed = TRUE)
+  x <- layout_default(x, "Title Slide")
+  expect_no_error(add_slide(x))
 })
 
 

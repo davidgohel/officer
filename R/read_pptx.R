@@ -61,11 +61,12 @@ read_pptx <- function( path = NULL ){
   obj$rel <- relationship$new()
   obj$rel$feed_from_xml(file.path(package_dir, "_rels", ".rels"))
 
-
   obj$cursor = obj$slide$length()
   class(obj) <- "rpptx"
+  obj <- init_layout_default(obj)
   obj
 }
+
 
 read_table_style <- function(path){
   file <- file.path(path, "ppt/tableStyles.xml")

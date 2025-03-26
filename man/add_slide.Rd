@@ -4,12 +4,12 @@
 \alias{add_slide}
 \title{Add a slide}
 \usage{
-add_slide(x, layout, master = NULL, ..., .dots = NULL)
+add_slide(x, layout = NULL, master = NULL, ..., .dots = NULL)
 }
 \arguments{
 \item{x}{an \code{rpptx} object.}
 
-\item{layout}{slide layout name to use.}
+\item{layout}{slide layout name to use. Can be ommited of a default layout is set via \code{\link[=layout_default]{layout_default()}}.}
 
 \item{master}{master layout name where \code{layout} is located. Only required in case of several masters if layout is
 not unique.}
@@ -37,7 +37,7 @@ x <- add_slide(x,
 )
 }
 \seealso{
-\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=layout_summary]{layout_summary()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=phs_with]{phs_with()}}
+\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=layout_summary]{layout_summary()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=phs_with]{phs_with()}}, \code{\link[=layout_default]{layout_default()}}
 
 Other functions to manipulate slides:
 \code{\link{move_slide}()},
