@@ -161,7 +161,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
     la <- get_layout_for_current_slide(x)
     cli::cli_inform(c("i"="Showing current slide's layout: {.val {la$layout_name}}"))
   } else {
-    la <- get_layout(x, layout, master)
+    la <- get_layout(x, layout, master, layout_by_id = TRUE)
   }
 
   dat <- layout_properties(x, layout = la$layout_name, master = la$master_name)

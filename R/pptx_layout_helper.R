@@ -9,9 +9,17 @@
 #' @param master Name of master. Only required if layout name is not unique across masters.
 #' @return A `<layout_info>` object, i.e. a list with the entries `index`, `layout_name`,
 #' `layout_file`, `master_name`, `master_file`, and `slide_layout`.
+#' @param layout_by_id Allow layout index instead of name? (default is `TRUE`)
 #' @keywords internal
-get_layout <- function(x, layout, master = NULL) {
+get_layout <- function(x, layout, master = NULL, layout_by_id = TRUE) {
   stop_if_not_rpptx(x, "x")
+  if (!layout_by_id && is.numeric(layout)) {
+    cli::cli_abort(
+      c("{.arg layout} must be {.cls character}",
+        "x" = "Got class {.cls {class(layout)[1]}} instead"
+      )
+    )
+  }
   if (!(is.numeric(layout) || is.character(layout))) {
     cli::cli_abort(
       c("{.arg layout} must be {.cls numeric} or {.cls character}",

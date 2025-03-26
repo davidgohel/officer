@@ -4,7 +4,7 @@
 \alias{get_layout}
 \title{Layout selection helper}
 \usage{
-get_layout(x, layout, master = NULL)
+get_layout(x, layout, master = NULL, layout_by_id = TRUE)
 }
 \arguments{
 \item{x}{An \code{rpptx} object.}
@@ -13,6 +13,8 @@ get_layout(x, layout, master = NULL)
 output.}
 
 \item{master}{Name of master. Only required if layout name is not unique across masters.}
+
+\item{layout_by_id}{Allow layout index instead of name? (default is \code{TRUE})}
 }
 \value{
 A \verb{<layout_info>} object, i.e. a list with the entries \code{index}, \code{layout_name},
