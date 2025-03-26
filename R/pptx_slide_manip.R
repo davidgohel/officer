@@ -13,17 +13,8 @@
 #' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()]
 #' @family slide_manipulation
 add_slide <- function(x, layout = "Title and Content", master = "Office Theme", ..., .dots = NULL) {
-  slide_info <- x$slideLayouts$get_metadata()
-  slide_info <- slide_info[slide_info$name == layout & slide_info$master_name == master, ]
 
-  if (nrow(slide_info) < 1) {
-    stop("could not find layout named ", shQuote(layout), " in master named ", shQuote(master))
-  } else if (nrow(slide_info) > 1) {
-    stop(
-      "found two layouts named ", shQuote(layout), " in master named ", shQuote(master),
-      ". Layout names should not be duplicated."
-    )
-  }
+  la <- get_layout(x, layout, master, layout_by_id = FALSE)
 
   dots_list <- list(...)
   if (length(dots_list) > 0 && !is_named(dots_list)) {
@@ -46,7 +37,7 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme", 
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
-  layout_obj <- x$slideLayouts$collection_get(slide_info$filename)
+  layout_obj <- x$slideLayouts$collection_get(la$layout_file)
   layout_obj$write_template(xml_file)
 
   # update presentation elements
@@ -154,7 +145,6 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 }
 
 
-
 #' @export
 #' @title Move a slide
 #' @description Move a slide in a pptx presentation.
@@ -195,7 +185,6 @@ move_slide <- function(x, index = NULL, to) {
 }
 
 
-
 #' @title Correct pptx content references
 #' @description Content references are not managed directly
 #' but computed after the content is added. This function
@@ -220,6 +209,7 @@ pptx_fortify_slides <- function(x) {
 
   x
 }
+
 
 #' @export
 #' @title pptx tags for visual and non visual properties
