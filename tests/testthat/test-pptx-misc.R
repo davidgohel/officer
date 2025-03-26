@@ -63,7 +63,7 @@ test_that("slide remove with rm_images", {
   ext_img <- external_img(img.file)
 
   x <- read_pptx()
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
   x <- ph_with(x, ext_img, location = ph_location_type())
   filename <- print(x, target = tempfile(fileext = ".pptx"))
 

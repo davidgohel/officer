@@ -4,7 +4,8 @@
 #' @description Add a slide into a pptx presentation.
 #' @param x an `rpptx` object.
 #' @param layout slide layout name to use.
-#' @param master master layout name where `layout` is located.
+#' @param master master layout name where `layout` is located. Only required in case of several masters if layout is
+#'   not unique.
 #' @param ... Key-value pairs of the form `"short form location" = object` passed to [phs_with]. See section
 #'   `"Short forms"` in [phs_with] for details, available short forms and examples.
 #' @param .dots List of key-value pairs of the form `list("short form location" = object)`. Alternative to `...`. See
@@ -12,7 +13,7 @@
 #' @example inst/examples/example_add_slide.R
 #' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()]
 #' @family slide_manipulation
-add_slide <- function(x, layout = "Title and Content", master = "Office Theme", ..., .dots = NULL) {
+add_slide <- function(x, layout, master = NULL, ..., .dots = NULL) {
 
   la <- get_layout(x, layout, master, layout_by_id = FALSE)
 
@@ -108,7 +109,7 @@ on_slide <- function(x, index) {
 #' @note cursor is set on the last slide.
 #' @examples
 #' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- remove_slide(my_pres)
 #' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
@@ -153,9 +154,9 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 #' @note cursor is set on the last slide.
 #' @examples
 #' x <- read_pptx()
-#' x <- add_slide(x)
+#' x <- add_slide(x, "Title and Content")
 #' x <- ph_with(x, "Hello world 1", location = ph_location_type())
-#' x <- add_slide(x)
+#' x <- add_slide(x, "Title and Content")
 #' x <- ph_with(x, "Hello world 2", location = ph_location_type())
 #' x <- move_slide(x, index = 1, to = 2)
 #' @family slide_manipulation

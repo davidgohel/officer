@@ -4,20 +4,15 @@
 \alias{add_slide}
 \title{Add a slide}
 \usage{
-add_slide(
-  x,
-  layout = "Title and Content",
-  master = "Office Theme",
-  ...,
-  .dots = NULL
-)
+add_slide(x, layout, master = NULL, ..., .dots = NULL)
 }
 \arguments{
 \item{x}{an \code{rpptx} object.}
 
 \item{layout}{slide layout name to use.}
 
-\item{master}{master layout name where \code{layout} is located.}
+\item{master}{master layout name where \code{layout} is located. Only required in case of several masters if layout is
+not unique.}
 
 \item{...}{Key-value pairs of the form \code{"short form location" = object} passed to \link{phs_with}. See section
 \code{"Short forms"} in \link{phs_with} for details, available short forms and examples.}

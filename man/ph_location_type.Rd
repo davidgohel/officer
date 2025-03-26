@@ -76,7 +76,7 @@ loc_body <- ph_location_type(type = "body")
 
 
 doc <- read_pptx()
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(x = doc, "Un titre", location = loc_title)
 doc <- ph_with(x = doc, "pied de page", location = loc_footer)
 doc <- ph_with(x = doc, format(Sys.Date()), location = loc_dt)

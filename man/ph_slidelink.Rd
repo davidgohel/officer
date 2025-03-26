@@ -38,9 +38,9 @@ Add slide link to a placeholder in the current slide.
 fileout <- tempfile(fileext = ".pptx")
 loc_title <- ph_location_type(type = "title")
 doc <- read_pptx()
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(x = doc, "Un titre 1", location = loc_title)
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(x = doc, "Un titre 2", location = loc_title)
 doc <- on_slide(doc, 1)
 slide_summary(doc) # read column ph_label here

@@ -29,7 +29,7 @@ test_that("add ggplot into placeholder", {
   require(ggplot2)
   local_edition(3L)
   doc <- read_pptx()
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   gg_plot <- ggplot(data = iris) +
     geom_point(
       mapping = aes(Sepal.Length, Petal.Length),
@@ -58,7 +58,7 @@ test_that("add base plot into placeholder", {
     barplot(1:5, col = 2:6)
   })
   doc <- read_pptx()
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(
     doc, anyplot,
     location = ph_location_fullsize(),
@@ -85,9 +85,9 @@ test_that("add unordered_list into placeholder", {
   )
 
   doc <- read_pptx()
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(doc, ul1, location = ph_location_type())
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(doc, ul2, location = ph_location_type())
   expect_snapshot_doc(x = doc, name = "pptx-add-ul", engine = "testthat")
 })
@@ -112,7 +112,7 @@ test_that("add block_list into placeholder", {
   )
 
   doc <- read_pptx()
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(doc,
     value = value, location = ph_location_type(),
     level_list = c(1, 2, 3)
@@ -211,7 +211,7 @@ test_that("hyperlink image", {
   img.file <- file.path(R.home(component = "doc"), "html", "logo.jpg")
 
   x <- read_pptx()
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
   x <- ph_with(x, value = external_img(img.file), location = ph_location(newlabel = "logo"))
   x <- ph_hyperlink(x = x, ph_label = "logo", href = "https://cran.r-project.org")
   outputfile <- tempfile(fileext = ".pptx")

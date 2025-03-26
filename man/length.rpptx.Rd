@@ -14,8 +14,8 @@ Function \code{length} will return the number of slides.
 }
 \examples{
 my_pres <- read_pptx()
-my_pres <- add_slide(my_pres)
-my_pres <- add_slide(my_pres)
+my_pres <- add_slide(my_pres, "Title and Content")
+my_pres <- add_slide(my_pres, "Title and Content")
 length(my_pres)
 }
 \seealso{
