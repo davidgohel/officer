@@ -19,6 +19,7 @@ test_that("get_layout works as expected", {
 
   expect_no_error(la <- get_layout(x, 1))
   expect_equal(la$index, 1)
+  expect_error(get_layout(x, 1, layout_by_id = FALSE), regexp = "`layout` must be <character>")
 
   # same layout in several masters
   file <- test_path("docs_dir", "test-three-identical-masters.pptx")

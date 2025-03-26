@@ -5,6 +5,25 @@ test_that("add wrong arguments", {
 })
 
 
+test_that("master is inferred", {
+  opts <- options(cli.num_colors = 1) # suppress colors for error message check
+  on.exit(options(opts))
+
+  x <- read_pptx()
+  x <- add_slide(x, "Title Slide")
+  x <- add_slide(x, "Title and Content")
+  expect_equal(length(x), 2)
+
+  file <- test_path("docs_dir", "test-layout-unique-and-dupe.pptx")
+  x <- read_pptx(file)
+  x <- add_slide(x, "Title Slide", "Master_1")
+  x <- add_slide(x, "Title Slide") # name is unique so master=NULL works
+  expect_error(add_slide(x, "Title and Content"), regex = "Layout exists in more than one master")
+  x <- add_slide(x, "Title and Content", "Master_1")
+  expect_equal(length(x), 3)
+})
+
+
 test_that("add simple elements into placeholder", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
