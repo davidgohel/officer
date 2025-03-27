@@ -130,7 +130,6 @@ test_that("get layout from slide", {
 })
 
 
-
 # layout_default ----
 
 test_that("layout_default", {
