@@ -118,7 +118,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'    _NB_: The id is set by PowerPoint automatically and lack a meaningful order.
 #'
 #' @param x an `rpptx` object
-#' @param layout slide layout name or numeric index (row index from [layout_summary()).
+#' @param layout slide layout name or numeric index (row index from [layout_summary()]. If `NULL` (default), it plots
+#'   the current slide's layout.
 #' @param master master layout name where `layout` is located. Can be omitted if layout is unambiguous.
 #' @param title if `TRUE` (default), adds a title with the layout name at the top.
 #' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).

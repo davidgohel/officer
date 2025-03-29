@@ -13,6 +13,7 @@ test_that("default layout", {
   expect_error(add_slide(x), "Either pass a `layout` or set a default layout via `layout_default()`", fixed = TRUE)
   x <- layout_default(x, "Title Slide")
   expect_no_error(add_slide(x))
+  expect_no_error(add_slide(x, layout = "Two Content"))
 })
 
 
