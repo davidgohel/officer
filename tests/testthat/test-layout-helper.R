@@ -40,6 +40,16 @@ test_that("get_layout works as expected", {
 })
 
 
+test_that("is_layout_info", {
+  x <- read_pptx()
+  la <- get_layout(x, "Title Slide")
+  expect_true(is_layout_info(la))
+  expect_false(is_layout_info(NULL))
+  expect_false(is_layout_info(1))
+  expect_false(is_layout_info(list()))
+})
+
+
 test_that("incorrect inputs are detected", {
   opts <- options(cli.num_colors = 1) # suppress colors for error message check
   on.exit(options(opts))
