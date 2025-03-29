@@ -48,8 +48,8 @@ test_that("stop_if_not_in_slide_range", {
     stop_if_not_in_slide_range(x, 1)
   )
 
-  x <- add_slide(x)
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
+  x <- add_slide(x, "Title and Content")
   expect_no_error(stop_if_not_in_slide_range(x, 1:2))
   expect_error(
     regex = "1 index outside slide range",

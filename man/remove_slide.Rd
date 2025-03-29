@@ -22,7 +22,7 @@ cursor is set on the last slide.
 }
 \examples{
 my_pres <- read_pptx()
-my_pres <- add_slide(my_pres)
+my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- remove_slide(my_pres)
 }
 \seealso{

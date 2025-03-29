@@ -16,7 +16,7 @@
 #' doc <- ph_with(x = doc, value = empty_content(),
 #'  location = ph_location_type(type = "title") )
 #'
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' # add slide number as a computer field
 #' doc <- ph_with(
 #'   x = doc, value = empty_content(),

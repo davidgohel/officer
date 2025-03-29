@@ -65,7 +65,7 @@
 #'   barplot(1:7, col = col, yaxt = "n")
 #' })
 #'
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(doc_1, anyplot,
 #'   location = ph_location_fullsize(),
 #'   bg = "#006699"
@@ -73,7 +73,7 @@
 #'
 #' # add a ggplot2 plot ----
 #' if (require("ggplot2")) {
-#'   doc_1 <- add_slide(doc_1)
+#'   doc_1 <- add_slide(doc_1, "Title and Content")
 #'   gg_plot <- ggplot(data = iris) +
 #'     geom_point(
 #'       mapping = aes(Sepal.Length, Petal.Length),
@@ -137,7 +137,7 @@
 #'   ),
 #'   dummy_text
 #' )
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(
 #'   x = doc_1, value = bl,
 #'   location = ph_location_type(type = "body")
@@ -156,7 +156,7 @@
 #'     text = "cran", prop = fpt
 #'   )
 #' )
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(
 #'   x = doc_1, value = hw,
 #'   location = ph_location_type(type = "body")
@@ -167,7 +167,7 @@
 #'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
 #'   style = fp_text(color = "red", font.size = 0)
 #' )
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(
 #'   x = doc_1, value = ul,
 #'   location = ph_location_type()

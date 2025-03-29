@@ -24,10 +24,10 @@ when the document will be rendered. This is not related to argument
 }
 \examples{
 my_pres <- read_pptx()
-my_pres <- add_slide(my_pres)
+my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- ph_with(my_pres, format(Sys.Date()),
   location = ph_location_type(type="dt"))
-my_pres <- add_slide(my_pres)
+my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- ph_with(my_pres, iris[1:2,],
   location = ph_location_type(type="body"))
 slide_summary(my_pres)

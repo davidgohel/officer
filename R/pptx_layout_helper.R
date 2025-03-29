@@ -1,3 +1,43 @@
+#' Default layout for new slides
+#'
+#' Set or remove the default layout used when calling `add_slide()`.
+#' @param x An `rpptx` object.
+#' @param layout Layout name. Set `NULL` or `NA` to remove the defaults.
+#' @param master Name of master. Only required if layout name is not unique across masters.
+#' @export
+#' @example inst/examples/example_layout_default.R
+#' @seealso [add_slide()]
+#' @return The `rpptx` object.
+layout_default <- function(x, layout, master = NULL) {
+  stop_if_not_rpptx(x)
+
+  if (missing(layout)) {
+    return(x$layout_default)
+  }
+
+  if (is.null(layout) || is.na(layout)) {
+    return(init_layout_default(x))
+  }
+
+  la <- get_layout(x, layout, master, layout_by_id = FALSE)
+  x$layout_default <- list(layout = la$layout_name, master = la$master_name)
+  x
+}
+
+
+init_layout_default <- function(x) {
+  stop_if_not_rpptx(x)
+  x$layout_default <- list(layout = NA, master = NA)
+  x
+}
+
+
+has_layout_default <- function(x) {
+  stop_if_not_rpptx(x)
+  !identical(x$layout_default, list(layout = NA, master = NA))
+}
+
+
 #' Layout selection helper
 #'
 #' Select a layout by name or index. The master name is inferred and only required
@@ -9,9 +49,18 @@
 #' @param master Name of master. Only required if layout name is not unique across masters.
 #' @return A `<layout_info>` object, i.e. a list with the entries `index`, `layout_name`,
 #' `layout_file`, `master_name`, `master_file`, and `slide_layout`.
+#' @param layout_by_id Allow layout index instead of name? (default is `TRUE`)
 #' @keywords internal
-get_layout <- function(x, layout, master = NULL) {
+get_layout <- function(x, layout = NULL, master = NULL, layout_by_id = TRUE) {
   stop_if_not_rpptx(x, "x")
+
+  if (!layout_by_id && is.numeric(layout)) {
+    cli::cli_abort(
+      c("{.arg layout} must be {.cls character}",
+        "x" = "Got class {.cls {class(layout)[1]}} instead"
+      )
+    )
+  }
   if (!(is.numeric(layout) || is.character(layout))) {
     cli::cli_abort(
       c("{.arg layout} must be {.cls numeric} or {.cls character}",
@@ -47,6 +96,11 @@ get_layout <- function(x, layout, master = NULL) {
   l <- l[c("index", "layout_name", "layout_file", "master_name", "master_file", "slide_layout")] # nice order
   class(l) <- c("layout_info", "list")
   l
+}
+
+
+is_layout_info <- function(x) {
+  inherits(x, "layout_info")
 }
 
 
@@ -112,8 +166,10 @@ get_slide_layout <- function(x, slide_idx) {
     cli::cli_abort(
       c("Presentation does not have any slides yet",
         "x" = "Can only get the layout for an existing slides",
-        "i" = "You can add a slide using {.fn add_slide}")
-      , call = NULL)
+        "i" = "You can add a slide using {.fn add_slide}"
+      ),
+      call = NULL
+    )
   }
   ensure_slide_index_exists(x, slide_idx)
   df <- x$slide$get_xfrm()[[slide_idx]]

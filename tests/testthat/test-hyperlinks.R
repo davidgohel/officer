@@ -33,7 +33,7 @@ test_that("add hyperlink in docx", {
 
 test_that("add hyperlink in pptx", {
   x <- read_pptx()
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
   x <- ph_with(x, block_links, location = ph_location_type())
   filename <- print(x, target = tempfile(fileext = ".pptx"))
 

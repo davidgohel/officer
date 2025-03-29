@@ -4,20 +4,15 @@
 \alias{add_slide}
 \title{Add a slide}
 \usage{
-add_slide(
-  x,
-  layout = "Title and Content",
-  master = "Office Theme",
-  ...,
-  .dots = NULL
-)
+add_slide(x, layout = NULL, master = NULL, ..., .dots = NULL)
 }
 \arguments{
 \item{x}{an \code{rpptx} object.}
 
-\item{layout}{slide layout name to use.}
+\item{layout}{slide layout name to use. Can be ommited of a default layout is set via \code{\link[=layout_default]{layout_default()}}.}
 
-\item{master}{master layout name where \code{layout} is located.}
+\item{master}{master layout name where \code{layout} is located. Only required in case of several masters if layout is
+not unique.}
 
 \item{...}{Key-value pairs of the form \code{"short form location" = object} passed to \link{phs_with}. See section
 \code{"Short forms"} in \link{phs_with} for details, available short forms and examples.}
@@ -30,11 +25,15 @@ Add a slide into a pptx presentation.
 }
 \examples{
 x <- read_pptx()
-layout_summary(x)
-x <- add_slide(x, layout = "Two Content", master = "Office Theme")
 
-# use `...` to fill placeholders in same step
-x <- read_pptx()
+layout_summary(x) # available layouts
+
+x <- add_slide(x, layout = "Two Content")
+
+x <- layout_default(x, "Title Slide") # set default layout for `add_slide()`
+x <- add_slide(x) # uses default layout
+
+# use `...` to fill placeholders when adding slide
 x <- add_slide(x,
   layout = "Two Content", `Title 1` = "A title",
   dt = "Jan. 26, 2025", `body[2]` = "Body 2",
@@ -42,7 +41,7 @@ x <- add_slide(x,
 )
 }
 \seealso{
-\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=layout_summary]{layout_summary()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=phs_with]{phs_with()}}
+\code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=layout_summary]{layout_summary()}}, \code{\link[=plot_layout_properties]{plot_layout_properties()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=phs_with]{phs_with()}}, \code{\link[=layout_default]{layout_default()}}
 
 Other functions to manipulate slides:
 \code{\link{move_slide}()},

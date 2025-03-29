@@ -53,7 +53,7 @@ extimg <- external_img(
 
 # pptx example ----
 doc <- read_pptx()
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(
   x = doc, value = extimg,
   location = ph_location_type(type = "body"),

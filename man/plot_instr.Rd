@@ -31,7 +31,7 @@ print(doc, target = tempfile(fileext = ".docx"))
 
 
 doc <- read_pptx()
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(
   doc, anyplot,
   location = ph_location_fullsize(),

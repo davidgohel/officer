@@ -177,7 +177,7 @@ fortify_location <- function(x, doc, ...) {
 #' It can be set with argument `newlabel`.
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(doc, "Hello world",
 #'   location = ph_location(width = 4, height = 3, newlabel = "hello")
 #' )
@@ -185,7 +185,7 @@ fortify_location <- function(x, doc, ...) {
 #'
 #' # Set geometry and outline
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' loc <- ph_location(
 #'   left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
 #'   ln = sp_line(color = "red", lwd = 2.5),
@@ -235,7 +235,7 @@ fortify_location.location_manual <- function(x, doc, ...) {
 #' @inherit ph_location details
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(doc, "Title",
 #'   location = ph_location_type(type = "title")
 #' )
@@ -311,7 +311,7 @@ fortify_location.location_template <- function(x, doc, ...) {
 #'
 #'
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(x = doc, "Un titre", location = loc_title)
 #' doc <- ph_with(x = doc, "pied de page", location = loc_footer)
 #' doc <- ph_with(x = doc, format(Sys.Date()), location = loc_dt)
@@ -320,7 +320,7 @@ fortify_location.location_template <- function(x, doc, ...) {
 #'
 #' loc_subtitle <- ph_location_type(type = "subTitle")
 #' loc_ctrtitle <- ph_location_type(type = "ctrTitle")
-#' doc <- add_slide(doc, layout = "Title Slide", master = "Office Theme")
+#' doc <- add_slide(doc, layout = "Title Slide")
 #' doc <- ph_with(x = doc, "Un sous titre", location = loc_subtitle)
 #' doc <- ph_with(x = doc, "Un titre", location = loc_ctrtitle)
 #'
@@ -467,7 +467,7 @@ fortify_location.location_label <- function(x, doc, ...) {
 #' @family functions for placeholder location
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(doc, "Hello world", location = ph_location_fullsize())
 #' print(doc, target = tempfile(fileext = ".pptx"))
 ph_location_fullsize <- function(newlabel = "", ...) {
@@ -505,7 +505,7 @@ fortify_location.location_fullsize <- function(x, doc, ...) {
 #' @family functions for placeholder location
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(doc, "Hello left", location = ph_location_left())
 #' doc <- ph_with(doc, "Hello right", location = ph_location_right())
 #' print(doc, target = tempfile(fileext = ".pptx"))
@@ -546,7 +546,7 @@ fortify_location.location_left <- function(x, doc, ...) {
 #' @family functions for placeholder location
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(doc, "Hello left", location = ph_location_left())
 #' doc <- ph_with(doc, "Hello right", location = ph_location_right())
 #' print(doc, target = tempfile(fileext = ".pptx"))

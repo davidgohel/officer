@@ -995,7 +995,7 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' value
 #'
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(doc, value, location = ph_location_type(type = "body"))
 #' print(doc, target = tempfile(fileext = ".pptx"))
 #' @seealso [ph_with()], [body_add_blocks()], [fpar()]
@@ -1139,7 +1139,7 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
 #'
 #'
 #' doc <- read_pptx()
-#' doc <- add_slide(doc)
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- ph_with(
 #'   doc, anyplot,
 #'   location = ph_location_fullsize(),

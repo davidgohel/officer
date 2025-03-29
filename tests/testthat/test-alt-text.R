@@ -8,7 +8,7 @@ test_that("add alt text to ggplot", {
     geom_bar()
 
   doc <- read_pptx()
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(doc,
     value = gg,
     location = ph_location_type("body"),
@@ -22,7 +22,7 @@ test_that("add alt text to ggplot", {
   )
 
   alt_labs <- "Alt text added with 'ggplot2::labs(alt=)'."
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(doc,
     value = gg  + labs(alt = alt_labs),
     location = ph_location_type("body")
@@ -33,7 +33,7 @@ test_that("add alt text to ggplot", {
     alt_labs
   )
 
-  doc <- add_slide(doc)
+  doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(doc,
                  value = gg,
                  location = ph_location_type("body")

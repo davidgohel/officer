@@ -64,7 +64,7 @@ test_that("add multiple images in docx", {
 
 test_that("add image in pptx", {
   x <- read_pptx()
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
   x <- ph_with(x, ext_img, location = ph_location_type())
   filename <- print(x, target = tempfile(fileext = ".pptx"))
 
@@ -85,7 +85,7 @@ test_that("add image in pptx", {
 
 test_that("add multiple images in pptx", {
   x <- read_pptx()
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
   x <- ph_with(x = x, value = external_img(src = file1),
                location = ph_location(left = 0),
                use_loc_size = FALSE)
@@ -136,7 +136,7 @@ test_that("add svg in docx", {
 test_that("add svg in pptx", {
   skip_if_not_installed("rsvg")
   x <- read_pptx()
-  x <- add_slide(x)
+  x <- add_slide(x, "Title and Content")
   x <- ph_with(x, ext_svg, location = ph_location_type())
   filename <- print(x, target = tempfile(fileext = ".pptx"))
 

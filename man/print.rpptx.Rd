@@ -7,23 +7,22 @@
 \method{print}{rpptx}(x, target = NULL, ...)
 }
 \arguments{
-\item{x}{an rpptx object}
+\item{x}{an \code{rpptx} object.}
 
-\item{target}{path to the pptx file to write}
+\item{target}{path to the .pptx file to write. If \code{target} is \code{NULL} (default), the \code{rpptx} object is printed to
+the console.}
 
-\item{...}{unused}
+\item{...}{unused.}
 }
 \description{
-Write a 'PowerPoint' file
-with an object of class 'rpptx' (created with
-\code{\link[=read_pptx]{read_pptx()}}).
+Create a 'PowerPoint' file from an \code{rpptx} object (created by \code{\link[=read_pptx]{read_pptx()}}).
 }
 \examples{
-# write a rdocx object in a pptx file ----
+# write an rpptx object to a .pptx file ----
 file <- tempfile(fileext = ".pptx")
-doc <- read_pptx()
-print(doc, target = file)
+x <- read_pptx()
+print(x, target = file)
 }
 \seealso{
-\code{\link{read_pptx}}
+\code{\link[=read_pptx]{read_pptx()}}
 }

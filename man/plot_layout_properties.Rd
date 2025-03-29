@@ -19,7 +19,8 @@ plot_layout_properties(
 \arguments{
 \item{x}{an \code{rpptx} object}
 
-\item{layout}{slide layout name or numeric index (row index from [layout_summary()).}
+\item{layout}{slide layout name or numeric index (row index from \code{\link[=layout_summary]{layout_summary()}}. If \code{NULL} (default), it plots
+the current slide's layout.}
 
 \item{master}{master layout name where \code{layout} is located. Can be omitted if layout is unambiguous.}
 
