@@ -151,6 +151,7 @@ test_that("layout_default", {
   la_default <- list(layout = "Title and Content", master = "Office Theme")
   expect_identical(x$layout_default, la_default)
   expect_identical(get_layout_default(x), la_default)
+  expect_identical(layout_default(x, as_list = TRUE), la_default)
 
   layout <- "Title Slide"
   x <- layout_default(x, layout)
