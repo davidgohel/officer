@@ -29,7 +29,7 @@ test_that("get_layout works as expected", {
 
   expect_error(get_layout(x, "xxx", NULL), 'Layout "xxx" does not exist')
   expect_error(get_layout(x, "xxx", "Master_1"), 'Layout "xxx" does not exist in master "Master_1"')
-  expect_error(get_layout(x, "Title Slide"), "Layout exists in more than one master")
+  expect_error(get_layout(x, "Title Slide"), "Layout \"Title Slide\" exists in more than one master")
   expect_error(get_layout(x, "Title Slide", "xxx"), 'master "xxx" does not exist')
 
   expect_no_error(la <- get_layout(x, "Title Slide", "Master_1"))
@@ -86,7 +86,7 @@ test_that("incorrect inputs are detected", {
   # layout not unique
   file <- test_path("docs_dir", "test-three-identical-masters.pptx")
   x <- read_pptx(file)
-  expect_error(get_layout(x, "Title Slide"), "Layout exists in more than one master")
+  expect_error(get_layout(x, "Title Slide"), "Layout \"Title Slide\" exists in more than one master")
 })
 
 
@@ -147,9 +147,10 @@ test_that("layout_default", {
   on.exit(options(opts))
 
   x <- read_pptx()
-  expect_false(has_layout_default(x))
-  expect_identical(x$layout_default, list(layout = NA, master = NA))
-  expect_identical(layout_default(x), list(layout = NA, master = NA))
+  expect_true(has_layout_default(x))
+  la_default <- list(layout = "Title and Content", master = "Office Theme")
+  expect_identical(x$layout_default, la_default)
+  expect_identical(get_layout_default(x), la_default)
 
   layout <- "Title Slide"
   x <- layout_default(x, layout)
@@ -158,7 +159,7 @@ test_that("layout_default", {
 
   x <- layout_default(x, NA)
   expect_false(has_layout_default(x))
-  expect_identical(layout_default(x), list(layout = NA, master = NA))
+  expect_identical(get_layout_default(x), list(layout = NA, master = NA))
 
   expect_error(layout_default(x, "xxx"), 'Layout "xxx" does not exist')
 })

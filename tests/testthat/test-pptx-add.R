@@ -10,6 +10,8 @@ test_that("default layout", {
   on.exit(options(opts))
 
   x <- read_pptx()
+  expect_no_error(add_slide(x))
+  x <- layout_default(x)
   expect_error(add_slide(x), "Either pass a `layout` or set a default layout via `layout_default()`", fixed = TRUE)
   x <- layout_default(x, "Title Slide")
   expect_no_error(add_slide(x))
@@ -30,7 +32,7 @@ test_that("master is inferred", {
   x <- read_pptx(file)
   x <- add_slide(x, "Title Slide", "Master_1")
   x <- add_slide(x, "Title Slide") # name is unique so master=NULL works
-  expect_error(add_slide(x, "Title and Content"), regex = "Layout exists in more than one master")
+  expect_error(add_slide(x, "Title and Content"), regex = "Layout \"Title and Content\" exists in more than one master")
   x <- add_slide(x, "Title and Content", "Master_1")
   expect_equal(length(x), 3)
 })

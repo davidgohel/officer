@@ -18,7 +18,7 @@ add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
   # check for default layout
   if (is.null(layout)) {
     if (has_layout_default(x)) {
-      ld <- x$layout_default
+      ld <- get_layout_default(x)
       layout <- ld$layout
       master <- ld$master
     } else {

@@ -4,14 +4,16 @@
 \alias{layout_default}
 \title{Default layout for new slides}
 \usage{
-layout_default(x, layout, master = NULL)
+layout_default(x, layout = NULL, master = NULL, as_list = FALSE)
 }
 \arguments{
 \item{x}{An \code{rpptx} object.}
 
-\item{layout}{Layout name. Set \code{NULL} or \code{NA} to remove the defaults.}
+\item{layout}{Layout name. If \code{NULL} (default), removes the default layout.}
 
 \item{master}{Name of master. Only required if layout name is not unique across masters.}
+
+\item{as_list}{If \code{TRUE}, return a list with layout and master instead of the \code{rpptx} object.}
 }
 \value{
 The \code{rpptx} object.

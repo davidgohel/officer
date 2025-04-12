@@ -63,7 +63,7 @@ read_pptx <- function( path = NULL ){
 
   obj$cursor = obj$slide$length()
   class(obj) <- "rpptx"
-  obj <- init_layout_default(obj)
+  obj <- set_default_layout_if_exists(obj, "Title and Content") # avoid breaking change (see #644)
   obj
 }
 
@@ -102,7 +102,7 @@ print.rpptx <- function(x, target = NULL, ...) {
     df <- as.data.frame(layout_summary(x))
     if (has_layout_default(x)) {
       cli::cli_text(cli::col_grey("(*) = Default layout"))
-      la <- layout_default(x)
+      la <- get_layout_default(x)
       i <- which(df$layout == la$layout & df$master == la$master)
       df$" " <- " " # empty column name
       df$" "[i] <- "*"
