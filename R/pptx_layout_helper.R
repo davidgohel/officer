@@ -177,7 +177,6 @@ get_row_by_name <- function(df, layout, master, get_first = FALSE) {
       "Layout {.val {layout}} does not exist in master {.val {master}}"
     )
     cli::cli_abort(c(msg, "i" = "See {.fn layout_summary} for available layouts."), call = NULL)
-    return(NULL)
   }
 
   if (get_first) {
