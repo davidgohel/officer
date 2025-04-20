@@ -147,8 +147,8 @@ test_that("layout_default", {
   on.exit(options(opts))
 
   x <- read_pptx()
-  expect_true(has_layout_default(x))
-  la_default <- list(layout = "Title and Content", master = "Office Theme")
+  expect_false(has_layout_default(x))
+  la_default <- list(layout = NA, master = NA)
   expect_identical(x$layout_default, la_default)
   expect_identical(get_layout_default(x), la_default)
   expect_identical(layout_default(x, as_list = TRUE), la_default)

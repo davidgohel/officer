@@ -27,19 +27,6 @@ layout_default <- function(x, layout = NULL, master = NULL, as_list = FALSE) {
 }
 
 
-# => used to avoid breaking changes #644:
-# sets a default layout if the layout exists (uses first occurence if it exists in multiple masters)
-set_default_layout_if_exists <- function(x, layout, get_first = TRUE) {
-  stop_if_not_rpptx(x)
-  if (layout_exists(x, layout)) {
-    la <- get_layout(x, layout, get_first = TRUE)
-    x <- layout_default(x, layout = la$layout_name, master = la$master_name)
-  } else {
-    x <- init_layout_default(x)
-  }
-}
-
-
 init_layout_default <- function(x) {
   stop_if_not_rpptx(x)
   x$layout_default <- list(layout = NA, master = NA)

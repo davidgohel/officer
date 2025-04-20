@@ -62,8 +62,9 @@ read_pptx <- function( path = NULL ){
   obj$rel$feed_from_xml(file.path(package_dir, "_rels", ".rels"))
 
   obj$cursor = obj$slide$length()
+  obj$layout_default <- list(layout = NA, master = NA)
+
   class(obj) <- "rpptx"
-  obj <- set_default_layout_if_exists(obj, "Title and Content") # avoid breaking change (see #644)
   obj
 }
 

@@ -10,9 +10,9 @@ test_that("default layout", {
   on.exit(options(opts))
 
   x <- read_pptx()
-  expect_no_error(add_slide(x))
-  x <- layout_default(x)
-  expect_error(add_slide(x), "Either pass a `layout` or set a default layout via `layout_default()`", fixed = TRUE)
+  expect_warning(add_slide(x), regexp = "Calling `add_slide()` without specifying a `layout` is deprecated", fixed = TRUE)
+  expect_no_error(expect_warning(add_slide(x)))
+
   x <- layout_default(x, "Title Slide")
   expect_no_error(add_slide(x))
   expect_no_error(add_slide(x, layout = "Two Content"))

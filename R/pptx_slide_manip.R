@@ -1,4 +1,3 @@
-
 #' @export
 #' @title Add a slide
 #' @description Add a slide into a pptx presentation.
@@ -15,18 +14,22 @@
 #' @family slide_manipulation
 add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
 
-  # check for default layout
-  if (is.null(layout)) {
-    if (has_layout_default(x)) {
-      ld <- get_layout_default(x)
-      layout <- ld$layout
-      master <- ld$master
-    } else {
-      cli::cli_abort(
-        c("{.arg layout} is `NULL`",
-        "x" = "Either pass a {.arg layout} or set a default layout via {.fn layout_default}")
+  if (is.null(layout) && !has_layout_default(x)) {  # inform user. Passing no layout will be defunct in a future verion
+    .Deprecated("",
+      package = "officer",
+      msg = paste(
+        "Calling `add_slide()` without specifying a `layout` is deprecated.\n",
+        "Please pass a `layout` or use `layout_default()` to set a default.\n",
+        '=> I will now continue with the former `layout` default "Title and Content" for backwards compatibility...'
       )
-    }
+    )
+    layout <- "Title and Content"
+  }
+
+  if (is.null(layout) && has_layout_default(x)) {
+    ld <- get_layout_default(x)
+    layout <- ld$layout
+    master <- ld$master
   }
 
   la <- get_layout(x, layout, master, layout_by_id = FALSE)
@@ -271,8 +274,10 @@ ensure_slide_index_exists <- function(x, slide_idx) {
   if (!is.numeric(slide_idx)) {
     cli::cli_abort(
       c("{.arg slide_idx} must be {.cls numeric}",
-        "x" = "You provided {.cls {class(slide_idx)[1]}} instead.")
-      , call = NULL)
+        "x" = "You provided {.cls {class(slide_idx)[1]}} instead."
+      ),
+      call = NULL
+    )
   }
   n <- length(x) # no of slides
   check <- slide_idx %in% seq_len(n)
@@ -280,7 +285,8 @@ ensure_slide_index_exists <- function(x, slide_idx) {
     cli::cli_abort(
       c("Slide index {.val {slide_idx}} is out of range.",
         "x" = "Presentation has {cli::no(n)} slide{?s}."
-      ), call = NULL
+      ),
+      call = NULL
     )
   }
 }
@@ -345,7 +351,8 @@ slide_visible <- function(x, hide = NULL, show = NULL) {
   if (length(idx_in_both) > 1) {
     cli::cli_abort(
       "Overlap between indexes in {.arg hide} and {.arg show}: {.val {idx_in_both}}",
-      "x" = "Indexes must be mutually exclusive.")
+      "x" = "Indexes must be mutually exclusive."
+    )
   }
   if (!is.null(hide)) {
     stop_if_not_integerish(hide, "hide")
