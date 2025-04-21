@@ -129,7 +129,16 @@ test_that("plot layout properties", {
 
   expect_snapshot_doc(name = "plot-content-order-default", x = png4, engine = "testthat")
   expect_snapshot_doc(name = "plot-content-order-labels-only", x = png5, engine = "testthat")
+
+  # issue #645: cex arg flexibility
+  x <- read_pptx()
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = 0))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = 1:3))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = as.list(1:3)))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = list(t = 1, i = 2)))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = c(t = 1, i = 2)))
 })
+
 
 par(family = "")
 

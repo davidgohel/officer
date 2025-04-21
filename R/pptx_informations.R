@@ -127,40 +127,38 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'   in the upper left corner (in *blue*).
 #' @param id if `TRUE` (default), adds the placeholder's unique `id` (see column `id` from
 #'  [layout_properties()]) in the upper right corner (in *green*).
-#' @param cex named list or vector to specify font size for `labels`, `type`, and `id`. Default is
+#' @param cex List or vector to specify font size for `labels`, `type`, and `id`. Default is
 #'   `c(labels = .5, type = .5, id = .5)`. See [graphics::text()] for details on how `cex` works.
+#'   Matching by position and partial name matching is supported. A single numeric value will apply to all
+#'   three parameters.
 #' @param legend Add a legend to the plot (default `FALSE`).
 #' @importFrom graphics plot rect text box
 #' @family functions for reading presentation information
 #' @example inst/examples/example_plot_layout_properties.R
 #'
-plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = TRUE,
-                                   type = TRUE, id = TRUE, cex = NULL, legend = FALSE) {
+plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = TRUE, type = TRUE,
+                                   id = TRUE, cex = c(labels = .5, type = .5, id = .5), legend = FALSE) {
   stop_if_not_rpptx(x, "x")
   loffset <- ifelse(legend, 1, 0) # make space for legend at top
   old_par <- par(mar = c(2, 2, 1.5 + loffset, 0))
   on.exit(par(old_par))
 
-  cex_default <- list(labels = .5, type = .5, id = .5)
-  cex_unknown <- setdiff(names(cex), names(cex_default))
-  if (length(cex_unknown) > 0) {
-    cli::cli_abort(c("Unknown name {.val {cex_unknown}} in {.arg cex}",
-      "x" = "Allowed names are {.val {names(cex_default)}}",
-      "i" = cli::col_grey("{.arg cex} expects a named list or vector")
-    ))
-  }
-  .cex <- utils::modifyList(x = cex_default, val = as.list(cex), keep.null = TRUE)
+  .cex <- update_named_defaults(cex, default = list(labels = .5, type = .5, id = .5), default_if_null = TRUE, argname = "cex")
+  if (.cex$labels <= 0) labels <- FALSE
+  if (.cex$type <= 0) type <- FALSE
+  if (.cex$id <= 0) id <- FALSE
 
   # use current slides layout as default (if layout and master = NULL)
   if (is.null(layout) && is.null(master)) {
     if (length(x) == 0) {
       cli::cli_abort(
         c("No {.arg layout} selected and no slides in presentation.",
-        "x" = "Pass a layout name or index (see {.fn layout_summary})")
+          "x" = "Pass a layout name or index (see {.fn layout_summary})"
+        )
       )
     }
     la <- get_layout_for_current_slide(x)
-    cli::cli_inform(c("i"="Showing current slide's layout: {.val {la$layout_name}}"))
+    cli::cli_inform(c("i" = "Showing current slide's layout: {.val {la$layout_name}}"))
   } else {
     la <- get_layout(x, layout, master, layout_by_id = TRUE)
   }
@@ -173,7 +171,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   }
   if (length(unique(dat$name)) < 1) {
     cli::cli_abort(c("One layout must be chosen",
-                     "x" = "Did you misspell the layout name?"
+      "x" = "Did you misspell the layout name?"
     ), call = NULL)
   }
 
@@ -203,15 +201,13 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
     text(x = offx + cx, y = -offy, labels = dat$id, cex = .cex$id, col = "darkgreen", adj = c(1.3, 1.2))
   }
   if (legend) {
-    legend(x = w / 2, y = 0, x.intersp = 0.4, xjust = .5, yjust = 0,
+    legend(
+      x = w / 2, y = 0, x.intersp = 0.4, xjust = .5, yjust = 0,
       legend = c("type [type_idx]", "ph_label", "id"), fill = c("blue", "red", "darkgreen"),
       bty = "n", pt.cex = 1.2, cex = .7, text.width = NA,
       text.col = c("blue", "red", "darkgreen"), horiz = TRUE, xpd = TRUE
     )
   }
-
-
-
 }
 
 

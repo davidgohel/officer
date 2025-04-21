@@ -10,6 +10,8 @@
   that the behavior of `add_slide()` does not change and avoids backward compatibility issues (#635)
 - `layout_default()` sets a default layout for `add_slide()` (#635).
 - `print.rpptx` now uses pluralization and marks the default layout (if set by `layout_default()`) with an asterisk (#635)
+- `plot_layout_properties()` now takes `cex` as a vector or a list and matches by position, name or partial name. 
+  Zero values now hide the text. A single value now applies to all three cex parameters (label, type, and id) (#645)
 
 # officer 0.6.8
 
