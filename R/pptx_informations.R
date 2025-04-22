@@ -119,7 +119,7 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'
 #' @param x an `rpptx` object
 #' @param layout slide layout name or numeric index (row index from [layout_summary()]. If `NULL` (default), it plots
-#'   the current slide's layout.
+#'   the current slide's layout or the default layout (if set and there are not slides yet).
 #' @param master master layout name where `layout` is located. Can be omitted if layout is unambiguous.
 #' @param title if `TRUE` (default), adds a title with the layout name at the top.
 #' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).
@@ -148,15 +148,18 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   if (.cex$type <= 0) type <- FALSE
   if (.cex$id <= 0) id <- FALSE
 
-  # use current slides layout as default (if layout and master = NULL)
-  if (is.null(layout) && is.null(master)) {
-    if (length(x) == 0) {
+  if (is.null(layout) && is.null(master) && length(x) == 0) { # fail or use default layout if set
+    if (!has_layout_default(x)) {
       cli::cli_abort(
         c("No {.arg layout} selected and no slides in presentation.",
           "x" = "Pass a layout name or index (see {.fn layout_summary})"
         )
       )
     }
+    .ld <- get_layout_default(x)
+    la <- get_layout(x, layout = .ld$layout, master = .ld$master)
+    cli::cli_inform(c("i" = "Showing default layout: {.val {la$layout_name}}"))
+  } else if (is.null(layout) && is.null(master) && length(x) > 0) { # use current slides layout as default (if layout and master are NULL)
     la <- get_layout_for_current_slide(x)
     cli::cli_inform(c("i" = "Showing current slide's layout: {.val {la$layout_name}}"))
   } else {
