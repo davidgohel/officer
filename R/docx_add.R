@@ -41,7 +41,15 @@ body_add_break <- function(x, pos = "after") {
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_img <- function(x, src, style = NULL, width, height, pos = "after", unit = "in") {
+body_add_img <- function(
+  x,
+  src,
+  style = NULL,
+  width,
+  height,
+  pos = "after",
+  unit = "in"
+) {
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
@@ -108,8 +116,7 @@ body_add_img <- function(x, src, style = NULL, width, height, pos = "after", uni
 #' @export
 #' @family functions for adding content
 body_add_docx <- function(x, src, pos = "after") {
-
-  if(grepl(" ", basename(src))){
+  if (grepl(" ", basename(src))) {
     stop("The basename of the file to be inserted cannot contain spaces.")
   }
 
@@ -151,7 +158,18 @@ body_add_docx <- function(x, src, pos = "after") {
 #' }
 #' @family functions for adding content
 #' @importFrom ragg agg_png
-body_add_gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, pos = "after", unit = "in", ...) {
+body_add_gg <- function(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  scale = 1,
+  pos = "after",
+  unit = "in",
+  ...
+) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
@@ -166,13 +184,29 @@ body_add_gg <- function(x, value, width = 6, height = 5, res = 300, style = "Nor
 
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
-
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, scaling = scale, units = unit, res = res, background = "transparent", ...)
+  agg_png(
+    filename = file,
+    width = width,
+    height = height,
+    scaling = scale,
+    units = unit,
+    res = res,
+    background = "transparent",
+    ...
+  )
   print(value)
   dev.off()
   on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height, pos = pos, unit = unit)
+  body_add_img(
+    x,
+    src = file,
+    style = style,
+    width = width,
+    height = height,
+    pos = pos,
+    unit = unit
+  )
 }
 
 
@@ -208,7 +242,8 @@ body_add_blocks <- function(x, blocks, pos = "after") {
     pos_vector <- rep("after", length(blocks))
     pos_vector[1] <- pos
     for (i in seq_along(blocks)) {
-      x <- body_add_xml(x,
+      x <- body_add_xml(
+        x,
         str = to_wml(blocks[[i]], add_ns = TRUE),
         pos = pos_vector[i]
       )
@@ -217,8 +252,6 @@ body_add_blocks <- function(x, blocks, pos = "after") {
 
   x
 }
-
-
 
 
 #' @export
@@ -246,8 +279,11 @@ body_add_par <- function(x, value, style = NULL, pos = "after") {
 
   xml_elt <- paste0(
     wp_ns_yes,
-    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
-    htmlEscapeCopy(value), "</w:t></w:r></w:p>"
+    "<w:pPr><w:pStyle w:val=\"",
+    style_id,
+    "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
+    htmlEscapeCopy(value),
+    "</w:t></w:r></w:p>"
   )
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -335,25 +371,44 @@ body_add_fpar <- function(x, value, style = NULL, pos = "after") {
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_table <- function(x, value, style = NULL, pos = "after", header = TRUE,
-                           alignment = NULL,
-                           align_table = "center",
-                           stylenames = table_stylenames(),
-                           first_row = TRUE, first_column = FALSE,
-                           last_row = FALSE, last_column = FALSE,
-                           no_hband = FALSE, no_vband = TRUE) {
+body_add_table <- function(
+  x,
+  value,
+  style = NULL,
+  pos = "after",
+  header = TRUE,
+  alignment = NULL,
+  align_table = "center",
+  stylenames = table_stylenames(),
+  first_row = TRUE,
+  first_column = FALSE,
+  last_row = FALSE,
+  last_column = FALSE,
+  no_hband = FALSE,
+  no_vband = TRUE
+) {
   pt <- prop_table(
-    style = style, layout = table_layout(),
-    width = table_width(), stylenames = stylenames,
+    style = style,
+    layout = table_layout(),
+    width = table_width(),
+    stylenames = stylenames,
     tcf = table_conditional_formatting(
-      first_row = first_row, first_column = first_column,
-      last_row = last_row, last_column = last_column,
-      no_hband = no_hband, no_vband = no_vband
+      first_row = first_row,
+      first_column = first_column,
+      last_row = last_row,
+      last_column = last_column,
+      no_hband = no_hband,
+      no_vband = no_vband
     ),
     align = align_table
   )
 
-  bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
+  bt <- block_table(
+    x = value,
+    header = header,
+    properties = pt,
+    alignment = alignment
+  )
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
   body_add_xml(x = x, str = xml_elt, pos = pos)
 }
@@ -375,13 +430,17 @@ body_add_table <- function(x, value, style = NULL, pos = "after", header = TRUE,
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_toc <- function(x, level = 3, pos = "after", style = NULL, separator = ";") {
+body_add_toc <- function(
+  x,
+  level = 3,
+  pos = "after",
+  style = NULL,
+  separator = ";"
+) {
   bt <- block_toc(level = level, style = style, separator = separator)
   out <- to_wml(bt, add_ns = TRUE)
   body_add_xml(x = x, str = out, pos = pos)
 }
-
-
 
 
 #' @export
@@ -417,11 +476,29 @@ body_add_toc <- function(x, level = 3, pos = "after", style = NULL, separator = 
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", pos = "after", unit = "in", ...) {
+body_add_plot <- function(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  pos = "after",
+  unit = "in",
+  ...
+) {
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = unit, res = res, background = "transparent", ...)
+  agg_png(
+    filename = file,
+    width = width,
+    height = height,
+    units = unit,
+    res = res,
+    background = "transparent",
+    ...
+  )
   tryCatch(
     {
       eval(value$code)
@@ -431,7 +508,15 @@ body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "N
     }
   )
   on.exit(unlink(file))
-  body_add_img(x, src = file, style = style, width = width, height = height, unit = unit, pos = pos)
+  body_add_img(
+    x,
+    src = file,
+    style = style,
+    width = width,
+    height = height,
+    unit = unit,
+    pos = pos
+  )
 }
 
 
@@ -469,13 +554,15 @@ body_add_plot <- function(x, value, width = 6, height = 5, res = 300, style = "N
 body_add_caption <- function(x, value, pos = "after") {
   stopifnot(inherits(value, "block_caption"))
   if (!value$style %in% x$styles$style_name) {
-    stop("caption is using style ", shQuote(value$style), " that does not exist in the Word document.")
+    stop(
+      "caption is using style ",
+      shQuote(value$style),
+      " that does not exist in the Word document."
+    )
   }
   out <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml(x = x, str = out, pos = pos)
 }
-
-
 
 
 #' @export
@@ -493,7 +580,8 @@ body_add_xml <- function(x, str, pos = c("after", "before", "on")) {
 
   cursor_elt <- docx_current_block_xml(x)
   if (is.null(cursor_elt)) {
-    xml_add_child(xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
+    xml_add_child(
+      xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
       xml_elt,
       .where = 0
     )
@@ -501,7 +589,10 @@ body_add_xml <- function(x, str, pos = c("after", "before", "on")) {
     x$officer_cursor <- cursor_append(x$officer_cursor, .name)
   } else if (pos == "on") {
     xml_replace(cursor_elt, xml_elt)
-    x$officer_cursor <- cursor_replace_nodename(x$officer_cursor, xml_name(xml_elt))
+    x$officer_cursor <- cursor_replace_nodename(
+      x$officer_cursor,
+      xml_name(xml_elt)
+    )
   } else if (pos == "after") {
     xml_add_sibling(cursor_elt, xml_elt, .where = pos)
     x$officer_cursor <- cursor_add_after(x$officer_cursor, xml_name(xml_elt))
@@ -512,12 +603,78 @@ body_add_xml <- function(x, str, pos = c("after", "before", "on")) {
   x
 }
 
+#' @export
+#' @title Add several xml strings as document elements
+#' @description This method applies the same actions as `body_add_xml()` but takes in
+#' a vector of XML elements.
+#' @param x an rdocx object
+#' @param strv a vevtor of wml strings
+#' @param pos where to add the new element relative to the cursor,
+#' one of "after", "before", "on".
+#' @param pagebreak insert page breaks between WML elements provided
+#' @keywords internal
+body_add_xml_multi <- function(
+  x,
+  strv,
+  pos = c("after", "before", "on"),
+  pagebreak = TRUE
+) {
+  xml_elts <- lapply(strv, as_xml_document)
+  pos <- match.arg(pos)
+
+  cursor_elt <- docx_current_block_xml(x)
+
+  pb <- as_xml_document(runs_to_p_wml(run_pagebreak(), add_ns = TRUE))
+
+  # Position the element
+  if (is.null(cursor_elt)) {
+    cursor_elt <- xml_add_child(
+      xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
+      xml_elts[[1]],
+      .where = 0
+    )
+
+    .name <- xml_name(xml_elts[[1]])
+    x$officer_cursor <- cursor_append(x$officer_cursor, .name)
+  } else if (pos == "on") {
+    cursor_elt <- xml_replace(cursor_elt, xml_elts[[1]])
+    x$officer_cursor <- cursor_replace_nodename(
+      x$officer_cursor,
+      xml_name(xml_elts[[1]])
+    )
+  } else if (pos == "after") {
+    cursor_elt <- xml_add_sibling(cursor_elt, xml_elts[[1]], .where = pos)
+    x$officer_cursor <- cursor_add_after(
+      x$officer_cursor,
+      xml_name(xml_elts[[1]])
+    )
+  } else {
+    cursor_elt <- xml_add_sibling(cursor_elt, xml_elts[[1]], .where = pos)
+    x$officer_cursor <- cursor_add_before(
+      x$officer_cursor,
+      xml_name(xml_elts[[1]])
+    )
+  }
+
+  # Attach all additional elements in the list
+  for (d in xml_elts[2:length(xml_elts)]) {
+    if (pagebreak) {
+      cursor_elt <- xml_add_sibling(cursor_elt, pb, .where = 'after')
+      x$officer_cursor <- cursor_add_after(x$officer_cursor, xml_name(pb))
+    }
+    cursor_elt <- xml_add_sibling(cursor_elt, d, .where = 'after')
+    x$officer_cursor <- cursor_add_after(x$officer_cursor, xml_name(d))
+  }
+  x
+}
+
 body_add_xml2 <- function(x, str) {
   x <- cursor_end(x)
   xml_elt <- as_xml_document(str)
   cursor_elt <- docx_current_block_xml(x)
   if (is.null(cursor_elt)) {
-    xml_add_child(xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
+    xml_add_child(
+      xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
       xml_elt,
       .where = 0
     )
@@ -549,7 +706,12 @@ body_bookmark <- function(x, id) {
   new_id <- uuid_generate()
   id <- check_bookmark_id(id)
 
-  bm_start_str <- sprintf("<w:bookmarkStart w:id=\"%s\" w:name=\"%s\" %s/>", new_id, id, ns_)
+  bm_start_str <- sprintf(
+    "<w:bookmarkStart w:id=\"%s\" w:name=\"%s\" %s/>",
+    new_id,
+    id,
+    ns_
+  )
   bm_start_end <- sprintf("<w:bookmarkEnd %s w:id=\"%s\"/>", ns_, new_id)
 
   path_ <- paste0(xml_path(cursor_elt), "//w:r")
@@ -619,11 +781,13 @@ body_remove <- function(x) {
 #' doc <- body_comment(doc, block_list("This is a comment."))
 #' docx_file <- print(doc, target = tempfile(fileext = ".docx"))
 #' docx_comments(read_docx(docx_file))
-body_comment <- function(x,
-                         cmt = ftext(""),
-                         author = "",
-                         date = "",
-                         initials = "") {
+body_comment <- function(
+  x,
+  cmt = ftext(""),
+  author = "",
+  date = "",
+  initials = ""
+) {
   cursor_elt <- docx_current_block_xml(x)
   ns_ <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\""
 
@@ -637,7 +801,11 @@ body_comment <- function(x,
   cmt_xml <- paste0(
     sprintf(
       "<w:comment %s  w:id=\"%s\" w:author=\"%s\" w:date=\"%s\" w:initials=\"%s\">",
-      ns_, id, author, date, initials
+      ns_,
+      id,
+      author,
+      date,
+      initials
     ),
     blocks,
     "</w:comment>"
@@ -729,10 +897,18 @@ body_add.character <- function(x, value, style = NULL, ...) {
 
   runs <- paste0(
     "<w:r><w:t xml:space=\"preserve\">",
-    htmlEscapeCopy(value), "</w:t></w:r>"
+    htmlEscapeCopy(value),
+    "</w:t></w:r>"
   )
 
-  xml_elt <- paste0(wp_ns_yes, "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>", runs, "</w:p>")
+  xml_elt <- paste0(
+    wp_ns_yes,
+    "<w:pPr><w:pStyle w:val=\"",
+    style_id,
+    "\"/></w:pPr>",
+    runs,
+    "</w:p>"
+  )
   for (str in xml_elt) {
     x <- body_add_xml2(x = x, str = str)
   }
@@ -742,18 +918,29 @@ body_add.character <- function(x, value, style = NULL, ...) {
 #' @export
 #' @describeIn body_add add a numeric vector.
 #' @param format_fun a function to be used to format values.
-body_add.numeric <- function(x, value, style = NULL, format_fun = formatC, ...) {
+body_add.numeric <- function(
+  x,
+  value,
+  style = NULL,
+  format_fun = formatC,
+  ...
+) {
   value <- format_fun(value, ...)
   body_add(x, value = value, style = style, ...)
 }
 
 #' @export
 #' @describeIn body_add add a factor vector.
-body_add.factor <- function(x, value, style = NULL, format_fun = as.character, ...) {
+body_add.factor <- function(
+  x,
+  value,
+  style = NULL,
+  format_fun = as.character,
+  ...
+) {
   value <- format_fun(value)
   body_add(x, value = value, style = style, ...)
 }
-
 
 
 #' @export
@@ -786,17 +973,28 @@ body_add.fpar <- function(x, value, style = NULL, ...) {
 #' @param alignment columns alignement, argument length must match with columns length,
 #' values must be "l" (left), "r" (right) or "c" (center).
 #' @describeIn body_add add a data.frame object with [block_table()].
-body_add.data.frame <- function(x, value, style = NULL, header = TRUE,
-                                tcf = table_conditional_formatting(),
-                                alignment = NULL,
-                                ...) {
+body_add.data.frame <- function(
+  x,
+  value,
+  style = NULL,
+  header = TRUE,
+  tcf = table_conditional_formatting(),
+  alignment = NULL,
+  ...
+) {
   pt <- prop_table(
-    style = style, layout = table_layout(),
+    style = style,
+    layout = table_layout(),
     width = table_width(),
     tcf = tcf
   )
 
-  bt <- block_table(x = value, header = header, properties = pt, alignment = alignment)
+  bt <- block_table(
+    x = value,
+    header = header,
+    properties = pt,
+    alignment = alignment
+  )
   xml_elt <- to_wml(bt, add_ns = TRUE, base_document = x)
 
   body_add_xml2(x = x, str = xml_elt)
@@ -807,9 +1005,12 @@ body_add.data.frame <- function(x, value, style = NULL, header = TRUE,
 #' @describeIn body_add add a [block_caption] object. These objects enable
 #' the creation of set of formatted paragraphs made of formatted chunks of text.
 body_add.block_caption <- function(x, value, ...) {
-
   if (!value$style %in% x$styles$style_name) {
-    stop("caption is using style ", shQuote(value$style), " that does not exist in the Word document.")
+    stop(
+      "caption is using style ",
+      shQuote(value$style),
+      " that does not exist in the Word document."
+    )
   }
 
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
@@ -869,7 +1070,9 @@ body_add.external_img <- function(x, value, style = "Normal", ...) {
 
   xml_elt <- paste0(
     wp_ns_yes,
-    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
+    "<w:pPr><w:pStyle w:val=\"",
+    style_id,
+    "\"/></w:pPr>",
     to_wml(value, add_ns = FALSE),
     "</w:p>"
   )
@@ -888,7 +1091,9 @@ body_add.run_pagebreak <- function(x, value, style = NULL, ...) {
 
   xml_elt <- paste0(
     wp_ns_yes,
-    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
+    "<w:pPr><w:pStyle w:val=\"",
+    style_id,
+    "\"/></w:pPr>",
     to_wml(value, add_ns = FALSE),
     "</w:p>"
   )
@@ -907,7 +1112,9 @@ body_add.run_columnbreak <- function(x, value, style = NULL, ...) {
 
   xml_elt <- paste0(
     wp_ns_yes,
-    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>",
+    "<w:pPr><w:pStyle w:val=\"",
+    style_id,
+    "\"/></w:pPr>",
     to_wml(value, add_ns = FALSE),
     "</w:p>"
   )
@@ -924,7 +1131,17 @@ body_add.run_columnbreak <- function(x, value, style = NULL, ...) {
 #' arguments are expressed: "in", "cm" or "mm".
 #' @param res resolution of the png image in ppi
 #' @param scale Multiplicative scaling factor, same as in ggsave
-body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, unit = "in", ...) {
+body_add.gg <- function(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  scale = 1,
+  unit = "in",
+  ...
+) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
@@ -932,7 +1149,16 @@ body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Nor
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = unit, res = res, scaling = scale, background = "transparent", ...)
+  agg_png(
+    filename = file,
+    width = width,
+    height = height,
+    units = unit,
+    res = res,
+    scaling = scale,
+    background = "transparent",
+    ...
+  )
   print(value)
   dev.off()
   on.exit(unlink(file))
@@ -943,11 +1169,29 @@ body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Nor
 
 #' @export
 #' @describeIn body_add add a base plot with a [plot_instr] object.
-body_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", unit = "in", ...) {
+body_add.plot_instr <- function(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  unit = "in",
+  ...
+) {
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = unit, res = res, scaling = 1, background = "transparent", ...)
+  agg_png(
+    filename = file,
+    width = width,
+    height = height,
+    units = unit,
+    res = res,
+    scaling = 1,
+    background = "transparent",
+    ...
+  )
   tryCatch(
     {
       eval(value$code)
