@@ -131,7 +131,7 @@ par_as_tibble <- function(node, styles, detailed = FALSE) {
 
   if (detailed) {
     nodes_run <- xml_find_all(node, "w:r")
-    run_data <- lapply(nodes_run, run_as_tibble)
+    run_data <- lapply(nodes_run, run_as_tibble, styles = styles)
 
     run_data <- mapply(function(x, id) {
       x$id <- id
@@ -236,7 +236,7 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   if (remove_fields) {
     instrText_nodes <- xml_find_all(x$doc_obj$get(), "//w:instrText")
     xml_remove(instrText_nodes)
-    
+
     fldData_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldData")
     xml_remove(fldData_nodes)
   }
