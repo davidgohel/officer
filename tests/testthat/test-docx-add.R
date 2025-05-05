@@ -362,18 +362,6 @@ test_that("body_add_xml_multi works as expected", {
 
   nodes <- xml_find_all(doc$doc_obj$get(), "/w:document/w:body/*")
   expect_equal(xml_text(nodes[[1]]), "Page 1")
-  expect_equal(xml_text(nodes[[2]]), "")
-  expect_equal(xml_text(nodes[[3]]), "Page 2")
-  expect_equal(xml_text(nodes[[4]]), "")
-  expect_equal(xml_text(nodes[[5]]), "Page 3")
-
-  # No page break
-
-  doc <- read_docx()
-  doc <- body_add_xml_multi(doc, pgs, pagebreak = FALSE)
-
-  nodes <- xml_find_all(doc$doc_obj$get(), "/w:document/w:body/*")
-  expect_equal(xml_text(nodes[[1]]), "Page 1")
   expect_equal(xml_text(nodes[[2]]), "Page 2")
   expect_equal(xml_text(nodes[[3]]), "Page 3")
 
@@ -384,11 +372,9 @@ test_that("body_add_xml_multi works as expected", {
 
   nodes <- xml_find_all(doc$doc_obj$get(), "/w:document/w:body/*")
   expect_equal(xml_text(nodes[[1]]), "Page 1")
-  expect_equal(xml_text(nodes[[2]]), "")
-  expect_equal(xml_text(nodes[[3]]), "Page 2")
-  expect_equal(xml_text(nodes[[4]]), "")
-  expect_equal(xml_text(nodes[[5]]), "Page 3")
-  expect_equal(xml_text(nodes[[6]]), "Page X")
+  expect_equal(xml_text(nodes[[2]]), "Page 2")
+  expect_equal(xml_text(nodes[[3]]), "Page 3")
+  expect_equal(xml_text(nodes[[4]]), "Page X")
 
   # After
   doc <- read_docx()
@@ -398,10 +384,8 @@ test_that("body_add_xml_multi works as expected", {
   nodes <- xml_find_all(doc$doc_obj$get(), "/w:document/w:body/*")
   expect_equal(xml_text(nodes[[1]]), "Page X")
   expect_equal(xml_text(nodes[[2]]), "Page 1")
-  expect_equal(xml_text(nodes[[3]]), "")
-  expect_equal(xml_text(nodes[[4]]), "Page 2")
-  expect_equal(xml_text(nodes[[5]]), "")
-  expect_equal(xml_text(nodes[[6]]), "Page 3")
+  expect_equal(xml_text(nodes[[3]]), "Page 2")
+  expect_equal(xml_text(nodes[[4]]), "Page 3")
 
   # On
   doc <- read_docx()
@@ -410,8 +394,6 @@ test_that("body_add_xml_multi works as expected", {
 
   nodes <- xml_find_all(doc$doc_obj$get(), "/w:document/w:body/*")
   expect_equal(xml_text(nodes[[1]]), "Page 1")
-  expect_equal(xml_text(nodes[[2]]), "")
-  expect_equal(xml_text(nodes[[3]]), "Page 2")
-  expect_equal(xml_text(nodes[[4]]), "")
-  expect_equal(xml_text(nodes[[5]]), "Page 3")
+  expect_equal(xml_text(nodes[[2]]), "Page 2")
+  expect_equal(xml_text(nodes[[3]]), "Page 3")
 })

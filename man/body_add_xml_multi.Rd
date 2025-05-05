@@ -4,7 +4,7 @@
 \alias{body_add_xml_multi}
 \title{Add several xml strings as document elements}
 \usage{
-body_add_xml_multi(x, strv, pos = c("after", "before", "on"), pagebreak = TRUE)
+body_add_xml_multi(x, strv, pos = c("after", "before", "on"))
 }
 \arguments{
 \item{x}{an rdocx object}
