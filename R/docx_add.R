@@ -616,15 +616,12 @@ body_add_xml <- function(x, str, pos = c("after", "before", "on")) {
 body_add_xml_multi <- function(
   x,
   strv,
-  pos = c("after", "before", "on"),
-  pagebreak = TRUE
+  pos = c("after", "before", "on")
 ) {
   xml_elts <- lapply(strv, as_xml_document)
   pos <- match.arg(pos)
 
   cursor_elt <- docx_current_block_xml(x)
-
-  pb <- as_xml_document(runs_to_p_wml(run_pagebreak(), add_ns = TRUE))
 
   # Position the element
   if (is.null(cursor_elt)) {
@@ -658,10 +655,6 @@ body_add_xml_multi <- function(
 
   # Attach all additional elements in the list
   for (d in xml_elts[2:length(xml_elts)]) {
-    if (pagebreak) {
-      cursor_elt <- xml_add_sibling(cursor_elt, pb, .where = 'after')
-      x$officer_cursor <- cursor_add_after(x$officer_cursor, xml_name(pb))
-    }
     cursor_elt <- xml_add_sibling(cursor_elt, d, .where = 'after')
     x$officer_cursor <- cursor_add_after(x$officer_cursor, xml_name(d))
   }
