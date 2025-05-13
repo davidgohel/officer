@@ -83,7 +83,7 @@ desc_pptx_img  <- function(node, img_src ){
 
 #' @export
 #' @title Extract media from a document object
-#' @description Extract files from a \code{rpptx} object.
+#' @description Extract files from a `rpptx` object.
 #' @param x an rpptx object
 #' @param path media path, should be a relative path
 #' @param target target file

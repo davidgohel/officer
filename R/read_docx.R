@@ -537,7 +537,7 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 #' @title 'Word' page layout
 #' @description Get page width, page height and margins (in inches). The return values
 #' are those corresponding to the section where the cursor is.
-#' @param x an \code{rdocx} object
+#' @param x an `rdocx` object
 #' @examples
 #' docx_dim(read_docx())
 #' @family functions for Word document informations
@@ -567,7 +567,7 @@ docx_dim <- function(x){
 #' @title List Word bookmarks
 #' @description List bookmarks id that can be found in a
 #' 'Word' document.
-#' @param x an \code{rdocx} object
+#' @param x an `rdocx` object
 #' @examples
 #' library(officer)
 #'

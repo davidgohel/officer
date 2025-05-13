@@ -8,7 +8,7 @@ ph_location_label(ph_label, newlabel = NULL, ...)
 }
 \arguments{
 \item{ph_label}{placeholder label of the used layout. It can be read in PowerPoint or
-with function \code{layout_properties()} in column \code{ph_label}.}
+with function \code{\link[=layout_properties]{layout_properties()}} in column \code{ph_label}.}
 
 \item{newlabel}{a label to associate with the placeholder.}
 

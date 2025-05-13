@@ -177,7 +177,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' @param location a placeholder location object.
 #' It will be used to specify the location of the new shape. This location
 #' can be defined with a call to one of the notes_ph functions. See
-#' section \code{"see also"}.
+#' section "see also".
 #' @param ... further arguments passed to or from other methods.
 #' @examples
 #' # this name will be used to print the file

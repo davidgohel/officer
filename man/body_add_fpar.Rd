@@ -20,7 +20,7 @@ ignored.}
 one of "after", "before", "on".}
 }
 \description{
-Add an \code{fpar} (a formatted paragraph)
+Add an \code{\link[=fpar]{fpar()}} (a formatted paragraph)
 into an rdocx object.
 }
 \examples{
@@ -53,7 +53,7 @@ print(doc, target = tempfile(fileext = ".docx"))
 
 }
 \seealso{
-\code{\link{fpar}}
+\code{\link[=fpar]{fpar()}}
 
 Other functions for adding content: 
 \code{\link{body_add_blocks}()},

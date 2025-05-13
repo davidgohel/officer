@@ -813,7 +813,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' All its arguments will be concatenated to create a paragraph where chunks of
 #' text and images are associated with formatting properties.
 #'
-#' \code{fpar} supports [ftext()], [external_img()], \code{run_*} functions
+#' `fpar()` supports [ftext()], [external_img()], `run_*()` functions
 #' (i.e. [run_autonum()], [run_word_field()]) when output is Word, and simple strings.
 #'
 #' Default text and paragraph formatting properties can also be modified
@@ -824,7 +824,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' @param fp_t default text formatting properties. This is used as
 #' text formatting properties when simple text is provided as argument,
 #' see [fp_text()].
-#' @param values a list of cot objects. If provided, argument \code{...} will be ignored.
+#' @param values a list of cot objects. If provided, argument `...` will be ignored.
 #' @param object fpar object
 #' @examples
 #' fpar(ftext("hello", shortcuts$fp_bold()))
@@ -1048,8 +1048,8 @@ to_html.block_list <- function(x, add_ns = FALSE, ...) {
 #' @param str_list list of strings to be included in the object
 #' @param level_list list of levels for hierarchy structure. Use
 #' 0 for 'no bullet', 1 for level 1, 2 for level 2 and so on.
-#' @param style text style, a \code{fp_text} object list or a
-#' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
+#' @param style text style, a `fp_text` object list or a
+#' single `fp_text` objects. Use `fp_text(font.size = 0, ...)` to
 #' inherit from default sizes of the presentation.
 #' @examples
 #' unordered_list(
@@ -1064,7 +1064,7 @@ to_html.block_list <- function(x, add_ns = FALSE, ...) {
 #'   fp_text(color = "pink", font.size = 0),
 #'   fp_text(color = "orange", font.size = 0)
 #'   ))
-#' @seealso \code{\link{ph_with}}
+#' @seealso [ph_with()]
 #' @family block functions for reporting
 unordered_list <- function(str_list = character(0), level_list = integer(0), style = NULL){
   stopifnot(is.character(str_list))

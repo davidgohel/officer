@@ -134,8 +134,8 @@ cursor_end <- function(x) {
 #' @param fixed logical. If TRUE, pattern is a string to be matched as is.
 #' @section cursor_reach:
 #' Set the cursor on the first element of the document
-#' that contains text specified in argument \code{keyword}.
-#' The argument \code{keyword} is a regexpr pattern.
+#' that contains text specified in argument `keyword`.
+#' The argument `keyword` is a regexpr pattern.
 cursor_reach <- function(x, keyword, fixed = FALSE) {
   nodes_with_text <- xml_find_all(
     x$doc_obj$get(),
@@ -160,8 +160,8 @@ cursor_reach <- function(x, keyword, fixed = FALSE) {
 #' @param keyword keyword to look for as a regular expression
 #' @section cursor_reach_test:
 #' Test if an expression has a match in the document
-#' that contains text specified in argument \code{keyword}.
-#' The argument \code{keyword} is a regexpr pattern.
+#' that contains text specified in argument `keyword`.
+#' The argument `keyword` is a regexpr pattern.
 cursor_reach_test <- function(x, keyword) {
   nodes_with_text <- xml_find_all(
     x$doc_obj$get(),

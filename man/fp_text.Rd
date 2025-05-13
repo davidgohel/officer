@@ -105,7 +105,7 @@ MS PowerPoint and html.}
 a \code{fp_text} object
 }
 \description{
-Create a \code{fp_text} object that describes
+Create an \code{fp_text} object that describes
 text formatting properties.
 
 Function \code{fp_text_lite()} is generating properties
@@ -119,7 +119,7 @@ fp_text(bold = TRUE, shading.color = "yellow")
 print(fp_text(color = "red", font.size = 12))
 }
 \seealso{
-\link{ftext}, \link{fpar}
+\code{\link[=ftext]{ftext()}}, \code{\link[=fpar]{fpar()}}
 
 Other functions for defining formatting properties: 
 \code{\link{fp_border}()},

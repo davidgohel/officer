@@ -135,7 +135,7 @@ is_ph_location <- function(x) {
 #'   master = "Office Theme"
 #' )
 #' fortify_location(ph_location_fullsize(), doc)
-#' @seealso \code{\link{ph_location}}, \code{\link{ph_with}}
+#' @seealso [ph_location()], [ph_with()]
 #' @family functions for officer extensions
 #' @keywords internal
 fortify_location <- function(x, doc, ...) {
@@ -148,7 +148,7 @@ fortify_location <- function(x, doc, ...) {
 #' @export
 #' @title Location for a placeholder from scratch
 #' @description The function will return a list that complies with
-#' expected format for argument \code{location} of function \code{ph_with}.
+#' expected format for argument `location` of function [ph_with()].
 #' @param left,top,width,height place holder coordinates
 #' in inches.
 #' @param newlabel a label for the placeholder. See section details.
@@ -218,8 +218,8 @@ fortify_location.location_manual <- function(x, doc, ...) {
 
 #' @title Location for a placeholder based on a template
 #' @description The function will return a list that complies with
-#' expected format for argument \code{location} of function
-#' \code{ph_with}. A placeholder will be used as template
+#' expected format for argument `location` of function
+#' [ph_with()]. A placeholder will be used as template
 #' and its positions will be updated with values `left`, `top`, `width`, `height`.
 #' @param left,top,width,height place holder coordinates
 #' in inches.
@@ -393,7 +393,7 @@ fortify_location.location_type <- function(x, doc, ...) {
 #' @description The function will use the label of a placeholder
 #' to find the corresponding location.
 #' @param ph_label placeholder label of the used layout. It can be read in PowerPoint or
-#' with function \code{layout_properties()} in column \code{ph_label}.
+#' with function [layout_properties()] in column `ph_label`.
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location

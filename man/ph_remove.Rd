@@ -14,10 +14,10 @@ ph_remove(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL)
 \item{id}{placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
-Values can be read from \code{\link{slide_summary}}.}
+Values can be read from \code{\link[=slide_summary]{slide_summary()}}.}
 
 \item{ph_label}{label associated to the placeholder. Use column
-\code{ph_label} of result returned by \code{\link{slide_summary}}.
+\code{ph_label} of result returned by \code{\link[=slide_summary]{slide_summary()}}.
 If used, \code{type} and \code{id} are ignored.}
 
 \item{id_chr}{deprecated.}
@@ -63,7 +63,7 @@ doc <- ph_remove(x = doc, type = "body", id = 1)
 print(doc, target = fileout)
 }
 \seealso{
-\code{\link{ph_with}}
+\code{\link[=ph_with]{ph_with()}}
 
 Other functions for placeholders manipulation: 
 \code{\link{ph_hyperlink}()},

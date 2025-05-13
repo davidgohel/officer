@@ -19,10 +19,10 @@ generates a slide from each layout in the base document to
 identify the placeholder indexes, types, names, master names and layout names.
 
 This is to be used when need to know what parameters should be used with
-\code{ph_location*} calls. The parameters are printed in their corresponding shapes.
+\verb{ph_location*} calls. The parameters are printed in their corresponding shapes.
 
-Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label}.
-Hint: You can dedupe labels using \code{\link{layout_dedupe_ph_labels}}.
+Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label()}.
+Hint: You can dedupe labels using \code{\link[=layout_dedupe_ph_labels]{layout_dedupe_ph_labels()}}.
 }
 \examples{
 # To generate an anotation of the default base document with officer:

@@ -13,7 +13,7 @@ docx_summary(x, preserve = FALSE, remove_fields = FALSE, detailed = FALSE)
 single line. If \code{TRUE}, line breaks in table cells are preserved as a "\\n"
 character. This feature is adapted from \code{docxtractr::docx_extract_tbl()}
 published under a \href{https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE}{MIT licensed} in
-the \code{{docxtractr}} package by Bob Rudis.}
+the 'docxtractr' package by Bob Rudis.}
 
 \item{remove_fields}{if TRUE, prevent field codes from appearing in the
 returned data.frame.}
@@ -29,7 +29,7 @@ read content of a Word document and
 return a data.frame representing the document.
 }
 \note{
-Documents included with \code{body_add_docx()} will
+Documents included with \code{\link[=body_add_docx]{body_add_docx()}} will
 not be accessible in the results.
 }
 \examples{

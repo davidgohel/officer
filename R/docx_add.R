@@ -178,7 +178,7 @@ body_add_gg <- function(x, value, width = 6, height = 5, res = 300, style = "Nor
 
 #' @export
 #' @title Add a list of blocks into a 'Word' document
-#' @description add a list of blocks produced by \code{block_list} into
+#' @description add a list of blocks produced by [block_list()] into
 #' into an rdocx object.
 #' @inheritParams body_add_break
 #' @param blocks set of blocks to be used as footnote content returned by
@@ -254,7 +254,7 @@ body_add_par <- function(x, value, style = NULL, pos = "after") {
 
 #' @export
 #' @title Add fpar in a 'Word' document
-#' @description Add an \code{fpar} (a formatted paragraph)
+#' @description Add an [fpar()] (a formatted paragraph)
 #' into an rdocx object.
 #' @param x a docx device
 #' @param value a character
@@ -292,7 +292,7 @@ body_add_par <- function(x, value, style = NULL, pos = "after") {
 #' doc <- body_add_fpar(doc, img_in_par)
 #' print(doc, target = tempfile(fileext = ".docx"))
 #'
-#' @seealso \code{\link{fpar}}
+#' @seealso [fpar()]
 #' @family functions for adding content
 body_add_fpar <- function(x, value, style = NULL, pos = "after") {
   if (!is.null(style)) {

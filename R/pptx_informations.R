@@ -1,6 +1,6 @@
 #' @export
 #' @title Number of slides
-#' @description Function \code{length} will return the number of slides.
+#' @description Function `length` will return the number of slides.
 #' @param x an rpptx object
 #' @examples
 #' my_pres <- read_pptx()
@@ -221,10 +221,10 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
 #' identify the placeholder indexes, types, names, master names and layout names.
 #'
 #' This is to be used when need to know what parameters should be used with
-#' \code{ph_location*} calls. The parameters are printed in their corresponding shapes.
+#' `ph_location*` calls. The parameters are printed in their corresponding shapes.
 #'
-#' Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label}.
-#' Hint: You can dedupe labels using \code{\link{layout_dedupe_ph_labels}}.
+#' Note that if there are duplicated `ph_label`, you should not use `ph_location_label()`.
+#' Hint: You can dedupe labels using [layout_dedupe_ph_labels()].
 #'
 #' @param path path to the pptx file to use as base document or NULL to use the officer default
 #' @param output_file filename to store the annotated powerpoint file or NULL to suppress generation
@@ -289,10 +289,10 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 #' into a data.frame. Data for any tables, images, or paragraphs are
 #' imported into the resulting data.frame.
 #' @note
-#' The column \code{id} of the result is not to be used by users.
+#' The column `id` of the result is not to be used by users.
 #' This is a technical string id whose value will be used by office
 #' when the document will be rendered. This is not related to argument
-#' \code{index} required by functions \code{ph_with}.
+#' `index` required by functions [ph_with()].
 #' @inheritParams length.rpptx
 #' @param index slide index
 #' @examples

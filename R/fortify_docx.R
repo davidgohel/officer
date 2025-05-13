@@ -212,15 +212,15 @@ node_content <- function(node, x, preserve = FALSE, detailed = FALSE) {
 #' @description read content of a Word document and
 #' return a data.frame representing the document.
 #' @note
-#' Documents included with \code{body_add_docx()} will
+#' Documents included with [body_add_docx()] will
 #' not be accessible in the results.
 #' @param x an rdocx object
 #' @param preserve If `FALSE` (default), text in table cells is collapsed into a
 #'   single line. If `TRUE`, line breaks in table cells are preserved as a "\\n"
-#'   character. This feature is adapted from \code{docxtractr::docx_extract_tbl()}
+#'   character. This feature is adapted from `docxtractr::docx_extract_tbl()`
 #'   published under a [MIT
 #'   licensed](https://github.com/hrbrmstr/docxtractr/blob/master/LICENSE) in
-#'   the `{docxtractr}` package by Bob Rudis.
+#'   the 'docxtractr' package by Bob Rudis.
 #' @param remove_fields if TRUE, prevent field codes from appearing in the
 #' returned data.frame.
 #' @param detailed Should information on runs be included in summary dataframe?
@@ -244,7 +244,7 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   if (remove_fields) {
     instrText_nodes <- xml_find_all(x$doc_obj$get(), "//w:instrText")
     xml_remove(instrText_nodes)
-    
+
     fldData_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldData")
     xml_remove(fldData_nodes)
   }
