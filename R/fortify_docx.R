@@ -118,6 +118,9 @@ par_as_tibble <- function(node, styles, detailed = FALSE) {
   } else {
     style_id <- xml_attr(style_node, "val")
     style_name <- styles$style_name[styles$style_id %in% style_id]
+    if (length(style_name) < 1L) {
+      style_name <- NA_character_
+    }
   }
 
   replace_no_break_hyphen(node)
@@ -125,13 +128,14 @@ par_as_tibble <- function(node, styles, detailed = FALSE) {
   par_data <- data.frame(
     level = as.integer(xml_attr(xml_child(node, "w:pPr/w:numPr/w:ilvl"), "val")) + 1,
     num_id = as.integer(xml_attr(xml_child(node, "w:pPr/w:numPr/w:numId"), "val")),
-    text = xml_text(node), style_name = style_name,
+    text = xml_text(node),
+    style_name = style_name,
     stringsAsFactors = FALSE
   )
 
   if (detailed) {
     nodes_run <- xml_find_all(node, "w:r")
-    run_data <- lapply(nodes_run, run_as_tibble)
+    run_data <- lapply(nodes_run, run_as_tibble, styles = styles)
 
     run_data <- mapply(function(x, id) {
       x$id <- id
@@ -173,6 +177,9 @@ run_as_tibble <- function(node, styles) {
     style_id <- xml_attr(style_node, "val")
     style_name <- styles$style_name[styles$style_id %in% style_id]
   }
+  if (length(style_name) < 1L) {
+    style_name <- NA_character_
+  }
   run_data <- data.frame(
     text = xml_text(node),
     bold = val_child_lgl(node, "w:rPr/w:b", default = "true"),
@@ -184,6 +191,7 @@ run_as_tibble <- function(node, styles) {
     shading = val_child(node, "w:rPr/w:shd"),
     shading_color = val_child(node, "w:rPr/w:shd", attr = "color"),
     shading_fill = val_child(node, "w:rPr/w:shd", attr = "fill"),
+    style_name = style_name,
     stringsAsFactors = FALSE
   )
 
