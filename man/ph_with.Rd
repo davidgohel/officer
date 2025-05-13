@@ -200,7 +200,7 @@ anyplot <- plot_instr(code = {
   barplot(1:7, col = col, yaxt = "n")
 })
 
-doc_1 <- add_slide(doc_1)
+doc_1 <- add_slide(doc_1, "Title and Content")
 doc_1 <- ph_with(doc_1, anyplot,
   location = ph_location_fullsize(),
   bg = "#006699"
@@ -208,7 +208,7 @@ doc_1 <- ph_with(doc_1, anyplot,
 
 # add a ggplot2 plot ----
 if (require("ggplot2")) {
-  doc_1 <- add_slide(doc_1)
+  doc_1 <- add_slide(doc_1, "Title and Content")
   gg_plot <- ggplot(data = iris) +
     geom_point(
       mapping = aes(Sepal.Length, Petal.Length),
@@ -272,7 +272,7 @@ bl <- block_list(
   ),
   dummy_text
 )
-doc_1 <- add_slide(doc_1)
+doc_1 <- add_slide(doc_1, "Title and Content")
 doc_1 <- ph_with(
   x = doc_1, value = bl,
   location = ph_location_type(type = "body")
@@ -291,7 +291,7 @@ hw <- fpar(
     text = "cran", prop = fpt
   )
 )
-doc_1 <- add_slide(doc_1)
+doc_1 <- add_slide(doc_1, "Title and Content")
 doc_1 <- ph_with(
   x = doc_1, value = hw,
   location = ph_location_type(type = "body")
@@ -302,7 +302,7 @@ ul <- unordered_list(
   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
   style = fp_text(color = "red", font.size = 0)
 )
-doc_1 <- add_slide(doc_1)
+doc_1 <- add_slide(doc_1, "Title and Content")
 doc_1 <- ph_with(
   x = doc_1, value = ul,
   location = ph_location_type()

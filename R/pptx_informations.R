@@ -4,8 +4,8 @@
 #' @param x an rpptx object
 #' @examples
 #' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres)
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' length(my_pres)
 #' @family functions for reading presentation information
 length.rpptx <- function( x ){
@@ -118,7 +118,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'    _NB_: The id is set by PowerPoint automatically and lack a meaningful order.
 #'
 #' @param x an `rpptx` object
-#' @param layout slide layout name or numeric index (row index from [layout_summary()).
+#' @param layout slide layout name or numeric index (row index from [layout_summary()]. If `NULL` (default), it plots
+#'   the current slide's layout.
 #' @param master master layout name where `layout` is located. Can be omitted if layout is unambiguous.
 #' @param title if `TRUE` (default), adds a title with the layout name at the top.
 #' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).
@@ -161,7 +162,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
     la <- get_layout_for_current_slide(x)
     cli::cli_inform(c("i"="Showing current slide's layout: {.val {la$layout_name}}"))
   } else {
-    la <- get_layout(x, layout, master)
+    la <- get_layout(x, layout, master, layout_by_id = TRUE)
   }
 
   dat <- layout_properties(x, layout = la$layout_name, master = la$master_name)
@@ -296,10 +297,10 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 #' @param index slide index
 #' @examples
 #' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- ph_with(my_pres, format(Sys.Date()),
 #'   location = ph_location_type(type="dt"))
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- ph_with(my_pres, iris[1:2,],
 #'   location = ph_location_type(type="body"))
 #' slide_summary(my_pres)
