@@ -70,6 +70,9 @@ reference:
     - body_set_default_section
     - starts_with("body_end_section")
     - body_comment
+    - body_append_start_context
+    - write_elements_to_context
+    - body_append_stop_context
   - title: Word sections
     contents:
     - prop_section
@@ -94,6 +97,7 @@ reference:
   - title: Manipulate slides
     contents:
     - add_slide
+    - layout_default
     - on_slide
     - move_slide
     - remove_slide

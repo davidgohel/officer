@@ -113,3 +113,4 @@ Collate:
     'rtf.R'
     'shape_properties.R'
     'shorcuts.R'
+    'docx_append_context.R'

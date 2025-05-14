@@ -1,5 +1,12 @@
 # officer 0.6.9 (development version)
 
+## Features
+
+- New functions `body_append_start_context()`, `write_elements_to_context()` and 
+  `body_append_stop_context()` to append elements at the end of a Word document
+  in a faster way. This is useful when the document is large and the user wants to
+  only append elements at the end of the document. 
+
 ## Issues
 
 - `add_slide()`: It now suffices to specify a unique `layout`. The `master` will be inferred automatically.  
