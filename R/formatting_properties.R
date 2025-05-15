@@ -187,8 +187,7 @@ is_character <- function(x) {
 }
 # fp_text ----
 #' @title Text formatting properties
-#'
-#' @description Create a \code{fp_text} object that describes
+#' @description Create an `fp_text` object that describes
 #' text formatting properties.
 #'
 #' @param color font color - a single character value specifying
@@ -209,17 +208,17 @@ is_character <- function(x) {
 #' characters in a Unicode range which does not fall into one of the
 #' other categories.
 #' @param vertical.align single character value specifying font vertical alignments.
-#' Expected value is one of the following : default \code{'baseline'}
-#' or \code{'subscript'} or \code{'superscript'}
+#' Expected value is one of the following : default `'baseline'`
+#' or `'subscript'` or `'superscript'`
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
-#' @return a \code{fp_text} object
+#' @return a `fp_text` object
 #' @examples
 #' fp_text()
 #' fp_text(color = "red")
 #' fp_text(bold = TRUE, shading.color = "yellow")
 #' @family functions for defining formatting properties
-#' @seealso [ftext], [fpar]
+#' @seealso [ftext()], [fpar()]
 #' @export
 fp_text <- function(color = "black", font.size = 10,
                     bold = FALSE, italic = FALSE, underlined = FALSE,
@@ -320,7 +319,7 @@ to_wml.fp_text <- function(x, add_ns = FALSE, ...) {
   format(x, type = "wml")
 }
 
-#' @param x \code{fp_text} object
+#' @param x `fp_text` object
 #' @examples
 #' print(fp_text(color = "red", font.size = 12))
 #' @rdname fp_text
@@ -344,7 +343,7 @@ print.fp_text <- function(x, ...) {
 }
 
 
-#' @param object \code{fp_text} object to modify
+#' @param object `fp_text` object to modify
 #' @param ... further arguments - not used
 #' @rdname fp_text
 #' @export
@@ -609,17 +608,17 @@ as.character.fp_tabs <- function(x, ...) {
 # fp_par -----
 #' @title Paragraph formatting properties
 #'
-#' @description Create a \code{fp_par} object that describes
+#' @description Create a `fp_par` object that describes
 #' paragraph formatting properties.
 #'
 #' @param text.align text alignment - a single character value, expected value
 #' is one of 'left', 'right', 'center', 'justify'.
 #' @param padding.bottom,padding.top,padding.left,padding.right paragraph paddings - 0 or positive integer value.
-#' @param padding paragraph paddings - 0 or positive integer value. Argument \code{padding} overwrites
-#' arguments \code{padding.bottom}, \code{padding.top}, \code{padding.left}, \code{padding.right}.
+#' @param padding paragraph paddings - 0 or positive integer value. Argument `padding` overwrites
+#' arguments `padding.bottom`, `padding.top`, `padding.left`, `padding.right`.
 #' @param line_spacing line spacing, 1 is single line spacing, 2 is double line spacing.
 #' @param border shortcut for all borders.
-#' @param border.bottom,border.left,border.top,border.right \code{\link{fp_border}} for
+#' @param border.bottom,border.left,border.top,border.right [fp_border()] for
 #' borders. overwrite other border properties.
 #' @param shading.color shading color - a single character value specifying
 #' a valid color (e.g. "#000000" or "black").
@@ -629,7 +628,7 @@ as.character.fp_tabs <- function(x, ...) {
 #' or an object returned by [fp_tabs()]. Note this can only have effect with Word
 #' or RTF outputs.
 #' @param word_style Word paragraph style name
-#' @return a \code{fp_par} object
+#' @return a `fp_par` object
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
 #' @export
@@ -734,7 +733,7 @@ to_wml.fp_par <- function(x, add_ns = FALSE, ...) {
   format(x, type = "wml")
 }
 
-#' @param x,object \code{fp_par} object
+#' @param x,object `fp_par` object
 #' @param ... further arguments - not used
 #' @rdname fp_par
 #' @export
@@ -844,10 +843,10 @@ text.directions <- c("lrtb", "tbrl", "btlr")
 
 #' @title Cell formatting properties
 #'
-#' @description Create a \code{fp_cell} object that describes cell formatting properties.
+#' @description Create a `fp_cell` object that describes cell formatting properties.
 #'
 #' @param border shortcut for all borders.
-#' @param border.bottom,border.left,border.top,border.right \code{\link{fp_border}} for borders.
+#' @param border.bottom,border.left,border.top,border.right [fp_border()] for borders.
 #' @param vertical.align cell content vertical alignment - a single character value,
 #' expected value is one of "center" or "top" or "bottom"
 #' @param margin shortcut for all margins.
@@ -936,7 +935,7 @@ fp_cell <- function(border = fp_border(width = 0),
 
 #' @export
 #' @rdname fp_cell
-#' @param x,object \code{fp_cell} object
+#' @param x,object `fp_cell` object
 #' @param type output type - one of 'wml', 'pml', 'html', 'rtf'.
 #' @param ... further arguments - not used
 format.fp_cell <- function(x, type = "wml", ...) {

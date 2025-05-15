@@ -7,8 +7,7 @@
 shortcuts
 }
 \description{
-Shortcuts for \code{fp_text}, \code{fp_par},
-\code{fp_cell} and \code{fp_border}.
+Shortcuts for \code{\link[=fp_text]{fp_text()}}, \code{\link[=fp_par]{fp_par()}}, \code{\link[=fp_cell]{fp_cell()}} and \code{\link[=fp_border]{fp_border()}}.
 }
 \examples{
 shortcuts$fp_bold()

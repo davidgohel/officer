@@ -36,7 +36,7 @@ style = list(
   ))
 }
 \seealso{
-\code{\link{ph_with}}
+\code{\link[=ph_with]{ph_with()}}
 
 Other block functions for reporting: 
 \code{\link{block_caption}()},

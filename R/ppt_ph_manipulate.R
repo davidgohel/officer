@@ -25,10 +25,10 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL) {
 #' @param type placeholder type
 #' @param id placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 #' type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
-#' add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
-#' Values can be read from \code{\link{slide_summary}}.
+#' add onto the first, use `id = 1` and `id = 2` for the second one.
+#' Values can be read from [slide_summary()].
 #' @param ph_label label associated to the placeholder. Use column
-#' \code{ph_label} of result returned by \code{\link{slide_summary}}.
+#' `ph_label` of result returned by [slide_summary()].
 #' If used, `type` and `id` are ignored.
 #' @param id_chr deprecated.
 #' @examples
@@ -68,7 +68,7 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL) {
 #'
 #' print(doc, target = fileout)
 #' @family functions for placeholders manipulation
-#' @seealso \code{\link{ph_with}}
+#' @seealso [ph_with()]
 ph_remove <- function(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
@@ -99,7 +99,7 @@ ph_remove <- function(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL) 
 #'
 #' print(doc, target = fileout)
 #' @family functions for placeholders manipulation
-#' @seealso \code{\link{ph_with}}
+#' @seealso [ph_with()]
 ph_slidelink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, slide_index) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
@@ -140,7 +140,7 @@ ph_slidelink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NUL
 #'
 #' print(doc, target = fileout)
 #' @family functions for placeholders manipulation
-#' @seealso \code{\link{ph_with}}
+#' @seealso [ph_with()]
 ph_hyperlink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)

@@ -26,7 +26,6 @@
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family block functions for reporting
 block_caption <- function(label, style = NULL, autonum = NULL) {
-
   if (is.null(style)) {
     style <- "Normal"
   }
@@ -51,8 +50,7 @@ print.block_caption <- function(x, ...) {
   cat("caption ", auton, ": ", x$label, "\n", sep = "")
 }
 
-to_wml_block_caption_officer <- function(x, add_ns = FALSE){
-
+to_wml_block_caption_officer <- function(x, add_ns = FALSE) {
   open_tag <- wp_ns_no
   if (add_ns) {
     open_tag <- wp_ns_yes
@@ -63,19 +61,23 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE){
     autonum <- to_wml(x$autonum)
   }
 
-  run_str <- sprintf("<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>", htmlEscapeCopy(x$label))
+  run_str <- sprintf(
+    "<w:r><w:t xml:space=\"preserve\">%s</w:t></w:r>",
+    htmlEscapeCopy(x$label)
+  )
   run_str <- paste0(autonum, run_str)
 
   out <- sprintf(
     "%s<w:pPr><w:pStyle w:stlname=\"%s\"/></w:pPr>%s</w:p>",
-    open_tag, x$style, run_str
+    open_tag,
+    x$style,
+    run_str
   )
 
   out
 }
-to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL){
-
-  if(is.null(x$label)) return("")
+to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL) {
+  if (is.null(x$label)) return("")
 
   autonum <- ""
   if (!is.null(x$autonum)) {
@@ -98,9 +100,8 @@ to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL){
 
 #' @export
 to_wml.block_caption <- function(x, add_ns = FALSE, knitting = FALSE, ...) {
-  if(knitting)
-    to_wml_block_caption_pandoc(x, bookdown_id = list(...)$bookdown_id)
-  else
+  if (knitting)
+    to_wml_block_caption_pandoc(x, bookdown_id = list(...)$bookdown_id) else
     to_wml_block_caption_officer(x, add_ns = add_ns)
 }
 
@@ -124,7 +125,10 @@ to_wml.block_caption <- function(x, add_ns = FALSE, knitting = FALSE, ...) {
 #' @family block functions for reporting
 block_toc <- function(level = 3, style = NULL, seq_id = NULL, separator = ";") {
   z <- list(
-    level = level, style = style, seq_id = seq_id, separator = separator
+    level = level,
+    style = style,
+    seq_id = seq_id,
+    separator = separator
   )
   class(z) <- c("block_toc", "block")
 
@@ -144,14 +148,12 @@ print.block_toc <- function(x, ...) {
 
 #' @export
 to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
-
   open_tag <- wp_ns_no
   if (add_ns) {
     open_tag <- wp_ns_yes
   }
 
-
-  if(is.null(x$style) && is.null(x$seq_id)) {
+  if (is.null(x$style) && is.null(x$seq_id)) {
     out <- paste0(
       open_tag,
       "<w:pPr/>",
@@ -165,7 +167,7 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
       ),
       "</w:p>"
     )
-  } else if(!is.null(x$style)) {
+  } else if (!is.null(x$style)) {
     out <- paste0(
       open_tag,
       "<w:pPr/>",
@@ -173,13 +175,14 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
         run_word_field(
           field = sprintf(
             "TOC \\h \\z \\t \"%s%s1\"",
-            x$style, x$separator
+            x$style,
+            x$separator
           )
         )
       ),
       "</w:p>"
     )
-  } else if(!is.null(x$seq_id)) {
+  } else if (!is.null(x$seq_id)) {
     out <- paste0(
       open_tag,
       "<w:pPr/>",
@@ -191,8 +194,6 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
       "</w:p>"
     )
   }
-
-
 
   out
 }
@@ -216,18 +217,28 @@ to_wml.block_toc <- function(x, add_ns = FALSE, ...) {
 #' doc_1 <- body_add(doc_1, block_pour_docx(docx))
 #' print(doc_1, target = target)
 #' @family block functions for reporting
-block_pour_docx <- function(file){
-  if(!file.exists(file)){
+block_pour_docx <- function(file) {
+  if (!file.exists(file)) {
     stop("file {", file, "} does not exist.", call. = FALSE)
   }
-  if(!grepl("\\.docx$", file, ignore.case = TRUE)){
+  if (!grepl("\\.docx$", file, ignore.case = TRUE)) {
     stop("file {", file, "} is not a docx file.", call. = FALSE)
   }
-  if(grepl("&", file, ignore.case = TRUE)){
-    stop("file path {", file, "} contains '&', please rename your file.", call. = FALSE)
+  if (grepl("&", file, ignore.case = TRUE)) {
+    stop(
+      "file path {",
+      file,
+      "} contains '&', please rename your file.",
+      call. = FALSE
+    )
   }
-  if(grepl(" ", basename(file), ignore.case = TRUE)){
-    stop("file path {", basename(file), "} contains ' ', please rename your file.", call. = FALSE)
+  if (grepl(" ", basename(file), ignore.case = TRUE)) {
+    stop(
+      "file path {",
+      basename(file),
+      "} contains ' ', please rename your file.",
+      call. = FALSE
+    )
   }
 
   z <- list(file = file)
@@ -246,11 +257,9 @@ to_wml.block_pour_docx <- function(x, add_ns = FALSE, ...) {
   if (add_ns) {
     ns_str <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" "
   }
-  out <- paste0("<w:altChunk ", ns_str,
-                    "r:id=\"", x$file, "\"/>")
+  out <- paste0("<w:altChunk ", ns_str, "r:id=\"", x$file, "\"/>")
   out
 }
-
 
 
 # section ----
@@ -297,18 +306,13 @@ to_wml.block_section <- function(x, add_ns = FALSE, ...) {
     open_tag <- wp_ns_yes
   }
 
-  out <- paste0(open_tag,
-    "<w:pPr>",
-    to_wml(x$property),
-    "</w:pPr></w:p>"
-  )
+  out <- paste0(open_tag, "<w:pPr>", to_wml(x$property), "</w:pPr></w:p>")
 
   out
 }
 
 
 # table properties ----
-
 
 #' @export
 #' @title Table conditional formatting
@@ -326,37 +330,60 @@ to_wml.block_section <- function(x, add_ns = FALSE, ...) {
 #' table_conditional_formatting(first_row = TRUE, first_column = TRUE)
 #' @family functions for table definition
 table_conditional_formatting <- function(
-  first_row = TRUE, first_column = FALSE,
-  last_row = FALSE, last_column = FALSE,
-  no_hband = FALSE, no_vband = TRUE){
-
-  z <- list(first_row = first_row, first_column = first_column,
-            last_row = last_row, last_column = last_column,
-            no_hband = no_hband, no_vband = no_vband)
+  first_row = TRUE,
+  first_column = FALSE,
+  last_row = FALSE,
+  last_column = FALSE,
+  no_hband = FALSE,
+  no_vband = TRUE
+) {
+  z <- list(
+    first_row = first_row,
+    first_column = first_column,
+    last_row = last_row,
+    last_column = last_column,
+    no_hband = no_hband,
+    no_vband = no_vband
+  )
   class(z) <- c("table_conditional_formatting")
   z
 }
 
 #' @export
 to_wml.table_conditional_formatting <- function(x, add_ns = FALSE, ...) {
-  paste0("<w:tblLook w:firstRow=\"", as.integer(x$first_row),
-         "\" w:lastRow=\"", as.integer(x$last_row),
-         "\" w:firstColumn=\"", as.integer(x$first_column),
-         "\" w:lastColumn=\"", as.integer(x$last_column),
-         "\" w:noHBand=\"", as.integer(x$no_hband),
-         "\" w:noVBand=\"", as.integer(x$no_vband), "\"/>")
+  paste0(
+    "<w:tblLook w:firstRow=\"",
+    as.integer(x$first_row),
+    "\" w:lastRow=\"",
+    as.integer(x$last_row),
+    "\" w:firstColumn=\"",
+    as.integer(x$first_column),
+    "\" w:lastColumn=\"",
+    as.integer(x$last_column),
+    "\" w:noHBand=\"",
+    as.integer(x$no_hband),
+    "\" w:noVBand=\"",
+    as.integer(x$no_vband),
+    "\"/>"
+  )
 }
 
 #' @export
-to_pml.table_conditional_formatting <- function(x, add_ns = FALSE, ...){
-  expr_ <- paste0(" firstRow=\"%.0f\" lastRow=\"%.0f\"",
-         " firstColumn=\"%.0f\" lastColumn=\"%.0f\"",
-         " bandRow=\"%.0f\" bandCol=\"%.0f\""
-         )
-  sprintf(expr_,
-          x$first_row, x$last_row,
-          x$first_column, x$last_column,
-          !x$no_hband, !x$no_vband)
+to_pml.table_conditional_formatting <- function(x, add_ns = FALSE, ...) {
+  expr_ <- paste0(
+    " firstRow=\"%.0f\" lastRow=\"%.0f\"",
+    " firstColumn=\"%.0f\" lastColumn=\"%.0f\"",
+    " bandRow=\"%.0f\" bandCol=\"%.0f\""
+  )
+  sprintf(
+    expr_,
+    x$first_row,
+    x$last_row,
+    x$first_column,
+    x$last_column,
+    !x$no_hband,
+    !x$no_vband
+  )
 }
 
 table_layout_types <- c("autofit", "fixed")
@@ -373,10 +400,13 @@ table_layout_types <- c("autofit", "fixed")
 #' determine the final column widths.
 #' @param type 'autofit' or 'fixed' algorithm. Default to 'autofit'.
 #' @family functions for table definition
-table_layout <- function(type = "autofit"){
-
-  if(!type %in% table_layout_types){
-    stop("type must be one of ", paste(table_layout_types, collapse = ", "), ".")
+table_layout <- function(type = "autofit") {
+  if (!type %in% table_layout_types) {
+    stop(
+      "type must be one of ",
+      paste(table_layout_types, collapse = ", "),
+      "."
+    )
   }
 
   z <- list(type = type)
@@ -401,24 +431,31 @@ table_layout_width_units <- c("in", "pct")
 #' @param width value of the preferred width of the table.
 #' @param unit unit of the width. Possible values are 'in' (inches) and 'pct' (percent)
 #' @family functions for table definition
-table_width <- function(width = 1, unit = "pct"){
-  if(!unit %in% table_layout_width_units){
-    stop("unit must be one of ", paste(table_layout_width_units, collapse = ", "), ".")
+table_width <- function(width = 1, unit = "pct") {
+  if (!unit %in% table_layout_width_units) {
+    stop(
+      "unit must be one of ",
+      paste(table_layout_width_units, collapse = ", "),
+      "."
+    )
   }
 
   z <- list(width = width, unit = unit)
   class(z) <- "table_width"
   z
-
 }
 #' @export
 to_wml.table_width <- function(x, add_ns = FALSE, ...) {
-  if(x$unit %in% "pct"){
-    tbl_width <- sprintf("<w:tblW w:type=\"pct\" w:w=\"%.0f\"/>",
-                         x$width * 5000)
+  if (x$unit %in% "pct") {
+    tbl_width <- sprintf(
+      "<w:tblW w:type=\"pct\" w:w=\"%.0f\"/>",
+      x$width * 5000
+    )
   } else {
-    tbl_width <- sprintf("<w:tblW w:type=\"dxa\" w:w=\"%.0f\"/>",
-                         x$width * 1440)
+    tbl_width <- sprintf(
+      "<w:tblW w:type=\"dxa\" w:w=\"%.0f\"/>",
+      x$width * 1440
+    )
   }
   tbl_width
 }
@@ -428,7 +465,7 @@ to_wml.table_width <- function(x, add_ns = FALSE, ...) {
 #' @description The function defines the size of each column of a table.
 #' @param widths Column widths expressed in inches.
 #' @family functions for table definition
-table_colwidths <- function(widths = NULL){
+table_colwidths <- function(widths = NULL) {
   z <- list(widths = widths)
   class(z) <- "table_colwidths"
   z
@@ -472,23 +509,25 @@ table_colwidths <- function(widths = NULL){
 #' )
 #'
 #' print(doc_2, target = tempfile(fileext = ".docx"))
-table_stylenames <- function(stylenames = list()){
-
-  if( length(stylenames) > 0 && is.null(attr(stylenames, "names")) ){
+table_stylenames <- function(stylenames = list()) {
+  if (length(stylenames) > 0 && is.null(attr(stylenames, "names"))) {
     stop("stylenames should have names")
   }
 
-  if( length(stylenames) > 0 && is.list(stylenames) ){
+  if (length(stylenames) > 0 && is.list(stylenames)) {
     .l <- vapply(stylenames, length, FUN.VALUE = 0L)
     zz <- inverse.rle(
-      structure(list(
-        lengths = .l,
-        values = names(stylenames)),
-        class = "rle")
+      structure(
+        list(
+          lengths = .l,
+          values = names(stylenames)
+        ),
+        class = "rle"
       )
+    )
     names(zz) <- as.character(unlist(stylenames))
     stylenames <- as.list(zz)
-  } else if(is.character(stylenames)){
+  } else if (is.character(stylenames)) {
     stylenames <- as.list(stylenames)
   }
 
@@ -500,14 +539,13 @@ table_stylenames <- function(stylenames = list()){
 #' @export
 #' @importFrom utils modifyList
 to_wml.table_stylenames <- function(x, add_ns = FALSE, dat, ...) {
-
   stylenames <- rep("Normal", ncol(dat))
   names(stylenames) <- colnames(dat)
   stylenames <- as.list(stylenames)
   # restrict to only existing cols
   x$stylenames <- x$stylenames[names(x$stylenames) %in% colnames(dat)]
   stylenames <- modifyList(stylenames, val = x$stylenames)
-  stylenames <- lapply(stylenames, function(x){
+  stylenames <- lapply(stylenames, function(x) {
     sprintf("<w:pStyle w:stlname=\"%s\"/>", x)
   })
   stylenames
@@ -515,7 +553,7 @@ to_wml.table_stylenames <- function(x, add_ns = FALSE, dat, ...) {
 
 #' @export
 to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
-  if(length(x$widths) < 1) return("")
+  if (length(x$widths) < 1) return("")
   grid_col_str <- sprintf("<w:gridCol w:w=\"%.0f\"/>", x$widths * 1440)
   grid_col_str <- paste(grid_col_str, collapse = "")
   paste0("<w:tblGrid>", grid_col_str, "</w:tblGrid>")
@@ -538,23 +576,25 @@ to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
 #' prop_table()
 #' to_wml(prop_table())
 #' @family functions for table definition
-prop_table <- function(style = NA_character_, layout = table_layout(),
-                       width = table_width(),
-                       stylenames = table_stylenames(),
-                       colwidths = table_colwidths(),
-                       tcf = table_conditional_formatting(),
-                       align = "center",
-                       word_title = NULL,
-                       word_description = NULL){
-
-
+prop_table <- function(
+  style = NA_character_,
+  layout = table_layout(),
+  width = table_width(),
+  stylenames = table_stylenames(),
+  colwidths = table_colwidths(),
+  tcf = table_conditional_formatting(),
+  align = "center",
+  word_title = NULL,
+  word_description = NULL
+) {
   z <- list(
     style = style,
     layout = layout,
     width = width,
     colsizes = colwidths,
     stylenames = stylenames,
-    tcf = tcf, align = align,
+    tcf = tcf,
+    align = align,
     word_title = word_title,
     word_description = word_description
   )
@@ -564,9 +604,8 @@ prop_table <- function(style = NA_character_, layout = table_layout(),
 
 #' @export
 to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
-
   style <- NA_character_
-  if(!is.null(x$style) && !is.na(x$style)){
+  if (!is.null(x$style) && !is.na(x$style)) {
     if (is.null(x$style) && !is.null(base_document$default_styles$table)) {
       style <- base_document$default_styles$table
     } else {
@@ -574,32 +613,45 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
     }
   }
 
-  tbl_layout <- to_wml(x$layout, add_ns= add_ns)
+  tbl_layout <- to_wml(x$layout, add_ns = add_ns)
 
   width <- ""
-  if(!is.null(x$width) && "autofit" %in% x$layout$type)
-    width <- to_wml(x$width, add_ns= add_ns)
+  if (!is.null(x$width) && "autofit" %in% x$layout$type)
+    width <- to_wml(x$width, add_ns = add_ns)
 
-  colwidths <- to_wml(x$colsizes, add_ns= add_ns)
-  tcf <- to_wml(x$tcf, add_ns= add_ns)
-  paste0("<w:tblPr>",
-         if(!is.null(x$word_title)) paste0("<w:tblCaption w:val=\"", htmlEscapeCopy(x$word_title), "\"/>"),
-         if(!is.null(x$word_description)) paste0("<w:tblDescription w:val=\"", htmlEscapeCopy(x$word_description), "\"/>"),
-         if(!is.na(style)) paste0("<w:tblStyle w:stlname=\"", style, "\"/>"),
-         tbl_layout,
-         sprintf( "<w:jc w:val=\"%s\"/>", x$align ),
-         width, tcf,
-         "</w:tblPr>",
-         if(x$layout$type %in% "fixed") colwidths
-         )
-
+  colwidths <- to_wml(x$colsizes, add_ns = add_ns)
+  tcf <- to_wml(x$tcf, add_ns = add_ns)
+  paste0(
+    "<w:tblPr>",
+    if (!is.null(x$word_title))
+      paste0("<w:tblCaption w:val=\"", htmlEscapeCopy(x$word_title), "\"/>"),
+    if (!is.null(x$word_description))
+      paste0(
+        "<w:tblDescription w:val=\"",
+        htmlEscapeCopy(x$word_description),
+        "\"/>"
+      ),
+    if (!is.na(style)) paste0("<w:tblStyle w:stlname=\"", style, "\"/>"),
+    tbl_layout,
+    sprintf("<w:jc w:val=\"%s\"/>", x$align),
+    width,
+    tcf,
+    "</w:tblPr>",
+    if (x$layout$type %in% "fixed") colwidths
+  )
 }
 
 
 # table ----
-table_docx <- function(x, header, style_id,
-                       properties, alignment = NULL, add_ns = FALSE,
-                       base_document = base_document) {
+table_docx <- function(
+  x,
+  header,
+  style_id,
+  properties,
+  alignment = NULL,
+  add_ns = FALSE,
+  base_document = base_document
+) {
   open_tag <- tbl_ns_no
   if (add_ns) {
     open_tag <- tbl_ns_yes
@@ -610,28 +662,36 @@ table_docx <- function(x, header, style_id,
     to_wml(properties, add_ns = add_ns, base_document = base_document)
   )
 
-  stylenames <- to_wml(properties$stylenames, base_document = base_document, dat = x)
+  stylenames <- to_wml(
+    properties$stylenames,
+    base_document = base_document,
+    dat = x
+  )
   stylenames <- unlist(stylenames)
   stylenames <- as.character(stylenames)
 
-  if(is.null(alignment)){
+  if (is.null(alignment)) {
     alignment <- rep("", ncol(x))
-  } else{
-    alignment <- match.arg(alignment, c("left", "right", "center"), several.ok = TRUE )
-    if(length(alignment) < ncol(x)){
-      alignment <- rep(alignment, length.out = ncol(x) )
+  } else {
+    alignment <- match.arg(
+      alignment,
+      c("left", "right", "center"),
+      several.ok = TRUE
+    )
+    if (length(alignment) < ncol(x)) {
+      alignment <- rep(alignment, length.out = ncol(x))
     }
     alignment <- sprintf("<w:jc w:val=\"%s\"/>", alignment)
   }
 
   header_str <- character(length = 0L)
   if (header) {
-
     header_str <- paste0(
       "<w:tr><w:trPr><w:tblHeader/></w:trPr>",
-      paste0("<w:tc><w:p>",
-             sprintf("<w:pPr>%s%s</w:pPr>", stylenames, alignment),
-             "<w:r><w:t>",
+      paste0(
+        "<w:tc><w:p>",
+        sprintf("<w:pPr>%s%s</w:pPr>", stylenames, alignment),
+        "<w:r><w:t>",
         htmlEscapeCopy(enc2utf8(colnames(x))),
         "</w:t></w:r></w:p></w:tc>",
         collapse = ""
@@ -655,36 +715,49 @@ table_docx <- function(x, header, style_id,
   paste0(str, header_str, z, "</w:tbl>")
 }
 
-table_pptx <- function(x, style_id, col_width, row_height,
-                       tcf, header = TRUE, alignment = NULL ){
-  str <- paste0("<a:tbl>",
-                sprintf("<a:tblPr %s>", to_pml(tcf)),
-                sprintf("<a:tableStyleId>%s</a:tableStyleId>", style_id),
-                "</a:tblPr>",
-                "<a:tblGrid>",
-                paste0(sprintf("<a:gridCol w=\"%.0f\"/>",
-                               rep(col_width, length(x))),
-                       collapse = ""),
-                "</a:tblGrid>")
+table_pptx <- function(
+  x,
+  style_id,
+  col_width,
+  row_height,
+  tcf,
+  header = TRUE,
+  alignment = NULL
+) {
+  str <- paste0(
+    "<a:tbl>",
+    sprintf("<a:tblPr %s>", to_pml(tcf)),
+    sprintf("<a:tableStyleId>%s</a:tableStyleId>", style_id),
+    "</a:tblPr>",
+    "<a:tblGrid>",
+    paste0(
+      sprintf("<a:gridCol w=\"%.0f\"/>", rep(col_width, length(x))),
+      collapse = ""
+    ),
+    "</a:tblGrid>"
+  )
 
   as_tc <- function(x, align) {
-    paste0("<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p>",
-           "<a:pPr algn=\"", align, "\"/>",
-           "<a:r><a:t>",
-           htmlEscapeCopy(enc2utf8(x)),
-           "</a:t></a:r></a:p></a:txBody></a:tc>"
+    paste0(
+      "<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p>",
+      "<a:pPr algn=\"",
+      align,
+      "\"/>",
+      "<a:r><a:t>",
+      htmlEscapeCopy(enc2utf8(x)),
+      "</a:t></a:r></a:p></a:txBody></a:tc>"
     )
   }
 
-  if(is.null(alignment)){
+  if (is.null(alignment)) {
     alignment <- rep("r", ncol(x))
-  } else{
-    alignment <- match.arg(alignment, c("l", "r", "ctr"), several.ok = TRUE )
+  } else {
+    alignment <- match.arg(alignment, c("l", "r", "ctr"), several.ok = TRUE)
   }
 
   header_str <- character(length = 0L)
-  if( header ){
-    header_str  <- paste0(
+  if (header) {
+    header_str <- paste0(
       sprintf("<a:tr h=\"%.0f\">", row_height),
       paste0(as_tc(colnames(x), align = alignment), collapse = ""),
       "</a:tr>"
@@ -693,13 +766,21 @@ table_pptx <- function(x, style_id, col_width, row_height,
 
   z <- mapply(as_tc, x, alignment, SIMPLIFY = FALSE)
   z <- do.call(paste0, z)
-  z <- paste0(sprintf("<a:tr h=\"%.0f\">", row_height), z, "</a:tr>", collapse = "")
+  z <- paste0(
+    sprintf("<a:tr h=\"%.0f\">", row_height),
+    z,
+    "</a:tr>",
+    collapse = ""
+  )
 
   z <- paste0(str, header_str, z, "</a:tbl>")
   z <- paste0(
     "<a:graphic>",
     "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/table\">",
-    z, "</a:graphicData>", "</a:graphic>")
+    z,
+    "</a:graphicData>",
+    "</a:graphic>"
+  )
 }
 
 
@@ -725,12 +806,19 @@ table_pptx <- function(x, style_id, col_width, row_height,
 #'   ))
 #' @family block functions for reporting
 #' @seealso [prop_table()]
-block_table <- function(x, header = TRUE, properties = prop_table(), alignment = NULL) {
-
+block_table <- function(
+  x,
+  header = TRUE,
+  properties = prop_table(),
+  alignment = NULL
+) {
   stopifnot(is.data.frame(x))
-  if(inherits(x, "tbl_df"))
+  if (inherits(x, "tbl_df"))
     x <- as.data.frame(
-      x, check.names = FALSE, stringsAsFactors = FALSE )
+      x,
+      check.names = FALSE,
+      stringsAsFactors = FALSE
+    )
 
   z <- list(
     x = x,
@@ -751,11 +839,11 @@ print.block_table <- function(x, ...) {
 
 #' @export
 to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
-
   value <- characterise_df(x$x)
 
   out <- table_docx(
-    x = value, header = x$header,
+    x = value,
+    header = x$header,
     properties = x$properties,
     alignment = x$alignment,
     base_document = base_document,
@@ -766,38 +854,58 @@ to_wml.block_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
 }
 
 #' @export
-to_pml.block_table <- function(x, add_ns = FALSE,
-                               left = 0, top = 0, width = 3, height = 3,
-                               bg = "transparent", rot = 0, label = "", ph = "<p:ph/>", ...){
-
-  if( !is.null(bg) && !is.color( bg ) )
-    stop("bg must be a valid color.", call. = FALSE )
+to_pml.block_table <- function(
+  x,
+  add_ns = FALSE,
+  left = 0,
+  top = 0,
+  width = 3,
+  height = 3,
+  bg = "transparent",
+  rot = 0,
+  label = "",
+  ph = "<p:ph/>",
+  ...
+) {
+  if (!is.null(bg) && !is.color(bg))
+    stop("bg must be a valid color.", call. = FALSE)
 
   bg_str <- solid_fill_pml(bg)
 
-  xfrm_str <- p_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
-  if( is.null(ph) || is.na(ph)){
+  xfrm_str <- p_xfrm_str(
+    left = left,
+    top = top,
+    width = width,
+    height = height,
+    rot = rot
+  )
+  if (is.null(ph) || is.na(ph)) {
     ph = "<p:ph/>"
   }
   value <- characterise_df(x$x)
-  value_str <- table_pptx(value, style_id = x$properties$style,
-                          alignment = x$alignment,
-                        col_width = as.integer((width/ncol(x$x))*914400),
-                        row_height = as.integer((height/nrow(x$x))*914400),
-                        tcf = x$properties$tcf,
-                        header = x$header )
+  value_str <- table_pptx(
+    value,
+    style_id = x$properties$style,
+    alignment = x$alignment,
+    col_width = as.integer((width / ncol(x$x)) * 914400),
+    row_height = as.integer((height / nrow(x$x)) * 914400),
+    tcf = x$properties$tcf,
+    header = x$header
+  )
 
   id <- uuid_generate()
-  str <- paste0("<p:graphicFrame xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
-                "<p:nvGraphicFramePr>",
-                sprintf("<p:cNvPr id=\"%s\" name=\"%s\"/>", id, label),
-                "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"1\"/></p:cNvGraphicFramePr>",
-                sprintf("<p:nvPr>%s</p:nvPr>", ph),
-                "</p:nvGraphicFramePr>",
-                xfrm_str,
-                bg_str,
-                value_str,
-                "</p:graphicFrame>")
+  str <- paste0(
+    "<p:graphicFrame xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
+    "<p:nvGraphicFramePr>",
+    sprintf("<p:cNvPr id=\"%s\" name=\"%s\"/>", id, label),
+    "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"1\"/></p:cNvGraphicFramePr>",
+    sprintf("<p:nvPr>%s</p:nvPr>", ph),
+    "</p:nvGraphicFramePr>",
+    xfrm_str,
+    bg_str,
+    value_str,
+    "</p:graphicFrame>"
+  )
   str
 }
 
@@ -813,7 +921,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' All its arguments will be concatenated to create a paragraph where chunks of
 #' text and images are associated with formatting properties.
 #'
-#' \code{fpar} supports [ftext()], [external_img()], \code{run_*} functions
+#' `fpar()` supports [ftext()], [external_img()], `run_*()` functions
 #' (i.e. [run_autonum()], [run_word_field()]) when output is Word, and simple strings.
 #'
 #' Default text and paragraph formatting properties can also be modified
@@ -824,7 +932,7 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #' @param fp_t default text formatting properties. This is used as
 #' text formatting properties when simple text is provided as argument,
 #' see [fp_text()].
-#' @param values a list of cot objects. If provided, argument \code{...} will be ignored.
+#' @param values a list of cot objects. If provided, argument `...` will be ignored.
 #' @param object fpar object
 #' @examples
 #' fpar(ftext("hello", shortcuts$fp_bold()))
@@ -846,10 +954,10 @@ to_pml.block_table <- function(x, add_ns = FALSE,
 #'   fp_p = fp_par(text.align = "center") )
 #' @family block functions for reporting
 #' @seealso [block_list()], [body_add_fpar()], [ph_with()]
-fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL) {
+fpar <- function(..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL) {
   out <- list()
 
-  if( is.null(values)){
+  if (is.null(values)) {
     values <- list(...)
   }
 
@@ -863,12 +971,11 @@ fpar <- function( ..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL) {
 #' @export
 #' @rdname fpar
 #' @importFrom stats update
-update.fpar <- function (object, fp_p = NULL, fp_t = NULL, ...){
-
-  if(!is.null(fp_p)){
+update.fpar <- function(object, fp_p = NULL, fp_t = NULL, ...) {
+  if (!is.null(fp_p)) {
     object$fp_p <- fp_p
   }
-  if(!is.null(fp_t)){
+  if (!is.null(fp_t)) {
     object$fp_t <- fp_t
   }
 
@@ -876,10 +983,10 @@ update.fpar <- function (object, fp_p = NULL, fp_t = NULL, ...){
 }
 
 
-fortify_fpar <- function(x){
+fortify_fpar <- function(x) {
   lapply(x$chunks, function(chk) {
-    if( !inherits(chk, c("cot", "run")) ){
-      chk <- ftext(text = format(chk), prop = x$fp_t )
+    if (!inherits(chk, c("cot", "run"))) {
+      chk <- ftext(text = format(chk), prop = x$fp_t)
     }
     chk
   })
@@ -887,29 +994,41 @@ fortify_fpar <- function(x){
 
 
 #' @export
-as.data.frame.fpar <- function( x, ...){
+as.data.frame.fpar <- function(x, ...) {
   chks <- fortify_fpar(x)
   chks <- chks[sapply(chks, function(x) inherits(x, "ftext"))]
-  chks <- mapply(function(x){
-    data.frame(value = x$value, size = x$pr$font.size,
-               bold = x$pr$bold, italic = x$pr$italic,
-               font.family = x$pr$font.family, stringsAsFactors = FALSE )
-  }, chks, SIMPLIFY = FALSE)
+  chks <- mapply(
+    function(x) {
+      data.frame(
+        value = x$value,
+        size = x$pr$font.size,
+        bold = x$pr$bold,
+        italic = x$pr$italic,
+        font.family = x$pr$font.family,
+        stringsAsFactors = FALSE
+      )
+    },
+    chks,
+    SIMPLIFY = FALSE
+  )
   rbind_match_columns(chks)
 }
 
 
 #' @export
 to_wml.fpar <- function(x, add_ns = FALSE, style_id = NULL, ...) {
-
   open_tag <- wp_ns_no
   if (add_ns) {
     open_tag <- wp_ns_yes
   }
-  if(is.null(style_id)){
+  if (is.null(style_id)) {
     par_style <- ppr_wml(x$fp_p)
-  } else par_style <- paste0(
-    "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr>")
+  } else
+    par_style <- paste0(
+      "<w:pPr><w:pStyle w:val=\"",
+      style_id,
+      "\"/></w:pPr>"
+    )
 
   chks <- fortify_fpar(x)
   z <- lapply(chks, to_wml)
@@ -920,7 +1039,6 @@ to_wml.fpar <- function(x, add_ns = FALSE, style_id = NULL, ...) {
 
 #' @export
 to_pml.fpar <- function(x, add_ns = FALSE, ...) {
-
   open_tag <- ap_ns_no
   if (add_ns) {
     open_tag <- ap_ns_yes
@@ -1000,15 +1118,15 @@ to_html.fpar <- function(x, add_ns = FALSE, ...) {
 #' print(doc, target = tempfile(fileext = ".pptx"))
 #' @seealso [ph_with()], [body_add_blocks()], [fpar()]
 #' @family block functions for reporting
-block_list <- function(...){
+block_list <- function(...) {
   x <- list(...)
   z <- list()
-  for(i in x){
-    if(inherits(i, "block")) {
+  for (i in x) {
+    if (inherits(i, "block")) {
       z <- append(z, list(i))
-    } else if(inherits(i, "flextable")){
+    } else if (inherits(i, "flextable")) {
       z <- append(z, list(i))
-    } else if(is.character(i)){
+    } else if (is.character(i)) {
       z <- append(z, lapply(i, fpar))
     }
   }
@@ -1019,7 +1137,7 @@ block_list <- function(...){
 #' @export
 to_wml.block_list <- function(x, add_ns = FALSE, ...) {
   out <- character(length(x))
-  for(i in seq_along(x) ){
+  for (i in seq_along(x)) {
     out[i] <- to_wml(x[[i]], add_ns = add_ns)
   }
 
@@ -1048,8 +1166,8 @@ to_html.block_list <- function(x, add_ns = FALSE, ...) {
 #' @param str_list list of strings to be included in the object
 #' @param level_list list of levels for hierarchy structure. Use
 #' 0 for 'no bullet', 1 for level 1, 2 for level 2 and so on.
-#' @param style text style, a \code{fp_text} object list or a
-#' single \code{fp_text} objects. Use \code{fp_text(font.size = 0, ...)} to
+#' @param style text style, a `fp_text` object list or a
+#' single `fp_text` objects. Use `fp_text(font.size = 0, ...)` to
 #' inherit from default sizes of the presentation.
 #' @examples
 #' unordered_list(
@@ -1064,9 +1182,13 @@ to_html.block_list <- function(x, add_ns = FALSE, ...) {
 #'   fp_text(color = "pink", font.size = 0),
 #'   fp_text(color = "orange", font.size = 0)
 #'   ))
-#' @seealso \code{\link{ph_with}}
+#' @seealso [ph_with()]
 #' @family block functions for reporting
-unordered_list <- function(str_list = character(0), level_list = integer(0), style = NULL){
+unordered_list <- function(
+  str_list = character(0),
+  level_list = integer(0),
+  style = NULL
+) {
   stopifnot(is.character(str_list))
   stopifnot(is.numeric(level_list))
 
@@ -1074,9 +1196,9 @@ unordered_list <- function(str_list = character(0), level_list = integer(0), sty
     stop("str_list and level_list have different lenghts.")
   }
 
-  if( !is.null(style)){
-    if( inherits(style, "fp_text") )
-      style <- lapply(seq_len(length(str_list)), function(x) style )
+  if (!is.null(style)) {
+    if (inherits(style, "fp_text"))
+      style <- lapply(seq_len(length(str_list)), function(x) style)
   }
   x <- list(
     str = str_list,
@@ -1088,21 +1210,18 @@ unordered_list <- function(str_list = character(0), level_list = integer(0), sty
 }
 #' @export
 #' @noRd
-print.unordered_list <- function(x, ...){
-  print(data.frame(str = x$str,
-                   lvl = x$lvl,
-                   stringsAsFactors = FALSE))
+print.unordered_list <- function(x, ...) {
+  print(data.frame(str = x$str, lvl = x$lvl, stringsAsFactors = FALSE))
   invisible()
 }
 
 #' @export
 to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
-
   open_tag <- ap_ns_no
   if (add_ns) {
     open_tag <- ap_ns_yes
   }
-  if( !is.null(x$style)){
+  if (!is.null(x$style)) {
     style_str <- sapply(x$style, format, type = "pml")
     style_str <- rep_len(style_str, length.out = length(x$str))
   } else style_str <- rep("<a:rPr/>", length(x$str))
@@ -1110,7 +1229,7 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
   lvl <- sprintf(" lvl=\"%.0f\"", x$lvl - 1)
   lvl <- ifelse(x$lvl > 1, lvl, "")
   bu_none <- ifelse(x$lvl < 1, "<a:buNone/>", "")
-  p <- sprintf(tmpl, open_tag, lvl, bu_none, style_str, htmlEscapeCopy(x$str) )
+  p <- sprintf(tmpl, open_tag, lvl, bu_none, style_str, htmlEscapeCopy(x$str))
   p <- paste(p, collapse = "")
   p
 }
@@ -1155,4 +1274,3 @@ plot_instr <- function(code) {
   class(out) <- "plot_instr"
   return(out)
 }
-

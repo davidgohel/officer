@@ -52,7 +52,7 @@ fp_cell(
 \arguments{
 \item{border}{shortcut for all borders.}
 
-\item{border.bottom, border.left, border.top, border.right}{\code{\link{fp_border}} for borders.}
+\item{border.bottom, border.left, border.top, border.right}{\code{\link[=fp_border]{fp_border()}} for borders.}
 
 \item{vertical.align}{cell content vertical alignment - a single character value,
 expected value is one of "center" or "top" or "bottom"}

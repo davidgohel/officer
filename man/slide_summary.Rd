@@ -20,7 +20,7 @@ imported into the resulting data.frame.
 The column \code{id} of the result is not to be used by users.
 This is a technical string id whose value will be used by office
 when the document will be rendered. This is not related to argument
-\code{index} required by functions \code{ph_with}.
+\code{index} required by functions \code{\link[=ph_with]{ph_with()}}.
 }
 \examples{
 my_pres <- read_pptx()

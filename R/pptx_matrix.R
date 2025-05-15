@@ -1,17 +1,16 @@
 #' @title PowerPoint table to matrix
 #' @description Convert the data in an a 'PowerPoint' table
 #' to a matrix or all data to a list of matrices.
-#' @param x The rpptx object to convert (as created by
-#'   \code{officer::read_pptx()})
+#' @param x The rpptx object to convert (as created by [officer::read_pptx()])
 #' @param ... Ignored
 #' @param slide_id The slide number to load from (NA indicates first slide with
 #'   a table, NULL indicates all slides and all tables)
-#' @param id The table ID to load from (ignored it \code{is.null(slide_id)}, NA
-#'   indicates to load the first table from the \code{slide_id})
-#' @param span How should col_span/row_span values be handled?  \code{NA} means
-#'   to leave the value as \code{NA}, and \code{"fill"} means to fill matrix
+#' @param id The table ID to load from (ignored it `is.null(slide_id)`, NA
+#'   indicates to load the first table from the `slide_id`)
+#' @param span How should col_span/row_span values be handled? `NA` means
+#'   to leave the value as `NA`, and `"fill"` means to fill matrix
 #'   cells with the value.
-#' @return A matrix with the data, or if \code{slide_id=NULL}, a list of
+#' @return A matrix with the data, or if `slide_id=NULL`, a list of
 #'   matrices
 #' @examples
 #' library(officer)

@@ -38,6 +38,7 @@ Other functions for adding content:
 \code{\link{body_add_img}()},
 \code{\link{body_add_plot}()},
 \code{\link{body_add_table}()},
-\code{\link{body_add_toc}()}
+\code{\link{body_add_toc}()},
+\code{\link{body_append_start_context}()}
 }
 \concept{functions for adding content}

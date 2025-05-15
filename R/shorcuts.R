@@ -1,8 +1,7 @@
 #' @title shortcuts for formatting properties
 #'
 #' @description
-#' Shortcuts for \code{fp_text}, \code{fp_par},
-#' \code{fp_cell} and \code{fp_border}.
+#' Shortcuts for [fp_text()], [fp_par()], [fp_cell()] and [fp_border()].
 #' @name shortcuts
 #' @examples
 #' shortcuts$fp_bold()

@@ -20,7 +20,7 @@ set_notes(x, value, location, ...)
 \item{location}{a placeholder location object.
 It will be used to specify the location of the new shape. This location
 can be defined with a call to one of the notes_ph functions. See
-section \code{"see also"}.}
+section "see also".}
 
 \item{...}{further arguments passed to or from other methods.}
 }

@@ -34,7 +34,7 @@ in the layout.}
 \description{
 The function will return a list that complies with
 expected format for argument \code{location} of function
-\code{ph_with}. A placeholder will be used as template
+\code{\link[=ph_with]{ph_with()}}. A placeholder will be used as template
 and its positions will be updated with values \code{left}, \code{top}, \code{width}, \code{height}.
 }
 \details{

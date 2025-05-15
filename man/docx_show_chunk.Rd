@@ -12,7 +12,7 @@ docx_show_chunk(x)
 \description{
 Show the structure of text tags at the current cursor. This is
 most useful when trying to troubleshoot search-and-replace functionality
-using \code{\link{body_replace_all_text}}.
+using \code{\link[=body_replace_all_text]{body_replace_all_text()}}.
 }
 \examples{
 doc <- read_docx()
@@ -23,5 +23,5 @@ doc <- body_add_par(doc, "Placeholder two")
 docx_show_chunk(doc)  # Output is 'Placeholder two'
 }
 \seealso{
-\code{\link{body_replace_all_text}}
+\code{\link[=body_replace_all_text]{body_replace_all_text()}}
 }

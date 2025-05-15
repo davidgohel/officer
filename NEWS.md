@@ -1,5 +1,17 @@
 # officer 0.6.9 (development version)
 
+<<<<<<< HEAD
+=======
+## Features
+
+- New functions `body_append_start_context()`, `write_elements_to_context()` and 
+  `body_append_stop_context()` to append elements at the end of a Word document
+  in a faster way. This is useful when the document is large and the user wants to
+  only append elements at the end of the document. 
+- Refactored `body_add.block_list()` to speed up the process of adding a block 
+  list to a Word document, optimization of the process is made by minimizing call 
+  to `docx_current_block_xml()`.
+
 ## Issues
 
 - `add_slide()`: It now suffices to specify a unique `layout`. The `master` will be inferred automatically.  
@@ -13,6 +25,9 @@
 - `plot_layout_properties()` now takes `cex` as a vector or a list and matches by position, name or partial name. 
   Zero values now hide the text. A single value now applies to all three cex parameters (label, type, and id) (#645)
 - `plot_layout_properties()` now shows the default layout (if set) and there are not slides yet (#645)
+- Fixed `docx_summary()` when a text run is associated with a text style and 
+  when paragraph or text styles are not registered in the Word document style 
+  table (thanks to Kaspar Meili).
 
 # officer 0.6.8
 
