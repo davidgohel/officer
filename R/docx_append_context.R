@@ -34,6 +34,7 @@
 #'
 #' `body_append_stop_context()` returns the `rdocx` object with the
 #' cursor position set to the end of the document.
+#' @importFrom utils tail
 #' @rdname body_append_context
 #' @example examples/body_append_context.R
 body_append_start_context <- function(x) {
@@ -44,7 +45,7 @@ body_append_start_context <- function(x) {
   current_xml_str_lines <- readLines(current_xml_file)
   unlink(current_xml_file)
 
-  section_start <- grepl("[[:space:]]*<w:sectPr", current_xml_str_lines)
+  section_start <- grepl("<w:sectPr", current_xml_str_lines)
   default_section_pos <- tail(which(section_start), n = 1)
 
   output_file <- tempfile(fileext = ".txt")
@@ -65,6 +66,7 @@ body_append_start_context <- function(x) {
 #' @param ... elements to be written to the context. These can be
 #' paragraphs, tables, images, etc. The elements should have an associated
 #' `to_wml()` method that converts them to WML format.
+#' @param context the context object created by `body_append_start_context()`.
 #' @export
 write_elements_to_context <- function(context, ...) {
   objects <- list(...)

@@ -15,6 +15,8 @@ body_append_stop_context(context)
 \arguments{
 \item{x}{an rdocx object}
 
+\item{context}{the context object created by \code{body_append_start_context()}.}
+
 \item{...}{elements to be written to the context. These can be
 paragraphs, tables, images, etc. The elements should have an associated
 \code{to_wml()} method that converts them to WML format.}
