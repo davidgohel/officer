@@ -82,3 +82,18 @@ doc <- body_append_stop_context(z)
 
 print(doc, target = tempfile(fileext = ".docx"))
 }
+\seealso{
+Other functions for adding content: 
+\code{\link{body_add_blocks}()},
+\code{\link{body_add_break}()},
+\code{\link{body_add_caption}()},
+\code{\link{body_add_docx}()},
+\code{\link{body_add_fpar}()},
+\code{\link{body_add_gg}()},
+\code{\link{body_add_img}()},
+\code{\link{body_add_par}()},
+\code{\link{body_add_plot}()},
+\code{\link{body_add_table}()},
+\code{\link{body_add_toc}()}
+}
+\concept{functions for adding content}

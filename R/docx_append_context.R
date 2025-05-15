@@ -37,6 +37,7 @@
 #' @importFrom utils tail
 #' @rdname body_append_context
 #' @example examples/body_append_context.R
+#' @family functions for adding content
 body_append_start_context <- function(x) {
   current_xml_file <- tempfile(fileext = ".txt")
   xml_doc <- docx_body_xml(x)
@@ -50,13 +51,20 @@ body_append_start_context <- function(x) {
 
   output_file <- tempfile(fileext = ".txt")
   con <- file(output_file, open = "w", encoding = "UTF-8")
-  cat(current_xml_str_lines[seq_len(default_section_pos-1)], sep = "\n", file = con, append = TRUE)
+  cat(
+    current_xml_str_lines[seq_len(default_section_pos - 1)],
+    sep = "\n",
+    file = con,
+    append = TRUE
+  )
 
   out <- list(
     doc = x,
     file_con = con,
     file_path = output_file,
-    final_str = current_xml_str_lines[default_section_pos:length(current_xml_str_lines)]
+    final_str = current_xml_str_lines[
+      default_section_pos:length(current_xml_str_lines)
+    ]
   )
   class(out) <- "rdocx_append_context"
   out
@@ -70,7 +78,7 @@ body_append_start_context <- function(x) {
 #' @export
 write_elements_to_context <- function(context, ...) {
   objects <- list(...)
-  for(obj in objects) {
+  for (obj in objects) {
     cat(to_wml(obj), sep = "\n", file = context$file_con, append = TRUE)
   }
   context
@@ -86,4 +94,3 @@ body_append_stop_context <- function(context) {
   x <- context$doc
   cursor_end(x)
 }
-
