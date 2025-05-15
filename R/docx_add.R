@@ -818,15 +818,32 @@ body_add.block_caption <- function(x, value, ...) {
 
 
 #' @export
-#' @describeIn body_add add a [block_list] object.
+#' @describeIn body_add add a [block_list] object. Use this function
+#' to add a list of block elements (e.g. paragraphs, images, tables)
+#' into a Word document in a more efficient way than with usual
+#' `body_add_*` functions. This function will add several elements
+#' in a faster way because the cursor is not calculated for
+#' each iteraction over the elements, as a consequence the
+#' function only append elements at the end of the document
+#' and does not allow to insert elements at a specific position.
 body_add.block_list <- function(x, value, ...) {
-  if (length(value) > 0) {
-    for (i in seq_along(value)) {
-      x <- body_add(x, value = value[[i]])
+
+  x <- cursor_end(x)
+  cursor_elt <- docx_current_block_xml(x)
+  for (i in rev(seq_along(value))) {
+    str <- to_wml(value[[i]], add_ns = TRUE)
+    xml_elt <- as_xml_document(str)
+    if (is.null(cursor_elt)) {
+      xml_add_child(
+        xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
+        xml_elt,
+        .where = 0
+      )
+    } else {
+      xml_add_sibling(cursor_elt, xml_elt, .where = "after")
     }
   }
-
-  x
+  cursor_end(x)
 }
 
 #' @export
