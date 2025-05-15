@@ -29,7 +29,7 @@ Authors@R: c(
     person("Majid", "Eismann", role = "ctb"),
     person("Hongyuan", "Jia", , "hongyuanjia@cqust.edu.cn", role = "ctb",
            comment = c(ORCID = "0000-0002-0075-8183")),
-    person("Michael", "Stackhouse", , "mike.stackhouse@atorusresearch.com", role = "ctb"),
+    person("Michael", "Stackhouse", , "mike.stackhouse@atorusresearch.com", role = "ctb")
   )
 Description: Access and manipulate 'Microsoft Word', 'RTF' and 'Microsoft
     PowerPoint' documents from R.  The package focuses on tabular and
