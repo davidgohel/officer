@@ -20,14 +20,14 @@ imported into the resulting data.frame.
 The column \code{id} of the result is not to be used by users.
 This is a technical string id whose value will be used by office
 when the document will be rendered. This is not related to argument
-\code{index} required by functions \code{ph_with}.
+\code{index} required by functions \code{\link[=ph_with]{ph_with()}}.
 }
 \examples{
 my_pres <- read_pptx()
-my_pres <- add_slide(my_pres)
+my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- ph_with(my_pres, format(Sys.Date()),
   location = ph_location_type(type="dt"))
-my_pres <- add_slide(my_pres)
+my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- ph_with(my_pres, iris[1:2,],
   location = ph_location_type(type="body"))
 slide_summary(my_pres)

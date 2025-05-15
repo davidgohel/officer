@@ -16,7 +16,7 @@ function \code{\link[=block_list]{block_list()}}.}
 one of "after", "before", "on".}
 }
 \description{
-add a list of blocks produced by \code{block_list} into
+add a list of blocks produced by \code{\link[=block_list]{block_list()}} into
 into an rdocx object.
 }
 \examples{
@@ -48,6 +48,7 @@ Other functions for adding content:
 \code{\link{body_add_par}()},
 \code{\link{body_add_plot}()},
 \code{\link{body_add_table}()},
-\code{\link{body_add_toc}()}
+\code{\link{body_add_toc}()},
+\code{\link{body_append_start_context}()}
 }
 \concept{functions for adding content}

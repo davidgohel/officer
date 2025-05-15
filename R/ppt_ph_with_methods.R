@@ -65,7 +65,7 @@
 #'   barplot(1:7, col = col, yaxt = "n")
 #' })
 #'
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(doc_1, anyplot,
 #'   location = ph_location_fullsize(),
 #'   bg = "#006699"
@@ -73,7 +73,7 @@
 #'
 #' # add a ggplot2 plot ----
 #' if (require("ggplot2")) {
-#'   doc_1 <- add_slide(doc_1)
+#'   doc_1 <- add_slide(doc_1, "Title and Content")
 #'   gg_plot <- ggplot(data = iris) +
 #'     geom_point(
 #'       mapping = aes(Sepal.Length, Petal.Length),
@@ -137,7 +137,7 @@
 #'   ),
 #'   dummy_text
 #' )
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(
 #'   x = doc_1, value = bl,
 #'   location = ph_location_type(type = "body")
@@ -156,7 +156,7 @@
 #'     text = "cran", prop = fpt
 #'   )
 #' )
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(
 #'   x = doc_1, value = hw,
 #'   location = ph_location_type(type = "body")
@@ -167,7 +167,7 @@
 #'   str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
 #'   style = fp_text(color = "red", font.size = 0)
 #' )
-#' doc_1 <- add_slide(doc_1)
+#' doc_1 <- add_slide(doc_1, "Title and Content")
 #' doc_1 <- ph_with(
 #'   x = doc_1, value = ul,
 #'   location = ph_location_type()
@@ -300,8 +300,8 @@ ph_with.logical <- ph_with.numeric
 #' @param level_list The list of levels for hierarchy structure as integer values.
 #' If used the object is formated as an unordered list. If 1 and 2,
 #' item 1 level will be 1, item 2 level will be 2.
-#' @describeIn ph_with add a \code{\link{block_list}} made
-#' of \code{\link{fpar}} to a new shape on the current slide.
+#' @describeIn ph_with add a [block_list()] made
+#' of [fpar()] to a new shape on the current slide.
 ph_with.block_list <- function(x, value, location, level_list = integer(0), ...) {
   slide <- x$slide$get_slide(x$cursor)
 
@@ -352,8 +352,8 @@ ph_with.block_list <- function(x, value, location, level_list = integer(0), ...)
 
 
 #' @export
-#' @describeIn ph_with add a \code{\link{unordered_list}} made
-#' of \code{\link{fpar}} to a new shape on the current slide.
+#' @describeIn ph_with add a [unordered_list()] made
+#' of [fpar()] to a new shape on the current slide.
 ph_with.unordered_list <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)
   location <- fortify_location(location, doc = x)
@@ -384,7 +384,7 @@ ph_with.unordered_list <- function(x, value, location, ...) {
 #' @param alignment alignment for each columns, 'l' for left, 'r' for right
 #' and 'c' for center. Default to NULL.
 #' @describeIn ph_with add a data.frame to a new shape on the current slide with
-#' function [block_table()]. Use package \code{flextable} instead for more
+#' function [block_table()]. Use package 'flextable' instead for more
 #' advanced formattings.
 ph_with.data.frame <- function(x, value, location, header = TRUE,
                                tcf = table_conditional_formatting(),
@@ -420,7 +420,7 @@ ph_with.data.frame <- function(x, value, location, header = TRUE,
 
 #' @export
 #' @describeIn ph_with add a ggplot object to a new shape on the
-#' current slide. Use package \code{rvg} for more advanced graphical features.
+#' current slide. Use package 'rvg' for more advanced graphical features.
 #' @param res resolution of the png image in ppi
 #' @param alt_text Alt-text for screen-readers. Defaults to `""`. If `""` or `NULL`
 #'    an alt text added with `ggplot2::labs(alt = ...)` will be used if any.
@@ -455,7 +455,7 @@ ph_with.gg <- function(x, value, location, res = 300, alt_text = "", scale = 1, 
 
 #' @export
 #' @describeIn ph_with add an R plot to a new shape on the
-#' current slide. Use package \code{rvg} for more advanced graphical features.
+#' current slide. Use package 'rvg' for more advanced graphical features.
 ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
   location_ <- fortify_location(location, doc = x)
   slide <- x$slide$get_slide(x$cursor)
@@ -493,12 +493,12 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
 #' @export
 #' @param use_loc_size if set to FALSE, external_img width and height will
 #' be used.
-#' @describeIn ph_with add a \code{\link{external_img}} to a new shape
+#' @describeIn ph_with add a [external_img()] to a new shape
 #' on the current slide.
 #'
 #' When value is a external_img object, image will be copied
 #' into the PowerPoint presentation. The width and height
-#' specified in call to \code{external_img} will be
+#' specified in call to [external_img()] will be
 #' ignored, their values will be those of the location,
 #' unless use_loc_size is set to FALSE.
 ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
@@ -532,8 +532,8 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
 
 
 #' @export
-#' @describeIn ph_with add an \code{\link{fpar}} to a new shape
-#' on the current slide as a single paragraph in a \code{\link{block_list}}.
+#' @describeIn ph_with add an [fpar()] to a new shape
+#' on the current slide as a single paragraph in a [block_list()].
 ph_with.fpar <- function(x, value, location, ...) {
   ph_with.block_list(x, value = block_list(value), location = location)
 
@@ -541,7 +541,7 @@ ph_with.fpar <- function(x, value, location, ...) {
 }
 
 #' @export
-#' @describeIn ph_with add an \code{\link{empty_content}} to a new shape
+#' @describeIn ph_with add an [empty_content()] to a new shape
 #' on the current slide.
 ph_with.empty_content <- function(x, value, location, ...) {
   slide <- x$slide$get_slide(x$cursor)

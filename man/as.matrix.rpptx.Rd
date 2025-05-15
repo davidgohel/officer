@@ -13,8 +13,7 @@
 )
 }
 \arguments{
-\item{x}{The rpptx object to convert (as created by
-\code{officer::read_pptx()})}
+\item{x}{The rpptx object to convert (as created by \code{\link[=read_pptx]{read_pptx()}})}
 
 \item{...}{Ignored}
 
@@ -24,7 +23,7 @@ a table, NULL indicates all slides and all tables)}
 \item{id}{The table ID to load from (ignored it \code{is.null(slide_id)}, NA
 indicates to load the first table from the \code{slide_id})}
 
-\item{span}{How should col_span/row_span values be handled?  \code{NA} means
+\item{span}{How should col_span/row_span values be handled? \code{NA} means
 to leave the value as \code{NA}, and \code{"fill"} means to fill matrix
 cells with the value.}
 }

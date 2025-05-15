@@ -20,7 +20,7 @@ set_notes(x, value, location, ...)
 \item{location}{a placeholder location object.
 It will be used to specify the location of the new shape. This location
 can be defined with a call to one of the notes_ph functions. See
-section \code{"see also"}.}
+section "see also".}
 
 \item{...}{further arguments passed to or from other methods.}
 }
@@ -44,7 +44,7 @@ fileout <- tempfile(fileext = ".pptx")
 fpt_blue_bold <- fp_text_lite(color = "#006699", bold = TRUE)
 doc <- read_pptx()
 # add a slide with some text ----
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- add_slide(doc, layout = "Title and Content")
 doc <- ph_with(x = doc, value = "Slide Title 1",
    location = ph_location_type(type = "title") )
 # set speaker notes for the slide ----
@@ -52,7 +52,7 @@ doc <- set_notes(doc, value = "This text will only be visible for the speaker.",
    location = notes_location_type("body"))
 
 # add a slide with some text ----
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- add_slide(doc, layout = "Title and Content")
 doc <- ph_with(x = doc, value = "Slide Title 2",
    location = ph_location_type(type = "title") )
 bl <- block_list(

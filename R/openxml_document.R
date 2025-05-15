@@ -31,6 +31,9 @@ openxml_document <- R6Class(
     get = function(){
       private$doc
     },
+    replace_xml = function(file){
+      private$doc <- read_xml(file, options = "NSCLEAN")
+    },
     dir_name = function(){
       private$reldir
     },

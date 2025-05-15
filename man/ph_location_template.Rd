@@ -34,7 +34,7 @@ in the layout.}
 \description{
 The function will return a list that complies with
 expected format for argument \code{location} of function
-\code{ph_with}. A placeholder will be used as template
+\code{\link[=ph_with]{ph_with()}}. A placeholder will be used as template
 and its positions will be updated with values \code{left}, \code{top}, \code{width}, \code{height}.
 }
 \details{
@@ -57,7 +57,7 @@ It can be set with argument \code{newlabel}.
 }
 \examples{
 doc <- read_pptx()
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(doc, "Title",
   location = ph_location_type(type = "title")
 )

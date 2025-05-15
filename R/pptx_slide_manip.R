@@ -1,29 +1,38 @@
-
 #' @export
 #' @title Add a slide
 #' @description Add a slide into a pptx presentation.
 #' @param x an `rpptx` object.
-#' @param layout slide layout name to use.
-#' @param master master layout name where `layout` is located.
+#' @param layout slide layout name to use. Can be ommited of a default layout is set via [layout_default()].
+#' @param master master layout name where `layout` is located. Only required in case of several masters if layout is
+#'   not unique.
 #' @param ... Key-value pairs of the form `"short form location" = object` passed to [phs_with]. See section
 #'   `"Short forms"` in [phs_with] for details, available short forms and examples.
 #' @param .dots List of key-value pairs of the form `list("short form location" = object)`. Alternative to `...`. See
 #'   [phs_with] for details.
 #' @example inst/examples/example_add_slide.R
-#' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()]
+#' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()], [layout_default()]
 #' @family slide_manipulation
-add_slide <- function(x, layout = "Title and Content", master = "Office Theme", ..., .dots = NULL) {
-  slide_info <- x$slideLayouts$get_metadata()
-  slide_info <- slide_info[slide_info$name == layout & slide_info$master_name == master, ]
+add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
 
-  if (nrow(slide_info) < 1) {
-    stop("could not find layout named ", shQuote(layout), " in master named ", shQuote(master))
-  } else if (nrow(slide_info) > 1) {
-    stop(
-      "found two layouts named ", shQuote(layout), " in master named ", shQuote(master),
-      ". Layout names should not be duplicated."
+  if (is.null(layout) && !has_layout_default(x)) {  # inform user. Passing no layout will be defunct in a future verion
+    .Deprecated("",
+      package = "officer",
+      msg = paste(
+        "Calling `add_slide()` without specifying a `layout` is deprecated.\n",
+        "Please pass a `layout` or use `layout_default()` to set a default.\n",
+        '=> I will now continue with the former `layout` default "Title and Content" for backwards compatibility...'
+      )
     )
+    layout <- "Title and Content"
   }
+
+  if (is.null(layout) && has_layout_default(x)) {
+    ld <- get_layout_default(x)
+    layout <- ld$layout
+    master <- ld$master
+  }
+
+  la <- get_layout(x, layout, master, layout_by_id = FALSE)
 
   dots_list <- list(...)
   if (length(dots_list) > 0 && !is_named(dots_list)) {
@@ -46,7 +55,7 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme", 
   new_slidename <- x$slide$get_new_slidename()
 
   xml_file <- file.path(x$package_dir, "ppt/slides", new_slidename)
-  layout_obj <- x$slideLayouts$collection_get(slide_info$filename)
+  layout_obj <- x$slideLayouts$collection_get(la$layout_file)
   layout_obj$write_template(xml_file)
 
   # update presentation elements
@@ -72,9 +81,9 @@ add_slide <- function(x, layout = "Title and Content", master = "Office Theme", 
 #' @param index slide index
 #' @examples
 #' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- add_slide(doc, "Title and Content")
+#' doc <- add_slide(doc, "Title and Content")
+#' doc <- add_slide(doc, "Title and Content")
 #' doc <- on_slide(doc, index = 1)
 #' doc <- ph_with(
 #'   x = doc, "First title",
@@ -117,7 +126,7 @@ on_slide <- function(x, index) {
 #' @note cursor is set on the last slide.
 #' @examples
 #' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- remove_slide(my_pres)
 #' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
@@ -154,7 +163,6 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 }
 
 
-
 #' @export
 #' @title Move a slide
 #' @description Move a slide in a pptx presentation.
@@ -163,9 +171,9 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 #' @note cursor is set on the last slide.
 #' @examples
 #' x <- read_pptx()
-#' x <- add_slide(x)
+#' x <- add_slide(x, "Title and Content")
 #' x <- ph_with(x, "Hello world 1", location = ph_location_type())
-#' x <- add_slide(x)
+#' x <- add_slide(x, "Title and Content")
 #' x <- ph_with(x, "Hello world 2", location = ph_location_type())
 #' x <- move_slide(x, index = 1, to = 2)
 #' @family slide_manipulation
@@ -195,7 +203,6 @@ move_slide <- function(x, index = NULL, to) {
 }
 
 
-
 #' @title Correct pptx content references
 #' @description Content references are not managed directly
 #' but computed after the content is added. This function
@@ -220,6 +227,7 @@ pptx_fortify_slides <- function(x) {
 
   x
 }
+
 
 #' @export
 #' @title pptx tags for visual and non visual properties
@@ -266,8 +274,10 @@ ensure_slide_index_exists <- function(x, slide_idx) {
   if (!is.numeric(slide_idx)) {
     cli::cli_abort(
       c("{.arg slide_idx} must be {.cls numeric}",
-        "x" = "You provided {.cls {class(slide_idx)[1]}} instead.")
-      , call = NULL)
+        "x" = "You provided {.cls {class(slide_idx)[1]}} instead."
+      ),
+      call = NULL
+    )
   }
   n <- length(x) # no of slides
   check <- slide_idx %in% seq_len(n)
@@ -275,7 +285,8 @@ ensure_slide_index_exists <- function(x, slide_idx) {
     cli::cli_abort(
       c("Slide index {.val {slide_idx}} is out of range.",
         "x" = "Presentation has {cli::no(n)} slide{?s}."
-      ), call = NULL
+      ),
+      call = NULL
     )
   }
 }
@@ -340,7 +351,8 @@ slide_visible <- function(x, hide = NULL, show = NULL) {
   if (length(idx_in_both) > 1) {
     cli::cli_abort(
       "Overlap between indexes in {.arg hide} and {.arg show}: {.val {idx_in_both}}",
-      "x" = "Indexes must be mutually exclusive.")
+      "x" = "Indexes must be mutually exclusive."
+    )
   }
   if (!is.null(hide)) {
     stop_if_not_integerish(hide, "hide")

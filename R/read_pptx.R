@@ -61,11 +61,13 @@ read_pptx <- function( path = NULL ){
   obj$rel <- relationship$new()
   obj$rel$feed_from_xml(file.path(package_dir, "_rels", ".rels"))
 
-
   obj$cursor = obj$slide$length()
+  obj$layout_default <- list(layout = NA, master = NA)
+
   class(obj) <- "rpptx"
   obj
 }
+
 
 read_table_style <- function(path){
   file <- file.path(path, "ppt/tableStyles.xml")
@@ -80,34 +82,42 @@ read_table_style <- function(path){
              stringsAsFactors = FALSE )
 }
 
-#' @title Write a 'PowerPoint' file.
-#' @description Write a 'PowerPoint' file
-#' with an object of class 'rpptx' (created with
-#' [read_pptx()]).
-#' @param x an rpptx object
-#' @param target path to the pptx file to write
-#' @param ... unused
-#' @examples
-#' # write a rdocx object in a pptx file ----
-#' file <- tempfile(fileext = ".pptx")
-#' doc <- read_pptx()
-#' print(doc, target = file)
-#' @export
-#' @seealso \code{\link{read_pptx}}
-print.rpptx <- function(x, target = NULL, ...){
 
-  if( is.null( target) ){
-    cat("pptx document with", length(x), "slide(s)\n")
-    cat("Available layouts and their associated master(s) are:\n")
-    print(as.data.frame( layout_summary(x)) )
+#' @title Write a 'PowerPoint' file.
+#' @description Create a 'PowerPoint' file from an `rpptx` object (created by [read_pptx()]).
+#' @param x an `rpptx` object.
+#' @param target path to the .pptx file to write. If `target` is `NULL` (default), the `rpptx` object is printed to
+#'   the console.
+#' @param ... unused.
+#' @examples
+#' # write an rpptx object to a .pptx file ----
+#' file <- tempfile(fileext = ".pptx")
+#' x <- read_pptx()
+#' print(x, target = file)
+#' @export
+#' @seealso [read_pptx()]
+print.rpptx <- function(x, target = NULL, ...) {
+  if (is.null(target)) {
+    cli::cli_text("pptx document with {.val {length(x)}} slide{?s}")
+    cli::cli_text("Available layouts and their associated master(s):")
+    df <- as.data.frame(layout_summary(x))
+    if (has_layout_default(x)) {
+      cli::cli_text(cli::col_grey("(*) = Default layout"))
+      la <- get_layout_default(x)
+      i <- which(df$layout == la$layout & df$master == la$master)
+      df$" " <- " " # empty column name
+      df$" "[i] <- "*"
+    }
+    print(df)
     return(invisible())
   }
 
-  if( !grepl(x = target, pattern = "\\.(pptx)$", ignore.case = TRUE) )
-    stop(target , " should have '.pptx' extension.")
+  if (!grepl(x = target, pattern = "\\.(pptx)$", ignore.case = TRUE)) {
+    cli::cli_abort("{.val {target}} should have '.pptx' extension.")
+  }
 
   if (is_windows() && is_doc_open(target)) {
-    stop(target, " is open. To write to this document, please, close it.")
+    cli::cli_abort("{.val {target}} is open. To write to this document, please, close it.")
   }
   x <- pptx_fortify_slides(x)
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
@@ -123,19 +133,16 @@ print.rpptx <- function(x, target = NULL, ...){
 
   x$presentation$save()
   x$content_type$save()
-
   x$slide$save_slides()
-
   x$notesSlide$save_slides()
 
-  x$core_properties['modified','value'] <- format( Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
-  x$core_properties['lastModifiedBy','value'] <- Sys.getenv("USER")
+  x$core_properties["modified", "value"] <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  x$core_properties["lastModifiedBy", "value"] <- Sys.getenv("USER")
   write_core_properties(x$core_properties, x$package_dir)
 
-  if(nrow(x$doc_properties_custom$data) >0 ){
+  if (nrow(x$doc_properties_custom$data) > 0) {
     write_custom_properties(x$doc_properties_custom, x$package_dir)
   }
 
-  invisible(pack_folder(folder = x$package_dir, target = target ))
+  invisible(pack_folder(folder = x$package_dir, target = target))
 }
-

@@ -118,7 +118,7 @@ test_that("detailed summary", {
 
   expect_true("run" %in% names(doc_sum))
   expect_type(doc_sum$run, "list")
-  expect_equal(lengths(doc_sum$run), rep(11, 5))
+  expect_equal(lengths(doc_sum$run), rep(12, 5))
   expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1, 8))
 
   expect_true(all(sapply(doc_sum$run$bold, is.logical)))

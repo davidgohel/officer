@@ -52,8 +52,8 @@ cursor; if \code{FALSE} (default), search-and-replace in the entire document
 Replace text anywhere in the document, or at a cursor.
 
 Replace all occurrences of old_value with new_value. This method
-uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
-supply arguments as required (and therefore use \code{\link{regex}} features)
+uses \code{\link[=grepl]{grepl()}}/\code{\link[=gsub]{gsub()}} for pattern matching; you may
+supply arguments as required (and therefore use \code{\link[=regex]{regex()}} features)
 using the optional \code{...} argument.
 
 Note that by default, grepl/gsub will use \code{fixed=FALSE}, which means
@@ -71,7 +71,7 @@ by outputing it programmatically into your Word document, then this will
 likely not be a problem. If you are working with a manually-edited document,
 however, this can lead to unexpected failures to find text.
 
-You can use the officer function \code{\link{docx_show_chunk}} to
+You can use the officer function \code{\link[=docx_show_chunk]{docx_show_chunk()}} to
 show how the paragraph of text at the current cursor has been chunked into
 runs, and what text is in each chunk. This can help troubleshoot unexpected
 failures to find text.
@@ -108,7 +108,7 @@ doc <- body_replace_all_text(doc, "\\\\bn.*?\\\\b", "example")
 docx_show_chunk(doc) # Output is 'example one'
 }
 \seealso{
-\code{\link{grep}}, \code{\link{regex}}, \code{\link{docx_show_chunk}}
+\code{\link[=grepl]{grepl()}}, \code{\link[=regex]{regex()}}, \code{\link[=docx_show_chunk]{docx_show_chunk()}}
 }
 \author{
 Frank Hangler, \email{frank@plotandscatter.com}

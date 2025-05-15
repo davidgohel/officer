@@ -1,11 +1,11 @@
 #' @export
 #' @title Number of slides
-#' @description Function \code{length} will return the number of slides.
+#' @description Function `length` will return the number of slides.
 #' @param x an rpptx object
 #' @examples
 #' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres)
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' length(my_pres)
 #' @family functions for reading presentation information
 length.rpptx <- function( x ){
@@ -118,7 +118,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #'    _NB_: The id is set by PowerPoint automatically and lack a meaningful order.
 #'
 #' @param x an `rpptx` object
-#' @param layout slide layout name or numeric index (row index from [layout_summary()).
+#' @param layout slide layout name or numeric index (row index from [layout_summary()]. If `NULL` (default), it plots
+#'   the current slide's layout.
 #' @param master master layout name where `layout` is located. Can be omitted if layout is unambiguous.
 #' @param title if `TRUE` (default), adds a title with the layout name at the top.
 #' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).
@@ -161,7 +162,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
     la <- get_layout_for_current_slide(x)
     cli::cli_inform(c("i"="Showing current slide's layout: {.val {la$layout_name}}"))
   } else {
-    la <- get_layout(x, layout, master)
+    la <- get_layout(x, layout, master, layout_by_id = TRUE)
   }
 
   dat <- layout_properties(x, layout = la$layout_name, master = la$master_name)
@@ -220,10 +221,10 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
 #' identify the placeholder indexes, types, names, master names and layout names.
 #'
 #' This is to be used when need to know what parameters should be used with
-#' \code{ph_location*} calls. The parameters are printed in their corresponding shapes.
+#' `ph_location*` calls. The parameters are printed in their corresponding shapes.
 #'
-#' Note that if there are duplicated \code{ph_label}, you should not use \code{ph_location_label}.
-#' Hint: You can dedupe labels using \code{\link{layout_dedupe_ph_labels}}.
+#' Note that if there are duplicated `ph_label`, you should not use `ph_location_label()`.
+#' Hint: You can dedupe labels using [layout_dedupe_ph_labels()].
 #'
 #' @param path path to the pptx file to use as base document or NULL to use the officer default
 #' @param output_file filename to store the annotated powerpoint file or NULL to suppress generation
@@ -288,18 +289,18 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 #' into a data.frame. Data for any tables, images, or paragraphs are
 #' imported into the resulting data.frame.
 #' @note
-#' The column \code{id} of the result is not to be used by users.
+#' The column `id` of the result is not to be used by users.
 #' This is a technical string id whose value will be used by office
 #' when the document will be rendered. This is not related to argument
-#' \code{index} required by functions \code{ph_with}.
+#' `index` required by functions [ph_with()].
 #' @inheritParams length.rpptx
 #' @param index slide index
 #' @examples
 #' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- ph_with(my_pres, format(Sys.Date()),
 #'   location = ph_location_type(type="dt"))
-#' my_pres <- add_slide(my_pres)
+#' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- ph_with(my_pres, iris[1:2,],
 #'   location = ph_location_type(type="body"))
 #' slide_summary(my_pres)

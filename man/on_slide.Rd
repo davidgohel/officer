@@ -16,9 +16,9 @@ Change current slide index of an rpptx object.
 }
 \examples{
 doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- add_slide(doc, "Title and Content")
+doc <- add_slide(doc, "Title and Content")
+doc <- add_slide(doc, "Title and Content")
 doc <- on_slide(doc, index = 1)
 doc <- ph_with(
   x = doc, "First title",

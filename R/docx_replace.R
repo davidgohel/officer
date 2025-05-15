@@ -229,15 +229,15 @@ body_replace_plot_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
 #' @description Replace text anywhere in the document, or at a cursor.
 #'
 #' Replace all occurrences of old_value with new_value. This method
-#' uses \code{\link{grepl}}/\code{\link{gsub}} for pattern matching; you may
-#' supply arguments as required (and therefore use \code{\link{regex}} features)
-#' using the optional \code{...} argument.
+#' uses [grepl()]/[gsub()] for pattern matching; you may
+#' supply arguments as required (and therefore use [regex()] features)
+#' using the optional `...` argument.
 #'
-#' Note that by default, grepl/gsub will use \code{fixed=FALSE}, which means
-#' that \code{old_value} and \code{new_value} will be interepreted as regular
+#' Note that by default, grepl/gsub will use `fixed=FALSE`, which means
+#' that `old_value` and `new_value` will be interepreted as regular
 #' expressions.
 #'
-#' \strong{Chunking of text}
+#' **Chunking of text**
 #'
 #' Note that the behind-the-scenes representation of text in a Word document is
 #' frequently not what you might expect! Sometimes a paragraph of text is broken
@@ -248,20 +248,20 @@ body_replace_plot_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
 #' likely not be a problem. If you are working with a manually-edited document,
 #' however, this can lead to unexpected failures to find text.
 #'
-#' You can use the officer function \code{\link{docx_show_chunk}} to
+#' You can use the officer function [docx_show_chunk()] to
 #' show how the paragraph of text at the current cursor has been chunked into
 #' runs, and what text is in each chunk. This can help troubleshoot unexpected
 #' failures to find text.
-#' @seealso \code{\link{grep}}, \code{\link{regex}}, \code{\link{docx_show_chunk}}
+#' @seealso [grepl()], [regex()], [docx_show_chunk()]
 #' @author Frank Hangler, \email{frank@plotandscatter.com}
 #' @param x a docx device
 #' @param old_value the value to replace
 #' @param new_value the value to replace it with
-#' @param only_at_cursor if \code{TRUE}, only search-and-replace at the current
-#' cursor; if \code{FALSE} (default), search-and-replace in the entire document
+#' @param only_at_cursor if `TRUE`, only search-and-replace at the current
+#' cursor; if `FALSE` (default), search-and-replace in the entire document
 #' (this can be slow on large documents!)
-#' @param warn warn if \code{old_value} could not be found.
-#' @param ... optional arguments to grepl/gsub (e.g. \code{fixed=TRUE})
+#' @param warn warn if `old_value` could not be found.
+#' @param ... optional arguments to grepl/gsub (e.g. `fixed=TRUE`)
 #' @examples
 #' doc <- read_docx()
 #' doc <- body_add_par(doc, "Placeholder one")
@@ -325,8 +325,8 @@ body_replace_all_text <- function( x, old_value, new_value,
 #' @title Show underlying text tag structure
 #' @description Show the structure of text tags at the current cursor. This is
 #' most useful when trying to troubleshoot search-and-replace functionality
-#' using \code{\link{body_replace_all_text}}.
-#' @seealso \code{\link{body_replace_all_text}}
+#' using [body_replace_all_text()].
+#' @seealso [body_replace_all_text()]
 #' @param x a docx device
 #' @examples
 #' doc <- read_docx()
@@ -433,7 +433,7 @@ footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
 #' directory and delete images that are not used
 #' anymore. This function is to be used when images
 #' have been replaced many times.
-#' @param x \code{rdocx} or \code{rpptx} object
+#' @param x `rdocx` or `rpptx` object
 #' @keywords internal
 sanitize_images <- function(x){
 

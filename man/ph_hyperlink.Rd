@@ -14,12 +14,12 @@ ph_hyperlink(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href)
 \item{id}{placeholder index (integer) for a duplicated type. This is to be used when a placeholder
 type is not unique in the layout of the current slide, e.g. two placeholders with type 'body'. To
 add onto the first, use \code{id = 1} and \code{id = 2} for the second one.
-Values can be read from \code{\link{slide_summary}}.}
+Values can be read from \code{\link[=slide_summary]{slide_summary()}}.}
 
 \item{id_chr}{deprecated.}
 
 \item{ph_label}{label associated to the placeholder. Use column
-\code{ph_label} of result returned by \code{\link{slide_summary}}.
+\code{ph_label} of result returned by \code{\link[=slide_summary]{slide_summary()}}.
 If used, \code{type} and \code{id} are ignored.}
 
 \item{href}{hyperlink (do not forget http or https prefix)}
@@ -31,7 +31,7 @@ Add hyperlink to a placeholder in the current slide.
 fileout <- tempfile(fileext = ".pptx")
 loc_manual <- ph_location(bg = "red", newlabel = "mytitle")
 doc <- read_pptx()
-doc <- add_slide(doc)
+doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(x = doc, "Un titre 1", location = loc_manual)
 slide_summary(doc) # read column ph_label here
 doc <- ph_hyperlink(
@@ -42,7 +42,7 @@ doc <- ph_hyperlink(
 print(doc, target = fileout)
 }
 \seealso{
-\code{\link{ph_with}}
+\code{\link[=ph_with]{ph_with()}}
 
 Other functions for placeholders manipulation: 
 \code{\link{ph_remove}()},

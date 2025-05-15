@@ -168,6 +168,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
   return(list(ph = new_ph, label = location$ph_label[1]))
 }
 
+
 #' @export
 #' @title Set notes for current slide
 #' @description Set speaker notes for the current slide in a pptx presentation.
@@ -176,7 +177,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' @param location a placeholder location object.
 #' It will be used to specify the location of the new shape. This location
 #' can be defined with a call to one of the notes_ph functions. See
-#' section \code{"see also"}.
+#' section "see also".
 #' @param ... further arguments passed to or from other methods.
 #' @examples
 #' # this name will be used to print the file
@@ -186,7 +187,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #' fpt_blue_bold <- fp_text_lite(color = "#006699", bold = TRUE)
 #' doc <- read_pptx()
 #' # add a slide with some text ----
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- add_slide(doc, layout = "Title and Content")
 #' doc <- ph_with(x = doc, value = "Slide Title 1",
 #'    location = ph_location_type(type = "title") )
 #' # set speaker notes for the slide ----
@@ -194,7 +195,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 #'    location = notes_location_type("body"))
 #'
 #' # add a slide with some text ----
-#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- add_slide(doc, layout = "Title and Content")
 #' doc <- ph_with(x = doc, value = "Slide Title 2",
 #'    location = ph_location_type(type = "title") )
 #' bl <- block_list(
@@ -211,6 +212,7 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 set_notes <- function(x, value, location, ...){
   UseMethod("set_notes", value)
 }
+
 
 #' @export
 #' @describeIn set_notes add a character vector to a place holder in the notes on the
@@ -239,6 +241,7 @@ set_notes.character <- function( x, value, location, ... ){
 
   return(x)
 }
+
 
 #' @export
 #' @describeIn set_notes add a [block_list()] to a place holder in the notes on the

@@ -137,7 +137,14 @@ the creation of formatted paragraphs made of formatted chunks of text.
 \item \code{body_add(block_caption)}: add a \link{block_caption} object. These objects enable
 the creation of set of formatted paragraphs made of formatted chunks of text.
 
-\item \code{body_add(block_list)}: add a \link{block_list} object.
+\item \code{body_add(block_list)}: add a \link{block_list} object. Use this function
+to add a list of block elements (e.g. paragraphs, images, tables)
+into a Word document in a more efficient way than with usual
+\verb{body_add_*} functions. This function will add several elements
+in a faster way because the cursor is not calculated for
+each iteraction over the elements, as a consequence the
+function only append elements at the end of the document
+and does not allow to insert elements at a specific position.
 
 \item \code{body_add(block_toc)}: add a table of content (a \link{block_toc} object).
 

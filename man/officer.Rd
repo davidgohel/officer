@@ -53,6 +53,7 @@ Other contributors:
   \item Greg Leleu \email{gregoire.leleu@gmail.com} (fields functionality in ppt) [contributor]
   \item Majid Eismann [contributor]
   \item Hongyuan Jia \email{hongyuanjia@cqust.edu.cn} (\href{https://orcid.org/0000-0002-0075-8183}{ORCID}) [contributor]
+  \item Michael Stackhouse \email{mike.stackhouse@atorusresearch.com} [contributor]
 }
 
 }

@@ -59,7 +59,7 @@ arguments \code{padding.bottom}, \code{padding.top}, \code{padding.left}, \code{
 
 \item{padding.bottom, padding.top, padding.left, padding.right}{paragraph paddings - 0 or positive integer value.}
 
-\item{border.bottom, border.left, border.top, border.right}{\code{\link{fp_border}} for
+\item{border.bottom, border.left, border.top, border.right}{\code{\link[=fp_border]{fp_border()}} for
 borders. overwrite other border properties.}
 
 \item{shading.color}{shading color - a single character value specifying
