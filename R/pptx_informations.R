@@ -167,16 +167,6 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   }
 
   dat <- layout_properties(x, layout = la$layout_name, master = la$master_name)
-  if (length(unique(dat$name)) > 1) {
-    cli::cli_abort(c("One single layout must be chosen",
-      "x" = "Did you supply a master?"
-    ), call = NULL)
-  }
-  if (length(unique(dat$name)) < 1) {
-    cli::cli_abort(c("One layout must be chosen",
-      "x" = "Did you misspell the layout name?"
-    ), call = NULL)
-  }
 
   s <- slide_size(x)
   h <- s$height
