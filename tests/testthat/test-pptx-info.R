@@ -160,6 +160,7 @@ test_that("plot layout properties (part 2)", {
     "Showing current slide's layout: \"Title and Content\"",
     fixed = TRUE
   )
+  expect_no_error(plot_layout_properties(x, "Title and Content", legend = TRUE))
 })
 
 
