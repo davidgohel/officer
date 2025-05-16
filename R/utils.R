@@ -396,6 +396,109 @@ check_unit <- function(unit, choices, several.ok = FALSE) {
   unit
 }
 
+
+#' Update a vector or list of named defaults values
+#'
+#' Helper to update named default values. Takes care of most common cases and
+#' returns sensible error messages.
+#'
+#' @param x A (named) vector or list to update the default values with.
+#' @param default A *named* vector or list with default values.
+#' @param argname Name of the arg. Used in error message, defaults to `"x"`.
+#' @param default_if_null Returns defaults values if `x` is `NULL`? (default is `TRUE`)
+#' @param partial Enable partial name matching= (default `TRUE`).
+#' @param as_list Return a list (default `TRUE`) or a named vector?
+#' @return List of update default values.
+#' @noRd
+#' @examples
+#' defaults <- c(aa = 1, bb = 2, cc = 3)
+#' update_named_defaults(c(a = 99, b = 0), defaults) # partial name match
+#' update_named_defaults(c(a = 99, b = 0), defaults, as_list = FALSE) # return as vector
+#' update_named_defaults(3:1, defaults) # match by position
+#' update_named_defaults(2, defaults)
+#' update_named_defaults(NULL, defaults, default_if_null = TRUE)
+#'
+update_named_defaults <- function(x, default, argname = "x", default_if_null = TRUE, partial = TRUE, as_list = TRUE) {
+
+  if (default_if_null && is.null(x)) {
+    res <- as.list(default)
+    if (!as_list) res <- unlist(res)
+    return(res)
+  }
+
+  x <- as.list(x)
+  default <- as.list(default)
+
+  if (!is_named(default)) {
+    cli::cli_abort(
+      c("Some default vector elements have no names",
+        "x" = "{.arg default} must be a named vector"
+      ), call = NULL
+    )
+  }
+  x <- as.list(x)
+  len_x <- length(x)
+  len_default <- length(default)
+  names_default <- names(default)
+  if (len_x > len_default) {
+    cli::cli_abort(c(
+      "Length of {.arg {argname}} ({.val {len_x}}) exceeds length of {.arg default} ({.val {len_default}})",
+      "x" = "Length of {.arg x} must be smaller or equal to the length of {.arg default}"
+    ), call = NULL)
+  }
+
+  # unnamed case => convert to named case
+  if (!is_named(x)) {
+    if (len_x == 1) {
+      x <- rep(x, len_default)
+      len_x <- length(x)
+    }
+    if (len_x != len_default) {
+      cli::cli_abort(c(
+        "{.arg {argname}} has incorrect length ({len_x})",
+        "x" = "If {.arg {argname}} has no names, it must be length 1 or the length of {.arg default} ({len_default})"
+      ), call = NULL)
+    }
+    names(x) <- names_default
+  }
+
+  # named case
+  if (partial) { # => partial name matching
+    matched <- pmatch(names(x), names_default, duplicates.ok = TRUE)
+  } else { # exact name matching
+    matched <- match(names(x), names_default, nomatch = NA)
+  }
+  nms_new <- ifelse(is.na(matched), NA, names_default[matched])
+  i_na <- is.na(nms_new)
+
+  if (any(i_na)) {
+    msg_partial <- ifelse(partial, "Partial name matching is supported", "Partial name matching is not enabled")
+    cli::cli_abort(
+      c("Found {sum(i_na)} unknown name{?s} in {.arg {argname}}: {.val {names(x)[i_na]}}",
+        "x" = "{.arg {argname}} understands {.val {names_default}}",
+        "i" = cli::col_silver(msg_partial)
+      ),
+      call = NULL
+    )
+  }
+  # duplicate position
+  ii_dupes <- duplicated(nms_new)
+  if (any(ii_dupes)) {
+    cli::cli_abort(
+      c("Duplicate entries in {.arg location}: {.val {unique(nms_new[ii_dupes])}}",
+        "x" = "Each name in {.arg location} must be unique",
+        "i" = cli::col_silver("Partial name matching is supported")
+      ),
+      call = NULL
+    )
+  }
+  x <- setNames(x, nms_new)
+  res <- utils::modifyList(x = default, val = as.list(x), keep.null = TRUE)
+  if (!as_list) res <- unlist(res)
+  res
+}
+
+
 # htmlEscapeCopy ----
 
 htmlEscapeCopy <- local({

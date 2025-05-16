@@ -74,7 +74,7 @@ test_that("layout properties - all phs for multiple masters (#597)", {
 })
 
 
-test_that("plot layout properties", {
+test_that("plot layout properties (part 1)", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   skip_if_not_installed("gdtools")
@@ -130,6 +130,39 @@ test_that("plot layout properties", {
   expect_snapshot_doc(name = "plot-content-order-default", x = png4, engine = "testthat")
   expect_snapshot_doc(name = "plot-content-order-labels-only", x = png5, engine = "testthat")
 })
+
+
+test_that("plot layout properties (part 2)", {
+  opts <- options(cli.num_colors = 1) # suppress colors for error message check
+  on.exit(options(opts))
+
+  # issue #645: cex arg flexibility
+  x <- read_pptx()
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = 0))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = 1:3))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = as.list(1:3)))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = list(t = 1, i = 2)))
+  expect_no_error(plot_layout_properties(x, "Title and Content", cex = c(t = 1, i = 2)))
+
+  # issue #645: plot default layout if there are no slides yet, else  show current slide's layout
+  x <- read_pptx()
+  expect_error(plot_layout_properties(x),
+    "No `layout` selected and no slides in presentation",
+    fixed = TRUE
+  )
+  x <- x |> layout_default("Two Content")
+  expect_message(plot_layout_properties(x),
+    'Showing default layout: "Two Content"',
+    fixed = TRUE
+  )
+  x <- x |> add_slide("Title and Content")
+  expect_message(plot_layout_properties(x),
+    "Showing current slide's layout: \"Title and Content\"",
+    fixed = TRUE
+  )
+  expect_no_error(plot_layout_properties(x, "Title and Content", legend = TRUE))
+})
+
 
 par(family = "")
 

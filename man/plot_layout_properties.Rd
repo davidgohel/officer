@@ -12,7 +12,7 @@ plot_layout_properties(
   title = TRUE,
   type = TRUE,
   id = TRUE,
-  cex = NULL,
+  cex = c(labels = 0.5, type = 0.5, id = 0.5),
   legend = FALSE
 )
 }
@@ -20,7 +20,7 @@ plot_layout_properties(
 \item{x}{an \code{rpptx} object}
 
 \item{layout}{slide layout name or numeric index (row index from \code{\link[=layout_summary]{layout_summary()}}. If \code{NULL} (default), it plots
-the current slide's layout.}
+the current slide's layout or the default layout (if set and there are not slides yet).}
 
 \item{master}{master layout name where \code{layout} is located. Can be omitted if layout is unambiguous.}
 
@@ -34,8 +34,10 @@ in the upper left corner (in \emph{blue}).}
 \item{id}{if \code{TRUE} (default), adds the placeholder's unique \code{id} (see column \code{id} from
 \code{\link[=layout_properties]{layout_properties()}}) in the upper right corner (in \emph{green}).}
 
-\item{cex}{named list or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
-\code{c(labels = .5, type = .5, id = .5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.}
+\item{cex}{List or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
+\code{c(labels = .5, type = .5, id = .5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.
+Matching by position and partial name matching is supported. A single numeric value will apply to all
+three parameters.}
 
 \item{legend}{Add a legend to the plot (default \code{FALSE}).}
 }

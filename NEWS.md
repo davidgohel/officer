@@ -23,6 +23,9 @@
 - Fixed `docx_summary()` when a text run is associated with a text style and 
   when paragraph or text styles are not registered in the Word document style 
   table (thanks to Kaspar Meili).
+- `plot_layout_properties()` now takes `cex` as a vector or a list and matches by position, name or partial name. 
+  Zero values now hide the text. A single value now applies to all three cex parameters (label, type, and id) (#645)
+- `plot_layout_properties()` now shows the default layout, if one is set and there are not slides yet (#645)
 
 # officer 0.6.8
 
