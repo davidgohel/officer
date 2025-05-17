@@ -301,16 +301,27 @@ to_rtf.page_mar <- function(x, ...) {
 
 #' @export
 to_rtf.page_size <- function(x, ...) {
-  out <- sprintf(
-    "\\pghsxn%.0f\\pgwsxn%.0f%s",
-    inch_to_tweep(x$height),
-    inch_to_tweep(x$width),
-    if ("landscape" %in% x$orient) {
+
+  if (!is.null(x$width) && !is.null(x$height)) {
+    out <- sprintf(
+      "\\pghsxn%.0f\\pgwsxn%.0f%s",
+      inch_to_tweep(x$height),
+      inch_to_tweep(x$width),
+      if ("landscape" %in% x$orient) {
+        "\\lndscpsxn"
+      } else {
+        ""
+      }
+    )
+  } else {
+    out <- if ("landscape" %in% x$orient) {
       "\\lndscpsxn"
     } else {
       ""
     }
-  )
+  }
+
+
   out
 }
 

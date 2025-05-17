@@ -30,8 +30,8 @@ test_that("docx dim", {
     expected = list(
       page = c(width = 11.694444, height = 8.263889),
       landscape = TRUE,
-      margins = c(top = 2, bottom = 1, left = 1,
-                  right = 1, header = 0.5, footer = 0.5)),
+      margins = c(top = 2, bottom = 1417 / 1440, left = 1417 / 1440,
+                  right = 1417 / 1440, header = 708 / 1440, footer = 708 / 1440)),
     tolerance = .00001)
 })
 

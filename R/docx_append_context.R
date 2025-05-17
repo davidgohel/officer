@@ -92,5 +92,6 @@ body_append_stop_context <- function(context) {
   context$doc$doc_obj$replace_xml(context$file_path)
   unlink(context$file_path)
   x <- context$doc
-  cursor_end(x)
+  x$officer_cursor <- officer_cursor(x$doc_obj$get())
+  x
 }

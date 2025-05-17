@@ -7,7 +7,7 @@
 prop_section(
   page_size = NULL,
   page_margins = NULL,
-  type = NULL,
+  type = "continuous",
   section_columns = NULL,
   header_default = NULL,
   header_even = NULL,
@@ -29,19 +29,26 @@ even-numbered page), "nextColumn" (begins on the next column on the page),
 "nextPage" (begins on the following page), "oddPage" (begins on the next
 odd-numbered page).}
 
-\item{section_columns}{section columns, an object generated with function \link{section_columns}. Use NULL (default value) for no content.}
+\item{section_columns}{section columns, an object generated with function
+\link{section_columns}. Use NULL (default value) for no content.}
 
-\item{header_default}{content as a \code{\link[=block_list]{block_list()}} for the default page header. Use NULL (default value) for no content.}
+\item{header_default}{content as a \code{\link[=block_list]{block_list()}} for the default page header.
+Use NULL (default value) for no content.}
 
-\item{header_even}{content as a \code{\link[=block_list]{block_list()}} for the even page header. Use NULL (default value) for no content.}
+\item{header_even}{content as a \code{\link[=block_list]{block_list()}} for the even page header.
+Use NULL (default value) for no content.}
 
-\item{header_first}{content as a \code{\link[=block_list]{block_list()}} for the first page header. Use NULL (default value) for no content.}
+\item{header_first}{content as a \code{\link[=block_list]{block_list()}} for the first page header.
+Use NULL (default value) for no content.}
 
-\item{footer_default}{content as a \code{\link[=block_list]{block_list()}} for the default page footer. Use NULL (default value) for no content.}
+\item{footer_default}{content as a \code{\link[=block_list]{block_list()}} for the default page footer.
+Use NULL (default value) for no content.}
 
-\item{footer_even}{content as a \code{\link[=block_list]{block_list()}} for the even page footer. Use NULL (default value) for no content.}
+\item{footer_even}{content as a \code{\link[=block_list]{block_list()}} for the even page footer. Use
+NULL (default value) for no content.}
 
-\item{footer_first}{content as a \code{\link[=block_list]{block_list()}} for the default page footer. Use NULL (default value) for no content.}
+\item{footer_first}{content as a \code{\link[=block_list]{block_list()}} for the default page footer.
+Use NULL (default value) for no content.}
 }
 \description{
 A section is a grouping of blocks (ie. paragraphs and tables)
