@@ -5,14 +5,15 @@
 \title{Page size object}
 \usage{
 page_size(
-  width = 21/2.54,
-  height = 29.7/2.54,
+  width = 16838/1440,
+  height = 11906/1440,
   orient = "portrait",
   unit = "in"
 )
 }
 \arguments{
-\item{width, height}{page width, page height (in inches).}
+\item{width, height}{page width, page height, default to A4 format If NULL
+the value will be ignored and Word will use the default value.}
 
 \item{orient}{page orientation, either 'landscape', either 'portrait'.}
 

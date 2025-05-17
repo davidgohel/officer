@@ -96,7 +96,7 @@ test_that("to_rtf works for run_autonum", {
   expect_true(grepl("pghsxn11906", to_rtf(bs)))
   expect_true(grepl("margt2880", to_rtf(bs))) # top = 2
 
-  expect_true(grepl("margl1440", to_rtf(page_mar())))
+  expect_true(grepl("margb1417", to_rtf(page_mar())))
   expect_true(grepl("colw3600", to_rtf(section_columns())))
   expect_true(grepl("pgwsxn16838", to_rtf(page_size(orient = "landscape"))))
   expect_true(grepl("lndscpsxn", to_rtf(page_size(orient = "landscape"))))

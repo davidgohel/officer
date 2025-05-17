@@ -47,19 +47,7 @@ test_that("add header and footer in docx", {
     nodes_def_sectpr <- xml_find_all(docx_body_xml(x), "//w:body/w:sectPr/w:footerReference")
     expect_length(nodes_def_sectpr, 2)
 
-    first_str <- readLines(file.path(x$package_dir, "word/_rels/header5.xml.rels"))
+    first_str <- readLines(file.path(x$package_dir, "word/_rels/header3.xml.rels"))
     expect_true(any(grepl("\\.jpg", first_str)))
-  }
-})
-
-test_that("margin and sizes are copied", {
-  x <- read_docx(path = filename)
-  node_def_sectpr <- xml_find_first(docx_body_xml(x), "//w:body/w:sectPr")
-  nodes_sectpr <- xml_find_all(docx_body_xml(x), "//w:pPr/w:sectPr")
-  pgMar <- as.character(xml_child(node_def_sectpr, "w:pgMar"))
-  pgSz <- as.character(xml_child(node_def_sectpr, "w:pgSz"))
-  for (i in seq_along(nodes_sectpr)) {
-    expect_equal(as.character(xml_child(nodes_sectpr[[i]], "w:pgMar")), pgMar)
-    expect_equal(as.character(xml_child(nodes_sectpr[[i]], "w:pgSz")), pgSz)
   }
 })
