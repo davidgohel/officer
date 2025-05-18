@@ -85,21 +85,19 @@ library(officer)
 knitr::knit_hooks$set(dummy = function(before, options, envir) {
   if (!before) {
     template_docx <- get_reference_value(format = \"pptx\")
-    saveRDS(template_docx, options$tmp_out_file)
+    saveRDS(template_docx, \"~/dump.RDS\")
     return(\"\")
   }
 })
 ```
 
-```{r, dummy=TRUE, tmp_out_file=\"%s\"}
+```{r, dummy=TRUE}
 ```
 
 "
 
-  temprds <- tempfile(fileext = ".rds")
-
   tmp_file <- tempfile(fileext = ".Rmd")
-  cat(sprintf(str, temprds), file = tmp_file)
+  cat(str, file = tmp_file)
 
   out_file <- tempfile(fileext = ".pptx")
 
@@ -112,7 +110,8 @@ knitr::knit_hooks$set(dummy = function(before, options, envir) {
     quiet = TRUE
   )
 
-  expect_equal(basename(readRDS(temprds)), basename(template_pptx))
+  expect_equal(basename(readRDS("~/dump.RDS")), basename(template_pptx))
+  unlink("~/dump.RDS")
 })
 
 test_that("opts_current_table works as expected", {

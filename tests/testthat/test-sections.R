@@ -122,7 +122,7 @@ x <- body_set_default_section(
 filename <- print(x, target = tempfile(fileext = ".docx"))
 
 
-test_that("add header and footer in docx", {
+test_that("add docx landscape and portrait page dims", {
   x <- read_docx(path = filename)
   node_types <- xml_find_all(
     docx_body_xml(x),
