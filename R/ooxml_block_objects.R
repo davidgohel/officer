@@ -1274,3 +1274,105 @@ plot_instr <- function(code) {
   class(out) <- "plot_instr"
   return(out)
 }
+
+# ggplot -----
+
+#' @export
+#' @title 'ggplot' block
+#' @description A simple wrapper to add a 'ggplot' object as a png in a document.
+#' It produces an object of class 'block_gg' with a corresponding method [to_wml()]
+#' that can be used to convert the object to a WordML string.
+#' @param value 'ggplot' object
+#' @param fp_p paragraph formatting properties, see [fp_par()]
+#' @param width,height image size in units expressed by the unit argument.
+#' Defaults to "in"ches.
+#' @param res resolution of the png image in ppi
+#' @param scale Multiplicative scaling factor, same as in ggsave
+#' @param unit One of the following units in which the width and height
+#' arguments are expressed: "in", "cm" or "mm".
+#' @family block functions for reporting
+#' @examples
+#' library(officer)
+#' if (require("ggplot2")) {
+#'   set.seed(2)
+#'   doc <- read_docx()
+#'
+#'   z <- body_append_start_context(doc)
+#'
+#'   for (i in seq_len(3)) {
+#'     df <- data.frame(x = runif(10), y = runif(10))
+#'     gg <- ggplot(df, aes(x = x, y = y)) + geom_point()
+#'
+#'     write_elements_to_context(
+#'       context = z,
+#'       block_gg(
+#'         value = gg
+#'       )
+#'     )
+#'   }
+#'
+#'   doc <- body_append_stop_context(z)
+#'
+#'   print(doc, target = tempfile(fileext = ".docx"))
+#' }
+block_gg <- function(
+  value,
+  fp_p = fp_par(),
+  width = 6,
+  height = 5,
+  res = 300,
+  scale = 1,
+  unit = "in"
+) {
+  if (!inherits(value, "gg")) {
+    cli::cli_abort("Argument value is not a ggplot object.")
+  }
+
+  unit <- check_unit(unit, c("in", "cm", "mm"))
+
+  out <- list(
+    gg = value,
+    fp_p = fp_p,
+    width = width,
+    height = height,
+    res = res,
+    scale = scale,
+    unit = unit
+  )
+
+  class(out) <- c("block_gg")
+  return(out)
+}
+
+#' @export
+to_wml.block_gg <- function(x, add_ns = FALSE, ...) {
+  file <- tempfile(fileext = ".png")
+  agg_png(
+    filename = file,
+    width = x$width,
+    height = x$height,
+    units = x$unit,
+    res = x$res,
+    scaling = x$scale,
+    background = "transparent",
+    ...
+  )
+  tryCatch(
+    {
+      print(x$gg)
+    },
+    finally = {
+      dev.off()
+    }
+  )
+  fp <- fpar(
+    external_img(
+      src = file,
+      width = x$width,
+      height = x$height,
+      unit = x$unit
+    ),
+    fp_p = x$fp_p
+  )
+  to_wml(fp, add_ns = add_ns)
+}

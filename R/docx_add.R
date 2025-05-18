@@ -158,7 +158,8 @@ body_add_gg <- function(x, value, width = 6, height = 5, res = 300, style = "Nor
 
   stopifnot(inherits(value, "gg"))
 
-  if ("units" %in% names(list(...))) {
+  args <- sys.call()
+  if ("units" %in% names(args[-1])) {
     cli::cli_abort(
       c("Found a {.arg units} argument. Did you mean {.arg unit}?")
     )
@@ -943,19 +944,29 @@ body_add.run_columnbreak <- function(x, value, style = NULL, ...) {
 #' @param scale Multiplicative scaling factor, same as in ggsave
 body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Normal", scale = 1, unit = "in", ...) {
   if (!requireNamespace("ggplot2")) {
-    stop("package ggplot2 is required to use this function")
+    cli::cli_abort("package ggplot2 is required to use this function")
+  }
+
+  args <- sys.call()
+  if ("units" %in% names(args[-1])) {
+    cli::cli_abort(
+      c("Found a {.arg units} argument. Did you mean {.arg unit}?")
+    )
   }
 
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
-  file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = unit, res = res, scaling = scale, background = "transparent", ...)
-  print(value)
-  dev.off()
-  on.exit(unlink(file))
-
-  value <- external_img(src = file, width = width, height = height, unit = unit)
-  body_add(x, value, style = style)
+  bl <- block_gg(
+    value = value,
+    fp_p = fp_par(word_style = style),
+    width = width,
+    height = height,
+    res = res,
+    scale = scale,
+    unit = unit
+  )
+  xml_elt <- to_wml(bl, add_ns = TRUE)
+  body_add_xml2(x = x, str = xml_elt)
 }
 
 #' @export

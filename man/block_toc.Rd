@@ -29,6 +29,7 @@ block_toc(style = "Table Caption")
 \seealso{
 Other block functions for reporting: 
 \code{\link{block_caption}()},
+\code{\link{block_gg}()},
 \code{\link{block_list}()},
 \code{\link{block_pour_docx}()},
 \code{\link{block_section}()},

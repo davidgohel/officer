@@ -6,7 +6,12 @@
   `body_append_stop_context()` to append elements at the end of a Word document
   in a faster way. This is useful when the document is large and the user wants to
   only append elements at the end of the document. 
+- New function `block_gg()` to add a ggplot object to a Word document. It is 
+  handy when the user wants to add a ggplot object to a Word document with 
+  new function `write_elements_to_context()`.
   
+
+
 ## Performances
 
 - Refactored `body_add.block_list()` to speed up the process of adding a block 
