@@ -207,10 +207,7 @@ body_set_default_section <- function(x, value) {
 
 
 # utils ----
-process_sections <- function(x) {
-
-  # write the xml to a tempfile in a formatted way so that grepl is easy
-  xml_str <- xml_document_to_chrs(x$doc_obj$get())
+process_sections_content <- function(x, xml_str) {
 
   hof_summary <- extract_hof(x, xml_str)
 
@@ -254,18 +251,18 @@ process_sections <- function(x) {
     xml_str <- xml_str[-lines_index_to_drop]
   }
 
-  tf_xml <- tempfile(fileext = ".txt")
-  writeLines(xml_str, tf_xml, useBytes = TRUE)
-  x$doc_obj$replace_xml(tf_xml)
+  xml_str
+}
 
+guess_and_set_even_and_odd_headers <- function(x) {
   all_nodes <- xml_find_all(x$doc_obj$get(), "//w:sectPr/w:headerReference|//w:sectPr/w:footerReference")
   if ("even" %in% xml_attr(all_nodes, "type")) {
     x$settings$even_and_odd_headers <- TRUE
+  } else {
+    x$settings$even_and_odd_headers <- FALSE
   }
-
   x
 }
-
 
 section_dimensions <- function(node) {
   section_obj <- as_list(node)
@@ -295,7 +292,6 @@ section_dimensions <- function(node) {
     )
   )
 }
-## new -----
 
 hof_next_file_index <- function(x, type = "header") {
   pattern <- paste0("^(", type, ")([0-9]+)(\\.xml)$")
@@ -385,4 +381,3 @@ extract_hof <- function(x, xml_str) {
 
   rbind(header_sections, footer_sections)
 }
-

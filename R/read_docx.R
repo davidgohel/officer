@@ -171,7 +171,12 @@ print.rdocx <- function(x, target = NULL, ...) {
     stop(target, " is open. To write to this document, please, close it.")
   }
 
-  x <- process_sections(x)
+  # write the xml to a tempfile in a formatted way so that grepl is easy
+  xml_str <- xml_document_to_chrs(x$doc_obj$get())
+  xml_str <- process_sections_content(x, xml_str)
+  x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
+
+  x <- guess_and_set_even_and_odd_headers(x)
 
   process_comments(x)
   process_footnotes(x)
@@ -227,6 +232,11 @@ print.rdocx <- function(x, target = NULL, ...) {
   for (footer in x$footers) {
     footer$save()
   }
+
+  xml_str <- xml_document_to_chrs(x$doc_obj$get())
+  xml_str <- mv_ns_definitions_to_document_node(xml_str)
+  x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
+
   x$doc_obj$save()
   x$content_type$save()
   x$footnotes$save()
