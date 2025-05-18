@@ -18,7 +18,7 @@ test_that("get_default_pandoc_data_file works as expected", {
   doc <- read_docx(docx_pandoc_template)
   styles <- styles_info(doc)
   expect_contains(styles$style_name, "Normal")
-  expect_contains(styles$style_name, "heading 1")
+  expect_contains(styles$style_name, "Author")
 })
 
 test_that("get_reference_value works as expected for docx", {
