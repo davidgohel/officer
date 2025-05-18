@@ -96,7 +96,7 @@ knitr::knit_hooks$set(dummy = function(before, options, envir) {
 
 "
 
-  temprds <- tempfile(fileext = ".rds")
+  temprds <- tempfile(tmpdir = "~", fileext = ".rds")
 
   tmp_file <- tempfile(fileext = ".Rmd")
   cat(sprintf(str, temprds), file = tmp_file)
@@ -113,6 +113,7 @@ knitr::knit_hooks$set(dummy = function(before, options, envir) {
   )
 
   expect_equal(basename(readRDS(temprds)), basename(template_pptx))
+  unlink(temprds)
 })
 
 test_that("opts_current_table works as expected", {
