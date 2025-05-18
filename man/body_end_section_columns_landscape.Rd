@@ -9,8 +9,8 @@ body_end_section_columns_landscape(
   widths = c(2.5, 2.5),
   space = 0.25,
   sep = FALSE,
-  w = 21/2.54,
-  h = 29.7/2.54
+  w = 16838/1440,
+  h = 11906/1440
 )
 }
 \arguments{

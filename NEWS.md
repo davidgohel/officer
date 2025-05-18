@@ -30,6 +30,8 @@
 - `plot_layout_properties()` now takes `cex` as a vector or a list and matches by position, name or partial name. 
   Zero values now hide the text. A single value now applies to all three cex parameters (label, type, and id) (#645)
 - `plot_layout_properties()` now shows the default layout, if one is set and there are not slides yet (#645)
+- Default page size is now set to exact A4 format for Word documents: `11906 / 1440` and `16838 / 1440` 
+instead of `21 / 2.54` and `29.7 / 2.54`.
 
 # officer 0.6.8
 

@@ -42,7 +42,7 @@ body_end_section_continuous <- function(x) {
 #'
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family functions for Word sections
-body_end_section_landscape <- function(x, w = 21 / 2.54, h = 29.7 / 2.54) {
+body_end_section_landscape <- function(x, w = 16838 / 1440, h = 11906 / 1440) {
   bs <- block_section(prop_section(
     page_size = page_size(width = w, height = h, orient = "landscape"),
     type = "oddPage"
@@ -67,7 +67,7 @@ body_end_section_landscape <- function(x, w = 21 / 2.54, h = 29.7 / 2.54) {
 #' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family functions for Word sections
-body_end_section_portrait <- function(x, w = 21 / 2.54, h = 29.7 / 2.54) {
+body_end_section_portrait <- function(x, w = 16838 / 1440, h = 11906 / 1440) {
   bs <- block_section(prop_section(
     page_size = page_size(width = w, height = h, orient = "portrait"),
     type = "oddPage"
@@ -97,9 +97,18 @@ body_end_section_portrait <- function(x, w = 21 / 2.54, h = 29.7 / 2.54) {
 #' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family functions for Word sections
-body_end_section_columns <- function(x, widths = c(2.5, 2.5), space = .25, sep = FALSE) {
+body_end_section_columns <- function(
+  x,
+  widths = c(2.5, 2.5),
+  space = .25,
+  sep = FALSE
+) {
   bs <- block_section(prop_section(
-    section_columns = section_columns(widths = widths, space = space, sep = sep),
+    section_columns = section_columns(
+      widths = widths,
+      space = space,
+      sep = sep
+    ),
     type = "continuous"
   ))
   str <- to_wml(bs, add_ns = TRUE)
@@ -125,11 +134,21 @@ body_end_section_columns <- function(x, widths = c(2.5, 2.5), space = .25, sep =
 #' doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
 #' print(doc_1, target = tempfile(fileext = ".docx"))
 #' @family functions for Word sections
-body_end_section_columns_landscape <- function(x, widths = c(2.5, 2.5), space = .25,
-                                               sep = FALSE, w = 21 / 2.54, h = 29.7 / 2.54) {
+body_end_section_columns_landscape <- function(
+  x,
+  widths = c(2.5, 2.5),
+  space = .25,
+  sep = FALSE,
+  w = 16838 / 1440,
+  h = 11906 / 1440
+) {
   bs <- block_section(prop_section(
     page_size = page_size(width = w, height = h, orient = "landscape"),
-    section_columns = section_columns(widths = widths, space = space, sep = sep),
+    section_columns = section_columns(
+      widths = widths,
+      space = space,
+      sep = sep
+    ),
     type = "oddPage"
   ))
   str <- to_wml(bs, add_ns = TRUE)
@@ -208,24 +227,33 @@ body_set_default_section <- function(x, value) {
 
 # utils ----
 process_sections_content <- function(x, xml_str) {
-
   hof_summary <- extract_hof(x, xml_str)
 
   relationships <- docx_body_relationship(x)
 
-  for(i in seq_len(nrow(hof_summary))) {
+  for (i in seq_len(nrow(hof_summary))) {
     # write file
     xml_doc <- as_xml_document(hof_summary[[i, "content_section"]])
-    write_xml(xml_doc, file = file.path(x$package_dir, "word", hof_summary[[i, "file_name"]]))
+    write_xml(
+      xml_doc,
+      file = file.path(x$package_dir, "word", hof_summary[[i, "file_name"]])
+    )
 
     relationships$add(
       id = hof_summary[[i, "rid"]],
-      type = paste0("http://schemas.openxmlformats.org/officeDocument/2006/relationships/", hof_summary[[i, "type"]]),
+      type = paste0(
+        "http://schemas.openxmlformats.org/officeDocument/2006/relationships/",
+        hof_summary[[i, "type"]]
+      ),
       target = hof_summary[[i, "file_name"]]
     )
     x$content_type$add_override(
       setNames(
-        paste0("application/vnd.openxmlformats-officedocument.wordprocessingml.", hof_summary[[i, "type"]], "+xml"),
+        paste0(
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.",
+          hof_summary[[i, "type"]],
+          "+xml"
+        ),
         paste0("/word/", hof_summary[[i, "file_name"]])
       )
     )
@@ -255,7 +283,10 @@ process_sections_content <- function(x, xml_str) {
 }
 
 guess_and_set_even_and_odd_headers <- function(x, xml_str) {
-  test_even <- any(grepl("(headerReference|footerReference)([^>]+)(w:type=\"even\")", xml_str))
+  test_even <- any(grepl(
+    "(headerReference|footerReference)([^>]+)(w:type=\"even\")",
+    xml_str
+  ))
   if (test_even) {
     x$settings$even_and_odd_headers <- TRUE
   } else {
@@ -268,7 +299,10 @@ section_dimensions <- function(node) {
   section_obj <- as_list(node)
 
   landscape <- FALSE
-  if (!is.null(attr(section_obj$pgSz, "orient")) && attr(section_obj$pgSz, "orient") == "landscape") {
+  if (
+    !is.null(attr(section_obj$pgSz, "orient")) &&
+      attr(section_obj$pgSz, "orient") == "landscape"
+  ) {
     landscape <- TRUE
   }
 
@@ -286,9 +320,12 @@ section_dimensions <- function(node) {
     page = c("width" = w_ref, "height" = h_ref),
     landscape = landscape,
     margins = c(
-      top = mar_t, bottom = mar_b,
-      left = mar_l, right = mar_r,
-      header = mar_h, footer = mar_f
+      top = mar_t,
+      bottom = mar_b,
+      left = mar_l,
+      right = mar_r,
+      header = mar_h,
+      footer = mar_f
     )
   )
 }
@@ -309,7 +346,6 @@ hof_next_file_index <- function(x, type = "header") {
 
 
 extract_hof <- function(x, xml_str) {
-
   # init next_rel_id that will be the first rid
   relationships <- docx_body_relationship(x)
   next_rel_id <- relationships$get_next_id()
@@ -326,17 +362,28 @@ extract_hof <- function(x, xml_str) {
       z <- str[start:stop]
       paste(z, collapse = "")
     },
-    start = starts, stop = stops,
+    start = starts,
+    stop = stops,
     MoreArgs = list(str = xml_str),
     SIMPLIFY = FALSE
   )
   content_section_chrs <- unlist(content_section_chrs)
-  file_indexes <- seq(from = next_footer_file_index, along.with = content_section_chrs)
+  file_indexes <- seq(
+    from = next_footer_file_index,
+    along.with = content_section_chrs
+  )
   file_names <- sprintf("%s%.0f.xml", "footer", file_indexes)
 
-  rids <- sprintf("rId%.0f", seq(from = next_rel_id, along.with = content_section_chrs))
+  rids <- sprintf(
+    "rId%.0f",
+    seq(from = next_rel_id, along.with = content_section_chrs)
+  )
 
-  reference_positions <- grep("<w:footerReference w:officer", xml_str, fixed = TRUE)
+  reference_positions <- grep(
+    "<w:footerReference w:officer",
+    xml_str,
+    fixed = TRUE
+  )
 
   footer_sections <- data.frame(
     content_section = content_section_chrs,
@@ -358,17 +405,31 @@ extract_hof <- function(x, xml_str) {
       z <- str[start:stop]
       paste(z, collapse = "")
     },
-    start = starts, stop = stops,
+    start = starts,
+    stop = stops,
     MoreArgs = list(str = xml_str),
     SIMPLIFY = FALSE
   )
   content_section_chrs <- unlist(content_section_chrs)
-  file_indexes <- seq(from = next_header_file_index, along.with = content_section_chrs)
+  file_indexes <- seq(
+    from = next_header_file_index,
+    along.with = content_section_chrs
+  )
   file_names <- sprintf("%s%.0f.xml", "header", file_indexes)
 
-  rids <- sprintf("rId%.0f", seq(from = next_rel_id+nrow(footer_sections), along.with = content_section_chrs))
+  rids <- sprintf(
+    "rId%.0f",
+    seq(
+      from = next_rel_id + nrow(footer_sections),
+      along.with = content_section_chrs
+    )
+  )
 
-  reference_positions <- grep("<w:headerReference w:officer", xml_str, fixed = TRUE)
+  reference_positions <- grep(
+    "<w:headerReference w:officer",
+    xml_str,
+    fixed = TRUE
+  )
 
   header_sections <- data.frame(
     content_section = content_section_chrs,

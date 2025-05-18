@@ -4,7 +4,7 @@
 \alias{body_end_section_portrait}
 \title{Add portrait section}
 \usage{
-body_end_section_portrait(x, w = 21/2.54, h = 29.7/2.54)
+body_end_section_portrait(x, w = 16838/1440, h = 11906/1440)
 }
 \arguments{
 \item{x}{an rdocx object}

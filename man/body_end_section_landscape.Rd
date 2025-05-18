@@ -4,7 +4,7 @@
 \alias{body_end_section_landscape}
 \title{Add landscape section}
 \usage{
-body_end_section_landscape(x, w = 21/2.54, h = 29.7/2.54)
+body_end_section_landscape(x, w = 16838/1440, h = 11906/1440)
 }
 \arguments{
 \item{x}{an rdocx object}
