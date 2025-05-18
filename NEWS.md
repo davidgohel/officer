@@ -12,7 +12,7 @@
 - Refactored `body_add.block_list()` to speed up the process of adding a block 
   list to a Word document, optimization of the process is made by minimizing call 
   to `docx_current_block_xml()`.
-- Print.rdocx()` execution time improvements.
+- `print.rdocx()` execution time improvements.
 
 ## Issues
 

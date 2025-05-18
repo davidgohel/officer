@@ -249,13 +249,13 @@ test_that("plot layout properties (part 2)", {
     "No `layout` selected and no slides in presentation",
     fixed = TRUE
   )
-  x <- x |> layout_default("Two Content")
+  x <- layout_default(x, "Two Content")
   expect_message(
     plot_layout_properties(x),
     'Showing default layout: "Two Content"',
     fixed = TRUE
   )
-  x <- x |> add_slide("Title and Content")
+  x <- add_slide(x, "Title and Content")
   expect_message(
     plot_layout_properties(x),
     "Showing current slide's layout: \"Title and Content\"",

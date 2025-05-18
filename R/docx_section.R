@@ -318,8 +318,8 @@ extract_hof <- function(x, xml_str) {
   next_header_file_index <- hof_next_file_index(x, type = "header")
 
   # footers extraction
-  starts <- grepl("<w:ftr", xml_str, fixed = TRUE) |> which()
-  stops <- grepl("</w:ftr>", xml_str, fixed = TRUE) |> which()
+  starts <- grep("<w:ftr", xml_str, fixed = TRUE)
+  stops <- grep("</w:ftr>", xml_str, fixed = TRUE)
 
   content_section_chrs <- mapply(
     function(start, stop, str) {
@@ -329,7 +329,8 @@ extract_hof <- function(x, xml_str) {
     start = starts, stop = stops,
     MoreArgs = list(str = xml_str),
     SIMPLIFY = FALSE
-  ) |> unlist()
+  )
+  content_section_chrs <- unlist(content_section_chrs)
   file_indexes <- seq(from = next_footer_file_index, along.with = content_section_chrs)
   file_names <- sprintf("%s%.0f.xml", "footer", file_indexes)
 
@@ -349,8 +350,8 @@ extract_hof <- function(x, xml_str) {
   )
 
   # headers extraction
-  starts <- grepl("<w:hdr", xml_str, fixed = TRUE) |> which()
-  stops <- grepl("</w:hdr>", xml_str, fixed = TRUE) |> which()
+  starts <- grep("<w:hdr", xml_str, fixed = TRUE)
+  stops <- grep("</w:hdr>", xml_str, fixed = TRUE)
 
   content_section_chrs <- mapply(
     function(start, stop, str) {
@@ -360,7 +361,8 @@ extract_hof <- function(x, xml_str) {
     start = starts, stop = stops,
     MoreArgs = list(str = xml_str),
     SIMPLIFY = FALSE
-  ) |> unlist()
+  )
+  content_section_chrs <- unlist(content_section_chrs)
   file_indexes <- seq(from = next_header_file_index, along.with = content_section_chrs)
   file_names <- sprintf("%s%.0f.xml", "header", file_indexes)
 
