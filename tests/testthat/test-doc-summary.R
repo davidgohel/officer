@@ -4,10 +4,10 @@ test_that("docx summary", {
   doc <- read_docx(path = example_docx)
   doc_data <- docx_summary(doc)
   table_data <- subset(doc_data, content_type %in% "table cell" & is_header)
-  expect_equal( table_data$text, c("Petals", "Internode", "Sepal", "Bract") )
+  expect_equal(table_data$text, c("Petals", "Internode", "Sepal", "Bract"))
 
   doc_data_pr <- docx_summary(doc, preserve = TRUE)
-  expect_equal( doc_data_pr[28, ][["text"]], "Note\nNew line note" )
+  expect_equal(doc_data_pr[28, ][["text"]], "Note\nNew line note")
 
   doc <- read_docx()
   doc <- body_add_fpar(
@@ -22,19 +22,32 @@ test_that("docx summary", {
 })
 
 test_that("complex docx table", {
-
-  doc <- read_docx(path = "docs_dir/table-complex.docx" )
+  doc <- read_docx(path = "docs_dir/table-complex.docx")
   doc_data <- docx_summary(doc)
   table_data <- doc_data[doc_data$content_type == "table cell", ]
-  table_data <- table_data[order(table_data$row_id, table_data$cell_id),]
+  table_data <- table_data[order(table_data$row_id, table_data$cell_id), ]
 
-  first_row <- table_data[table_data$row_id %in% 1,]
+  first_row <- table_data[table_data$row_id %in% 1, ]
 
-  expect_equal( first_row$text, c("Column head", "column head", "column head", "column head",
-                                  NA, NA, "x", "y") )
-  expect_equal( first_row$col_span, c(1, 1, 1, 3, 0, 0, 1, 1) )
-  expect_equal( first_row$row_span, c(2, 2, 2, 1, 1, 1, 2, 2) )
-  expect_true( all( table_data$text[table_data$col_span < 1 | table_data$row_span < 1] %in% NA_character_ ) )
+  expect_equal(
+    first_row$text,
+    c(
+      "Column head",
+      "column head",
+      "column head",
+      "column head",
+      NA,
+      NA,
+      "x",
+      "y"
+    )
+  )
+  expect_equal(first_row$col_span, c(1, 1, 1, 3, 0, 0, 1, 1))
+  expect_equal(first_row$row_span, c(2, 2, 2, 1, 1, 1, 2, 2))
+  expect_true(all(
+    table_data$text[table_data$col_span < 1 | table_data$row_span < 1] %in%
+      NA_character_
+  ))
 })
 
 test_that("preserves non breaking hyphens", {
@@ -49,14 +62,18 @@ test_that("preserves non breaking hyphens", {
         "<w:noBreakHyphen/>",
         "<w:t xml:space=\"preserve\">%s</w:t>",
         "</w:r></w:p>"
-      ), x, y
+      ),
+      x,
+      y
     )
   }
   doc <- officer:::body_add_xml(
-    x = doc, str = make_xml_elt("Inspector", "General")
+    x = doc,
+    str = make_xml_elt("Inspector", "General")
   )
   doc <- officer:::body_add_xml(
-    x = doc, str = make_xml_elt("General", "Inspector")
+    x = doc,
+    str = make_xml_elt("General", "Inspector")
   )
   expect_equal(
     docx_summary(doc)[["text"]],
@@ -69,11 +86,15 @@ test_that("detailed summary", {
 
   fpar_ <- fpar(
     ftext("Formatted ", prop = fp_text(bold = TRUE, color = "red")),
-    ftext("paragraph ", prop = fp_text(
-      shading.color = "blue"
-    )),
-    ftext("with multiple runs.",
-          prop = fp_text(italic = TRUE, font.size = 20, font.family = "Arial")
+    ftext(
+      "paragraph ",
+      prop = fp_text(
+        shading.color = "blue"
+      )
+    ),
+    ftext(
+      "with multiple runs.",
+      prop = fp_text(italic = TRUE, font.size = 20, font.family = "Arial")
     )
   )
 
@@ -89,11 +110,12 @@ test_that("detailed summary", {
 
   doc <- body_add_par(doc, "Single Run", style = "Normal")
 
-  doc <- body_add_fpar(doc,
-                       fpar(
-                         "Single formatetd run ",
-                         fp_t = fp_text(bold = TRUE, color = "red")
-                       )
+  doc <- body_add_fpar(
+    doc,
+    fpar(
+      "Single formatetd run ",
+      fp_t = fp_text(bold = TRUE, color = "red")
+    )
   )
 
   xml_elt <- paste0(
@@ -111,7 +133,8 @@ test_that("detailed summary", {
   )
 
   doc <- officer:::body_add_xml(
-    x = doc, str = xml_elt
+    x = doc,
+    str = xml_elt
   )
 
   doc_sum <- docx_summary(doc, detailed = TRUE)
@@ -133,34 +156,52 @@ test_that("detailed summary", {
 })
 
 
-
-
 test_that("pptx summary", {
   example_pptx <- system.file(package = "officer", "doc_examples/example.pptx")
   doc <- read_pptx(path = example_pptx)
   doc_data <- pptx_summary(doc)
-  table_data <- subset(doc_data, content_type %in% "table cell" & row_id == 1 & slide_id == 1)
-  expect_equal( table_data$text, c("Header 1 ", "Header 2", "Header 3") )
+  table_data <- subset(
+    doc_data,
+    content_type %in% "table cell" & row_id == 1 & slide_id == 1
+  )
+  expect_equal(table_data$text, c("Header 1 ", "Header 2", "Header 3"))
 
-  table_data <- subset(doc_data, content_type %in% "table cell" & row_id == 4 & slide_id == 1)
-  expect_equal( table_data$text, c("B", "9.0", "Salut") )
+  table_data <- subset(
+    doc_data,
+    content_type %in% "table cell" & row_id == 4 & slide_id == 1
+  )
+  expect_equal(table_data$text, c("B", "9.0", "Salut"))
 
   example_pptx <- "docs_dir/table-complex.pptx"
   doc <- read_pptx(path = example_pptx)
   doc_data <- pptx_summary(doc)
-  table_data <- subset(doc_data, content_type %in% "table cell" & cell_id == 3 & slide_id == 1)
-  expect_equal( table_data$text,
-                c("Header 3", NA, "blah blah blah", "Salut", "Hello", "sisi", NA, NA, NA, NA) )
-  expect_equal( table_data$row_span,
-                c(1, 1, 1, 1, 1, 4, 0, 0, 0, 1) )
-  expect_equal( table_data$col_span,
-                c(1, 0, 1, 1, 1, 1, 1, 1, 1, 0) )
+  table_data <- subset(
+    doc_data,
+    content_type %in% "table cell" & cell_id == 3 & slide_id == 1
+  )
+  expect_equal(
+    table_data$text,
+    c(
+      "Header 3",
+      NA,
+      "blah blah blah",
+      "Salut",
+      "Hello",
+      "sisi",
+      NA,
+      NA,
+      NA,
+      NA
+    )
+  )
+  expect_equal(table_data$row_span, c(1, 1, 1, 1, 1, 4, 0, 0, 0, 1))
+  expect_equal(table_data$col_span, c(1, 0, 1, 1, 1, 1, 1, 1, 1, 0))
 
   slide2_data <- subset(doc_data, content_type %in% "paragraph" & slide_id == 2)
-  expect_equal( slide2_data$text, c("coco", "line of text", "blah blah blah") )
+  expect_equal(slide2_data$text, c("coco", "line of text", "blah blah blah"))
 
   doc_data_pr <- pptx_summary(doc, preserve = TRUE)
-  expect_equal( doc_data_pr[23, ][["text"]], "blah\n \nblah\n \nblah" )
+  expect_equal(doc_data_pr[23, ][["text"]], "blah\n \nblah\n \nblah")
 })
 
 
@@ -170,4 +211,3 @@ test_that("empty slide summary", {
   run <- try(pptx_summary(doc), silent = TRUE)
   expect_false(inherits(run, "try-error"))
 })
-

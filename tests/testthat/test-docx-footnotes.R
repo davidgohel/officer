@@ -1,5 +1,4 @@
 test_that("add footnotes", {
-
   fp_bold <- fp_text_lite(bold = TRUE)
   fp_refnote <- fp_text_lite(vertical.align = "superscript")
 
@@ -23,7 +22,8 @@ test_that("add footnotes", {
       x = block_list(
         fpar(ftext("Salut", fp_text_lite()))
       ),
-      prop = fp_refnote),
+      prop = fp_refnote
+    ),
     "."
   )
 
@@ -39,11 +39,9 @@ test_that("add footnotes", {
   footnote1 <- xml_find_first(doc, "w:footnote[@w:id='1']")
   footnote2 <- xml_find_first(doc, "w:footnote[@w:id='2']")
 
-  expect_false( inherits(footnote1, "xml_missing") )
-  expect_false( inherits(footnote2, "xml_missing") )
+  expect_false(inherits(footnote1, "xml_missing"))
+  expect_false(inherits(footnote2, "xml_missing"))
 
   expect_length(xml_children(footnote1), 2)
   expect_length(xml_children(footnote2), 1)
-
 })
-

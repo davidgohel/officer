@@ -7,8 +7,14 @@ test_that("get_layout works as expected", {
   # all layouts unique
   x <- read_pptx()
 
-  expect_error(get_layout(x, "Title Slide", "xxx"), 'master "xxx" does not exist')
-  expect_error(get_layout(x, "xxx", "Office Theme"), 'Layout "xxx" does not exist in master "Office Theme"')
+  expect_error(
+    get_layout(x, "Title Slide", "xxx"),
+    'master "xxx" does not exist'
+  )
+  expect_error(
+    get_layout(x, "xxx", "Office Theme"),
+    'Layout "xxx" does not exist in master "Office Theme"'
+  )
 
   expect_error(get_layout(x, 0), "Layout index out of bounds.")
   expect_error(get_layout(x, 10), "Layout index out of bounds.")
@@ -21,16 +27,28 @@ test_that("get_layout works as expected", {
 
   expect_no_error(la <- get_layout(x, 1))
   expect_equal(la$index, 1)
-  expect_error(get_layout(x, 1, layout_by_id = FALSE), regexp = "`layout` must be <character>")
+  expect_error(
+    get_layout(x, 1, layout_by_id = FALSE),
+    regexp = "`layout` must be <character>"
+  )
 
   # same layout in several masters
   file <- test_path("docs_dir", "test-three-identical-masters.pptx")
   x <- read_pptx(file)
 
   expect_error(get_layout(x, "xxx", NULL), 'Layout "xxx" does not exist')
-  expect_error(get_layout(x, "xxx", "Master_1"), 'Layout "xxx" does not exist in master "Master_1"')
-  expect_error(get_layout(x, "Title Slide"), "Layout \"Title Slide\" exists in more than one master")
-  expect_error(get_layout(x, "Title Slide", "xxx"), 'master "xxx" does not exist')
+  expect_error(
+    get_layout(x, "xxx", "Master_1"),
+    'Layout "xxx" does not exist in master "Master_1"'
+  )
+  expect_error(
+    get_layout(x, "Title Slide"),
+    "Layout \"Title Slide\" exists in more than one master"
+  )
+  expect_error(
+    get_layout(x, "Title Slide", "xxx"),
+    'master "xxx" does not exist'
+  )
 
   expect_no_error(la <- get_layout(x, "Title Slide", "Master_1"))
   expect_s3_class(la, "layout_info")
@@ -86,7 +104,10 @@ test_that("incorrect inputs are detected", {
   # layout not unique
   file <- test_path("docs_dir", "test-three-identical-masters.pptx")
   x <- read_pptx(file)
-  expect_error(get_layout(x, "Title Slide"), "Layout \"Title Slide\" exists in more than one master")
+  expect_error(
+    get_layout(x, "Title Slide"),
+    "Layout \"Title Slide\" exists in more than one master"
+  )
 })
 
 
@@ -106,8 +127,14 @@ test_that("get layout from slide", {
   x <- read_pptx()
 
   # fails if no slides exist
-  expect_error(get_slide_layout(x, 0), "Presentation does not have any slides yet")
-  expect_error(get_layout_for_current_slide(x), "Presentation does not have any slides yet")
+  expect_error(
+    get_slide_layout(x, 0),
+    "Presentation does not have any slides yet"
+  )
+  expect_error(
+    get_layout_for_current_slide(x),
+    "Presentation does not have any slides yet"
+  )
 
   # detect correct slide layout
   layout <- "Comparison"
@@ -156,7 +183,10 @@ test_that("layout_default", {
   layout <- "Title Slide"
   x <- layout_default(x, layout)
   expect_true(has_layout_default(x))
-  expect_identical(x$layout_default, list(layout = layout, master = "Office Theme"))
+  expect_identical(
+    x$layout_default,
+    list(layout = layout, master = "Office Theme")
+  )
 
   x <- layout_default(x, NA)
   expect_false(has_layout_default(x))

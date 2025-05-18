@@ -1,26 +1,26 @@
 source("utils.R")
 
-get_wml_node <- function(x){
+get_wml_node <- function(x) {
   xml_ <- to_wml(x)
-  read_xml( wml_str(xml_) )
+  read_xml(wml_str(xml_))
 }
-get_pml_node <- function(x){
+get_pml_node <- function(x) {
   xml_ <- pml_str(to_pml(x))
-  read_xml( xml_ )
+  read_xml(xml_)
 }
 
 test_that("fpar content", {
   fp <- fpar(
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
-    )
-  fp <- fpar( ftext("toto", fp_text(font.size = 9)), "titi" )
+  )
+  fp <- fpar(ftext("toto", fp_text(font.size = 9)), "titi")
   fp <- update(fp, fp_t = fp_text(bold = TRUE, font.size = 9))
   df <- as.data.frame(fp)
-  expect_equal(df$value, c("toto", "titi") )
-  expect_equal(df$size, c(9, 9) )
-  expect_equal(df$bold, c(FALSE, TRUE) )
-  expect_equal(df$italic, c(FALSE, FALSE) )
+  expect_equal(df$value, c("toto", "titi"))
+  expect_equal(df$size, c(9, 9))
+  expect_equal(df$bold, c(FALSE, TRUE))
+  expect_equal(df$italic, c(FALSE, FALSE))
 })
 
 
@@ -32,7 +32,7 @@ test_that("fpar wml", {
   node <- get_wml_node(fp)
 
   expect_equal(xml_text(node), "tototiti")
-  expect_equal(xml_text(xml_find_all(node, "//w:r/w:t")), c("toto", "titi") )
+  expect_equal(xml_text(xml_find_all(node, "//w:r/w:t")), c("toto", "titi"))
   val <- xml_attr(xml_find_all(node, "//w:pPr/w:jc"), "val")
   expect_equal(val, "left")
 
@@ -57,10 +57,9 @@ test_that("fpar wml", {
   bold <- xml_child(bold, "w:b")
   bold <- xml_attr(bold, "val") %in% "true"
 
-  expect_equal(italic, c(FALSE, TRUE, FALSE) )
-  expect_equal(bold, c(FALSE, FALSE, TRUE) )
+  expect_equal(italic, c(FALSE, TRUE, FALSE))
+  expect_equal(bold, c(FALSE, FALSE, TRUE))
 })
-
 
 
 test_that("fpar pml", {
@@ -71,12 +70,11 @@ test_that("fpar pml", {
   node <- get_pml_node(fp)
 
   expect_equal(xml_text(node), "tototiti")
-  expect_equal(xml_text(xml_find_all(node, "//a:r/a:t")), c("toto", "titi") )
-  expect_equal(xml_attr(xml_find_all(node, "//a:r/a:rPr"), "b"), c("1", "0") )
-  expect_equal(xml_attr(xml_find_all(node, "//a:r/a:rPr"), "i"), c("0", "1") )
+  expect_equal(xml_text(xml_find_all(node, "//a:r/a:t")), c("toto", "titi"))
+  expect_equal(xml_attr(xml_find_all(node, "//a:r/a:rPr"), "b"), c("1", "0"))
+  expect_equal(xml_attr(xml_find_all(node, "//a:r/a:rPr"), "i"), c("0", "1"))
   val <- xml_attr(xml_find_all(node, "//a:p/a:pPr"), "algn")
   expect_equal(val, "l")
-
 
   fp <- update(fp, fp_p = fp_par(text.align = "center"))
   node <- get_pml_node(fp)
@@ -85,33 +83,30 @@ test_that("fpar pml", {
 })
 
 
-
 test_that("fpar css", {
   fp <- fpar(
     ftext("toto", shortcuts$fp_bold()),
     ftext("titi", shortcuts$fp_italic())
   )
-  node <- read_xml( to_html(fp) )
+  node <- read_xml(to_html(fp))
 
   expect_equal(xml_text(node), "tototiti")
-  expect_equal(xml_text(xml_find_all(node, "//span")), c("toto", "titi") )
+  expect_equal(xml_text(xml_find_all(node, "//span")), c("toto", "titi"))
   bold <- xml_attr(xml_find_all(node, "//span"), "style")
   bold <- has_css_attr(bold, atname = "font-weight", value = "bold")
-  expect_equal(bold, c(TRUE, FALSE) )
+  expect_equal(bold, c(TRUE, FALSE))
 
   italic <- xml_attr(xml_find_all(node, "//span"), "style")
   italic <- has_css_attr(italic, atname = "font-style", value = "italic")
-  expect_equal(italic, c(FALSE, TRUE) )
+  expect_equal(italic, c(FALSE, TRUE))
 
   val <- xml_attr(xml_find_all(node, "//p"), "style")
   val <- has_css_attr(val, atname = "text-align", value = "left")
   expect_true(val)
 
-
   fp <- update(fp, fp_p = fp_par(text.align = "center"))
-  node <- read_xml( to_html(fp) )
+  node <- read_xml(to_html(fp))
   val <- xml_attr(xml_find_all(node, "//p"), "style")
   val <- has_css_attr(val, atname = "text-align", value = "center")
   expect_true(val)
 })
-

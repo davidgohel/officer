@@ -1,29 +1,25 @@
 source("utils.R")
 
 test_that("fp_border", {
-  expect_error( fp_border(width = -5), "width must be a positive numeric scalar" )
-  expect_error( fp_border(color = "glop"), "color must be a valid color" )
-  expect_error( fp_border(style = "glop"), "style must be one of" )
+  expect_error(fp_border(width = -5), "width must be a positive numeric scalar")
+  expect_error(fp_border(color = "glop"), "color must be a valid color")
+  expect_error(fp_border(style = "glop"), "style must be one of")
   x <- fp_border(color = "red", style = "dashed", width = 5)
   x <- update(x, color = "yellow", style = "solid", width = 2)
   expect_equal(x$color, "yellow")
   expect_equal(x$style, "solid")
   expect_equal(x$width, 2)
-
-
 })
 
-pml_border_node <- function(x, side = "L"){
-  x <- fp_cell(border = x )
+pml_border_node <- function(x, side = "L") {
+  x <- fp_cell(border = x)
   xml_ <- pml_str(format(x, type = "pml"))
-  doc <- read_xml( xml_ )
+  doc <- read_xml(xml_)
   xml_find_first(doc, paste0("//a:tcPr/a:ln", side))
 }
 
 
-
 test_that("pml fp_border", {
-
   node <- pml_border_node(fp_border(width = 2, color = "#00FF0099"))
 
   col <- xml_attr(xml_child(node, "/a:solidFill/a:srgbClr"), "val")
@@ -32,7 +28,7 @@ test_that("pml fp_border", {
   alpha <- xml_attr(xml_child(node, "/a:solidFill/a:srgbClr/a:alpha"), "val")
   expect_equal(alpha, "60000")
 
-  type <- xml_attr(xml_child(node, "/a:prstDash"),"val")
+  type <- xml_attr(xml_child(node, "/a:prstDash"), "val")
   expect_equal(type, "solid")
   node <- pml_border_node(fp_border(style = "dashed"))
   type <- xml_attr(xml_child(node, "/a:prstDash"), "val")
@@ -50,15 +46,14 @@ test_that("pml fp_border", {
 })
 
 
-wml_border_node <- function(x, side = "bottom"){
-  x <- fp_cell(border = x )
+wml_border_node <- function(x, side = "bottom") {
+  x <- fp_cell(border = x)
   xml_ <- wml_str(format(x, type = "wml"))
-  doc <- read_xml( xml_ )
+  doc <- read_xml(xml_)
   xml_find_first(doc, paste0("//w:tcPr/w:tcBorders/w:", side))
 }
 
 test_that("wml fp_border", {
-
   node <- wml_border_node(fp_border(width = 2, color = "#00FF00"))
 
   col <- xml_attr(node, "color")
@@ -131,69 +126,68 @@ test_that("wml fp_border", {
 })
 
 
-regexp_border <- function(width, style, color, x){
+regexp_border <- function(width, style, color, x) {
   css <- format(fp_par(border = x), type = "html")
   reg <- sprintf("border-bottom: %.02fpt %s %s", width, style, color)
   grepl(reg, css)
 }
 
 test_that("css fp_border", {
-
   col <- "#00FF00"
   x <- fp_border(width = 2, color = col, style = "solid")
   rb <- regexp_border(2, "solid", "rgba\\(0,255,0,1.00\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   col <- "#00FF0099"
   x <- fp_border(width = 4, color = col, style = "single")
   rb <- regexp_border(4, "solid", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "dashed")
   rb <- regexp_border(4, "dashed", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "dotted")
   rb <- regexp_border(4, "dotted", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "double")
   rb <- regexp_border(4, "double", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "inset")
   rb <- regexp_border(4, "inset", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "outset")
   rb <- regexp_border(4, "outset", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "none")
   rb <- regexp_border(4, "none", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "nil")
   rb <- regexp_border(4, "none", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "threeDEmboss")
   rb <- regexp_border(4, "ridge", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "ridge")
   rb <- regexp_border(4, "ridge", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "threeDEngrave")
   rb <- regexp_border(4, "groove", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(width = 4, color = col, style = "groove")
   rb <- regexp_border(4, "groove", "rgba\\(0,255,0,0.60\\)", x)
-  expect_true( rb )
+  expect_true(rb)
 
   x <- fp_border(color = "transparent")
   rb <- regexp_border(1, "solid", "transparent", x)
-  expect_true( rb )
+  expect_true(rb)
 })

@@ -1,6 +1,18 @@
-dev_png <- function(filename, width = 800, height = 700, units = "px", res = 150) {
+dev_png <- function(
+  filename,
+  width = 800,
+  height = 700,
+  units = "px",
+  res = 150
+) {
   gdtools::register_liberationsans()
-  ragg::agg_png(filename = filename, width = width, height = height, units = units, res = res)
+  ragg::agg_png(
+    filename = filename,
+    width = width,
+    height = height,
+    units = units,
+    res = res
+  )
   par(family = "Liberation Sans")
 }
 
@@ -20,8 +32,17 @@ test_that("layout summary - layout order (#596)", {
   x <- read_pptx(file)
   df <- layout_summary(x)
   order_exp <- c(
-    "Title Slide", "Title and Content", "Section Header", "Two Content", "Comparison",
-    "Title Only", "Blank", "layout_8", "layout_9", "layout_10", "layout_11"
+    "Title Slide",
+    "Title and Content",
+    "Section Header",
+    "Two Content",
+    "Comparison",
+    "Title Only",
+    "Blank",
+    "layout_8",
+    "layout_9",
+    "layout_10",
+    "layout_11"
   )
   expect_equal(df$layout, order_exp)
   df <- x$slideLayouts$get_metadata() # used inside layout_summary
@@ -30,7 +51,15 @@ test_that("layout summary - layout order (#596)", {
   file <- test_path("docs_dir", "test-layouts-ordering-3-masters.pptx")
   x <- read_pptx(file)
   df <- layout_summary(x)
-  la <- c("Title Slide", "Title and Content", "Section Header", "Two Content", "Comparison", "Title Only", "Blank")
+  la <- c(
+    "Title Slide",
+    "Title and Content",
+    "Section Header",
+    "Two Content",
+    "Comparison",
+    "Title Only",
+    "Blank"
+  )
   order_exp <- rep(la, 3)
   expect_equal(df$layout, order_exp)
   order_exp <- rep(paste0("Master_", 1:3), each = length(la))
@@ -44,10 +73,26 @@ test_that("layout properties", {
   x <- ph_with(x, "Hello world", location = ph_location_type(type = "body"))
   x <- ph_with(x, "my title", location = ph_location_type(type = "title"))
 
-  laypr <- layout_properties(x, layout = "Title and Content", master = "Office Theme")
+  laypr <- layout_properties(
+    x,
+    layout = "Title and Content",
+    master = "Office Theme"
+  )
 
   expect_is(laypr, "data.frame")
-  expect_true(all(c("master_name", "name", "type", "offx", "offy", "cx", "cy", "rotation") %in% names(laypr)))
+  expect_true(all(
+    c(
+      "master_name",
+      "name",
+      "type",
+      "offx",
+      "offy",
+      "cx",
+      "cy",
+      "rotation"
+    ) %in%
+      names(laypr)
+  ))
   expect_is(laypr$master_name, "character")
   expect_is(laypr$name, "character")
   expect_is(laypr$type, "character")
@@ -67,9 +112,13 @@ test_that("layout properties - all phs for multiple masters (#597)", {
   expect_true(all(table(lap$ph) == 3)) # 3 identical masters => each ph 3 times
 
   l_df <- split(lap, lap$master_name) # phs sorted by y coords
-  is_y_sorted <- vapply(l_df, function(x) {
-    all(diff(x$offy) >= 0)
-  }, logical(1))
+  is_y_sorted <- vapply(
+    l_df,
+    function(x) {
+      all(diff(x$offy) >= 0)
+    },
+    logical(1)
+  )
   expect_true(all(is_y_sorted))
 })
 
@@ -85,28 +134,50 @@ test_that("plot layout properties (part 1)", {
   png1 <- tempfile(fileext = ".png")
   dev_png(png1, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Title Slide", master = "Office Theme"
+    x = x,
+    layout = "Title Slide",
+    master = "Office Theme"
   )
   dev.off()
 
   png2 <- tempfile(fileext = ".png")
   dev_png(png2, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Title Slide", master = "Office Theme",
-    labels = TRUE, type = FALSE, id = FALSE, title = FALSE
+    x = x,
+    layout = "Title Slide",
+    master = "Office Theme",
+    labels = TRUE,
+    type = FALSE,
+    id = FALSE,
+    title = FALSE
   )
   dev.off()
 
   png3 <- tempfile(fileext = ".png")
   dev_png(png3, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Title Slide", master = "Office Theme", legend = TRUE
+    x = x,
+    layout = "Title Slide",
+    master = "Office Theme",
+    legend = TRUE
   )
   dev.off()
 
-  expect_snapshot_doc(name = "plot-titleslide-layout-default", x = png1, engine = "testthat")
-  expect_snapshot_doc(name = "plot-titleslide-layout-labels-only", x = png2, engine = "testthat")
-  expect_snapshot_doc(name = "plot-titleslide-layout-default-with-legend", x = png3, engine = "testthat")
+  expect_snapshot_doc(
+    name = "plot-titleslide-layout-default",
+    x = png1,
+    engine = "testthat"
+  )
+  expect_snapshot_doc(
+    name = "plot-titleslide-layout-labels-only",
+    x = png2,
+    engine = "testthat"
+  )
+  expect_snapshot_doc(
+    name = "plot-titleslide-layout-default-with-legend",
+    x = png3,
+    engine = "testthat"
+  )
 
   # issue #604
   p <- test_path("docs_dir/test-content-order.pptx")
@@ -115,20 +186,35 @@ test_that("plot layout properties (part 1)", {
   png4 <- tempfile(fileext = ".png")
   dev_png(png4, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Many Contents", master = "Office Theme"
+    x = x,
+    layout = "Many Contents",
+    master = "Office Theme"
   )
   dev.off()
 
   png5 <- tempfile(fileext = ".png")
   dev_png(png5, width = 7, height = 6, res = 150, units = "in")
   plot_layout_properties(
-    x = x, layout = "Many Contents", master = "Office Theme",
-    labels = TRUE, type = FALSE, id = FALSE, title = FALSE
+    x = x,
+    layout = "Many Contents",
+    master = "Office Theme",
+    labels = TRUE,
+    type = FALSE,
+    id = FALSE,
+    title = FALSE
   )
   dev.off()
 
-  expect_snapshot_doc(name = "plot-content-order-default", x = png4, engine = "testthat")
-  expect_snapshot_doc(name = "plot-content-order-labels-only", x = png5, engine = "testthat")
+  expect_snapshot_doc(
+    name = "plot-content-order-default",
+    x = png4,
+    engine = "testthat"
+  )
+  expect_snapshot_doc(
+    name = "plot-content-order-labels-only",
+    x = png5,
+    engine = "testthat"
+  )
 })
 
 
@@ -140,23 +226,38 @@ test_that("plot layout properties (part 2)", {
   x <- read_pptx()
   expect_no_error(plot_layout_properties(x, "Title and Content", cex = 0))
   expect_no_error(plot_layout_properties(x, "Title and Content", cex = 1:3))
-  expect_no_error(plot_layout_properties(x, "Title and Content", cex = as.list(1:3)))
-  expect_no_error(plot_layout_properties(x, "Title and Content", cex = list(t = 1, i = 2)))
-  expect_no_error(plot_layout_properties(x, "Title and Content", cex = c(t = 1, i = 2)))
+  expect_no_error(plot_layout_properties(
+    x,
+    "Title and Content",
+    cex = as.list(1:3)
+  ))
+  expect_no_error(plot_layout_properties(
+    x,
+    "Title and Content",
+    cex = list(t = 1, i = 2)
+  ))
+  expect_no_error(plot_layout_properties(
+    x,
+    "Title and Content",
+    cex = c(t = 1, i = 2)
+  ))
 
   # issue #645: plot default layout if there are no slides yet, else  show current slide's layout
   x <- read_pptx()
-  expect_error(plot_layout_properties(x),
+  expect_error(
+    plot_layout_properties(x),
     "No `layout` selected and no slides in presentation",
     fixed = TRUE
   )
   x <- x |> layout_default("Two Content")
-  expect_message(plot_layout_properties(x),
+  expect_message(
+    plot_layout_properties(x),
     'Showing default layout: "Two Content"',
     fixed = TRUE
   )
   x <- x |> add_slide("Title and Content")
-  expect_message(plot_layout_properties(x),
+  expect_message(
+    plot_layout_properties(x),
     "Showing current slide's layout: \"Title and Content\"",
     fixed = TRUE
   )
@@ -186,16 +287,16 @@ test_that("slide summary", {
 })
 
 
-
 test_that("plot layout properties: layout arg takes numeric index", {
   x <- read_pptx()
   las <- layout_summary(x)
   ii <- as.numeric(rownames(las))
 
-  discarded_plot <- function(x, layout = NULL, master = NULL) { # avoid Rplots.pdf creation
+  discarded_plot <- function(x, layout = NULL, master = NULL) {
+    # avoid Rplots.pdf creation
     file <- tempfile(fileext = ".png")
     dev_png(file, width = 7, height = 6, res = 150, units = "in")
-      plot_layout_properties(x, layout, master)
+    plot_layout_properties(x, layout, master)
     dev.off()
   }
 

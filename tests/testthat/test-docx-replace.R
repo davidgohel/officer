@@ -10,10 +10,16 @@ test_that("replace bkm with text in body", {
     ftext(
       text = ". How are you",
       prop = fp_text(
-        color = NA, font.size = NA, bold = TRUE, italic = NA,
-        underlined = NA, font.family = NA_character_,
-        cs.family = NA_character_, eastasia.family = NA_character_,
-        hansi.family = NA_character_, shading.color = NA_character_
+        color = NA,
+        font.size = NA,
+        bold = TRUE,
+        italic = NA,
+        underlined = NA,
+        font.family = NA_character_,
+        cs.family = NA_character_,
+        eastasia.family = NA_character_,
+        hansi.family = NA_character_,
+        shading.color = NA_character_
       )
     )
   )
@@ -39,11 +45,13 @@ test_that("replace bkm with images in header/footer", {
 
   doc <- read_docx(path = template)
   doc <- headers_replace_img_at_bkm(
-    x = doc, bookmark = "bmk_header",
+    x = doc,
+    bookmark = "bmk_header",
     value = external_img(src = img.file, width = .53, height = .7)
   )
   doc <- footers_replace_img_at_bkm(
-    x = doc, bookmark = "bmk_footer",
+    x = doc,
+    bookmark = "bmk_footer",
     value = external_img(src = img.file, width = .53, height = .7)
   )
   print(doc, target = "test_replace_img.docx")
@@ -55,7 +63,10 @@ test_that("replace bkm with images in header/footer", {
   bm_start <- xml_find_first(xmldoc, xpath_)
   expect_false(inherits(bm_start, "xml_missing"))
 
-  blip <- xml_find_first(xmldoc, "//w:p/w:r/w:drawing/wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip")
+  blip <- xml_find_first(
+    xmldoc,
+    "//w:p/w:r/w:drawing/wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip"
+  )
   expect_equal(xml_attr(blip, "embed"), "rId1")
 
   xmldoc <- doc$footers[[1]]$get()
@@ -63,7 +74,10 @@ test_that("replace bkm with images in header/footer", {
   bm_start <- xml_find_first(xmldoc, xpath_)
   expect_false(inherits(bm_start, "xml_missing"))
 
-  blip <- xml_find_first(xmldoc, "//w:p/w:r/w:drawing/wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip")
+  blip <- xml_find_first(
+    xmldoc,
+    "//w:p/w:r/w:drawing/wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip"
+  )
   expect_equal(xml_attr(blip, "embed"), "rId1")
 })
 
@@ -109,21 +123,25 @@ test_that("replace text at bkm with a ggplot", {
 
   node <- docx_current_block_xml(doc)
   child_ <- xml_child(node, "w:r/w:drawing")
-  expect_false( inherits(child_, "xml_missing") )
+  expect_false(inherits(child_, "xml_missing"))
 
   bm_start <- xml_find_first(xmldoc, xpath_)
   expect_true(inherits(bm_start, "xml_missing"))
 
   # Keep bookmark
-  doc <- body_replace_gg_at_bkm(x = doc, bookmark = "plot_with_bkm",
-                                value = gg_plot, keep = TRUE)
+  doc <- body_replace_gg_at_bkm(
+    x = doc,
+    bookmark = "plot_with_bkm",
+    value = gg_plot,
+    keep = TRUE
+  )
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", "plot_with_bkm")
   bm_start <- xml_find_first(doc$doc_obj$get(), xpath_)
   expect_false(inherits(bm_start, "xml_missing"))
 
   node <- docx_current_block_xml(doc)
   child_ <- xml_child(node, "w:r/w:drawing")
-  expect_false( inherits(child_, "xml_missing") )
+  expect_false(inherits(child_, "xml_missing"))
 })
 
 test_that("replace text at bkm with a plot", {
@@ -141,12 +159,14 @@ test_that("replace text at bkm with a plot", {
   doc <- body_replace_plot_at_bkm(
     doc,
     bookmark = "plot",
-    value = plot_instr(code = { barplot(1:5, col = 2:6) })
+    value = plot_instr(code = {
+      barplot(1:5, col = 2:6)
+    })
   )
 
   node <- docx_current_block_xml(doc)
   child_ <- xml_child(node, "w:r/w:drawing")
-  expect_false( inherits(child_, "xml_missing") )
+  expect_false(inherits(child_, "xml_missing"))
 
   bm_start <- xml_find_first(xmldoc, xpath_)
   expect_true(inherits(bm_start, "xml_missing"))
@@ -155,7 +175,9 @@ test_that("replace text at bkm with a plot", {
   doc <- body_replace_plot_at_bkm(
     doc,
     bookmark = "plot_with_bkm",
-    value = plot_instr(code = { barplot(1:5, col = 2:6) }),
+    value = plot_instr(code = {
+      barplot(1:5, col = 2:6)
+    }),
     keep = TRUE
   )
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", "plot_with_bkm")
@@ -164,16 +186,19 @@ test_that("replace text at bkm with a plot", {
 
   node <- docx_current_block_xml(doc)
   child_ <- xml_child(node, "w:r/w:drawing")
-  expect_false( inherits(child_, "xml_missing") )
+  expect_false(inherits(child_, "xml_missing"))
 })
 
 test_that("docx replace text", {
   doc <- read_docx()
   doc <- body_add_par(doc, "Placeholder one")
   doc <- body_add_par(doc, "Placeholder two")
-  doc <- body_replace_all_text(doc,
-    old_value = "placeholder", new_value = "new",
-    only_at_cursor = FALSE, ignore.case = TRUE
+  doc <- body_replace_all_text(
+    doc,
+    old_value = "placeholder",
+    new_value = "new",
+    only_at_cursor = FALSE,
+    ignore.case = TRUE
   )
   xmldoc <- doc$doc_obj$get()
   expect_equal(xml_text(xml_find_all(xmldoc, "//w:p")), c("new one", "new two"))
@@ -182,13 +207,19 @@ test_that("docx replace text", {
 test_that("docx replace all text", {
   doc <- read_docx(path = "docs_dir/table-complex.docx")
 
-  doc <- headers_replace_all_text(doc,
-    old_value = "hello", new_value = "salut",
-    only_at_cursor = FALSE, ignore.case = TRUE
+  doc <- headers_replace_all_text(
+    doc,
+    old_value = "hello",
+    new_value = "salut",
+    only_at_cursor = FALSE,
+    ignore.case = TRUE
   )
-  doc <- footers_replace_all_text(doc,
-    old_value = "hello", new_value = "salut",
-    only_at_cursor = FALSE, ignore.case = TRUE
+  doc <- footers_replace_all_text(
+    doc,
+    old_value = "hello",
+    new_value = "salut",
+    only_at_cursor = FALSE,
+    ignore.case = TRUE
   )
 
   xmldoc <- doc$headers[[1]]$get()

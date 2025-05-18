@@ -5,10 +5,10 @@ getncheck <- function(x, str) {
 }
 
 
-
 test_that("seqfield add ", {
   x <- read_docx()
-  x <- body_add_fpar(x,
+  x <- body_add_fpar(
+    x,
     fpar(
       "Time is: ",
       run_word_field(field = "TIME \u005C@ \"HH:mm:ss\" \u005C* MERGEFORMAT")
@@ -31,5 +31,8 @@ test_that("seqfield add ", {
   x <- body_add_fpar(x, z, style = "centered", )
 
   node <- docx_current_block_xml(x)
-  expect_equal(xml_text(node), "Figure: SEQ Figure \\* roman - This is a figure title")
+  expect_equal(
+    xml_text(node),
+    "Figure: SEQ Figure \\* roman - This is a figure title"
+  )
 })

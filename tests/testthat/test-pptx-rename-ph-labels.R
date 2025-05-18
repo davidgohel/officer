@@ -1,4 +1,3 @@
-
 test_that("ph_labels with same order as in layout_properties()", {
   x <- read_pptx()
   l1 <- layout_rename_ph_labels(x, "Comparison")
@@ -17,35 +16,94 @@ test_that("incorrect inputs are detected", {
   # unnamed args in renaming (dots)
   error_msg <- "Unnamed arguments are not allowed."
   expect_error(layout_rename_ph_labels(x, layout, NULL, "xxxx"), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, .dots = list("xxxx")), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, NULL, "xxx", .dots = list(a = "xxxx")), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "xxx" = "a", .dots = list("xxxx")), error_msg)
+  expect_error(
+    layout_rename_ph_labels(x, layout, .dots = list("xxxx")),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, NULL, "xxx", .dots = list(a = "xxxx")),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, "xxx" = "a", .dots = list("xxxx")),
+    error_msg
+  )
 
   # unknown labels
   error_msg <- "Can't rename labels that don't exist."
   expect_error(layout_rename_ph_labels(x, layout, "xxxx" = "..."), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "xxxx" = "...", "yyy" = "..."), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, .dots = list("xxxx" = "...")), error_msg)
+  expect_error(
+    layout_rename_ph_labels(x, layout, "xxxx" = "...", "yyy" = "..."),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, .dots = list("xxxx" = "...")),
+    error_msg
+  )
 
   # unknown ids
   error_msg <- "Can't rename ids that don't exist."
   expect_error(layout_rename_ph_labels(x, layout, "1" = "..."), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "1" = "...", "0" = "..."), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, .dots = list("1" = "...")), error_msg)
+  expect_error(
+    layout_rename_ph_labels(x, layout, "1" = "...", "0" = "..."),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, .dots = list("1" = "...")),
+    error_msg
+  )
 
   # duplicate rename entries
   error_msg <- "Each id or label must only have one rename entry only."
-  expect_error(layout_rename_ph_labels(x, layout, "Title 1" = "a", "Title 1" = "b"), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "2" = "a", "2" = "b"), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, .dots = list("Title 1" = "a", "Title 1" = "b")), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "2" = "a", .dots = list("2" = "b")), error_msg)
+  expect_error(
+    layout_rename_ph_labels(x, layout, "Title 1" = "a", "Title 1" = "b"),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, "2" = "a", "2" = "b"),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(
+      x,
+      layout,
+      .dots = list("Title 1" = "a", "Title 1" = "b")
+    ),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, "2" = "a", .dots = list("2" = "b")),
+    error_msg
+  )
 
   # label and id collision
   error_msg <- "Either specify the label OR the id of the ph to rename, not both."
-  expect_error(layout_rename_ph_labels(x, layout, "Title 1" = "a", "2" = "b"), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "Title 1" = "a", "2" = "b"), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, .dots = list("Title 1" = "a", "2" = "b")), error_msg)
-  expect_error(layout_rename_ph_labels(x, layout, "Date Placeholder 6" = "a", "7" = "b", .dots = list("Title 1" = "a", "2" = "b")), error_msg)
+  expect_error(
+    layout_rename_ph_labels(x, layout, "Title 1" = "a", "2" = "b"),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(x, layout, "Title 1" = "a", "2" = "b"),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(
+      x,
+      layout,
+      .dots = list("Title 1" = "a", "2" = "b")
+    ),
+    error_msg
+  )
+  expect_error(
+    layout_rename_ph_labels(
+      x,
+      layout,
+      "Date Placeholder 6" = "a",
+      "7" = "b",
+      .dots = list("Title 1" = "a", "2" = "b")
+    ),
+    error_msg
+  )
 })
 
 
@@ -59,23 +117,44 @@ test_that("ph renaming works as expected", {
   # rename using key-value pairs: 'old label' = 'new label' or 'id' = 'new label'
   layout_rename_ph_labels(x, layout, "Title 1" = "LABEL MATCHED") # label matching
   layout_rename_ph_labels(x, layout, "3" = "ID MATCHED") # id matching
-  layout_rename_ph_labels(x, layout, "Date Placeholder 6" = "DATE", "8" = "FOOTER") # label and id
+  layout_rename_ph_labels(
+    x,
+    layout,
+    "Date Placeholder 6" = "DATE",
+    "8" = "FOOTER"
+  ) # label and id
   layout_properties(x, layout)$ph_label
 
   x <- read_pptx()
   idx <- c(1, 2, 6, 7)
-  l <- list("Date Placeholder 6" = "idx_6", "8" = "idx_7", "Title 1" = "idx_1", "3" = "idx_2") # as list
+  l <- list(
+    "Date Placeholder 6" = "idx_6",
+    "8" = "idx_7",
+    "Title 1" = "idx_1",
+    "3" = "idx_2"
+  ) # as list
   layout_rename_ph_labels(x, layout, .dots = l)
   expect_equal(layout_properties(x, layout)$ph_label[idx], paste0("idx_", idx))
 
   x <- read_pptx()
-  l <- c("Date Placeholder 6" = "idx_6", "8" = "idx_7", "Title 1" = "idx_1", "3" = "idx_2") # as vector
+  l <- c(
+    "Date Placeholder 6" = "idx_6",
+    "8" = "idx_7",
+    "Title 1" = "idx_1",
+    "3" = "idx_2"
+  ) # as vector
   layout_rename_ph_labels(x, layout, .dots = l)
   expect_equal(layout_properties(x, layout)$ph_label[idx], paste0("idx_", idx))
 
   x <- read_pptx()
   l <- list("Date Placeholder 6" = "idx_6", "3" = "idx_2")
-  layout_rename_ph_labels(x, layout, "8" = "idx_7", "Title 1" = "idx_1", .dots = l) # mix ... and .dots
+  layout_rename_ph_labels(
+    x,
+    layout,
+    "8" = "idx_7",
+    "Title 1" = "idx_1",
+    .dots = l
+  ) # mix ... and .dots
   expect_equal(layout_properties(x, layout)$ph_label[idx], paste0("idx_", idx))
 
   # rename via rhs assignment and ph index (not id!)
@@ -116,7 +195,10 @@ test_that("renaming duplicate labels replaces 1st occurrence only", {
   idx <- which(ph_label_check == "Content 7") # exists twice
   new_value <- "xxxx"
   warn_msg <- "When renaming a label with duplicates, only the first occurrence is renamed."
-  expect_warning(layout_rename_ph_labels(x, layout, "Content 7" = new_value), warn_msg)
+  expect_warning(
+    layout_rename_ph_labels(x, layout, "Content 7" = new_value),
+    warn_msg
+  )
   ph_label_new <- layout_properties(x, layout)$ph_label
   ph_label_check[idx[1]] <- new_value # only first occurrence is replaced
   expect_equal(ph_label_check, ph_label_new)
@@ -136,4 +218,3 @@ test_that("renaming duplicate labels replaces 1st occurrence only", {
   ph_label_new <- layout_properties(x, layout)$ph_label
   expect_equal(ph_label_check, ph_label_new)
 })
-

@@ -1,11 +1,9 @@
-
 test_that("fp_text - print", {
   fp <- fp_text(font.size = 10)
   expect_output(print(fp))
 })
 
 test_that("fp_text - update", {
-
   fp <- fp_text(font.size = 10)
 
   fp <- update(fp, font.size = 20)
@@ -19,7 +17,3 @@ test_that("fp_text - update", {
   fp <- update(fp, shading.color = "yellow")
   expect_equal(fp$shading.color, "yellow")
 })
-
-
-
-

@@ -19,4 +19,3 @@ test_that("pack_folder behavior", {
 
   expect_error(pack_folder(dir_, target = "dummy_dir/test.zip"))
 })
-

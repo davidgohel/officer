@@ -6,10 +6,9 @@ test_that("console printing", {
 test_that("check extention and print document", {
   x <- read_xlsx()
   print(x, target = "print.xlsx")
-  expect_true( file.exists("print.xlsx") )
+  expect_true(file.exists("print.xlsx"))
   expect_error(print(x, target = "print.xlsxxxx"))
 })
 
 
 unlink("*.xlsx")
-

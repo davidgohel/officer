@@ -1,14 +1,24 @@
 source("utils.R")
 
 test_that("fp_par", {
-  expect_error( fp_par(text.align = "glop"), "must be one of" )
-  expect_error( fp_par(padding = -2), "padding must be a positive integer scalar" )
-  expect_error( fp_par(border = fp_text()), "border must be a fp_border object" )
-  expect_error( fp_par(shading.color = "#340F2A78d"), "shading\\.color must be a valid color" )
+  expect_error(fp_par(text.align = "glop"), "must be one of")
+  expect_error(
+    fp_par(padding = -2),
+    "padding must be a positive integer scalar"
+  )
+  expect_error(fp_par(border = fp_text()), "border must be a fp_border object")
+  expect_error(
+    fp_par(shading.color = "#340F2A78d"),
+    "shading\\.color must be a valid color"
+  )
   x <- fp_par()
-  x <- update(x, padding = 3,
-              text.align = "center",
-              shading.color = "#340F2A78", border = fp_border(color = "red"))
+  x <- update(
+    x,
+    padding = 3,
+    text.align = "center",
+    shading.color = "#340F2A78",
+    border = fp_border(color = "red")
+  )
   expect_equal(x$shading.color, "#340F2A78")
   expect_equal(x$padding.bottom, 3)
   expect_equal(x$padding.left, 3)
@@ -16,13 +26,12 @@ test_that("fp_par", {
 })
 
 
-
 test_that("print fp_par", {
   x <- fp_par()
   expect_output(print(x))
 })
 
-get_ppr <- function(x){
+get_ppr <- function(x) {
   str <- format(x, type = "pml")
   doc <- as_xml_document(pml_str(str))
   xml_find_first(doc, "a:pPr")
@@ -31,19 +40,19 @@ get_ppr <- function(x){
 test_that("format pml fp_par", {
   x <- fp_par(text.align = "left")
   node <- get_ppr(x)
-  expect_equal( xml_attr(node, "algn"), "l" )
+  expect_equal(xml_attr(node, "algn"), "l")
   x <- update(x, text.align = "center")
   node <- get_ppr(x)
-  expect_equal( xml_attr(node, "algn"), "ctr" )
+  expect_equal(xml_attr(node, "algn"), "ctr")
   x <- update(x, text.align = "right")
   node <- get_ppr(x)
-  expect_equal( xml_attr(node, "algn"), "r" )
+  expect_equal(xml_attr(node, "algn"), "r")
   x <- update(x, padding = 3, padding.bottom = 0)
   node <- get_ppr(x)
-  expect_equal( xml_attr(xml_child(node, "a:spcBef/a:spcPts"), "val"), "300" )
-  expect_equal( xml_attr(xml_child(node, "a:spcAft/a:spcPts"), "val"), "0" )
-  expect_equal( xml_attr(node, "marL"), as.character(12700*3) )
-  expect_equal( xml_attr(node, "marR"), as.character(12700*3) )
+  expect_equal(xml_attr(xml_child(node, "a:spcBef/a:spcPts"), "val"), "300")
+  expect_equal(xml_attr(xml_child(node, "a:spcAft/a:spcPts"), "val"), "0")
+  expect_equal(xml_attr(node, "marL"), as.character(12700 * 3))
+  expect_equal(xml_attr(node, "marR"), as.character(12700 * 3))
 })
 
 
@@ -65,13 +74,9 @@ test_that("format css fp_par", {
 })
 
 
-
-
-
-
-is_align <- function(x, align){
+is_align <- function(x, align) {
   xml_ <- format(x, type = "wml")
-  doc <- read_xml( wml_str(xml_) )
+  doc <- read_xml(wml_str(xml_))
   val <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:jc"), "val")
   val == align
 }
@@ -79,47 +84,59 @@ is_align <- function(x, align){
 
 test_that("wml text align", {
   x <- fp_par(text.align = "center")
-  expect_true( is_align(x, align = "center") )
+  expect_true(is_align(x, align = "center"))
 
   x <- update(x, text.align = "left")
-  expect_true( is_align(x, align = "left") )
+  expect_true(is_align(x, align = "left"))
 
   x <- update(x, text.align = "right")
-  expect_true( is_align(x, align = "right") )
+  expect_true(is_align(x, align = "right"))
 
   x <- update(x, text.align = "justify")
-  expect_true( is_align(x, align = "both") )
+  expect_true(is_align(x, align = "both"))
 })
 
 
-get_padding <- function(x, align){
+get_padding <- function(x, align) {
   xml_ <- format(x, type = "wml")
-  doc <- read_xml( wml_str(xml_) )
+  doc <- read_xml(wml_str(xml_))
   after <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:spacing"), "after")
-  before <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:spacing"), "before")
+  before <- xml_attr(
+    xml_find_first(doc, "/w:document/w:pPr/w:spacing"),
+    "before"
+  )
   left <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:ind"), "left")
   right <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:ind"), "right")
-  out <- as.integer( c(after, before, left, right) ) / 20
+  out <- as.integer(c(after, before, left, right)) / 20
   names(out) <- c("bottom", "top", "left", "right")
   out
 }
 
 test_that("wml padding", {
   x <- fp_par(padding = 2)
-  expect_equal( get_padding(x), c("bottom" = 2, "top" = 2, "left" = 2, "right" = 2) )
+  expect_equal(
+    get_padding(x),
+    c("bottom" = 2, "top" = 2, "left" = 2, "right" = 2)
+  )
 
   x <- fp_par(padding = 2, padding.top = 5)
-  expect_equal( get_padding(x), c("bottom" = 2, "top" = 5, "left" = 2, "right" = 2) )
+  expect_equal(
+    get_padding(x),
+    c("bottom" = 2, "top" = 5, "left" = 2, "right" = 2)
+  )
 
   x <- fp_par(padding = 2, padding.bottom = 5)
-  expect_equal( get_padding(x), c("bottom" = 5, "top" = 2, "left" = 2, "right" = 2) )
+  expect_equal(
+    get_padding(x),
+    c("bottom" = 5, "top" = 2, "left" = 2, "right" = 2)
+  )
 })
 
 test_that("wml shading.color", {
   x <- fp_par(shading.color = "#FF0000")
 
   xml_ <- format(x, type = "wml")
-  doc <- read_xml( wml_str(xml_) )
+  doc <- read_xml(wml_str(xml_))
   shd <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:shd"), "fill")
   expect_equal(shd, "FF0000")
 })

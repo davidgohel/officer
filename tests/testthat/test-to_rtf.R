@@ -6,7 +6,10 @@ test_that("to_rtf works with default strings and ftext", {
 
   properties2 <- fp_text(bold = TRUE, shading.color = "yellow")
   ft <- ftext("Some text", properties2)
-  expect_equal(to_rtf(ft), "%font:Arial%\\b\\fs20%ftcolor:black% %ftshading:yellow%Some text\\highlight0")
+  expect_equal(
+    to_rtf(ft),
+    "%font:Arial%\\b\\fs20%ftcolor:black% %ftshading:yellow%Some text\\highlight0"
+  )
 })
 
 test_that("to_rtf works with fpar and external images", {
@@ -29,7 +32,11 @@ test_that("to_rtf works with run_word_field, run_pagebreak, run_columnbreak, and
   expect_true(grepl("PAGE", out))
 
   fp_t <- fp_text(font.size = 12, bold = TRUE)
-  an_fpar <- fpar("let's add a break page", run_pagebreak(), ftext("and blah blah!", fp_t))
+  an_fpar <- fpar(
+    "let's add a break page",
+    run_pagebreak(),
+    ftext("and blah blah!", fp_t)
+  )
 
   expect_true(grepl(" let's add a break page", to_rtf(an_fpar)))
   expect_true(grepl("and blah blah", to_rtf(an_fpar)))
@@ -37,7 +44,11 @@ test_that("to_rtf works with run_word_field, run_pagebreak, run_columnbreak, and
   expect_true(grepl("column", to_rtf(run_columnbreak())))
 
   fp_t <- fp_text(font.size = 12, bold = TRUE)
-  an_fpar <- fpar("let's add a line break", run_linebreak(), ftext("and blah blah!", fp_t))
+  an_fpar <- fpar(
+    "let's add a line break",
+    run_linebreak(),
+    ftext("and blah blah!", fp_t)
+  )
 
   expect_true(grepl(" let's add a line break", to_rtf(an_fpar)))
   expect_true(grepl("and blah blah", to_rtf(an_fpar)))
@@ -47,7 +58,8 @@ test_that("to_rtf works with hyperlinks and block_list", {
   ft <- fp_text(font.size = 12, bold = TRUE)
   ft <- hyperlink_ftext(
     href = "https://cran.r-project.org/index.html",
-    text = "some text", prop = ft
+    text = "some text",
+    prop = ft
   )
 
   expect_true(grepl("HYPERLINK", to_rtf(ft)))
@@ -55,11 +67,11 @@ test_that("to_rtf works with hyperlinks and block_list", {
   fpt_blue_bold <- fp_text(color = "#006699", bold = TRUE)
   fpt_red_italic <- fp_text(color = "#C32900", italic = TRUE)
 
-
   value <- block_list(
     fpar(ftext("hello world\\t", fpt_blue_bold)),
     fpar(
-      ftext("hello", fpt_blue_bold), " ",
+      ftext("hello", fpt_blue_bold),
+      " ",
       ftext("world", fpt_red_italic)
     ),
     fpar(
@@ -74,8 +86,11 @@ test_that("to_rtf works with hyperlinks and block_list", {
 
 test_that("to_rtf works for run_autonum", {
   ra <- run_autonum(
-    seq_id = "tab", pre_label = "Table ", bkm = "anytable",
-    tnd = 2, tns = " "
+    seq_id = "tab",
+    pre_label = "Table ",
+    bkm = "anytable",
+    tnd = 2,
+    tns = " "
   )
 
   expect_true(grepl("bkmkstart anytable", to_rtf(ra)))

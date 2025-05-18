@@ -48,7 +48,10 @@ test_that("add hyperlink in pptx", {
     expect_true(all(subset_rel$target_mode %in% "External"))
     expect_match(subset_rel$type, "^http://schemas(.*)hyperlink$")
 
-    nodes_hlinkclick <- xml_find_all(slide$get(), "/p:sld/p:cSld/p:spTree/p:sp/p:txBody/a:p/a:r/a:rPr/a:hlinkClick")
+    nodes_hlinkclick <- xml_find_all(
+      slide$get(),
+      "/p:sld/p:cSld/p:spTree/p:sp/p:txBody/a:p/a:r/a:rPr/a:hlinkClick"
+    )
     expect_length(nodes_hlinkclick, 5)
     expect_true(all(xml_attr(nodes_hlinkclick, "id") %in% subset_rel$id))
   }

@@ -3,7 +3,10 @@ test_that("styles_info is returning a df", {
   df <- styles_info(x)
 
   expect_is(df, "data.frame")
-  expect_true(all(c("style_type", "style_id", "style_name", "is_custom", "is_default") %in% names(df)))
+  expect_true(all(
+    c("style_type", "style_id", "style_name", "is_custom", "is_default") %in%
+      names(df)
+  ))
   expect_is(df$style_type, "character")
   expect_is(df$style_id, "character")
   expect_is(df$style_name, "character")
@@ -12,7 +15,6 @@ test_that("styles_info is returning a df", {
 })
 
 test_that("set par style", {
-
   doc <- read_docx()
   doc <- docx_set_paragraph_style(
     doc,
@@ -22,30 +24,32 @@ test_that("set par style", {
     fp_t = fp_text_lite(
       bold = TRUE,
       shading.color = "#FD34F0",
-      color = "white")
+      color = "white"
+    )
   )
   doc <- body_add_par(
-    doc, value = "This is a test",
-    style = "Explicit label")
+    doc,
+    value = "This is a test",
+    style = "Explicit label"
+  )
 
   current_node <- docx_current_block_xml(doc)
   expect_equal(
     xml_attr(xml_child(current_node, "w:pPr/w:pStyle"), "val"),
-    "rightaligned")
+    "rightaligned"
+  )
 
   df <- styles_info(doc, type = "paragraph")
-  df <- df[df$style_id %in% "rightaligned",]
+  df <- df[df$style_id %in% "rightaligned", ]
   expect_true(nrow(df) == 1L)
   if (nrow(df) == 1L) {
     expect_equal(df$shading.color, "FD34F0")
     expect_equal(df$color, "FFFFFF")
     expect_equal(df$align, "right")
   }
-
 })
 
 test_that("set char style", {
-
   doc <- read_docx()
   doc <- docx_set_character_style(
     doc,
@@ -55,21 +59,22 @@ test_that("set char style", {
     fp_t = fp_text_lite(bold = TRUE)
   )
   doc <- body_add_fpar(
-    doc, fpar(run_wordtext(text = "coco", style_id = "bold")),
-    style = "Normal")
+    doc,
+    fpar(run_wordtext(text = "coco", style_id = "bold")),
+    style = "Normal"
+  )
 
   current_node <- docx_current_block_xml(doc)
   expect_equal(
     xml_attr(xml_child(current_node, "w:pPr/w:pStyle"), "val"),
-    "Normal")
+    "Normal"
+  )
 
   df <- styles_info(doc, type = "character")
-  df <- df[df$style_id %in% "bold",]
+  df <- df[df$style_id %in% "bold", ]
   expect_true(nrow(df) == 1L)
   if (nrow(df) == 1L) {
     expect_equal(df$bold, "true")
     expect_equal(df$style_name, "Bold test")
   }
-
 })
-

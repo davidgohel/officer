@@ -10,7 +10,11 @@ test_that("default layout", {
   on.exit(options(opts))
 
   x <- read_pptx()
-  expect_warning(add_slide(x), regexp = "Calling `add_slide()` without specifying a `layout` is deprecated", fixed = TRUE)
+  expect_warning(
+    add_slide(x),
+    regexp = "Calling `add_slide()` without specifying a `layout` is deprecated",
+    fixed = TRUE
+  )
   expect_no_error(expect_warning(add_slide(x)))
 
   x <- layout_default(x, "Title Slide")
@@ -32,7 +36,10 @@ test_that("master is inferred", {
   x <- read_pptx(file)
   x <- add_slide(x, "Title Slide", "Master_1")
   x <- add_slide(x, "Title Slide") # name is unique so master=NULL works
-  expect_error(add_slide(x, "Title and Content"), regex = "Layout \"Title and Content\" exists in more than one master")
+  expect_error(
+    add_slide(x, "Title and Content"),
+    regex = "Layout \"Title and Content\" exists in more than one master"
+  )
   x <- add_slide(x, "Title and Content", "Master_1")
   expect_equal(length(x), 3)
 })
@@ -46,7 +53,11 @@ test_that("add simple elements into placeholder", {
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
   doc <- ph_with(doc, c(1L, 2L), location = ph_location_left())
-  doc <- ph_with(doc, as.factor(c("rhhh", "vvvlllooo")), location = ph_location_right())
+  doc <- ph_with(
+    doc,
+    as.factor(c("rhhh", "vvvlllooo")),
+    location = ph_location_right()
+  )
   doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
   doc <- ph_with(doc, c(pi, pi / 2), location = ph_location_left())
   doc <- ph_with(doc, c(TRUE, FALSE), location = ph_location_right())
@@ -70,12 +81,14 @@ test_that("add ggplot into placeholder", {
     ) +
     theme_minimal()
   doc <- ph_with(
-    x = doc, value = gg_plot,
+    x = doc,
+    value = gg_plot,
     location = ph_location_type(type = "body"),
     bg = "transparent"
   )
   doc <- ph_with(
-    x = doc, value = "graphic title",
+    x = doc,
+    value = "graphic title",
     location = ph_location_type(type = "title")
   )
   expect_snapshot_doc(x = doc, name = "pptx-add-ggplot2", engine = "testthat")
@@ -93,9 +106,11 @@ test_that("add base plot into placeholder", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(
-    doc, anyplot,
+    doc,
+    anyplot,
     location = ph_location_fullsize(),
-    bg = "#00000066", pointsize = 12
+    bg = "#00000066",
+    pointsize = 12
   )
   expect_snapshot_doc(x = doc, name = "pptx-add-barplot", engine = "testthat")
 })
@@ -108,12 +123,28 @@ test_that("add unordered_list into placeholder", {
   local_edition(3L)
   ul1 <- unordered_list(
     level_list = c(0, 1, 1, 0, 0, 1, 1),
-    str_list = c("List1", "Item 1", "Item 2", "", "List 2", "Option A", "Option B")
+    str_list = c(
+      "List1",
+      "Item 1",
+      "Item 2",
+      "",
+      "List 2",
+      "Option A",
+      "Option B"
+    )
   )
 
   ul2 <- unordered_list(
     level_list = c(0, 1, 2, 0, 0, 1, 2) + 1,
-    str_list = c("List1", "Item 1", "Item 2", "", "List 2", "Option A", "Option B"),
+    str_list = c(
+      "List1",
+      "Item 1",
+      "Item 2",
+      "",
+      "List 2",
+      "Option A",
+      "Option B"
+    ),
     style = fp_text_lite(color = "gray25")
   )
 
@@ -136,7 +167,8 @@ test_that("add block_list into placeholder", {
   value <- block_list(
     fpar(ftext("hello world", fpt_blue_bold)),
     fpar(
-      ftext("hello", fpt_blue_bold), " ",
+      ftext("hello", fpt_blue_bold),
+      " ",
       ftext("world", fpt_red_italic)
     ),
     fpar(
@@ -146,8 +178,10 @@ test_that("add block_list into placeholder", {
 
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content")
-  doc <- ph_with(doc,
-    value = value, location = ph_location_type(),
+  doc <- ph_with(
+    doc,
+    value = value,
+    location = ph_location_type(),
     level_list = c(1, 2, 3)
   )
   expect_snapshot_doc(x = doc, name = "pptx-add-blocklist", engine = "testthat")
@@ -184,8 +218,16 @@ test_that("add xml into placeholder", {
   library(xml2)
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc, value = as_xml_document(xml_str), location = ph_location_type(type = "body"))
-  doc <- ph_with(doc, value = as_xml_document(xml_str), location = ph_location(left = 1, top = 1, width = 3, height = 3))
+  doc <- ph_with(
+    doc,
+    value = as_xml_document(xml_str),
+    location = ph_location_type(type = "body")
+  )
+  doc <- ph_with(
+    doc,
+    value = as_xml_document(xml_str),
+    location = ph_location(left = 1, top = 1, width = 3, height = 3)
+  )
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 2)
   expect_equal(sm[1, ]$text, "Hello world 1")
@@ -209,7 +251,9 @@ test_that("slidelink shape", {
   slide_filename <- doc$slide$get_metadata()$name[2]
 
   expect_true(slide_filename %in% rel_df$target)
-  row_num_ <- which(is.na(rel_df$target_mode) & rel_df$target %in% slide_filename)
+  row_num_ <- which(
+    is.na(rel_df$target_mode) & rel_df$target %in% slide_filename
+  )
 
   rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp[p:nvSpPr/p:cNvPr/a:hlinkClick/@r:id='%s']", rid)
@@ -220,11 +264,23 @@ test_that("slidelink shape", {
 test_that("hyperlink shape", {
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with(x = doc, location = ph_location_type(type = "title"), value = "Un titre 1")
+  doc <- ph_with(
+    x = doc,
+    location = ph_location_type(type = "title"),
+    value = "Un titre 1"
+  )
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with(x = doc, location = ph_location_type(type = "title"), value = "Un titre 2")
+  doc <- ph_with(
+    x = doc,
+    location = ph_location_type(type = "title"),
+    value = "Un titre 2"
+  )
   doc <- on_slide(doc, 1)
-  doc <- ph_hyperlink(x = doc, type = "title", href = "https://cran.r-project.org")
+  doc <- ph_hyperlink(
+    x = doc,
+    type = "title",
+    href = "https://cran.r-project.org"
+  )
   outputfile <- tempfile(fileext = ".pptx")
   print(doc, target = outputfile)
 
@@ -232,7 +288,9 @@ test_that("hyperlink shape", {
   rel_df <- doc$slide$get_slide(1)$rel_df()
 
   expect_true("https://cran.r-project.org" %in% rel_df$target)
-  row_num_ <- which(!is.na(rel_df$target_mode) & rel_df$target %in% "https://cran.r-project.org")
+  row_num_ <- which(
+    !is.na(rel_df$target_mode) & rel_df$target %in% "https://cran.r-project.org"
+  )
 
   rid <- rel_df[row_num_, "id"]
   xpath_ <- sprintf("//p:sp[p:nvSpPr/p:cNvPr/a:hlinkClick/@r:id='%s']", rid)
@@ -245,8 +303,16 @@ test_that("hyperlink image", {
 
   x <- read_pptx()
   x <- add_slide(x, "Title and Content")
-  x <- ph_with(x, value = external_img(img.file), location = ph_location(newlabel = "logo"))
-  x <- ph_hyperlink(x = x, ph_label = "logo", href = "https://cran.r-project.org")
+  x <- ph_with(
+    x,
+    value = external_img(img.file),
+    location = ph_location(newlabel = "logo")
+  )
+  x <- ph_hyperlink(
+    x = x,
+    ph_label = "logo",
+    href = "https://cran.r-project.org"
+  )
   outputfile <- tempfile(fileext = ".pptx")
   print(x, target = outputfile)
 
@@ -261,11 +327,14 @@ test_that("img dims in pptx", {
   img.file <- file.path(R.home("doc"), "html", "logo.jpg")
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc,
+  doc <- ph_with(
+    doc,
     value = external_img(img.file),
     location = ph_location(
-      left = 1, top = 1,
-      height = 1.06, width = 1.39
+      left = 1,
+      top = 1,
+      height = 1.06,
+      width = 1.39
     )
   )
   sm <- slide_summary(doc)
@@ -278,11 +347,14 @@ test_that("img dims in pptx", {
 
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
-  doc <- ph_with(doc,
+  doc <- ph_with(
+    doc,
     value = external_img(img.file),
     location = ph_location(
-      left = 1, top = 1,
-      height = 1.06, width = 1.39
+      left = 1,
+      top = 1,
+      height = 1.06,
+      width = 1.39
     ),
     use_loc_size = TRUE
   )
@@ -299,10 +371,14 @@ test_that("empty_content in pptx", {
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
   doc <- ph_with(
-    x = doc, value = empty_content(),
+    x = doc,
+    value = empty_content(),
     location = ph_location(
-      left = 0, top = 0,
-      width = 2, height = 3, bg = "black"
+      left = 0,
+      top = 0,
+      width = 2,
+      height = 3,
+      bg = "black"
     )
   )
 

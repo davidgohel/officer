@@ -121,11 +121,13 @@ test_that("docx_comments", {
   )
   ## Comment 1 has 2 lines
   expect_equal(
-    length(comments[["text"]][[1]]), 2
+    length(comments[["text"]][[1]]),
+    2
   )
   ## Comment 4 is empty
   expect_identical(
-    comments[["text"]][[4]], character(0)
+    comments[["text"]][[4]],
+    character(0)
   )
 })
 
@@ -142,7 +144,8 @@ test_that("docx_comments accounts for comments spanning no or multiple paragraph
   )
   ## Comment 5 spans no paragraph
   expect_identical(
-    comments[["para_id"]][[5]], character(0)
+    comments[["para_id"]][[5]],
+    character(0)
   )
   expect_equal(
     paste(comments[["commented_text"]][[5]], collapse = " "),
@@ -150,7 +153,8 @@ test_that("docx_comments accounts for comments spanning no or multiple paragraph
   )
   ## Comment 6 spans 2 paragraphs
   expect_equal(
-    length(comments[["para_id"]][[6]]), 2
+    length(comments[["para_id"]][[6]]),
+    2
   )
   expect_equal(
     paste(comments[["commented_text"]][[6]], collapse = " "),
@@ -171,7 +175,8 @@ test_that("docx_comments accounts for comments spanning no or multiple runs", {
   )
   ## Comment 5 spans no run
   expect_identical(
-    comments[["commented_text"]][[5]], character(0)
+    comments[["commented_text"]][[5]],
+    character(0)
   )
   expect_equal(
     paste(comments[["commented_text"]][[5]], collapse = " "),
@@ -179,7 +184,8 @@ test_that("docx_comments accounts for comments spanning no or multiple runs", {
   )
   ## Comment 6 spans 2 runs as it spans 2 paragraphs
   expect_equal(
-    length(comments[["commented_text"]][[6]]), 2
+    length(comments[["commented_text"]][[6]]),
+    2
   )
   expect_equal(
     paste(comments[["commented_text"]][[6]], collapse = " "),
@@ -187,7 +193,8 @@ test_that("docx_comments accounts for comments spanning no or multiple runs", {
   )
   ## Comment 7 spans 3 runs.
   expect_equal(
-    length(comments[["commented_text"]][[7]]), 3
+    length(comments[["commented_text"]][[7]]),
+    3
   )
   expect_equal(
     paste(comments[["commented_text"]][[7]], collapse = ""),
@@ -195,7 +202,8 @@ test_that("docx_comments accounts for comments spanning no or multiple runs", {
   )
   ## Comment 15 spans 3 runs because of an inner comment
   expect_equal(
-    length(comments[["commented_text"]][[15]]), 3
+    length(comments[["commented_text"]][[15]]),
+    3
   )
   expect_equal(
     paste(comments[["commented_text"]][[15]], collapse = ""),
@@ -211,7 +219,8 @@ test_that("docx_comments accounts for replies", {
 
   # Make "unique" id based on commented text and paragraph id
   comments$unique_id <- paste(
-    comments$para_id, comments$commented_text,
+    comments$para_id,
+    comments$commented_text,
     sep = "."
   )
   comments$unique_id <- factor(
@@ -232,8 +241,10 @@ test_that("docx_comments accounts for replies", {
   )
   expect_equal(
     vapply(
-      comments_split[-c(8, 9, 10)], nrow,
-      FUN.VALUE = integer(1), USE.NAMES = FALSE
+      comments_split[-c(8, 9, 10)],
+      nrow,
+      FUN.VALUE = integer(1),
+      USE.NAMES = FALSE
     ),
     rep(1, 9)
   )
@@ -285,7 +296,8 @@ test_that("docx_comments accounts for nested comments", {
 
   ## Outer Comment 15 spans 3 runs
   expect_equal(
-    length(comments[["commented_text"]][[15]]), 3
+    length(comments[["commented_text"]][[15]]),
+    3
   )
   expect_equal(
     paste(comments[["commented_text"]][[15]], collapse = ""),
@@ -298,7 +310,8 @@ test_that("docx_comments accounts for nested comments", {
 
   ## Inner Comment 16 spans 1 run
   expect_equal(
-    length(comments[["commented_text"]][[16]]), 1
+    length(comments[["commented_text"]][[16]]),
+    1
   )
   expect_equal(
     paste(comments[["commented_text"]][[16]], collapse = ""),

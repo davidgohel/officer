@@ -13,10 +13,18 @@ test_that("docx dim", {
   expect_length(dims$landscape, 1)
   expect_length(dims$margins, 6)
 
-  expect_equal(dims$page, c(width = 8.263889, height = 11.694444), tolerance = .001)
+  expect_equal(
+    dims$page,
+    c(width = 8.263889, height = 11.694444),
+    tolerance = .001
+  )
 
   ps <- prop_section(
-    page_size = page_size(width = 8.263889, height = 11.694444, orient = "landscape"),
+    page_size = page_size(
+      width = 8.263889,
+      height = 11.694444,
+      orient = "landscape"
+    ),
     page_margins = page_mar(top = 2),
     type = "oddPage"
   )
@@ -30,9 +38,17 @@ test_that("docx dim", {
     expected = list(
       page = c(width = 11.694444, height = 8.263889),
       landscape = TRUE,
-      margins = c(top = 2, bottom = 1417 / 1440, left = 1417 / 1440,
-                  right = 1417 / 1440, header = 708 / 1440, footer = 708 / 1440)),
-    tolerance = .00001)
+      margins = c(
+        top = 2,
+        bottom = 1417 / 1440,
+        left = 1417 / 1440,
+        right = 1417 / 1440,
+        header = 708 / 1440,
+        footer = 708 / 1440
+      )
+    ),
+    tolerance = .00001
+  )
 })
 
 test_that("list bookmarks", {
@@ -146,7 +162,10 @@ test_that("cursor and position", {
   ds_ <- docx_summary(doc)
   expect_equal(ds_$text, c("new 1", "paragraph 1"))
   doc <- read_docx()
-  expect_warning(body_remove(doc), "There is nothing left to remove in the document")
+  expect_warning(
+    body_remove(doc),
+    "There is nothing left to remove in the document"
+  )
 })
 
 test_that("cursor and replacement", {
@@ -187,9 +206,16 @@ test_that("cursor and replacement", {
   expect_equal(
     xml_text(xml_find_all(docx_body_xml(doc), "//w:p")),
     c(
-      "blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
-      "blah blah blah", "blah blah blah", "blah blah blah", "Here is a link: yopyop",
-      "blah blah blah", "Yap yap yap yap..."
+      "blah blah blah",
+      "blah blah blah",
+      "blah blah blah",
+      "Here is a link: yopyop",
+      "blah blah blah",
+      "blah blah blah",
+      "blah blah blah",
+      "Here is a link: yopyop",
+      "blah blah blah",
+      "Yap yap yap yap..."
     )
   )
 })

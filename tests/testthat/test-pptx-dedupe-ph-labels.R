@@ -1,12 +1,17 @@
-
-
-
 test_that("incorrect input formats are detected", {
-  expect_error(layout_dedupe_ph_labels("file.xxx"), regexp = "'x' must be an 'rpptx' object")
-  expect_error(has_ph_dupes("file.xxx"), regexp = "'x' must be an 'rpptx' object")
-  expect_error(.dedupe_phs_in_layout("file.xxx"), regexp = "'layout_file' must be an .xml file")
+  expect_error(
+    layout_dedupe_ph_labels("file.xxx"),
+    regexp = "'x' must be an 'rpptx' object"
+  )
+  expect_error(
+    has_ph_dupes("file.xxx"),
+    regexp = "'x' must be an 'rpptx' object"
+  )
+  expect_error(
+    .dedupe_phs_in_layout("file.xxx"),
+    regexp = "'layout_file' must be an .xml file"
+  )
 })
-
 
 
 test_that("handling ph dupes function works when there are none", {
@@ -44,7 +49,11 @@ test_that("handling ph dupes works", {
   x_rename <- read_pptx(file_in)
   before <- x_rename$slideLayouts$get_xfrm_data()$ph_label
   out <- capture.output({
-    x_rename <- layout_dedupe_ph_labels(x_rename, action = "rename", print_info = TRUE)
+    x_rename <- layout_dedupe_ph_labels(
+      x_rename,
+      action = "rename",
+      print_info = TRUE
+    )
   })
   expect_true(any(grepl("Content 7", out)))
   expect_true(any(grepl("Content 7.1", out)))
@@ -57,7 +66,11 @@ test_that("handling ph dupes works", {
   x_delete <- read_pptx(file_in)
   before <- x_delete$slideLayouts$get_xfrm_data()$ph_label
   out <- capture.output({
-    x_delete <- layout_dedupe_ph_labels(x_delete, action = "delete", print_info = TRUE)
+    x_delete <- layout_dedupe_ph_labels(
+      x_delete,
+      action = "delete",
+      print_info = TRUE
+    )
   })
   expect_true(any(grepl("Content 7", out)))
   after <- x_delete$slideLayouts$get_xfrm_data()$ph_label

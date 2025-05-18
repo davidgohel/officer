@@ -3,35 +3,48 @@ test_that("pptx ph locations", {
   doc <- add_slide(doc, "Title and Content", "Office Theme")
 
   doc <- ph_with(
-    x = doc, value = "left",
+    x = doc,
+    value = "left",
     location = ph_location_left()
   )
   doc <- ph_with(
-    x = doc, value = "right",
+    x = doc,
+    value = "right",
     location = ph_location_right()
   )
   doc <- ph_with(
-    x = doc, value = "title",
+    x = doc,
+    value = "title",
     location = ph_location_type(type = "title")
   )
   doc <- ph_with(
-    x = doc, value = "fullsize",
+    x = doc,
+    value = "fullsize",
     location = ph_location_fullsize()
   )
   doc <- ph_with(
-    x = doc, value = "from title",
+    x = doc,
+    value = "from title",
     location = ph_location_template(
-      left = 1, width = 2, height = 1, top = 4,
-      type = "title", newlabel = "newlabel"
+      left = 1,
+      width = 2,
+      height = 1,
+      top = 4,
+      type = "title",
+      newlabel = "newlabel"
     )
   )
 
   layouts_info <- layout_properties(doc)
 
-  title_xfrm <- layouts_info[layouts_info$name %in% "Two Content" &
-    layouts_info$type %in% "title", c("offx", "offy", "cx", "cy")]
-  side_xfrm <- layouts_info[layouts_info$name %in% "Two Content" &
-    layouts_info$type %in% "body", c("offx", "offy", "cx", "cy")]
+  title_xfrm <- layouts_info[
+    layouts_info$name %in% "Two Content" & layouts_info$type %in% "title",
+    c("offx", "offy", "cx", "cy")
+  ]
+  side_xfrm <- layouts_info[
+    layouts_info$name %in% "Two Content" & layouts_info$type %in% "body",
+    c("offx", "offy", "cx", "cy")
+  ]
   full_xfrm <- as.data.frame(slide_size(doc))
   names(full_xfrm) <- c("cx", "cy")
   full_xfrm <- cbind(data.frame(offx = 0L, offy = 0L), full_xfrm)
@@ -74,7 +87,11 @@ test_that("pptx ph_location_type", {
 
   expect_warning(
     {
-      ph_with(x, "cannot supply id AND type_idx", ph_location_type("body", type_idx = 1, id = 1))
+      ph_with(
+        x,
+        "cannot supply id AND type_idx",
+        ph_location_type("body", type_idx = 1, id = 1)
+      )
     },
     regexp = "`id` is ignored if `type_idx` is provided",
     fixed = TRUE
@@ -82,7 +99,11 @@ test_that("pptx ph_location_type", {
 
   expect_warning(
     {
-      ph_with(x, "id still working with warning to avoid breaking change", ph_location_type("body", id = 1))
+      ph_with(
+        x,
+        "id still working with warning to avoid breaking change",
+        ph_location_type("body", id = 1)
+      )
     },
     regexp = "The `id` argument in `ph_location_type()` is deprecated",
     fixed = TRUE
@@ -112,7 +133,11 @@ test_that("pptx ph_location_type", {
 
   expect_error(
     {
-      ph_with(x, "type okay but not available in layout", ph_location_type("tbl")) # tbl not on layout
+      ph_with(
+        x,
+        "type okay but not available in layout",
+        ph_location_type("tbl")
+      ) # tbl not on layout
     },
     regexp = "Found no placeholder of type",
     fixed = TRUE
@@ -126,8 +151,13 @@ test_that("pptx ph_location_type", {
     fixed = TRUE
   )
 
-  expect_no_error({ # for complete coverage
-    ph_with(x, " ph type position_right", ph_location_type("body", position_right = TRUE))
+  expect_no_error({
+    # for complete coverage
+    ph_with(
+      x,
+      " ph type position_right",
+      ph_location_type("body", position_right = TRUE)
+    )
   })
 })
 
@@ -140,20 +170,44 @@ test_that("pptx ph_location_id", {
   error_exp <- "`id` must be one number"
   expect_error(ph_location_id(id = 1:2), regex = error_exp, fixed = TRUE)
   expect_error(ph_location_id(id = -1:1), regex = error_exp, fixed = TRUE)
-  expect_error(ph_location_id(id = c("A", "B")), regex = error_exp, fixed = TRUE)
+  expect_error(
+    ph_location_id(id = c("A", "B")),
+    regex = error_exp,
+    fixed = TRUE
+  )
   expect_error(ph_location_id(id = c(NA, NA)), regex = error_exp, fixed = TRUE)
 
   error_exp <- "`id` must be a positive number"
   expect_error(ph_location_id(id = NULL), regex = error_exp, fixed = TRUE)
   expect_error(ph_location_id(id = NA), regex = error_exp, fixed = TRUE)
   expect_error(ph_location_id(id = NaN), regex = error_exp, fixed = TRUE)
-  expect_error(ph_location_id(id = character(0)), regex = error_exp, fixed = TRUE)
+  expect_error(
+    ph_location_id(id = character(0)),
+    regex = error_exp,
+    fixed = TRUE
+  )
   expect_error(ph_location_id(id = integer(0)), regex = error_exp, fixed = TRUE)
 
-  expect_error(ph_location_id(id = "A"), regex = 'Cannot convert "A" to integer', fixed = TRUE)
-  expect_error(ph_location_id(id = ""), regex = 'Cannot convert "" to integer', fixed = TRUE)
-  expect_error(ph_location_id(id = Inf), regex = "Cannot convert Inf to integer", fixed = TRUE)
-  expect_error(ph_location_id(id = -Inf), regex = "Cannot convert -Inf to integer", fixed = TRUE)
+  expect_error(
+    ph_location_id(id = "A"),
+    regex = 'Cannot convert "A" to integer',
+    fixed = TRUE
+  )
+  expect_error(
+    ph_location_id(id = ""),
+    regex = 'Cannot convert "" to integer',
+    fixed = TRUE
+  )
+  expect_error(
+    ph_location_id(id = Inf),
+    regex = "Cannot convert Inf to integer",
+    fixed = TRUE
+  )
+  expect_error(
+    ph_location_id(id = -Inf),
+    regex = "Cannot convert -Inf to integer",
+    fixed = TRUE
+  )
 
   error_exp <- "`id` must be a positive number"
   expect_error(ph_location_id(id = 0), regex = error_exp, fixed = TRUE)
@@ -175,7 +229,11 @@ test_that("pptx ph_location_id", {
   expect_no_error({
     ids <- layout_properties(x, "Comparison")$id
     for (id in ids) {
-      ph_with(x, paste("text:", id), ph_location_id(id, newlabel = paste("newlabel:", id)))
+      ph_with(
+        x,
+        paste("text:", id),
+        ph_location_id(id, newlabel = paste("newlabel:", id))
+      )
     }
   })
   nodes <- xml_find_all(
@@ -195,22 +253,26 @@ test_that("pptx ph labels", {
   doc <- add_slide(doc, "Title and Content", "Office Theme")
 
   doc <- ph_with(
-    x = doc, value = "elephant",
+    x = doc,
+    value = "elephant",
     location = ph_location_type(newlabel = "label1")
   )
   doc <- ph_with(
-    x = doc, value = "elephant",
+    x = doc,
+    value = "elephant",
     location = ph_location_label(
       ph_label = "Date Placeholder 3",
       newlabel = "label2"
     )
   )
   doc <- ph_with(
-    x = doc, value = "elephant",
+    x = doc,
+    value = "elephant",
     location = ph_location_left(newlabel = "label3")
   )
   doc <- ph_with(
-    x = doc, value = "elephant",
+    x = doc,
+    value = "elephant",
     location = ph_location_right(newlabel = "label4")
   )
 
@@ -225,16 +287,27 @@ test_that("pptx ph labels", {
 
   expect_error({
     doc <- ph_with(
-      x = doc, value = "error if label does not exist",
+      x = doc,
+      value = "error if label does not exist",
       location = ph_location_label(ph_label = "xxx")
     )
   })
 })
 
 
-
 test_that("as_ph_location", {
-  ref_names <- c("width", "height", "left", "top", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")
+  ref_names <- c(
+    "width",
+    "height",
+    "left",
+    "top",
+    "ph_label",
+    "ph",
+    "type",
+    "rotation",
+    "fld_id",
+    "fld_type"
+  )
   l <- replicate(length(ref_names), "dummy", simplify = FALSE)
   df <- as.data.frame(l)
   names(df) <- ref_names
@@ -264,9 +337,13 @@ test_that("as_ph_location", {
 test_that("get_ph_loc", {
   x <- read_pptx()
   expect_no_error({
-    get_ph_loc(x, "Comparison", "Office Theme",
+    get_ph_loc(
+      x,
+      "Comparison",
+      "Office Theme",
       type = "body",
-      position_right = TRUE, position_top = FALSE
+      position_right = TRUE,
+      position_top = FALSE
     )
   })
 })
@@ -283,12 +360,34 @@ test_that("short-form locations", {
   expect_equal(fortify_named_location_position(v2), v)
 
   names(v2)[1] <- NA
-  expect_error(fortify_named_location_position(v2), regexp = "Some vector elements have no names", fixed = TRUE)
-  expect_error(fortify_named_location_position(unname(v)), regexp = "Some vector elements have no names", fixed = TRUE)
+  expect_error(
+    fortify_named_location_position(v2),
+    regexp = "Some vector elements have no names",
+    fixed = TRUE
+  )
+  expect_error(
+    fortify_named_location_position(unname(v)),
+    regexp = "Some vector elements have no names",
+    fixed = TRUE
+  )
 
-  res <- has_ph_type_format(c("body", "body[1]", "body [1]", "  body    [ 1 ]  "))
+  res <- has_ph_type_format(c(
+    "body",
+    "body[1]",
+    "body [1]",
+    "  body    [ 1 ]  "
+  ))
   expect_true(all(res))
-  res <- has_ph_type_format(c("body[]", "body  []", "body [a]", "body [ a1]", "body [1a]", "body [1", "body 1]", "unknown [1]"))
+  res <- has_ph_type_format(c(
+    "body[]",
+    "body  []",
+    "body [a]",
+    "body [ a1]",
+    "body [1a]",
+    "body [1",
+    "body 1]",
+    "unknown [1]"
+  ))
   expect_true(all(!res))
 
   # incorrect input values/class
@@ -298,12 +397,24 @@ test_that("short-form locations", {
   expect_error(resolve_location(NA_real_), regex = err_msg, fixed = TRUE)
   expect_error(resolve_location(NA), regex = err_msg, fixed = TRUE)
   expect_error(resolve_location(NULL), regex = err_msg, fixed = TRUE)
-  expect_error(resolve_location(mtcars), regex = "Cannot resolve class <data.frame> into a location", fixed = TRUE)
+  expect_error(
+    resolve_location(mtcars),
+    regex = "Cannot resolve class <data.frame> into a location",
+    fixed = TRUE
+  )
 
   # numeric input
   v <- c(top = 0, left = 0, width = 5)
-  expect_error(resolve_location(v), regex = "`location` has incorrect length.", fixed = TRUE)
-  expect_error(resolve_location(unname(v)), regexp = "`location` has incorrect length.", fixed = TRUE)
+  expect_error(
+    resolve_location(v),
+    regex = "`location` has incorrect length.",
+    fixed = TRUE
+  )
+  expect_error(
+    resolve_location(unname(v)),
+    regexp = "`location` has incorrect length.",
+    fixed = TRUE
+  )
 
   ## numeric: single integer
   v <- c("dummy" = 1)
@@ -315,8 +426,16 @@ test_that("short-form locations", {
   expect_equal(loc_1, loc_3)
   expect_equal(loc_1, loc_4)
 
-  expect_error(resolve_location(1.1), regex = "If a length 1 numeric, `location` requires <integer>", fixed = TRUE)
-  expect_error(resolve_location(-1), regex = "Integers passed to `location` must be positive", fixed = TRUE)
+  expect_error(
+    resolve_location(1.1),
+    regex = "If a length 1 numeric, `location` requires <integer>",
+    fixed = TRUE
+  )
+  expect_error(
+    resolve_location(-1),
+    regex = "Integers passed to `location` must be positive",
+    fixed = TRUE
+  )
 
   ## numeric: (named) position vector
   v2 <- v <- c(left = 1, top = 2, width = 3.3, height = 4.4)
@@ -325,7 +444,12 @@ test_that("short-form locations", {
   loc_2 <- resolve_location(v)
   loc_3 <- resolve_location(v2) # partial name matching
   loc_4 <- resolve_location(rev(v)) # order does not matter
-  loc_5 <- ph_location(left = v["left"], top = v["top"], width = v["width"], height = v["height"])
+  loc_5 <- ph_location(
+    left = v["left"],
+    top = v["top"],
+    width = v["width"],
+    height = v["height"]
+  )
   loc_6 <- resolve_location(loc_5) # unchanged
   expect_equal(loc_1, loc_2)
   expect_equal(loc_1, loc_3)
@@ -334,13 +458,25 @@ test_that("short-form locations", {
   expect_equal(loc_1, loc_6)
 
   v <- c(top = 1, left = 2, width = 3, xxx = 10)
-  expect_error(resolve_location(v), regex = 'Found 1 unknown name in `location`: "xxx"', fixed = TRUE)
+  expect_error(
+    resolve_location(v),
+    regex = 'Found 1 unknown name in `location`: "xxx"',
+    fixed = TRUE
+  )
   v <- c(top = 1, top = 2, width = 3, width = 4)
-  expect_error(resolve_location(v), regex = 'Duplicate entries in `location`: "top" and "width"', fixed = TRUE)
+  expect_error(
+    resolve_location(v),
+    regex = 'Duplicate entries in `location`: "top" and "width"',
+    fixed = TRUE
+  )
 
   # character input
   v <- c("a", "b")
-  expect_error(resolve_location(v), regex = "Character vector passed to `location` must have length 1", fixed = TRUE)
+  expect_error(
+    resolve_location(v),
+    regex = "Character vector passed to `location` must have length 1",
+    fixed = TRUE
+  )
 
   ## keywords
   expect_equal(resolve_location("left"), ph_location_left())
@@ -359,7 +495,10 @@ test_that("short-form locations", {
 
   ## character: label if not keyword or type
   expect_equal(resolve_location("< a label>"), ph_location_label("< a label>"))
-  expect_equal(resolve_location(c(xxx = "< a label>")), ph_location_label("< a label>"))
+  expect_equal(
+    resolve_location(c(xxx = "< a label>")),
+    ph_location_label("< a label>")
+  )
   expect_equal(resolve_location("body[]"), ph_location_label("body[]"))
   expect_equal(resolve_location("left "), ph_location_label("left "))
   expect_equal(resolve_location(" left"), ph_location_label(" left"))
@@ -400,7 +539,11 @@ get_shapetrees_string <- function(x, slide_idx = NULL) {
   sp_tree <- get_shapetrees(x, slide_idx = slide_idx)
   sp_tree_chr <- vapply(sp_tree, paste, character(1))
   s <- paste(sp_tree_chr, collapse = " ")
-  gsub("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}", "xxx", s) # delete shape's UUIDs
+  gsub(
+    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+    "xxx",
+    s
+  ) # delete shape's UUIDs
 }
 
 
@@ -426,15 +569,22 @@ test_that("ph_with, phs_with, add_slide equality", {
 
   x2 <- read_pptx()
   x2 <- add_slide(x2, "Two Content")
-  x2 <- phs_with(x2,
-    `Title 1` = "A title", dt = "Jan. 26, 2025",
-    `body[2]` = "Body text", `6` = "Footer"
+  x2 <- phs_with(
+    x2,
+    `Title 1` = "A title",
+    dt = "Jan. 26, 2025",
+    `body[2]` = "Body text",
+    `6` = "Footer"
   )
 
   x3 <- read_pptx()
-  x3 <- add_slide(x3, "Two Content",
-    `Title 1` = "A title", dt = "Jan. 26, 2025",
-    `body[2]` = "Body text", `6` = "Footer"
+  x3 <- add_slide(
+    x3,
+    "Two Content",
+    `Title 1` = "A title",
+    dt = "Jan. 26, 2025",
+    `body[2]` = "Body text",
+    `6` = "Footer"
   )
 
   st_1 <- get_shapetrees_string(x1)
@@ -490,7 +640,13 @@ test_that("add_slide, phs_with: ... and .dots", {
     regexp = "Missing names in `.dots`"
   )
   expect_error(
-    add_slide(x0, "Two Content", master = "Office Theme", "A title", dt = "Jan. 26, 2025"),
+    add_slide(
+      x0,
+      "Two Content",
+      master = "Office Theme",
+      "A title",
+      dt = "Jan. 26, 2025"
+    ),
     regexp = "Missing key in `...`"
   )
   expect_error(
@@ -502,36 +658,53 @@ test_that("add_slide, phs_with: ... and .dots", {
   x1 <- read_pptx()
   x1 <- add_slide(x1, "Two Content")
   expect_no_error(phs_with(x1)) # empty case
-  x1 <- phs_with(x1,
-    `Title 1` = "A title", dt = "Jan. 26, 2025",
-    `body[2]` = "Body text", `6` = "Footer"
+  x1 <- phs_with(
+    x1,
+    `Title 1` = "A title",
+    dt = "Jan. 26, 2025",
+    `body[2]` = "Body text",
+    `6` = "Footer"
   )
 
   x2 <- read_pptx()
   x2 <- add_slide(x2, "Two Content")
-  x2 <- phs_with(x2, .dots = list(
-    `Title 1` = "A title", dt = "Jan. 26, 2025",
-    `body[2]` = "Body text", `6` = "Footer"
-  ))
+  x2 <- phs_with(
+    x2,
+    .dots = list(
+      `Title 1` = "A title",
+      dt = "Jan. 26, 2025",
+      `body[2]` = "Body text",
+      `6` = "Footer"
+    )
+  )
 
   x3 <- read_pptx()
   x3 <- add_slide(x3, "Two Content")
-  x3 <- phs_with(x3,
-    `Title 1` = "A title", dt = "Jan. 26, 2025",
+  x3 <- phs_with(
+    x3,
+    `Title 1` = "A title",
+    dt = "Jan. 26, 2025",
     .dots = list(`body[2]` = "Body text", `6` = "Footer")
   )
 
   x4 <- read_pptx()
-  x4 <- add_slide(x4, "Two Content",
-    `Title 1` = "A title", dt = "Jan. 26, 2025",
+  x4 <- add_slide(
+    x4,
+    "Two Content",
+    `Title 1` = "A title",
+    dt = "Jan. 26, 2025",
     .dots = list(`body[2]` = "Body text", `6` = "Footer")
   )
 
   x5 <- read_pptx()
-  x5 <- add_slide(x5, "Two Content",
+  x5 <- add_slide(
+    x5,
+    "Two Content",
     .dots = list(
-      `Title 1` = "A title", dt = "Jan. 26, 2025",
-      `body[2]` = "Body text", `6` = "Footer"
+      `Title 1` = "A title",
+      dt = "Jan. 26, 2025",
+      `body[2]` = "Body text",
+      `6` = "Footer"
     )
   )
 
