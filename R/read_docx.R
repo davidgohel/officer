@@ -174,14 +174,26 @@ print.rdocx <- function(x, target = NULL, ...) {
   # write the xml to a tempfile in a formatted way so that grepl is easy
   xml_str <- xml_document_to_chrs(x$doc_obj$get())
   xml_str <- process_sections_content(x, xml_str)
+  xml_str <- process_stylenames(xml_str, x$styles)
+  xml_str <- correct_id_in_chrs(xml_str)
+  x <- guess_and_set_even_and_odd_headers(x, xml_str)
+
+
   x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
 
-  x <- guess_and_set_even_and_odd_headers(x)
+  test_has_comment <- any(grepl("w:commentReference", xml_str, fixed = TRUE))
+  if (test_has_comment) {
+    process_comments(x)
+  }
+  test_has_footnote <- any(grepl("w:footnoteReference", xml_str, fixed = TRUE))
+  if (test_has_footnote) {
+    process_footnotes(x)
+  }
+  test_has_links <- any(grepl("w:hyperlink", xml_str, fixed = TRUE))
+  if (test_has_links) {
+    process_links(x$doc_obj, type = "wml")
+  }
 
-  process_comments(x)
-  process_footnotes(x)
-  process_stylenames(x$doc_obj, x$styles)
-  process_links(x$doc_obj, type = "wml")
   process_docx_poured(
     doc_obj = x$doc_obj,
     relationships = x$doc_obj$relationship(),
@@ -201,7 +213,7 @@ print.rdocx <- function(x, target = NULL, ...) {
   int_id <- 1 # unique id identifier
 
   # make all id unique for document
-  int_id <- correct_id(x$doc_obj$get(), int_id)
+  # int_id <- correct_id(x$doc_obj$get(), int_id)
   # make all id unique for footnote
   int_id <- correct_id(x$footnotes$get(), int_id)
   # make all id unique for footnote
@@ -232,10 +244,6 @@ print.rdocx <- function(x, target = NULL, ...) {
   for (footer in x$footers) {
     footer$save()
   }
-
-  xml_str <- xml_document_to_chrs(x$doc_obj$get())
-  xml_str <- mv_ns_definitions_to_document_node(xml_str)
-  x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
 
   x$doc_obj$save()
   x$content_type$save()

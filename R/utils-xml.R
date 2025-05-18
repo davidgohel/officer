@@ -23,3 +23,11 @@ replace_xml_body_from_chr <- function(x, xml_str) {
   x$doc_obj$replace_xml(tf_xml)
   x
 }
+
+
+correct_id_in_chrs <- function(xml_str){
+  m <- regexpr(" id=\"\"", xml_str)
+  id_values <- seq_len(sum(m>0))
+  regmatches(xml_str, m) <- sprintf(" id=\"%.0f\"", id_values)
+  xml_str
+}

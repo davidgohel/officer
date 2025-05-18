@@ -229,16 +229,31 @@ process_links <- function(doc_obj, type = "wml") {
   }
 }
 
-process_stylenames <- function(doc_obj, styles) {
-  styles_nodes <- xml_find_all(doc_obj$get(), "//*[@w:stlname]")
-  if (length(styles_nodes)) {
-    stylenames <- xml_attr(styles_nodes, "stlname")
-    if (!all(stylenames %in% styles$style_name)) {
-      missing_styles <- paste0(shQuote(unique(setdiff(stylenames, styles$style_name))), collapse = ", ")
-      stop("Some styles can not be found in the document: ", missing_styles)
-    }
-    xml_attr(styles_nodes, "w:val") <- styles$style_id[match(stylenames, styles$style_name)]
+process_stylenames <- function(xml_str, styles) {
+
+  m <- gregexpr("w:stlname=\"([^\"]+)\"", xml_str)
+  stylenames <- unique(unlist(regmatches(xml_str, m)))
+
+  if (length(stylenames) < 1) {
+    return(xml_str)
   }
+
+  stylenames <- gsub("w:stlname=\"([^\"]+)\"", "\\1", stylenames)
+
+  if (!all(stylenames %in% styles$style_name)) {
+    missing_styles <- paste0(shQuote(unique(setdiff(stylenames, styles$style_name))), collapse = ", ")
+    stop("Some styles can not be found in the document: ", missing_styles)
+  }
+
+  styleids <- styles$style_id[match(stylenames, styles$style_name)]
+  for(i in seq_along(stylenames)) {
+    xml_str <- gsub(
+      sprintf("<w:pStyle w:stlname=\"%s\"/>", stylenames[i]),
+      sprintf("<w:pStyle w:val=\"%s\"/>", styleids[i]),
+      xml_str, fixed = TRUE)
+  }
+  xml_str
+
 }
 
 update_hf_list <- function(part_list = list(), type = "header", package_dir) {

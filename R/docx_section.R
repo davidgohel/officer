@@ -235,7 +235,7 @@ process_sections_content <- function(x, xml_str) {
     xml_str[hof_summary$reference_position],
     hof_summary[["rid"]]
   )
-  xml_str <- gsub(" w:officer=\"true\"",  "", xml_str)
+  # xml_str <- gsub(" w:officer=\"true\"",  "", xml_str)
 
   # drop added sections contents from document xml
   lines_index_to_drop <- mapply(
@@ -254,9 +254,9 @@ process_sections_content <- function(x, xml_str) {
   xml_str
 }
 
-guess_and_set_even_and_odd_headers <- function(x) {
-  all_nodes <- xml_find_all(x$doc_obj$get(), "//w:sectPr/w:headerReference|//w:sectPr/w:footerReference")
-  if ("even" %in% xml_attr(all_nodes, "type")) {
+guess_and_set_even_and_odd_headers <- function(x, xml_str) {
+  test_even <- any(grepl("(headerReference|footerReference)([^>]+)(w:type=\"even\")", xml_str))
+  if (test_even) {
     x$settings$even_and_odd_headers <- TRUE
   } else {
     x$settings$even_and_odd_headers <- FALSE
