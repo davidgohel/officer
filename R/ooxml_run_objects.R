@@ -1495,14 +1495,11 @@ to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
   blocks <- sapply(x$footnote, to_wml)
   blocks <- paste(blocks, collapse = "")
 
-  id <- basename(tempfile(pattern = "footnote"))
   base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\""
   footnote_xml <- paste0(
     "<w:footnote ",
     base_ns,
-    " w:id=\"",
-    id,
-    "\">",
+    " w:id=\"%s\">",
     blocks,
     "</w:footnote>"
   )
@@ -1510,9 +1507,7 @@ to_wml.run_footnote <- function(x, add_ns = FALSE, ...) {
   footnote_ref_xml <- paste0(
     open_tag,
     if (!is.null(x$pr)) rpr_wml(x$pr),
-    "<w:footnoteReference w:id=\"",
-    id,
-    "\">",
+    "<w:footnoteReference w:officer=\"true\" w:id=\"%s\">",
     footnote_xml,
     "</w:footnoteReference>",
     "</w:r>"
@@ -1638,16 +1633,16 @@ to_wml.run_comment <- function(x, add_ns = FALSE, ...) {
   )
 
   comment_ref_xml <- paste0(
-    "<w:commentRangeStart w:id=\"",
+    "<w:commentRangeStart w:officer=\"true\" w:id=\"",
     id,
     "\"/>",
     runs,
-    "<w:commentRangeEnd w:id=\"",
+    "<w:commentRangeEnd w:officer=\"true\" w:id=\"",
     id,
     "\"/>",
     open_tag,
     if (!is.null(x$pr)) rpr_wml(x$pr),
-    "<w:commentReference w:id=\"",
+    "<w:commentReference w:officer=\"true\" w:id=\"",
     id,
     "\">",
     comment_xml,

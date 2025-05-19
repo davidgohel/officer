@@ -67,8 +67,8 @@ read_docx <- function(path = NULL) {
   unpack_folder(file = path, folder = package_dir)
 
   obj <- structure(list(package_dir = package_dir),
-    .Names = c("package_dir"),
-    class = "rdocx"
+                   .Names = c("package_dir"),
+                   class = "rdocx"
   )
 
   obj$settings <- update(
@@ -83,9 +83,9 @@ read_docx <- function(path = NULL) {
   obj$doc_properties <- read_core_properties(package_dir)
   obj$content_type <- content_type$new(package_dir)
   obj$doc_obj <- docx_part$new(package_dir,
-    main_file = "document.xml",
-    cursor = "/w:document/w:body/*[1]",
-    body_xpath = "/w:document/w:body"
+                               main_file = "document.xml",
+                               cursor = "/w:document/w:body/*[1]",
+                               body_xpath = "/w:document/w:body"
   )
   obj$styles <- read_docx_styles(package_dir)
   obj$officer_cursor <- officer_cursor(obj$doc_obj$get())
@@ -174,25 +174,17 @@ print.rdocx <- function(x, target = NULL, ...) {
   # write the xml to a tempfile in a formatted way so that grepl is easy
   xml_str <- xml_document_to_chrs(x$doc_obj$get())
   xml_str <- process_sections_content(x, xml_str)
-  xml_str <- process_stylenames(xml_str, x$styles)
-  xml_str <- correct_id_in_chrs(xml_str)
+  xml_str <- process_footnotes_content(x$doc_obj, footnotes = x$footnotes, xml_str)
+  xml_str <- process_comments_content(x$doc_obj, comments = x$comments, xml_str)
+  xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+  xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$doc_obj)
+  xml_str <- fix_img_refs_in_wml(xml_str, x$doc_obj, x$doc_obj$relationship(), x$package_dir)
+  xml_str <- fix_svg_refs_in_wml(xml_str, x$doc_obj, x$doc_obj$relationship(), x$package_dir)
+  # make all id unique for document
+  xml_str <- fix_empty_ids_in_wml(xml_str)
   x <- guess_and_set_even_and_odd_headers(x, xml_str)
 
-
   x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
-
-  test_has_comment <- any(grepl("w:commentReference", xml_str, fixed = TRUE))
-  if (test_has_comment) {
-    process_comments(x)
-  }
-  test_has_footnote <- any(grepl("w:footnoteReference", xml_str, fixed = TRUE))
-  if (test_has_footnote) {
-    process_footnotes(x)
-  }
-  test_has_links <- any(grepl("w:hyperlink", xml_str, fixed = TRUE))
-  if (test_has_links) {
-    process_links(x$doc_obj, type = "wml")
-  }
 
   process_docx_poured(
     doc_obj = x$doc_obj,
@@ -200,32 +192,61 @@ print.rdocx <- function(x, target = NULL, ...) {
     content_type = x$content_type,
     package_dir = x$package_dir
   )
-  process_images(x$doc_obj, x$doc_obj$relationship(), x$package_dir)
-  process_images(x$footnotes, x$footnotes$relationship(), x$package_dir)
 
   x$headers <- update_hf_list(part_list = x$headers, type = "header", package_dir = x$package_dir)
   x$footers <- update_hf_list(part_list = x$footers, type = "footer", package_dir = x$package_dir)
-  for (header in x$headers) process_links(header, type = "wml")
-  for (footer in x$footers) process_links(footer, type = "wml")
-  for (header in x$headers) process_images(header, header$relationship(), x$package_dir)
-  for (footer in x$footers) process_images(footer, footer$relationship(), x$package_dir)
+
+  for (header in x$headers) {
+    xml_str <- xml_document_to_chrs(header$get())
+    xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+    xml_str <- fix_empty_ids_in_wml(xml_str)
+    xml_str <- fix_hyperlink_refs_in_wml(xml_str, header)
+    xml_str <- fix_img_refs_in_wml(xml_str, header, header$relationship(), x$package_dir)
+    xml_str <- fix_svg_refs_in_wml(xml_str, header, header$relationship(), x$package_dir)
+    tf_xml <- tempfile(fileext = ".txt")
+    writeLines(xml_str, tf_xml, useBytes = TRUE)
+    header$replace_xml(tf_xml)
+  }
+  for (footer in x$footers) {
+    xml_str <- xml_document_to_chrs(footer$get())
+    xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+    xml_str <- fix_empty_ids_in_wml(xml_str)
+    xml_str <- fix_hyperlink_refs_in_wml(xml_str, footer)
+    xml_str <- fix_img_refs_in_wml(xml_str, footer, footer$relationship(), x$package_dir)
+    xml_str <- fix_svg_refs_in_wml(xml_str, footer, footer$relationship(), x$package_dir)
+
+    tf_xml <- tempfile(fileext = ".txt")
+    writeLines(xml_str, tf_xml, useBytes = TRUE)
+    footer$replace_xml(tf_xml)
+  }
+  if (TRUE) {
+    xml_str <- xml_document_to_chrs(x$footnotes$get())
+    xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+    xml_str <- fix_empty_ids_in_wml(xml_str)
+    xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$footnotes)
+    xml_str <- fix_img_refs_in_wml(xml_str, x$footnotes, x$footnotes$relationship(), x$package_dir)
+    xml_str <- fix_svg_refs_in_wml(xml_str, x$footnotes, x$footnotes$relationship(), x$package_dir)
+
+    tf_xml <- tempfile(fileext = ".txt")
+    writeLines(xml_str, tf_xml, useBytes = TRUE)
+    x$footnotes$replace_xml(tf_xml)
+  }
+  if (TRUE) {
+    xml_str <- xml_document_to_chrs(x$comments$get())
+    xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+    xml_str <- fix_empty_ids_in_wml(xml_str)
+    xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$comments)
+    xml_str <- fix_img_refs_in_wml(xml_str, x$comments, x$comments$relationship(), x$package_dir)
+    xml_str <- fix_svg_refs_in_wml(xml_str, x$comments, x$comments$relationship(), x$package_dir)
+
+    tf_xml <- tempfile(fileext = ".txt")
+    writeLines(xml_str, tf_xml, useBytes = TRUE)
+    x$comments$replace_xml(tf_xml)
+  }
 
   int_id <- 1 # unique id identifier
-
-  # make all id unique for document
-  # int_id <- correct_id(x$doc_obj$get(), int_id)
-  # make all id unique for footnote
-  int_id <- correct_id(x$footnotes$get(), int_id)
   # make all id unique for footnote
   int_id <- correct_id(x$comments$get(), int_id)
-  # make all id unique for headers
-  for (docpart in x[["headers"]]) {
-    int_id <- correct_id(docpart$get(), int_id)
-  }
-  # make all id unique for footers
-  for (docpart in x[["footers"]]) {
-    int_id <- correct_id(docpart$get(), int_id)
-  }
 
   body <- xml_find_first(x$doc_obj$get(), "w:body")
 
@@ -533,8 +554,8 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
                "/docProps/custom.xml")
     )
     x$rel$add(id = paste0("rId", x$rel$get_next_id()),
-                type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties",
-                target = "docProps/custom.xml")
+              type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties",
+              target = "docProps/custom.xml")
 
     custom_props <- x$doc_properties_custom
     for(i in seq_along(values)) {

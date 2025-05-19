@@ -73,7 +73,7 @@ for (i in seq_len(50)) {
     context = z,
     fpar(
       "Hello World, ", i,
-      fp_p = fp_par(word_style = "Heading 1")),
+      fp_p = fp_par(word_style = "heading 1")),
     fpar(run_pagebreak())
   )
 }
