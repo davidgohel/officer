@@ -68,7 +68,7 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE) {
   run_str <- paste0(autonum, run_str)
 
   out <- sprintf(
-    "%s<w:pPr><w:pStyle w:stlname=\"%s\"/></w:pPr>%s</w:p>",
+    "%s<w:pPr><w:pStyle w:pstlname=\"%s\"/></w:pPr>%s</w:p>",
     open_tag,
     x$style,
     run_str
@@ -546,7 +546,7 @@ to_wml.table_stylenames <- function(x, add_ns = FALSE, dat, ...) {
   x$stylenames <- x$stylenames[names(x$stylenames) %in% colnames(dat)]
   stylenames <- modifyList(stylenames, val = x$stylenames)
   stylenames <- lapply(stylenames, function(x) {
-    sprintf("<w:pStyle w:stlname=\"%s\"/>", x)
+    sprintf("<w:pStyle w:pstlname=\"%s\"/>", x)
   })
   stylenames
 }
@@ -1340,7 +1340,7 @@ block_gg <- function(
     unit = unit
   )
 
-  class(out) <- c("block_gg")
+  class(out) <- c("block_gg", "block")
   return(out)
 }
 

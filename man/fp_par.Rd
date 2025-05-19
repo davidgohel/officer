@@ -2,6 +2,7 @@
 % Please edit documentation in R/formatting_properties.R
 \name{fp_par}
 \alias{fp_par}
+\alias{fp_par_lite}
 \alias{print.fp_par}
 \alias{update.fp_par}
 \title{Paragraph formatting properties}
@@ -23,6 +24,25 @@ fp_par(
   keep_with_next = FALSE,
   tabs = NULL,
   word_style = "Normal"
+)
+
+fp_par_lite(
+  text.align = NA,
+  padding = NA,
+  line_spacing = NA,
+  border = FALSE,
+  padding.bottom = NA,
+  padding.top = NA,
+  padding.left = NA,
+  padding.right = NA,
+  border.bottom = FALSE,
+  border.left = FALSE,
+  border.top = FALSE,
+  border.right = FALSE,
+  shading.color = NA,
+  keep_with_next = NA,
+  tabs = FALSE,
+  word_style = NA
 )
 
 \method{print}{fp_par}(x, ...)
@@ -84,6 +104,10 @@ a \code{fp_par} object
 \description{
 Create a \code{fp_par} object that describes
 paragraph formatting properties.
+
+Function \code{fp_par_lite()} is generating properties
+with only entries for the parameters users provided. The
+undefined properties will inherit from the default settings.
 }
 \examples{
 fp_par(text.align = "center", padding = 5)

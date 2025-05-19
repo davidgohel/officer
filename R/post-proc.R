@@ -73,13 +73,14 @@ process_images <- function(doc_obj, relationships, package_dir, media_dir = "wor
     xml_attr(which_to_add[which_match_id], "r:embed") <- rep(rid, sum(which_match_id))
   }
 }
+
 process_docx_poured <- function(
     doc_obj,
     relationships,
     content_type,
     package_dir,
     media_dir = "word"
-  ) {
+) {
 
   hl_nodes <- xml_find_all(
     doc_obj$get(), "//w:altChunk[@r:id]",
@@ -113,100 +114,6 @@ process_docx_poured <- function(
 }
 
 #' @importFrom xml2 xml_remove as_xml_document xml_parent xml_child
-process_footnotes <- function(x) {
-  footnotes <- x$footnotes
-  doc_obj <- x$doc_obj
-
-  rel <- doc_obj$relationship()
-
-  hl_nodes <- xml_find_all(doc_obj$get(), "//w:footnoteReference[@w:id]")
-  which_to_add <- hl_nodes[grepl("^footnote", xml_attr(hl_nodes, "id"))]
-  hl_ref <- xml_attr(which_to_add, "id")
-  for (i in seq_along(hl_ref)) {
-    next_id <- rel$get_next_id()
-    rel$add(
-      paste0("rId", next_id),
-      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes",
-      target = "footnotes.xml"
-    )
-
-    index <- length(xml_find_all(footnotes$get(), "w:footnote")) - 1
-    xml_attr(which_to_add[[i]], "w:id") <- index
-
-    run <- xml_parent(which_to_add[[i]])
-
-    run_rstyle <- xml_child(run, "w:rPr/w:rStyle")
-
-    styles <- styles_info(x, type = "character")
-    style_id <- xml_attr(run_rstyle, "val")
-    style_id <- styles$style_id[styles$style_name %in% style_id]
-
-    xml_attr(run_rstyle, "w:val") <- style_id
-
-    footnote <- xml_child(which_to_add[[i]], "w:footnote")
-    xml_attr(footnote, "w:id") <- index
-
-    footnote_rstyle <- xml_child(footnote, "w:p/w:r/w:rPr/w:rStyle")
-    xml_attr(footnote_rstyle, "w:val") <- style_id
-
-    newfootnote <- as_xml_document(as.character(footnote))
-    xml_remove(footnote)
-
-    xml_add_child(footnotes$get(), newfootnote)
-  }
-}
-
-#' @importFrom xml2 xml_remove as_xml_document xml_parent xml_child
-process_comments <- function(x) {
-  comments <- x$comments
-  doc_obj <- x$doc_obj
-
-  rel <- doc_obj$relationship()
-
-  cmt_ref_nodes <- xml_find_all(doc_obj$get(), "//w:commentReference[@w:id]")
-  cmt_start_nodes <- xml_find_all(doc_obj$get(), "//w:commentRangeStart[@w:id]")
-  cmt_end_nodes <- xml_find_all(doc_obj$get(), "//w:commentRangeEnd[@w:id]")
-  which_to_add <- cmt_ref_nodes[grepl("^comment", xml_attr(cmt_ref_nodes, "id"))]
-  which_to_add_start <- cmt_start_nodes[grepl("^comment", xml_attr(cmt_start_nodes, "id"))]
-  which_to_add_end <- cmt_end_nodes[grepl("^comment", xml_attr(cmt_end_nodes, "id"))]
-
-  cmt_ref <- xml_attr(which_to_add, "id")
-  for (i in seq_along(cmt_ref)) {
-    next_id <- rel$get_next_id()
-    rel$add(
-      paste0("rId", next_id),
-      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments",
-      target = "comments.xml"
-    )
-
-    index <- length(xml_find_all(comments$get(), "w:comment"))
-    xml_attr(which_to_add[[i]], "w:id") <- index
-    xml_attr(which_to_add_start[[i]], "w:id") <- index
-    xml_attr(which_to_add_end[[i]], "w:id") <- index
-
-    run <- xml_parent(which_to_add[[i]])
-
-    run_rstyle <- xml_child(run, "w:rPr/w:rStyle")
-
-    styles <- styles_info(x, type = "character")
-    style_id <- xml_attr(run_rstyle, "val")
-    style_id <- styles$style_id[styles$style_name %in% style_id]
-
-    xml_attr(run_rstyle, "w:val") <- style_id
-
-    comment <- xml_child(which_to_add[[i]], "w:comment")
-    xml_attr(comment, "w:id") <- index
-
-    comment_rstyle <- xml_child(comment, "w:p/w:r/w:rPr/w:rStyle")
-    xml_attr(comment_rstyle, "w:val") <- style_id
-
-    newcomment <- as_xml_document(as.character(comment))
-    xml_remove(comment)
-
-    xml_add_child(comments$get(), newcomment)
-  }
-}
-
 process_links <- function(doc_obj, type = "wml") {
   rel <- doc_obj$relationship()
   if ("wml" %in% type) {
@@ -229,32 +136,6 @@ process_links <- function(doc_obj, type = "wml") {
   }
 }
 
-process_stylenames <- function(xml_str, styles) {
-
-  m <- gregexpr("w:stlname=\"([^\"]+)\"", xml_str)
-  stylenames <- unique(unlist(regmatches(xml_str, m)))
-
-  if (length(stylenames) < 1) {
-    return(xml_str)
-  }
-
-  stylenames <- gsub("w:stlname=\"([^\"]+)\"", "\\1", stylenames)
-
-  if (!all(stylenames %in% styles$style_name)) {
-    missing_styles <- paste0(shQuote(unique(setdiff(stylenames, styles$style_name))), collapse = ", ")
-    stop("Some styles can not be found in the document: ", missing_styles)
-  }
-
-  styleids <- styles$style_id[match(stylenames, styles$style_name)]
-  for(i in seq_along(stylenames)) {
-    xml_str <- gsub(
-      sprintf("<w:pStyle w:stlname=\"%s\"/>", stylenames[i]),
-      sprintf("<w:pStyle w:val=\"%s\"/>", styleids[i]),
-      xml_str, fixed = TRUE)
-  }
-  xml_str
-
-}
 
 update_hf_list <- function(part_list = list(), type = "header", package_dir) {
 
@@ -276,4 +157,6 @@ update_hf_list <- function(part_list = list(), type = "header", package_dir) {
   names(new_list) <- basename(files)
   append(part_list, new_list)
 }
+
+
 

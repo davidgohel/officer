@@ -644,15 +644,15 @@ body_comment <- function(x,
     "</w:comment>"
   )
 
-  cmt_start_str <- sprintf("<w:commentRangeStart w:id=\"%s\" %s/>", id, ns_)
-  cmt_start_end <- sprintf("<w:commentRangeEnd %s w:id=\"%s\"/>", ns_, id)
+  cmt_start_str <- sprintf("<w:commentRangeStart w:officer=\"true\" w:id=\"%s\" %s/>", id, ns_)
+  cmt_start_end <- sprintf("<w:commentRangeEnd w:officer=\"true\" w:id=\"%s\" %s/>", id, ns_)
 
   path_ <- paste0(xml_path(cursor_elt), "//w:r")
 
   cmt_ref_xml <- paste0(
     open_tag,
     if (!is.null(x$pr)) rpr_wml(x$pr),
-    "<w:commentReference w:id=\"",
+    "<w:commentReference w:officer=\"true\" w:id=\"",
     id,
     "\">",
     cmt_xml,
@@ -958,7 +958,7 @@ body_add.gg <- function(x, value, width = 6, height = 5, res = 300, style = "Nor
 
   bl <- block_gg(
     value = value,
-    fp_p = fp_par(word_style = style),
+    fp_p = fp_par_lite(word_style = style),
     width = width,
     height = height,
     res = res,

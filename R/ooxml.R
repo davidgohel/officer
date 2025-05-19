@@ -324,35 +324,54 @@ ppr_wml <- function(x) {
     x$text.align <- "both"
   }
   pstyle <- ""
-  if (!is.null(x$word_style)) {
-    word_style_id <- gsub("[^a-zA-Z0-9]", "", x$word_style)
-    pstyle <- sprintf("<w:pStyle w:val=\"%s\"/>", word_style_id)
+  if (!is.null(x$word_style) && !is.na(x$word_style)) {
+    pstyle <- sprintf("<w:pStyle w:pstlname=\"%s\"/>", x$word_style)
   }
   tabs <- ""
-  if (!is.null(x$tabs)) {
+  if (!is.null(x$tabs) && !isFALSE(x$tabs)) {
     tabs <- to_wml(x$tabs)
   }
-  text_align_ <- sprintf("<w:jc w:val=\"%s\"/>", x$text.align)
+
+  text_align_ <- ""
+  if (!is.na(x$text.align)) {
+    text_align_ <- sprintf("<w:jc w:val=\"%s\"/>", x$text.align)
+  }
+
   keep_with_next <- ""
-  if (x$keep_with_next) {
+  if (isTRUE(x$keep_with_next)) {
     keep_with_next <- "<w:keepNext/>"
   }
-  borders_ <- paste0(
-    "<w:pBdr>",
-    border_wml(x$border.bottom, "bottom"),
-    border_wml(x$border.top, "top"),
-    border_wml(x$border.left, "left"),
-    border_wml(x$border.right, "right"), "</w:pBdr>"
-  )
 
-  leftright_padding <- sprintf(
-    "<w:ind w:left=\"%.0f\" w:right=\"%.0f\" w:firstLine=\"0\" w:firstLineChars=\"0\"/>",
-    x$padding.left * 20, x$padding.right * 20
-  )
-  topbot_spacing <- sprintf(
-    "<w:spacing w:after=\"%.0f\" w:before=\"%.0f\" w:line=\"%.0f\"/>",
-    x$padding.bottom * 20, x$padding.top * 20, x$line_spacing * 240
-  )
+  borders_ <- ""
+  if (!is.null(x$border.top) && !isFALSE(x$border.top) &&
+      !is.null(x$border.bottom) && !isFALSE(x$border.bottom) &&
+      !is.null(x$border.left) && !isFALSE(x$border.left) &&
+      !is.null(x$border.right) && !isFALSE(x$border.right)) {
+    borders_ <- paste0(
+      "<w:pBdr>",
+      border_wml(x$border.bottom, "bottom"),
+      border_wml(x$border.top, "top"),
+      border_wml(x$border.left, "left"),
+      border_wml(x$border.right, "right"), "</w:pBdr>"
+    )
+  }
+
+  leftright_padding <- ""
+  if (!is.na(x$padding.left) && !is.na(x$padding.right)) {
+    leftright_padding <- sprintf(
+      "<w:ind w:left=\"%.0f\" w:right=\"%.0f\" w:firstLine=\"0\" w:firstLineChars=\"0\"/>",
+      x$padding.left * 20, x$padding.right * 20
+    )
+  }
+
+  topbot_spacing <- ""
+  if (!is.na(x$padding.bottom) && !is.na(x$padding.top) && !is.na(x$line_spacing)) {
+    topbot_spacing <- sprintf(
+      "<w:spacing w:after=\"%.0f\" w:before=\"%.0f\" w:line=\"%.0f\"/>",
+      x$padding.bottom * 20, x$padding.top * 20, x$line_spacing * 240
+    )
+  }
+
   shading_ <- ""
   if (!is_transparent(x$shading.color)) {
     shading_ <- sprintf(

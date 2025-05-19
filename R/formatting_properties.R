@@ -6,6 +6,10 @@ check_spread_integer <- function(obj, value, dest) {
     for (i in dest) {
       obj[[i]] <- as.integer(value)
     }
+  } else if (length(value) == 1 && is.na(value)) {
+    for (i in dest) {
+      obj[[varname]] <- value
+    }
   } else {
     stop(varname, " must be a positive integer scalar.", call. = FALSE)
   }
@@ -745,27 +749,30 @@ fp_par <- function(
   out <- check_set_numeric(obj = out, line_spacing)
 
   # border checking
-  out <- check_spread_border(
-    obj = out,
-    border,
-    dest = c(
-      "border.bottom",
-      "border.top",
-      "border.left",
-      "border.right"
+  if (!is.null(border) && !isFALSE(border)) {
+    out <- check_spread_border(
+      obj = out,
+      border,
+      dest = c(
+        "border.bottom",
+        "border.top",
+        "border.left",
+        "border.right"
+      )
     )
-  )
+  }
 
-  if (!missing(border.top)) {
+
+  if (!missing(border.top) && !isFALSE(border.top)) {
     out <- check_set_border(obj = out, border.top)
   }
-  if (!missing(border.bottom)) {
+  if (!missing(border.bottom) && !isFALSE(border.bottom)) {
     out <- check_set_border(obj = out, border.bottom)
   }
-  if (!missing(border.left)) {
+  if (!missing(border.left) && !isFALSE(border.left)) {
     out <- check_set_border(obj = out, border.left)
   }
-  if (!missing(border.right)) {
+  if (!missing(border.right) && !isFALSE(border.right)) {
     out <- check_set_border(obj = out, border.right)
   }
 
@@ -780,6 +787,51 @@ fp_par <- function(
 
   out
 }
+
+
+#' @rdname fp_par
+#' @description Function `fp_par_lite()` is generating properties
+#' with only entries for the parameters users provided. The
+#' undefined properties will inherit from the default settings.
+#' @export
+fp_par_lite <- function(
+    text.align = NA,
+    padding = NA,
+    line_spacing = NA,
+    border = FALSE,
+    padding.bottom = NA,
+    padding.top = NA,
+    padding.left = NA,
+    padding.right = NA,
+    border.bottom = FALSE,
+    border.left = FALSE,
+    border.top = FALSE,
+    border.right = FALSE,
+    shading.color = NA,
+    keep_with_next = NA,
+    tabs = FALSE,
+    word_style = NA
+) {
+  fp_par(
+    text.align = text.align,
+    padding = padding,
+    line_spacing = line_spacing,
+    border = border,
+    padding.bottom = padding.bottom,
+    padding.top = padding.top,
+    padding.left = padding.left,
+    padding.right = padding.right,
+    border.bottom = border.bottom,
+    border.left = border.left,
+    border.top = border.top,
+    border.right = border.right,
+    shading.color = shading.color,
+    keep_with_next = keep_with_next,
+    tabs = tabs,
+    word_style = word_style
+  )
+}
+
 
 #' @export
 #' @importFrom grDevices col2rgb
@@ -809,6 +861,7 @@ to_wml.fp_par <- function(x, add_ns = FALSE, ...) {
 #' @rdname fp_par
 #' @export
 print.fp_par <- function(x, ...) {
+
   out <- data.frame(
     text.align = as.character(x$text.align),
     padding.top = as.character(x$padding.top),
@@ -820,15 +873,24 @@ print.fp_par <- function(x, ...) {
   out <- as.data.frame(t(out))
   names(out) <- "values"
   print(out)
-  cat("borders:\n")
-  borders <- rbind(
-    as.data.frame(unclass(x$border.top)),
-    as.data.frame(unclass(x$border.bottom)),
-    as.data.frame(unclass(x$border.left)),
-    as.data.frame(unclass(x$border.right))
-  )
-  row.names(borders) <- c("top", "bottom", "left", "right")
-  print(borders)
+  if (!is.null(x$border.top) && !isFALSE(x$border.top) &&
+      !is.null(x$border.bottom) && !isFALSE(x$border.bottom) &&
+      !is.null(x$border.left) && !isFALSE(x$border.left) &&
+      !is.null(x$border.right) && !isFALSE(x$border.right)) {
+    cat("borders:\n")
+    borders <- rbind(
+      as.data.frame(unclass(x$border.top)),
+      as.data.frame(unclass(x$border.bottom)),
+      as.data.frame(unclass(x$border.left)),
+      as.data.frame(unclass(x$border.right))
+    )
+    row.names(borders) <- c("top", "bottom", "left", "right")
+    print(borders)
+  } else {
+    cat("no borders!\n")
+  }
+
+
 }
 
 
