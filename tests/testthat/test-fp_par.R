@@ -140,3 +140,17 @@ test_that("wml shading.color", {
   shd <- xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:shd"), "fill")
   expect_equal(shd, "FF0000")
 })
+
+test_that("fp_par_lite", {
+  wml <- format(fp_par_lite(), type = "wml")
+  expect_equal(wml, "<w:pPr></w:pPr>")
+  wml <- format(fp_par_lite(word_style = "dummy"), type = "wml")
+  expect_equal(wml, "<w:pPr><w:pStyle w:pstlname=\"dummy\"/></w:pPr>")
+  wml <- format(fp_par_lite(text.align = "center"), type = "wml")
+  expect_equal(wml, "<w:pPr><w:jc w:val=\"center\"/></w:pPr>")
+  wml <- format(fp_par_lite(word_style = "dummy", text.align = "center"), type = "wml")
+  expect_equal(wml, "<w:pPr><w:pStyle w:pstlname=\"dummy\"/><w:jc w:val=\"center\"/></w:pPr>")
+})
+
+
+

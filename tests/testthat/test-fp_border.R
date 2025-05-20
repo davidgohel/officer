@@ -45,6 +45,11 @@ test_that("pml fp_border", {
   expect_false(inherits(col, "xml_missing"))
 })
 
+test_that("print fp_border", {
+  x <- fp_border()
+  expect_output(print(x))
+})
+
 
 wml_border_node <- function(x, side = "bottom") {
   x <- fp_cell(border = x)

@@ -9,6 +9,11 @@
 - New function `block_gg()` to add a ggplot object to a Word document. It is 
   handy when the user wants to add a ggplot object to a Word document with 
   new function `write_elements_to_context()`.
+- New function `fp_par_lite()` to create a paragraph formatting object with only the 
+  properties that are needed. It is useful when the user wants to create a 
+  paragraph object with only the properties that are needed and not all the 
+  properties. It can also be used to create a paragraph formatting object 
+  that reuse a style but with some modifications.
   
 
 ## Performances
