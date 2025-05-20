@@ -11,7 +11,6 @@
   new function `write_elements_to_context()`.
   
 
-
 ## Performances
 
 - Refactored `body_add.block_list()` to speed up the process of adding a block 
@@ -37,6 +36,10 @@
 - `plot_layout_properties()` now shows the default layout, if one is set and there are not slides yet (#645)
 - Default page size is now set to exact A4 format for Word documents: `11906 / 1440` and `16838 / 1440` 
 instead of `21 / 2.54` and `29.7 / 2.54`.
+
+## Changes
+
+- Deprecate function `docx_reference_img()` as it is no longer useful..
 
 # officer 0.6.8
 
