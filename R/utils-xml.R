@@ -1,9 +1,20 @@
 xml_document_to_chrs <- function(xml_doc) {
   # Write the XML document to a temporary file
-  con <- textConnection(as.character(xml_doc))
-  xml_str <- readLines(con)
-  close(con)
+  tf <- tempfile(fileext = ".xml")
+  write_xml(xml_doc, options = c("format"), file = tf)
+  # Read the XML file as a character vector
+  xml_str <- readLines(tf)
   xml_str <- gsub("^[[:blank:]]+", "", xml_str)
+  # Prepend newlines to the XML string
+  # where the opening tags are found
+  m <- gregexpr("(?=<[^/])", xml_str, perl = TRUE)
+  regmatches(xml_str, m) <- "\n"
+  # The following can be replaced with gregexpr()
+  # but there is minor performance gain with the following
+  writeLines(xml_str, tf, useBytes = TRUE)
+  xml_str <- readLines(tf)
+
+  xml_str <- xml_str[xml_str != ""]
   xml_str
 }
 
@@ -99,8 +110,8 @@ fix_img_refs_in_wml <- function(
   media_dir = "word/media",
   media_rel_dir = "media"
 ) {
-  has_match <- grepl("<a:blip cstate=\"print\" r:embed=\"[^\"]+\"/>", xml_str) &
-    !grepl("<a:blip cstate=\"print\" r:embed=\"rId[0-9]+\"/>", xml_str)
+  has_match <- grepl("<a:blip r:embed=\"[^\"]+\"/>", xml_str) &
+    !grepl("<a:blip r:embed=\"rId[0-9]+\"/>", xml_str)
   if (!any(has_match)) {
     return(xml_str)
   }
@@ -108,7 +119,7 @@ fix_img_refs_in_wml <- function(
   img_nodes_chr <- xml_str[has_match]
 
   path_values <- gsub(
-    "<a:blip cstate=\"print\" r:embed=\"([^\"]+)\"/>",
+    "<a:blip r:embed=\"([^\"]+)\"/>",
     "\\1",
     img_nodes_chr
   )
@@ -130,8 +141,8 @@ fix_img_refs_in_wml <- function(
     path <- path_table[[i, "path"]]
     rid <- path_table[[i, "id"]]
     xml_str <- gsub(
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", path),
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", rid),
+      sprintf("<a:blip r:embed=\"%s\"/>", path),
+      sprintf("<a:blip r:embed=\"%s\"/>", rid),
       xml_str,
       fixed = TRUE
     )
@@ -217,11 +228,11 @@ fix_svg_refs_in_wml <- function(
     )
   }
 
-  has_match <- grepl("<a:blip cstate=\"print\" r:embed=\"[^\"]+\">", xml_str) &
-    !grepl("<a:blip cstate=\"print\" r:embed=\"rId[0-9]+\">", xml_str)
+  has_match <- grepl("<a:blip r:embed=\"[^\"]+\">", xml_str) &
+    !grepl("<a:blip r:embed=\"rId[0-9]+\">", xml_str)
   img_nodes_chr <- xml_str[has_match]
   img_path_values <- gsub(
-    "<a:blip cstate=\"print\" r:embed=\"([^\"]+)\">",
+    "<a:blip r:embed=\"([^\"]+)\">",
     "\\1",
     img_nodes_chr
   )
@@ -241,8 +252,8 @@ fix_svg_refs_in_wml <- function(
     path <- path_table[[i, "path"]]
     rid <- path_table[[i, "id"]]
     xml_str <- gsub(
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\">", path),
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\">", rid),
+      sprintf("<a:blip r:embed=\"%s\">", path),
+      sprintf("<a:blip r:embed=\"%s\">", rid),
       xml_str,
       fixed = TRUE
     )
@@ -342,15 +353,15 @@ convert_custom_styles_in_wml <- function(xml_str, styles) {
   for (i in seq_along(stylenames)) {
     if ("pstlname" %in% stylenames_types[i]) {
       xml_str <- gsub(
-        sprintf("<w:pStyle w:pstlname=\"%s\"/>", stylenames[i]),
-        sprintf("<w:pStyle w:val=\"%s\"/>", styleids[i]),
+        sprintf("w:pstlname=\"%s\"", stylenames[i]),
+        sprintf("w:val=\"%s\"", styleids[i]),
         xml_str,
         fixed = TRUE
       )
     } else if ("tstlname" %in% stylenames_types[i]) {
       xml_str <- gsub(
-        sprintf("<w:tblStyle w:tstlname=\"%s\"/>", stylenames[i]),
-        sprintf("<w:tblStyle w:val=\"%s\"/>", styleids[i]),
+        sprintf("w:tstlname=\"%s\"", stylenames[i]),
+        sprintf("w:val=\"%s\"", styleids[i]),
         xml_str,
         fixed = TRUE
       )
