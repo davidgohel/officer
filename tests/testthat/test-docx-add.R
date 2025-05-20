@@ -278,17 +278,20 @@ test_that("svg add", {
 })
 
 test_that("add docx into docx", {
+
+  file_1 <- tempfile(fileext = ".docx")
   img.file <- file.path(R.home("doc"), "html", "logo.jpg")
   doc <- read_docx()
   doc <- body_add_img(x = doc, src = img.file, height = 1.06, width = 1.39)
-  print(doc, target = "external_file.docx")
+  print(doc, target = file_1)
 
+  file_2 <- tempfile(fileext = ".docx")
   final_doc <- read_docx()
-  doc <- body_add_docx(x = doc, src = "external_file.docx")
-  print(doc, target = "final.docx")
+  doc <- body_add_docx(x = doc, src = file_1)
+  print(doc, target = file_2)
 
   new_dir <- tempfile()
-  unpack_folder("final.docx", folder = new_dir)
+  unpack_folder(file_2, folder = new_dir)
 
   doc_parts <- read_xml(file.path(new_dir, "[Content_Types].xml"))
   doc_parts <- xml_find_all(
