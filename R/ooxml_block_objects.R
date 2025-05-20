@@ -631,7 +631,7 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
         htmlEscapeCopy(x$word_description),
         "\"/>"
       ),
-    if (!is.na(style)) paste0("<w:tblStyle w:stlname=\"", style, "\"/>"),
+    if (!is.na(style)) paste0("<w:tblStyle w:tstlname=\"", style, "\"/>"),
     tbl_layout,
     sprintf("<w:jc w:val=\"%s\"/>", x$align),
     width,

@@ -101,7 +101,14 @@ docxtable_as_tibble <- function(node, styles, preserve = FALSE) {
     style_name <- NA
   } else {
     style_id <- xml_attr(style_node, "val")
-    row_details$style_name <- rep(styles$style_name[styles$style_id %in% style_id], nrow(row_details))
+    officer_style_name <- xml_attr(style_node, "tstlname")
+    if (!is.na(style_id)) {
+      row_details$style_name <- rep(styles$style_name[styles$style_id %in% style_id], nrow(row_details))
+    } else if (!is.na(officer_style_name)) {
+      row_details$style_name <- rep(officer_style_name, nrow(row_details))
+    } else {
+      row_details$style_name <- rep(NA_character_, nrow(row_details))
+    }
   }
   row_details$content_type <- rep("table cell", nrow(row_details))
   row_details$text[row_details$col_span < 1 | row_details$row_span < 1] <- NA_character_

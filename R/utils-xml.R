@@ -333,14 +333,15 @@ fix_hyperlink_refs_in_wml <- function(xml_str, doc_obj) {
 #' @return A character string (WML) with all custom style tags replaced by standard OOXML style references.
 #' @noRd
 convert_custom_styles_in_wml <- function(xml_str, styles) {
-  m <- gregexpr("w:pstlname=\"([^\"]+)\"", xml_str)
+  m <- gregexpr("w:(pstlname|tstlname)=\"([^\"]+)\"", xml_str)
   stylenames <- unique(unlist(regmatches(xml_str, m)))
 
   if (length(stylenames) < 1) {
     return(xml_str)
   }
 
-  stylenames <- gsub("w:pstlname=\"([^\"]+)\"", "\\1", stylenames)
+  stylenames_types <- gsub("w:(pstlname|tstlname)=\"([^\"]+)\"", "\\1", stylenames)
+  stylenames <- gsub("w:(pstlname|tstlname)=\"([^\"]+)\"", "\\2", stylenames)
 
   if (!all(stylenames %in% styles$style_name)) {
     missing_styles <- paste0(
@@ -352,12 +353,21 @@ convert_custom_styles_in_wml <- function(xml_str, styles) {
 
   styleids <- styles$style_id[match(stylenames, styles$style_name)]
   for (i in seq_along(stylenames)) {
-    xml_str <- gsub(
-      sprintf("<w:pStyle w:pstlname=\"%s\"/>", stylenames[i]),
-      sprintf("<w:pStyle w:val=\"%s\"/>", styleids[i]),
-      xml_str,
-      fixed = TRUE
-    )
+    if ("pstlname" %in% stylenames_types[i]) {
+      xml_str <- gsub(
+        sprintf("<w:pStyle w:pstlname=\"%s\"/>", stylenames[i]),
+        sprintf("<w:pStyle w:val=\"%s\"/>", styleids[i]),
+        xml_str,
+        fixed = TRUE
+      )
+    } else if ("tstlname" %in% stylenames_types[i]) {
+      xml_str <- gsub(
+        sprintf("<w:tblStyle w:tstlname=\"%s\"/>", stylenames[i]),
+        sprintf("<w:tblStyle w:val=\"%s\"/>", styleids[i]),
+        xml_str,
+        fixed = TRUE
+      )
+    }
   }
   xml_str
 }

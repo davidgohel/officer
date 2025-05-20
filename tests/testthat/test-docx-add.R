@@ -377,11 +377,12 @@ test_that("body_add R objects", {
   doc <- body_add(doc, iris$Species[1:5])
   doc <- body_add(doc, 1:5)
   doc <- body_add(doc, fpar("hello"), style = "Normal")
-  doc <- body_add(doc, head(iris))
+  doc <- body_add(doc, head(iris), style = "table_template")
   docx_xml <- docx_body_xml(doc)
 
-  txt <- docx_summary(doc)$text
+  doc_summary <- docx_summary(doc)
 
+  txt <- doc_summary$text
   ref <- c("a", "b", "c", "d", "e", "setosa", "setosa", "setosa", "setosa",
            "setosa", "1", "2", "3", "4", "5", "hello", "Sepal.Length", "5.1",
            "4.9", "4.7", "4.6", "5.0", "5.4", "Sepal.Width", "3.5", "3.0",
@@ -391,4 +392,7 @@ test_that("body_add R objects", {
            "setosa", "setosa")
   expect_equal(txt, ref)
 
+  table_style_name <- doc_summary[doc_summary$content_type %in% "table cell", "style_name"]
+  table_style_name <- unique(table_style_name)
+  expect_equal(table_style_name, "table_template")
 })
