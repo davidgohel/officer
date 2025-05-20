@@ -5,8 +5,8 @@
 \title{Page size object}
 \usage{
 page_size(
-  width = 16838/1440,
-  height = 11906/1440,
+  width = 11906/1440,
+  height = 16838/1440,
   orient = "portrait",
   unit = "in"
 )

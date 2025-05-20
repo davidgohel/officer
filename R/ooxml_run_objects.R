@@ -701,8 +701,8 @@ inch_to_tweep <- function(x) round(x * 72 * 20, digits = 0)
 #' page_size(orient = "landscape")
 #' @family functions for section definition
 page_size <- function(
-  width = 16838 / 1440,
-  height = 11906 / 1440,
+  width = 11906 / 1440,
+  height = 16838 / 1440,
   orient = "portrait",
   unit = "in"
 ) {
@@ -1261,7 +1261,7 @@ temp_blipfill <- function(value, ns = "p") {
       "<",
       ns,
       ":blipFill>",
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\">", img_src),
+      sprintf("<a:blip r:embed=\"%s\">", img_src),
       "<a:extLst>",
       "<a:ext uri=\"{96DAC541-7B7A-43D3-8B79-37D633B846F1}\">",
       sprintf(
@@ -1281,7 +1281,7 @@ temp_blipfill <- function(value, ns = "p") {
       "<",
       ns,
       ":blipFill>",
-      sprintf("<a:blip cstate=\"print\" r:embed=\"%s\"/>", img_src),
+      sprintf("<a:blip r:embed=\"%s\"/>", img_src),
       "<a:stretch><a:fillRect/></a:stretch>",
       "</",
       ns,
