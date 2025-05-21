@@ -142,8 +142,12 @@ read_docx <- function(path = NULL) {
 #' file.
 #' @param x an rdocx object
 #' @param target path to the docx file to write
+#' @param copy_header_refs,copy_footer_refs logical, default is FALSE.
+#' If TRUE, copy the references to the header and footer in each section
+#' of the body of the document. This parameter is experimental and my change
+#' in a future version.
 #' @param ... unused
-print.rdocx <- function(x, target = NULL, ...) {
+print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE, copy_footer_refs = FALSE, ...) {
   if (is.null(target)) {
     cat("rdocx document with", length(x), "element(s)\n")
     cat("\n* styles:\n")
@@ -182,9 +186,16 @@ print.rdocx <- function(x, target = NULL, ...) {
   xml_str <- fix_svg_refs_in_wml(xml_str, x$doc_obj, x$doc_obj$relationship(), x$package_dir)
   # make all id unique for document
   xml_str <- fix_empty_ids_in_wml(xml_str)
+  if (copy_header_refs) {
+    xml_str <- copy_header_references_everywhere(x, xml_str = xml_str)
+  }
+  if (copy_footer_refs) {
+    xml_str <- copy_footer_references_everywhere(x, xml_str = xml_str)
+  }
   x <- guess_and_set_even_and_odd_headers(x, xml_str)
 
   x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
+
 
   process_docx_poured(
     doc_obj = x$doc_obj,

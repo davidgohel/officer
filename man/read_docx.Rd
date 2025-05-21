@@ -7,7 +7,13 @@
 \usage{
 read_docx(path = NULL)
 
-\method{print}{rdocx}(x, target = NULL, ...)
+\method{print}{rdocx}(
+  x,
+  target = NULL,
+  copy_header_refs = FALSE,
+  copy_footer_refs = FALSE,
+  ...
+)
 }
 \arguments{
 \item{path}{path to the docx file to use as base document.
@@ -16,6 +22,11 @@ read_docx(path = NULL)
 \item{x}{an rdocx object}
 
 \item{target}{path to the docx file to write}
+
+\item{copy_header_refs, copy_footer_refs}{logical, default is FALSE.
+If TRUE, copy the references to the header and footer in each section
+of the body of the document. This parameter is experimental and my change
+in a future version.}
 
 \item{...}{unused}
 }

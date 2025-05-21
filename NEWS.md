@@ -14,6 +14,10 @@
   paragraph object with only the properties that are needed and not all the 
   properties. It can also be used to create a paragraph formatting object 
   that reuse a style but with some modifications.
+- Function `print.rdocx()` gains new arguments `copy_header_refs` and 
+  `copy_footer_refs` to copy header and footer references from the
+  default section to other sections. This should be useful when the user
+  wants to add sections but also propagate the header and footer references.
   
 
 ## Performances
