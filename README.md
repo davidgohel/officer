@@ -121,10 +121,9 @@ install.packages("officer")
 
 ## Getting help
 
-If you have questions about how to use the package, [visit Stack
-Overflow’s `officer`
-tag](https://stackoverflow.com/questions/tagged/officer) and post your
-question there. I usually read them and answer when possible.
+If you have questions about how to use the package, visit Stack
+Overflow’s `officer` tag and post your question there. I usually read
+them and answer when possible.
 
 ## Contributing to the package
 
