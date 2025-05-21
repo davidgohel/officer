@@ -559,12 +559,18 @@ extract_comments <- function(x, xml_str, index) {
     MoreArgs = list(str = xml_str),
     SIMPLIFY = FALSE
   )
-  content_chrs <- unlist(content_chrs)
+  content_chrs <- unlist(content_chrs) %||% character(0)
 
   ids <- sprintf(
     "%.0f",
     seq(from = index, along.with = content_chrs)
   )
+
+  if (length(ids) < 1) {
+    reference_positions <- integer(0)
+    range_start_positions <- integer(0)
+    range_end_positions <- integer(0)
+  }
 
   comment_sections <- data.frame(
     content_section = content_chrs,
@@ -606,13 +612,16 @@ extract_footnotes <- function(x, xml_str, index) {
     MoreArgs = list(str = xml_str),
     SIMPLIFY = FALSE
   )
-  content_chrs <- unlist(content_chrs)
+  content_chrs <- unlist(content_chrs) %||% character(0)
 
   rids <- sprintf(
     "%.0f",
     seq(from = index, along.with = content_chrs)
   )
 
+  if (length(rids) < 1) {
+    reference_positions <- integer(0)
+  }
   footnote_sections <- data.frame(
     content_section = content_chrs,
     rid = rids,
