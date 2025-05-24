@@ -145,5 +145,5 @@ test_that("fp_text_lite and rtf", {
   x <- fp_text_lite(vertical.align = "superscript", font.size = 12)
   expect_equal(format(x, type = "rtf"), "\\super\\up6\\fs24 ")
   x <- fp_text_lite(vertical.align = "subscript", font.size = 12)
-  expect_equal(format(x, type = "rtf"), "\\sub\\up6\\fs24 ")
+  expect_equal(format(x, type = "rtf"), "\\sub\\dn6\\fs24 ")
 })
