@@ -1,4 +1,10 @@
-# officer 0.6.9 (development version)
+# officer 0.6.10
+
+## Issues
+
+- Fix RTF generation so that `fp_par_lite()` works also for RTF output.
+
+# officer 0.6.9
 
 ## Features
 

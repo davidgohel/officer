@@ -273,19 +273,36 @@ border_css <- function(x, side) {
 
 # ppr ----
 ppr_pml <- function(x) {
-  align <- " algn=\"r\""
-  if (x$text.align == "left") {
-    align <- " algn=\"l\""
-  } else if (x$text.align == "center") {
-    align <- " algn=\"ctr\""
-  } else if (x$text.align == "justify") {
-    align <- " algn=\"just\""
-  }
-  leftright_padding <- sprintf(" marL=\"%.0f\" marR=\"%.0f\"", x$padding.left * 12700, x$padding.right * 12700)
-  top_padding <- sprintf("<a:spcBef><a:spcPts val=\"%.0f\" /></a:spcBef>", x$padding.top * 100)
-  bottom_padding <- sprintf("<a:spcAft><a:spcPts val=\"%.0f\" /></a:spcAft>", x$padding.bottom * 100)
 
-  line_spacing <- sprintf("<a:lnSpc><a:spcPct val=\"%.0f\"/></a:lnSpc>", x$line_spacing * 100000)
+  align <- ""
+  if (!is.na(x$text.align)) {
+    align <- " algn=\"r\""
+    if (x$text.align == "left") {
+      align <- " algn=\"l\""
+    } else if (x$text.align == "center") {
+      align <- " algn=\"ctr\""
+    } else if (x$text.align == "justify") {
+      align <- " algn=\"just\""
+    }
+  }
+
+  leftright_padding <- ""
+  if (!is.na(x$padding.left) && !is.na(x$padding.right)) {
+    leftright_padding <- sprintf(" marL=\"%.0f\" marR=\"%.0f\"", x$padding.left * 12700, x$padding.right * 12700)
+  }
+
+  top_padding <- ""
+  if (!is.na(x$padding.top)) {
+    top_padding <- sprintf("<a:spcBef><a:spcPts val=\"%.0f\" /></a:spcBef>", x$padding.top * 100)
+  }
+  bottom_padding <- ""
+  if (!is.na(x$padding.bottom)) {
+    bottom_padding <- sprintf("<a:spcAft><a:spcPts val=\"%.0f\" /></a:spcAft>", x$padding.bottom * 100)
+  }
+  line_spacing <- ""
+  if (!is.na(x$line_spacing)) {
+    line_spacing <- sprintf("<a:lnSpc><a:spcPct val=\"%.0f\"/></a:lnSpc>", x$line_spacing * 100000)
+  }
 
   paste0(
     "<a:pPr", align, leftright_padding, ">",

@@ -123,3 +123,27 @@ test_that("tcpr_rtf is retrieved by format", {
 
   expect_true(grepl("clvertalc", format(fp_c, "rtf")))
 })
+
+test_that("to_rtf with fp_par_lite", {
+  x <- fpar("hello", fp_p = fp_par_lite())
+  expect_equal(to_rtf(x), "{hello\\par}")
+  x <- fpar("hello", fp_p = fp_par_lite(text.align = "center"))
+  expect_equal(to_rtf(x), "{\\pard\\qc hello\\par}")
+})
+
+test_that("border_rtf", {
+  x <- fp_border()
+  expect_equal(border_rtf(x, side = "right"), "\\clbrdrr\\brdrs\\brdrw20%ftlinecolor:black%")
+  expect_equal(border_rtf(x, side = "left"), "\\clbrdrl\\brdrs\\brdrw20%ftlinecolor:black%")
+  expect_equal(border_rtf(x, side = "top"), "\\clbrdrt\\brdrs\\brdrw20%ftlinecolor:black%")
+  expect_equal(border_rtf(x, side = "bottom"), "\\clbrdrb\\brdrs\\brdrw20%ftlinecolor:black%")
+})
+
+test_that("fp_text_lite and rtf", {
+  x <- fp_text_lite()
+  expect_equal(format(x, type = "rtf"), "")
+  x <- fp_text_lite(vertical.align = "superscript", font.size = 12)
+  expect_equal(format(x, type = "rtf"), "\\super\\up6\\fs24 ")
+  x <- fp_text_lite(vertical.align = "subscript", font.size = 12)
+  expect_equal(format(x, type = "rtf"), "\\sub\\up6\\fs24 ")
+})

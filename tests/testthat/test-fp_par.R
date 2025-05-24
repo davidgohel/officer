@@ -55,6 +55,20 @@ test_that("format pml fp_par", {
   expect_equal(xml_attr(node, "marR"), as.character(12700 * 3))
 })
 
+test_that("format pml fp_par_lite", {
+  x <- fp_par_lite()
+  expect_equal(ppr_pml(x), "<a:pPr><a:buNone/></a:pPr>")
+  x <- fp_par_lite(text.align = "left")
+  expect_equal(ppr_pml(x), "<a:pPr algn=\"l\"><a:buNone/></a:pPr>")
+})
+
+test_that("format wml fp_par_lite", {
+  x <- fp_par_lite()
+  expect_equal(ppr_wml(x), "<w:pPr></w:pPr>")
+  x <- fp_par_lite(text.align = "left")
+  expect_equal(ppr_wml(x), "<w:pPr><w:jc w:val=\"left\"/></w:pPr>")
+})
+
 
 test_that("format css fp_par", {
   x <- fp_par(text.align = "left")

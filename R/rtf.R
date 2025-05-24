@@ -31,7 +31,7 @@ to_rtf.fpar <- function(x, ...) {
   rtf_chunks <- lapply(chks, to_rtf)
   rtf_chunks$collapse <- ""
   rtf_chunks <- do.call(paste0, rtf_chunks)
-  paste0("{\\pard", ppr_rtf(x$fp_p), rtf_chunks, "\\par}")
+  paste0("{", ppr_rtf(x$fp_p), rtf_chunks, "\\par}")
 }
 
 #' @export
@@ -366,22 +366,25 @@ color_table <- function(colors) {
 
 ppr_rtf <- function(x) {
   text_align_ <- ""
-  if ("left" %in% x$text.align) {
-    text_align_ <- "\\ql"
-  } else if ("center" %in% x$text.align) {
-    text_align_ <- "\\qc"
-  } else if ("right" %in% x$text.align) {
-    text_align_ <- "\\qr"
-  } else if ("justified" %in% x$text.align) {
-    text_align_ <- "\\qj"
+  if (!is.na(x$text.align)) {
+    if ("left" %in% x$text.align) {
+      text_align_ <- "\\ql"
+    } else if ("center" %in% x$text.align) {
+      text_align_ <- "\\qc"
+    } else if ("right" %in% x$text.align) {
+      text_align_ <- "\\qr"
+    } else if ("justified" %in% x$text.align) {
+      text_align_ <- "\\qj"
+    }
   }
+
   tabs <- ""
-  if (!is.null(x$tabs) && length(x$tabs) > 0) {
+  if (!is.null(x$tabs) && length(x$tabs) > 0 && !isFALSE(x$tabs)) {
     tabs <- paste0(sapply(x$tabs, rtf_fp_tab), collapse = "")
   }
 
   keep_with_next <- ""
-  if (x$keep_with_next) {
+  if (isTRUE(x$keep_with_next)) {
     keep_with_next <- "\\keepn"
   }
   leftright_padding <- ""
@@ -398,8 +401,14 @@ ppr_rtf <- function(x) {
       x$padding.bottom * 20, x$padding.top * 20
     )
   }
+
+  line_spacing <- ""
+  if (!is.na(x$line_spacing)) {
+    line_spacing <- sprintf("\\sl%.0f\\slmult1", 240 * x$line_spacing)
+  }
+
   out <- paste0(
-    sprintf("\\sl%.0f\\slmult1", 240 * x$line_spacing),
+    line_spacing,
     text_align_,
     tabs,
     keep_with_next,
@@ -407,7 +416,7 @@ ppr_rtf <- function(x) {
     leftright_padding
   )
   if (nchar(out) > 0) {
-    out <- paste0(out, " ")
+    out <- paste0("\\pard", out, " ")
   }
   out
 }
@@ -437,10 +446,10 @@ rpr_rtf <- function(x) {
     }
   }
 
-  if (x$vertical.align == "superscript") {
-    out <- paste0(out, "\\super\\up", round(x$font.size / 2))
-  } else if (x$vertical.align == "subscript") {
-    out <- paste0(out, "\\sub\\dn", round(x$font.size / 2))
+  if (x$vertical.align == "superscript" && !is.na(x$font.size)) {
+    out <- paste0(out, sprintf("\\super\\up%.0f", round(x$font.size / 2)))
+  } else if (x$vertical.align == "subscript" && !is.na(x$font.size)) {
+    out <- paste0(out, sprintf("\\sub\\dn%.0f", round(x$font.size / 2)))
   }
 
   if (!is.na(x$font.size)) {
