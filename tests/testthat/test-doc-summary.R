@@ -137,12 +137,26 @@ test_that("detailed summary", {
     str = xml_elt
   )
 
+  # #662
+  xml_elt <- paste0(
+    officer:::wp_ns_yes,
+    "<w:pPr><w:pStyle w:val=\"Normal\"/></w:pPr>",
+    "<w:r><w:rPr><w:u/><w:sz/><w:szCs/><w:color/><w:shd/></w:rPr><w:t>no attributes</w:t></w:r>",
+    "<w:r><w:rPr><w:shd w:val=\"clear\"/></w:rPr><w:t>shading wo color and fill</w:t></w:r>",
+    "</w:p>"
+  )
+
+  doc <- officer:::body_add_xml(
+    x = doc,
+    str = xml_elt
+  )
+
   doc_sum <- docx_summary(doc, detailed = TRUE)
 
   expect_true("run" %in% names(doc_sum))
   expect_type(doc_sum$run, "list")
-  expect_equal(lengths(doc_sum$run), rep(12, 5))
-  expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1, 8))
+  expect_equal(lengths(doc_sum$run), rep(12, 6))
+  expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1, 8, 2))
 
   expect_true(all(sapply(doc_sum$run$bold, is.logical)))
   expect_true(all(sapply(doc_sum$run$italic, is.logical)))
