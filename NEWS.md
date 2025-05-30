@@ -3,6 +3,8 @@
 ## Issues
 
 - Fix RTF generation so that `fp_par_lite()` works also for RTF output.
+- Fix `doc_summary(... detailed=TRUE)` when the runs has a shading (w:shd) with 
+a fill but no color attribute.
 
 # officer 0.6.9
 
