@@ -23,7 +23,9 @@ set_doc_properties(
 \item{created}{a date object}
 
 \item{...}{named arguments (names are field names), each element is a single
-character value specifying value associated with the corresponding field name.}
+character value specifying value associated with the corresponding field name.
+These pairs of \emph{key-value} are added as custom properties. If a value is
+\code{NULL} or \code{NA}, the corresponding field is set to '' in the document properties.}
 
 \item{values}{a named list (names are field names), each element is a single
 character value specifying value associated with the corresponding field name.

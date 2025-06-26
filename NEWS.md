@@ -1,3 +1,10 @@
+# officer 0.7.0
+
+## Issues
+
+- Function `set_doc_properties()` now supports NULL and NA custom properties in 
+a Word document.
+
 # officer 0.6.10
 
 ## Issues
