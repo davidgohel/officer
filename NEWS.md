@@ -5,6 +5,8 @@
 - Fix RTF generation so that `fp_par_lite()` works also for RTF output.
 - Fix `doc_summary(... detailed=TRUE)` when the runs has a shading (w:shd) with 
 a fill but no color attribute.
+- `plot_layout_properties()`: new `slide_idx` arg to specify which slide’s layout 
+  to plot. The plot title now also contains the master's name (#666)
 
 # officer 0.6.9
 

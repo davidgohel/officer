@@ -121,7 +121,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @param layout slide layout name or numeric index (row index from [layout_summary()]. If `NULL` (default), it plots
 #'   the current slide's layout or the default layout (if set and there are not slides yet).
 #' @param master master layout name where `layout` is located. Can be omitted if layout is unambiguous.
-#' @param title if `TRUE` (default), adds a title with the layout name at the top.
+#' @param slide_idx Numeric slide index (default `NULL`) to specify which slide’s layout should be plotted.
+#' @param title if `TRUE` (default), adds a title with the layout and master name (latter in square brackets) at the top.
 #' @param labels if `TRUE` (default), adds placeholder labels (centered in *red*).
 #' @param type if `TRUE` (default), adds the placeholder type and its index (in square brackets)
 #'   in the upper left corner (in *blue*).
@@ -136,7 +137,8 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @family functions for reading presentation information
 #' @example inst/examples/example_plot_layout_properties.R
 #'
-plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRUE, title = TRUE, type = TRUE,
+plot_layout_properties <- function(x, layout = NULL, master = NULL, slide_idx = NULL,
+                                   labels = TRUE, title = TRUE, type = TRUE,
                                    id = TRUE, cex = c(labels = .5, type = .5, id = .5), legend = FALSE) {
   stop_if_not_rpptx(x, "x")
   loffset <- ifelse(legend, 1, 0) # make space for legend at top
@@ -159,9 +161,12 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
     .ld <- get_layout_default(x)
     la <- get_layout(x, layout = .ld$layout, master = .ld$master)
     cli::cli_inform(c("i" = "Showing default layout: {.val {la$layout_name}}"))
-  } else if (is.null(layout) && is.null(master) && length(x) > 0) { # use current slides layout as default (if layout and master are NULL)
+  } else if (is.null(layout) && is.null(master) && length(x) > 0 && is.null(slide_idx)) { # use current slides layout as default
     la <- get_layout_for_current_slide(x)
     cli::cli_inform(c("i" = "Showing current slide's layout: {.val {la$layout_name}}"))
+  } else if (is.null(layout) && is.null(master) && length(x) > 0 && !is.null(slide_idx)) { # use layout for selected slide
+    la <- get_slide_layout(x, slide_idx = slide_idx)
+    cli::cli_inform(c("i" = "Showing layout of slide {.val {slide_idx}}: {.val {la$layout_name}}"))
   } else {
     la <- get_layout(x, layout, master, layout_by_id = TRUE)
   }
@@ -181,7 +186,7 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, labels = TRU
   mtext("x [inch]", side = 1, line = 0, cex = .9, col = "darkgrey")
 
   if (title) {
-    title(main = paste("Layout:", la$layout_name), line = 0 + loffset)
+    title(main = paste0(la$layout_name, " [", la$master_name, "]"), line = 0 + loffset)
   }
   if (labels) { # centered
     text(x = offx + cx / 2, y = -(offy + cy / 2), labels = dat$ph_label, cex = .cex$labels, col = "red", adj = c(.5, 1)) # adj-vert: avoid interference with type/id in small phs
