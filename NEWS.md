@@ -1,3 +1,9 @@
+# officer 0.7.0 (dev version)
+
+## Issues
+
+* `phs_with()` and `add_slide()` now have a more informative error message if the ph label is unknown (#672)
+
 # officer 0.6.10
 
 ## Issues
