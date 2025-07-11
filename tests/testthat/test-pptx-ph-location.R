@@ -300,7 +300,7 @@ test_that("pptx ph labels", {
   file <- test_path("docs_dir/test-no-placeholders-in-layout.pptx")
   x <- read_pptx(file)
   expect_error({
-      x <- x |> add_slide("layout_without_placeholders", xxx = "abc")
+      x |> add_slide("layout_without_placeholders", xxx = "abc")
     }, regex = "The layout has no placeholders!"
   )
 
@@ -309,6 +309,14 @@ test_that("pptx ph labels", {
       x |> phs_with(xxx = "abc")
     }, regex = "The layout has no placeholders!"
   )
+
+  # edge case: duplicate labels
+  expect_error({
+    file <- test_path("docs_dir", "test-pptx-dedupe-ph.pptx")
+    x <- read_pptx(file)
+    x <- x |> add_slide("2x2-dupes")
+    x |> phs_with(Content = "xxx")
+  }, regex = 'Placeholder "Content" label in layout "2x2-dupes" is duplicated.')
 })
 
 
