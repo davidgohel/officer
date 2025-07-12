@@ -433,18 +433,31 @@ fortify_location.location_label <- function(x, doc, ...) {
   layout <- unique(xfrm$name)
   master <- unique(xfrm$master_name)
 
-  props <- layout_properties(doc, layout = layout, master = master)
-  props <- props[props$ph_label %in% x$ph_label, , drop = FALSE]
+  props_all <- layout_properties(doc, layout = layout, master = master)
+
+  if (nrow(props_all) == 0) {
+    cli::cli_abort(c(
+      "ph label {.val {x$ph_label}} does not exist",
+      "x" = "The layout has no placeholders!"
+    ), call = NULL)
+  }
+
+  props <- props_all[props_all$ph_label %in% x$ph_label, , drop = FALSE]
 
   if (nrow(props) < 1) {
-    stop("no selected row")
+    cli::cli_abort(c(
+      "ph label {.val {x$ph_label}} does not exist",
+      "x" = "layout {.val {layout}} has ph labels: {.val {props_all$ph_label}}",
+      "i" = "See {.fn plot_layout_properties} for details"
+    ), call = NULL)
   }
 
   if (nrow(props) > 1) {
-    stop(
-      "Placeholder ", shQuote(x$ph_label),
-      " in the slide layout is duplicated. It needs to be unique. Hint: layout_dedupe_ph_labels() helps handling duplicates."
-    )
+    cli::cli_abort(c(
+      "Placeholder {.val {x$ph_label}} label in layout {.val {layout}} is duplicated.",
+      "x" = "A layout's ph labels must be unique." ,
+      "i" = "{.fn layout_dedupe_ph_labels} helps handling duplicates."
+    ), call = NULL)
   }
 
   props <- props[, c("offx", "offy", "cx", "cy", "ph_label", "ph", "type", "rotation", "fld_id", "fld_type")]
