@@ -527,6 +527,8 @@ doc_properties <- function(x) {
 #' @param created a date object
 #' @param ... named arguments (names are field names), each element is a single
 #' character value specifying value associated with the corresponding field name.
+#' These pairs of *key-value* are added as custom properties. If a value is
+#' `NULL` or `NA`, the corresponding field is set to '' in the document properties.
 #' @param values a named list (names are field names), each element is a single
 #' character value specifying value associated with the corresponding field name.
 #' If `values` is provided, argument `...` will be ignored.
@@ -540,9 +542,16 @@ doc_properties <- function(x) {
 #'   glop = "pas glop")
 #' x <- doc_properties(x)
 #' @family functions for Word document informations
-set_doc_properties <- function( x, title = NULL, subject = NULL,
-                                creator = NULL, description = NULL, created = NULL,
-                                ..., values = NULL){
+set_doc_properties <- function(
+    x,
+    title = NULL,
+    subject = NULL,
+    creator = NULL,
+    description = NULL,
+    created = NULL,
+    ...,
+    values = NULL
+  ){
 
   if( inherits(x, "rdocx"))
     cp <- x$doc_properties
@@ -570,7 +579,28 @@ set_doc_properties <- function( x, title = NULL, subject = NULL,
 
     custom_props <- x$doc_properties_custom
     for(i in seq_along(values)) {
-      custom_props[names(values)[i], 'value'] <- enc2utf8(values[[i]])
+      .value. <- ""
+      if (!is.null(values[[i]]) &&
+          length(values[[i]]) == 1 &&
+          !is.na(values[[i]])) {
+        .value. <- format(values[[i]])
+        .value. <- enc2utf8(.value.)
+      } else if (!is.null(values[[i]]) &&
+                 length(values[[i]]) == 1 &&
+                 is.na(values[[i]])) {
+        .value. <- ""
+      } else if (is.null(values[[i]])) {
+        .value. <- ""
+      } else if (length(values[[i]]) != 1) {
+        .value. <- ""
+        cli::cli_warn(
+          c(
+            "!" = "The value for property '{names(values)[i]}' is not a single character value.",
+            "i" = "It will be set to '' in the document properties"
+          )
+        )
+      }
+      custom_props[names(values)[i], 'value'] <- .value.
     }
     x$doc_properties_custom <- custom_props
   }

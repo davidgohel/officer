@@ -77,7 +77,13 @@ test_that("set docx properties", {
 test_that("set custom properties", {
   filename <- tempfile(fileext = ".docx")
   doc <- read_docx()
-  doc <- set_doc_properties(doc, coco = "coucou", zozo = "zuzu")
+  doc <- set_doc_properties(
+    doc,
+    coco = "coucou",
+    zozo = "zuzu",
+    isbn = NULL,
+    bozo = NA_character_
+  )
   print(doc, target = filename)
 
   doc <- read_docx(path = filename)
@@ -85,6 +91,8 @@ test_that("set custom properties", {
 
   expect_equal(properties$value[properties$tag %in% "coco"], "coucou")
   expect_equal(properties$value[properties$tag %in% "zozo"], "zuzu")
+  expect_equal(properties$value[properties$tag %in% "isbn"], "")
+  expect_equal(properties$value[properties$tag %in% "bozo"], "")
 
   filename <- tempfile(fileext = ".pptx")
   doc <- read_pptx()
