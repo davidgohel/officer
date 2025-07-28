@@ -4,6 +4,9 @@
 
 - Function `set_doc_properties()` now supports NULL and NA custom properties in 
 a Word document.
+- argument `separator` is not used anymore in `block_toc`. Now the Word field is 
+generated with no separator making it more portable over the different locales 
+Word users could have.
 
 # officer 0.6.10
 

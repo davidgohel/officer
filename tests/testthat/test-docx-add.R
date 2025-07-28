@@ -140,7 +140,7 @@ test_that("body_add_toc", {
   child_ <- getncheck(node, "w:r/w:fldChar[@w:fldCharType='end']")
 
   child_ <- getncheck(node, "w:r/w:instrText")
-  expect_equal(xml_text(child_), "TOC \\h \\z \\t \"Normal;1\"")
+  expect_equal(xml_text(child_), "TOC \\h \\z \\t \"Normal\"")
 
   expect_output(print(block_toc(level = 2)), "TOC - max level: 2")
   expect_output(
@@ -158,7 +158,7 @@ test_that("body_add_toc", {
   )
   expect_match(
     to_wml(block_toc(style = "Normal")),
-    "TOC \\\\h \\\\z \\\\t \"Normal;1\""
+    "TOC \\\\h \\\\z \\\\t \"Normal\""
   )
   expect_match(
     to_wml(block_toc(level = 2)),
