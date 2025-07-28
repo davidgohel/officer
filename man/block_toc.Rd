@@ -16,7 +16,7 @@ document that will be used to build entries of the TOC.}
 identifier in the document that will be used to build entries of the
 TOC. See also \code{\link[=run_autonum]{run_autonum()}} to specify a sequence identifier.}
 
-\item{separator}{\strong{unused/no effect}. optional. Some configurations need "," (i.e. from Canada) separator instead of ";"}
+\item{separator}{unused, no effect}
 }
 \description{
 Create a representation of a table

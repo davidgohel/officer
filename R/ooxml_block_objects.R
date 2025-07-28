@@ -118,7 +118,7 @@ to_wml.block_caption <- function(x, add_ns = FALSE, knitting = FALSE, ...) {
 #' @param seq_id optional. If not NULL, its value is used as sequence
 #' identifier in the document that will be used to build entries of the
 #' TOC. See also [run_autonum()] to specify a sequence identifier.
-#' @param separator **unused/no effect**. optional. Some configurations need "," (i.e. from Canada) separator instead of ";"
+#' @param separator unused, no effect
 #' @examples
 #' block_toc(level = 2)
 #' block_toc(style = "Table Caption")

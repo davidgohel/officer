@@ -369,7 +369,7 @@ body_add_table <- function(x, value, style = NULL, pos = "after", header = TRUE,
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @param style optional. style in the document that will be used to build entries of the TOC.
-#' @param separator optional. Some configurations need "," (i.e. from Canada) separator instead of ";"
+#' @param separator unused, no effect
 #' @examples
 #' doc <- read_docx()
 #' doc <- body_add_toc(doc)
@@ -377,7 +377,7 @@ body_add_table <- function(x, value, style = NULL, pos = "after", header = TRUE,
 #' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
 body_add_toc <- function(x, level = 3, pos = "after", style = NULL, separator = ";") {
-  bt <- block_toc(level = level, style = style, separator = separator)
+  bt <- block_toc(level = level, style = style)
   out <- to_wml(bt, add_ns = TRUE)
   body_add_xml(x = x, str = out, pos = pos)
 }
