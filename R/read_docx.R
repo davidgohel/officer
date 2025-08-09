@@ -509,6 +509,13 @@ doc_properties <- function(x) {
   out
 }
 
+is_string <- function(x) {
+  is.character(x) && length(x) == 1 && !is.na(x)
+}
+is_scalar_datetime <- function(x) {
+  inherits(x, "POSIXt") && length(x) == 1 && !is.na(x)
+}
+
 #' @export
 #' @title Set document properties
 #' @description set Word or PowerPoint document properties. These are not visible
@@ -550,19 +557,79 @@ set_doc_properties <- function(
     description = NULL,
     created = NULL,
     ...,
-    values = NULL
-  ){
-
-  if( inherits(x, "rdocx"))
+    values = NULL) {
+  if (inherits(x, "rdocx")) {
     cp <- x$doc_properties
-  else if( inherits(x, "rpptx")) cp <- x$core_properties
-  else stop("x should be a rpptx or rdocx object.")
+  } else if (inherits(x, "rpptx")) {
+    cp <- x$core_properties
+  } else {
+    stop("x should be a rpptx or rdocx object.")
+  }
 
-  if( !is.null(title) ) cp['title','value'] <- title
-  if( !is.null(subject) ) cp['subject','value'] <- subject
-  if( !is.null(creator) ) cp['creator','value'] <- creator
-  if( !is.null(description) ) cp['description','value'] <- description
-  if( !is.null(created) ) cp['created','value'] <- format( created, "%Y-%m-%dT%H:%M:%SZ")
+  if (!is.null(title)) {
+    if (!is_string(title)) {
+      cli::cli_warn(
+        c(
+          "!" = "The value for property 'title' is not a string.",
+          "i" = "It will be set to '' in the document properties"
+        )
+      )
+      title <- ""
+    }
+    cp["title", "value"] <- title
+  }
+
+  if (!is.null(subject)) {
+    if (!is_string(subject)) {
+      cli::cli_warn(
+        c(
+          "!" = "The value for property 'subject' is not a string.",
+          "i" = "It will be set to '' in the document properties"
+        )
+      )
+      subject <- ""
+    }
+    cp["subject", "value"] <- subject
+  }
+
+  if (!is.null(creator)) {
+    if (!is_string(creator)) {
+      cli::cli_warn(
+        c(
+          "!" = "The value for property 'creator' is not a string.",
+          "i" = "It will be set to '' in the document properties"
+        )
+      )
+      creator <- ""
+    }
+    cp["creator", "value"] <- creator
+  }
+
+  if (!is.null(description)) {
+    if (!is_string(description)) {
+      cli::cli_warn(
+        c(
+          "!" = "The value for property 'description' is not a string.",
+          "i" = "It will be set to '' in the document properties"
+        )
+      )
+      description <- ""
+    }
+    cp["description", "value"] <- description
+  }
+
+  if (!is.null(created)) {
+    if (!is_scalar_datetime(created)) {
+      cli::cli_warn(
+        c(
+          "!" = "The value for property 'created' is not a date-time.",
+          "i" = "It will not be set in the document properties"
+        )
+      )
+    } else {
+      cp["created", "value"] <- format(created, "%Y-%m-%dT%H:%M:%SZ")
+    }
+  }
 
   if (is.null(values)) {
     values <- list(...)
@@ -570,24 +637,28 @@ set_doc_properties <- function(
 
   if (length(values) > 0) {
     x$content_type$add_override(
-      setNames("application/vnd.openxmlformats-officedocument.custom-properties+xml",
-               "/docProps/custom.xml")
+      setNames(
+        "application/vnd.openxmlformats-officedocument.custom-properties+xml",
+        "/docProps/custom.xml"
+      )
     )
-    x$rel$add(id = paste0("rId", x$rel$get_next_id()),
-              type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties",
-              target = "docProps/custom.xml")
+    x$rel$add(
+      id = paste0("rId", x$rel$get_next_id()),
+      type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties",
+      target = "docProps/custom.xml"
+    )
 
     custom_props <- x$doc_properties_custom
-    for(i in seq_along(values)) {
+    for (i in seq_along(values)) {
       .value. <- ""
       if (!is.null(values[[i]]) &&
-          length(values[[i]]) == 1 &&
-          !is.na(values[[i]])) {
+        length(values[[i]]) == 1 &&
+        !is.na(values[[i]])) {
         .value. <- format(values[[i]])
         .value. <- enc2utf8(.value.)
       } else if (!is.null(values[[i]]) &&
-                 length(values[[i]]) == 1 &&
-                 is.na(values[[i]])) {
+        length(values[[i]]) == 1 &&
+        is.na(values[[i]])) {
         .value. <- ""
       } else if (is.null(values[[i]])) {
         .value. <- ""
@@ -600,14 +671,16 @@ set_doc_properties <- function(
           )
         )
       }
-      custom_props[names(values)[i], 'value'] <- .value.
+      custom_props[names(values)[i], "value"] <- .value.
     }
     x$doc_properties_custom <- custom_props
   }
 
-  if( inherits(x, "rdocx"))
+  if (inherits(x, "rdocx")) {
     x$doc_properties <- cp
-  else x$core_properties <- cp
+  } else {
+    x$core_properties <- cp
+  }
 
   x
 }
