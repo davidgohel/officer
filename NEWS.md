@@ -2,7 +2,8 @@
 
 ## Issues
 
-- improve `set_doc_properties()` error and warning messages.
+- Fix Rmd output with paragraphs `fpar()` so that no stylename is used.
+- Improve `set_doc_properties()` error and warning messages.
 - `page_size()` now manage correctly sizes if `orient = "landscape"` and not 
 `unit = "in"`.
 - `phs_with()` and `add_slide()` now have a more informative error message if 

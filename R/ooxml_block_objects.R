@@ -953,7 +953,7 @@ to_pml.block_table <- function(
 #'   fp_p = fp_par(text.align = "center") )
 #' @family block functions for reporting
 #' @seealso [block_list()], [body_add_fpar()], [ph_with()]
-fpar <- function(..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL) {
+fpar <- function(..., fp_p = fp_par(word_style = NA_character_), fp_t = fp_text_lite(), values = NULL) {
   out <- list()
 
   if (is.null(values)) {

@@ -5,7 +5,12 @@
 \alias{update.fpar}
 \title{Formatted paragraph}
 \usage{
-fpar(..., fp_p = fp_par(), fp_t = fp_text_lite(), values = NULL)
+fpar(
+  ...,
+  fp_p = fp_par(word_style = NA_character_),
+  fp_t = fp_text_lite(),
+  values = NULL
+)
 
 \method{update}{fpar}(object, fp_p = NULL, fp_t = NULL, ...)
 }
