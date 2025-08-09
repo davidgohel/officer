@@ -709,10 +709,16 @@ page_size <- function(
   is_null_width <- is.null(width)
   is_null_height <- is.null(height)
 
+  if (!is_null_width) {
+    width <- convin(unit = unit, x = width)
+  }
+  if (!is_null_height) {
+    height <- convin(unit = unit, x = height)
+  }
+
   if (is_null_width) {
     w <- NULL
   } else {
-    width <- convin(unit = unit, x = width)
     if (orient %in% "portrait") {
       w <- min(c(height, width))
     } else {
@@ -723,7 +729,6 @@ page_size <- function(
   if (is_null_height) {
     h <- NULL
   } else {
-    height <- convin(unit = unit, x = height)
     if (orient %in% "portrait") {
       h <- max(c(height, width))
     } else {
