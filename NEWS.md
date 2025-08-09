@@ -2,6 +2,7 @@
 
 ## Issues
 
+- `phs_with()` and `add_slide()` now have a more informative error message if the ph label is unknown (#672)
 - Function `set_doc_properties()` now supports NULL and NA custom properties in 
 a Word document.
 - argument `separator` is not used anymore in `block_toc`. Now the Word field is 

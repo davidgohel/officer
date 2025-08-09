@@ -249,6 +249,9 @@ test_that("pptx ph_location_id", {
 
 
 test_that("pptx ph labels", {
+  opts <- options(cli.num_colors = 1) # no colors for easier error message check
+  on.exit(options(opts))
+
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content", "Office Theme")
 
@@ -291,7 +294,29 @@ test_that("pptx ph labels", {
       value = "error if label does not exist",
       location = ph_location_label(ph_label = "xxx")
     )
-  })
+  }, regexp = 'ph label "xxx" does not exist')
+
+  # edge case: layout without any placeholders
+  file <- test_path("docs_dir/test-no-placeholders-in-layout.pptx")
+  x <- read_pptx(file)
+  expect_error({
+      x |> add_slide("layout_without_placeholders", xxx = "abc")
+    }, regex = "The layout has no placeholders!"
+  )
+
+  expect_error({
+      x <- x |> add_slide("layout_without_placeholders")
+      x |> phs_with(xxx = "abc")
+    }, regex = "The layout has no placeholders!"
+  )
+
+  # edge case: duplicate labels
+  expect_error({
+    file <- test_path("docs_dir", "test-pptx-dedupe-ph.pptx")
+    x <- read_pptx(file)
+    x <- x |> add_slide("2x2-dupes")
+    x |> phs_with(Content = "xxx")
+  }, regex = 'Placeholder "Content" label in layout "2x2-dupes" is duplicated.')
 })
 
 
