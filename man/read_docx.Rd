@@ -95,5 +95,6 @@ docx_file_2 <- print(doc_2, target = tempfile(fileext = ".docx"))
 
 }
 \seealso{
-\link{body_add_par}, \link{body_add_plot}, \link{body_add_table}
+\code{\link[=body_add_par]{body_add_par()}}, \code{\link[=body_add_plot]{body_add_plot()}}, \code{\link[=body_add_table]{body_add_table()}},
+\code{\link[=docx_set_settings]{docx_set_settings()}}, \code{\link[=set_doc_properties]{set_doc_properties()}}, \code{\link[=styles_info]{styles_info()}}
 }

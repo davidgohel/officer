@@ -44,7 +44,8 @@
 #' doc_2 <- body_add_plot(doc_2, pinst)
 #' docx_file_2 <- print(doc_2, target = tempfile(fileext = ".docx"))
 #'
-#' @seealso [body_add_par], [body_add_plot], [body_add_table]
+#' @seealso [body_add_par()], [body_add_plot()], [body_add_table()],
+#' [docx_set_settings()], [set_doc_properties()], [styles_info()]
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{read_docx_doc_1.png}{options: width=80\%}}
@@ -71,8 +72,8 @@ read_docx <- function(path = NULL) {
                    class = "rdocx"
   )
 
-  obj$settings <- update(
-    object = docx_settings(),
+  obj$settings <- update_docx_settings_from_file(
+    x = docx_settings(),
     file = file.path(package_dir, "word", "settings.xml")
   )
 
@@ -192,7 +193,6 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE, copy_footer_
   if (copy_footer_refs) {
     xml_str <- copy_footer_references_everywhere(x, xml_str = xml_str)
   }
-  x <- guess_and_set_even_and_odd_headers(x, xml_str)
 
   x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
 

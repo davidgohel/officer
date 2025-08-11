@@ -1,5 +1,11 @@
 # officer 0.7.0
 
+## Features
+
+- new function `docx_set_settings()` to set document settings of a Word document.
+This function can be used to specify if the document should handle odd and even headers and footers,
+to change the list separator, etc.
+
 ## Issues
 
 - Fix Rmd output with paragraphs `fpar()` so that no stylename is used.
