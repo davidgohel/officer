@@ -591,3 +591,75 @@ is_integerish <- function(x) {
 `%||%` <- function(l, r) {
   if (is.null(l)) r else l
 }
+
+
+# file ops  ------------------------------------------
+
+#' Opens a .pptx or .docx file locally
+#'
+#' Opening a `.pptx` or `.docx` file locally requires a compatible application
+#' (e.g., MS Office, LibreOffice) to be installed. *Disclaimer*: may not work
+#' properly on every system.
+#'
+#' @param path File path.
+#' @export
+#' @examples
+#' x <- read_pptx()
+#' x <- add_slide(x, "Title Slide", ctrTitle = "My Title")
+#' file <- print(x, tempfile(fileext = ".pptx"))
+#' \dontrun{
+#' open_office_file(file)}
+open_office_file <- function(path) {
+  path <- normalizePath(path, winslash = "/", mustWork = TRUE)
+  ext <- tolower(tools::file_ext(path))
+
+  is_presentation <- ext == "pptx"
+  is_document <- ext == "docx"
+  if (!is_presentation && !is_document) {
+    cli::cli_abort(
+      c("Cannot open file of type {.val .{ext} }",
+        "x" = "Only {.val .pptx} and {.val .docx} files allowed."
+      )
+    )
+  }
+
+  sys <- Sys.info()[["sysname"]]
+  if (sys == "Windows") {
+    # Uses file-association: PPT → PowerPoint/Impress; DOC → Word/Writer
+    shell.exec(path)
+  } else if (sys == "Darwin") {
+    # macOS ‘open’ picks the right app based on extension
+    system2("open", args = shQuote(path), wait = FALSE)
+  } else {
+    # Linux/Unix
+    if (nzchar(Sys.which("xdg-open"))) {
+      system2("xdg-open", args = shQuote(path), wait = FALSE)
+    } else {
+      # Fallback to LibreOffice/soffice CLI
+      lo_bin <- if (nzchar(Sys.which("libreoffice"))) {
+        "libreoffice"
+      } else if (nzchar(Sys.which("soffice"))) {
+        "soffice"
+      } else {
+        NULL
+      }
+
+      if (is.null(lo_bin)) {
+        cli::cli_abort(c(
+          "No suitable opener found.",
+          "x" = "Please install {.pkg xdg-utils} or {.pkg libreoffice}."
+        ))
+      }
+
+      # For presentations we use slideshow mode; for docs, writer mode; otherwise default
+      args <- switch(TRUE,
+                     is_presentation,
+                     c("--show", shQuote(path)),
+                     is_document,
+                     c("--writer", shQuote(path)),
+                     shQuote(path)
+      )
+      system2(lo_bin, args = args, wait = FALSE)
+    }
+  }
+}

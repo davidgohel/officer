@@ -4,7 +4,7 @@
 \alias{print.rpptx}
 \title{Write a 'PowerPoint' file.}
 \usage{
-\method{print}{rpptx}(x, target = NULL, ...)
+\method{print}{rpptx}(x, target = NULL, preview = FALSE, ...)
 }
 \arguments{
 \item{x}{an \code{rpptx} object.}
@@ -12,7 +12,12 @@
 \item{target}{path to the .pptx file to write. If \code{target} is \code{NULL} (default), the \code{rpptx} object is printed to
 the console.}
 
+\item{preview}{Save \code{x} to a temporary file and open it (default \code{FALSE}).}
+
 \item{...}{unused.}
+}
+\value{
+If preview is \code{TRUE}, returns the temp file path invisibly.
 }
 \description{
 Create a 'PowerPoint' file from an \code{rpptx} object (created by \code{\link[=read_pptx]{read_pptx()}}).
@@ -22,6 +27,11 @@ Create a 'PowerPoint' file from an \code{rpptx} object (created by \code{\link[=
 file <- tempfile(fileext = ".pptx")
 x <- read_pptx()
 print(x, target = file)
+
+# preview mode: save to temp file and open locally ----
+\dontrun{
+print(x, preview = TRUE)
+}
 }
 \seealso{
 \code{\link[=read_pptx]{read_pptx()}}
