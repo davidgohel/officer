@@ -94,7 +94,7 @@ read_table_style <- function(path){
 #' @examples
 #' # write an rpptx object to a .pptx file ----
 #' file <- tempfile(fileext = ".pptx")
-#' x <- read_pptx() -- note: empty, has no slides yet
+#' x <- read_pptx() # empty presentation, has no slides yet
 #' print(x, target = file)
 #'
 #' # preview mode: save to temp file and open locally ----
