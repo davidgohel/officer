@@ -138,6 +138,7 @@ read_docx <- function(path = NULL) {
   obj
 }
 
+
 #' @export
 #' @describeIn read_docx write docx to a file. It returns the path of the result
 #' file.
@@ -147,8 +148,29 @@ read_docx <- function(path = NULL) {
 #' If TRUE, copy the references to the header and footer in each section
 #' of the body of the document. This parameter is experimental and my change
 #' in a future version.
+#' @param preview Save `x` to a temporary file and open it (default `FALSE`).
 #' @param ... unused
-print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE, copy_footer_refs = FALSE, ...) {
+#' @examples
+#'# write rdocx object to .docx file ----
+#' file <- tempfile(fileext = ".docx")
+#' x <- read_docx() # empty doc
+#' print(x, target = file)
+#'
+#' # preview mode: save to temp file and open locally ----
+#' \dontrun{
+#' print(x, preview = TRUE)
+#' }
+print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
+                        copy_footer_refs = FALSE, preview = FALSE, ...) {
+  if (preview) {
+    file <- tempfile(fileext = ".docx")
+    print.rdocx(x,
+      target = file, copy_header_refs = copy_header_refs,
+      copy_footer_refs = copy_footer_refs, preview = FALSE, ...
+    )
+    open_office_file(file)
+    return(invisible(file))
+  }
   if (is.null(target)) {
     cat("rdocx document with", length(x), "element(s)\n")
     cat("\n* styles:\n")
