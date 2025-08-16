@@ -625,17 +625,18 @@ open_office_file <- function(path) {
 
   sys <- Sys.info()[["sysname"]]
   if (sys == "Windows") {
-    # Uses file-association: PPT → PowerPoint/Impress; DOC → Word/Writer
+    # Uses file-association: pptx → PowerPoint; docx → Word
     shell.exec(path)
   } else if (sys == "Darwin") {
     # macOS ‘open’ picks the right app based on extension
     system2("open", args = shQuote(path), wait = FALSE)
   } else {
     # Linux/Unix
-    if (nzchar(Sys.which("xdg-open"))) {
+    if (nzchar(Sys.which("xdg-open"))) { # use default opener
       system2("xdg-open", args = shQuote(path), wait = FALSE)
     } else {
       # Fallback to LibreOffice/soffice CLI
+      # => xdg-open missing or broken/absent .desktop or MIME associations
       lo_bin <- if (nzchar(Sys.which("libreoffice"))) {
         "libreoffice"
       } else if (nzchar(Sys.which("soffice"))) {
@@ -643,21 +644,18 @@ open_office_file <- function(path) {
       } else {
         NULL
       }
-
       if (is.null(lo_bin)) {
         cli::cli_abort(c(
           "No suitable opener found.",
           "x" = "Please install {.pkg xdg-utils} or {.pkg libreoffice}."
         ))
       }
-
-      # For presentations we use slideshow mode; for docs, writer mode; otherwise default
       args <- switch(TRUE,
-                     is_presentation,
-                     c("--show", shQuote(path)),
-                     is_document,
-                     c("--writer", shQuote(path)),
-                     shQuote(path)
+        is_presentation,
+        c("--impress", shQuote(path)),
+        is_document,
+        c("--writer", shQuote(path)),
+        shQuote(path)
       )
       system2(lo_bin, args = args, wait = FALSE)
     }
