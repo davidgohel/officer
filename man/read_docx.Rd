@@ -12,6 +12,7 @@ read_docx(path = NULL)
   target = NULL,
   copy_header_refs = FALSE,
   copy_footer_refs = FALSE,
+  preview = FALSE,
   ...
 )
 }
@@ -27,6 +28,8 @@ read_docx(path = NULL)
 If TRUE, copy the references to the header and footer in each section
 of the body of the document. This parameter is experimental and my change
 in a future version.}
+
+\item{preview}{Save \code{x} to a temporary file and open it (default \code{FALSE}).}
 
 \item{...}{unused}
 }
@@ -93,6 +96,15 @@ doc_2 <- body_add_par(doc_2, "This is a plot", style = "heading 2")
 doc_2 <- body_add_plot(doc_2, pinst)
 docx_file_2 <- print(doc_2, target = tempfile(fileext = ".docx"))
 
+# write rdocx object to .docx file ----
+file <- tempfile(fileext = ".docx")
+x <- read_docx() # empty doc
+print(x, target = file)
+
+# preview mode: save to temp file and open locally ----
+\dontrun{
+print(x, preview = TRUE)
+}
 }
 \seealso{
 \code{\link[=body_add_par]{body_add_par()}}, \code{\link[=body_add_plot]{body_add_plot()}}, \code{\link[=body_add_table]{body_add_table()}},

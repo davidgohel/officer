@@ -88,15 +88,28 @@ read_table_style <- function(path){
 #' @param x an `rpptx` object.
 #' @param target path to the .pptx file to write. If `target` is `NULL` (default), the `rpptx` object is printed to
 #'   the console.
+#' @param preview Save `x` to a temporary file and open it (default `FALSE`).
 #' @param ... unused.
+#' @returns If preview is `TRUE`, returns the temp file path invisibly.
 #' @examples
 #' # write an rpptx object to a .pptx file ----
 #' file <- tempfile(fileext = ".pptx")
-#' x <- read_pptx()
+#' x <- read_pptx() # empty presentation, has no slides yet
 #' print(x, target = file)
+#'
+#' # preview mode: save to temp file and open locally ----
+#' \dontrun{
+#' print(x, preview = TRUE)
+#' }
 #' @export
 #' @seealso [read_pptx()]
-print.rpptx <- function(x, target = NULL, ...) {
+print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
+  if (preview) {
+    file <- tempfile(fileext = ".pptx")
+    print.rpptx(x, target = file, preview = FALSE)
+    open_file(file)
+    return(invisible(file))
+  }
   if (is.null(target)) {
     cli::cli_text("pptx document with {.val {length(x)}} slide{?s}")
     cli::cli_text("Available layouts and their associated master(s):")
@@ -146,3 +159,4 @@ print.rpptx <- function(x, target = NULL, ...) {
 
   invisible(pack_folder(folder = x$package_dir, target = target))
 }
+

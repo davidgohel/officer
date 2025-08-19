@@ -591,3 +591,28 @@ is_integerish <- function(x) {
 `%||%` <- function(l, r) {
   if (is.null(l)) r else l
 }
+
+
+# file ops  ------------------------------------------
+
+#' Opens a file locally
+#'
+#' Opening a file locally requires a compatible application to be installed
+#' (e.g., MS Office or LibreOffice for .pptx or .docx files).
+#'
+#' @details
+#' *NB:* Function is a small wrapper around [utils::browseURL()] to have a more
+#' suitable function name.
+#'
+#' @param path File path.
+#' @export
+#' @examples
+#' x <- read_pptx()
+#' x <- add_slide(x, "Title Slide", ctrTitle = "My Title")
+#' file <- print(x, tempfile(fileext = ".pptx"))
+#' \dontrun{
+#' open_file(file)}
+open_file <- function(path) {
+  path <- normalizePath(path, winslash = "/", mustWork = TRUE)
+  utils::browseURL(path)
+}
