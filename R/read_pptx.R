@@ -107,7 +107,7 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
   if (preview) {
     file <- tempfile(fileext = ".pptx")
     print.rpptx(x, target = file, preview = FALSE)
-    open_office_file(file)
+    open_file(file)
     return(invisible(file))
   }
   if (is.null(target)) {

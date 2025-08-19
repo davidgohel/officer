@@ -595,11 +595,14 @@ is_integerish <- function(x) {
 
 # file ops  ------------------------------------------
 
-#' Opens a .pptx or .docx file locally
+#' Opens a file locally
 #'
-#' Opening a `.pptx` or `.docx` file locally requires a compatible application
-#' (e.g., MS Office, LibreOffice) to be installed. *Disclaimer*: may not work
-#' properly on every system.
+#' Opening a file locally requires a compatible application to be installed
+#' (e.g., MS Office or LibreOffice for .pptx or .docx files).
+#'
+#' @details
+#' *NB:* Function is a small wrapper around [utils::browseURL()] to have a more
+#' suitable function name.
 #'
 #' @param path File path.
 #' @export
@@ -608,56 +611,8 @@ is_integerish <- function(x) {
 #' x <- add_slide(x, "Title Slide", ctrTitle = "My Title")
 #' file <- print(x, tempfile(fileext = ".pptx"))
 #' \dontrun{
-#' open_office_file(file)}
-open_office_file <- function(path) {
+#' open_file(file)}
+open_file <- function(path) {
   path <- normalizePath(path, winslash = "/", mustWork = TRUE)
-  ext <- tolower(tools::file_ext(path))
-
-  is_presentation <- ext == "pptx"
-  is_document <- ext == "docx"
-  if (!is_presentation && !is_document) {
-    cli::cli_abort(
-      c("Cannot open file of type {.val .{ext} }",
-        "x" = "Only {.val .pptx} and {.val .docx} files allowed."
-      )
-    )
-  }
-
-  sys <- Sys.info()[["sysname"]]
-  if (sys == "Windows") {
-    # Uses file-association: pptx → PowerPoint; docx → Word
-    shell.exec(path)
-  } else if (sys == "Darwin") {
-    # macOS ‘open’ picks the right app based on extension
-    system2("open", args = shQuote(path), wait = FALSE)
-  } else {
-    # Linux/Unix
-    if (nzchar(Sys.which("xdg-open"))) { # use default opener
-      system2("xdg-open", args = shQuote(path), wait = FALSE)
-    } else {
-      # Fallback to LibreOffice/soffice CLI
-      # => xdg-open missing or broken/absent .desktop or MIME associations
-      lo_bin <- if (nzchar(Sys.which("libreoffice"))) {
-        "libreoffice"
-      } else if (nzchar(Sys.which("soffice"))) {
-        "soffice"
-      } else {
-        NULL
-      }
-      if (is.null(lo_bin)) {
-        cli::cli_abort(c(
-          "No suitable opener found.",
-          "x" = "Please install {.pkg xdg-utils} or {.pkg libreoffice}."
-        ))
-      }
-      args <- switch(TRUE,
-        is_presentation,
-        c("--impress", shQuote(path)),
-        is_document,
-        c("--writer", shQuote(path)),
-        shQuote(path)
-      )
-      system2(lo_bin, args = args, wait = FALSE)
-    }
-  }
+  utils::browseURL(path)
 }

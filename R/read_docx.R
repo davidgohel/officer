@@ -168,7 +168,7 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
       target = file, copy_header_refs = copy_header_refs,
       copy_footer_refs = copy_footer_refs, preview = FALSE, ...
     )
-    open_office_file(file)
+    open_file(file)
     return(invisible(file))
   }
   if (is.null(target)) {
