@@ -110,8 +110,9 @@ fix_img_refs_in_wml <- function(
   media_dir = "word/media",
   media_rel_dir = "media"
 ) {
-  has_match <- grepl("<a:blip r:embed=\"[^\"]+\"/>", xml_str) &
-    !grepl("<a:blip r:embed=\"rId[0-9]+\"/>", xml_str)
+  has_match <- grepl("<a:blip r:embed=\"[^\"]+\"", xml_str) &
+    !grepl("<a:blip r:embed=\"rId[0-9]+\"", xml_str)
+
   if (!any(has_match)) {
     return(xml_str)
   }
@@ -119,7 +120,7 @@ fix_img_refs_in_wml <- function(
   img_nodes_chr <- xml_str[has_match]
 
   path_values <- gsub(
-    "<a:blip r:embed=\"([^\"]+)\"/>",
+    "<a:blip r:embed=\"([^\"]+)\".*",
     "\\1",
     img_nodes_chr
   )
@@ -141,8 +142,8 @@ fix_img_refs_in_wml <- function(
     path <- path_table[[i, "path"]]
     rid <- path_table[[i, "id"]]
     xml_str <- gsub(
-      sprintf("<a:blip r:embed=\"%s\"/>", path),
-      sprintf("<a:blip r:embed=\"%s\"/>", rid),
+      sprintf("<a:blip r:embed=\"%s\"", path),
+      sprintf("<a:blip r:embed=\"%s\"", rid),
       xml_str,
       fixed = TRUE
     )
@@ -338,7 +339,11 @@ convert_custom_styles_in_wml <- function(xml_str, styles) {
     return(xml_str)
   }
 
-  stylenames_types <- gsub("w:(pstlname|tstlname)=\"([^\"]+)\"", "\\1", stylenames)
+  stylenames_types <- gsub(
+    "w:(pstlname|tstlname)=\"([^\"]+)\"",
+    "\\1",
+    stylenames
+  )
   stylenames <- gsub("w:(pstlname|tstlname)=\"([^\"]+)\"", "\\2", stylenames)
 
   if (!all(stylenames %in% styles$style_name)) {
