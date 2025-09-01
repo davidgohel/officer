@@ -1,9 +1,19 @@
 complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, sty_info_from, style_type = "paragraph", document_part_label) {
 
+  if (length(styles_id_from) < 1L) {
+    return(style_mapping)
+  }
   sty_info_to <- sty_info_to[sty_info_to$style_type %in% style_type,]
   sty_info_from <- sty_info_from[sty_info_from$style_type %in% style_type,]
 
-  styles_name_from <- sty_info_from$style_name[match(styles_id_from, sty_info_from$style_id)]
+  styles_name_from <- sty_info_from$style_name[
+    match(
+      styles_id_from,
+      sty_info_from$style_id,
+      nomatch = head(which(sty_info_from$is_default), n = 1)
+    )
+  ]
+
   missing_styles <- setdiff(styles_name_from, unlist(style_mapping))
   if (length(missing_styles) > 0) {
     def_name <- head(sty_info_to$style_name[sty_info_to$is_default], n = 1)
@@ -15,6 +25,7 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
       missing_styles_cli$style_id,
       "} could not be mapped"
     )
+
     names(missing_styles_cli) <- rep("*", length(missing_styles_cli))
     cli::cli_warn(
       c(
@@ -204,9 +215,10 @@ docx_part <- R6Class(
       numbering_mapping,
       par_style_mapping = list(),
       run_style_mapping = list(),
-      tbl_style_mapping = list()
+      tbl_style_mapping = list(),
+      add_ns = character(0)
     ) {
-      doc_str <- self$encode_wml_str()
+      doc_str <- self$encode_wml_str(add_ns)
       document_rels <- self$rel_df()
 
       # traitement des images -----
@@ -363,7 +375,7 @@ body_part <- R6Class(
     document_part_label = function() {
       "body"
     },
-    encode_wml_str = function() {
+    encode_wml_str = function(add_ns) {
       body <- self$get()
       body <- xml_find_first(body, "w:body")
 
@@ -394,7 +406,7 @@ footnotes_part <- R6Class(
     document_part_label = function() {
       "footnotes"
     },
-    encode_wml_str = function() {
+    encode_wml_str = function(add_ns) {
       footnotes <- self$get()
       footnotes <- xml_find_all(footnotes, "w:footnote[not(@w:type)]")
 
@@ -406,10 +418,14 @@ footnotes_part <- R6Class(
         },
         FUN.VALUE = ""
       )
+      add_ns <- sprintf(" xmlns:%s=\"%s\"", names(add_ns), add_ns)
+      add_ns <- paste0(add_ns, collapse = "")
 
       chr_footnotes <- paste0(
         "<w:footnoteReference w:officer=\"true\" w:id=\"%s\">",
-        "<w:footnote xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" w:id=\"%s\">",
+        "<w:footnote ",
+        add_ns,
+        " xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:id=\"%s\">",
         chr_footnotes,
         "</w:footnote>",
         "</w:footnoteReference>"

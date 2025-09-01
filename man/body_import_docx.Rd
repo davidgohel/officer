@@ -62,14 +62,22 @@ If no mapping is provided, the default style will be used and a warning is emitt
 }
 }
 \examples{
-tf <- tempfile(fileext = ".docx")
-fi <- system.file(
-  package = "officer", "doc_examples", "example.docx"
+library(officer)
+
+# example file from the package
+file_input <- system.file(
+  package = "officer",
+  "doc_examples/example.docx"
 )
+
+# create a new rdocx document
 x <- read_docx()
+
+# import content from file_input
 x <- body_import_docx(
   x = x,
-  src = fi,
+  src = file_input,
+  # style mapping for paragraphs and tables
   par_style_mapping = list(
     "Normal" = c("List Paragraph"),
     "heading 1" = "heading 1",
@@ -79,6 +87,10 @@ x <- body_import_docx(
     "Normal Table" = "Light Shading"
   )
 )
+
+# Create temporary file
+tf <- tempfile(fileext = ".docx")
+# write to file
 print(x, target = tf)
 }
 \seealso{

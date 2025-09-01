@@ -164,25 +164,7 @@ body_add_docx <- function(x, src, pos = "after") {
 #' ```
 #'
 #' Use [styles_info()] to inspect available styles and verify their names.
-#' @examples
-#' tf <- tempfile(fileext = ".docx")
-#' fi <- system.file(
-#'   package = "officer", "doc_examples", "example.docx"
-#' )
-#' x <- read_docx()
-#' x <- body_import_docx(
-#'   x = x,
-#'   src = fi,
-#'   par_style_mapping = list(
-#'     "Normal" = c("List Paragraph"),
-#'     "heading 1" = "heading 1",
-#'     "heading 2" = "heading 2"
-#'   ),
-#'   tbl_style_mapping = list(
-#'     "Normal Table" = "Light Shading"
-#'   )
-#' )
-#' print(x, target = tf)
+#' @example examples/body_import_docx.R
 #' @family functions for adding content
 body_import_docx <- function(
     x,
@@ -200,6 +182,9 @@ body_import_docx <- function(
     file_numbering_to = file.path(x$package_dir, "word/numbering.xml")
   )
 
+  ns_from <- xml_ns(doc_from$footnotes$get())
+  ns_to <- xml_ns(x$footnotes$get())
+
   footnotes_chr <- doc_from$footnotes$wml_with_relations(
     package_dir = doc_from$package_dir,
     dir_to = file.path(x$package_dir, "word/media"),
@@ -208,9 +193,12 @@ body_import_docx <- function(
     numbering_mapping = num_mapping,
     par_style_mapping = par_style_mapping,
     run_style_mapping = run_style_mapping,
-    tbl_style_mapping = tbl_style_mapping
+    tbl_style_mapping = tbl_style_mapping,
+    add_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
   )
 
+  ns_from <- xml_ns(doc_from$doc_obj$get())
+  ns_to <- xml_ns(x$doc_obj$get())
   body_chr <- doc_from$doc_obj$wml_with_relations(
     package_dir = doc_from$package_dir,
     dir_to = file.path(x$package_dir, "word/media"),
@@ -219,9 +207,10 @@ body_import_docx <- function(
     numbering_mapping = num_mapping,
     par_style_mapping = par_style_mapping,
     run_style_mapping = run_style_mapping,
-    tbl_style_mapping = tbl_style_mapping
+    tbl_style_mapping = tbl_style_mapping,
+    add_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
   )
-  body_ns <- xml2::xml_ns(doc_from$doc_obj$get())
+  body_ns <- xml_ns(doc_from$doc_obj$get())
 
   for (id in names(footnotes_chr)) {
     pat <- "<w:footnoteReference w:id=\"%s\"/>"
@@ -233,6 +222,15 @@ body_import_docx <- function(
   # drop starting and ending tags for w:body
   body_chr <- head(body_chr, -1)
   body_chr <- tail(body_chr, -1)
+
+
+  z <- ns_from[setdiff(names(ns_from), names(ns_to))]
+  z <- append(ns_to, z)
+  names(z) <- paste0("xmlns:", names(z))
+  xml_set_attrs(
+    xml_find_first(x$doc_obj$get(), "w:body"),
+    value = z
+  )
 
   z <- body_append_start_context(x)
   cat(body_chr, sep = "\n", file = z$file_con, append = TRUE)
