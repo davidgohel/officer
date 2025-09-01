@@ -36,6 +36,7 @@ reference:
     - set_doc_properties
     - docx_set_paragraph_style
     - docx_set_character_style
+    - docx_set_settings
     - change_styles
   - title: Word documents information
     contents:
@@ -62,6 +63,7 @@ reference:
     - body_add_toc
     - body_add_break
     - body_add_docx
+    - body_import_docx
     - body_bookmark
     - body_add_gg
     - body_add_caption
@@ -165,6 +167,7 @@ reference:
   - title: Misc
     contents:
     - officer
+    - open_file
     - read_xlsx
     - add_sheet
     - sheet_select
