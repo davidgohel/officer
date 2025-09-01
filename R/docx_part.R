@@ -3,21 +3,37 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
   if (length(styles_id_from) < 1L) {
     return(style_mapping)
   }
-  sty_info_to <- sty_info_to[sty_info_to$style_type %in% style_type,]
-  sty_info_from <- sty_info_from[sty_info_from$style_type %in% style_type,]
 
-  styles_name_from <- sty_info_from$style_name[
+  style_data_to <- sty_info_to[sty_info_to$style_type %in% style_type,]
+  style_data_from <- sty_info_from[sty_info_from$style_type %in% style_type,]
+
+  def_name_to <- head(style_data_to$style_name[style_data_to$is_default], n = 1)
+
+  styles_name_from <- style_data_from$style_name[
     match(
       styles_id_from,
-      sty_info_from$style_id,
-      nomatch = head(which(sty_info_from$is_default), n = 1)
+      style_data_from$style_id,
+      nomatch = head(which(style_data_from$is_default), n = 1)
     )
   ]
 
   missing_styles <- setdiff(styles_name_from, unlist(style_mapping))
+  # style_data_from$style_name[style_data_from$style_id %in% missing_styles]
+
   if (length(missing_styles) > 0) {
-    def_name <- head(sty_info_to$style_name[sty_info_to$is_default], n = 1)
-    missing_styles_cli <- sty_info_from[sty_info_from$style_name %in% missing_styles, c("style_name", "style_id")]
+    possible_match <- style_data_to$style_name[style_data_to$style_name %in% missing_styles]
+    for (amatch in possible_match) {
+      if (is.null(style_mapping[[amatch]])) {
+        style_mapping[[amatch]] <- character()
+      }
+      style_mapping[[amatch]] <- append(style_mapping[[amatch]], missing_styles)
+    }
+    missing_styles <- setdiff(missing_styles, possible_match)
+  }
+
+
+  if (length(missing_styles) > 0) {
+    missing_styles_cli <- style_data_from[style_data_from$style_name %in% missing_styles, c("style_name", "style_id")]
     missing_styles_cli <- paste0(
       "Style ",
       shQuote(missing_styles_cli$style_name),
@@ -31,14 +47,14 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
       c(
         "!" = "Style(s) mapping(s) for '{style_type}s' are missing in the {document_part_label} of the document:",
         missing_styles_cli,
-        "i" = "Style name '{def_name}' is used instead."
+        "i" = "Style name '{def_name_to}' is used instead."
       )
     )
 
-    if (is.null(style_mapping[[def_name]])) {
-      style_mapping[[def_name]] <- character()
+    if (is.null(style_mapping[[def_name_to]])) {
+      style_mapping[[def_name_to]] <- character()
     }
-    style_mapping[[def_name]] <- append(style_mapping[[def_name]], missing_styles)
+    style_mapping[[def_name_to]] <- append(style_mapping[[def_name_to]], missing_styles)
   }
 
   style_mapping
@@ -216,12 +232,12 @@ docx_part <- R6Class(
       par_style_mapping = list(),
       run_style_mapping = list(),
       tbl_style_mapping = list(),
-      add_ns = character(0)
+      additional_ns = character(0)
     ) {
-      doc_str <- self$encode_wml_str(add_ns)
+      doc_str <- self$encode_wml_str(additional_ns = additional_ns)
       document_rels <- self$rel_df()
 
-      # traitement des images -----
+      # images processing -----
       doc_from_img <- document_rels[basename(document_rels$type) %in% "image", ]
       for (i in seq_len(nrow(doc_from_img))) {
         fileext <- paste0(".", tools::file_ext(doc_from_img$target[i]))
@@ -244,7 +260,7 @@ docx_part <- R6Class(
         )
       }
 
-      # traitement des liens externes -----
+      # external links processing -----
       doc_from_hl <- document_rels[
         basename(document_rels$type) %in% "hyperlink",
       ]
@@ -255,7 +271,7 @@ docx_part <- R6Class(
         regmatches(doc_str, m) <- sprintf("r:id=\"%s\"", doc_from_hl$target[i])
       }
 
-      # traitement des numberings -----
+      # numberings processing -----
       for (i in seq_len(nrow(numbering_mapping))) {
         id_from <- numbering_mapping$from[i]
         id_to <- numbering_mapping$to[i]
@@ -270,10 +286,7 @@ docx_part <- R6Class(
         )
       }
 
-      # traitement des styles de paragraphes -----
-      sty_par_info_from <- sty_info_from[
-        sty_info_from$style_type %in% "paragraph",
-      ]
+      # par styles processing -----
       sty_par_info_to <- sty_info_to[
         sty_info_to$style_type %in% "paragraph",
       ]
@@ -301,10 +314,7 @@ docx_part <- R6Class(
         )
       }
 
-      # traitement des styles de characters/runs -----
-      sty_chr_info_from <- sty_info_from[
-        sty_info_from$style_type %in% "character",
-      ]
+      # runs/characters styles processing -----
       sty_chr_info_to <- sty_info_to[sty_info_to$style_type %in% "character", ]
 
       m <- gregexpr("w:rStyle w:val=\"[[:alnum:]]+\"", doc_str)
@@ -330,10 +340,7 @@ docx_part <- R6Class(
         )
       }
 
-      # traitement des styles de tableaux -----
-      sty_tab_info_from <- sty_info_from[
-        sty_info_from$style_type %in% "table",
-      ]
+      # tables styles processing -----
       sty_tab_info_to <- sty_info_to[sty_info_to$style_type %in% "table", ]
 
       m <- gregexpr("w:tblStyle w:val=\"[[:alnum:]]+\"", doc_str)
@@ -375,7 +382,7 @@ body_part <- R6Class(
     document_part_label = function() {
       "body"
     },
-    encode_wml_str = function(add_ns) {
+    encode_wml_str = function(additional_ns) {
       body <- self$get()
       body <- xml_find_first(body, "w:body")
 
@@ -406,7 +413,7 @@ footnotes_part <- R6Class(
     document_part_label = function() {
       "footnotes"
     },
-    encode_wml_str = function(add_ns) {
+    encode_wml_str = function(additional_ns) {
       footnotes <- self$get()
       footnotes <- xml_find_all(footnotes, "w:footnote[not(@w:type)]")
 
@@ -418,13 +425,13 @@ footnotes_part <- R6Class(
         },
         FUN.VALUE = ""
       )
-      add_ns <- sprintf(" xmlns:%s=\"%s\"", names(add_ns), add_ns)
-      add_ns <- paste0(add_ns, collapse = "")
+      add_ns_str <- sprintf(" xmlns:%s=\"%s\"", names(additional_ns), additional_ns)
+      add_ns_str <- paste0(add_ns_str, collapse = "")
 
       chr_footnotes <- paste0(
         "<w:footnoteReference w:officer=\"true\" w:id=\"%s\">",
         "<w:footnote ",
-        add_ns,
+        add_ns_str,
         " xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" w:id=\"%s\">",
         chr_footnotes,
         "</w:footnote>",

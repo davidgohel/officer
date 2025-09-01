@@ -21,9 +21,7 @@ test_that("body_import_docx messages", {
         package = "officer", "doc_examples", "example.docx"
       ),
       par_style_mapping = list(
-        "Normal" = c("List Paragraph"),
-        "heading 1" = "heading 1",
-        "heading 2" = "heading 2"
+        "Normal" = c("List Paragraph")
       ),
       tbl_style_mapping = list(
         "Normal Table" = "Light Shading"
@@ -43,9 +41,7 @@ test_that("body_import_docx copy the content", {
     x = x,
     src = fi,
     par_style_mapping = list(
-      "Normal" = c("List Paragraph"),
-      "heading 1" = "heading 1",
-      "heading 2" = "heading 2"
+      "Normal" = c("List Paragraph")
     ),
     tbl_style_mapping = list(
       "Normal Table" = "Light Shading"

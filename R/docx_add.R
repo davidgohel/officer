@@ -184,7 +184,6 @@ body_import_docx <- function(
 
   ns_from <- xml_ns(doc_from$footnotes$get())
   ns_to <- xml_ns(x$footnotes$get())
-
   footnotes_chr <- doc_from$footnotes$wml_with_relations(
     package_dir = doc_from$package_dir,
     dir_to = file.path(x$package_dir, "word/media"),
@@ -194,7 +193,7 @@ body_import_docx <- function(
     par_style_mapping = par_style_mapping,
     run_style_mapping = run_style_mapping,
     tbl_style_mapping = tbl_style_mapping,
-    add_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
+    additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
   )
 
   ns_from <- xml_ns(doc_from$doc_obj$get())
@@ -208,9 +207,8 @@ body_import_docx <- function(
     par_style_mapping = par_style_mapping,
     run_style_mapping = run_style_mapping,
     tbl_style_mapping = tbl_style_mapping,
-    add_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
+    additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
   )
-  body_ns <- xml_ns(doc_from$doc_obj$get())
 
   for (id in names(footnotes_chr)) {
     pat <- "<w:footnoteReference w:id=\"%s\"/>"
@@ -223,13 +221,13 @@ body_import_docx <- function(
   body_chr <- head(body_chr, -1)
   body_chr <- tail(body_chr, -1)
 
-
-  z <- ns_from[setdiff(names(ns_from), names(ns_to))]
-  z <- append(ns_to, z)
-  names(z) <- paste0("xmlns:", names(z))
+  # update namespaces in w:body
+  new_namespaces <- ns_from[setdiff(names(ns_from), names(ns_to))]
+  new_namespaces <- append(ns_to, new_namespaces)
+  names(new_namespaces) <- paste0("xmlns:", names(new_namespaces))
   xml_set_attrs(
     xml_find_first(x$doc_obj$get(), "w:body"),
-    value = z
+    value = new_namespaces
   )
 
   z <- body_append_start_context(x)

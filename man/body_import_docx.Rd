@@ -79,9 +79,7 @@ x <- body_import_docx(
   src = file_input,
   # style mapping for paragraphs and tables
   par_style_mapping = list(
-    "Normal" = c("List Paragraph"),
-    "heading 1" = "heading 1",
-    "heading 2" = "heading 2"
+    "Normal" = c("List Paragraph")
   ),
   tbl_style_mapping = list(
     "Normal Table" = "Light Shading"
