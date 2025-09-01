@@ -94,6 +94,7 @@ Other functions for adding content:
 \code{\link{body_add_par}()},
 \code{\link{body_add_plot}()},
 \code{\link{body_add_table}()},
-\code{\link{body_add_toc}()}
+\code{\link{body_add_toc}()},
+\code{\link{body_import_docx}()}
 }
 \concept{functions for adding content}

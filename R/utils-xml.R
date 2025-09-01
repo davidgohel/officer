@@ -3,7 +3,7 @@ xml_document_to_chrs <- function(xml_doc) {
   tf <- tempfile(fileext = ".xml")
   write_xml(xml_doc, options = c("format"), file = tf)
   # Read the XML file as a character vector
-  xml_str <- readLines(tf)
+  xml_str <- readLines(tf, warn = FALSE)
   xml_str <- gsub("^[[:blank:]]+", "", xml_str)
   # Prepend newlines to the XML string
   # where the opening tags are found
@@ -12,7 +12,7 @@ xml_document_to_chrs <- function(xml_doc) {
   # The following can be replaced with gregexpr()
   # but there is minor performance gain with the following
   writeLines(xml_str, tf, useBytes = TRUE)
-  xml_str <- readLines(tf)
+  xml_str <- readLines(tf, warn = FALSE)
 
   xml_str <- xml_str[xml_str != ""]
   xml_str
@@ -288,8 +288,7 @@ fix_hyperlink_refs_in_wml <- function(xml_str, doc_obj) {
   hyperlink_nodes_chr <- xml_str[has_match]
 
   hyperlink_values <- gsub(
-    "<w:hyperlink r:id=\"([^\"]+)\">",
-    "\\1",
+    ".*<w:hyperlink\\s+r:id=\"([^\"]+)\"[^>]*>.*", "\\1",
     hyperlink_nodes_chr
   )
   hyperlink_values <- unique(hyperlink_values)
@@ -309,8 +308,8 @@ fix_hyperlink_refs_in_wml <- function(xml_str, doc_obj) {
       target_mode = "External"
     )
     xml_str <- gsub(
-      sprintf("<w:hyperlink r:id=\"%s\">", url),
-      sprintf("<w:hyperlink r:id=\"%s\">", rid),
+      sprintf("<w:hyperlink r:id=\"%s\"", url),
+      sprintf("<w:hyperlink r:id=\"%s\"", rid),
       xml_str,
       fixed = TRUE
     )

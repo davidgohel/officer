@@ -23,7 +23,9 @@ document will be edited, the content of the file will be
 inserted in the main document.
 
 This feature is unlikely to work as expected if the
-resulting document is edited by another software.
+resulting document is edited by another software. You
+can use function \code{\link[=body_import_docx]{body_import_docx()}} to import the content
+as an alternative.
 
 The file is added when the method \code{print()} that
 produces the final Word file is called, so don't remove
@@ -58,6 +60,7 @@ Other functions for adding content:
 \code{\link{body_add_plot}()},
 \code{\link{body_add_table}()},
 \code{\link{body_add_toc}()},
-\code{\link{body_append_start_context}()}
+\code{\link{body_append_start_context}()},
+\code{\link{body_import_docx}()}
 }
 \concept{functions for adding content}
