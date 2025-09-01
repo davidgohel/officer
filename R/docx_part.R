@@ -1,11 +1,21 @@
-complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, sty_info_from, style_type = "paragraph", document_part_label) {
-
+complete_styles_mapping <- function(
+  styles_id_from,
+  style_mapping,
+  styles_info_tbl_to,
+  styles_info_tbl_from,
+  style_type = "paragraph",
+  document_part_label
+) {
   if (length(styles_id_from) < 1L) {
     return(style_mapping)
   }
 
-  style_data_to <- sty_info_to[sty_info_to$style_type %in% style_type,]
-  style_data_from <- sty_info_from[sty_info_from$style_type %in% style_type,]
+  style_data_to <- styles_info_tbl_to[
+    styles_info_tbl_to$style_type %in% style_type,
+  ]
+  style_data_from <- styles_info_tbl_from[
+    styles_info_tbl_from$style_type %in% style_type,
+  ]
 
   def_name_to <- head(style_data_to$style_name[style_data_to$is_default], n = 1)
 
@@ -18,10 +28,11 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
   ]
 
   missing_styles <- setdiff(styles_name_from, unlist(style_mapping))
-  # style_data_from$style_name[style_data_from$style_id %in% missing_styles]
 
   if (length(missing_styles) > 0) {
-    possible_match <- style_data_to$style_name[style_data_to$style_name %in% missing_styles]
+    possible_match <- style_data_to$style_name[
+      style_data_to$style_name %in% missing_styles
+    ]
     for (amatch in possible_match) {
       if (is.null(style_mapping[[amatch]])) {
         style_mapping[[amatch]] <- character()
@@ -31,9 +42,11 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
     missing_styles <- setdiff(missing_styles, possible_match)
   }
 
-
   if (length(missing_styles) > 0) {
-    missing_styles_cli <- style_data_from[style_data_from$style_name %in% missing_styles, c("style_name", "style_id")]
+    missing_styles_cli <- style_data_from[
+      style_data_from$style_name %in% missing_styles,
+      c("style_name", "style_id")
+    ]
     missing_styles_cli <- paste0(
       "Style ",
       shQuote(missing_styles_cli$style_name),
@@ -54,19 +67,28 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
     if (is.null(style_mapping[[def_name_to]])) {
       style_mapping[[def_name_to]] <- character()
     }
-    style_mapping[[def_name_to]] <- append(style_mapping[[def_name_to]], missing_styles)
+    style_mapping[[def_name_to]] <- append(
+      style_mapping[[def_name_to]],
+      missing_styles
+    )
   }
 
   style_mapping
 }
 
-style_mapping_fortify <- function(style_mapping, styles_ids, sty_info_from, sty_info_to, style_type = "paragraph", document_part_label) {
-
+style_mapping_fortify <- function(
+  style_mapping,
+  styles_ids,
+  styles_info_tbl_from,
+  styles_info_tbl_to,
+  style_type = "paragraph",
+  document_part_label
+) {
   style_mapping <- complete_styles_mapping(
     style_mapping = style_mapping,
     styles_id_from = styles_ids,
-    sty_info_to = sty_info_to,
-    sty_info_from = sty_info_from,
+    styles_info_tbl_to = styles_info_tbl_to,
+    styles_info_tbl_from = styles_info_tbl_from,
     style_type = style_type,
     document_part_label = document_part_label
   )
@@ -91,12 +113,12 @@ style_mapping_fortify <- function(style_mapping, styles_ids, sty_info_from, sty_
     )
   }
 
-  sty_par_info_from <- sty_info_from[
-    sty_info_from$style_type %in% style_type,
+  sty_par_info_from <- styles_info_tbl_from[
+    styles_info_tbl_from$style_type %in% style_type,
     c("style_id", "style_name")
   ]
-  sty_par_info_to <- sty_info_to[
-    sty_info_to$style_type %in% style_type,
+  sty_par_info_to <- styles_info_tbl_to[
+    styles_info_tbl_to$style_type %in% style_type,
     c("style_id", "style_name")
   ]
 
@@ -117,14 +139,15 @@ style_mapping_fortify <- function(style_mapping, styles_ids, sty_info_from, sty_
     all.x = TRUE,
     all.y = FALSE
   )
-  names(style_mapping_par)[names(style_mapping_par) %in% "style_id"] <- "id_from"
+  names(style_mapping_par)[
+    names(style_mapping_par) %in% "style_id"
+  ] <- "id_from"
   style_mapping_par <- style_mapping_par[c("id_from", "id_to")]
 
   style_mapping_par
 }
 
 numberings_append_xml <- function(file_numbering_from, file_numbering_to) {
-
   numbering_from <- read_xml(file_numbering_from)
   abstractnum_from <- xml_find_all(numbering_from, "w:abstractNum")
   num_from <- xml_find_all(numbering_from, "w:num")
@@ -223,11 +246,10 @@ docx_part <- R6Class(
     length = function() {
       xml_length(xml_find_first(self$get(), private$body_xpath))
     },
-    wml_with_relations = function(
+    patch_wml = function(
       package_dir,
-      dir_to = tempfile(),
-      sty_info_from,
-      sty_info_to,
+      styles_info_tbl_from,
+      styles_info_tbl_to,
       numbering_mapping,
       par_style_mapping = list(),
       run_style_mapping = list(),
@@ -287,8 +309,8 @@ docx_part <- R6Class(
       }
 
       # par styles processing -----
-      sty_par_info_to <- sty_info_to[
-        sty_info_to$style_type %in% "paragraph",
+      sty_par_info_to <- styles_info_tbl_to[
+        styles_info_tbl_to$style_type %in% "paragraph",
       ]
 
       m <- gregexpr("w:pStyle w:val=\"[[:alnum:]]+\"", doc_str)
@@ -301,8 +323,8 @@ docx_part <- R6Class(
       mapping_styles <- style_mapping_fortify(
         styles_ids = p_styles,
         style_mapping = par_style_mapping,
-        sty_info_from = sty_info_from,
-        sty_info_to = sty_info_to,
+        styles_info_tbl_from = styles_info_tbl_from,
+        styles_info_tbl_to = styles_info_tbl_to,
         style_type = "paragraph",
         document_part_label = self$document_part_label()
       )
@@ -315,7 +337,9 @@ docx_part <- R6Class(
       }
 
       # runs/characters styles processing -----
-      sty_chr_info_to <- sty_info_to[sty_info_to$style_type %in% "character", ]
+      sty_chr_info_to <- styles_info_tbl_to[
+        styles_info_tbl_to$style_type %in% "character",
+      ]
 
       m <- gregexpr("w:rStyle w:val=\"[[:alnum:]]+\"", doc_str)
       zz <- regmatches(doc_str, m)
@@ -327,8 +351,8 @@ docx_part <- R6Class(
       mapping_styles <- style_mapping_fortify(
         styles_ids = r_styles,
         style_mapping = run_style_mapping,
-        sty_info_from = sty_info_from,
-        sty_info_to = sty_info_to,
+        styles_info_tbl_from = styles_info_tbl_from,
+        styles_info_tbl_to = styles_info_tbl_to,
         style_type = "character",
         document_part_label = self$document_part_label()
       )
@@ -341,7 +365,9 @@ docx_part <- R6Class(
       }
 
       # tables styles processing -----
-      sty_tab_info_to <- sty_info_to[sty_info_to$style_type %in% "table", ]
+      sty_tab_info_to <- styles_info_tbl_to[
+        styles_info_tbl_to$style_type %in% "table",
+      ]
 
       m <- gregexpr("w:tblStyle w:val=\"[[:alnum:]]+\"", doc_str)
       zz <- regmatches(doc_str, m)
@@ -352,8 +378,8 @@ docx_part <- R6Class(
       mapping_styles <- style_mapping_fortify(
         styles_ids = tbl_styles,
         style_mapping = tbl_style_mapping,
-        sty_info_from = sty_info_from,
-        sty_info_to = sty_info_to,
+        styles_info_tbl_from = styles_info_tbl_from,
+        styles_info_tbl_to = styles_info_tbl_to,
         style_type = "table",
         document_part_label = self$document_part_label()
       )
@@ -425,7 +451,11 @@ footnotes_part <- R6Class(
         },
         FUN.VALUE = ""
       )
-      add_ns_str <- sprintf(" xmlns:%s=\"%s\"", names(additional_ns), additional_ns)
+      add_ns_str <- sprintf(
+        " xmlns:%s=\"%s\"",
+        names(additional_ns),
+        additional_ns
+      )
       add_ns_str <- paste0(add_ns_str, collapse = "")
 
       chr_footnotes <- paste0(
