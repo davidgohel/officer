@@ -81,7 +81,9 @@ body_add_img <- function(x, src, style = NULL, width, height, pos = "after", uni
 #' inserted in the main document.
 #'
 #' This feature is unlikely to work as expected if the
-#' resulting document is edited by another software.
+#' resulting document is edited by another software. You
+#' can use function [body_import_docx()] to import the content
+#' as an alternative.
 #'
 #' The file is added when the method `print()` that
 #' produces the final Word file is called, so don't remove
@@ -115,6 +117,127 @@ body_add_docx <- function(x, src, pos = "after") {
 
   xml_elt <- to_wml(block_pour_docx(file = src), add_ns = TRUE)
   body_add_xml(x = x, str = xml_elt, pos = pos)
+}
+
+#' @importFrom utils head
+#' @export
+#' @title Import an external docx in a 'Word' document
+#' @description Import body content and footnotes of a Word document into an rdocx object.
+#'
+#' The function is similar to [body_add_docx()] but instead of adding
+#' the content as an external object, the document is read and all its
+#' content is appended to the target document.
+#' @details
+#' The following operations are performed when importing a document:
+#'
+#' - Numbering are copied from the source document to the target document.
+#' - Styles are not copied. If styles in the source document do not exist
+#' in the target document, the style specified in the `par_style_mapping`,
+#' `run_style_mapping` and `tbl_style_mapping` arguments will be used instead.
+#' If no mapping is provided, the default style will be used and a warning is emitted.
+#' @inheritParams body_add_break
+#' @param src path to docx file to import
+#' @param par_style_mapping,run_style_mapping,tbl_style_mapping
+#' Named lists describing how to remap styles from the source document (`src`)
+#' to styles available in the target document `x`. For each list entry, the name
+#' of the element is the target style (in `x`), and the value is a character
+#' vector of style names from the source document that should be replaced by
+#' this target style.
+#'
+#' - `par_style_mapping`: applies to paragraph styles.
+#' - `run_style_mapping`: applies to character (run) styles.
+#' - `tbl_style_mapping`: applies to table styles.
+#'
+#' Examples:
+#'
+#' ```r
+#' par_style_mapping = list(
+#'   "Normal"    = c("List Paragraph", "Body Text"),
+#'   "heading 1" = "Heading 1"
+#' )
+#' run_style_mapping = list(
+#'   "Emphasis"  = c("Emphasis", "Italic")
+#' )
+#' tbl_style_mapping = list(
+#'   "Normal Table" = c("Light Shading")
+#' )
+#' ```
+#'
+#' Use [styles_info()] to inspect available styles and verify their names.
+#' @examples
+#' tf <- tempfile(fileext = ".docx")
+#' fi <- system.file(
+#'   package = "officer", "doc_examples", "example.docx"
+#' )
+#' x <- read_docx()
+#' x <- body_import_docx(
+#'   x = x,
+#'   src = fi,
+#'   par_style_mapping = list(
+#'     "Normal" = c("List Paragraph"),
+#'     "heading 1" = "heading 1",
+#'     "heading 2" = "heading 2"
+#'   ),
+#'   tbl_style_mapping = list(
+#'     "Normal Table" = "Light Shading"
+#'   )
+#' )
+#' print(x, target = tf)
+#' @family functions for adding content
+body_import_docx <- function(
+    x,
+    src,
+    par_style_mapping = list(),
+    run_style_mapping = list(),
+    tbl_style_mapping = list()
+) {
+  doc_from <- read_docx(src)
+  sty_info_from <- styles_info(doc_from)
+  sty_info_to <- styles_info(x)
+
+  num_mapping <- numberings_append_xml(
+    file_numbering_from = file.path(doc_from$package_dir, "word/numbering.xml"),
+    file_numbering_to = file.path(x$package_dir, "word/numbering.xml")
+  )
+
+  footnotes_chr <- doc_from$footnotes$wml_with_relations(
+    package_dir = doc_from$package_dir,
+    dir_to = file.path(x$package_dir, "word/media"),
+    sty_info_from = sty_info_from,
+    sty_info_to = sty_info_to,
+    numbering_mapping = num_mapping,
+    par_style_mapping = par_style_mapping,
+    run_style_mapping = run_style_mapping,
+    tbl_style_mapping = tbl_style_mapping
+  )
+
+  body_chr <- doc_from$doc_obj$wml_with_relations(
+    package_dir = doc_from$package_dir,
+    dir_to = file.path(x$package_dir, "word/media"),
+    sty_info_from = sty_info_from,
+    sty_info_to = sty_info_to,
+    numbering_mapping = num_mapping,
+    par_style_mapping = par_style_mapping,
+    run_style_mapping = run_style_mapping,
+    tbl_style_mapping = tbl_style_mapping
+  )
+  body_ns <- xml2::xml_ns(doc_from$doc_obj$get())
+
+  for (id in names(footnotes_chr)) {
+    pat <- "<w:footnoteReference w:id=\"%s\"/>"
+    pat <- sprintf(pat, id)
+    match_pos <- grep(pat, body_chr, fixed = TRUE)
+    body_chr[match_pos] <- unname(footnotes_chr[id])
+  }
+
+  # drop starting and ending tags for w:body
+  body_chr <- head(body_chr, -1)
+  body_chr <- tail(body_chr, -1)
+
+  z <- body_append_start_context(x)
+  cat(body_chr, sep = "\n", file = z$file_con, append = TRUE)
+  x <- body_append_stop_context(z)
+  x
 }
 
 #' @export

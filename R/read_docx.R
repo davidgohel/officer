@@ -83,10 +83,11 @@ read_docx <- function(path = NULL) {
   obj$doc_properties_custom <- read_custom_properties(package_dir)
   obj$doc_properties <- read_core_properties(package_dir)
   obj$content_type <- content_type$new(package_dir)
-  obj$doc_obj <- docx_part$new(package_dir,
-                               main_file = "document.xml",
-                               cursor = "/w:document/w:body/*[1]",
-                               body_xpath = "/w:document/w:body"
+  obj$doc_obj <- body_part$new(
+    package_dir,
+    main_file = "document.xml",
+    cursor = "/w:document/w:body/*[1]",
+    body_xpath = "/w:document/w:body"
   )
   obj$styles <- read_docx_styles(package_dir)
   obj$officer_cursor <- officer_cursor(obj$doc_obj$get())
@@ -122,10 +123,11 @@ read_docx <- function(path = NULL) {
     )
   }
 
-  obj$footnotes <- docx_part$new(
+  obj$footnotes <- footnotes_part$new(
     package_dir,
     main_file = "footnotes.xml",
-    cursor = "/w:footnotes/*[last()]", body_xpath = "/w:footnotes"
+    cursor = "/w:footnotes/*[last()]",
+    body_xpath = "/w:footnotes"
   )
 
   default_refs <- obj$styles[obj$styles$is_default, ]
