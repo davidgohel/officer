@@ -15,7 +15,7 @@ complete_styles_mapping <- function(styles_id_from, style_mapping, sty_info_to, 
       missing_styles_cli$style_id,
       "} could not be mapped"
     )
-    names(missing_styles_cli) <- rep("*", length(missing_styles))
+    names(missing_styles_cli) <- rep("*", length(missing_styles_cli))
     cli::cli_warn(
       c(
         "!" = "Style(s) mapping(s) for '{style_type}s' are missing in the {document_part_label} of the document:",
