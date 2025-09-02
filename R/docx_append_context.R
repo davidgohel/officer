@@ -36,7 +36,7 @@
 #' cursor position set to the end of the document.
 #' @importFrom utils tail
 #' @rdname body_append_context
-#' @example examples/body_append_context.R
+#' @example inst/examples/example_body_append_context.R
 #' @family functions for adding content
 body_append_start_context <- function(x) {
   current_xml_file <- tempfile(fileext = ".txt")
