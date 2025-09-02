@@ -451,6 +451,14 @@ rpr_pml <- function(x) {
     }
   }
 
+  if (!is.na(x$strike)) {
+    if (x$strike) {
+      out <- paste0(out, " strike=\"sngStrike\"")
+    } else {
+      out <- paste0(out, " strike=\"noStrike\"")
+    }
+  }
+
   if (x$vertical.align == "superscript") {
     out <- paste0(out, " baseline=\"40000\"")
   } else if (x$vertical.align == "subscript") {
@@ -517,6 +525,13 @@ rpr_wml <- function(x) {
       out <- paste0(out, "<w:u w:val=\"single\"/>")
     } else {
       out <- paste0(out, "<w:u w:val=\"none\"/>")
+    }
+  }
+  if (!is.na(x$strike)) {
+    if (x$strike) {
+      out <- paste0(out, "<w:strike w:val=\"true\"/>")
+    } else {
+      out <- paste0(out, "<w:strike w:val=\"false\"/>")
     }
   }
 
@@ -596,12 +611,14 @@ rpr_css <- function(x) {
     }
   }
 
-  if (!is.na(x$bold)) {
-    if (x$underlined) {
-      out <- paste0(out, "text-decoration:underline;")
-    } else {
-      out <- paste0(out, "text-decoration:none;")
-    }
+  has_underline <- !is.na(x$underlined) && x$underlined
+  if (has_underline) {
+    out <- paste0(out, "text-decoration:underline;")
+  }
+
+  has_strike <- !is.na(x$strike) && x$strike
+  if (has_strike) {
+    out <- paste0(out, "text-decoration:line-through;")
   }
 
   if (!is.na(x$shading.color)) {

@@ -6,6 +6,7 @@
 This function can be used to specify if the document should handle odd and even headers and footers,
 to change the list separator, etc.
 - new function `body_import_docx()` to import content from an external Word document.
+- `fp_text()` now supports `strike` argument to set strikethrough text.
 
 ## Issues
 
