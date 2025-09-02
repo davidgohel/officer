@@ -129,6 +129,7 @@ default_rpr <- data.frame(
   bold = as.logical(NA),
   italic = as.logical(NA),
   underlined = as.logical(NA),
+  strike = as.logical(NA),
   color = NA_character_,
   font.family = NA_character_,
   bold.cs = as.logical(NA),
@@ -186,6 +187,7 @@ is_character <- function(x) {
 #' @param bold is bold
 #' @param italic is italic
 #' @param underlined is underlined
+#' @param strike is strikethrough
 #' @param font.family single character value. Specifies the font to
 #' be used to format characters in the Unicode range (U+0000-U+007F).
 #' @param cs.family optional font to be used to format
@@ -216,6 +218,7 @@ fp_text <- function(
   bold = FALSE,
   italic = FALSE,
   underlined = FALSE,
+  strike = FALSE,
   font.family = "Arial",
   cs.family = NULL,
   eastasia.family = NULL,
@@ -237,6 +240,9 @@ fp_text <- function(
   }
   if (is_bool(underlined)) {
     out$underlined <- underlined
+  }
+  if (is_bool(strike)) {
+    out$strike <- strike
   }
   if (is_color(color)) {
     out$color <- color
@@ -286,6 +292,7 @@ fp_text_lite <- function(
   bold = NA,
   italic = NA,
   underlined = NA,
+  strike = NA,
   vertical.align = "baseline",
   shading.color = NA
 ) {
@@ -295,6 +302,7 @@ fp_text_lite <- function(
     bold = bold,
     italic = italic,
     underlined = underlined,
+    strike = strike,
     font.family = font.family,
     cs.family = cs.family,
     eastasia.family = eastasia.family,
@@ -342,6 +350,7 @@ print.fp_text <- function(x, ...) {
     italic = x$italic,
     bold = x$bold,
     underlined = x$underlined,
+    strike = x$strike,
     color = x$color,
     shading = x$shading.color,
     fontname = x$font.family,
@@ -367,6 +376,7 @@ update.fp_text <- function(
   bold,
   italic,
   underlined,
+  strike,
   font.family,
   cs.family,
   eastasia.family,
@@ -386,6 +396,9 @@ update.fp_text <- function(
   }
   if (!missing(underlined)) {
     object <- check_set_bool(obj = object, underlined)
+  }
+  if (!missing(strike)) {
+    object <- check_set_bool(obj = object, strike)
   }
   if (!missing(color)) {
     object <- check_set_color(object, color)

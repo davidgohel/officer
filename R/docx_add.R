@@ -226,16 +226,7 @@ body_import_docx <- function(
   body_chr <- head(body_chr, -1)
   body_chr <- tail(body_chr, -1)
 
-  # update namespaces in w:body
-  new_namespaces <- ns_from[setdiff(names(ns_from), names(ns_to))]
-  new_namespaces <- append(ns_to, new_namespaces)
-  names(new_namespaces) <- paste0("xmlns:", names(new_namespaces))
-  xml_set_attrs(
-    xml_find_first(x$doc_obj$get(), "w:body"),
-    value = new_namespaces
-  )
-
-  z <- body_append_start_context(x)
+  z <- body_append_start_context(x, additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))])
   cat(body_chr, sep = "\n", file = z$file_con, append = TRUE)
   x <- body_append_stop_context(z)
   x

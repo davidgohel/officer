@@ -31,16 +31,19 @@ test_that("wml - bold italic underlined", {
   fp_italic <- update(fp_bold, bold = FALSE, italic = TRUE)
   fp_bold_italic <- update(fp_bold, italic = TRUE)
   fp_underline <- fp_text(underlined = TRUE)
+  fp_srtike <- fp_text(strike = TRUE)
 
   xml_bold_ <- format(fp_bold, type = "wml")
   xml_italic_ <- format(fp_italic, type = "wml")
   xml_bolditalic_ <- format(fp_bold_italic, type = "wml")
   xml_underline_ <- format(fp_underline, type = "wml")
+  xml_strike_ <- format(fp_srtike, type = "wml")
 
   doc_bold_ <- read_xml(wml_str(xml_bold_))
   doc_italic_ <- read_xml(wml_str(xml_italic_))
   doc_bolditalic_ <- read_xml(wml_str(xml_bolditalic_))
   doc_underline_ <- read_xml(wml_str(xml_underline_))
+  doc_strike_ <- read_xml(wml_str(xml_strike_))
 
   expect_equal(wml_is_bold(doc_bold_), TRUE)
   expect_equal(
@@ -74,6 +77,10 @@ test_that("wml - bold italic underlined", {
   expect_equal(
     xml_attr(xml_find_first(doc_underline_, "/w:document/w:rPr/w:u"), "val"),
     "single"
+  )
+  expect_equal(
+    xml_attr(xml_find_first(doc_strike_, "/w:document/w:rPr/w:strike"), "val"),
+    "true"
   )
 })
 
@@ -156,16 +163,19 @@ test_that("pml - bold italic underlined", {
   fp_italic <- update(fp_bold, bold = FALSE, italic = TRUE)
   fp_bold_italic <- update(fp_bold, italic = TRUE)
   fp_underline <- fp_text(underlined = TRUE)
+  fp_srtike <- fp_text(strike = TRUE)
 
   xml_bold_ <- format(fp_bold, type = "pml")
   xml_italic_ <- format(fp_italic, type = "pml")
   xml_bolditalic_ <- format(fp_bold_italic, type = "pml")
   xml_underline_ <- format(fp_underline, type = "pml")
+  xml_strike_ <- format(fp_srtike, type = "pml")
 
   doc_bold_ <- read_xml(pml_str(xml_bold_))
   doc_italic_ <- read_xml(pml_str(xml_italic_))
   doc_bolditalic_ <- read_xml(pml_str(xml_bolditalic_))
   doc_underline_ <- read_xml(pml_str(xml_underline_))
+  doc_strike_ <- read_xml(pml_str(xml_strike_))
 
   expect_equal(pml_has_true_attr(doc_bold_, "b"), TRUE)
   expect_equal(pml_has_true_attr(doc_bold_, "i"), FALSE)
@@ -182,6 +192,10 @@ test_that("pml - bold italic underlined", {
   expect_equal(pml_has_true_attr(doc_underline_, "b"), FALSE)
   expect_equal(pml_has_true_attr(doc_underline_, "i"), FALSE)
   expect_equal(pml_attr(doc_underline_, "u"), "sng")
+
+  expect_equal(pml_has_true_attr(doc_strike_, "b"), FALSE)
+  expect_equal(pml_has_true_attr(doc_strike_, "i"), FALSE)
+  expect_equal(pml_attr(doc_strike_, "strike"), "sngStrike")
 })
 
 
@@ -230,11 +244,13 @@ test_that("css", {
   expect_true(has_css_attr(fp, "font-size", "10.0pt"))
   expect_true(has_css_attr(fp, "font-style", "normal"))
   expect_true(has_css_attr(fp, "font-weight", "normal"))
-  expect_true(has_css_attr(fp, "text-decoration", "none"))
   expect_true(has_css_color(fp, "background-color", "rgba\\(0,255,255,0.80\\)"))
 
   fp <- fp_text(bold = TRUE, italic = TRUE, underlined = TRUE)
   expect_true(has_css_attr(fp, "font-style", "italic"))
   expect_true(has_css_attr(fp, "font-weight", "bold"))
   expect_true(has_css_attr(fp, "text-decoration", "underline"))
+
+  fp <- fp_text(strike = TRUE)
+  expect_true(has_css_attr(fp, "text-decoration", "line-through"))
 })

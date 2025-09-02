@@ -14,6 +14,7 @@ fp_text(
   bold = FALSE,
   italic = FALSE,
   underlined = FALSE,
+  strike = FALSE,
   font.family = "Arial",
   cs.family = NULL,
   eastasia.family = NULL,
@@ -32,6 +33,7 @@ fp_text_lite(
   bold = NA,
   italic = NA,
   underlined = NA,
+  strike = NA,
   vertical.align = "baseline",
   shading.color = NA
 )
@@ -47,6 +49,7 @@ fp_text_lite(
   bold,
   italic,
   underlined,
+  strike,
   font.family,
   cs.family,
   eastasia.family,
@@ -67,6 +70,8 @@ a valid color (e.g. "#000000" or "black").}
 \item{italic}{is italic}
 
 \item{underlined}{is underlined}
+
+\item{strike}{is strikethrough}
 
 \item{font.family}{single character value. Specifies the font to
 be used to format characters in the Unicode range (U+0000-U+007F).}
