@@ -185,6 +185,7 @@ fileout <- tempfile(fileext = ".pptx")
 
 doc_1 <- read_pptx()
 sz <- slide_size(doc_1)
+
 # add text and a table ----
 doc_1 <- add_slide(doc_1, layout = "Two Content", master = "Office Theme")
 doc_1 <- ph_with(
@@ -198,6 +199,10 @@ doc_1 <- ph_with(
 doc_1 <- ph_with(
   x = doc_1, value = cars,
   location = ph_location_right()
+)
+doc_1 <- ph_with(
+  x = doc_1, value = Sys.Date(),
+  location = ph_location_type("dt")
 )
 
 # add a base plot ----
@@ -326,12 +331,9 @@ x <- add_slide(x, "Title Slide")
 x <- ph_with(x, "A title", "Title 1")        # label
 x <- ph_with(x, "A subtitle", 3)             # id
 x <- ph_with(x, "A left text", "left")       # keyword
-x <- ph_with(x, "A date", "dt[1]")           # type + index
-x <- ph_with(x, "More content", c(5,.5,9,2)) # numeric vector
-file <- tempfile(fileext = ".pptx")
-print(x, file)
-# browseURL(file)  # opens file on some systems
-
+x <- ph_with(x, Sys.Date(), "dt[1]")         # type + index
+x <- ph_with(x, "More content", c(5,.5,5,2)) # numeric vector (left, top, width, heigh)
+# print(x, preview = TRUE) # opens file locally
 }
 \seealso{
 Specify placeholder locations with \link{ph_location_type}, \link{ph_location},

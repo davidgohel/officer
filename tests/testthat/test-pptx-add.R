@@ -81,11 +81,12 @@ test_that("add <Date> into placeholder", {
   options(officer.date_format = "%D")
   x <- ph_with(x, my_date, ph_location_type("body", type_idx = 1))
 
-  options(officer.date_format = NA)
+  options(officer.date_format = NA) # NA should be okay as well
   expect_no_error({
     x <- ph_with(x, my_date, ph_location_type("body", type_idx = 2))
   })
-  expect_snapshot_x(x = x, name = "pptx-add-date", engine = "testthat")
+
+  expect_snapshot_doc(x = x, name = "pptx-add-date", engine = "testthat")
 })
 
 
