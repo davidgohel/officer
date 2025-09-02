@@ -6,6 +6,7 @@
 \alias{ph_with.numeric}
 \alias{ph_with.factor}
 \alias{ph_with.logical}
+\alias{ph_with.Date}
 \alias{ph_with.block_list}
 \alias{ph_with.unordered_list}
 \alias{ph_with.data.frame}
@@ -26,6 +27,8 @@ ph_with.numeric(x, value, location, format_fun = format, ...)
 ph_with.factor(x, value, location, ...)
 
 ph_with.logical(x, value, location, format_fun = format, ...)
+
+ph_with.Date(x, value, location, format = NULL, ...)
 
 ph_with.block_list(x, value, location, level_list = integer(0), ...)
 
@@ -73,6 +76,9 @@ by png function.}
 
 \item{format_fun}{format function for non character vectors}
 
+\item{format}{A format string for dates (default \code{"\%Y-\%m-\%d"}). See \code{\link[=strftime]{strftime()}} for details.
+Set a global default via \code{options(officer.date_format = ...)}.}
+
 \item{level_list}{The list of levels for hierarchy structure as integer values.
 If used the object is formated as an unordered list. If 1 and 2,
 item 1 level will be 1, item 2 level will be 2.}
@@ -111,6 +117,9 @@ added as paragraphs.
 \item \code{ph_with.factor()}: add a factor vector to a new shape on the
 current slide, values will be be converted as character and then
 added as paragraphs.
+
+\item \code{ph_with.Date()}: add a \code{Date} object vector to a new shape on the
+current slide, values will be be first converted to character.
 
 \item \code{ph_with.block_list()}: add a \code{\link[=block_list]{block_list()}} made
 of \code{\link[=fpar]{fpar()}} to a new shape on the current slide.

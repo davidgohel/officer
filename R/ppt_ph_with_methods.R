@@ -296,6 +296,23 @@ ph_with.factor <- function(x, value, location, ...) {
 #' @rdname ph_with
 ph_with.logical <- ph_with.numeric
 
+
+#' @export
+#' @param format A format string for dates (default `"%Y-%m-%d"`). See [strftime()] for details.
+#' Set a global default via `options(officer.date_format = ...)`.
+#' @describeIn ph_with add a `Date` object vector to a new shape on the
+#' current slide, values will be be first converted to character.
+ph_with.Date <- function(x, value, location, format = NULL, ...) {
+  opt <- options()$officer.date_format
+  if (!is.null(opt) && is.na(opt)) { # catch NA
+    opt <- NULL
+  }
+  format <- format %||% opt %||% "%Y-%m-%d" # fallback to format.Date() default
+  value_str <- format(value, format = format)
+  ph_with(x, value = value_str, location, ...)
+}
+
+
 #' @export
 #' @param level_list The list of levels for hierarchy structure as integer values.
 #' If used the object is formated as an unordered list. If 1 and 2,
