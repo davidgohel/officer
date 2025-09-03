@@ -171,6 +171,11 @@ body_add_docx <- function(x, src, pos = "after") {
 #' ```
 #'
 #' Use [styles_info()] to inspect available styles and verify their names.
+#' @param prepend_chunks_on_styles A named list of run chunks to prepend
+#' to runs with specific styles. The names of the list are paragraph style names
+#' and the values run chunks to prepend. The first motivation for this argument
+#' is to allow prepending of runs in paragraphs with a defined style, for example
+#' to add a [run_autonum()] with all image captions.
 #' @example inst/examples/example_body_import_docx.R
 #' @family functions for adding content
 body_import_docx <- function(
@@ -178,7 +183,8 @@ body_import_docx <- function(
   src,
   par_style_mapping = list(),
   run_style_mapping = list(),
-  tbl_style_mapping = list()
+  tbl_style_mapping = list(),
+  prepend_chunks_on_styles = list()
 ) {
   doc_from <- read_docx(src)
   sty_info_from <- styles_info(doc_from)
@@ -212,7 +218,8 @@ body_import_docx <- function(
     par_style_mapping = par_style_mapping,
     run_style_mapping = run_style_mapping,
     tbl_style_mapping = tbl_style_mapping,
-    additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
+    additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))],
+    prepend_chunks_on_styles = prepend_chunks_on_styles
   )
 
   for (id in names(footnotes_chr)) {

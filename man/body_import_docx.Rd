@@ -9,7 +9,8 @@ body_import_docx(
   src,
   par_style_mapping = list(),
   run_style_mapping = list(),
-  tbl_style_mapping = list()
+  tbl_style_mapping = list(),
+  prepend_chunks_on_styles = list()
 )
 }
 \arguments{
@@ -43,6 +44,12 @@ tbl_style_mapping = list(
 }\if{html}{\out{</div>}}
 
 Use \code{\link[=styles_info]{styles_info()}} to inspect available styles and verify their names.}
+
+\item{prepend_chunks_on_styles}{A named list of run chunks to prepend
+to runs with specific styles. The names of the list are paragraph style names
+and the values run chunks to prepend. The first motivation for this argument
+is to allow prepending of runs in paragraphs with a defined style, for example
+to add a \code{\link[=run_autonum]{run_autonum()}} with all image captions.}
 }
 \description{
 Import body content and footnotes of a Word document into an rdocx object.

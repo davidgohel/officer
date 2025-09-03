@@ -254,7 +254,8 @@ docx_part <- R6Class(
       par_style_mapping = list(),
       run_style_mapping = list(),
       tbl_style_mapping = list(),
-      additional_ns = character(0)
+      additional_ns = character(0),
+      prepend_chunks_on_styles = list()
     ) {
       doc_str <- self$encode_wml_str(additional_ns = additional_ns)
       document_rels <- self$rel_df()
@@ -308,11 +309,35 @@ docx_part <- R6Class(
         )
       }
 
-      # par styles processing -----
       sty_par_info_to <- styles_info_tbl_to[
         styles_info_tbl_to$style_type %in% "paragraph",
       ]
+      sty_par_info_from <- styles_info_tbl_from[
+        styles_info_tbl_from$style_type %in% "paragraph",
+      ]
 
+      # append chunks when specific styles are found -----
+      for(style in names(prepend_chunks_on_styles)) {
+        style_id <- sty_par_info_from$style_id[sty_par_info_from$style_name %in% style]
+        # find all paragraphs with this style
+        match_pstyle <- grep(sprintf("w:pStyle w:val=\"%s\"", style_id), doc_str)
+        # find all </w:pPr> after each match
+        match_end_ppr <- grep("</w:pPr>", doc_str)
+        for(par_i in match_pstyle) {
+          # find next </w:pPr>
+          current_match_end_ppr <- match_end_ppr[match_end_ppr > par_i]
+          current_match_end_ppr <- head(current_match_end_ppr, n = 1)
+          # prepend chunk
+          if (length(current_match_end_ppr) == 1) {
+            doc_str[current_match_end_ppr] <- paste0(
+              doc_str[current_match_end_ppr],
+              to_wml(prepend_chunks_on_styles[[style]])
+            )
+          }
+        }
+      }
+
+      # par styles processing -----
       m <- gregexpr("w:pStyle w:val=\"[[:alnum:]]+\"", doc_str)
       zz <- regmatches(doc_str, m)
       zz <- unlist(zz)
