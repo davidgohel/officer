@@ -438,16 +438,12 @@ body_part <- R6Class(
       body <- xml_find_first(body, "w:body")
 
       # sections are removed
-      xml_find_all(body, "//w:sectPr") |>
-        xml_remove()
+      xml_remove(xml_find_all(body, "//w:sectPr"))
 
       # comments are removed
-      xml_find_all(body, "//w:commentRangeStart") |>
-        xml_remove()
-      xml_find_all(body, "//w:commentRangeEnd") |>
-        xml_remove()
-      xml_find_all(body, "//w:commentReference") |>
-        xml_remove()
+      xml_remove(xml_find_all(body, "//w:commentRangeStart"))
+      xml_remove(xml_find_all(body, "//w:commentRangeEnd"))
+      xml_remove(xml_find_all(body, "//w:commentReference"))
 
       chr_body <- xml_document_to_chrs(body)
       chr_body
