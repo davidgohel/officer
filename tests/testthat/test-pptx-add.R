@@ -45,7 +45,7 @@ test_that("master is inferred", {
 })
 
 
-test_that("add simple elements into placeholder", {
+test_that("snapshot simple elements into placeholder", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
@@ -65,7 +65,7 @@ test_that("add simple elements into placeholder", {
 })
 
 
-test_that("add <Date> into placeholder", {
+test_that("snapshot date into placeholder", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
@@ -89,8 +89,64 @@ test_that("add <Date> into placeholder", {
   expect_snapshot_doc(x = x, name = "pptx-add-date", engine = "testthat")
 })
 
+test_that("add factor into placeholder", {
+  my_factor <- factor(c("Level A", "Level B", "Level C"), levels = c("Level A", "Level B", "Level C"))
 
-test_that("add ggplot into placeholder", {
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, my_factor, location = ph_location_type(type = "body"))
+
+  sm <- slide_summary(doc)
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$text, "Level ALevel BLevel C")
+})
+
+test_that("add date into placeholder", {
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, as.Date("2024-12-31", "%Y-%m-%d"), location = ph_location_type(type = "body"))
+
+  sm <- slide_summary(doc)
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$text, "2024-12-31")
+})
+
+test_that("add unordered_list into placeholder", {
+  my_ul <- unordered_list(
+    level_list = c(1, 2, 1),
+    str_list = c("Item 1", "Subitem", "Item 2")
+  )
+
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, my_ul, location = ph_location_type(type = "body"))
+
+  sm <- slide_summary(doc)
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$text, "Item 1SubitemItem 2")
+})
+
+test_that("add plot_instr with custom dimensions", {
+  anyplot <- plot_instr(code = {
+    barplot(1:5, col = 2:6)
+  })
+
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(
+    doc, 
+    anyplot, 
+    location = ph_location(left = 1, top = 1, width = 4, height = 3)
+  )
+
+  sm <- slide_summary(doc)
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$cx, 4)
+  expect_equal(sm$cy, 3)
+})
+
+
+test_that("snapshot ggplot into placeholder", {
   skip_if_not_installed("doconv")
   skip_if_not_installed("ggplot2")
   skip_if_not(doconv::msoffice_available())
@@ -120,7 +176,7 @@ test_that("add ggplot into placeholder", {
 })
 
 
-test_that("add base plot into placeholder", {
+test_that("snapshot base plot into placeholder", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
