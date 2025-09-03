@@ -28,7 +28,7 @@ ph_with.factor(x, value, location, ...)
 
 ph_with.logical(x, value, location, format_fun = format, ...)
 
-ph_with.Date(x, value, location, format = NULL, ...)
+ph_with.Date(x, value, location, date_format = NULL, ...)
 
 ph_with.block_list(x, value, location, level_list = integer(0), ...)
 
@@ -76,7 +76,8 @@ by png function.}
 
 \item{format_fun}{format function for non character vectors}
 
-\item{format}{A format string for dates (default \code{"\%Y-\%m-\%d"}). See \code{\link[=strftime]{strftime()}} for details.
+\item{date_format}{A format string for dates (default \code{"\%Y-\%m-\%d"}).
+See \code{format} arg in \code{\link[=strftime]{strftime()}} for details.
 Set a global default via \code{options(officer.date_format = ...)}.}
 
 \item{level_list}{The list of levels for hierarchy structure as integer values.
@@ -325,7 +326,7 @@ doc_1 <- ph_with(
 print(doc_1, target = fileout)
 
 
-# Example using short form locations ----
+# Example using short-form locations ----
 x <- read_pptx()
 x <- add_slide(x, "Title Slide")
 x <- ph_with(x, "A title", "Title 1")        # label
@@ -333,7 +334,9 @@ x <- ph_with(x, "A subtitle", 3)             # id
 x <- ph_with(x, "A left text", "left")       # keyword
 x <- ph_with(x, Sys.Date(), "dt[1]")         # type + index
 x <- ph_with(x, "More content", c(5,.5,5,2)) # numeric vector (left, top, width, heigh)
-# print(x, preview = TRUE) # opens file locally
+\dontrun{
+print(x, preview = TRUE) # opens file locally
+}
 }
 \seealso{
 Specify placeholder locations with \link{ph_location_type}, \link{ph_location},

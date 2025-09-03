@@ -76,7 +76,7 @@ test_that("add <Date> into placeholder", {
   x <- read_pptx()
   x <- add_slide(x, layout = "Two Content", master = "Office Theme")
   x <- ph_with(x, my_date, ph_location_type("dt"))
-  x <- ph_with(x, my_date, ph_location_type("ftr"), format = "%d.%m.%Y")
+  x <- ph_with(x, my_date, ph_location_type("ftr"), date_format = "%d.%m.%Y")
 
   options(officer.date_format = "%D")
   x <- ph_with(x, my_date, ph_location_type("body", type_idx = 1))
