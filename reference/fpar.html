@@ -25,7 +25,7 @@ with function update()."><meta property="og:image" content="https://davidgohel.g
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,12 @@ with function <code><a href="https://rdrr.io/r/stats/update.html" class="externa
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fpar</span><span class="op">(</span><span class="va">...</span>, fp_p <span class="op">=</span> <span class="fu"><a href="fp_par.html">fp_par</a></span><span class="op">(</span><span class="op">)</span>, fp_t <span class="op">=</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span><span class="op">)</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fpar</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  fp_p <span class="op">=</span> <span class="fu"><a href="fp_par.html">fp_par</a></span><span class="op">(</span>word_style <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span>,</span>
+<span>  fp_t <span class="op">=</span> <span class="fu"><a href="fp_text.html">fp_text_lite</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'fpar'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">object</span>, fp_p <span class="op">=</span> <span class="cn">NULL</span>, fp_t <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -119,10 +124,10 @@ see <code><a href="fp_text.html">fp_text()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: hello</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE black transparent    Arial       Arial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined strike color     shading fontname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE  FALSE black transparent    Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_cs fontname_eastasia fontname.hansi vertical_align</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Arial             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_p</span>
@@ -141,8 +146,8 @@ see <code><a href="fp_text.html">fp_text()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined strike color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA     NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -167,13 +172,13 @@ see <code><a href="fp_text.html">fp_text()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text: how </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12  FALSE TRUE      FALSE   red transparent    Arial       Arial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined strike color     shading fontname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12  FALSE TRUE      FALSE  FALSE   red transparent    Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_cs fontname_eastasia fontname.hansi vertical_align</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Arial             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/opt/R/4.5.0/lib/R/doc/html/logo.jpg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/opt/R/4.5.1/lib/R/doc/html/logo.jpg"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "external_img" "cot"          "run"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"dims")</span>
@@ -189,10 +194,10 @@ see <code><a href="fp_text.html">fp_text()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chunks[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> text:  you?</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> format:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12  FALSE TRUE      FALSE black transparent    Arial       Arial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined strike color     shading fontname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12  FALSE TRUE      FALSE  FALSE black transparent    Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_cs fontname_eastasia fontname.hansi vertical_align</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Arial             Arial          Arial       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_p</span>
@@ -211,8 +216,8 @@ see <code><a href="fp_text.html">fp_text()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fp_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA    NA      NA       NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined strike color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     NA   NA         NA     NA    NA      NA       NA          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA             NA       baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

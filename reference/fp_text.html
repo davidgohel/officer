@@ -15,7 +15,7 @@ undefined properties will inherit from the default settings."><meta property="og
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,7 @@ undefined properties will inherit from the default settings.</p>
 <span>  bold <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  italic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  underlined <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  strike <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  font.family <span class="op">=</span> <span class="st">"Arial"</span>,</span>
 <span>  cs.family <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  eastasia.family <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -74,6 +75,7 @@ undefined properties will inherit from the default settings.</p>
 <span>  bold <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  italic <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  underlined <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  strike <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  vertical.align <span class="op">=</span> <span class="st">"baseline"</span>,</span>
 <span>  shading.color <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span>
@@ -92,6 +94,7 @@ undefined properties will inherit from the default settings.</p>
 <span>  <span class="va">bold</span>,</span>
 <span>  <span class="va">italic</span>,</span>
 <span>  <span class="va">underlined</span>,</span>
+<span>  <span class="va">strike</span>,</span>
 <span>  <span class="va">font.family</span>,</span>
 <span>  <span class="va">cs.family</span>,</span>
 <span>  <span class="va">eastasia.family</span>,</span>
@@ -125,6 +128,10 @@ a valid color (e.g. "#000000" or "black").</p></dd>
 
 <dt id="arg-underlined">underlined<a class="anchor" aria-label="anchor" href="#arg-underlined"></a></dt>
 <dd><p>is underlined</p></dd>
+
+
+<dt id="arg-strike">strike<a class="anchor" aria-label="anchor" href="#arg-strike"></a></dt>
+<dd><p>is strikethrough</p></dd>
 
 
 <dt id="arg-font-family">font.family<a class="anchor" aria-label="anchor" href="#arg-font-family"></a></dt>
@@ -200,25 +207,25 @@ MS PowerPoint and html.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fp_text</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE FALSE      FALSE black transparent    Arial       Arial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined strike color     shading fontname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE FALSE      FALSE  FALSE black transparent    Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_cs fontname_eastasia fontname.hansi vertical_align</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Arial             Arial          Arial       baseline</span>
 <span class="r-in"><span><span class="fu">fp_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE FALSE      FALSE   red transparent    Arial       Arial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined strike color     shading fontname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE FALSE      FALSE  FALSE   red transparent    Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_cs fontname_eastasia fontname.hansi vertical_align</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Arial             Arial          Arial       baseline</span>
 <span class="r-in"><span><span class="fu">fp_text</span><span class="op">(</span>bold <span class="op">=</span> <span class="cn">TRUE</span>, shading.color <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined color shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE black  yellow    Arial       Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic bold underlined strike color shading fontname fontname_cs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10  FALSE TRUE      FALSE  FALSE black  yellow    Arial       Arial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">fp_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, font.size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined color     shading fontname fontname_cs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12  FALSE FALSE      FALSE   red transparent    Arial       Arial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_eastasia fontname.hansi vertical_align</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             Arial          Arial       baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   font.size italic  bold underlined strike color     shading fontname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12  FALSE FALSE      FALSE  FALSE   red transparent    Arial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fontname_cs fontname_eastasia fontname.hansi vertical_align</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Arial             Arial          Arial       baseline</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

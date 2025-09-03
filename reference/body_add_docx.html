@@ -4,7 +4,9 @@ The function is using a 'Microsoft Word' feature: when the
 document will be edited, the content of the file will be
 inserted in the main document.
 This feature is unlikely to work as expected if the
-resulting document is edited by another software.
+resulting document is edited by another software. You
+can use function body_import_docx() to import the content
+as an alternative.
 The file is added when the method print() that
 produces the final Word file is called, so don't remove
 file defined with src before."><meta property="og:description" content="Add content of a docx into an rdocx object.
@@ -12,7 +14,9 @@ The function is using a 'Microsoft Word' feature: when the
 document will be edited, the content of the file will be
 inserted in the main document.
 This feature is unlikely to work as expected if the
-resulting document is edited by another software.
+resulting document is edited by another software. You
+can use function body_import_docx() to import the content
+as an alternative.
 The file is added when the method print() that
 produces the final Word file is called, so don't remove
 file defined with src before."><meta property="og:image" content="https://davidgohel.github.io/officer/logo.png"></head><body>
@@ -23,7 +27,7 @@ file defined with src before."><meta property="og:image" content="https://davidg
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +58,9 @@ file defined with src before."><meta property="og:image" content="https://davidg
 document will be edited, the content of the file will be
 inserted in the main document.</p>
 <p>This feature is unlikely to work as expected if the
-resulting document is edited by another software.</p>
+resulting document is edited by another software. You
+can use function <code><a href="body_import_docx.html">body_import_docx()</a></code> to import the content
+as an alternative.</p>
 <p>The file is added when the method <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> that
 produces the final Word file is called, so don't remove
 file defined with <code>src</code> before.</p>
@@ -96,7 +102,8 @@ one of "after", "before", "on".</p></dd>
 <code><a href="body_add_plot.html">body_add_plot</a>()</code>,
 <code><a href="body_add_table.html">body_add_table</a>()</code>,
 <code><a href="body_add_toc.html">body_add_toc</a>()</code>,
-<code><a href="body_append_context.html">body_append_start_context</a>()</code></p></div>
+<code><a href="body_append_context.html">body_append_start_context</a>()</code>,
+<code><a href="body_import_docx.html">body_import_docx</a>()</code></p></div>
     </div>
 
     <div class="section level2">

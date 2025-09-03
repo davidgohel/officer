@@ -13,7 +13,7 @@ See Details section for more info."><meta property="og:image" content="https://d
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@ See <em>Details</em> section for more info.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  master <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  slide_idx <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  type <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -77,12 +78,16 @@ the current slide's layout or the default layout (if set and there are not slide
 <dd><p>master layout name where <code>layout</code> is located. Can be omitted if layout is unambiguous.</p></dd>
 
 
+<dt id="arg-slide-idx">slide_idx<a class="anchor" aria-label="anchor" href="#arg-slide-idx"></a></dt>
+<dd><p>Numeric slide index (default <code>NULL</code>) to specify which slide’s layout should be plotted.</p></dd>
+
+
 <dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>
 <dd><p>if <code>TRUE</code> (default), adds placeholder labels (centered in <em>red</em>).</p></dd>
 
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
-<dd><p>if <code>TRUE</code> (default), adds a title with the layout name at the top.</p></dd>
+<dd><p>if <code>TRUE</code> (default), adds a title with the layout and master name (latter in square brackets) at the top.</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
@@ -139,20 +144,29 @@ function family:</p><ul><li><p><code>label</code>: ph label (red, center) to be 
 <span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Title Slide"</span><span class="op">)</span> <span class="co"># no master needed if layout name unique</span></span></span>
 <span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, layout <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># use layout index instead of name</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot default layout if one is set</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="layout_default.html">layout_default</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Title and Content"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Showing default layout: <span style="color: #0000BB;">"Title and Content"</span></span>
+<span class="r-plt img"><img src="plot_layout_properties-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot current slide's layout (default if no layout is passed)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Title Slide"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Showing current slide's layout: <span style="color: #0000BB;">"Title Slide"</span></span>
+<span class="r-plt img"><img src="plot_layout_properties-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># specify which slide's layout to plot by index</span></span></span>
+<span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span>, slide_idx <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Showing layout of slide <span style="color: #0000BB;">1</span>: <span style="color: #0000BB;">"Title Slide"</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># change appearance: what to show, font size, legend etc.</span></span></span>
 <span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span>, layout <span class="op">=</span> <span class="st">"Two Content"</span>, title <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="cn">FALSE</span>, id <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot_layout_properties-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span>, layout <span class="op">=</span> <span class="fl">4</span>, cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">.8</span>, id <span class="op">=</span> <span class="fl">.7</span>, type <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot_layout_properties-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_layout_properties-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span>, layout <span class="op">=</span> <span class="fl">4</span>, cex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fl">.8</span>, id <span class="op">=</span> <span class="fl">.7</span>, type <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_layout_properties-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">plot_layout_properties</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_layout_properties-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -19,7 +19,7 @@ approach to automatic document generation from R."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +86,9 @@ approach to automatic document generation from R.</p>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>named arguments (names are field names), each element is a single
-character value specifying value associated with the corresponding field name.</p></dd>
+character value specifying value associated with the corresponding field name.
+These pairs of <em>key-value</em> are added as custom properties. If a value is
+<code>NULL</code> or <code>NA</code>, the corresponding field is set to ” in the document properties.</p></dd>
 
 
 <dt id="arg-values">values<a class="anchor" aria-label="anchor" href="#arg-values"></a></dt>

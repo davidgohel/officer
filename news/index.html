@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,11 +32,36 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.6.10" id="officer-0610">officer 0.6.10<a class="anchor" aria-label="anchor" href="#officer-0610"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.0" id="officer-070">officer 0.7.0<a class="anchor" aria-label="anchor" href="#officer-070"></a></h2>
+<div class="section level3">
+<h3 id="features-0-7-0">Features<a class="anchor" aria-label="anchor" href="#features-0-7-0"></a></h3>
+<ul><li>new function <code><a href="../reference/docx_set_settings.html">docx_set_settings()</a></code> to set document settings of a Word document. This function can be used to specify if the document should handle odd and even headers and footers, to change the list separator, etc.</li>
+<li>new function <code><a href="../reference/body_import_docx.html">body_import_docx()</a></code> to import content from an external Word document.</li>
+<li>
+<code><a href="../reference/fp_text.html">fp_text()</a></code> now supports <code>strike</code> argument to set strikethrough text.</li>
+<li>
+<code><a href="../reference/ph_with.html">ph_with()</a></code> now handles <code>Date</code> objects without prior conversion to character. The date format can be set locally via the <code>date_format</code> arg or globally via <code>options(officer.date_format = ...)</code> (<a href="https://github.com/davidgohel/officer/issues/683" class="external-link">#683</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-0">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-0"></a></h3>
+<ul><li>Fix Rmd output with paragraphs <code><a href="../reference/fpar.html">fpar()</a></code> so that no stylename is used.</li>
+<li>Improve <code><a href="../reference/set_doc_properties.html">set_doc_properties()</a></code> error and warning messages.</li>
+<li>
+<code><a href="../reference/page_size.html">page_size()</a></code> now manage correctly sizes if <code>orient = "landscape"</code> and not <code>unit = "in"</code>.</li>
+<li>
+<code><a href="../reference/phs_with.html">phs_with()</a></code> and <code><a href="../reference/add_slide.html">add_slide()</a></code> now have a more informative error message if the ph label is unknown (<a href="https://github.com/davidgohel/officer/issues/672" class="external-link">#672</a>)</li>
+<li>Function <code><a href="../reference/set_doc_properties.html">set_doc_properties()</a></code> now supports NULL and NA custom properties in a Word document.</li>
+<li>argument <code>separator</code> is not used anymore in <code>block_toc</code>. Now the Word field is generated with no separator making it more portable over the different locales Word users could have.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.10" id="officer-0610">officer 0.6.10<a class="anchor" aria-label="anchor" href="#officer-0610"></a></h2><p class="text-muted">CRAN release: 2025-05-30</p>
 <div class="section level3">
 <h3 id="issues-0-6-10">Issues<a class="anchor" aria-label="anchor" href="#issues-0-6-10"></a></h3>
 <ul><li>Fix RTF generation so that <code><a href="../reference/fp_par.html">fp_par_lite()</a></code> works also for RTF output.</li>
 <li>Fix <code>doc_summary(... detailed=TRUE)</code> when the runs has a shading (w:shd) with a fill but no color attribute.</li>
+<li>
+<code><a href="../reference/plot_layout_properties.html">plot_layout_properties()</a></code>: new <code>slide_idx</code> arg to specify which slide’s layout to plot. The plot title now also contains the master’s name (<a href="https://github.com/davidgohel/officer/issues/666" class="external-link">#666</a>)</li>
 </ul></div>
 </div>
     <div class="section level2">

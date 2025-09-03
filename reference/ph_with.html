@@ -11,7 +11,7 @@ section Methods (by class) to see supported outputs."><meta property="og:image" 
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,8 @@ section <strong>Methods (by class)</strong> to see supported outputs.</p>
 <span><span class="fu">ph_with.factor</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ph_with.logical</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, format_fun <span class="op">=</span> <span class="va">format</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ph_with.Date</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, date_format <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ph_with.block_list</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, level_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -114,6 +116,12 @@ by png function.</p></dd>
 <dd><p>format function for non character vectors</p></dd>
 
 
+<dt id="arg-date-format">date_format<a class="anchor" aria-label="anchor" href="#arg-date-format"></a></dt>
+<dd><p>A format string for dates (default <code>"%Y-%m-%d"</code>).
+See <code>format</code> arg in <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strftime()</a></code> for details.
+Set a global default via <code>options(officer.date_format = ...)</code>.</p></dd>
+
+
 <dt id="arg-level-list">level_list<a class="anchor" aria-label="anchor" href="#arg-level-list"></a></dt>
 <dd><p>The list of levels for hierarchy structure as integer values.
 If used the object is formated as an unordered list. If 1 and 2,
@@ -162,6 +170,8 @@ added as paragraphs.</p></li>
 <li><p><code>ph_with.factor()</code>: add a factor vector to a new shape on the
 current slide, values will be be converted as character and then
 added as paragraphs.</p></li>
+<li><p><code>ph_with.Date()</code>: add a <code>Date</code> object vector to a new shape on the
+current slide, values will be be first converted to character.</p></li>
 <li><p><code>ph_with.block_list()</code>: add a <code><a href="block_list.html">block_list()</a></code> made
 of <code><a href="fpar.html">fpar()</a></code> to a new shape on the current slide.</p></li>
 <li><p><code>ph_with.unordered_list()</code>: add a <code><a href="unordered_list.html">unordered_list()</a></code> made
@@ -217,6 +227,7 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sz</span> <span class="op">&lt;-</span> <span class="fu"><a href="slide_size.html">slide_size</a></span><span class="op">(</span><span class="va">doc_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add text and a table ----</span></span></span>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc_1</span>, layout <span class="op">=</span> <span class="st">"Two Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span></span></span>
@@ -230,6 +241,10 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 <span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  x <span class="op">=</span> <span class="va">doc_1</span>, value <span class="op">=</span> <span class="va">cars</span>,</span></span>
 <span class="r-in"><span>  location <span class="op">=</span> <span class="fu"><a href="ph_location_right.html">ph_location_right</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc_1</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">doc_1</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  location <span class="op">=</span> <span class="fu"><a href="ph_location_type.html">ph_location_type</a></span><span class="op">(</span><span class="st">"dt"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add a base plot ----</span></span></span>
@@ -354,18 +369,17 @@ current slide. This function is to be used to add custom openxml code.</p></li>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc_1</span>, target <span class="op">=</span> <span class="va">fileout</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example using short form locations ----</span></span></span>
+<span class="r-in"><span><span class="co"># Example using short-form locations ----</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Title Slide"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="st">"A title"</span>, <span class="st">"Title 1"</span><span class="op">)</span>        <span class="co"># label</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="st">"A subtitle"</span>, <span class="fl">3</span><span class="op">)</span>             <span class="co"># id</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="st">"A left text"</span>, <span class="st">"left"</span><span class="op">)</span>       <span class="co"># keyword</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="st">"A date"</span>, <span class="st">"dt[1]"</span><span class="op">)</span>           <span class="co"># type + index</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="st">"More content"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">.5</span>,<span class="fl">9</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># numeric vector</span></span></span>
-<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># browseURL(file)  # opens file on some systems</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"dt[1]"</span><span class="op">)</span>         <span class="co"># type + index</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ph_with</span><span class="op">(</span><span class="va">x</span>, <span class="st">"More content"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">.5</span>,<span class="fl">5</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># numeric vector (left, top, width, heigh)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, preview <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># opens file locally</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

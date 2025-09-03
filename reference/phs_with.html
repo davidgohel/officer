@@ -17,7 +17,7 @@ covenience wrapper for the most common use cases. The implemented short forms ar
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@ right.</p><table class="table table"><tr><td><strong>Short form</strong></td><td
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Two Content"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">phs_with</span><span class="op">(</span><span class="va">x</span>,</span></span>
 <span class="r-in"><span>  `Title 1` <span class="op">=</span> <span class="st">"A title"</span>, <span class="co"># ph label</span></span></span>
-<span class="r-in"><span>  dt <span class="op">=</span> <span class="st">"Jan. 26, 2025"</span>, <span class="co"># ph type</span></span></span>
+<span class="r-in"><span>  dt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># ph type</span></span></span>
 <span class="r-in"><span>  `body[2]` <span class="op">=</span> <span class="st">"Body 2"</span>, <span class="co"># ph type + type index</span></span></span>
 <span class="r-in"><span>  left <span class="op">=</span> <span class="st">"Left side"</span>, <span class="co"># ph keyword</span></span></span>
 <span class="r-in"><span>  `6` <span class="op">=</span> <span class="st">"Footer"</span> <span class="co"># ph index</span></span></span>
@@ -105,7 +105,7 @@ right.</p><table class="table table"><tr><td><strong>Short form</strong></td><td
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># reuse ph content via the .dots arg</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">my_ph_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`6` <span class="op">=</span> <span class="st">"Footer"</span>, dt <span class="op">=</span> <span class="st">"Jan. 26, 2025"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">my_ph_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`6` <span class="op">=</span> <span class="st">"Footer"</span>, dt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Two Content"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">phs_with</span><span class="op">(</span><span class="va">x</span>, `Title 1` <span class="op">=</span> <span class="st">"Title A"</span>, `body[2]` <span class="op">=</span> <span class="st">"Body A"</span>, .dots <span class="op">=</span> <span class="va">my_ph_list</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Two Content"</span><span class="op">)</span></span></span>
@@ -115,13 +115,11 @@ right.</p><table class="table table"><tr><td><strong>Short form</strong></td><td
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Two Content"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Two Content"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">phs_with</span><span class="op">(</span><span class="va">x</span>, `6` <span class="op">=</span> <span class="st">"Footer"</span>, dt <span class="op">=</span> <span class="st">"Jan. 26, 2025"</span>, .slide_idx <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">phs_with</span><span class="op">(</span><span class="va">x</span>, `6` <span class="op">=</span> <span class="st">"Footer"</span>, dt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, .slide_idx <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># run to see results</span></span></span>
+<span class="r-in"><span><span class="co"># run to open temp pptx file locally</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="co"># may not work on all systems</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, preview <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
