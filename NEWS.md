@@ -7,6 +7,9 @@ This function can be used to specify if the document should handle odd and even 
 to change the list separator, etc.
 - new function `body_import_docx()` to import content from an external Word document.
 - `fp_text()` now supports `strike` argument to set strikethrough text.
+- `ph_with()` now handles `Date` objects without prior conversion to character. 
+  The date format can be set locally via the `date_format` arg or globally via 
+  `options(officer.date_format = ...)` (#683)
 
 ## Issues
 

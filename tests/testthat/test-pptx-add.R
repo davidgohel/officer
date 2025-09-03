@@ -65,6 +65,31 @@ test_that("add simple elements into placeholder", {
 })
 
 
+test_that("add <Date> into placeholder", {
+  skip_if_not_installed("doconv")
+  skip_if_not(doconv::msoffice_available())
+  require(doconv)
+  local_edition(3L)
+
+  my_date <- as.Date("2025-09-02")
+
+  x <- read_pptx()
+  x <- add_slide(x, layout = "Two Content", master = "Office Theme")
+  x <- ph_with(x, my_date, ph_location_type("dt"))
+  x <- ph_with(x, my_date, ph_location_type("ftr"), date_format = "%d.%m.%Y")
+
+  options(officer.date_format = "%D")
+  x <- ph_with(x, my_date, ph_location_type("body", type_idx = 1))
+
+  options(officer.date_format = NA) # NA should be okay as well
+  expect_no_error({
+    x <- ph_with(x, my_date, ph_location_type("body", type_idx = 2))
+  })
+
+  expect_snapshot_doc(x = x, name = "pptx-add-date", engine = "testthat")
+})
+
+
 test_that("add ggplot into placeholder", {
   skip_if_not_installed("doconv")
   skip_if_not_installed("ggplot2")

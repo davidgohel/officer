@@ -171,7 +171,7 @@ body_add_docx <- function(x, src, pos = "after") {
 #' ```
 #'
 #' Use [styles_info()] to inspect available styles and verify their names.
-#' @example examples/body_import_docx.R
+#' @example inst/examples/example_body_import_docx.R
 #' @family functions for adding content
 body_import_docx <- function(
   x,

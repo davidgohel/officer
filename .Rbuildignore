@@ -15,4 +15,3 @@
 ^tests/testthat/_snaps$
 ^LICENSE\.md$
 dev_local
-^examples$
