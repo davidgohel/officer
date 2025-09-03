@@ -145,7 +145,7 @@ doc_1 <- ph_with(
 print(doc_1, target = fileout)
 
 
-# Example using short form locations ----
+# Example using short-form locations ----
 x <- read_pptx()
 x <- add_slide(x, "Title Slide")
 x <- ph_with(x, "A title", "Title 1")        # label
@@ -153,4 +153,6 @@ x <- ph_with(x, "A subtitle", 3)             # id
 x <- ph_with(x, "A left text", "left")       # keyword
 x <- ph_with(x, Sys.Date(), "dt[1]")         # type + index
 x <- ph_with(x, "More content", c(5,.5,5,2)) # numeric vector (left, top, width, heigh)
-# print(x, preview = TRUE) # opens file locally
+\dontrun{
+print(x, preview = TRUE) # opens file locally
+}
