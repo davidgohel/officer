@@ -451,12 +451,11 @@ rpr_pml <- function(x) {
     }
   }
 
-  if (!is.na(x$strike)) {
-    if (x$strike) {
-      out <- paste0(out, " strike=\"sngStrike\"")
-    } else {
-      out <- paste0(out, " strike=\"noStrike\"")
-    }
+  has_strike <- !is.null(x$strike) && !is.na(x$strike) && x$strike
+  if (has_strike) {
+    out <- paste0(out, " strike=\"sngStrike\"")
+  } else {
+    out <- paste0(out, " strike=\"noStrike\"")
   }
 
   if (x$vertical.align == "superscript") {
@@ -527,12 +526,12 @@ rpr_wml <- function(x) {
       out <- paste0(out, "<w:u w:val=\"none\"/>")
     }
   }
-  if (!is.na(x$strike)) {
-    if (x$strike) {
-      out <- paste0(out, "<w:strike w:val=\"true\"/>")
-    } else {
-      out <- paste0(out, "<w:strike w:val=\"false\"/>")
-    }
+
+  has_strike <- !is.null(x$strike) && !is.na(x$strike) && x$strike
+  if (has_strike) {
+    out <- paste0(out, "<w:strike w:val=\"true\"/>")
+  } else {
+    out <- paste0(out, "<w:strike w:val=\"false\"/>")
   }
 
   if (x$vertical.align == "superscript") {
@@ -616,7 +615,7 @@ rpr_css <- function(x) {
     out <- paste0(out, "text-decoration:underline;")
   }
 
-  has_strike <- !is.na(x$strike) && x$strike
+  has_strike <- !is.null(x$strike) && !is.na(x$strike) && x$strike
   if (has_strike) {
     out <- paste0(out, "text-decoration:line-through;")
   }
