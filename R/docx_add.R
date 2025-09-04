@@ -1,6 +1,6 @@
 #' @export
 #' @title Add a page break in a 'Word' document
-#' @description add a page break into an rdocx object
+#' @description Add a page break into an rdocx object
 #' @param x an rdocx object
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
@@ -16,7 +16,7 @@ body_add_break <- function(x, pos = "after") {
 
 #' @export
 #' @title Add an image in a 'Word' document
-#' @description add an image into an rdocx object.
+#' @description Add an image into an rdocx object.
 #' @inheritParams body_add_break
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param style paragraph style
@@ -137,7 +137,7 @@ body_add_docx <- function(x, src, pos = "after") {
 #' @details
 #' The following operations are performed when importing a document:
 #'
-#' - Numbering are copied from the source document to the target document.
+#' - Numberings are copied from the source document to the target document.
 #' - Styles are not copied. If styles in the source document do not exist
 #' in the target document, the style specified in the `par_style_mapping`,
 #' `run_style_mapping` and `tbl_style_mapping` arguments will be used instead.
@@ -241,7 +241,7 @@ body_import_docx <- function(
 
 #' @export
 #' @title Add a 'ggplot' in a 'Word' document
-#' @description add a ggplot as a png image into an rdocx object.
+#' @description Add a ggplot as a png image into an rdocx object.
 #' @inheritParams body_add_break
 #' @param value ggplot object
 #' @param style paragraph style
@@ -328,7 +328,7 @@ body_add_gg <- function(
 
 #' @export
 #' @title Add a list of blocks into a 'Word' document
-#' @description add a list of blocks produced by [block_list()] into
+#' @description Add a list of blocks produced by [block_list()] into
 #' into an rdocx object.
 #' @inheritParams body_add_break
 #' @param blocks set of blocks to be used as footnote content returned by
@@ -372,7 +372,7 @@ body_add_blocks <- function(x, blocks, pos = "after") {
 
 #' @export
 #' @title Add paragraphs of text in a 'Word' document
-#' @description add a paragraph of text into an rdocx object
+#' @description Add a paragraph of text into an rdocx object
 #' @param x a docx device
 #' @param value a character
 #' @param style paragraph style name
@@ -899,7 +899,7 @@ body_comment <- function(
 # body_add and methods -----
 #' @export
 #' @title Add content into a Word document
-#' @description This function add objects into a Word document. Values are added
+#' @description This function adds objects into a Word document. Values are added
 #' as new paragraphs or tables.
 #'
 #' This function is experimental and will replace the `body_add_*` functions

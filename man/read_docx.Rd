@@ -26,7 +26,7 @@ read_docx(path = NULL)
 
 \item{copy_header_refs, copy_footer_refs}{logical, default is FALSE.
 If TRUE, copy the references to the header and footer in each section
-of the body of the document. This parameter is experimental and my change
+of the body of the document. This parameter is experimental and may change
 in a future version.}
 
 \item{preview}{Save \code{x} to a temporary file and open it (default \code{FALSE}).}
@@ -37,7 +37,7 @@ in a future version.}
 an object of class \code{rdocx}.
 }
 \description{
-read and import a docx file as an R object
+Read and import a docx file as an R object
 representing the document. When no file is specified, it
 uses a default empty file.
 

@@ -16,7 +16,7 @@ function \code{\link[=block_list]{block_list()}}.}
 one of "after", "before", "on".}
 }
 \description{
-add a list of blocks produced by \code{\link[=block_list]{block_list()}} into
+Add a list of blocks produced by \code{\link[=block_list]{block_list()}} into
 into an rdocx object.
 }
 \examples{

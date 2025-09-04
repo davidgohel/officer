@@ -23,7 +23,7 @@ one of "after", "before", "on".}
 arguments are expressed: "in", "cm" or "mm".}
 }
 \description{
-add an image into an rdocx object.
+Add an image into an rdocx object.
 }
 \examples{
 doc <- read_docx()

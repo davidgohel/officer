@@ -1,6 +1,6 @@
 #' @export
 #' @title Create a 'Word' document object
-#' @description read and import a docx file as an R object
+#' @description Read and import a docx file as an R object
 #' representing the document. When no file is specified, it
 #' uses a default empty file.
 #'
@@ -148,7 +148,7 @@ read_docx <- function(path = NULL) {
 #' @param target path to the docx file to write
 #' @param copy_header_refs,copy_footer_refs logical, default is FALSE.
 #' If TRUE, copy the references to the header and footer in each section
-#' of the body of the document. This parameter is experimental and my change
+#' of the body of the document. This parameter is experimental and may change
 #' in a future version.
 #' @param preview Save `x` to a temporary file and open it (default `FALSE`).
 #' @param ... unused
@@ -325,7 +325,7 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
 
 #' @export
 #' @title Number of blocks inside an rdocx object
-#' @description return the number of blocks inside an rdocx object.
+#' @description Return the number of blocks inside an rdocx object.
 #' This number also include the default section definition of a
 #' Word document - default Word section is an uninvisible element.
 #' @param x an rdocx object
@@ -340,7 +340,7 @@ length.rdocx <- function( x ){
 
 #' @export
 #' @title Read 'Word' styles
-#' @description read Word styles and get results in
+#' @description Read Word styles and get results in
 #' a data.frame.
 #' @param x an rdocx object
 #' @param type,is_default subsets for types (i.e. paragraph) and

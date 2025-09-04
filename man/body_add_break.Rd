@@ -13,7 +13,7 @@ body_add_break(x, pos = "after")
 one of "after", "before", "on".}
 }
 \description{
-add a page break into an rdocx object
+Add a page break into an rdocx object
 }
 \examples{
 doc <- read_docx()

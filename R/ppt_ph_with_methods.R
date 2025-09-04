@@ -2,7 +2,7 @@
 
 #' @export
 #' @title Add objects on the current slide
-#' @description add object into a new shape in the current slide. This
+#' @description add an object into a new shape in the current slide. This
 #' function is able to add all supported outputs to a presentation. See
 #' section **Methods (by class)** to see supported outputs.
 #' @param x an rpptx object
@@ -17,7 +17,7 @@
 #' short forms can be used, as listed in section `"Short forms"`.
 #' @param ... further arguments passed to or from other methods. When
 #' adding a `ggplot` object or `plot_instr`, these arguments will be used
-#' by png function.
+#' by the png function.
 #'
 #' @section Short forms:
 #' The `location` argument of `ph_with()` either expects a location object as returned by the
@@ -37,7 +37,7 @@
 #' @seealso Specify placeholder locations with [ph_location_type], [ph_location],
 #' [ph_location_label], [ph_location_left], [ph_location_right],
 #' [ph_location_fullsize], [ph_location_template]. [phs_with] is a sibling of
-#' `ph_with` that fills mutiple placeholders at once.
+#' `ph_with` that fills multiple placeholders at once. Use [add_slide] to add new slides.
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}

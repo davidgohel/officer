@@ -17,7 +17,7 @@ styles_info(
 default style (when \code{is_default} is TRUE or FALSE)}
 }
 \description{
-read Word styles and get results in
+Read Word styles and get results in
 a data.frame.
 }
 \examples{

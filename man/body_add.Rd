@@ -114,7 +114,7 @@ Defaults to a width of 6 and a height of 5 "in"ches.}
 arguments are expressed: "in", "cm" or "mm".}
 }
 \description{
-This function add objects into a Word document. Values are added
+This function adds objects into a Word document. Values are added
 as new paragraphs or tables.
 
 This function is experimental and will replace the \verb{body_add_*} functions

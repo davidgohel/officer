@@ -10,7 +10,7 @@
 \item{x}{an rdocx object}
 }
 \description{
-return the number of blocks inside an rdocx object.
+Return the number of blocks inside an rdocx object.
 This number also include the default section definition of a
 Word document - default Word section is an uninvisible element.
 }

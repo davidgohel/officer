@@ -61,7 +61,7 @@ content is appended to the target document.
 \details{
 The following operations are performed when importing a document:
 \itemize{
-\item Numbering are copied from the source document to the target document.
+\item Numberings are copied from the source document to the target document.
 \item Styles are not copied. If styles in the source document do not exist
 in the target document, the style specified in the \code{par_style_mapping},
 \code{run_style_mapping} and \code{tbl_style_mapping} arguments will be used instead.

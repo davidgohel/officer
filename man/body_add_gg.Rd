@@ -40,7 +40,7 @@ arguments are expressed: "in", "cm" or "mm".}
 \item{...}{Arguments to be passed to png function.}
 }
 \description{
-add a ggplot as a png image into an rdocx object.
+Add a ggplot as a png image into an rdocx object.
 }
 \examples{
 if (require("ggplot2")) {
