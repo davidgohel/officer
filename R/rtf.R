@@ -216,40 +216,62 @@ to_rtf.prop_section <- function(x, ...) {
 
   hfr_type <- guess_hfr_type(x)
   extra_rtf <- ""
+  str_h <- ""
+  str_f <- ""
+  str_h_even <- ""
+  str_f_even <- ""
+  str_h_first <- ""
+  str_f_first <- ""
+
   if ("none" %in% hfr_type) {
     hfr_str <- ""
   } else if ("default" %in% hfr_type) {
-    hfr_str <- paste0(
-      if (!is.null(x$header_default)) "{\\header ", to_rtf(x$header_default), "}",
-      if (!is.null(x$footer_default)) "{\\footer ", to_rtf(x$footer_default), "}",
-      ""
-    )
+    if (!is.null(x$header_default)) {
+      str_h <- paste0("{\\header ", to_rtf(x$header_default), "}")
+    }
+    if (!is.null(x$footer_default)) {
+      str_f <- paste0("{\\footer ", to_rtf(x$footer_default), "}")
+    }
+    hfr_str <- paste0(str_h, str_f)
   } else if ("evenodd" %in% hfr_type) {
     extra_rtf <- "\\facingp"
+    if (!is.null(x$header_default)) str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
+    if (!is.null(x$header_even)) str_h_even <- paste0("{\\headerr ", to_rtf(x$header_even), "}")
+    if (!is.null(x$footer_default)) str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
+    if (!is.null(x$footer_even)) str_f_even <- paste0("{\\footerr ", to_rtf(x$footer_even), "}")
     hfr_str <- paste0(
-      if (!is.null(x$header_default)) "{\\headerl ", to_rtf(x$header_default), "}",
-      if (!is.null(x$header_even)) "{\\headerr ", to_rtf(x$header_even), "}",
-      if (!is.null(x$footer_default)) "{\\footerl ", to_rtf(x$footer_default), "}",
-      if (!is.null(x$footer_even)) "{\\footerr ", to_rtf(x$footer_even), "}",
+      str_h,
+      str_h_even,
+      str_f,
+      str_f_even
     )
   } else if ("evenoddfirst" %in% hfr_type) {
     extra_rtf <- "\\facingp\\titlepg"
+    if (!is.null(x$header_default)) str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
+    if (!is.null(x$header_even)) str_h_even <- paste0("{\\headerr ", to_rtf(x$header_even), "}")
+    if (!is.null(x$header_first)) str_h_first <- paste0("{\\headerf ", to_rtf(x$header_first), "}")
+    if (!is.null(x$footer_default)) str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
+    if (!is.null(x$footer_even)) str_f_even <- paste0("{\\footerr ", to_rtf(x$footer_even), "}")
+    if (!is.null(x$footer_first)) str_f_first <- paste0("{\\footerf ", to_rtf(x$footer_first), "}")
     hfr_str <- paste0(
-      if (!is.null(x$header_default)) "{\\headerl ", to_rtf(x$header_default), "}",
-      if (!is.null(x$header_even)) "{\\headerr ", to_rtf(x$header_even), "}",
-      if (!is.null(x$header_first)) "{\\headerf ", to_rtf(x$header_first), "}",
-      if (!is.null(x$footer_default)) "{\\footerl ", to_rtf(x$footer_default), "}",
-      if (!is.null(x$footer_even)) "{\\footerr ", to_rtf(x$footer_even), "}",
-      if (!is.null(x$footer_first)) "{\\footerf ", to_rtf(x$footer_first), "}",
-      ""
+      str_h,
+      str_h_even,
+      str_h_first,
+      str_f,
+      str_f_even,
+      str_f_first
     )
   } else {
     extra_rtf <- "\\titlepg"
+    if (!is.null(x$header_default)) str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
+    if (!is.null(x$header_first)) str_h_first <- paste0("{\\headerf ", to_rtf(x$header_first), "}")
+    if (!is.null(x$footer_default)) str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
+    if (!is.null(x$footer_first)) str_f_first <- paste0("{\\footerf ", to_rtf(x$footer_first), "}")
     hfr_str <- paste0(
-      if (!is.null(x$header_default)) "{\\header ", to_rtf(x$header_default), "}",
-      if (!is.null(x$header_first)) "{\\headerf ", to_rtf(x$header_first), "}",
-      if (!is.null(x$footer_default)) "{\\footer ", to_rtf(x$footer_default), "}",
-      if (!is.null(x$footer_first)) "{\\footerf ", to_rtf(x$footer_first), "}"
+      str_h,
+      str_h_first,
+      str_f,
+      str_f_first
     )
   }
 

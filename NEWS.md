@@ -1,3 +1,9 @@
+# officer 0.7.1
+
+## Issues
+
+- Fix RTF sections that were sometimes invisible
+
 # officer 0.7.0
 
 ## Features
