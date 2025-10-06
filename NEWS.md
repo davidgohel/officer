@@ -3,6 +3,7 @@
 ## Issues
 
 - Fix RTF sections that were sometimes invisible
+- issue with image in google docs should now be fixed (#689)
 
 # officer 0.7.0
 

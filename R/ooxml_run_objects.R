@@ -1330,8 +1330,8 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
     "<pic:spPr bwMode=\"auto\"><a:xfrm><a:off x=\"0\" y=\"0\"/>",
     sprintf(
       "<a:ext cx=\"%.0f\" cy=\"%.0f\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></pic:spPr>",
-      width * 12700,
-      height * 12700
+      width * 12700 * 72,
+      height * 12700 * 72
     ),
     "</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
   )
