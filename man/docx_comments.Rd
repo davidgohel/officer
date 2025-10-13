@@ -27,7 +27,7 @@ blocks or runs or of length 0 if the comment is empty.
 Elememts can be vectors of length > 1 if a comment spans multiple paragraphs
 or of length 0 if the comment has no parent paragraph.
 \item "commented_text" - a list column of characters containing the
-commented text. Elememts can be vectors of length > 1 if a comment
+commented text. Elements can be vectors of length > 1 if a comment
 spans multiple paragraphs or runs or of length 0 if the commented text is empty.
 }
 }

@@ -117,6 +117,16 @@ dir_slide <- R6Class(
       slide_obj$remove()
     },
 
+    remove_slides_bulk = function(filenames) {
+      # Public method to remove multiple slides from collection efficiently
+      # Remove from collection
+      private$collection <- private$collection[!(names(private$collection) %in% filenames)]
+      # Refresh slides list
+      private$slides_list <- private$get_slide_list()
+      
+      self
+    },
+
     save_slides = function(){
       lapply( private$collection, function(x){
         x$save()
