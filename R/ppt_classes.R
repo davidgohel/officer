@@ -81,6 +81,47 @@ presentation <- R6Class(
       private$update_xml()
 
       self
+    },
+
+    get_slide_xml_info = function() {
+      # Public method to get slide XML information for bulk operations
+      slide_id_nodes <- xml_find_all(private$doc, ".//p:sldId")
+      
+      if (length(slide_id_nodes) == 0) {
+        return(data.frame(
+          index = integer(0),
+          rId = character(0),
+          filename = character(0),
+          stringsAsFactors = FALSE
+        ))
+      }
+      
+      pres_rels <- private$rels_doc$show()
+      
+      slide_map <- do.call(
+        rbind,
+        lapply(seq_along(slide_id_nodes), function(i) {
+          node <- slide_id_nodes[[i]]
+          rId <- xml_attr(node, "r:id", ns = xml_ns(node))
+          filename <- sub("slides/", "", pres_rels$target[pres_rels$id == rId])
+          data.frame(
+            index = i,
+            rId = rId,
+            filename = filename,
+            stringsAsFactors = FALSE
+          )
+        })
+      )
+      
+      slide_map
+    },
+
+    remove_slides_bulk = function(filenames) {
+      # Public method to remove multiple slides efficiently
+      for (filename in filenames) {
+        self$remove_slide(filename)
+      }
+      self
     }
 
   ),
