@@ -73,6 +73,7 @@ print(x, target = tempfile(fileext = ".docx"))
 \link{ph_with}, \link{body_add}, \link{fpar}
 
 Other run functions for reporting: 
+\code{\link{floating_external_img}()},
 \code{\link{ftext}()},
 \code{\link{hyperlink_ftext}()},
 \code{\link{run_autonum}()},

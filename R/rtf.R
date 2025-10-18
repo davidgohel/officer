@@ -104,6 +104,184 @@ to_rtf.external_img <- function(x, ...) {
   paste(rtf_str, dat, "\n}", sep = "")
 }
 
+
+#' @export
+to_rtf.floating_external_img <- function(x, ...) {
+  dims <- attr(x, "dims")
+  width <- dims$width
+  height <- dims$height
+
+  pos <- attr(x, "pos")
+  pos_x <- pos$x
+  pos_y <- pos$y
+  pos_h_from <- pos$h_from
+  pos_v_from <- pos$v_from
+
+  wrap <- attr(x, "wrap")
+  wrap_type <- wrap$type
+  wrap_side <- wrap$side
+  wrap_dist_top <- wrap$dist_top
+  wrap_dist_bottom <- wrap$dist_bottom
+  wrap_dist_left <- wrap$dist_left
+  wrap_dist_right <- wrap$dist_right
+
+  if (!grepl("\\.png$", x)) {
+    imgpath <- tempfile(fileext = ".png")
+    img <- magick::image_read(x)
+    magick::image_write(img, path = imgpath)
+  } else {
+    imgpath <- x
+  }
+
+  # Read image data
+  dat <- readBin(imgpath, what = "raw", size = 1, endian = "little", n = 1e+8)
+  dat <- paste(dat, collapse = "")
+
+  # RTF units: twips (1/1440 inch)
+  width_twips <- width * 1440
+  height_twips <- height * 1440
+  pos_x_twips <- pos_x * 1440
+  pos_y_twips <- pos_y * 1440
+
+  # EMU units for wrap distances (1 EMU = 1/914400 inch, so multiply inches by 914400)
+  # But for RTF {\sp{\sn property}{\sv value}}, wrap distances are in EMUs
+  dist_t_emus <- wrap_dist_top * 914400
+  dist_b_emus <- wrap_dist_bottom * 914400
+  dist_l_emus <- wrap_dist_left * 914400
+  dist_r_emus <- wrap_dist_right * 914400
+
+  # RTF wrap codes for \shpwr:
+  # 1 = wrap around top and bottom
+  # 2 = wrap around shape
+  # 3 = none (as if shape isn't present)
+  # 4 = wrap tightly
+  # 5 = wrap text through shape
+  wrap_code <- switch(wrap_type,
+    "square" = "\\shpwr2",
+    "tight" = "\\shpwr4",
+    "topAndBottom" = "\\shpwr1",
+    "through" = "\\shpwr5",
+    "none" = "\\shpwr3",
+    "\\shpwr2"  # Default to square wrap
+  )
+
+  # RTF wrap side codes for \shpwrk:
+  # 0 = wrap both sides
+  # 1 = wrap left side only
+  # 2 = wrap right side only
+  # 3 = wrap only on largest side
+  wrap_side_code <- switch(wrap_side,
+    "bothSides" = "\\shpwrk0",
+    "left" = "\\shpwrk1",
+    "right" = "\\shpwrk2",
+    "largest" = "\\shpwrk3",
+    "\\shpwrk0"  # Default
+  )
+
+  # RTF positioning codes
+  # Horizontal positioning relative to:
+  # \shpbxpage = page, \shpbxmargin = margin, \shpbxcolumn = column
+  pos_h_code <- switch(pos_h_from,
+    "page" = "\\shpbxpage",
+    "margin" = "\\shpbxmargin",
+    "column" = "\\shpbxcolumn",
+    "character" = "\\shpbxcolumn",
+    "\\shpbxmargin"  # Default
+  )
+
+  # Vertical positioning relative to:
+  # \shpbypage = page, \shpbymargin = margin, \shpbypara = paragraph
+  pos_v_code <- switch(pos_v_from,
+    "page" = "\\shpbypage",
+    "margin" = "\\shpbymargin",
+    "paragraph" = "\\shpbypara",
+    "line" = "\\shpbypara",
+    "\\shpbymargin"  # Default
+  )
+
+  # posrelh property: 0=margin, 1=page, 2=column
+  posrelh <- switch(pos_h_from,
+    "margin" = 0,
+    "page" = 1,
+    "column" = 2,
+    "character" = 2,
+    0  # Default to margin
+  )
+
+  # posrelv property: 0=margin, 1=page, 2=paragraph
+  posrelv <- switch(pos_v_from,
+    "margin" = 0,
+    "page" = 1,
+    "paragraph" = 2,
+    "line" = 2,
+    0  # Default to margin
+  )
+
+  # Build the RTF shape structure following Word's format:
+  # {\shp \shpleft... \shptop... \shpright... \shpbottom... \shpfhdr0
+  #       \shpbx... \shpbxignore \shpby... \shpbyignore
+  #       \shpwr... \shpwrk... \shpfblwtxt... \shpz... \shplid...
+  #       {\*\shpinst {\sp{\sn prop}{\sv val}}... \par}}}
+
+  rtf_str <- paste0(
+    "{\\shp",
+    sprintf("\\shpleft%.0f\\shptop%.0f\\shpright%.0f\\shpbottom%.0f",
+            pos_x_twips, pos_y_twips,
+            pos_x_twips + width_twips, pos_y_twips + height_twips),
+    "\\shpfhdr0",  # Not in header/footer
+    pos_h_code, "\\shpbxignore",  # Horizontal positioning
+    pos_v_code, "\\shpbyignore",  # Vertical positioning
+    wrap_code, wrap_side_code,  # Wrap type and side
+    "\\shpfblwtxt0",  # Image in front of text
+    "\\shpz0",  # Z-order
+    "\\shplid1027"  # Shape ID
+  )
+
+  # Start the shape properties ({\*\shpinst ...})
+  rtf_str <- paste0(rtf_str, "{\\*\\shpinst")
+
+  # Add shape properties following {\sp{\sn PropertyName}{\sv PropertyValue}} format
+  # shapeType: 75 = picture frame
+  rtf_str <- paste0(rtf_str, "{\\sp{\\sn shapeType}{\\sv 75}}")
+
+  # pib: Binary picture data
+  rtf_str <- paste0(
+    rtf_str,
+    sprintf(
+      "{\\sp{\\sn pib}{\\sv {\\pict\\pngblip\\picwgoal%.0f\\pichgoal%.0f %s}}}",
+      width_twips, height_twips, dat
+    )
+  )
+
+  # Add wrap distances (in EMUs)
+  if (dist_l_emus > 0) {
+    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dxWrapDistLeft}{\\sv %.0f}}", dist_l_emus))
+  }
+  if (dist_r_emus > 0) {
+    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dxWrapDistRight}{\\sv %.0f}}", dist_r_emus))
+  }
+  if (dist_t_emus > 0) {
+    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dyWrapDistTop}{\\sv %.0f}}", dist_t_emus))
+  }
+  if (dist_b_emus > 0) {
+    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dyWrapDistBottom}{\\sv %.0f}}", dist_b_emus))
+  }
+
+  # Add positioning properties (posrelh, posrelv are not in the Word example,
+  # but keeping them won't hurt for compatibility with newer readers)
+  # Note: These are commented out since the Word example doesn't include them
+  # rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn posrelh}{\\sv %d}}", posrelh))
+  # rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn posrelv}{\\sv %d}}", posrelv))
+
+  # fBehindDocument: 0 = in front of text, 1 = behind text
+  # Note: This is redundant with \shpfblwtxt0 above, but Word includes it
+  # rtf_str <- paste0(rtf_str, "{\\sp{\\sn fBehindDocument}{\\sv 0}}")
+
+  # Close the shape structure: \par}}} closes {\*\shpinst and {\shp
+  paste0(rtf_str, "\\par}}}")
+}
+
+
 #' @export
 to_rtf.run_word_field <- function(x, ...) {
   rtf_fp <- ""

@@ -1223,6 +1223,8 @@ external_img <- function(
 }
 
 
+
+
 #' @export
 dim.external_img <- function(x) {
   x <- attr(x, "dims")
@@ -1337,7 +1339,6 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
   )
 }
 
-
 #' @export
 to_pml.external_img <- function(
   x,
@@ -1409,6 +1410,216 @@ to_html.external_img <- function(x, ...) {
     height * 72,
     b64_str,
     attr(x, "alt")
+  )
+}
+
+# floating_external_img ----
+#' @export
+#' @title Floating external image
+#' @description Wraps an image in an object that can be embedded as a floating
+#' image in a 'Word' document. Unlike [external_img()], which creates inline images,
+#' this function creates floating images that can be positioned anywhere on the page
+#' and allow text wrapping around them.
+#'
+#' @param src image file path
+#' @param width,height size of the image file. It can be ignored
+#' if parameter `guess_size=TRUE`, see parameter `guess_size`.
+#' @param pos_x,pos_y horizontal and vertical position of the image relative to the anchor point
+#' @param pos_h_from horizontal positioning reference point, one of "margin", "page", "column", "character"
+#' @param pos_v_from vertical positioning reference point, one of "margin", "page", "paragraph", "line"
+#' @param wrap_type text wrapping type, one of "square", "topAndBottom", "through", "tight", "none"
+#' @param wrap_side which side text wraps around, one of "bothSides", "left", "right", "largest"
+#' @param wrap_dist_top,wrap_dist_bottom,wrap_dist_left,wrap_dist_right distance between image and text (in inches)
+#' @param guess_size If package 'magick' is installed, this option
+#' can be used (set it to `TRUE`). The images will be read and
+#' width and height will be guessed.
+#' @param unit unit for width, height, pos_x and pos_y, one of "in", "cm", "mm".
+#' @param alt alternative text for images
+#' @inheritSection ftext usage
+#' @examples
+#' library(officer)
+#' srcfile <- file.path(R.home("doc"), "html", "logo.jpg")
+#' floatimg <- floating_external_img(
+#'   src = srcfile, height = 1.06 / 2, width = 1.39 / 2,
+#'   pos_x = 0, pos_y = 0,
+#'   pos_h_from = "margin", pos_v_from = "margin"
+#' )
+#'
+#' text <- paste0(
+#'   " is a floating image in a ",
+#'   paste0(rep("very ", 30), collapse = ""),
+#'   " long text!"
+#' )
+#'
+#' # docx example ----
+#' x <- read_docx()
+#' fp_t <- fp_text(font.size = 20, color = "red")
+#' an_fpar <- fpar(floatimg, ftext(text, fp_t))
+#' x <- body_add_fpar(x, an_fpar)
+#' print(x, target = tempfile(fileext = ".docx"))
+#'
+#' # rtf example ----
+#' rtf_doc <- rtf_doc()
+#' rtf_doc <- rtf_add(rtf_doc, an_fpar)
+#' print(rtf_doc, target = tempfile(fileext = ".rtf"))
+#' @seealso [external_img], [body_add], [fpar], [rtf_doc], [rtf_add]
+#' @family run functions for reporting
+floating_external_img <- function(
+    src,
+    width = .5,
+    height = .2,
+    pos_x = 0,
+    pos_y = 0,
+    pos_h_from = "margin",
+    pos_v_from = "margin",
+    wrap_type = "square",
+    wrap_side = "bothSides",
+    wrap_dist_top = 0,
+    wrap_dist_bottom = 0,
+    wrap_dist_left = 0.125,
+    wrap_dist_right = 0.125,
+    unit = "in",
+    guess_size = FALSE,
+    alt = ""
+) {
+  # note: should it be vectorized
+  check_src <- all(grepl("^rId", src)) || all(file.exists(src))
+  if (!check_src) {
+    stop(
+      "src must be a string starting with 'rId' or an existing image filename"
+    )
+  }
+
+  # Validate positioning parameters
+  pos_h_from <- match.arg(pos_h_from, c("margin", "page", "column", "character"))
+  pos_v_from <- match.arg(pos_v_from, c("margin", "page", "paragraph", "line"))
+  wrap_type <- match.arg(wrap_type, c("square", "topAndBottom", "through", "tight", "none"))
+  wrap_side <- match.arg(wrap_side, c("bothSides", "left", "right", "largest"))
+
+  width <- convin(unit = unit, x = width)
+  height <- convin(unit = unit, x = height)
+  pos_x <- convin(unit = unit, x = pos_x)
+  pos_y <- convin(unit = unit, x = pos_y)
+
+  if (length(src) > 1) {
+    if (length(width) == 1) width <- rep(width, length(src))
+    if (length(height) == 1) height <- rep(height, length(src))
+    if (length(pos_x) == 1) pos_x <- rep(pos_x, length(src))
+    if (length(pos_y) == 1) pos_y <- rep(pos_y, length(src))
+  }
+
+  if (guess_size) {
+    if (!requireNamespace("magick", quietly = TRUE)) {
+      stop("package magick is required when using `guess_size` option.")
+    }
+    sizes <- lapply(src, function(x) {
+      if (grepl("\\.svg$", x)) {
+        z <- magick::image_read_svg(x)
+      } else {
+        z <- magick::image_read(x)
+      }
+      z <- magick::image_data(z)
+      attr(z, "dim")[-1]
+    })
+    sizes <- do.call(rbind, sizes)
+    width <- sizes[, 1] / 72
+    height <- sizes[, 2] / 72
+  }
+
+  class(src) <- c("floating_external_img", "external_img", "cot", "run")
+  attr(src, "dims") <- list(width = width, height = height)
+  attr(src, "pos") <- list(x = pos_x, y = pos_y, h_from = pos_h_from, v_from = pos_v_from)
+  attr(src, "wrap") <- list(
+    type = wrap_type,
+    side = wrap_side,
+    dist_top = wrap_dist_top,
+    dist_bottom = wrap_dist_bottom,
+    dist_left = wrap_dist_left,
+    dist_right = wrap_dist_right
+  )
+  attr(src, "alt") <- alt
+  src
+}
+
+#' @export
+to_wml.floating_external_img <- function(x, add_ns = FALSE, ...) {
+  open_tag <- wr_ns_no
+  if (add_ns) {
+    open_tag <- wr_ns_yes
+  }
+
+  dims <- attr(x, "dims")
+  width <- dims$width
+  height <- dims$height
+
+  pos <- attr(x, "pos")
+  pos_x <- pos$x
+  pos_y <- pos$y
+  pos_h_from <- pos$h_from
+  pos_v_from <- pos$v_from
+
+  wrap <- attr(x, "wrap")
+  wrap_type <- wrap$type
+  wrap_side <- wrap$side
+  wrap_dist_top <- wrap$dist_top
+  wrap_dist_bottom <- wrap$dist_bottom
+  wrap_dist_left <- wrap$dist_left
+  wrap_dist_right <- wrap$dist_right
+
+  blipfill <- temp_blipfill(x, ns = "pic")
+
+  # Convert dimensions to EMUs (English Metric Units: 1 inch = 914400 EMUs)
+  cx <- sprintf("%.0f", width * 12700 * 72)
+  cy <- sprintf("%.0f", height * 12700 * 72)
+
+  # Convert positions to EMUs
+  pos_x_emu <- sprintf("%.0f", pos_x * 12700 * 72)
+  pos_y_emu <- sprintf("%.0f", pos_y * 12700 * 72)
+
+  # Convert wrap distances to EMUs
+  dist_t_emu <- sprintf("%.0f", wrap_dist_top * 914400)
+  dist_b_emu <- sprintf("%.0f", wrap_dist_bottom * 914400)
+  dist_l_emu <- sprintf("%.0f", wrap_dist_left * 914400)
+  dist_r_emu <- sprintf("%.0f", wrap_dist_right * 914400)
+
+  # Build wrapping element
+  wrap_element <- switch(
+    wrap_type,
+    "square" = sprintf("<wp:wrapSquare wrapText=\"%s\"/>", wrap_side),
+    "topAndBottom" = "<wp:wrapTopAndBottom/>",
+    "through" = sprintf("<wp:wrapThrough wrapText=\"%s\"><wp:wrapPolygon edited=\"0\"><wp:start x=\"0\" y=\"0\"/></wp:wrapPolygon></wp:wrapThrough>", wrap_side),
+    "tight" = sprintf("<wp:wrapTight wrapText=\"%s\"><wp:wrapPolygon edited=\"0\"><wp:start x=\"0\" y=\"0\"/></wp:wrapPolygon></wp:wrapTight>", wrap_side),
+    "none" = "<wp:wrapNone/>"
+  )
+
+  paste0(
+    open_tag,
+    "<w:rPr/><w:drawing xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\">",
+    sprintf(
+      "<wp:anchor distT=\"%s\" distB=\"%s\" distL=\"%s\" distR=\"%s\" simplePos=\"0\" relativeHeight=\"251658240\" behindDoc=\"0\" locked=\"0\" layoutInCell=\"1\" allowOverlap=\"1\">",
+      dist_t_emu, dist_b_emu, dist_l_emu, dist_r_emu
+    ),
+    "<wp:simplePos x=\"0\" y=\"0\"/>",
+    sprintf("<wp:positionH relativeFrom=\"%s\"><wp:posOffset>%s</wp:posOffset></wp:positionH>", pos_h_from, pos_x_emu),
+    sprintf("<wp:positionV relativeFrom=\"%s\"><wp:posOffset>%s</wp:posOffset></wp:positionV>", pos_v_from, pos_y_emu),
+    sprintf("<wp:extent cx=\"%s\" cy=\"%s\"/>", cx, cy),
+    "<wp:effectExtent l=\"0\" t=\"0\" r=\"0\" b=\"0\"/>",
+    wrap_element,
+    "<wp:docPr id=\"\" name=\"\" descr=\"",
+    attr(x, "alt"),
+    "\"/>",
+    "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
+    "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
+    "<pic:nvPicPr>",
+    "<pic:cNvPr id=\"\" name=\"\"/>",
+    "<pic:cNvPicPr/>",
+    "</pic:nvPicPr>",
+    blipfill,
+    "<pic:spPr><a:xfrm><a:off x=\"0\" y=\"0\"/>",
+    sprintf("<a:ext cx=\"%s\" cy=\"%s\"/>", cx, cy),
+    "</a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom></pic:spPr>",
+    "</pic:pic></a:graphicData></a:graphic>",
+    "</wp:anchor></w:drawing></w:r>"
   )
 }
 

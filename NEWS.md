@@ -1,5 +1,10 @@
 # officer 0.7.1
 
+## Features
+
+- new function `floating_external_img()` to add a floating image in a 'Word' 
+document.
+
 ## Issues
 
 - Fix RTF sections that were sometimes invisible

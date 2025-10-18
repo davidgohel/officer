@@ -71,6 +71,7 @@ run_autonum(
 \seealso{
 Other run functions for reporting: 
 \code{\link{external_img}()},
+\code{\link{floating_external_img}()},
 \code{\link{ftext}()},
 \code{\link{hyperlink_ftext}()},
 \code{\link{run_bookmark}()},

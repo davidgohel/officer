@@ -12,6 +12,7 @@
 ^examples$
 ^todo\.md$
 ^\.github$
+^\.claude$
 ^tests/testthat/_snaps$
 ^LICENSE\.md$
 dev_local
