@@ -884,8 +884,19 @@ docx_section_type <- c(
 #'
 #' A Section properties object stores information about page composition,
 #' such as page size, page orientation, borders and margins.
+#'
+#' **Important**: When creating multiple sections in a document, it is strongly
+#' recommended to use the **same `page_margins` object** for all sections to avoid
+#' unwanted page breaks. Changing page margins between sections can cause Word to
+#' insert automatic page breaks, even when using `type = "continuous"`. To ensure
+#' consistent behavior, create a single `page_mar()` object and reuse it across
+#' all `prop_section()` calls. See the examples in [body_end_block_section()] which
+#' demonstrate this best practice.
+#'
 #' @param page_size page dimensions, an object generated with function [page_size].
 #' @param page_margins page margins, an object generated with function [page_mar].
+#' It is recommended to use the same margins object across all sections to prevent
+#' unintended page breaks.
 #' @param type Section type. It defines how the contents of the section will be
 #' placed relative to the previous section. Available types are "continuous"
 #' (begins the section on the next paragraph), "evenPage" (begins on the next
@@ -906,66 +917,7 @@ docx_section_type <- c(
 #' NULL (default value) for no content.
 #' @param footer_first content as a [block_list()] for the default page footer.
 #' Use NULL (default value) for no content.
-#' @examples
-#' library(officer)
-#'
-#' landscape_one_column <- block_section(
-#'   prop_section(
-#'     page_size = page_size(orient = "landscape"), type = "continuous"
-#'   )
-#' )
-#' landscape_two_columns <- block_section(
-#'   prop_section(
-#'     page_size = page_size(orient = "landscape"), type = "continuous",
-#'     section_columns = section_columns(widths = c(4.75, 4.75))
-#'   )
-#' )
-#'
-#' doc_1 <- read_docx()
-#' # there starts section with landscape_one_column
-#' doc_1 <- body_add_table(doc_1, value = mtcars[1:10, ], style = "table_template")
-#' doc_1 <- body_end_block_section(doc_1, value = landscape_one_column)
-#' # there stops section with landscape_one_column
-#'
-#'
-#' # there starts section with landscape_two_columns
-#' doc_1 <- body_add_par(doc_1, value = paste(rep(letters, 50), collapse = " "))
-#' doc_1 <- body_end_block_section(doc_1, value = landscape_two_columns)
-#' # there stops section with landscape_two_columns
-#'
-#' doc_1 <- body_add_table(doc_1, value = mtcars[1:25, ], style = "table_template")
-#'
-#' print(doc_1, target = tempfile(fileext = ".docx"))
-#'
-#'
-#' # an example with headers and footers -----
-#' txt_lorem <- rep(
-#'   "Purus lectus eros metus turpis mattis platea praesent sed. ",
-#'   50
-#' )
-#' txt_lorem <- paste0(txt_lorem, collapse = "")
-#'
-#' header_first <- block_list(fpar(ftext("text for first page header")))
-#' header_even <- block_list(fpar(ftext("text for even page header")))
-#' header_default <- block_list(fpar(ftext("text for default page header")))
-#' footer_first <- block_list(fpar(ftext("text for first page footer")))
-#' footer_even <- block_list(fpar(ftext("text for even page footer")))
-#' footer_default <- block_list(fpar(ftext("text for default page footer")))
-#'
-#' ps <- prop_section(
-#'   header_default = header_default, footer_default = footer_default,
-#'   header_first = header_first, footer_first = footer_first,
-#'   header_even = header_even, footer_even = footer_even
-#' )
-#' x <- read_docx()
-#' for (i in 1:20) {
-#'   x <- body_add_par(x, value = txt_lorem)
-#' }
-#' x <- body_set_default_section(
-#'   x,
-#'   value = ps
-#' )
-#' print(x, target = tempfile(fileext = ".docx"))
+#' @example inst/examples/example_prop_section.R
 #' @seealso [block_section]
 #' @family functions for section definition
 #' @section Illustrations:

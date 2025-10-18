@@ -81,8 +81,10 @@ for (i in seq_len(50)) {
   write_elements_to_context(
     context = z,
     fpar(
-      "Hello World, ", i,
-      fp_p = fp_par(word_style = "heading 1")),
+      "Hello World, ",
+      i,
+      fp_p = fp_par(word_style = "heading 1")
+    ),
     fpar(run_pagebreak())
   )
 }

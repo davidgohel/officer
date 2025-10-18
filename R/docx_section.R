@@ -200,18 +200,7 @@ body_end_block_section <- function(x, value) {
 #' @param x an rdocx object
 #' @param value a [prop_section] object
 #' @family functions for Word sections
-#' @examples
-#' default_sect_properties <- prop_section(
-#'   page_size = page_size(orient = "landscape"), type = "continuous",
-#'   page_margins = page_mar(bottom = .75, top = 1.5, right = 2, left = 2)
-#' )
-#'
-#' doc_1 <- read_docx()
-#' doc_1 <- body_add_table(doc_1, value = mtcars[1:10, ], style = "table_template")
-#' doc_1 <- body_add_par(doc_1, value = paste(rep(letters, 40), collapse = " "))
-#' doc_1 <- body_set_default_section(doc_1, default_sect_properties)
-#'
-#' print(doc_1, target = tempfile(fileext = ".docx"))
+#' @example inst/examples/example_body_set_default_section.R
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{body_set_default_section_doc_1.png}{options: width=80\%}}

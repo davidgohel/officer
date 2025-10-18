@@ -17,6 +17,12 @@ plot_layout_properties(x)
 plot_layout_properties(x, slide_idx = 1)
 
 # change appearance: what to show, font size, legend etc.
-plot_layout_properties(x, layout = "Two Content", title = FALSE, type = FALSE, id = FALSE)
+plot_layout_properties(
+  x,
+  layout = "Two Content",
+  title = FALSE,
+  type = FALSE,
+  id = FALSE
+)
 plot_layout_properties(x, layout = 4, cex = c(labels = .8, id = .7, type = .7))
 plot_layout_properties(x, 1, legend = TRUE)

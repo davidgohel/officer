@@ -913,26 +913,7 @@ body_comment <- function(
 #' @param ... further arguments passed to or from other methods. When
 #' adding a `ggplot` object or [plot_instr], these arguments will be used
 #' by png function. See method signatures to see what arguments can be used.
-#' @examples
-#' doc_1 <- read_docx()
-#' doc_1 <- body_add(doc_1, "Table of content", style = "heading 1")
-#' doc_1 <- body_add(doc_1, block_toc())
-#' doc_1 <- body_add(doc_1, run_pagebreak())
-#' doc_1 <- body_add(doc_1, "A title", style = "heading 1")
-#' doc_1 <- body_add(doc_1, head(iris), style = "table_template")
-#' doc_1 <- body_add(doc_1, "Another title", style = "heading 1")
-#' doc_1 <- body_add(doc_1, letters, style = "Normal")
-#' doc_1 <- body_add(
-#'   doc_1,
-#'   block_section(prop_section(type = "continuous"))
-#' )
-#' doc_1 <- body_add(doc_1, plot_instr(code = barplot(1:5, col = 2:6)))
-#' doc_1 <- body_add(
-#'   doc_1,
-#'   block_section(prop_section(page_size = page_size(orient = "landscape")))
-#' )
-#' print(doc_1, target = tempfile(fileext = ".docx"))
-#' # print(doc_1, target = "test.docx")
+#' @example inst/examples/example_body_add_1.R
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{body_add_doc_1.png}{options: width=70\%}}

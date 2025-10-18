@@ -2,7 +2,7 @@
 % Please edit documentation in R/rtf.R
 \name{print.rtf}
 \alias{print.rtf}
-\title{Write an 'RTF' document to a file}
+\title{Write an 'RTF' File}
 \usage{
 \method{print}{rtf}(x, target = NULL, ...)
 }

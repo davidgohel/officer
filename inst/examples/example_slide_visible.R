@@ -14,4 +14,3 @@ slide_visible(x) <- c(TRUE, FALSE) # warns that rhs values are recycled
 slide_visible(x)[2] <- TRUE # set 2nd slide to visible
 slide_visible(x)[c(1, 3)] <- FALSE # 1st and 3rd slide
 slide_visible(x)[c(1, 3)] <- c(FALSE, FALSE) # identical
-

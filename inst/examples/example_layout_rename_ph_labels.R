@@ -14,7 +14,12 @@ layout_properties(x, "Comparison")$ph_label
 # rename using key-value pairs: 'old label' = 'new label' or 'id' = 'new label'
 layout_rename_ph_labels(x, "Comparison", "Title 1" = "LABEL MATCHED") # label matching
 layout_rename_ph_labels(x, "Comparison", "3" = "ID MATCHED") # id matching
-layout_rename_ph_labels(x, "Comparison", "Date Placeholder 6" = "DATE", "8" = "FOOTER") # label, id
+layout_rename_ph_labels(
+  x,
+  "Comparison",
+  "Date Placeholder 6" = "DATE",
+  "8" = "FOOTER"
+) # label, id
 
 # rename using a named list and the .dots arg
 renames <- list("Content Placeholder 3" = "CONTENT_1", "6" = "CONTENT_2")
@@ -36,7 +41,12 @@ layout_rename_ph_labels(x, "Comparison") <- tolower(labels)
 
 # rename all labels to type [type_idx]
 lp <- layout_properties(x, "Comparison")
-layout_rename_ph_labels(x, "Comparison") <- paste0(lp$type, " [", lp$type_idx, "]")
+layout_rename_ph_labels(x, "Comparison") <- paste0(
+  lp$type,
+  " [",
+  lp$type_idx,
+  "]"
+)
 
 # rename duplicated placeholders (see also `layout_dedupe_ph_labels()`)
 file <- system.file("doc_examples", "ph_dupes.pptx", package = "officer")

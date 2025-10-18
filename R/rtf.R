@@ -965,7 +965,7 @@ rtf_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, scale
   x
 }
 
-#' @title Write an 'RTF' document to a file
+#' @title Write an 'RTF' File
 #' @description Write the RTF object and its content to a file.
 #' @param x an 'rtf' object created with [rtf_doc()]
 #' @param target path to the RTF file to write
