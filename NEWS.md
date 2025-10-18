@@ -4,6 +4,7 @@
 
 - Fix RTF sections that were sometimes invisible
 - issue with image in google docs should now be fixed (#689)
+- add automatically namespaces when calling `write_elements_to_context()`
 
 # officer 0.7.0
 
