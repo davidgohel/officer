@@ -61,6 +61,7 @@ Suggests:
     ggplot2,
     knitr,
     magick,
+    officedown,
     rmarkdown,
     rsvg,
     testthat,
