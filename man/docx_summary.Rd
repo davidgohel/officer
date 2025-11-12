@@ -18,11 +18,64 @@ the 'docxtractr' package by Bob Rudis.}
 \item{remove_fields}{if TRUE, prevent field codes from appearing in the
 returned data.frame.}
 
-\item{detailed}{Should information on runs be included in summary dataframe?
-Defaults to \code{FALSE}. If \code{TRUE} a list column \code{run} is added to the summary
-containing a summary of formatting properties of runs as a dataframe with
-rows corresponding to a single run and columns containing the information
-on formatting properties.}
+\item{detailed}{Should run-level information be included in the dataframe?
+Defaults to \code{FALSE}. If \code{TRUE}, the dataframe contains detailed information
+about each run (text formatting, images, hyperlinks, etc.) instead of
+collapsing content at the paragraph level. When \code{FALSE}, run-level
+information such as images, hyperlinks, and text formatting is not available
+since data is aggregated at the paragraph level.}
+}
+\value{
+A data.frame with the following columns depending on the value of \code{detailed}:
+
+When \code{detailed = FALSE} (default), the data.frame contains:
+\itemize{
+\item \code{doc_index}: Document element index (integer).
+\item \code{content_type}: Type of content: "paragraph" or "table cell" (character).
+\item \code{paragraph_stylename}: Name of the paragraph style (character).
+\item \code{text}: Collapsed text content of the paragraph or cell (character).
+\item \code{table_index}: Index of the table (integer). \code{NA} for non-table content.
+\item \code{row_id}: Row position in table (integer). \code{NA} for non-table content.
+\item \code{cell_id}: Cell position in table row (integer). \code{NA} for non-table content.
+\item \code{is_header}: Whether the row is a table header (logical). \code{NA} for non-table content.
+\item \code{row_span}: Number of rows spanned by the cell (integer). \code{0} for merged cells. \code{NA} for non-table content.
+\item \code{col_span}: Number of columns spanned by the cell (character). \code{NA} for non-table content.
+\item \code{table_stylename}: Name of the table style (character). \code{NA} for non-table content.
+}
+
+When \code{detailed = TRUE}, the data.frame contains additional run-level information:
+\itemize{
+\item \code{run_index}: Index of the run within the paragraph (integer).
+\item \code{run_content_index}: Index of content element within the run (integer).
+\item \code{run_content_text}: Text content of the run element (character).
+\item \code{image_path}: Path to embedded image stored in the temporary directory
+associated with the rdocx object (character).
+Images should be copied to a permanent location before closing the R
+session if needed.
+\item \code{field_code}: Field code content (character).
+\item \code{footnote_text}: Footnote text content (character).
+\item \code{link}: Hyperlink URL (character).
+\item \code{link_to_bookmark}: Internal bookmark anchor name for hyperlinks (character).
+\item \code{bookmark_start}: Name of the bookmark starting at this run (character).
+\item \code{character_stylename}: Name of the character/run style (character).
+\item \code{sz}: Font size in half-points (integer).
+\item \code{sz_cs}: Complex script font size in half-points (integer).
+\item \code{font_family_ascii}: Font family for ASCII characters (character).
+\item \code{font_family_eastasia}: Font family for East Asian characters (character).
+\item \code{font_family_hansi}: Font family for high ANSI characters (character).
+\item \code{font_family_cs}: Font family for complex script characters (character).
+\item \code{bold}: Whether the run is bold (logical).
+\item \code{italic}: Whether the run is italic (logical).
+\item \code{underline}: Whether the run is underlined (logical).
+\item \code{color}: Text color in hexadecimal format (character).
+\item \code{shading}: Shading pattern (character).
+\item \code{shading_color}: Shading foreground color (character).
+\item \code{shading_fill}: Shading background fill color (character).
+\item \code{keep_with_next}: Whether paragraph should stay with next (logical).
+\item \code{align}: Paragraph alignment (character).
+\item \code{level}: Numbering level (integer). \code{NA} if not a numbered list.
+\item \code{num_id}: Numbering definition ID (integer). \code{NA} if not a numbered list.
+}
 }
 \description{
 read content of a Word document and
@@ -41,5 +94,5 @@ doc <- read_docx(example_docx)
 
 docx_summary(doc)
 
-docx_summary(doc, preserve = TRUE)[28, ]
+docx_summary(doc, detailed = TRUE)
 }

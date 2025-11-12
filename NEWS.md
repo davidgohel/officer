@@ -5,6 +5,11 @@
 - new function `floating_external_img()` to add a floating image in a 'Word' 
 document.
 
+## Changes
+
+- Refactoring of `docx_summary()`: the function now provide more run-level 
+information (text formatting, images, hyperlinks, bookmarks). 
+
 ## Issues
 
 - Fix RTF sections that were sometimes invisible

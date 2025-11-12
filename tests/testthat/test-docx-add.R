@@ -380,19 +380,23 @@ test_that("body_add R objects", {
   doc <- body_add(doc, head(iris), style = "table_template")
   docx_xml <- docx_body_xml(doc)
 
+  tf <- print(doc, target = tempfile(fileext = ".docx"))
+
+  doc <- read_docx(path = tf)
   doc_summary <- docx_summary(doc)
 
   txt <- doc_summary$text
   ref <- c("a", "b", "c", "d", "e", "setosa", "setosa", "setosa", "setosa",
-           "setosa", "1", "2", "3", "4", "5", "hello", "Sepal.Length", "5.1",
-           "4.9", "4.7", "4.6", "5.0", "5.4", "Sepal.Width", "3.5", "3.0",
-           "3.2", "3.1", "3.6", "3.9", "Petal.Length", "1.4", "1.4", "1.3",
-           "1.5", "1.4", "1.7", "Petal.Width", "0.2", "0.2", "0.2", "0.2",
-           "0.2", "0.4", "Species", "setosa", "setosa", "setosa", "setosa",
-           "setosa", "setosa")
+           "setosa", "1", "2", "3", "4", "5", "hello", "Sepal.Length", "Sepal.Width",
+           "Petal.Length", "Petal.Width", "Species", "5.1", "3.5", "1.4",
+           "0.2", "setosa", "4.9", "3.0", "1.4", "0.2", "setosa", "4.7",
+           "3.2", "1.3", "0.2", "setosa", "4.6", "3.1", "1.5", "0.2", "setosa",
+           "5.0", "3.6", "1.4", "0.2", "setosa", "5.4", "3.9", "1.7", "0.4",
+           "setosa")
   expect_equal(txt, ref)
 
-  table_style_name <- doc_summary[doc_summary$content_type %in% "table cell", "style_name"]
+  table_style_name <- doc_summary[
+    !is.na(doc_summary$table_index), ]$table_stylename
   table_style_name <- unique(table_style_name)
   expect_equal(table_style_name, "table_template")
 })

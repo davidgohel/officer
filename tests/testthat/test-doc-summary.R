@@ -3,11 +3,12 @@ test_that("docx summary", {
 
   doc <- read_docx(path = example_docx)
   doc_data <- docx_summary(doc)
-  table_data <- subset(doc_data, content_type %in% "table cell" & is_header)
+  table_data <- doc_data[!is.na(doc_data$table_index) & doc_data$is_header,]
   expect_equal(table_data$text, c("Petals", "Internode", "Sepal", "Bract"))
 
-  doc_data_pr <- docx_summary(doc, preserve = TRUE)
-  expect_equal(doc_data_pr[28, ][["text"]], "Note\nNew line note")
+  doc_data_pr <- docx_summary(doc)
+  table_data <- doc_data_pr[!is.na(doc_data_pr$table_index),]
+  expect_equal(tail(doc_data_pr, 2)[["text"]], c("Note", "New line note"))
 
   doc <- read_docx()
   doc <- body_add_fpar(
@@ -24,7 +25,7 @@ test_that("docx summary", {
 test_that("complex docx table", {
   doc <- read_docx(path = "docs_dir/table-complex.docx")
   doc_data <- docx_summary(doc)
-  table_data <- doc_data[doc_data$content_type == "table cell", ]
+  table_data <- doc_data[!is.na(doc_data$table_index), ]
   table_data <- table_data[order(table_data$row_id, table_data$cell_id), ]
 
   first_row <- table_data[table_data$row_id %in% 1, ]
@@ -36,14 +37,12 @@ test_that("complex docx table", {
       "column head",
       "column head",
       "column head",
-      NA,
-      NA,
       "x",
       "y"
     )
   )
-  expect_equal(first_row$col_span, c(1, 1, 1, 3, 0, 0, 1, 1))
-  expect_equal(first_row$row_span, c(2, 2, 2, 1, 1, 1, 2, 2))
+  expect_equal(as.integer(first_row$col_span), c(1, 1, 1, 3, 1, 1))
+  expect_equal(as.integer(first_row$row_span), c(2, 2, 2, 1, 2, 2))
   expect_true(all(
     table_data$text[table_data$col_span < 1 | table_data$row_span < 1] %in%
       NA_character_
@@ -75,6 +74,7 @@ test_that("preserves non breaking hyphens", {
     x = doc,
     str = make_xml_elt("General", "Inspector")
   )
+  docx_summary(doc)
   expect_equal(
     docx_summary(doc)[["text"]],
     c("Inspector\u002DGeneral", "General\u002DInspector")
@@ -153,20 +153,18 @@ test_that("detailed summary", {
 
   doc_sum <- docx_summary(doc, detailed = TRUE)
 
-  expect_true("run" %in% names(doc_sum))
-  expect_type(doc_sum$run, "list")
-  expect_equal(lengths(doc_sum$run), rep(12, 6))
-  expect_equal(sapply(doc_sum$run, nrow), c(3, 3, 1, 1, 8, 2))
+  expect_true("run_content_text" %in% names(doc_sum))
+  expect_equal(nrow(doc_sum), 18L)
 
-  expect_true(all(sapply(doc_sum$run$bold, is.logical)))
-  expect_true(all(sapply(doc_sum$run$italic, is.logical)))
-  expect_true(all(sapply(doc_sum$run$sz, is.integer)))
-  expect_true(all(sapply(doc_sum$run$szCs, is.integer)))
-  expect_true(all(sapply(doc_sum$run$underline, is_character)))
-  expect_true(all(sapply(doc_sum$run$color, is_character)))
-  expect_true(all(sapply(doc_sum$run$shading, is_character)))
-  expect_true(all(sapply(doc_sum$run$shading_color, is_character)))
-  expect_true(all(sapply(doc_sum$run$shading_fill, is_character)))
+  expect_true(is.logical(doc_sum$bold))
+  expect_true(is.logical(doc_sum$italic))
+  expect_true(is.integer(doc_sum$sz))
+  expect_true(is.integer(doc_sum$sz_cs))
+  expect_true(is.logical(doc_sum$underline))
+  expect_true(is.character(doc_sum$color))
+  expect_true(is.character(doc_sum$shading))
+  expect_true(is.character(doc_sum$shading_color))
+  expect_true(is.character(doc_sum$shading_fill))
 })
 
 

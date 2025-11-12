@@ -62,7 +62,7 @@ test_that("list bookmarks", {
 test_that("console printing", {
   x <- read_docx()
   x <- body_add_par(x, "Hello world", style = "Normal")
-  expect_output(print(x), "docx document with")
+  expect_output(print(x), "rdocx document with")
 })
 
 test_that("check extention and print document", {

@@ -60,7 +60,7 @@ test_that("body_import_docx copy the content", {
     head(old_doc_head)[c("doc_index", "text")]
   )
   expect_equal(
-    head(new_doc_head)$style_name,
+    head(new_doc_head)$paragraph_stylename,
     c("heading 1", NA, "heading 1", "Normal", "Normal", "Normal")
   )
 
