@@ -589,6 +589,7 @@ docx_bookmarks <- function(x){
   setdiff(xml_attr(doc_, "name"), "_GoBack")
 }
 
+
 #' @export
 #' @title Replace styles in a 'Word' Document
 #' @description Replace styles with others in a 'Word' document. This function
@@ -616,46 +617,69 @@ docx_bookmarks <- function(x){
 #' )
 #' doc_2 <- change_styles(doc_2, mapstyles = mapstyles)
 #' print(doc_2, target = tempfile(fileext = ".docx"))
-change_styles <- function( x, mapstyles ){
-
-  if( is.null(mapstyles) || length(mapstyles) < 1 ) return(x)
+change_styles <- function(x, mapstyles) {
+  if (is.null(mapstyles) || length(mapstyles) < 1) {
+    return(x)
+  }
 
   table_styles <- styles_info(x, type = c("paragraph", "character", "table"))
 
-  from_styles <- unique( as.character( unlist(mapstyles) ) )
-  to_styles <- unique( names( mapstyles) )
+  from_styles <- unique(as.character(unlist(mapstyles)))
+  to_styles <- unique(names(mapstyles))
 
-  if( any( is.na( mfrom <- match( from_styles, table_styles$style_name ) ) ) ){
-    stop("could not find style ", paste0( shQuote(from_styles[is.na(mfrom)]), collapse = ", " ), ".", call. = FALSE)
+  if (any(is.na(mfrom <- match(from_styles, table_styles$style_name)))) {
+    stop(
+      "could not find style ",
+      paste0(shQuote(from_styles[is.na(mfrom)]), collapse = ", "),
+      ".",
+      call. = FALSE
+    )
   }
-  if( any( is.na( mto <- match( to_styles, table_styles$style_name ) ) ) ){
-    stop("could not find style ", paste0( shQuote(to_styles[is.na(mto)]), collapse = ", " ), ".", call. = FALSE)
+  if (any(is.na(mto <- match(to_styles, table_styles$style_name)))) {
+    stop(
+      "could not find style ",
+      paste0(shQuote(to_styles[is.na(mto)]), collapse = ", "),
+      ".",
+      call. = FALSE
+    )
   }
 
-  mapping <- mapply(function(from, to) {
-    id_to <- which( table_styles$style_name %in% to )
-    id_to <- table_styles$style_id[id_to]
+  mapping <- mapply(
+    function(from, to) {
+      id_to <- which(table_styles$style_name %in% to)
+      id_to <- table_styles$style_id[id_to]
 
-    id_from <- which( table_styles$style_name %in% from )
-    types <- substring(table_styles$style_type[id_from], first = 1, last = 1)
-    types[types %in% "c"] <- "r"
-    types[types %in% "t"] <- "tbl"
-    id_from <- table_styles$style_id[id_from]
+      id_from <- which(table_styles$style_name %in% from)
+      types <- substring(table_styles$style_type[id_from], first = 1, last = 1)
+      types[types %in% "c"] <- "r"
+      types[types %in% "t"] <- "tbl"
+      id_from <- table_styles$style_id[id_from]
 
-    data.frame( from = id_from, to = rep(id_to, length(from)), types = types, stringsAsFactors = FALSE )
-  }, mapstyles, names(mapstyles), SIMPLIFY = FALSE)
+      data.frame(
+        from = id_from,
+        to = rep(id_to, length(from)),
+        types = types,
+        stringsAsFactors = FALSE
+      )
+    },
+    mapstyles,
+    names(mapstyles),
+    SIMPLIFY = FALSE
+  )
 
   mapping <- do.call(rbind, mapping)
   row.names(mapping) <- NULL
 
-  for(i in seq_len( nrow(mapping) )){
-    all_nodes <- xml_find_all(x$doc_obj$get(), sprintf("//w:%sStyle[@w:val='%s']", mapping$types[i], mapping$from[i]))
-    xml_attr(all_nodes, "w:val") <- rep(mapping$to[i], length(all_nodes) )
+  for (i in seq_len(nrow(mapping))) {
+    all_nodes <- xml_find_all(
+      x$doc_obj$get(),
+      sprintf("//w:%sStyle[@w:val='%s']", mapping$types[i], mapping$from[i])
+    )
+    xml_attr(all_nodes, "w:val") <- rep(mapping$to[i], length(all_nodes))
   }
 
   x
 }
-
 
 
 #' @export
