@@ -134,8 +134,8 @@ test_that("add plot_instr with custom dimensions", {
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
   doc <- ph_with(
-    doc, 
-    anyplot, 
+    doc,
+    anyplot,
     location = ph_location(left = 1, top = 1, width = 4, height = 3)
   )
 

@@ -9,6 +9,9 @@ document.
 
 - Refactoring of `docx_summary()`: the function now provide more run-level 
 information (text formatting, images, hyperlinks, bookmarks). 
+- Refactoring of `sanitize_images()`: the function now works as expected. It will
+be unexported soon since it is now automatically called before writing documents
+and is therefore no longer useful to end users.
 
 ## Issues
 

@@ -107,25 +107,6 @@ test_that("slide remove", {
   expect_equal(sm[1, ]$text, "Hello world 2")
 })
 
-test_that("slide remove with rm_images", {
-  img.file <- file.path(R.home(component = "doc"), "html", "logo.jpg")
-  ext_img <- external_img(img.file)
-
-  x <- read_pptx()
-  x <- add_slide(x, "Title and Content")
-  x <- ph_with(x, ext_img, location = ph_location_type())
-  filename <- print(x, target = tempfile(fileext = ".pptx"))
-
-  z <- read_pptx(filename)
-  z <- remove_slide(z, index = 1)
-  file1 <- print(z, target = tempfile(fileext = ".pptx"))
-  z <- read_pptx(filename)
-  z <- remove_slide(z, index = 1, rm_images = TRUE)
-  file2 <- print(z, target = tempfile(fileext = ".pptx"))
-
-  expect_gt(file.size(file1), file.size(file2))
-})
-
 test_that("ph remove", {
   x <- read_pptx()
   x <- add_slide(x, "Title and Content", "Office Theme")
