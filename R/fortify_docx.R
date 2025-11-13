@@ -666,7 +666,12 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
       text = paste0(.data$text, collapse = "")
     )
 
-  bind_rows(par_data, table_data)
+  dataset <- bind_rows(par_data, table_data)
+
+  # patch for WordR
+  names(dataset)[names(dataset) %in% "paragraph_stylename"] <- "style_name"
+
+  dataset
 }
 
 
@@ -697,7 +702,7 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
 #'
 #' - `doc_index`: Document element index (integer).
 #' - `content_type`: Type of content: "paragraph" or "table cell" (character).
-#' - `paragraph_stylename`: Name of the paragraph style (character).
+#' - `style_name`: Name of the paragraph style (character).
 #' - `text`: Collapsed text content of the paragraph or cell (character).
 #' - `table_index`: Index of the table (integer). `NA` for non-table content.
 #' - `row_id`: Row position in table (integer). `NA` for non-table content.

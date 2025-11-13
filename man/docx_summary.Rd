@@ -32,7 +32,7 @@ When \code{detailed = FALSE} (default), the data.frame contains:
 \itemize{
 \item \code{doc_index}: Document element index (integer).
 \item \code{content_type}: Type of content: "paragraph" or "table cell" (character).
-\item \code{paragraph_stylename}: Name of the paragraph style (character).
+\item \code{style_name}: Name of the paragraph style (character).
 \item \code{text}: Collapsed text content of the paragraph or cell (character).
 \item \code{table_index}: Index of the table (integer). \code{NA} for non-table content.
 \item \code{row_id}: Row position in table (integer). \code{NA} for non-table content.
