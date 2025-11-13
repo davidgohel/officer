@@ -157,6 +157,7 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
     write_custom_properties(x$doc_properties_custom, x$package_dir)
   }
 
+  x <- sanitize_images(x, warn_user = FALSE)
   invisible(pack_folder(folder = x$package_dir, target = target))
 }
 

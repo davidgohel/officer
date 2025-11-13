@@ -11,8 +11,7 @@ remove_slide(x, index = NULL, rm_images = FALSE)
 
 \item{index}{slide index, default to current slide position.}
 
-\item{rm_images}{if TRUE (defaults to FALSE), images presented in
-the slide to remove are also removed from the file.}
+\item{rm_images}{unused anymore.}
 }
 \description{
 Remove a slide from a pptx presentation.
