@@ -42,7 +42,6 @@ shape can be returned by this function.
 }
 \seealso{
 Other functions for officer extensions: 
-\code{\link{docx_reference_img}()},
 \code{\link{fortify_location}()},
 \code{\link{get_reference_value}()},
 \code{\link{opts_current_table}()},

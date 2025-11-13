@@ -32,7 +32,6 @@ fortify_location(ph_location_fullsize(), doc)
 \code{\link[=ph_location]{ph_location()}}, \code{\link[=ph_with]{ph_with()}}
 
 Other functions for officer extensions: 
-\code{\link{docx_reference_img}()},
 \code{\link{get_reference_value}()},
 \code{\link{opts_current_table}()},
 \code{\link{shape_properties_tags}()},

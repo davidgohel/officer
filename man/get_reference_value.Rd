@@ -20,7 +20,6 @@ packages rmarkdown >= 1.10.14 and knitr.
 }
 \seealso{
 Other functions for officer extensions: 
-\code{\link{docx_reference_img}()},
 \code{\link{fortify_location}()},
 \code{\link{opts_current_table}()},
 \code{\link{shape_properties_tags}()},

@@ -6,7 +6,6 @@
 #'
 #' @param x an rdocx object
 #' @param src a vector of character containing image filenames.
-#' @family functions for officer extensions
 #' @keywords internal
 docx_reference_img <- function(x, src) {
   .Deprecated("",

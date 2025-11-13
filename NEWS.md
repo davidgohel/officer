@@ -12,6 +12,7 @@ information (text formatting, images, hyperlinks, bookmarks).
 - Refactoring of `sanitize_images()`: the function now works as expected. It will
 be unexported soon since it is now automatically called before writing documents
 and is therefore no longer useful to end users.
+- Remove defunct `slip_in*` functions.
 
 ## Issues
 

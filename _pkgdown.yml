@@ -33,6 +33,7 @@ reference:
   - title: Working with Word documents
     contents:
     - read_docx
+    - print.rdocx
     - set_doc_properties
     - docx_set_paragraph_style
     - docx_set_character_style
@@ -141,6 +142,7 @@ reference:
     - starts_with("run_")
     - set_autonum_bookmark
     - external_img
+    - floating_external_img
     - hyperlink_ftext
     - empty_content
     - sp_line
@@ -172,9 +174,6 @@ reference:
     - add_sheet
     - sheet_select
     - shortcuts
-    - sanitize_images
-    - officer-defunct
-    - starts_with("slip_in")
 navbar:
   title: officer
   type: default

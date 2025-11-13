@@ -1,22 +1,2 @@
 test_that("Defunct functions gives the right messages", {
-  expect_error(
-    slip_in_seqfield(),
-    "run_word_field"
-  )
-  expect_error(
-    slip_in_column_break(),
-    "run_columnbreak"
-  )
-  expect_error(
-    slip_in_xml(),
-    "fpar"
-  )
-  expect_error(
-    slip_in_text(),
-    "fpar"
-  )
-  expect_error(
-    slip_in_footnote(),
-    "run_footnote"
-  )
 })
