@@ -15,6 +15,7 @@ information (text formatting, images, hyperlinks, bookmarks).
 - Fix RTF sections that were sometimes invisible
 - issue with image in google docs should now be fixed (#689)
 - add automatically namespaces when calling `write_elements_to_context()`
+- Fix lists styles with `body_import_docx()` thanks to Sean Anderson.
 
 # officer 0.7.0
 

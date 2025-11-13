@@ -176,7 +176,7 @@ numberings_append_xml <- function(file_numbering_from, file_numbering_to) {
     abstractNumFrom <- xml_find_first(
       numbering_from,
       sprintf(
-        "w:abstractNum[contains(@w:abstractNumId, '%s')]",
+        "w:abstractNum[@w:abstractNumId='%s']",
         as.character(id_from)
       )
     )
@@ -187,7 +187,7 @@ numberings_append_xml <- function(file_numbering_from, file_numbering_to) {
     usedAbsNumFrom <- xml_find_all(
       numbering_from,
       sprintf(
-        "w:num/w:abstractNumId[contains(@w:val, '%s')]",
+        "w:num/w:abstractNumId[@w:val='%s']",
         as.character(id_from)
       )
     )
@@ -205,7 +205,7 @@ numberings_append_xml <- function(file_numbering_from, file_numbering_to) {
     id_to <- mapping_from$to[i]
     usedNumFrom <- xml_find_all(
       numbering_from,
-      sprintf("w:num[contains(@w:numId, '%s')]", as.character(id_from))
+      sprintf("w:num[@w:numId='%s']", as.character(id_from))
     )
     xml_attr(usedNumFrom, "w:numId") <- as.character(id_to)
   }
