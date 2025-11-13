@@ -82,6 +82,8 @@ Collate:
     'docx_replace.R'
     'docx_section.R'
     'docx_settings.R'
+    'docx_styles.R'
+    'docx_utils_funs.R'
     'empty_content.R'
     'formatting_properties.R'
     'fortify_docx.R'
