@@ -15,7 +15,7 @@ NB: You can also rename ph labels directly in PowerPoint. Open the master templa
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,7 +131,12 @@ optionally specify a subset of phs to rename. In both cases, the length of the r
 <span class="r-in"><span><span class="co"># rename using key-value pairs: 'old label' = 'new label' or 'id' = 'new label'</span></span></span>
 <span class="r-in"><span><span class="fu">layout_rename_ph_labels</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Comparison"</span>, <span class="st">"Title 1"</span> <span class="op">=</span> <span class="st">"LABEL MATCHED"</span><span class="op">)</span> <span class="co"># label matching</span></span></span>
 <span class="r-in"><span><span class="fu">layout_rename_ph_labels</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Comparison"</span>, <span class="st">"3"</span> <span class="op">=</span> <span class="st">"ID MATCHED"</span><span class="op">)</span> <span class="co"># id matching</span></span></span>
-<span class="r-in"><span><span class="fu">layout_rename_ph_labels</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Comparison"</span>, <span class="st">"Date Placeholder 6"</span> <span class="op">=</span> <span class="st">"DATE"</span>, <span class="st">"8"</span> <span class="op">=</span> <span class="st">"FOOTER"</span><span class="op">)</span> <span class="co"># label, id</span></span></span>
+<span class="r-in"><span><span class="fu">layout_rename_ph_labels</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Comparison"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Date Placeholder 6"</span> <span class="op">=</span> <span class="st">"DATE"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"8"</span> <span class="op">=</span> <span class="st">"FOOTER"</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="co"># label, id</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># rename using a named list and the .dots arg</span></span></span>
 <span class="r-in"><span><span class="va">renames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Content Placeholder 3"</span> <span class="op">=</span> <span class="st">"CONTENT_1"</span>, <span class="st">"6"</span> <span class="op">=</span> <span class="st">"CONTENT_2"</span><span class="op">)</span></span></span>
@@ -153,7 +158,12 @@ optionally specify a subset of phs to rename. In both cases, the length of the r
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># rename all labels to type [type_idx]</span></span></span>
 <span class="r-in"><span><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="layout_properties.html">layout_properties</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Comparison"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">layout_rename_ph_labels</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Comparison"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">lp</span><span class="op">$</span><span class="va">type</span>, <span class="st">" ["</span>, <span class="va">lp</span><span class="op">$</span><span class="va">type_idx</span>, <span class="st">"]"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layout_rename_ph_labels</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Comparison"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">lp</span><span class="op">$</span><span class="va">type</span>,</span></span>
+<span class="r-in"><span>  <span class="st">" ["</span>,</span></span>
+<span class="r-in"><span>  <span class="va">lp</span><span class="op">$</span><span class="va">type_idx</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"]"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># rename duplicated placeholders (see also `layout_dedupe_ph_labels()`)</span></span></span>
 <span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"doc_examples"</span>, <span class="st">"ph_dupes.pptx"</span>, package <span class="op">=</span> <span class="st">"officer"</span><span class="op">)</span></span></span>
@@ -178,7 +188,7 @@ optionally specify a subset of phs to rename. In both cases, the length of the r
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

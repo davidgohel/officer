@@ -37,7 +37,7 @@ replaces the XML in the document with the new XML.
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,18 +132,18 @@ cursor position set to the end of the document.</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other functions for adding content:
-<code><a href="body_add_blocks.html">body_add_blocks</a>()</code>,
-<code><a href="body_add_break.html">body_add_break</a>()</code>,
-<code><a href="body_add_caption.html">body_add_caption</a>()</code>,
-<code><a href="body_add_docx.html">body_add_docx</a>()</code>,
-<code><a href="body_add_fpar.html">body_add_fpar</a>()</code>,
-<code><a href="body_add_gg.html">body_add_gg</a>()</code>,
-<code><a href="body_add_img.html">body_add_img</a>()</code>,
-<code><a href="body_add_par.html">body_add_par</a>()</code>,
-<code><a href="body_add_plot.html">body_add_plot</a>()</code>,
-<code><a href="body_add_table.html">body_add_table</a>()</code>,
-<code><a href="body_add_toc.html">body_add_toc</a>()</code>,
-<code><a href="body_import_docx.html">body_import_docx</a>()</code></p></div>
+<code><a href="body_add_blocks.html">body_add_blocks()</a></code>,
+<code><a href="body_add_break.html">body_add_break()</a></code>,
+<code><a href="body_add_caption.html">body_add_caption()</a></code>,
+<code><a href="body_add_docx.html">body_add_docx()</a></code>,
+<code><a href="body_add_fpar.html">body_add_fpar()</a></code>,
+<code><a href="body_add_gg.html">body_add_gg()</a></code>,
+<code><a href="body_add_img.html">body_add_img()</a></code>,
+<code><a href="body_add_par.html">body_add_par()</a></code>,
+<code><a href="body_add_plot.html">body_add_plot()</a></code>,
+<code><a href="body_add_table.html">body_add_table()</a></code>,
+<code><a href="body_add_toc.html">body_add_toc()</a></code>,
+<code><a href="body_import_docx.html">body_import_docx()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -159,8 +159,10 @@ cursor position set to the end of the document.</p>
 <span class="r-in"><span>  <span class="fu">write_elements_to_context</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    context <span class="op">=</span> <span class="va">z</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"Hello World, "</span>, <span class="va">i</span>,</span></span>
-<span class="r-in"><span>      fp_p <span class="op">=</span> <span class="fu"><a href="fp_par.html">fp_par</a></span><span class="op">(</span>word_style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"Hello World, "</span>,</span></span>
+<span class="r-in"><span>      <span class="va">i</span>,</span></span>
+<span class="r-in"><span>      fp_p <span class="op">=</span> <span class="fu"><a href="fp_par.html">fp_par</a></span><span class="op">(</span>word_style <span class="op">=</span> <span class="st">"heading 1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="run_pagebreak.html">run_pagebreak</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -179,7 +181,7 @@ cursor position set to the end of the document.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

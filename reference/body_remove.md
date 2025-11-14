@@ -1,0 +1,44 @@
+# Remove an element in a 'Word' document
+
+Remove element pointed by cursor from a 'Word' document.
+
+## Usage
+
+``` r
+body_remove(x)
+```
+
+## Arguments
+
+- x:
+
+  an rdocx object
+
+## Examples
+
+``` r
+library(officer)
+
+str1 <- rep("Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", 20)
+str1 <- paste(str1, collapse = "")
+
+str2 <- "Drop that text"
+
+str3 <- rep("Aenean venenatis varius elit et fermentum vivamus vehicula. ", 20)
+str3 <- paste(str3, collapse = "")
+
+my_doc <- read_docx()
+my_doc <- body_add_par(my_doc, value = str1, style = "Normal")
+my_doc <- body_add_par(my_doc, value = str2, style = "centered")
+my_doc <- body_add_par(my_doc, value = str3, style = "Normal")
+
+new_doc_file <- print(my_doc,
+  target = tempfile(fileext = ".docx")
+)
+
+my_doc <- read_docx(path = new_doc_file)
+my_doc <- cursor_reach(my_doc, keyword = "that text")
+my_doc <- body_remove(my_doc)
+
+print(my_doc, target = tempfile(fileext = ".docx"))
+```
