@@ -57,7 +57,7 @@ adding section breaks with \code{\link[=body_end_section_continuous]{body_end_se
 \section{Illustrations}{
 
 
-\if{html}{\figure{read_docx.png}{options: width=80\%}}
+\if{html}{\figure{read_docx.png}{options: style="width:80\%;"}}
 }
 
 \examples{

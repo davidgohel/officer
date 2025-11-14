@@ -56,7 +56,7 @@
 #' [styles_info()].
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{read_docx.png}{options: width=80\%}}
+#' \if{html}{\figure{read_docx.png}{options: style="width:80\%;"}}
 read_docx <- function(path = NULL) {
   if (!is.null(path) && !file.exists(path)) {
     stop("could not find file ", shQuote(path), call. = FALSE)

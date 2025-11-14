@@ -40,7 +40,7 @@
 #' `ph_with` that fills multiple placeholders at once. Use [add_slide] to add new slides.
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}
+#' \if{html}{\figure{ph_with_doc_1.png}{options: style="width:80\%;"}}
 ph_with <- function(x, value, location, ...) {
   location <- resolve_location(location)
   .ph_with(x, value, location, ...)

@@ -186,7 +186,7 @@ body_end_section_columns_landscape <- function(
 #' @family functions for Word sections
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{body_end_block_section_doc_1.png}{options: width=80\%}}
+#' \if{html}{\figure{body_end_block_section_doc_1.png}{options: style="width:80\%;"}}
 body_end_block_section <- function(x, value) {
   stopifnot(inherits(value, "block_section"))
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
@@ -203,7 +203,7 @@ body_end_block_section <- function(x, value) {
 #' @example inst/examples/example_body_set_default_section.R
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{body_set_default_section_doc_1.png}{options: width=80\%}}
+#' \if{html}{\figure{body_set_default_section_doc_1.png}{options: style="width:80\%;"}}
 body_set_default_section <- function(x, value) {
   stopifnot(inherits(value, "prop_section"))
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)

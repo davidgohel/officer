@@ -20,7 +20,7 @@ but it's up to the user to define the section properties.
 \section{Illustrations}{
 
 
-\if{html}{\figure{body_end_block_section_doc_1.png}{options: width=80\%}}
+\if{html}{\figure{body_end_block_section_doc_1.png}{options: style="width:80\%;"}}
 }
 
 \examples{

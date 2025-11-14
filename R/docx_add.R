@@ -916,7 +916,7 @@ body_comment <- function(
 #' @example inst/examples/example_body_add_1.R
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{body_add_doc_1.png}{options: width=70\%}}
+#' \if{html}{\figure{body_add_doc_1.png}{options: style="width:70\%;"}}
 #' @keywords internal
 body_add <- function(x, value, ...) {
   UseMethod("body_add", value)

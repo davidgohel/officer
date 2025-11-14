@@ -922,7 +922,7 @@ docx_section_type <- c(
 #' @family functions for section definition
 #' @section Illustrations:
 #'
-#' \if{html}{\figure{prop_section_doc_1.png}{options: width=80\%}}
+#' \if{html}{\figure{prop_section_doc_1.png}{options: style="width:80\%;"}}
 prop_section <- function(
   page_size = NULL,
   page_margins = NULL,

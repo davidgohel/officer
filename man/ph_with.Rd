@@ -175,7 +175,7 @@ The \code{location} argument of \code{ph_with()} either expects a location objec
 \section{Illustrations}{
 
 
-\if{html}{\figure{ph_with_doc_1.png}{options: width=80\%}}
+\if{html}{\figure{ph_with_doc_1.png}{options: style="width:80\%;"}}
 }
 
 \examples{

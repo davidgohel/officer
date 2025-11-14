@@ -70,7 +70,7 @@ demonstrate this best practice.
 \section{Illustrations}{
 
 
-\if{html}{\figure{prop_section_doc_1.png}{options: width=80\%}}
+\if{html}{\figure{prop_section_doc_1.png}{options: style="width:80\%;"}}
 }
 
 \examples{

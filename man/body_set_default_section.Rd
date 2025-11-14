@@ -18,7 +18,7 @@ define section propeerties (page size, orientation, ...) with a \link{prop_secti
 \section{Illustrations}{
 
 
-\if{html}{\figure{body_set_default_section_doc_1.png}{options: width=80\%}}
+\if{html}{\figure{body_set_default_section_doc_1.png}{options: style="width:80\%;"}}
 }
 
 \examples{

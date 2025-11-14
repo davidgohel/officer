@@ -166,7 +166,7 @@ and does not allow to insert elements at a specific position.
 \section{Illustrations}{
 
 
-\if{html}{\figure{body_add_doc_1.png}{options: width=70\%}}
+\if{html}{\figure{body_add_doc_1.png}{options: style="width:70\%;"}}
 }
 
 \examples{
