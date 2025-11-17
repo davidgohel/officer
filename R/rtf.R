@@ -645,6 +645,11 @@ rpr_rtf <- function(x) {
       out <- paste0(out, "\\ul")
     }
   }
+  if (!is.na(x$strike)) {
+    if (x$strike) {
+      out <- paste0(out, "\\strike")
+    }
+  }
 
   if (x$vertical.align == "superscript" && !is.na(x$font.size)) {
     out <- paste0(out, sprintf("\\super\\up%.0f", round(x$font.size / 2)))
