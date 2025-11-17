@@ -1,3 +1,12 @@
+# officer 0.7.2
+
+## Issues
+
+- RTF support strike text setting.
+- fix an issue with bookmark selections in `docx_summary()`.
+- fix `fp_par_lite()` management of argument `tabs`.
+
+
 # officer 0.7.1
 
 ## Features

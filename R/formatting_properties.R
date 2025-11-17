@@ -825,6 +825,9 @@ fp_par_lite <- function(
     tabs = FALSE,
     word_style = NA
 ) {
+  if (isFALSE(tabs)) {
+    tabs <- NULL
+  }
   fp_par(
     text.align = text.align,
     padding = padding,
