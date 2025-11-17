@@ -821,12 +821,13 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   ## bookmark_nodes
   bookmark_nodes <- xml_find_all(
     x$doc_obj$get(),
-    "//w:bookmarkStart[following-sibling::w:r]"
+    "//w:p/w:bookmarkStart[following-sibling::*[1][self::w:r]]"
   )
   bookmark_nodes_siblings <- xml_find_all(
     x$doc_obj$get(),
-    "//w:bookmarkStart/following-sibling::w:r"
+    "//w:p/w:bookmarkStart[following-sibling::*[1][self::w:r]]/following-sibling::*[1]"
   )
+
   data_bookmark <- data.frame(
     bookmark_start = xml_attr(bookmark_nodes, "name"),
     run_index = xml_attr(bookmark_nodes_siblings, "run_index")
