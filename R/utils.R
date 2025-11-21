@@ -170,10 +170,6 @@ between <- function(x, left, right ){
 
 
 
-simple_lag <- function( x, default=0 ){
-  c(default, x[-length(x)])
-}
-
 rbind_match_columns <- function(list_df) {
 
   col <- unique(unlist(lapply(list_df, colnames)))

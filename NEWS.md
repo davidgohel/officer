@@ -6,6 +6,11 @@
 - fix an issue with bookmark selections in `docx_summary()`.
 - fix `fp_par_lite()` management of argument `tabs`.
 
+## Features
+
+- new internal utilities `base64_to_image()`, `as_base64()`, `from_base64()` 
+and `plot_in_png()`.
+
 
 # officer 0.7.1
 

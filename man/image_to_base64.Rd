@@ -13,7 +13,7 @@ image_to_base64(filepaths)
 encodes images into base64 strings.
 }
 \examples{
-rlogo <- file.path( R.home("doc"), "html", "logo.jpg")
-image_to_base64(rlogo)
+rlogo <- file.path(R.home("doc"), "html", "logo.jpg")
+base64_str <- image_to_base64(rlogo)
 }
 \keyword{internal}

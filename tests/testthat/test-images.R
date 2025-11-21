@@ -664,3 +664,175 @@ test_that("add floating image in RTF with all custom params", {
   expect_true(grepl("\\\\picwgoal2880", rtf_text))
   expect_true(grepl("\\\\pichgoal2160", rtf_text))
 })
+
+
+# plot_in_png tests ----
+
+test_that("plot_in_png with ggplot object", {
+  skip_if_not_installed("ggplot2")
+
+  gg <- ggplot2::ggplot(mtcars, ggplot2::aes(x = mpg, y = hp)) +
+    ggplot2::geom_point()
+
+  png_file <- plot_in_png(
+    ggobj = gg,
+    width = 5,
+    height = 4,
+    res = 72,
+    units = "in"
+  )
+
+  expect_true(file.exists(png_file))
+  expect_match(png_file, "\\.png$")
+  expect_true(file.size(png_file) > 0)
+})
+
+test_that("plot_in_png with code expression", {
+  png_file <- plot_in_png(
+    code = {
+      plot(1:10, 1:10)
+    },
+    width = 5,
+    height = 4,
+    res = 72,
+    units = "in"
+  )
+
+  expect_true(file.exists(png_file))
+  expect_match(png_file, "\\.png$")
+  expect_true(file.size(png_file) > 0)
+})
+
+test_that("plot_in_png with custom path", {
+  custom_path <- tempfile(fileext = ".png")
+
+  png_file <- plot_in_png(
+    code = {
+      barplot(1:5)
+    },
+    width = 4,
+    height = 3,
+    res = 96,
+    units = "in",
+    path = custom_path
+  )
+
+  expect_equal(png_file, custom_path)
+  expect_true(file.exists(custom_path))
+})
+
+
+# as_base64 and from_base64 tests ----
+
+test_that("as_base64 with multiple values", {
+  input <- c("hello", "world", "test")
+  result <- as_base64(input)
+
+  expect_type(result, "character")
+  expect_length(result, 3)
+  expect_false(any(is.na(result)))
+})
+
+test_that("as_base64 with NA values", {
+  input <- c("hello", NA_character_, "world")
+  result <- as_base64(input)
+
+  expect_length(result, 3)
+  expect_equal(result[1], as_base64("hello"))
+  expect_true(is.na(result[2]))
+  expect_equal(result[3], as_base64("world"))
+})
+
+test_that("as_base64 with invalid input", {
+  expect_error(as_base64(123), "'x' must be a character vector")
+  expect_error(as_base64(list("a", "b")), "'x' must be a character vector")
+})
+
+test_that("from_base64 with multiple values", {
+  original <- c("hello", "world", "test")
+  encoded <- as_base64(original)
+  decoded <- from_base64(encoded)
+
+  expect_equal(decoded, original)
+})
+
+test_that("from_base64 with NA values", {
+  encoded <- c(as_base64("hello"), NA_character_, as_base64("world"))
+  result <- from_base64(encoded)
+
+  expect_length(result, 3)
+  expect_equal(result[1], "hello")
+  expect_true(is.na(result[2]))
+  expect_equal(result[3], "world")
+})
+
+test_that("from_base64 with invalid input type", {
+  expect_error(from_base64(123), "'x' must be a character vector")
+})
+
+test_that("from_base64 with invalid base64 string", {
+  expect_error(from_base64("not_valid_base64!!!"), "Failed to decode Base64 element")
+})
+
+
+# base64_to_image tests ----
+
+test_that("base64_to_image converts data URI to image file", {
+  img1 <- file.path(R.home("doc"), "html", "logo.jpg")
+  img2 <- file.path(R.home("doc"), "html", "Rlogo.svg")
+  base64_str <- image_to_base64(c(img1, img2))
+
+  output_files <- c(
+    tempfile(fileext = ".jpg"),
+    tempfile(fileext = ".svg")
+  )
+  result <- base64_to_image(base64_str, output_files = output_files)
+
+  expect_equal(result, output_files)
+  expect_true(all(file.exists(output_files)))
+  expect_true(all(file.size(output_files) > 0))
+})
+
+
+# image_to_base64 error handling tests ----
+
+test_that("image_to_base64 with multiple files", {
+  img1 <- file.path(R.home("doc"), "html", "logo.jpg")
+  img2 <- file.path(R.home("doc"), "html", "Rlogo.svg")
+
+  result <- image_to_base64(c(img1, img2))
+
+  expect_type(result, "character")
+  expect_length(result, 2)
+  expect_match(result[1], "^data:image/jpeg;base64,")
+  expect_match(result[2], "^data:image/svg\\+xml;base64,")
+})
+
+test_that("image_to_base64 with unknown format", {
+  temp_file <- tempfile(fileext = ".xyz")
+  writeLines("test", temp_file)
+
+  expect_error(
+    image_to_base64(temp_file),
+    "Unknown image\\(s\\) format"
+  )
+})
+
+test_that("image_to_base64 with non-existent file", {
+  fake_file <- tempfile(fileext = ".png")
+
+  expect_error(
+    image_to_base64(fake_file),
+    "File\\(s\\) not found"
+  )
+})
+
+test_that("image_to_base64 with multiple non-existent files", {
+  fake1 <- tempfile(fileext = ".png")
+  fake2 <- tempfile(fileext = ".jpg")
+
+  expect_error(
+    image_to_base64(c(fake1, fake2)),
+    "File\\(s\\) not found"
+  )
+})
