@@ -96,7 +96,7 @@ presentation <- R6Class(
         ))
       }
       
-      pres_rels <- private$rels_doc$show()
+      pres_rels <- private$rels_doc$get_data()
       
       slide_map <- do.call(
         rbind,
@@ -114,14 +114,6 @@ presentation <- R6Class(
       )
       
       slide_map
-    },
-
-    remove_slides_bulk = function(filenames) {
-      # Public method to remove multiple slides efficiently
-      for (filename in filenames) {
-        self$remove_slide(filename)
-      }
-      self
     }
 
   ),

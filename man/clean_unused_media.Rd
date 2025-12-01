@@ -25,14 +25,13 @@ my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- clean_unused_media(my_pres)
 }
 \seealso{
-\code{\link[=read_pptx]{read_pptx()}}, \code{\link[=remove_slide]{remove_slide()}}, \code{\link[=remove_slides_bulk]{remove_slides_bulk()}}
+\code{\link[=read_pptx]{read_pptx()}}, \code{\link[=remove_slide]{remove_slide()}}
 
 Other functions to manipulate slides:
 \code{\link{add_slide}()},
 \code{\link{move_slide}()},
 \code{\link{on_slide}()},
 \code{\link{remove_slide}()},
-\code{\link{remove_slides_bulk}()},
 \code{\link{set_notes}()}
 }
 \concept{slide_manipulation}
