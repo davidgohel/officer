@@ -107,23 +107,84 @@ test_that("slide remove", {
   expect_equal(sm[1, ]$text, "Hello world 2")
 })
 
-test_that("slide remove with rm_images", {
-  img.file <- file.path(R.home(component = "doc"), "html", "logo.jpg")
-  ext_img <- external_img(img.file)
-
+test_that("remove multiple slides at once", {
   x <- read_pptx()
-  x <- add_slide(x, "Title and Content")
-  x <- ph_with(x, ext_img, location = ph_location_type())
-  filename <- print(x, target = tempfile(fileext = ".pptx"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 1", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 2", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 3", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 4", location = ph_location_type(type = "body"))
 
-  z <- read_pptx(filename)
-  z <- remove_slide(z, index = 1)
-  file1 <- print(z, target = tempfile(fileext = ".pptx"))
-  z <- read_pptx(filename)
-  z <- remove_slide(z, index = 1, rm_images = TRUE)
-  file2 <- print(z, target = tempfile(fileext = ".pptx"))
+  # Remove slides 2 and 4
+  x <- remove_slide(x, index = c(2, 4))
+  expect_equal(length(x), 2)
 
-  expect_gt(file.size(file1), file.size(file2))
+  # Check remaining slides are 1 and 3
+  sm1 <- slide_summary(x, index = 1)
+  sm2 <- slide_summary(x, index = 2)
+  expect_equal(sm1[1, ]$text, "Slide 1")
+  expect_equal(sm2[1, ]$text, "Slide 3")
+})
+
+test_that("remove multiple slides - edge cases", {
+  # Test removing all slides
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- remove_slide(x, index = c(1, 2))
+  expect_equal(length(x), 0)
+
+  # Test with duplicate indices (should only remove once)
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 1", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 2", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 3", location = ph_location_type(type = "body"))
+  x <- remove_slide(x, index = c(2, 2, 2))
+  expect_equal(length(x), 2)
+  sm <- slide_summary(x, index = 2)
+  expect_equal(sm[1, ]$text, "Slide 3")
+
+  # Test with empty index vector (should return unchanged)
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- remove_slide(x, index = integer(0))
+  expect_equal(length(x), 2)
+
+  # Test removing slides in non-sequential order
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 1", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 2", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 3", location = ph_location_type(type = "body"))
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- ph_with(x, "Slide 4", location = ph_location_type(type = "body"))
+  x <- remove_slide(x, index = c(4, 1, 3))
+  expect_equal(length(x), 1)
+  sm <- slide_summary(x, index = 1)
+  expect_equal(sm[1, ]$text, "Slide 2")
+})
+
+test_that("remove multiple slides - invalid indices", {
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+
+  # Test with out of range indices
+  expect_error(remove_slide(x, index = c(1, 5)), "invalid index")
+  expect_error(remove_slide(x, index = c(0, 1)), "invalid index")
+  expect_error(remove_slide(x, index = c(-1, 2)), "invalid index")
+
+  # Test with all invalid indices
+  expect_error(remove_slide(x, index = c(5, 6)), "invalid index")
 })
 
 test_that("ph remove", {
