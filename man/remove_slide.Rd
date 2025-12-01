@@ -2,19 +2,20 @@
 % Please edit documentation in R/pptx_slide_manip.R
 \name{remove_slide}
 \alias{remove_slide}
-\title{Remove a slide}
+\title{Remove slide(s)}
 \usage{
 remove_slide(x, index = NULL, rm_images = FALSE)
 }
 \arguments{
 \item{x}{an rpptx object}
 
-\item{index}{slide index, default to current slide position.}
+\item{index}{slide index or a vector of slide indices to remove,
+default to current slide position.}
 
 \item{rm_images}{unused anymore.}
 }
 \description{
-Remove a slide from a pptx presentation.
+Remove one or more slides from a pptx presentation.
 }
 \note{
 cursor is set on the last slide.
@@ -23,16 +24,22 @@ cursor is set on the last slide.
 my_pres <- read_pptx()
 my_pres <- add_slide(my_pres, "Title and Content")
 my_pres <- remove_slide(my_pres)
+
+# Remove multiple slides at once
+my_pres <- read_pptx()
+my_pres <- add_slide(my_pres, "Title and Content")
+my_pres <- add_slide(my_pres, "Title and Content")
+my_pres <- add_slide(my_pres, "Title and Content")
+my_pres <- add_slide(my_pres, "Title and Content")
+my_pres <- remove_slide(my_pres, index = c(2, 4))
 }
 \seealso{
 \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=ph_with]{ph_with()}}, \code{\link[=ph_remove]{ph_remove()}}
 
 Other functions to manipulate slides:
 \code{\link{add_slide}()},
-\code{\link{clean_unused_media}()},
 \code{\link{move_slide}()},
 \code{\link{on_slide}()},
-\code{\link{remove_slides_bulk}()},
 \code{\link{set_notes}()}
 }
 \concept{slide_manipulation}

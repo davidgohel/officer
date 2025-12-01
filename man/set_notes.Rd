@@ -70,10 +70,8 @@ print(doc, target = fileout)
 
 Other functions to manipulate slides:
 \code{\link{add_slide}()},
-\code{\link{clean_unused_media}()},
 \code{\link{move_slide}()},
 \code{\link{on_slide}()},
-\code{\link{remove_slide}()},
-\code{\link{remove_slides_bulk}()}
+\code{\link{remove_slide}()}
 }
 \concept{slide_manipulation}

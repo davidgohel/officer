@@ -117,19 +117,30 @@ on_slide <- function(x, index) {
 
 
 #' @export
-#' @title Remove a slide
-#' @description Remove a slide from a pptx presentation.
+#' @title Remove slide(s)
+#' @description Remove one or more slides from a pptx presentation.
 #' @param x an rpptx object
-#' @param index slide index, default to current slide position.
+#' @param index slide index or a vector of slide indices to remove,
+#' default to current slide position.
 #' @param rm_images unused anymore.
 #' @note cursor is set on the last slide.
 #' @examples
 #' my_pres <- read_pptx()
 #' my_pres <- add_slide(my_pres, "Title and Content")
 #' my_pres <- remove_slide(my_pres)
+#'
+#' # Remove multiple slides at once
+#' my_pres <- read_pptx()
+#' my_pres <- add_slide(my_pres, "Title and Content")
+#' my_pres <- add_slide(my_pres, "Title and Content")
+#' my_pres <- add_slide(my_pres, "Title and Content")
+#' my_pres <- add_slide(my_pres, "Title and Content")
+#' my_pres <- remove_slide(my_pres, index = c(2, 4))
 #' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
 remove_slide <- function(x, index = NULL, rm_images = FALSE) {
+  stop_if_not_rpptx(x)
+
   l_ <- length(x)
   if (l_ < 1) {
     stop("presentation contains no slide to delete", call. = FALSE)
@@ -139,17 +150,56 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
     index <- x$cursor
   }
 
-  if (!between(index, 1, l_)) {
-    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
+  if (length(index) == 0) {
+    return(x)
   }
-  filename <- basename(x$presentation$slide_data()$target[index])
-  location <- which(x$slide$get_metadata()$name %in% filename)
 
-  del_file <- x$slide$remove_slide(location)
+  # Validate all indices
+  indices <- unique(as.integer(index))
+  invalid_indices <- indices[!between(indices, 1, l_)]
+  if (length(invalid_indices) > 0) {
+    stop(
+      "invalid index(es) ",
+      paste(invalid_indices, collapse = ", "),
+      call. = FALSE
+    )
+  }
 
-  # update presentation elements
-  x$presentation$remove_slide(del_file)
-  x$content_type$remove_slide(partname = del_file)
+  # Get slide mapping information using public method
+  slide_map <- x$presentation$get_slide_xml_info()
+
+  indices_to_remove <- sort(unique(indices), decreasing = TRUE)
+  slides_to_remove_df <- slide_map[slide_map$index %in% indices_to_remove, ]
+
+  # Build file paths for deletion
+  files_to_delete <- file.path(
+    x$package_dir,
+    "ppt",
+    "slides",
+    slides_to_remove_df$filename
+  )
+  rels_to_delete <- file.path(
+    x$package_dir,
+    "ppt",
+    "slides",
+    "_rels",
+    paste0(slides_to_remove_df$filename, ".rels")
+  )
+
+  # Delete slide XML files if they exist
+  unlink(files_to_delete[file.exists(files_to_delete)], force = TRUE)
+  # Delete slide relationship files if they exist
+  unlink(rels_to_delete[file.exists(rels_to_delete)], force = TRUE)
+
+  # Remove slides from internal collections
+  for (filename in slides_to_remove_df$filename) {
+    slide_idx <- x$slide$slide_index(filename)
+    x$slide$remove_slide(slide_idx)
+    x$presentation$remove_slide(filename)
+    x$content_type$remove_slide(partname = filename)
+  }
+
+  # Set cursor to last slide
   x$cursor <- x$slide$length()
   x
 }
@@ -363,151 +413,4 @@ slide_visible <- function(x, hide = NULL, show = NULL) {
   } else {
     x
   }
-}
-
-
-#' @export
-#' @title Remove multiple slides at once
-#' @description Remove multiple slides from a PowerPoint presentation in a single operation.
-#' This is more efficient than calling \code{\link{remove_slide}} multiple times.
-#' @param x an rpptx object
-#' @param indices a numeric vector of slide indices to remove
-#' @param rm_images if TRUE (defaults to TRUE), images presented in
-#' the slides to remove are also removed from the file.
-#' @note cursor is set on the last slide after removal.
-#' @examples
-#' # Create a presentation with multiple slides
-#' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres, "Title and Content")
-#' my_pres <- add_slide(my_pres, "Title and Content") 
-#' my_pres <- add_slide(my_pres, "Title and Content")
-#' my_pres <- add_slide(my_pres, "Title and Content")
-#' 
-#' # Remove slides 2 and 4
-#' my_pres <- remove_slides_bulk(my_pres, c(2, 4))
-#' @family slide_manipulation
-#' @seealso [read_pptx()], [remove_slide()], [ph_with()]
-remove_slides_bulk <- function(x, indices, rm_images = TRUE) {
-  stop_if_not_rpptx(x)
-  
-  l_ <- length(x)
-  if (l_ < 1) {
-    stop("presentation contains no slide to delete", call. = FALSE)
-  }
-  
-  if (length(indices) == 0) {
-    return(x)
-  }
-  
-  # Validate all indices
-  indices <- unique(as.integer(indices))
-  invalid_indices <- indices[!between(indices, 1, l_)]
-  if (length(invalid_indices) > 0) {
-    stop("invalid index(es) ", paste(invalid_indices, collapse = ", "), 
-         " (", l_, " slide(s))", call. = FALSE)
-  }
-  
-  # Get slide mapping information using public method
-  slide_map <- x$presentation$get_slide_xml_info()
-
-  indices_to_remove <- sort(unique(indices), decreasing = TRUE)
-  slides_to_remove_df <- slide_map[slide_map$index %in% indices_to_remove, ]
-
-  # Build file paths for deletion
-  files_to_delete <- file.path(
-    x$package_dir,
-    "ppt",
-    "slides",
-    slides_to_remove_df$filename
-  )
-  rels_to_delete <- file.path(
-    x$package_dir,
-    "ppt",
-    "slides",
-    "_rels",
-    paste0(slides_to_remove_df$filename, ".rels")
-  )
-
-  # Delete slide XML files if they exist
-  unlink(files_to_delete[file.exists(files_to_delete)], force = TRUE)
-  # Delete slide relationship files if they exist
-  unlink(rels_to_delete[file.exists(rels_to_delete)], force = TRUE)
-
-  # Remove slides from internal collections using public methods
-  x$slide$remove_slides_bulk(slides_to_remove_df$filename)
-
-  # Remove slides from presentation and content type using public methods
-  x$presentation$remove_slides_bulk(slides_to_remove_df$filename)
-  for (filename in slides_to_remove_df$filename) {
-    x$content_type$remove_slide(partname = filename)
-  }
-  
-  # Clean up unused media if requested
-  if (rm_images) {
-    clean_unused_media(x)
-  }
-  
-  # Set cursor to last slide
-  x$cursor <- x$slide$length()
-  invisible(x)
-}
-
-
-#' @title Clean unused media files
-#' @description Remove media files that are no longer referenced by any slides or components
-#' in the PowerPoint presentation. This helps reduce file size by removing orphaned images.
-#' @param x an rpptx object
-#' @return an rpptx object (invisibly)
-#' @examples
-#' # Create a presentation and add some content
-#' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres, "Title and Content")
-#' 
-#' # After removing slides or content, clean up unused media
-#' my_pres <- clean_unused_media(my_pres)
-#' @family slide_manipulation
-#' @seealso [read_pptx()], [remove_slide()], [remove_slides_bulk()]
-#' @export
-clean_unused_media <- function(x) {
-  stop_if_not_rpptx(x)
-
-  # get package directory
-  package_dir <- x$package_dir
-  
-  # find all xml.rels files
-  rel_files <- list.files(
-    package_dir,
-    pattern = "\\.xml.rels$",
-    recursive = TRUE,
-    full.names = TRUE
-  )
-  
-  # collect media files from .xml.rels files
-  media_file_rels <- lapply(rel_files, function(xml_file) {
-    if (file.exists(xml_file)) {
-      rels <- xml2::xml_children(xml2::read_xml(xml_file))
-      targets <- xml2::xml_attr(rels, "Target")
-      grep("^\\.\\./media/", targets, value = TRUE)
-    } else {
-      character(0)
-    }
-  })
-  
-  media_file_rels <- file.path(
-    package_dir,
-    "ppt",
-    sub("\\.\\./", "", unique(unlist(media_file_rels)))
-  )
-  
-  # find all media files from media folder
-  media_folder <- grep("/media$", list.dirs(package_dir), value = TRUE)
-  if (length(media_folder) > 0) {
-    media_files <- list.files(media_folder, recursive = TRUE, full.names = TRUE)
-    
-    # delete files that are not referenced in .xml.rels
-    files_to_delete <- media_files[!(media_files %in% media_file_rels)]
-    unlink(files_to_delete, force = TRUE)
-  }
-  
-  invisible(x)
 }
