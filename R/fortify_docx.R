@@ -725,7 +725,8 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
 #' - `footnote_text`: Footnote text content (character).
 #' - `link`: Hyperlink URL (character).
 #' - `link_to_bookmark`: Internal bookmark anchor name for hyperlinks (character).
-#' - `bookmark_start`: Name of the bookmark starting at this run (character).
+#' - `bookmark_start`: Names of the bookmarks starting on this paragraph
+#' (values are concatenated with '|').
 #' - `character_stylename`: Name of the character/run style (character).
 #' - `sz`: Font size in half-points (integer).
 #' - `sz_cs`: Complex script font size in half-points (integer).
@@ -821,17 +822,19 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   ## bookmark_nodes
   bookmark_nodes <- xml_find_all(
     x$doc_obj$get(),
-    "//w:p/w:bookmarkStart[following-sibling::*[1][self::w:r]]"
-  )
-  bookmark_nodes_siblings <- xml_find_all(
-    x$doc_obj$get(),
-    "//w:p/w:bookmarkStart[following-sibling::*[1][self::w:r]]/following-sibling::*[1]"
+    "w:body/w:p/w:bookmarkStart"
   )
 
   data_bookmark <- data.frame(
     bookmark_start = xml_attr(bookmark_nodes, "name"),
-    run_index = xml_attr(bookmark_nodes_siblings, "run_index")
+    doc_index = xml_attr(xml_child(bookmark_nodes, "parent::w:p"), "doc_index")
   )
+  data_bookmark <- summarise(
+    .data = data_bookmark,
+    bookmark_start = paste0(.data$bookmark_start, collapse = "|"),
+    .by = all_of("doc_index")
+  )
+  data_bookmark$doc_index <- as.integer(data_bookmark$doc_index)
 
   ## p_in_cell_nodes
   p_in_cell_nodes <- xml_find_all(
@@ -842,7 +845,6 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   # info for runs: infotbl_runs -----
   infotbl_runs_contents <- docx_runs_content_information(run_content_nodes)
   infotbl_runs <- docx_runs_information(run_nodes)
-  infotbl_runs <- left_join(infotbl_runs, data_bookmark, by = "run_index")
 
   # info for tables: infotbl_tables -----
   tmp_infotbl_tables <- docx_tables_information(tbl_nodes)
@@ -859,6 +861,7 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
 
   # info for paragraphs: infotbl_paragraphs -----
   infotbl_paragraphs <- docx_p_information(p_nodes)
+  infotbl_paragraphs <- left_join(infotbl_paragraphs, data_bookmark, by = "doc_index")
 
   # final joins -------
   data <- infotbl_join(infotbl_runs_contents, infotbl_runs, infotbl_paragraphs, infotbl_tables)

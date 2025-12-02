@@ -56,7 +56,8 @@ session if needed.
 \item \code{footnote_text}: Footnote text content (character).
 \item \code{link}: Hyperlink URL (character).
 \item \code{link_to_bookmark}: Internal bookmark anchor name for hyperlinks (character).
-\item \code{bookmark_start}: Name of the bookmark starting at this run (character).
+\item \code{bookmark_start}: Names of the bookmarks starting on this paragraph
+(values are concatenated with '|').
 \item \code{character_stylename}: Name of the character/run style (character).
 \item \code{sz}: Font size in half-points (integer).
 \item \code{sz_cs}: Complex script font size in half-points (integer).
