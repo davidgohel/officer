@@ -23,17 +23,20 @@ a hierarchy level.
 }
 \examples{
 unordered_list(
-level_list = c(1, 2, 2, 3, 3, 1),
-str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
-style = fp_text(color = "red", font.size = 0) )
+  level_list = c(1, 2, 2, 3, 3, 1),
+  str_list = c("Level1", "Level2", "Level2", "Level3", "Level3", "Level1"),
+  style = fp_text(color = "red", font.size = 0)
+)
+
 unordered_list(
-level_list = c(1, 2, 1),
-str_list = c("Level1", "Level2", "Level1"),
-style = list(
-  fp_text(color = "red", font.size = 0),
-  fp_text(color = "pink", font.size = 0),
-  fp_text(color = "orange", font.size = 0)
-  ))
+  level_list = c(1, 2, 1),
+  str_list = c("Level1", "Level2", "Level1"),
+  style = list(
+    fp_text(color = "red", font.size = 0),
+    fp_text(color = "pink", font.size = 0),
+    fp_text(color = "orange", font.size = 0)
+  )
+)
 }
 \seealso{
 \code{\link[=ph_with]{ph_with()}}
