@@ -5,6 +5,7 @@
 - RTF support strike text setting.
 - fix an issue with bookmark selections in `docx_summary()`.
 - fix `fp_par_lite()` management of argument `tabs`.
+- there was a regression with svg in docx, it is solved now.
 
 ## Features
 

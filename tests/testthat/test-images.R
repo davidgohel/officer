@@ -139,6 +139,10 @@ test_that("add svg in docx", {
     expect_false(inherits(node_svgblip, "xml_missing"))
     expect_true(all(xml_attr(node_svgblip, "embed") %in% subset_rel$id))
   }
+  new_file <- print(x, target = tempfile(fileext = ".docx"))
+  new_folder <- unpack_folder(new_file, tempfile())
+  media_files <- list.files(file.path(new_folder, "word", "media"))
+  expect_length(media_files, 2)
 })
 
 test_that("add svg in pptx", {

@@ -213,13 +213,13 @@ sanitize_images <- function(x, warn_user = TRUE) {
     all_docs[[length(all_docs)+1]] <- x$doc_obj
     all_docs[[length(all_docs)+1]] <- x$footnotes
 
-    for (header in all_docs) {
+    for (doc_part in all_docs) {
       suppressWarnings({
-        blip_nodes <- xml_find_all(header$get(), "//a:blip[contains(@r:embed, 'rId')]")
+        blip_nodes <- xml_find_all(doc_part$get(), "//a:blip[contains(@r:embed, 'rId')]|//asvg:svgBlip[contains(@r:embed, 'rId')]")
       })
       embed_list <- xml_attr(blip_nodes, "embed")
       embed_data <- filter(
-        .data = header$rel_df(),
+        .data = doc_part$rel_df(),
         basename(.data$type) %in% "image",
         .data$id %in% embed_list
       )
