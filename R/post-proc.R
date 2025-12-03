@@ -215,8 +215,17 @@ sanitize_images <- function(x, warn_user = TRUE) {
 
     for (doc_part in all_docs) {
       suppressWarnings({
-        blip_nodes <- xml_find_all(doc_part$get(), "//a:blip[contains(@r:embed, 'rId')]|//asvg:svgBlip[contains(@r:embed, 'rId')]")
+        blip_nodes <- xml_find_all(
+          doc_part$get(),
+          "//a:blip[contains(@r:embed, 'rId')]|//asvg:svgBlip[contains(@r:embed, 'rId')]",
+          ns = c(
+            "a" = "http://schemas.openxmlformats.org/drawingml/2006/main",
+            "asvg" = "http://schemas.microsoft.com/office/drawing/2016/SVG/main",
+            "r" = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+          )
+        )
       })
+
       embed_list <- xml_attr(blip_nodes, "embed")
       embed_data <- filter(
         .data = doc_part$rel_df(),
@@ -226,6 +235,7 @@ sanitize_images <- function(x, warn_user = TRUE) {
       embed_data <- embed_data$target
       image_files[[length(image_files)+1]] <- embed_data
     }
+
     image_files <- do.call(c, image_files)
     image_files <- unique(image_files)
 
