@@ -7,7 +7,7 @@ name: pkgdown
 jobs:
   pkgdown:
     runs-on: ubuntu-22.04
-    if: "contains(github.event.head_commit.message, 'sitedeploy')"
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
