@@ -154,6 +154,7 @@ from_base64 <- function(x) {
 #'   output_files = tempfile(fileext = ".jpeg")
 #' )
 #' @export
+#' @keywords internal
 base64_to_image <- function(data_uri, output_files) {
 
   for(i in seq_along(data_uri)) {

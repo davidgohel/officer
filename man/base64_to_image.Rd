@@ -25,3 +25,4 @@ base64_to_image(
   output_files = tempfile(fileext = ".jpeg")
 )
 }
+\keyword{internal}
