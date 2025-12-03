@@ -9,7 +9,7 @@ return a data.frame representing the document."><meta property="og:image" conten
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,7 +99,8 @@ session if needed.</p></li>
 <li><p><code>footnote_text</code>: Footnote text content (character).</p></li>
 <li><p><code>link</code>: Hyperlink URL (character).</p></li>
 <li><p><code>link_to_bookmark</code>: Internal bookmark anchor name for hyperlinks (character).</p></li>
-<li><p><code>bookmark_start</code>: Name of the bookmark starting at this run (character).</p></li>
+<li><p><code>bookmark_start</code>: Names of the bookmarks starting on this paragraph
+(values are concatenated with '|').</p></li>
 <li><p><code>character_stylename</code>: Name of the character/run style (character).</p></li>
 <li><p><code>sz</code>: Font size in half-points (integer).</p></li>
 <li><p><code>sz_cs</code>: Complex script font size in half-points (integer).</p></li>
@@ -430,19 +431,19 @@ not be accessible in the results.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     image_path field_code footnote_text link link_to_bookmark bookmark_start</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
@@ -483,24 +484,24 @@ not be accessible in the results.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 53        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 54        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 55        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 58        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 60        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 62        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 64        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 66        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 68        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 70        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 72        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 74        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;          bmk_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 75        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 76        &lt;NA&gt;       &lt;NA&gt;               &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;</span>

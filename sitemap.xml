@@ -10,6 +10,8 @@
 <url><loc>https://davidgohel.github.io/officer/reference/add_slide.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/annotate_base.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/as.matrix.rpptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/as_base64.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/base64_to_image.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_caption.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_gg.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_list.html</loc></url>
@@ -72,6 +74,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/fp_tabs.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/fp_text.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/fpar.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/from_base64.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/ftext.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/get_layout.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/get_reference_value.html</loc></url>
@@ -110,6 +113,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/ph_slidelink.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/ph_with.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/phs_with.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/plot_in_png.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/plot_instr.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/plot_layout_properties.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/pptx_summary.html</loc></url>

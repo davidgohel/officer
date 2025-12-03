@@ -1,6 +1,29 @@
 # Changelog
 
+## officer 0.7.2
+
+### Issues
+
+- RTF support strike text setting.
+- fix an issue with bookmark selections in
+  [`docx_summary()`](https://davidgohel.github.io/officer/reference/docx_summary.md).
+- fix
+  [`fp_par_lite()`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  management of argument `tabs`.
+- there was a regression with svg in docx, it is solved now.
+
+### Features
+
+- new internal utilities
+  [`base64_to_image()`](https://davidgohel.github.io/officer/reference/base64_to_image.md),
+  [`as_base64()`](https://davidgohel.github.io/officer/reference/as_base64.md),
+  [`from_base64()`](https://davidgohel.github.io/officer/reference/from_base64.md)
+  and
+  [`plot_in_png()`](https://davidgohel.github.io/officer/reference/plot_in_png.md).
+
 ## officer 0.7.1
+
+CRAN release: 2025-11-14
 
 ### Features
 

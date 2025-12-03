@@ -171,5 +171,5 @@ doc <- rtf_add(doc, anyplot,
 )
 
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpHQHJOw/file175752fa541c.rtf"
+#> [1] "/tmp/RtmpWmrOW0/file178d781af5f.rtf"
 ```

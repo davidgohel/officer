@@ -97,8 +97,8 @@ information:
 - `link_to_bookmark`: Internal bookmark anchor name for hyperlinks
   (character).
 
-- `bookmark_start`: Name of the bookmark starting at this run
-  (character).
+- `bookmark_start`: Names of the bookmarks starting on this paragraph
+  (values are concatenated with '\|').
 
 - `character_stylename`: Name of the character/run style (character).
 
@@ -451,19 +451,19 @@ docx_summary(doc, detailed = TRUE)
 #>     image_path field_code footnote_text link link_to_bookmark bookmark_start
 #> 1         <NA>       <NA>               <NA>             <NA>           <NA>
 #> 2         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 3         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 4         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 5         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 6         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 7         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 8         <NA>       <NA>               <NA>             <NA>           <NA>
-#> 9         <NA>       <NA>               <NA>             <NA>           <NA>
+#> 3         <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 4         <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 5         <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 6         <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 7         <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 8         <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 9         <NA>       <NA>               <NA>             <NA>          bmk_1
 #> 10        <NA>       <NA>               <NA>             <NA>          bmk_1
-#> 11        <NA>       <NA>               <NA>             <NA>          bmk_2
+#> 11        <NA>       <NA>               <NA>             <NA>          bmk_1
 #> 12        <NA>       <NA>               <NA>             <NA>          bmk_1
-#> 13        <NA>       <NA>               <NA>             <NA>          bmk_2
+#> 13        <NA>       <NA>               <NA>             <NA>          bmk_1
 #> 14        <NA>       <NA>               <NA>             <NA>          bmk_1
-#> 15        <NA>       <NA>               <NA>             <NA>          bmk_2
+#> 15        <NA>       <NA>               <NA>             <NA>          bmk_1
 #> 16        <NA>       <NA>               <NA>             <NA>           <NA>
 #> 17        <NA>       <NA>               <NA>             <NA>           <NA>
 #> 18        <NA>       <NA>               <NA>             <NA>           <NA>
@@ -504,24 +504,24 @@ docx_summary(doc, detailed = TRUE)
 #> 53        <NA>       <NA>               <NA>             <NA>           <NA>
 #> 54        <NA>       <NA>               <NA>             <NA>           <NA>
 #> 55        <NA>       <NA>               <NA>             <NA>           <NA>
-#> 56        <NA>       <NA>               <NA>             <NA>           <NA>
-#> 57        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 56        <NA>       <NA>               <NA>             <NA>          bmk_2
+#> 57        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 58        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 59        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 59        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 60        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 61        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 61        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 62        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 63        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 63        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 64        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 65        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 65        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 66        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 67        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 67        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 68        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 69        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 69        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 70        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 71        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 71        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 72        <NA>       <NA>               <NA>             <NA>          bmk_2
-#> 73        <NA>       <NA>               <NA>             <NA>          bmk_1
+#> 73        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 74        <NA>       <NA>               <NA>             <NA>          bmk_2
 #> 75        <NA>       <NA>               <NA>             <NA>           <NA>
 #> 76        <NA>       <NA>               <NA>             <NA>           <NA>

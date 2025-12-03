@@ -37,7 +37,7 @@ reporting as run_autonum() and block_caption()."><meta property="og:image" conte
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,34 @@ reporting as <code><a href="run_autonum.html">run_autonum()</a></code> and <code
     </div>
 
 
+    <div class="section level2">
+    <h2 id="get-word-content-in-a-data-frame">Get Word content in a data.frame<a class="anchor" aria-label="anchor" href="#get-word-content-in-a-data-frame"></a></h2>
+
+
+
+<p>While officer allows you to generate Word and PowerPoint documents,
+an important feature is also the ability to read the content of existing
+Word documents. Use <code><a href="docx_summary.html">docx_summary()</a></code> to extract document content as a
+structured data.frame, making it easy to analyze and process Word files
+programmatically.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="copy-an-officer-object">Copy an officer object<a class="anchor" aria-label="anchor" href="#copy-an-officer-object"></a></h2>
+
+
+
+<p>'officer' objects of class <code>rdocx</code> or <code>rpptx</code> use R6 classes with reference
+semantics. <strong>Assignment does NOT create a copy</strong>:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>pptx1 <span class="ot">&lt;-</span> <span class="fu">read_pptx</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>pptx2 <span class="ot">&lt;-</span> pptx1  <span class="co"># pptx2 is a reference to pptx1, not a copy!</span></span></code></pre><p></p></div>
+<p>If you need independent documents (e.g., in loops), read the template
+each time:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  doc <span class="ot">&lt;-</span> <span class="fu">read_docx</span>(<span class="st">"template.docx"</span>)  <span class="co"># Read fresh each iteration</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="co"># ... modify doc ...</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">print</span>(doc, <span class="at">target =</span> <span class="fu">paste0</span>(<span class="st">"output_"</span>, i, <span class="st">".docx"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>}</span></code></pre><p></p></div>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>The user documentation: <a href="https://ardata-fr.github.io/officeverse/" class="external-link">https://ardata-fr.github.io/officeverse/</a> and
