@@ -51,13 +51,13 @@ Source:
 [`DESCRIPTION`](https://github.com/davidgohel/officer/blob/master/DESCRIPTION)
 
 Gohel D, Moog S, Heckmann M (2025). *officer: Manipulation of Microsoft
-Word and PowerPoint Documents*. R package version 0.7.2.007,
+Word and PowerPoint Documents*. R package version 0.7.3.001,
 <https://ardata-fr.github.io/officeverse/>.
 
     @Manual{,
       title = {officer: Manipulation of Microsoft Word and PowerPoint Documents},
       author = {David Gohel and Stefan Moog and Mark Heckmann},
       year = {2025},
-      note = {R package version 0.7.2.007},
+      note = {R package version 0.7.3.001},
       url = {https://ardata-fr.github.io/officeverse/},
     }
