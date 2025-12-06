@@ -18,18 +18,18 @@ relationship <- R6Class(
       children <- xml_children(doc)
       ns <- xml_ns(doc)
 
-      private$id <- c(private$id, sapply(children, xml_attr, attr = "Id", ns))
+      private$id <- c(private$id, vapply(children, xml_attr, NA_character_, attr = "Id", ns))
       private$type <- c(
         private$type,
-        sapply(children, xml_attr, attr = "Type", ns)
+        vapply(children, xml_attr, NA_character_, attr = "Type", ns)
       )
       private$target <- c(
         private$target,
-        sapply(children, xml_attr, attr = "Target", ns)
+        vapply(children, xml_attr, NA_character_, attr = "Target", ns)
       )
       private$target_mode <- c(
         private$target_mode,
-        sapply(children, xml_attr, attr = "TargetMode", ns)
+        vapply(children, xml_attr, NA_character_, attr = "TargetMode", ns)
       )
       private$ext_src <- c(private$ext_src, character(length(children)))
       self
@@ -101,6 +101,7 @@ relationship <- R6Class(
           ext_src = private$ext_src,
           stringsAsFactors = FALSE
         )
+
         data[order(data$id), ]
       }
       data

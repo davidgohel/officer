@@ -1,3 +1,9 @@
+# officer 0.7.3
+
+## Issues
+
+- fix feed_from_xml for 'officedown'.  
+
 # officer 0.7.2
 
 ## Issues
