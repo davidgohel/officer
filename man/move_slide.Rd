@@ -9,7 +9,8 @@ move_slide(x, index = NULL, to)
 \arguments{
 \item{x}{an rpptx object}
 
-\item{index}{slide index, default to current slide position.}
+\item{index}{slide index or a vector of slide indices to remove,
+default to current slide position.}
 
 \item{to}{new slide index.}
 }

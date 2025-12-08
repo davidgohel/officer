@@ -35,7 +35,7 @@ test_that("check errors", {
   x <- ph_with(x, "my title 2", location = ph_location_type(type = "title"))
 
   expect_error(on_slide(x, index = 3), "unvalid index 3")
-  expect_error(remove_slide(x, index = 3), "unvalid index 3")
+  expect_error(remove_slide(x, index = 3), "invalid index\\(es\\) 3")
   expect_error(slide_summary(x, index = 3), "unvalid index 3")
 })
 
