@@ -5,6 +5,9 @@
 ### Issues
 
 - fix feed_from_xml for ‘officedown’.
+- `remove_field` argument of function
+  [`docx_summary()`](https://davidgohel.github.io/officer/dev/reference/docx_summary.md)
+  now work as expected.
 
 ## officer 0.7.2
 
