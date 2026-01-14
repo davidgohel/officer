@@ -769,9 +769,16 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   }
 
   if (remove_fields) {
+
+    # also remove complex field characters
+    fldChar_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldChar")
+    xml_remove(fldChar_nodes)
+
+    # remove instrText nodes
     instrText_nodes <- xml_find_all(x$doc_obj$get(), "//w:instrText")
     xml_remove(instrText_nodes)
 
+    # remove fldData nodes
     fldData_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldData")
     xml_remove(fldData_nodes)
   }
