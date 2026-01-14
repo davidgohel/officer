@@ -19,7 +19,7 @@ test_that("docx summary", {
   doc <- read_docx(x)
   expect_equal(docx_summary(doc)$text, "Date \\@ \"MMMM d yyyy\"")
   doc <- read_docx(x)
-  expect_equal(docx_summary(doc, remove_fields = TRUE)$text, "")
+  expect_equal(nrow(docx_summary(doc, remove_fields = TRUE)), 0)
 })
 
 test_that("complex docx table", {
