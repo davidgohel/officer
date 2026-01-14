@@ -8,6 +8,9 @@
 - `remove_field` argument of function
   [`docx_summary()`](https://davidgohel.github.io/officer/dev/reference/docx_summary.md)
   now work as expected.
+- also remove relationships in
+  [`sanitize_images()`](https://davidgohel.github.io/officer/dev/reference/sanitize_images.md)
+  ([\#708](https://github.com/davidgohel/officer/issues/708)).
 
 ## officer 0.7.2
 
