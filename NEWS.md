@@ -4,6 +4,7 @@
 
 - fix feed_from_xml for 'officedown'.
 - `remove_field` argument of function `docx_summary()` now work as expected.
+- also remove relationships in `sanitize_images()` (#708).
 
 # officer 0.7.2
 

@@ -254,6 +254,18 @@ sanitize_images <- function(x, warn_user = TRUE) {
       file.path(base_doc, setdiff(existing_img, image_files)),
       force = TRUE
     )
+
+    # these iterations will remove removed images from relationships
+    for (doc_part in all_docs) {
+      rel <- doc_part$relationship()
+      rel_data <- rel$get_data()
+      rel_data <- rel_data[basename(rel_data$type) %in% "image",]
+      rel_data <- rel_data[!file.exists(file.path(base_doc, rel_data$target)),]
+      if (nrow(rel_data) > 0) {
+        rel$remove(rel_data$target)
+        doc_part$save()
+      }
+    }
   } else if (inherits(x, "rpptx")) {
 
     rel_files <- list.files(
