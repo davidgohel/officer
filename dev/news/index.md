@@ -8,6 +8,8 @@
 
 ## officer 0.7.2
 
+CRAN release: 2025-12-04
+
 ### Issues
 
 - RTF support strike text setting.
