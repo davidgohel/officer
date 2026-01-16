@@ -155,9 +155,10 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   indices <- unique(as.integer(index))
   invalid_indices <- indices[!between(indices, 1, l_)]
   if (length(invalid_indices) > 0) {
+    n_invalid <- length(invalid_indices)
     cli::cli_abort(
       c(
-        "Slide index{?es} {.val {invalid_indices}} {?is/are} out of range.",
+        "{cli::qty(n_invalid)}Slide index{?es} {.val {invalid_indices}} {cli::qty(n_invalid)}{?is/are} out of range.",
         "x" = "Presentation has {cli::no(l_)} slide{?s}."
       )
     )

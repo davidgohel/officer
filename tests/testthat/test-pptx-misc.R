@@ -179,12 +179,12 @@ test_that("remove multiple slides - invalid indices", {
   x <- add_slide(x, "Title and Content", "Office Theme")
 
   # Test with out of range indices
-  expect_error(remove_slide(x, index = c(1, 5)), "invalid index")
-  expect_error(remove_slide(x, index = c(0, 1)), "invalid index")
-  expect_error(remove_slide(x, index = c(-1, 2)), "invalid index")
+  expect_error(remove_slide(x, index = c(1, 5)), "out of range")
+  expect_error(remove_slide(x, index = c(0, 1)), "out of range")
+  expect_error(remove_slide(x, index = c(-1, 2)), "out of range")
 
   # Test with all invalid indices
-  expect_error(remove_slide(x, index = c(5, 6)), "invalid index")
+  expect_error(remove_slide(x, index = c(5, 6)), "out of range")
 })
 
 test_that("ph remove", {

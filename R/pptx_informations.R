@@ -423,7 +423,7 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx') {
 slide_summary <- function(x, index = NULL) {
   l_ <- length(x)
   if (l_ < 1) {
-    stop("presentation contains no slide", call. = FALSE)
+    cli::cli_abort("Presentation contains no slide.")
   }
 
   if (is.null(index)) {
@@ -431,7 +431,12 @@ slide_summary <- function(x, index = NULL) {
   }
 
   if (!between(index, 1, l_)) {
-    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
+    cli::cli_abort(
+      c(
+        "Slide index {.val {index}} is out of range.",
+        "x" = "Presentation has {cli::no(l_)} slide{?s}."
+      )
+    )
   }
 
   slide <- x$slide$get_slide(index)

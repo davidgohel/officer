@@ -2,7 +2,7 @@ test_that("check errors", {
   x <- read_pptx()
   expect_error(
     move_slide(x, index = 2, to = 1),
-    "presentation contains no slide"
+    "Presentation contains no slide"
   )
 
   x <- read_pptx()

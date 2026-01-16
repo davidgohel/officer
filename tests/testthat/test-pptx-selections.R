@@ -23,9 +23,9 @@ test_that("check slide selection", {
 
 test_that("check errors", {
   x <- read_pptx()
-  expect_error(slide_summary(x), "presentation contains no slide")
-  expect_error(remove_slide(x), "presentation contains no slide to delete")
-  expect_error(on_slide(x, index = 1), "presentation contains no slide")
+  expect_error(slide_summary(x), "Presentation contains no slide")
+  expect_error(remove_slide(x), "Presentation contains no slide to delete")
+  expect_error(on_slide(x, index = 1), "Presentation contains no slide")
 
   x <- add_slide(x, "Title and Content", "Office Theme")
   x <- ph_with(x, "Hello world", location = ph_location_type(type = "body"))
@@ -34,9 +34,9 @@ test_that("check errors", {
   x <- ph_with(x, "Hello world", location = ph_location_type(type = "body"))
   x <- ph_with(x, "my title 2", location = ph_location_type(type = "title"))
 
-  expect_error(on_slide(x, index = 3), "unvalid index 3")
-  expect_error(remove_slide(x, index = 3), "invalid index\\(es\\) 3")
-  expect_error(slide_summary(x, index = 3), "unvalid index 3")
+  expect_error(on_slide(x, index = 3), "out of range")
+  expect_error(remove_slide(x, index = 3), "Presentation has 2 slides")
+  expect_error(slide_summary(x, index = 3), "Presentation has 2 slides")
 })
 
 
