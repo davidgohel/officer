@@ -148,7 +148,9 @@ adapted to language or local conventions (e.g., ";" for French, "," for English)
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">txt_lorem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">txt_lorem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Purus lectus eros metus turpis mattis platea praesent sed. "</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">50</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -162,9 +164,12 @@ adapted to language or local conventions (e.g., ";" for French, "," for English)
 <span class="r-in"><span><span class="va">footer_default</span> <span class="op">&lt;-</span> <span class="fu"><a href="block_list.html">block_list</a></span><span class="op">(</span><span class="fu"><a href="fpar.html">fpar</a></span><span class="op">(</span><span class="fu"><a href="ftext.html">ftext</a></span><span class="op">(</span><span class="st">"text for default page footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="prop_section.html">prop_section</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  header_default <span class="op">=</span> <span class="va">header_default</span>, footer_default <span class="op">=</span> <span class="va">footer_default</span>,</span></span>
-<span class="r-in"><span>  header_first <span class="op">=</span> <span class="va">header_first</span>, footer_first <span class="op">=</span> <span class="va">footer_first</span>,</span></span>
-<span class="r-in"><span>  header_even <span class="op">=</span> <span class="va">header_even</span>, footer_even <span class="op">=</span> <span class="va">footer_even</span></span></span>
+<span class="r-in"><span>  header_default <span class="op">=</span> <span class="va">header_default</span>,</span></span>
+<span class="r-in"><span>  footer_default <span class="op">=</span> <span class="va">footer_default</span>,</span></span>
+<span class="r-in"><span>  header_first <span class="op">=</span> <span class="va">header_first</span>,</span></span>
+<span class="r-in"><span>  footer_first <span class="op">=</span> <span class="va">footer_first</span>,</span></span>
+<span class="r-in"><span>  header_even <span class="op">=</span> <span class="va">header_even</span>,</span></span>
+<span class="r-in"><span>  footer_even <span class="op">=</span> <span class="va">footer_even</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>

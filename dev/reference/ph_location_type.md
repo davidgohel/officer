@@ -105,6 +105,8 @@ Other functions for placeholder location:
 ## Examples
 
 ``` r
+library(officer)
+
 # ph_location_type demo ----
 
 loc_title <- ph_location_type(type = "title")

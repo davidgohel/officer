@@ -72,6 +72,8 @@ Other functions for placeholder location:
 ## Examples
 
 ``` r
+library(officer)
+
 doc <- read_pptx()
 doc <- add_slide(doc, "Comparison")
 plot_layout_properties(doc, "Comparison")
@@ -84,7 +86,6 @@ doc <- ph_with(doc, "The Footer", location = ph_location_id(id = 8)) # footer
 
 file <- tempfile(fileext = ".pptx")
 print(doc, file)
-if (FALSE) { # \dontrun{
-file.show(file) # may not work on your system
-} # }
+
+## file.show(file) # may not work on your system
 ```

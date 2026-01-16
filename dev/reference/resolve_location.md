@@ -32,6 +32,8 @@ right.
 ## Examples
 
 ``` r
+library(officer)
+
 resolve_location("left")
 #> $label
 #> NULL

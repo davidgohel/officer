@@ -68,6 +68,8 @@ Other functions for placeholder location:
 ## Examples
 
 ``` r
+library(officer)
+
 # ph_location_label demo ----
 
 doc <- read_pptx()
@@ -94,13 +96,19 @@ layout_properties(doc, layout = "Title and Content")
 #> 4 0.3993056       NA                                   <NA>              <NA>
 #> 5 0.3993056       NA {8DADB20D-508E-4C6D-A9E4-257D5607B0F6}          slidenum
 
-doc <- ph_with(doc, head(iris),
+doc <- ph_with(
+  doc,
+  head(iris),
   location = ph_location_label(ph_label = "Content Placeholder 2")
 )
-doc <- ph_with(doc, format(Sys.Date()),
+doc <- ph_with(
+  doc,
+  format(Sys.Date()),
   location = ph_location_label(ph_label = "Date Placeholder 3")
 )
-doc <- ph_with(doc, "This is a title",
+doc <- ph_with(
+  doc,
+  "This is a title",
   location = ph_location_label(ph_label = "Title 1")
 )
 

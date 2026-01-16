@@ -36,6 +36,8 @@ Other functions for placeholder location:
 ## Examples
 
 ``` r
+library(officer)
+
 doc <- read_pptx()
 doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(doc, "Hello left", location = ph_location_left())
