@@ -33,6 +33,11 @@
   fail with permission errors in read-only environments
   ([\#706](https://github.com/davidgohel/officer/issues/706)).
 
+### Changes
+
+- Defunct function
+  [`docx_reference_img()`](https://davidgohel.github.io/officer/dev/reference/officer-defunct.md).
+
 ## officer 0.7.2
 
 CRAN release: 2025-12-04
@@ -241,7 +246,7 @@ CRAN release: 2025-05-21
 ### Changes
 
 - Deprecate function
-  [`docx_reference_img()`](https://davidgohel.github.io/officer/dev/reference/docx_reference_img.md)
+  [`docx_reference_img()`](https://davidgohel.github.io/officer/dev/reference/officer-defunct.md)
   as it is no longer useful..
 
 ## officer 0.6.8
