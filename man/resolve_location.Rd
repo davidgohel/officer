@@ -28,6 +28,8 @@ The following location short forms are implemented. The corresponding call of th
 }
 
 \examples{
+library(officer)
+
 resolve_location("left")
 resolve_location("right")
 resolve_location("fullsize")
@@ -36,6 +38,5 @@ resolve_location("body [1]")
 resolve_location("<some label>")
 resolve_location(2)
 resolve_location(c(0, 0, 4, 5))
-
 }
 \keyword{internal}

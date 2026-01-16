@@ -37,6 +37,8 @@ This label can then be reused by other functions such as \code{ph_location_label
 It can be set with argument \code{newlabel}.
 }
 \examples{
+library(officer)
+
 # ph_location_label demo ----
 
 doc <- read_pptx()
@@ -45,13 +47,19 @@ doc <- add_slide(doc, layout = "Title and Content")
 # all ph_label can be read here
 layout_properties(doc, layout = "Title and Content")
 
-doc <- ph_with(doc, head(iris),
+doc <- ph_with(
+  doc,
+  head(iris),
   location = ph_location_label(ph_label = "Content Placeholder 2")
 )
-doc <- ph_with(doc, format(Sys.Date()),
+doc <- ph_with(
+  doc,
+  format(Sys.Date()),
   location = ph_location_label(ph_label = "Date Placeholder 3")
 )
-doc <- ph_with(doc, "This is a title",
+doc <- ph_with(
+  doc,
+  "This is a title",
   location = ph_location_label(ph_label = "Title 1")
 )
 

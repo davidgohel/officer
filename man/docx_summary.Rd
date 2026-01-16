@@ -87,6 +87,8 @@ Documents included with \code{\link[=body_add_docx]{body_add_docx()}} will
 not be accessible in the results.
 }
 \examples{
+library(officer)
+
 example_docx <- system.file(
   package = "officer",
   "doc_examples/example.docx"

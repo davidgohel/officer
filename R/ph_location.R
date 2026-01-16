@@ -189,13 +189,7 @@ is_ph_location <- function(x) {
 #' @param x a location for a placeholder.
 #' @param doc an rpptx object
 #' @param ... unused arguments
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc,
-#'   layout = "Title and Content",
-#'   master = "Office Theme"
-#' )
-#' fortify_location(ph_location_fullsize(), doc)
+#' @example inst/examples/example_fortify_location.R
 #' @seealso [ph_location()], [ph_with()]
 #' @family functions for officer extensions
 #' @keywords internal
@@ -236,24 +230,7 @@ fortify_location <- function(x, doc, ...) {
 #' will be identified with that label in the *Selection Pane* of PowerPoint.
 #' This label can then be reused by other functions such as `ph_location_label()`.
 #' It can be set with argument `newlabel`.
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- ph_with(doc, "Hello world",
-#'   location = ph_location(width = 4, height = 3, newlabel = "hello")
-#' )
-#' print(doc, target = tempfile(fileext = ".pptx"))
-#'
-#' # Set geometry and outline
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' loc <- ph_location(
-#'   left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
-#'   ln = sp_line(color = "red", lwd = 2.5),
-#'   geom = "trapezoid"
-#' )
-#' doc <- ph_with(doc, "", loc = loc)
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example inst/examples/example_ph_location.R
 ph_location <- function(
   left = 1,
   top = 1,
@@ -312,16 +289,7 @@ fortify_location.location_manual <- function(x, doc, ...) {
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @inherit ph_location details
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- ph_with(doc, "Title",
-#'   location = ph_location_type(type = "title")
-#' )
-#' doc <- ph_with(doc, "Hello world",
-#'   location = ph_location_template(top = 4, type = "title")
-#' )
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example inst/examples/example_ph_location_template.R
 #' @export
 ph_location_template <- function(
   left = 1,
@@ -394,33 +362,7 @@ fortify_location.location_template <- function(x, doc, ...) {
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @inherit ph_location details
-#' @examples
-#' # ph_location_type demo ----
-#'
-#' loc_title <- ph_location_type(type = "title")
-#' loc_footer <- ph_location_type(type = "ftr")
-#' loc_dt <- ph_location_type(type = "dt")
-#' loc_slidenum <- ph_location_type(type = "sldNum")
-#' loc_body <- ph_location_type(type = "body")
-#'
-#'
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- ph_with(x = doc, "Un titre", location = loc_title)
-#' doc <- ph_with(x = doc, "pied de page", location = loc_footer)
-#' doc <- ph_with(x = doc, format(Sys.Date()), location = loc_dt)
-#' doc <- ph_with(x = doc, "slide 1", location = loc_slidenum)
-#' doc <- ph_with(x = doc, letters[1:10], location = loc_body)
-#'
-#' loc_subtitle <- ph_location_type(type = "subTitle")
-#' loc_ctrtitle <- ph_location_type(type = "ctrTitle")
-#' doc <- add_slide(doc, layout = "Title Slide")
-#' doc <- ph_with(x = doc, "Un sous titre", location = loc_subtitle)
-#' doc <- ph_with(x = doc, "Un titre", location = loc_ctrtitle)
-#'
-#' fileout <- tempfile(fileext = ".pptx")
-#' print(doc, target = fileout)
-#'
+#' @example inst/examples/example_ph_location_type.R
 ph_location_type <- function(
   type = "body",
   type_idx = NULL,
@@ -522,26 +464,7 @@ fortify_location.location_type <- function(x, doc, ...) {
 #' @param ... unused arguments
 #' @family functions for placeholder location
 #' @inherit ph_location details
-#' @examples
-#' # ph_location_label demo ----
-#'
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, layout = "Title and Content")
-#'
-#' # all ph_label can be read here
-#' layout_properties(doc, layout = "Title and Content")
-#'
-#' doc <- ph_with(doc, head(iris),
-#'   location = ph_location_label(ph_label = "Content Placeholder 2")
-#' )
-#' doc <- ph_with(doc, format(Sys.Date()),
-#'   location = ph_location_label(ph_label = "Date Placeholder 3")
-#' )
-#' doc <- ph_with(doc, "This is a title",
-#'   location = ph_location_label(ph_label = "Title 1")
-#' )
-#'
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example inst/examples/example_ph_location_label.R
 ph_location_label <- function(ph_label, newlabel = NULL, ...) {
   x <- list(ph_label = unname(ph_label), label = unname(newlabel))
   class(x) <- c("location_label", "location_str")
@@ -633,11 +556,7 @@ fortify_location.location_label <- function(x, doc, ...) {
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- ph_with(doc, "Hello world", location = ph_location_fullsize())
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example inst/examples/example_ph_location_fullsize.R
 ph_location_fullsize <- function(newlabel = "", ...) {
   x <- list(label = newlabel)
   class(x) <- c("location_fullsize", "location_str")
@@ -671,12 +590,7 @@ fortify_location.location_fullsize <- function(x, doc, ...) {
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- ph_with(doc, "Hello left", location = ph_location_left())
-#' doc <- ph_with(doc, "Hello right", location = ph_location_right())
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example inst/examples/example_ph_location_left.R
 ph_location_left <- function(newlabel = NULL, ...) {
   x <- list(label = newlabel)
   class(x) <- c("location_left", "location_str")
@@ -715,12 +629,7 @@ fortify_location.location_left <- function(x, doc, ...) {
 #' @param newlabel a label to associate with the placeholder.
 #' @param ... unused arguments
 #' @family functions for placeholder location
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- ph_with(doc, "Hello left", location = ph_location_left())
-#' doc <- ph_with(doc, "Hello right", location = ph_location_right())
-#' print(doc, target = tempfile(fileext = ".pptx"))
+#' @example inst/examples/example_ph_location_left.R
 ph_location_right <- function(newlabel = NULL, ...) {
   x <- list(label = newlabel)
   class(x) <- c("location_right", "location_str")
@@ -763,21 +672,7 @@ fortify_location.location_right <- function(x, doc, ...) {
 #' @param ... not used.
 #' @family functions for placeholder location
 #' @inherit ph_location details
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Comparison")
-#' plot_layout_properties(doc, "Comparison")
-#'
-#' doc <- ph_with(doc, "The Title", location = ph_location_id(id = 2)) # title
-#' doc <- ph_with(doc, "Left Header", location = ph_location_id(id = 3)) # left header
-#' doc <- ph_with(doc, "Left Content", location = ph_location_id(id = 4)) # left content
-#' doc <- ph_with(doc, "The Footer", location = ph_location_id(id = 8)) # footer
-#'
-#' file <- tempfile(fileext = ".pptx")
-#' print(doc, file)
-#' \dontrun{
-#' file.show(file) # may not work on your system
-#' }
+#' @example inst/examples/example_ph_location_id.R
 ph_location_id <- function(id, newlabel = NULL, ...) {
   ph_id <- id # for disambiguation, store initial value
 
@@ -867,16 +762,7 @@ fortify_location.location_id <- function(x, doc, ...) {
 #' | `2`            | Length 1 integer                                            | `ph_location_id(2)`             |
 #' | `c(0,0,4,5)`   | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` | `ph_location(0, 0, 4, 5)`       |
 #'
-#' @examples
-#' resolve_location("left")
-#' resolve_location("right")
-#' resolve_location("fullsize")
-#' resolve_location("body")
-#' resolve_location("body [1]")
-#' resolve_location("<some label>")
-#' resolve_location(2)
-#' resolve_location(c(0, 0, 4, 5))
-#'
+#' @example inst/examples/example_resolve_location.R
 resolve_location <- function(x) {
   if (is_ph_location(x)) {
     return(x)

@@ -1,0 +1,10 @@
+library(officer)
+
+resolve_location("left")
+resolve_location("right")
+resolve_location("fullsize")
+resolve_location("body")
+resolve_location("body [1]")
+resolve_location("<some label>")
+resolve_location(2)
+resolve_location(c(0, 0, 4, 5))

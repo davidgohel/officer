@@ -21,11 +21,10 @@ and top positions and other informations necessary to add a
 content on a slide.
 }
 \examples{
+library(officer)
+
 doc <- read_pptx()
-doc <- add_slide(doc,
-  layout = "Title and Content",
-  master = "Office Theme"
-)
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 fortify_location(ph_location_fullsize(), doc)
 }
 \seealso{

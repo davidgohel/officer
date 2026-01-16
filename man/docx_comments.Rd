@@ -32,6 +32,8 @@ spans multiple paragraphs or runs or of length 0 if the commented text is empty.
 }
 }
 \examples{
+library(officer)
+
 bl <- block_list(
   fpar("Comment multiple words."),
   fpar("Second line")

@@ -191,7 +191,7 @@ footers_replace_img_at_bkm <- function(x, bookmark, value) {
 #' i.e.the bookmark will be lost as a side effect.
 #' @inheritParams body_add_gg
 #'
-#' @example inst/examplesexample_body_replace_gg_at_bkm.R
+#' @example inst/examples/example_body_replace_gg_at_bkm.R
 body_replace_gg_at_bkm <- function(
   x,
   bookmark,

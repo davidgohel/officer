@@ -66,6 +66,8 @@ This label can then be reused by other functions such as \code{ph_location_label
 It can be set with argument \code{newlabel}.
 }
 \examples{
+library(officer)
+
 # ph_location_type demo ----
 
 loc_title <- ph_location_type(type = "title")
@@ -91,7 +93,6 @@ doc <- ph_with(x = doc, "Un titre", location = loc_ctrtitle)
 
 fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)
-
 }
 \seealso{
 Other functions for placeholder location: 

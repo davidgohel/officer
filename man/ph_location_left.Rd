@@ -19,6 +19,8 @@ named 'Two Content', use \code{\link[=ph_location_type]{ph_location_type()}} and
 to your specific needs.
 }
 \examples{
+library(officer)
+
 doc <- read_pptx()
 doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(doc, "Hello left", location = ph_location_left())

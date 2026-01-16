@@ -766,16 +766,7 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
 #' - `align`: Paragraph alignment (character).
 #' - `level`: Numbering level (integer). `NA` if not a numbered list.
 #' - `num_id`: Numbering definition ID (integer). `NA` if not a numbered list.
-#' @examples
-#' example_docx <- system.file(
-#'   package = "officer",
-#'   "doc_examples/example.docx"
-#' )
-#' doc <- read_docx(example_docx)
-#'
-#' docx_summary(doc)
-#'
-#' docx_summary(doc, detailed = TRUE)
+#' @example inst/examples/example_docx_summary.R
 #' @export
 docx_summary <- function(
   x,
