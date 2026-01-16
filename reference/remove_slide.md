@@ -1,6 +1,6 @@
-# Remove a slide
+# Remove slide(s)
 
-Remove a slide from a pptx presentation.
+Remove one or more slides from a pptx presentation.
 
 ## Usage
 
@@ -16,7 +16,8 @@ remove_slide(x, index = NULL, rm_images = FALSE)
 
 - index:
 
-  slide index, default to current slide position.
+  slide index or a vector of slide indices to remove, default to current
+  slide position.
 
 - rm_images:
 
@@ -41,7 +42,36 @@ Other functions to manipulate slides:
 ## Examples
 
 ``` r
-my_pres <- read_pptx()
-my_pres <- add_slide(my_pres, "Title and Content")
-my_pres <- remove_slide(my_pres)
+library(officer)
+
+x <- read_pptx()
+x <- add_slide(x, "Title and Content")
+x <- remove_slide(x)
+
+# Remove multiple slides at once
+x <- read_pptx()
+x <- add_slide(x, "Title and Content")
+x <- add_slide(
+  x,
+  layout = "Two Content",
+  `Title 1` = "A title",
+  dt = "Jan. 26, 2025",
+  `body[2]` = "Body 2",
+  left = "Left side",
+  `6` = "Footer"
+)
+x <- add_slide(
+  x,
+  layout = "Two Content",
+  `Title 1` = "A title",
+  dt = "Jan. 26, 2025",
+  `body[2]` = "Body 2",
+  left = "Left side",
+  `6` = "Footer"
+)
+x <- add_slide(x, "Title and Content")
+x <- remove_slide(x, index = c(2, 4))
+pptx_file <- print(x, target = tempfile(fileext = ".pptx"))
+pptx_file
+#> [1] "/tmp/RtmpHvy6ko/file17a16adbe6db.pptx"
 ```

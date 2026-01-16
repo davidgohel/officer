@@ -39,6 +39,7 @@
 - [`cursor_begin()`](https://davidgohel.github.io/officer/reference/cursor.md)
   [`cursor_bookmark()`](https://davidgohel.github.io/officer/reference/cursor.md)
   [`cursor_end()`](https://davidgohel.github.io/officer/reference/cursor.md)
+  [`cursor_reach_index()`](https://davidgohel.github.io/officer/reference/cursor.md)
   [`cursor_reach()`](https://davidgohel.github.io/officer/reference/cursor.md)
   [`cursor_reach_test()`](https://davidgohel.github.io/officer/reference/cursor.md)
   [`cursor_forward()`](https://davidgohel.github.io/officer/reference/cursor.md)
@@ -162,7 +163,7 @@
 - [`move_slide()`](https://davidgohel.github.io/officer/reference/move_slide.md)
   : Move a slide
 - [`remove_slide()`](https://davidgohel.github.io/officer/reference/remove_slide.md)
-  : Remove a slide
+  : Remove slide(s)
 - [`` `slide_visible<-`() ``](https://davidgohel.github.io/officer/reference/slide-visible.md)
   [`slide_visible()`](https://davidgohel.github.io/officer/reference/slide-visible.md)
   : Get or set slide visibility

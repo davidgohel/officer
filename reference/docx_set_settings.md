@@ -102,6 +102,8 @@ docx_set_settings(
 ## Examples
 
 ``` r
+library(officer)
+
 txt_lorem <- rep(
   "Purus lectus eros metus turpis mattis platea praesent sed. ",
   50
@@ -116,9 +118,12 @@ footer_even <- block_list(fpar(ftext("text for even page footer")))
 footer_default <- block_list(fpar(ftext("text for default page footer")))
 
 ps <- prop_section(
-  header_default = header_default, footer_default = footer_default,
-  header_first = header_first, footer_first = footer_first,
-  header_even = header_even, footer_even = footer_even
+  header_default = header_default,
+  footer_default = footer_default,
+  header_first = header_first,
+  footer_first = footer_first,
+  header_even = header_even,
+  footer_even = footer_even
 )
 
 x <- read_docx()

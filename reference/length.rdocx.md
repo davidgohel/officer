@@ -31,6 +31,6 @@ Other functions for Word document informations:
 ``` r
 # how many elements are there in an new document produced
 # with the default template.
-length( read_docx() )
+length(read_docx())
 #> [1] 1
 ```

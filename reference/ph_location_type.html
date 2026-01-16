@@ -9,7 +9,7 @@ the layout name and few other criterias to find the corresponding location."><me
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,7 +136,9 @@ It can be set with argument <code>newlabel</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># ph_location_type demo ----</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ph_location_type demo ----</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">loc_title</span> <span class="op">&lt;-</span> <span class="fu">ph_location_type</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"title"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">loc_footer</span> <span class="op">&lt;-</span> <span class="fu">ph_location_type</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"ftr"</span><span class="op">)</span></span></span>
@@ -161,7 +163,6 @@ It can be set with argument <code>newlabel</code>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fileout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".pptx"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">fileout</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

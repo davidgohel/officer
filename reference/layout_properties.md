@@ -70,6 +70,8 @@ Other functions for reading presentation information:
 ## Examples
 
 ``` r
+library(officer)
+
 x <- read_pptx()
 layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
 #>    master_name        name     type type_idx id                   ph_label

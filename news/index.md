@@ -1,6 +1,46 @@
 # Changelog
 
+## officer 0.7.3
+
+### Features
+
+- function
+  [`remove_slide()`](https://davidgohel.github.io/officer/reference/remove_slide.md)
+  now supports deletion of multiple slides thanks to Wahiduzzaman Khan
+  ([\#691](https://github.com/davidgohel/officer/issues/691)).
+- add
+  [`cursor_reach_index()`](https://davidgohel.github.io/officer/reference/cursor.md)
+  to set the cursor at a specific index position in the document
+  ([\#574](https://github.com/davidgohel/officer/issues/574)).
+- [`set_doc_properties()`](https://davidgohel.github.io/officer/reference/set_doc_properties.md)
+  gains a new argument `hyperlink_base` to set the base URL for relative
+  hyperlinks in Word documents.
+  [`doc_properties()`](https://davidgohel.github.io/officer/reference/doc_properties.md)
+  now returns the `HyperlinkBase` property when available
+  ([\#630](https://github.com/davidgohel/officer/issues/630)).
+
+### Issues
+
+- fix feed_from_xml for ‘officedown’.
+- `remove_field` argument of function
+  [`docx_summary()`](https://davidgohel.github.io/officer/reference/docx_summary.md)
+  now work as expected.
+- also remove relationships in
+  [`sanitize_images()`](https://davidgohel.github.io/officer/reference/sanitize_images.md)
+  ([\#708](https://github.com/davidgohel/officer/issues/708)).
+- Package now supports read-only installations (e.g., when installed as
+  root or via Nix). Previously, attempting to create presentations would
+  fail with permission errors in read-only environments
+  ([\#706](https://github.com/davidgohel/officer/issues/706)).
+
+### Changes
+
+- Defunct function
+  [`docx_reference_img()`](https://davidgohel.github.io/officer/reference/officer-defunct.md).
+
 ## officer 0.7.2
+
+CRAN release: 2025-12-04
 
 ### Issues
 
@@ -206,7 +246,7 @@ CRAN release: 2025-05-21
 ### Changes
 
 - Deprecate function
-  [`docx_reference_img()`](https://davidgohel.github.io/officer/reference/docx_reference_img.md)
+  [`docx_reference_img()`](https://davidgohel.github.io/officer/reference/officer-defunct.md)
   as it is no longer useful..
 
 ## officer 0.6.8

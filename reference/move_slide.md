@@ -16,7 +16,8 @@ move_slide(x, index = NULL, to)
 
 - index:
 
-  slide index, default to current slide position.
+  slide index or a vector of slide indices to remove, default to current
+  slide position.
 
 - to:
 
@@ -39,6 +40,8 @@ Other functions to manipulate slides:
 ## Examples
 
 ``` r
+library(officer)
+
 x <- read_pptx()
 x <- add_slide(x, "Title and Content")
 x <- ph_with(x, "Hello world 1", location = ph_location_type())

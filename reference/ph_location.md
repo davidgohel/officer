@@ -97,9 +97,13 @@ Other functions for placeholder location:
 ## Examples
 
 ``` r
+library(officer)
+
 doc <- read_pptx()
 doc <- add_slide(doc, "Title and Content")
-doc <- ph_with(doc, "Hello world",
+doc <- ph_with(
+  doc,
+  "Hello world",
   location = ph_location(width = 4, height = 3, newlabel = "hello")
 )
 print(doc, target = tempfile(fileext = ".pptx"))
@@ -108,7 +112,11 @@ print(doc, target = tempfile(fileext = ".pptx"))
 doc <- read_pptx()
 doc <- add_slide(doc, "Title and Content")
 loc <- ph_location(
-  left = 1, top = 1, width = 4, height = 3, bg = "steelblue",
+  left = 1,
+  top = 1,
+  width = 4,
+  height = 3,
+  bg = "steelblue",
   ln = sp_line(color = "red", lwd = 2.5),
   geom = "trapezoid"
 )

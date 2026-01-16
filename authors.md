@@ -40,6 +40,9 @@
 
 - **Majid Eismann**. Contributor.
 
+- **Wahiduzzaman Khan**. Contributor.  
+  vectorization of remove_slide
+
 - **Hongyuan Jia**. Contributor.
   [](https://orcid.org/0000-0002-0075-8183)
 
@@ -50,14 +53,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/davidgohel/officer/blob/master/DESCRIPTION)
 
-Gohel D, Moog S, Heckmann M (2025). *officer: Manipulation of Microsoft
-Word and PowerPoint Documents*. R package version 0.7.2,
+Gohel D, Moog S, Heckmann M (2026). *officer: Manipulation of Microsoft
+Word and PowerPoint Documents*. R package version 0.7.3,
 <https://ardata-fr.github.io/officeverse/>.
 
     @Manual{,
       title = {officer: Manipulation of Microsoft Word and PowerPoint Documents},
       author = {David Gohel and Stefan Moog and Mark Heckmann},
-      year = {2025},
-      note = {R package version 0.7.2},
+      year = {2026},
+      note = {R package version 0.7.3},
       url = {https://ardata-fr.github.io/officeverse/},
     }

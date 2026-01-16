@@ -11,7 +11,7 @@ inserting, deleting or updating elements in the document."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,8 @@ inserting, deleting or updating elements in the document.</p>
 <span></span>
 <span><span class="fu">cursor_end</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">cursor_reach_index</span><span class="op">(</span><span class="va">x</span>, <span class="va">index</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">cursor_reach</span><span class="op">(</span><span class="va">x</span>, <span class="va">keyword</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cursor_reach_test</span><span class="op">(</span><span class="va">x</span>, <span class="va">keyword</span><span class="op">)</span></span>
@@ -69,6 +71,10 @@ inserting, deleting or updating elements in the document.</p>
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>bookmark id</p></dd>
+
+
+<dt id="arg-index">index<a class="anchor" aria-label="anchor" href="#arg-index"></a></dt>
+<dd><p>element index in the document</p></dd>
 
 
 <dt id="arg-keyword">keyword<a class="anchor" aria-label="anchor" href="#arg-keyword"></a></dt>
@@ -98,6 +104,12 @@ of the document (usually a paragraph or a table).</p>
 
 <p>Set the cursor at the end of the document, on the last element
 of the document.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="cursor-reach-index">cursor_reach_index<a class="anchor" aria-label="anchor" href="#cursor-reach-index"></a></h2>
+
+
+<p>Set the cursor at a specific index position in the document.</p>
     </div>
     <div class="section level2">
     <h2 id="cursor-reach">cursor_reach<a class="anchor" aria-label="anchor" href="#cursor-reach"></a></h2>

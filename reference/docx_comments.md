@@ -44,6 +44,8 @@ columns contain the following information:
 ## Examples
 
 ``` r
+library(officer)
+
 bl <- block_list(
   fpar("Comment multiple words."),
   fpar("Second line")

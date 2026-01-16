@@ -148,6 +148,8 @@ will not be accessible in the results.
 ## Examples
 
 ``` r
+library(officer)
+
 example_docx <- system.file(
   package = "officer",
   "doc_examples/example.docx"
