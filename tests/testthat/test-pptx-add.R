@@ -453,6 +453,50 @@ test_that("img dims in pptx", {
   expect_equal(sm$cy, 1.06, tolerance = .01)
   expect_equal(sm$offx, 1)
   expect_equal(sm$offy, 1)
+
+  # fill_loc = FALSE, fit to width
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(
+    doc,
+    value = external_img(img.file, width = 1, height = 1),
+    location = ph_location(
+      left = 1,
+      top = 1,
+      height = 3,
+      width = 2
+    ),
+    fill_loc = FALSE
+  )
+  sm <- slide_summary(doc)
+
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$cx, 2)
+  expect_equal(sm$cy, 2)
+  expect_equal(sm$offx, 1)
+  expect_equal(sm$offy, 1.5)
+
+  # fill_loc = FALSE, fit to height
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(
+    doc,
+    value = external_img(img.file, width = 1, height = 1),
+    location = ph_location(
+      left = 1,
+      top = 1,
+      height = 2,
+      width = 3
+    ),
+    fill_loc = FALSE
+  )
+  sm <- slide_summary(doc)
+
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$cx, 2)
+  expect_equal(sm$cy, 2)
+  expect_equal(sm$offx, 1.5)
+  expect_equal(sm$offy, 1)
 })
 
 test_that("empty_content in pptx", {

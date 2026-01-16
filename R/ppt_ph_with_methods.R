@@ -462,6 +462,10 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
 #' @export
 #' @param use_loc_size if set to FALSE, external_img width and height will
 #' be used.
+#' @param fill_loc should the image be distorted to fill the location size?
+#' If set to `FALSE`, the image will be scaled as large as possible for the
+#' location without distorting, and then centered within it. Ignored if
+#' use_loc_size is `FALSE`.
 #' @describeIn ph_with add a [external_img()] to a new shape
 #' on the current slide.
 #'
@@ -469,8 +473,15 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
 #' into the PowerPoint presentation. The width and height
 #' specified in call to [external_img()] will be
 #' ignored, their values will be those of the location,
-#' unless use_loc_size is set to FALSE.
-ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
+#' unless use_loc_size or fill_loc are set to FALSE.
+ph_with.external_img <- function(
+    x,
+    value,
+    location,
+    use_loc_size = TRUE,
+    fill_loc = TRUE,
+    ...
+) {
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
@@ -478,6 +489,24 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
   if (!use_loc_size) {
     location$width <- attr(value, "dims")$width
     location$height <- attr(value, "dims")$height
+  }
+  if (use_loc_size && !fill_loc) {
+    img_w <- attr(value, "dims")$width
+    img_h <- attr(value, "dims")$height
+    img_hw <- img_h / img_w
+
+    loc_h <- location$height
+    loc_w <- location$width
+    loc_hw <- loc_h / loc_w
+    if (img_hw > loc_hw) {
+      location$height <- loc_h
+      location$width <- loc_h / img_hw
+      location$left <- location$left + (loc_w - location$width) / 2
+    } else {
+      location$width <- loc_w
+      location$height <- loc_w * img_hw
+      location$top <- location$top + (loc_h - location$height) / 2
+    }
   }
   width <- location$width
   height <- location$height

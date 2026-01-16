@@ -48,7 +48,14 @@ ph_with.gg(x, value, location, res = 300, alt_text = "", scale = 1, ...)
 
 ph_with.plot_instr(x, value, location, res = 300, ...)
 
-ph_with.external_img(x, value, location, use_loc_size = TRUE, ...)
+ph_with.external_img(
+  x,
+  value,
+  location,
+  use_loc_size = TRUE,
+  fill_loc = TRUE,
+  ...
+)
 
 ph_with.fpar(x, value, location, ...)
 
@@ -100,6 +107,11 @@ an alt text added with \code{ggplot2::labs(alt = ...)} will be used if any.}
 
 \item{use_loc_size}{if set to FALSE, external_img width and height will
 be used.}
+
+\item{fill_loc}{should the image be distorted to fill the location size?
+If set to \code{FALSE}, the image will be scaled as large as possible for the
+location without distorting, and then centered within it. Ignored if
+use_loc_size is \code{FALSE}.}
 }
 \description{
 add an object into a new shape in the current slide. This
@@ -145,7 +157,7 @@ When value is a external_img object, image will be copied
 into the PowerPoint presentation. The width and height
 specified in call to \code{\link[=external_img]{external_img()}} will be
 ignored, their values will be those of the location,
-unless use_loc_size is set to FALSE.
+unless use_loc_size or fill_loc are set to FALSE.
 
 \item \code{ph_with.fpar()}: add an \code{\link[=fpar]{fpar()}} to a new shape
 on the current slide as a single paragraph in a \code{\link[=block_list]{block_list()}}.
