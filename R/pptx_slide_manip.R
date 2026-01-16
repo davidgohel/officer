@@ -117,19 +117,19 @@ on_slide <- function(x, index) {
 
 
 #' @export
-#' @title Remove a slide
-#' @description Remove a slide from a pptx presentation.
+#' @title Remove slide(s)
+#' @description Remove one or more slides from a pptx presentation.
 #' @param x an rpptx object
-#' @param index slide index, default to current slide position.
+#' @param index slide index or a vector of slide indices to remove,
+#' default to current slide position.
 #' @param rm_images unused anymore.
 #' @note cursor is set on the last slide.
-#' @examples
-#' my_pres <- read_pptx()
-#' my_pres <- add_slide(my_pres, "Title and Content")
-#' my_pres <- remove_slide(my_pres)
+#' @example inst/examples/example_remove_slide.R
 #' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
 remove_slide <- function(x, index = NULL, rm_images = FALSE) {
+  stop_if_not_rpptx(x)
+
   l_ <- length(x)
   if (l_ < 1) {
     stop("presentation contains no slide to delete", call. = FALSE)
@@ -139,17 +139,57 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
     index <- x$cursor
   }
 
-  if (!between(index, 1, l_)) {
-    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
+  if (length(index) == 0) {
+    return(x)
   }
-  filename <- basename(x$presentation$slide_data()$target[index])
-  location <- which(x$slide$get_metadata()$name %in% filename)
 
-  del_file <- x$slide$remove_slide(location)
+  # Validate all indices
+  indices <- unique(as.integer(index))
+  invalid_indices <- indices[!between(indices, 1, l_)]
+  if (length(invalid_indices) > 0) {
+    stop(
+      "invalid index(es) ",
+      paste(invalid_indices, collapse = ", "),
+      call. = FALSE
+    )
+  }
 
-  # update presentation elements
-  x$presentation$remove_slide(del_file)
-  x$content_type$remove_slide(partname = del_file)
+  # Get slide mapping information using existing slide_data method
+  slide_map <- x$presentation$slide_data()
+  slide_map$filename <- basename(slide_map$target)
+
+  indices_to_remove <- sort(unique(indices), decreasing = TRUE)
+  slides_to_remove_df <- slide_map[indices_to_remove, , drop = FALSE]
+
+  # Build file paths for deletion
+  files_to_delete <- file.path(
+    x$package_dir,
+    "ppt",
+    "slides",
+    slides_to_remove_df$filename
+  )
+  rels_to_delete <- file.path(
+    x$package_dir,
+    "ppt",
+    "slides",
+    "_rels",
+    paste0(slides_to_remove_df$filename, ".rels")
+  )
+
+  # Delete slide XML files if they exist
+  unlink(files_to_delete[file.exists(files_to_delete)], force = TRUE)
+  # Delete slide relationship files if they exist
+  unlink(rels_to_delete[file.exists(rels_to_delete)], force = TRUE)
+
+  # Remove slides from internal collections
+  for (filename in slides_to_remove_df$filename) {
+    slide_idx <- x$slide$slide_index(filename)
+    x$slide$remove_slide(slide_idx)
+    x$presentation$remove_slide(filename)
+    x$content_type$remove_slide(partname = filename)
+  }
+
+  # Set cursor to last slide
   x$cursor <- x$slide$length()
   x
 }

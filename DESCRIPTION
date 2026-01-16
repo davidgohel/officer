@@ -27,6 +27,8 @@ Authors@R: c(
     person("Greg", "Leleu", , "gregoire.leleu@gmail.com", role = "ctb",
            comment = "fields functionality in ppt"),
     person("Majid", "Eismann", role = "ctb"),
+    person("Wahiduzzaman", "Khan", role = "ctb",
+           comment = "vectorization of remove_slide"),
     person("Hongyuan", "Jia", , "hongyuanjia@cqust.edu.cn", role = "ctb",
            comment = c(ORCID = "0000-0002-0075-8183")),
     person("Michael", "Stackhouse", , "mike.stackhouse@atorusresearch.com", role = "ctb")

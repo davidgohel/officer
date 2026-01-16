@@ -1,5 +1,10 @@
 # officer 0.7.3
 
+## Features
+
+- function `remove_slide()` now supports deletion of multiple slides
+thanks to Wahiduzzaman Khan (#691).
+
 ## Issues
 
 - fix feed_from_xml for 'officedown'.

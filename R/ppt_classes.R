@@ -41,13 +41,18 @@ presentation <- R6Class(
     },
     slide_data = function(){
       rel_df <- self$rel_df()
-      rel_df <- rel_df[, c("id", "target")]
-      names(rel_df) <- c("slide_rid", "target")
-      ref <- data.frame(slide_id = private$slide_id,
-                 slide_rid = private$slide_rid,
-                 stringsAsFactors = FALSE)
-      base::merge(x = ref, y = rel_df, sort = FALSE,
-                  by = "slide_rid", all.x = TRUE, all.y = FALSE)
+      rel_df <- select(
+        .data = rel_df,
+        all_of(setNames(c("id", "target"), c("slide_rid", "target")))
+      )
+
+      ref <- data.frame(
+        slide_id = private$slide_id,
+        slide_rid = private$slide_rid,
+        stringsAsFactors = FALSE
+      )
+
+      left_join(ref, rel_df, by = "slide_rid")
     },
 
     move_slide = function(from, to){

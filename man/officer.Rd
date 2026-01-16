@@ -83,6 +83,7 @@ Other contributors:
   \item Nikolai Beck \email{beck.nikolai@gmail.com} (set speaker notes for .pptx documents) [contributor]
   \item Greg Leleu \email{gregoire.leleu@gmail.com} (fields functionality in ppt) [contributor]
   \item Majid Eismann [contributor]
+  \item Wahiduzzaman Khan (vectorization of remove_slide) [contributor]
   \item Hongyuan Jia \email{hongyuanjia@cqust.edu.cn} (\href{https://orcid.org/0000-0002-0075-8183}{ORCID}) [contributor]
   \item Michael Stackhouse \email{mike.stackhouse@atorusresearch.com} [contributor]
 }
