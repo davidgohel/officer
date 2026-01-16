@@ -11,6 +11,10 @@
 - also remove relationships in
   [`sanitize_images()`](https://davidgohel.github.io/officer/dev/reference/sanitize_images.md)
   ([\#708](https://github.com/davidgohel/officer/issues/708)).
+- Package now supports read-only installations (e.g., when installed as
+  root or via Nix). Previously, attempting to create presentations would
+  fail with permission errors in read-only environments
+  ([\#706](https://github.com/davidgohel/officer/issues/706)).
 
 ## officer 0.7.2
 
