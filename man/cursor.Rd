@@ -4,6 +4,7 @@
 \alias{cursor_begin}
 \alias{cursor_bookmark}
 \alias{cursor_end}
+\alias{cursor_reach_index}
 \alias{cursor_reach}
 \alias{cursor_reach_test}
 \alias{cursor_forward}
@@ -15,6 +16,8 @@ cursor_begin(x)
 cursor_bookmark(x, id)
 
 cursor_end(x)
+
+cursor_reach_index(x, index)
 
 cursor_reach(x, keyword, fixed = FALSE)
 
@@ -28,6 +31,8 @@ cursor_backward(x)
 \item{x}{a docx device}
 
 \item{id}{bookmark id}
+
+\item{index}{element index in the document}
 
 \item{keyword}{keyword to look for as a regular expression}
 
@@ -53,6 +58,11 @@ Set the cursor at a bookmark that has previously been set.
 
 Set the cursor at the end of the document, on the last element
 of the document.
+}
+
+\section{cursor_reach_index}{
+
+Set the cursor at a specific index position in the document.
 }
 
 \section{cursor_reach}{

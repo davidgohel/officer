@@ -130,6 +130,23 @@ cursor_end <- function(x) {
 
 #' @export
 #' @rdname cursor
+#' @param index element index in the document
+#' @section cursor_reach_index:
+#' Set the cursor at a specific index position in the document.
+cursor_reach_index <- function(x, index) {
+  l_ <- length(x$officer_cursor$nodes_names)
+  if (l_ < 1) {
+    stop("document contains no element", call. = FALSE)
+  }
+  if (!between(index, 1, l_)) {
+    stop("invalid index ", index, " (", l_, " element(s))", call. = FALSE)
+  }
+  x$officer_cursor$which <- index
+  x
+}
+
+#' @export
+#' @rdname cursor
 #' @param keyword keyword to look for as a regular expression
 #' @param fixed logical. If TRUE, pattern is a string to be matched as is.
 #' @section cursor_reach:

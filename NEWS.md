@@ -4,6 +4,8 @@
 
 - function `remove_slide()` now supports deletion of multiple slides
 thanks to Wahiduzzaman Khan (#691).
+- add `cursor_reach_index()` to set the cursor at a specific index position in 
+the document (#574).
 
 ## Issues
 
