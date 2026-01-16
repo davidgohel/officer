@@ -21,6 +21,8 @@ Move a slide in a pptx presentation.
 cursor is set on the last slide.
 }
 \examples{
+library(officer)
+
 x <- read_pptx()
 x <- add_slide(x, "Title and Content")
 x <- ph_with(x, "Hello world 1", location = ph_location_type())

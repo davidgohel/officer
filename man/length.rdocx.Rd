@@ -17,7 +17,7 @@ Word document - default Word section is an uninvisible element.
 \examples{
 # how many elements are there in an new document produced
 # with the default template.
-length( read_docx() )
+length(read_docx())
 }
 \seealso{
 Other functions for Word document informations: 

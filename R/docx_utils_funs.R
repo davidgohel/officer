@@ -15,7 +15,7 @@ is_scalar_datetime <- function(x) {
 #' @examples
 #' # how many elements are there in an new document produced
 #' # with the default template.
-#' length( read_docx() )
+#' length(read_docx())
 #' @family functions for Word document informations
 length.rdocx <- function(x) {
   xml_length(xml_child(x$doc_obj$get(), "w:body"))

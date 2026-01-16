@@ -235,10 +235,7 @@ check_set_geom <- function(x) {
 #' @param headend a `sp_lineend` object specifying line head end style
 #' @param tailend a `sp_lineend` object specifying line tail end style
 #' @return a `sp_line` object
-#' @examples
-#' sp_line()
-#' sp_line(color = "red", lwd = 2)
-#' sp_line(lty = "dot", linecmpd = "dbl")
+#' @example inst/examples/example_sp_line.R
 #' @family functions for defining shape properties
 #' @seealso [sp_lineend]
 #' @export
@@ -297,8 +294,6 @@ sp_line <- function(
 
 #' @param x,object `sp_line` object
 #' @param ... further arguments - not used
-#' @examples
-#' print( sp_line (color="red", lwd = 2) )
 #' @rdname sp_line
 #' @export
 print.sp_line = function(x, ...) {
@@ -318,9 +313,6 @@ print.sp_line = function(x, ...) {
 }
 
 #' @rdname sp_line
-#' @examples
-#' obj <- sp_line (color="red", lwd = 2)
-#' update( obj, linecmpd = "dbl" )
 #' @export
 update.sp_line <- function(
   object,
@@ -408,10 +400,7 @@ update.sp_line <- function(
 #' Expected value is one of the following : default `'sm'`
 #' or `'med'` or `'lg'`
 #' @return a `sp_lineend` object
-#' @examples
-#' sp_lineend()
-#' sp_lineend(type = "triangle")
-#' sp_lineend(type = "arrow", width = "lg", length = "lg")
+#' @example inst/examples/example_sp_lineend.R
 #' @family functions for defining shape properties
 #' @seealso [sp_line]
 #' @export
@@ -440,8 +429,6 @@ sp_lineend <- function(type = "none", width = "med", length = "med") {
 
 #' @param x,object `sp_lineend` object
 #' @param ... further arguments - not used
-#' @examples
-#' print(sp_lineend (type="triangle", width = "lg"))
 #' @rdname sp_lineend
 #' @export
 print.sp_lineend = function(x, ...) {
@@ -455,9 +442,6 @@ print.sp_lineend = function(x, ...) {
 }
 
 #' @rdname sp_lineend
-#' @examples
-#' obj <- sp_lineend (type="triangle", width = "lg")
-#' update( obj, type = "arrow" )
 #' @export
 update.sp_lineend <- function(object, type, width, length, ...) {
   if (!missing(type)) {

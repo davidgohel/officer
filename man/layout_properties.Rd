@@ -36,6 +36,8 @@ Detailed information about the placeholders on the slide layouts (label, positio
 See \emph{Value} section below for more info.
 }
 \examples{
+library(officer)
+
 x <- read_pptx()
 layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
 layout_properties(x = x, master = "Office Theme")

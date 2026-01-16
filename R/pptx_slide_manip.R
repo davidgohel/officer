@@ -82,24 +82,7 @@ add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
 #' @description Change current slide index of an rpptx object.
 #' @param x an rpptx object
 #' @param index slide index
-#' @examples
-#' doc <- read_pptx()
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- add_slide(doc, "Title and Content")
-#' doc <- on_slide(doc, index = 1)
-#' doc <- ph_with(
-#'   x = doc, "First title",
-#'   location = ph_location_type(type = "title")
-#' )
-#' doc <- on_slide(doc, index = 3)
-#' doc <- ph_with(
-#'   x = doc, "Third title",
-#'   location = ph_location_type(type = "title")
-#' )
-#'
-#' file <- tempfile(fileext = ".pptx")
-#' print(doc, target = file)
+#' @example inst/examples/example_on_slide.R
 #' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()]
 on_slide <- function(x, index) {
@@ -211,13 +194,7 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 #' @inheritParams remove_slide
 #' @param to new slide index.
 #' @note cursor is set on the last slide.
-#' @examples
-#' x <- read_pptx()
-#' x <- add_slide(x, "Title and Content")
-#' x <- ph_with(x, "Hello world 1", location = ph_location_type())
-#' x <- add_slide(x, "Title and Content")
-#' x <- ph_with(x, "Hello world 2", location = ph_location_type())
-#' x <- move_slide(x, index = 1, to = 2)
+#' @example inst/examples/example_move_slide.R
 #' @family slide_manipulation
 #' @seealso [read_pptx()]
 move_slide <- function(x, index = NULL, to) {

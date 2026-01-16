@@ -75,12 +75,7 @@ layout_summary <- function(x) {
 #' * `fld_id` is generally stored as a hexadecimal or GUID value
 #' * `fld_type`: a unique identifier for a particular field
 #'
-#' @examples
-#' x <- read_pptx()
-#' layout_properties(x = x, layout = "Title Slide", master = "Office Theme")
-#' layout_properties(x = x, master = "Office Theme")
-#' layout_properties(x = x, layout = "Two Content")
-#' layout_properties(x = x)
+#' @example inst/examples/example_layout_properties.R
 #' @family functions for reading presentation information
 layout_properties <- function(x, layout = NULL, master = NULL) {
   data <- x$slideLayouts$get_xfrm_data()

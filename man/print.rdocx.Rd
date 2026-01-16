@@ -60,9 +60,8 @@ doc <- body_add_par(doc, "hello world")
 output_file <- print(doc, target = tempfile(fileext = ".docx"))
 
 # preview mode: save to temp file and open locally ----
-\dontrun{
-print(doc, preview = TRUE)
-}
+## Not run:
+# print(doc, preview = TRUE)
 }
 \seealso{
 Create a 'Word' document object with \code{\link[=read_docx]{read_docx()}}, add content with

@@ -8,50 +8,7 @@
 #' Set the cursor at the beginning of the document, on the first element
 #' of the document (usually a paragraph or a table).
 #' @param x a docx device
-#' @examples
-#' library(officer)
-#'
-#' # create a template ----
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "blah blah blah")
-#' doc <- body_add_par(doc, "blah blah blah")
-#' doc <- body_add_par(doc, "blah blah blah")
-#' doc <- body_add_par(doc, "Hello text to replace")
-#' doc <- body_add_par(doc, "blah blah blah")
-#' doc <- body_add_par(doc, "blah blah blah")
-#' doc <- body_add_par(doc, "blah blah blah")
-#' doc <- body_add_par(doc, "Hello text to replace")
-#' doc <- body_add_par(doc, "blah blah blah")
-#' template_file <- print(
-#'   x = doc,
-#'   target = tempfile(fileext = ".docx")
-#' )
-#'
-#' # replace all pars containing "to replace" ----
-#' doc <- read_docx(path = template_file)
-#' while (cursor_reach_test(doc, "to replace")) {
-#'   doc <- cursor_reach(doc, "to replace")
-#'
-#'   doc <- body_add_fpar(
-#'     x = doc,
-#'     pos = "on",
-#'     value = fpar(
-#'       "Here is a link: ",
-#'       hyperlink_ftext(
-#'         text = "yopyop",
-#'         href = "https://cran.r-project.org/"
-#'       )
-#'     )
-#'   )
-#' }
-#'
-#' doc <- cursor_end(doc)
-#' doc <- body_add_par(doc, "Yap yap yap yap...")
-#'
-#' result_file <- print(
-#'   x = doc,
-#'   target = tempfile(fileext = ".docx")
-#' )
+#' @example inst/examples/example_cursor.R
 cursor_begin <- function(x) {
   if (length(x$officer_cursor$nodes_names) > 0L) {
     x$officer_cursor$which <- 1L
@@ -66,19 +23,6 @@ cursor_begin <- function(x) {
 #' @section cursor_bookmark:
 #' Set the cursor at a bookmark that has previously been set.
 #' @export
-#' @examples
-#'
-#' # cursor_bookmark ----
-#'
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "centered text", style = "centered")
-#' doc <- body_bookmark(doc, "text_to_replace")
-#' doc <- body_add_par(doc, "A title", style = "heading 1")
-#' doc <- body_add_par(doc, "Hello world!", style = "Normal")
-#' doc <- cursor_bookmark(doc, "text_to_replace")
-#' doc <- body_add_table(doc, value = iris, style = "table_template")
-#'
-#' print(doc, target = tempfile(fileext = ".docx"))
 cursor_bookmark <- function(x, id) {
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
   bm_start <- xml_find_first(x$doc_obj$get(), xpath_)

@@ -26,22 +26,7 @@
 #' @param ... unused
 #' @return The full path to the created `.docx` file (invisibly). This allows
 #' chaining operations or capturing the output path for further use.
-#' @examples
-#' library(officer)
-#'
-#' # This example demonstrates how to create
-#' # an small document -----
-#'
-#' ## Create a new Word document
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "hello world")
-#' ## Save the document
-#' output_file <- print(doc, target = tempfile(fileext = ".docx"))
-#'
-#' # preview mode: save to temp file and open locally ----
-#' \dontrun{
-#' print(doc, preview = TRUE)
-#' }
+#' @example inst/examples/example_print_docx.R
 #' @seealso Create a 'Word' document object with [read_docx()], add content with
 #' functions [body_add_par()], [body_add_plot()],
 #' [body_add_table()], change settings with [docx_set_settings()], set

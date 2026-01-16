@@ -130,18 +130,12 @@ doc <- rtf_add(
 if (require("ggplot2")) {
   gg <- gg_plot <- ggplot(data = iris) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
-  doc <- rtf_add(doc, gg,
-    width = 3, height = 4,
-    ppr = center_par
-  )
+  doc <- rtf_add(doc, gg, width = 3, height = 4, ppr = center_par)
 }
 anyplot <- plot_instr(code = {
   barplot(1:5, col = 2:6)
 })
-doc <- rtf_add(doc, anyplot,
-  width = 5, height = 4,
-  ppr = center_par
-)
+doc <- rtf_add(doc, anyplot, width = 5, height = 4, ppr = center_par)
 
 print(doc, target = tempfile(fileext = ".rtf"))
 }

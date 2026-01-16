@@ -38,12 +38,14 @@ Create a \code{sp_lineend} object that describes
 line end properties.
 }
 \examples{
+library(officer)
+
 sp_lineend()
 sp_lineend(type = "triangle")
 sp_lineend(type = "arrow", width = "lg", length = "lg")
-print(sp_lineend (type="triangle", width = "lg"))
-obj <- sp_lineend (type="triangle", width = "lg")
-update( obj, type = "arrow" )
+print(sp_lineend(type = "triangle", width = "lg"))
+obj <- sp_lineend(type = "triangle", width = "lg")
+update(obj, type = "arrow")
 }
 \seealso{
 \link{sp_line}

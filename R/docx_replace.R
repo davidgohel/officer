@@ -19,11 +19,7 @@ is_scalar_logical <- function(x) {
 #' @param x a docx device
 #' @param bookmark bookmark id
 #' @param value the replacement string, of type character
-#' @examples
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "a paragraph to replace", style = "centered")
-#' doc <- body_bookmark(doc, "text_to_replace")
-#' doc <- body_replace_text_at_bkm(doc, "text_to_replace", "new text")
+#' @example inst/examples/example_body_replace_text_at_bkm.R
 body_replace_text_at_bkm <- function(x, bookmark, value) {
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
   xml_replace_text_at_bkm(
@@ -37,21 +33,6 @@ body_replace_text_at_bkm <- function(x, bookmark, value) {
 
 #' @export
 #' @rdname body_replace_text_at_bkm
-#' @examples
-#'
-#'
-#' # demo usage of bookmark and images ----
-#' template <- system.file(package = "officer", "doc_examples/example.docx")
-#'
-#' img.file <- file.path( R.home("doc"), "html", "logo.jpg" )
-#'
-#' doc <- read_docx(path = template)
-#' doc <- headers_replace_img_at_bkm(x = doc, bookmark = "bmk_header",
-#'                                   value = external_img(src = img.file, width = .53, height = .7))
-#' doc <- footers_replace_img_at_bkm(x = doc, bookmark = "bmk_footer",
-#'                                   value = external_img(src = img.file, width = .53, height = .7))
-#' print(doc, target = tempfile(fileext = ".docx"))
-#'
 body_replace_img_at_bkm <- function(x, bookmark, value) {
   stopifnot(
     inherits(x, "rdocx"),
@@ -210,17 +191,7 @@ footers_replace_img_at_bkm <- function(x, bookmark, value) {
 #' i.e.the bookmark will be lost as a side effect.
 #' @inheritParams body_add_gg
 #'
-#' @examples
-#' if (require("ggplot2")) {
-#'   gg_plot <- ggplot(data = iris) +
-#'     geom_point(mapping = aes(Sepal.Length, Petal.Length))
-#'
-#'   doc <- read_docx()
-#'   doc <- body_add_par(doc, "insert_plot_here")
-#'   doc <- body_bookmark(doc, "plot")
-#'   doc <- body_replace_gg_at_bkm(doc, bookmark = "plot", value = gg_plot)
-#'   print(doc, target = tempfile(fileext = ".docx"))
-#' }
+#' @example inst/examplesexample_body_replace_gg_at_bkm.R
 body_replace_gg_at_bkm <- function(
   x,
   bookmark,
@@ -254,21 +225,6 @@ body_replace_gg_at_bkm <- function(
 
 #' @export
 #' @rdname body_replace_gg_at_bkm
-#' @examples
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "insert_plot_here")
-#' doc <- body_bookmark(doc, "plot")
-#' if (capabilities(what = "png")) {
-#'   doc <- body_replace_plot_at_bkm(
-#'     doc, bookmark = "plot",
-#'     value = plot_instr(
-#'       code = {
-#'         barplot(1:5, col = 2:6)
-#'       }
-#'     )
-#'   )
-#' }
-#' print(doc, target = tempfile(fileext = ".docx"))
 body_replace_plot_at_bkm <- function(
   x,
   bookmark,
@@ -336,28 +292,7 @@ body_replace_plot_at_bkm <- function(
 #' (this can be slow on large documents!)
 #' @param warn warn if `old_value` could not be found.
 #' @param ... optional arguments to grepl/gsub (e.g. `fixed=TRUE`)
-#' @examples
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "Placeholder one")
-#' doc <- body_add_par(doc, "Placeholder two")
-#'
-#' # Show text chunk at cursor
-#' docx_show_chunk(doc)  # Output is 'Placeholder two'
-#'
-#' # Simple search-and-replace at current cursor, with regex turned off
-#' doc <- body_replace_all_text(doc, old_value = "Placeholder",
-#'   new_value = "new", only_at_cursor = TRUE, fixed = TRUE)
-#' docx_show_chunk(doc)  # Output is 'new two'
-#'
-#' # Do the same, but in the entire document and ignoring case
-#' doc <- body_replace_all_text(doc, old_value = "placeholder",
-#'   new_value = "new", only_at_cursor=FALSE, ignore.case = TRUE)
-#' doc <- cursor_backward(doc)
-#' docx_show_chunk(doc) # Output is 'new one'
-#'
-#' # Use regex : replace all words starting with "n" with the word "example"
-#' doc <- body_replace_all_text(doc, "\\bn.*?\\b", "example")
-#' docx_show_chunk(doc) # Output is 'example one'
+#' @example inst/examples/example_body_replace_all_text.R
 body_replace_all_text <- function(
   x,
   old_value,
@@ -413,13 +348,6 @@ body_replace_all_text <- function(
 #' using [body_replace_all_text()].
 #' @seealso [body_replace_all_text()]
 #' @param x a docx device
-#' @examples
-#' doc <- read_docx()
-#' doc <- body_add_par(doc, "Placeholder one")
-#' doc <- body_add_par(doc, "Placeholder two")
-#'
-#' # Show text chunk at cursor
-#' docx_show_chunk(doc)  # Output is 'Placeholder two'
 docx_show_chunk <- function(x) {
   cursor_elt <- docx_current_block_xml(x)
   text_nodes <- xml_find_all(cursor_elt, ".//w:t")
