@@ -9,17 +9,25 @@ read_custom_properties <- function(package_dir) {
 
   pid_values <- vapply(all_children, xml_attr, NA_character_, "pid")
   name_values <- vapply(all_children, xml_attr, NA_character_, "name")
-  properties_types <- vapply(all_children, function(x) {
-    xml_name(xml_child(x, 1))
-  }, NA_character_)
+  properties_types <- vapply(
+    all_children,
+    function(x) {
+      xml_name(xml_child(x, 1))
+    },
+    NA_character_
+  )
 
   # this complicated thing is there because some unidentifed
   # softwares fill this fields with invalid xml - so we have
   # to consider it will not be correctly rewritten and will
   # make an invalid document
-  value_values <- vapply(all_children, function(x) {
-    as.character(xml_child(x, 1))
-  }, NA_character_)
+  value_values <- vapply(
+    all_children,
+    function(x) {
+      as.character(xml_child(x, 1))
+    },
+    NA_character_
+  )
   pat1 <- sprintf("<vt\\:(%s)/>", paste0(properties_types, collapse = "|"))
   pat2 <- sprintf("<vt\\:(%s)>", paste0(properties_types, collapse = "|"))
   pat3 <- sprintf("</vt\\:(%s)>", paste0(properties_types, collapse = "|"))
@@ -27,7 +35,8 @@ read_custom_properties <- function(package_dir) {
   value_values <- gsub(pat2, "", value_values)
   value_values <- gsub(pat3, "", value_values)
   str <- c(pid_values, name_values, properties_types, value_values)
-  z <- matrix(str,
+  z <- matrix(
+    str,
     ncol = 4,
     dimnames = list(NULL, c("pid", "name", "type", "value"))
   )

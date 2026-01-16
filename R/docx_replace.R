@@ -1,15 +1,13 @@
 # utils ----
-is_scalar_character <- function( x ) {
+is_scalar_character <- function(x) {
   is.character(x) && length(x) == 1
 }
-is_scalar_logical <- function( x ) {
+is_scalar_logical <- function(x) {
   is.logical(x) && length(x) == 1
 }
 
 
-
 # functions ----
-
 
 #' @export
 #' @title Replace text at a bookmark location
@@ -26,9 +24,13 @@ is_scalar_logical <- function( x ) {
 #' doc <- body_add_par(doc, "a paragraph to replace", style = "centered")
 #' doc <- body_bookmark(doc, "text_to_replace")
 #' doc <- body_replace_text_at_bkm(doc, "text_to_replace", "new text")
-body_replace_text_at_bkm <- function( x, bookmark, value ){
+body_replace_text_at_bkm <- function(x, bookmark, value) {
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
-  xml_replace_text_at_bkm(node = x$doc_obj$get(), bookmark = bookmark, value = value)
+  xml_replace_text_at_bkm(
+    node = x$doc_obj$get(),
+    bookmark = bookmark,
+    value = value
+  )
   x
 }
 
@@ -50,38 +52,55 @@ body_replace_text_at_bkm <- function( x, bookmark, value ){
 #'                                   value = external_img(src = img.file, width = .53, height = .7))
 #' print(doc, target = tempfile(fileext = ".docx"))
 #'
-body_replace_img_at_bkm <- function( x, bookmark, value ){
-  stopifnot(inherits(x, "rdocx"),
-            is_scalar_character(bookmark),
-            inherits(value, "external_img"))
-  docxpart_replace_img_at_bkm(node = x$doc_obj$get(), bookmark = bookmark, value = value)
+body_replace_img_at_bkm <- function(x, bookmark, value) {
+  stopifnot(
+    inherits(x, "rdocx"),
+    is_scalar_character(bookmark),
+    inherits(value, "external_img")
+  )
+  docxpart_replace_img_at_bkm(
+    node = x$doc_obj$get(),
+    bookmark = bookmark,
+    value = value
+  )
   x
 }
 
-xml_replace_text_at_bkm <- function(node, bookmark, value){
-
+xml_replace_text_at_bkm <- function(node, bookmark, value) {
   text <- enc2utf8(value)
   xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", bookmark)
   bm_start <- xml_find_first(node, xpath_)
-  if( inherits(bm_start, "xml_missing") ) {
+  if (inherits(bm_start, "xml_missing")) {
     return(FALSE)
   }
 
-  str_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r", bookmark )
-  following_start <- sapply( xml_find_all(node, str_), xml_path )
-  str_ <- sprintf("//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r", xml_attr(bm_start, "id") )
-  preceding_end <- sapply( xml_find_all(node, str_), xml_path )
+  str_ <- sprintf(
+    "//w:bookmarkStart[@w:name='%s']/following-sibling::w:r",
+    bookmark
+  )
+  following_start <- sapply(xml_find_all(node, str_), xml_path)
+  str_ <- sprintf(
+    "//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r",
+    xml_attr(bm_start, "id")
+  )
+  preceding_end <- sapply(xml_find_all(node, str_), xml_path)
 
   match_path <- base::intersect(following_start, preceding_end)
-  if( length(match_path) < 1 )
-    stop("could not find any bookmark ", bookmark, " located INSIDE a single paragraph" )
+  if (length(match_path) < 1) {
+    stop(
+      "could not find any bookmark ",
+      bookmark,
+      " located INSIDE a single paragraph"
+    )
+  }
 
-  run_nodes <- xml_find_all(node, paste0( match_path, collapse = "|" ) )
+  run_nodes <- xml_find_all(node, paste0(match_path, collapse = "|"))
 
-  for(node in run_nodes[setdiff(seq_along(run_nodes), 1)])
+  for (node in run_nodes[setdiff(seq_along(run_nodes), 1)]) {
     xml_remove(node)
+  }
 
-  xml_text(run_nodes[[1]] ) <- text
+  xml_text(run_nodes[[1]]) <- text
   TRUE
 }
 
@@ -95,14 +114,24 @@ docxpart_replace_img_at_bkm <- function(node, bookmark, value) {
     stop("cannot find bookmark ", shQuote(bookmark), call. = FALSE)
   }
 
-  str_ <- sprintf("//w:bookmarkStart[@w:name='%s']/following-sibling::w:r", bookmark)
+  str_ <- sprintf(
+    "//w:bookmarkStart[@w:name='%s']/following-sibling::w:r",
+    bookmark
+  )
   following_start <- sapply(xml_find_all(node, str_), xml_path)
-  str_ <- sprintf("//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r", xml_attr(bm_start, "id"))
+  str_ <- sprintf(
+    "//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r",
+    xml_attr(bm_start, "id")
+  )
   preceding_end <- sapply(xml_find_all(node, str_), xml_path)
 
   match_path <- base::intersect(following_start, preceding_end)
   if (length(match_path) < 1) {
-    stop("could not find any bookmark ", bookmark, " located INSIDE a single paragraph")
+    stop(
+      "could not find any bookmark ",
+      bookmark,
+      " located INSIDE a single paragraph"
+    )
   }
 
   out <- to_wml(value, add_ns = TRUE)
@@ -116,40 +145,55 @@ docxpart_replace_img_at_bkm <- function(node, bookmark, value) {
 
 #' @export
 #' @rdname body_replace_text_at_bkm
-headers_replace_text_at_bkm <- function( x, bookmark, value ){
+headers_replace_text_at_bkm <- function(x, bookmark, value) {
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
-  for(header in x$headers){
-    xml_replace_text_at_bkm(node = header$get(), bookmark = bookmark, value = value)
+  for (header in x$headers) {
+    xml_replace_text_at_bkm(
+      node = header$get(),
+      bookmark = bookmark,
+      value = value
+    )
   }
   x
 }
 
 #' @export
 #' @rdname body_replace_text_at_bkm
-headers_replace_img_at_bkm <- function( x, bookmark, value ){
-  for(header in x$headers){
-    docxpart_replace_img_at_bkm(node = header$get(), bookmark = bookmark, value = value)
+headers_replace_img_at_bkm <- function(x, bookmark, value) {
+  for (header in x$headers) {
+    docxpart_replace_img_at_bkm(
+      node = header$get(),
+      bookmark = bookmark,
+      value = value
+    )
   }
   x
 }
 
 
-
 #' @export
 #' @rdname body_replace_text_at_bkm
-footers_replace_text_at_bkm <- function( x, bookmark, value ){
+footers_replace_text_at_bkm <- function(x, bookmark, value) {
   stopifnot(is_scalar_character(value), is_scalar_character(bookmark))
-  for(footer in x$footers){
-    xml_replace_text_at_bkm(node = footer$get(), bookmark = bookmark, value = value)
+  for (footer in x$footers) {
+    xml_replace_text_at_bkm(
+      node = footer$get(),
+      bookmark = bookmark,
+      value = value
+    )
   }
   x
 }
 
 #' @export
 #' @rdname body_replace_text_at_bkm
-footers_replace_img_at_bkm <- function( x, bookmark, value ){
-  for(footer in x$footers){
-    docxpart_replace_img_at_bkm(node = footer$get(), bookmark = bookmark, value = value)
+footers_replace_img_at_bkm <- function(x, bookmark, value) {
+  for (footer in x$footers) {
+    docxpart_replace_img_at_bkm(
+      node = footer$get(),
+      bookmark = bookmark,
+      value = value
+    )
   }
   x
 }
@@ -177,13 +221,29 @@ footers_replace_img_at_bkm <- function( x, bookmark, value ){
 #'   doc <- body_replace_gg_at_bkm(doc, bookmark = "plot", value = gg_plot)
 #'   print(doc, target = tempfile(fileext = ".docx"))
 #' }
-body_replace_gg_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
-                                   res = 300, style = "Normal", scale = 1,
-                                   keep = FALSE, ...) {
+body_replace_gg_at_bkm <- function(
+  x,
+  bookmark,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  scale = 1,
+  keep = FALSE,
+  ...
+) {
   x <- cursor_bookmark(x, bookmark)
   x <- body_add_gg(
-    x = x, value = value, width = width, height = height,
-    res = res, style = style, scale = scale, pos = "on", ...
+    x = x,
+    value = value,
+    width = width,
+    height = height,
+    res = res,
+    style = style,
+    scale = scale,
+    pos = "on",
+    ...
   )
   if (keep) {
     x <- body_bookmark(x, bookmark)
@@ -209,13 +269,27 @@ body_replace_gg_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
 #'   )
 #' }
 #' print(doc, target = tempfile(fileext = ".docx"))
-body_replace_plot_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
-                                   res = 300, style = "Normal",
-                                   keep = FALSE, ...) {
+body_replace_plot_at_bkm <- function(
+  x,
+  bookmark,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  style = "Normal",
+  keep = FALSE,
+  ...
+) {
   x <- cursor_bookmark(x, bookmark)
   x <- body_add_plot(
-    x = x, value = value, width = width, height = height,
-    res = res, style = style, pos = "on", ...
+    x = x,
+    value = value,
+    width = width,
+    height = height,
+    res = res,
+    style = style,
+    pos = "on",
+    ...
   )
   if (keep) {
     x <- body_bookmark(x, bookmark)
@@ -284,12 +358,19 @@ body_replace_plot_at_bkm <- function(x, bookmark, value, width = 6, height = 5,
 #' # Use regex : replace all words starting with "n" with the word "example"
 #' doc <- body_replace_all_text(doc, "\\bn.*?\\b", "example")
 #' docx_show_chunk(doc) # Output is 'example one'
-body_replace_all_text <- function( x, old_value, new_value,
-                                   only_at_cursor = FALSE,
-                                   warn = TRUE, ... ){
-  stopifnot(is_scalar_character(old_value),
-            is_scalar_character(new_value),
-            is_scalar_logical(only_at_cursor))
+body_replace_all_text <- function(
+  x,
+  old_value,
+  new_value,
+  only_at_cursor = FALSE,
+  warn = TRUE,
+  ...
+) {
+  stopifnot(
+    is_scalar_character(old_value),
+    is_scalar_character(new_value),
+    is_scalar_logical(only_at_cursor)
+  )
 
   oldValue <- enc2utf8(old_value)
   newValue <- enc2utf8(new_value)
@@ -314,7 +395,11 @@ body_replace_all_text <- function( x, old_value, new_value,
 
   # Alert the user if no replacements were made.
   if (replacement_count == 0 && warn) {
-    search_zone_text <- if (only_at_cursor) "at the cursor." else "in the document."
+    search_zone_text <- if (only_at_cursor) {
+      "at the cursor."
+    } else {
+      "in the document."
+    }
     warning("Found 0 instances of '", oldValue, "' ", search_zone_text)
   }
 
@@ -335,37 +420,44 @@ body_replace_all_text <- function( x, old_value, new_value,
 #'
 #' # Show text chunk at cursor
 #' docx_show_chunk(doc)  # Output is 'Placeholder two'
-docx_show_chunk <- function( x ){
+docx_show_chunk <- function(x) {
   cursor_elt <- docx_current_block_xml(x)
   text_nodes <- xml_find_all(cursor_elt, ".//w:t")
   msg <- paste0(length(text_nodes), " text nodes found at this cursor.")
   msg_detail <- ""
   for (text_node in text_nodes) {
-    msg_detail <- paste0( msg_detail,
-                          paste0("\n  <w:t>: '",
-                                 xml_text(text_node), "'") )
+    msg_detail <- paste0(
+      msg_detail,
+      paste0("\n  <w:t>: '", xml_text(text_node), "'")
+    )
   }
   message(paste(msg, msg_detail))
   invisible(x)
 }
 
 
-
-
 #' @export
 #' @rdname body_replace_all_text
 #' @section header_replace_all_text:
 #' Replacements will be performed in each header of all sections.
-headers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, warn = TRUE,  ... ){
-  stopifnot(is_scalar_character(old_value),
-            is_scalar_character(new_value),
-            is_scalar_logical(only_at_cursor))
+headers_replace_all_text <- function(
+  x,
+  old_value,
+  new_value,
+  only_at_cursor = FALSE,
+  warn = TRUE,
+  ...
+) {
+  stopifnot(
+    is_scalar_character(old_value),
+    is_scalar_character(new_value),
+    is_scalar_logical(only_at_cursor)
+  )
 
   oldValue <- enc2utf8(old_value)
   newValue <- enc2utf8(new_value)
 
-  for(header in x$headers){
-
+  for (header in x$headers) {
     replacement_count <- 0
 
     base_node <- header$get()
@@ -376,16 +468,24 @@ headers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
       if (grepl(oldValue, xml_text(text_node), ...)) {
         replacement_count <- replacement_count + 1
         # Replace the node text with the newValue.
-        xml_text(text_node) <- gsub(oldValue, newValue, xml_text(text_node), ...)
+        xml_text(text_node) <- gsub(
+          oldValue,
+          newValue,
+          xml_text(text_node),
+          ...
+        )
       }
     }
 
     # Alert the user if no replacements were made.
     if (replacement_count == 0 && warn) {
-      search_zone_text <- if (only_at_cursor) "at the cursor." else "in the document."
+      search_zone_text <- if (only_at_cursor) {
+        "at the cursor."
+      } else {
+        "in the document."
+      }
       warning("Found 0 instances of '", oldValue, "' ", search_zone_text)
     }
-
   }
 
   x
@@ -394,15 +494,24 @@ headers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
 #' @rdname body_replace_all_text
 #' @section header_replace_all_text:
 #' Replacements will be performed in each footer of all sections.
-footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = FALSE, warn = TRUE, ... ){
-  stopifnot(is_scalar_character(old_value),
-            is_scalar_character(new_value),
-            is_scalar_logical(only_at_cursor))
+footers_replace_all_text <- function(
+  x,
+  old_value,
+  new_value,
+  only_at_cursor = FALSE,
+  warn = TRUE,
+  ...
+) {
+  stopifnot(
+    is_scalar_character(old_value),
+    is_scalar_character(new_value),
+    is_scalar_logical(only_at_cursor)
+  )
 
   oldValue <- enc2utf8(old_value)
   newValue <- enc2utf8(new_value)
 
-  for(footer in x$footers){
+  for (footer in x$footers) {
     replacement_count <- 0
 
     base_node <- footer$get()
@@ -413,17 +522,25 @@ footers_replace_all_text <- function( x, old_value, new_value, only_at_cursor = 
       if (grepl(oldValue, xml_text(text_node), ...)) {
         replacement_count <- replacement_count + 1
         # Replace the node text with the newValue.
-        xml_text(text_node) <- gsub(oldValue, newValue, xml_text(text_node), ...)
+        xml_text(text_node) <- gsub(
+          oldValue,
+          newValue,
+          xml_text(text_node),
+          ...
+        )
       }
     }
 
     # Alert the user if no replacements were made.
     if (replacement_count == 0 && warn) {
-      search_zone_text <- if (only_at_cursor) "at the cursor." else "in the document."
+      search_zone_text <- if (only_at_cursor) {
+        "at the cursor."
+      } else {
+        "in the document."
+      }
       warning("Found 0 instances of '", oldValue, "' ", search_zone_text)
     }
   }
 
   x
 }
-

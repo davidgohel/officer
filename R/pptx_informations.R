@@ -8,7 +8,7 @@
 #' my_pres <- add_slide(my_pres, "Title and Content")
 #' length(my_pres)
 #' @family functions for reading presentation information
-length.rpptx <- function( x ){
+length.rpptx <- function(x) {
   x$slide$length()
 }
 
@@ -43,9 +43,13 @@ slide_size <- function(x) {
 #' my_pres <- read_pptx()
 #' layout_summary ( x = my_pres )
 #' @family functions for reading presentation information
-layout_summary <- function( x ){
+layout_summary <- function(x) {
   data <- x$slideLayouts$get_metadata()
-  data.frame(layout = data$name, master = data$master_name, stringsAsFactors = FALSE)
+  data.frame(
+    layout = data$name,
+    master = data$master_name,
+    stringsAsFactors = FALSE
+  )
 }
 
 
@@ -87,8 +91,22 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
   } else if (!is.null(layout) && is.null(master)) {
     data <- data[data$name == layout, ]
   }
-  data <- data[, c("master_name", "name", "type", "type_idx", "id", "ph_label", "ph",
-                   "offx", "offy", "cx", "cy", "rotation", "fld_id", "fld_type")]
+  data <- data[, c(
+    "master_name",
+    "name",
+    "type",
+    "type_idx",
+    "id",
+    "ph_label",
+    "ph",
+    "offx",
+    "offy",
+    "cx",
+    "cy",
+    "rotation",
+    "fld_id",
+    "fld_type"
+  )]
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400
@@ -137,23 +155,45 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @family functions for reading presentation information
 #' @example inst/examples/example_plot_layout_properties.R
 #'
-plot_layout_properties <- function(x, layout = NULL, master = NULL, slide_idx = NULL,
-                                   labels = TRUE, title = TRUE, type = TRUE,
-                                   id = TRUE, cex = c(labels = .5, type = .5, id = .5), legend = FALSE) {
+plot_layout_properties <- function(
+  x,
+  layout = NULL,
+  master = NULL,
+  slide_idx = NULL,
+  labels = TRUE,
+  title = TRUE,
+  type = TRUE,
+  id = TRUE,
+  cex = c(labels = .5, type = .5, id = .5),
+  legend = FALSE
+) {
   stop_if_not_rpptx(x, "x")
   loffset <- ifelse(legend, 1, 0) # make space for legend at top
   old_par <- par(mar = c(2, 2, 1.5 + loffset, 0))
   on.exit(par(old_par))
 
-  .cex <- update_named_defaults(cex, default = list(labels = .5, type = .5, id = .5), default_if_null = TRUE, argname = "cex")
-  if (.cex$labels <= 0) labels <- FALSE
-  if (.cex$type <= 0) type <- FALSE
-  if (.cex$id <= 0) id <- FALSE
+  .cex <- update_named_defaults(
+    cex,
+    default = list(labels = .5, type = .5, id = .5),
+    default_if_null = TRUE,
+    argname = "cex"
+  )
+  if (.cex$labels <= 0) {
+    labels <- FALSE
+  }
+  if (.cex$type <= 0) {
+    type <- FALSE
+  }
+  if (.cex$id <= 0) {
+    id <- FALSE
+  }
 
-  if (is.null(layout) && is.null(master) && length(x) == 0) { # fail or use default layout if set
+  if (is.null(layout) && is.null(master) && length(x) == 0) {
+    # fail or use default layout if set
     if (!has_layout_default(x)) {
       cli::cli_abort(
-        c("No {.arg layout} selected and no slides in presentation.",
+        c(
+          "No {.arg layout} selected and no slides in presentation.",
           "x" = "Pass a layout name or index (see {.fn layout_summary})"
         )
       )
@@ -161,12 +201,22 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, slide_idx = 
     .ld <- get_layout_default(x)
     la <- get_layout(x, layout = .ld$layout, master = .ld$master)
     cli::cli_inform(c("i" = "Showing default layout: {.val {la$layout_name}}"))
-  } else if (is.null(layout) && is.null(master) && length(x) > 0 && is.null(slide_idx)) { # use current slides layout as default
+  } else if (
+    is.null(layout) && is.null(master) && length(x) > 0 && is.null(slide_idx)
+  ) {
+    # use current slides layout as default
     la <- get_layout_for_current_slide(x)
-    cli::cli_inform(c("i" = "Showing current slide's layout: {.val {la$layout_name}}"))
-  } else if (is.null(layout) && is.null(master) && length(x) > 0 && !is.null(slide_idx)) { # use layout for selected slide
+    cli::cli_inform(c(
+      "i" = "Showing current slide's layout: {.val {la$layout_name}}"
+    ))
+  } else if (
+    is.null(layout) && is.null(master) && length(x) > 0 && !is.null(slide_idx)
+  ) {
+    # use layout for selected slide
     la <- get_slide_layout(x, slide_idx = slide_idx)
-    cli::cli_inform(c("i" = "Showing layout of slide {.val {slide_idx}}: {.val {la$layout_name}}"))
+    cli::cli_inform(c(
+      "i" = "Showing layout of slide {.val {slide_idx}}: {.val {la$layout_name}}"
+    ))
   } else {
     la <- get_layout(x, layout, master, layout_by_id = TRUE)
   }
@@ -179,31 +229,76 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, slide_idx = 
   offx <- offy <- cx <- cy <- NULL # avoid R CMD CHECK problem
   list2env(dat[, c("offx", "offy", "cx", "cy")], environment()) # make available inside functions
 
-  plot(x = c(0, w), y = -c(0, h), asp = 1, type = "n", axes = FALSE, xlab = NA, ylab = NA)
+  plot(
+    x = c(0, w),
+    y = -c(0, h),
+    asp = 1,
+    type = "n",
+    axes = FALSE,
+    xlab = NA,
+    ylab = NA
+  )
   rect(xleft = 0, xright = w, ybottom = 0, ytop = -h, border = "darkgrey")
   rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
   mtext("y [inch]", side = 2, line = 0, cex = .9, col = "darkgrey")
   mtext("x [inch]", side = 1, line = 0, cex = .9, col = "darkgrey")
 
   if (title) {
-    title(main = paste0(la$layout_name, " [", la$master_name, "]"), line = 0 + loffset)
+    title(
+      main = paste0(la$layout_name, " [", la$master_name, "]"),
+      line = 0 + loffset
+    )
   }
-  if (labels) { # centered
-    text(x = offx + cx / 2, y = -(offy + cy / 2), labels = dat$ph_label, cex = .cex$labels, col = "red", adj = c(.5, 1)) # adj-vert: avoid interference with type/id in small phs
+  if (labels) {
+    # centered
+    text(
+      x = offx + cx / 2,
+      y = -(offy + cy / 2),
+      labels = dat$ph_label,
+      cex = .cex$labels,
+      col = "red",
+      adj = c(.5, 1)
+    ) # adj-vert: avoid interference with type/id in small phs
   }
-  if (type) { # upper left corner
+  if (type) {
+    # upper left corner
     .type_info <- paste0(dat$type, " [", dat$type_idx, "]") # type + index in brackets
-    text(x = offx, y = -offy, labels = .type_info, cex = .cex$type, col = "blue", adj = c(-.1, 1.2))
+    text(
+      x = offx,
+      y = -offy,
+      labels = .type_info,
+      cex = .cex$type,
+      col = "blue",
+      adj = c(-.1, 1.2)
+    )
   }
-  if (id) { # upper right corner
-    text(x = offx + cx, y = -offy, labels = dat$id, cex = .cex$id, col = "darkgreen", adj = c(1.3, 1.2))
+  if (id) {
+    # upper right corner
+    text(
+      x = offx + cx,
+      y = -offy,
+      labels = dat$id,
+      cex = .cex$id,
+      col = "darkgreen",
+      adj = c(1.3, 1.2)
+    )
   }
   if (legend) {
     legend(
-      x = w / 2, y = 0, x.intersp = 0.4, xjust = .5, yjust = 0,
-      legend = c("type [type_idx]", "ph_label", "id"), fill = c("blue", "red", "darkgreen"),
-      bty = "n", pt.cex = 1.2, cex = .7, text.width = NA,
-      text.col = c("blue", "red", "darkgreen"), horiz = TRUE, xpd = TRUE
+      x = w / 2,
+      y = 0,
+      x.intersp = 0.4,
+      xjust = .5,
+      yjust = 0,
+      legend = c("type [type_idx]", "ph_label", "id"),
+      fill = c("blue", "red", "darkgreen"),
+      bty = "n",
+      pt.cex = 1.2,
+      cex = .7,
+      text.width = NA,
+      text.col = c("blue", "red", "darkgreen"),
+      horiz = TRUE,
+      xpd = TRUE
     )
   }
 }
@@ -232,9 +327,9 @@ plot_layout_properties <- function(x, layout = NULL, master = NULL, slide_idx = 
 #' # annotate_base(path = 'mydoc.pptx', output_file='mydoc_annotate.pptx')
 #'
 #' @family functions for reading presentation information
-annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
-  ppt <- read_pptx(path=path)
-  while(length(ppt)>0){
+annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx') {
+  ppt <- read_pptx(path = path)
+  while (length(ppt) > 0) {
     ppt <- remove_slide(ppt, 1)
   }
 
@@ -242,34 +337,59 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
   lay_sum <- layout_summary(ppt)
 
   # Looping through each layout
-  for(lidx in seq_len(nrow(lay_sum))){
+  for (lidx in seq_len(nrow(lay_sum))) {
     # Pulling out the layout properties
     layout <- lay_sum[lidx, 1]
     master <- lay_sum[lidx, 2]
-    lp <- layout_properties ( x = ppt, layout = layout, master = master)
+    lp <- layout_properties(x = ppt, layout = layout, master = master)
 
     # Adding a slide for the current layout
-    ppt <- add_slide(x=ppt, layout = layout, master = master)
+    ppt <- add_slide(x = ppt, layout = layout, master = master)
     size <- slide_size(ppt)
-    fpar_ <- fpar(sprintf('layout ="%s", master = "%s"', layout, master),
-                  fp_t = fp_text(color = "orange", font.size = 20),
-                  fp_p = fp_par(text.align = "right", padding = 5)
+    fpar_ <- fpar(
+      sprintf('layout ="%s", master = "%s"', layout, master),
+      fp_t = fp_text(color = "orange", font.size = 20),
+      fp_p = fp_par(text.align = "right", padding = 5)
     )
-    ppt <- ph_with(x = ppt, value = fpar_, ph_label = "layout_ph",
-                   location = ph_location(left = 0, top = -0.5, width = size$width, height = 1,
-                                          bg = "transparent", newlabel = "layout_ph"))
+    ppt <- ph_with(
+      x = ppt,
+      value = fpar_,
+      ph_label = "layout_ph",
+      location = ph_location(
+        left = 0,
+        top = -0.5,
+        width = size$width,
+        height = 1,
+        bg = "transparent",
+        newlabel = "layout_ph"
+      )
+    )
 
     # Blank slides have nothing
-    if(length(lp[,1] > 0)){
+    if (length(lp[, 1] > 0)) {
       # Now we go through each placholder
-      for(pidx in seq_len(nrow(lp))){
-        textstr <- paste("type=", lp$type[pidx], ", index=", lp$id[pidx], ", ph_label=",lp$ph_label[pidx])
-        ppt <- ph_with(x=ppt,  value = textstr, location = ph_location_label(type = lp$type[pidx], ph_label = lp$ph_label[pidx]))
+      for (pidx in seq_len(nrow(lp))) {
+        textstr <- paste(
+          "type=",
+          lp$type[pidx],
+          ", index=",
+          lp$id[pidx],
+          ", ph_label=",
+          lp$ph_label[pidx]
+        )
+        ppt <- ph_with(
+          x = ppt,
+          value = textstr,
+          location = ph_location_label(
+            type = lp$type[pidx],
+            ph_label = lp$ph_label[pidx]
+          )
+        )
       }
     }
   }
 
-  if(!is.null(output_file)){
+  if (!is.null(output_file)) {
     print(ppt, target = output_file)
   }
 
@@ -300,25 +420,25 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx' ){
 #' slide_summary(my_pres)
 #' slide_summary(my_pres, index = 1)
 #' @family functions for reading presentation information
-slide_summary <- function( x, index = NULL ){
-
+slide_summary <- function(x, index = NULL) {
   l_ <- length(x)
-  if( l_ < 1 ){
+  if (l_ < 1) {
     stop("presentation contains no slide", call. = FALSE)
   }
 
-  if( is.null(index) )
+  if (is.null(index)) {
     index <- x$cursor
+  }
 
-  if( !between(index, 1, l_ ) ){
-    stop("unvalid index ", index, " (", l_," slide(s))", call. = FALSE)
+  if (!between(index, 1, l_)) {
+    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
   }
 
   slide <- x$slide$get_slide(index)
 
-  nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/") )
-  data <- read_xfrm(nodes, file = "slide", name = "" )
-  data$text <- sapply(nodes, xml_text )
+  nodes <- xml_find_all(slide$get(), as_xpath_content_sel("p:cSld/p:spTree/"))
+  data <- read_xfrm(nodes, file = "slide", name = "")
+  data$text <- sapply(nodes, xml_text)
   data[["offx"]] <- data[["offx"]] / 914400
   data[["offy"]] <- data[["offy"]] / 914400
   data[["cx"]] <- data[["cx"]] / 914400
@@ -340,6 +460,6 @@ slide_summary <- function( x, index = NULL ){
 #' x <- read_pptx()
 #' color_scheme ( x = x )
 #' @family functions for reading presentation information
-color_scheme <- function( x ){
+color_scheme <- function(x) {
   x$masterLayouts$get_color_scheme()
 }

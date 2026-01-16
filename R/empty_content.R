@@ -24,7 +24,7 @@
 #'
 #' print(doc, target = fileout )
 #' @seealso [ph_with()], [body_add_blocks()]
-empty_content <- function(){
+empty_content <- function() {
   x <- list()
   class(x) <- "empty_content"
   x

@@ -1,28 +1,35 @@
-
-check_dep <- function(){
-  if( !requireNamespace("rmarkdown") )
+check_dep <- function() {
+  if (!requireNamespace("rmarkdown")) {
     stop("package rmarkdown is required to use this function", call. = FALSE)
-  if( !requireNamespace("knitr") )
+  }
+  if (!requireNamespace("knitr")) {
     stop("package knitr is required to use this function", call. = FALSE)
+  }
 }
 
 get_default_pandoc_data_file <- function(format = "pptx") {
   outfile <- tempfile(fileext = paste0(".", format))
 
   pandoc_exec <- rmarkdown::pandoc_exec()
-  if(.Platform$OS.type %in% "windows"){
+  if (.Platform$OS.type %in% "windows") {
     pandoc_exec <- paste0(pandoc_exec, ".exe")
   }
 
-  if(!rmarkdown::pandoc_available() || !file.exists(pandoc_exec)){
+  if (!rmarkdown::pandoc_available() || !file.exists(pandoc_exec)) {
     # Use officer template when no pandoc - stupid fallback as if o pandoc, no result
-    outfile <- system.file(package = "officer", "template", paste0("template.", format))
+    outfile <- system.file(
+      package = "officer",
+      "template",
+      paste0("template.", format)
+    )
   } else {
     # note in that case outfile will be removed when session will end
     ref_doc <- paste0("reference.", format)
-    system2(pandoc_exec,
-            args = c("--print-default-data-file", ref_doc),
-            stdout = outfile)
+    system2(
+      pandoc_exec,
+      args = c("--print-default-data-file", ref_doc),
+      stdout = outfile
+    )
   }
 
   return(outfile)
@@ -46,7 +53,9 @@ get_reference_value <- function(format = NULL) {
 
   check_dep()
 
-  if (compareVersion(as.character(packageVersion("rmarkdown")), "1.10.14") < 0) {
+  if (
+    compareVersion(as.character(packageVersion("rmarkdown")), "1.10.14") < 0
+  ) {
     stop("package rmarkdown >= 1.10.14 is required to use this function")
   }
 
@@ -87,10 +96,12 @@ get_reference_value <- function(format = NULL) {
 }
 
 
-knitr_opts_current <- function(x, default = FALSE){
+knitr_opts_current <- function(x, default = FALSE) {
   check_dep()
   x <- knitr::opts_current$get(x)
-  if(is.null(x)) x <- default
+  if (is.null(x)) {
+    x <- default
+  }
   x
 }
 
@@ -176,7 +187,6 @@ knitr_opts_current <- function(x, default = FALSE){
 #' @family functions for officer extensions
 #' @keywords internal
 opts_current_table <- function() {
-
   is_bookdown <- isTRUE(knitr::opts_knit$get('bookdown.internal.label'))
 
   if (is_bookdown) {
@@ -203,11 +213,17 @@ opts_current_table <- function() {
 
   tab.cap.style <- knitr_opts_current("tab.cap.style", default = NULL)
   tab.alt.title <- knitr_opts_current("tab.alt.title", default = NULL)
-  tab.alt.description <- knitr_opts_current("tab.alt.description", default = NULL)
+  tab.alt.description <- knitr_opts_current(
+    "tab.alt.description",
+    default = NULL
+  )
 
   tab.cap.tnd <- knitr_opts_current("tab.cap.tnd", default = 0)
   tab.cap.tns <- knitr_opts_current("tab.cap.tns", default = "-")
-  tab.cap.fp_text <- knitr_opts_current("tab.cap.fp_text", default = fp_text_lite(bold = TRUE))
+  tab.cap.fp_text <- knitr_opts_current(
+    "tab.cap.fp_text",
+    default = fp_text_lite(bold = TRUE)
+  )
 
   tab.style <- knitr_opts_current("tab.style", default = NULL)
   tab.layout <- knitr_opts_current("tab.layout", default = "autofit")

@@ -10,7 +10,7 @@ test_that("add outline to placeholder", {
 
   loc_ <- lapply(
     seq_along(sp_line_),
-    function(x)
+    function(x) {
       ph_location(
         left = left[x],
         top = top,
@@ -19,6 +19,7 @@ test_that("add outline to placeholder", {
         bg = "orange",
         ln = sp_line_[[x]]
       )
+    }
   )
 
   doc <- read_pptx()

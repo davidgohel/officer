@@ -47,7 +47,6 @@
 #' @example inst/examples/example_body_append_context.R
 #' @family functions for adding content
 body_append_start_context <- function(x, additional_ns = character()) {
-
   if (!is.character(additional_ns)) {
     cli::cli_abort("`additional_ns` must be a named character vector.")
   }
@@ -113,7 +112,12 @@ body_append_start_context <- function(x, additional_ns = character()) {
 write_elements_to_context <- function(context, ...) {
   objects <- list(...)
   for (obj in objects) {
-    cat(to_wml(obj, add_ns = TRUE), sep = "\n", file = context$file_con, append = TRUE)
+    cat(
+      to_wml(obj, add_ns = TRUE),
+      sep = "\n",
+      file = context$file_con,
+      append = TRUE
+    )
   }
   context
 }

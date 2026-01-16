@@ -13,9 +13,10 @@
 #' @seealso [print.rpptx()], [read_pptx()], [layout_summary()], [plot_layout_properties()], [ph_with()], [phs_with()], [layout_default()]
 #' @family slide_manipulation
 add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
-
-  if (is.null(layout) && !has_layout_default(x)) {  # inform user. Passing no layout will be defunct in a future verion
-    .Deprecated("",
+  if (is.null(layout) && !has_layout_default(x)) {
+    # inform user. Passing no layout will be defunct in a future verion
+    .Deprecated(
+      "",
       package = "officer",
       msg = paste(
         "Calling `add_slide()` without specifying a `layout` is deprecated.\n",
@@ -37,7 +38,8 @@ add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
   dots_list <- list(...)
   if (length(dots_list) > 0 && !is_named(dots_list)) {
     cli::cli_abort(
-      c("Missing key in {.arg ...}",
+      c(
+        "Missing key in {.arg ...}",
         "x" = "{.arg ...} requires a key-value syntax, with a ph short-form location as the key",
         "i" = "Example: {.code add_slide(x, ..., title = 'My title', 'body[1]' = 'My body')}"
       )
@@ -45,7 +47,8 @@ add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
   }
   if (length(.dots) > 0 && !is_named(.dots)) {
     cli::cli_abort(
-      c("Missing names in {.arg .dots}",
+      c(
+        "Missing names in {.arg .dots}",
         "x" = "{.arg .dots} must be a named list, with ph short-form locations as names",
         "i" = "Example: {.code add_slide(x, ..., .dots = list(title = 'My title', 'body[1]' = 'My body'))}"
       )
@@ -247,7 +250,13 @@ pptx_fortify_slides <- function(x) {
   for (cursor_index in seq_len(x$slide$length())) {
     slide <- x$slide$get_slide(cursor_index)
 
-    process_images(slide, slide$relationship(), x$package_dir, media_dir = "ppt/media", media_rel_dir = "../media")
+    process_images(
+      slide,
+      slide$relationship(),
+      x$package_dir,
+      media_dir = "ppt/media",
+      media_rel_dir = "../media"
+    )
 
     process_links(slide, type = "pml")
 
@@ -276,9 +285,18 @@ pptx_fortify_slides <- function(x) {
 #' @return a character value
 #' @family functions for officer extensions
 #' @keywords internal
-shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
-                                  bg = "transparent", rot = 0, label = "", ph = "<p:ph/>",
-                                  ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"), geom = NULL) {
+shape_properties_tags <- function(
+  left = 0,
+  top = 0,
+  width = 3,
+  height = 3,
+  bg = "transparent",
+  rot = 0,
+  label = "",
+  ph = "<p:ph/>",
+  ln = sp_line(lwd = 0, linecmpd = "solid", lineend = "rnd"),
+  geom = NULL
+) {
   if (!is.null(bg) && !is.color(bg)) {
     stop("bg must be a valid color.", call. = FALSE)
   }
@@ -287,7 +305,13 @@ shape_properties_tags <- function(left = 0, top = 0, width = 3, height = 3,
   ln_str <- ln_pml(ln)
   geom_str <- prst_geom_pml(geom)
 
-  xfrm_str <- a_xfrm_str(left = left, top = top, width = width, height = height, rot = rot)
+  xfrm_str <- a_xfrm_str(
+    left = left,
+    top = top,
+    width = width,
+    height = height,
+    rot = rot
+  )
   if (is.null(ph) || is.na(ph)) {
     ph <- "<p:ph/>"
   }
@@ -305,7 +329,8 @@ ensure_slide_index_exists <- function(x, slide_idx) {
   stop_if_not_rpptx(x)
   if (!is.numeric(slide_idx)) {
     cli::cli_abort(
-      c("{.arg slide_idx} must be {.cls numeric}",
+      c(
+        "{.arg slide_idx} must be {.cls numeric}",
         "x" = "You provided {.cls {class(slide_idx)[1]}} instead."
       ),
       call = NULL
@@ -315,7 +340,8 @@ ensure_slide_index_exists <- function(x, slide_idx) {
   check <- slide_idx %in% seq_len(n)
   if (!check) {
     cli::cli_abort(
-      c("Slide index {.val {slide_idx}} is out of range.",
+      c(
+        "Slide index {.val {slide_idx}} is out of range.",
         "x" = "Presentation has {cli::no(n)} slide{?s}."
       ),
       call = NULL
@@ -361,10 +387,14 @@ ensure_slide_index_exists <- function(x, slide_idx) {
   n_vals <- length(value)
   n_slides <- length(x)
   if (n_vals > n_slides) {
-    cli::cli_abort("More values ({.val {n_vals}}) than slides ({.val {n_slides}})")
+    cli::cli_abort(
+      "More values ({.val {n_vals}}) than slides ({.val {n_slides}})"
+    )
   }
   if (n_vals != 1 && n_vals != n_slides) {
-    cli::cli_warn("Value is not length 1 or same length as number of slides ({.val {n_slides}}). Recycling values.")
+    cli::cli_warn(
+      "Value is not length 1 or same length as number of slides ({.val {n_slides}}). Recycling values."
+    )
   }
   value <- rep(value, length.out = n_slides)
   for (i in seq_along(value)) {
@@ -397,7 +427,11 @@ slide_visible <- function(x, hide = NULL, show = NULL) {
     slide_visible(x)[show] <- TRUE
   }
   n_slides <- length(x)
-  res <- vapply(seq_len(n_slides), function(idx) .slide_visible(x, idx), logical(1))
+  res <- vapply(
+    seq_len(n_slides),
+    function(idx) .slide_visible(x, idx),
+    logical(1)
+  )
   if (is.null(hide) && is.null(show)) {
     res
   } else {

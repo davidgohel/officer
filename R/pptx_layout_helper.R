@@ -67,26 +67,35 @@ layout_exists <- function(x, layout) {
 #' @param layout_by_id Allow layout index instead of name? (default is `TRUE`)
 #' @param get_first If layout exists in multiple master, return first occurence (default `FALSE`).
 #' @keywords internal
-get_layout <- function(x, layout = NULL, master = NULL, layout_by_id = TRUE, get_first = FALSE) {
+get_layout <- function(
+  x,
+  layout = NULL,
+  master = NULL,
+  layout_by_id = TRUE,
+  get_first = FALSE
+) {
   stop_if_not_rpptx(x, "x")
 
   if (!layout_by_id && is.numeric(layout)) {
     cli::cli_abort(
-      c("{.arg layout} must be {.cls character}",
+      c(
+        "{.arg layout} must be {.cls character}",
         "x" = "Got class {.cls {class(layout)[1]}} instead"
       )
     )
   }
   if (!(is.numeric(layout) || is.character(layout))) {
     cli::cli_abort(
-      c("{.arg layout} must be {.cls numeric} or {.cls character}",
+      c(
+        "{.arg layout} must be {.cls numeric} or {.cls character}",
         "x" = "Got class {.cls {class(layout)[1]}} instead"
       )
     )
   }
   if (length(layout) != 1) {
     cli::cli_abort(
-      c("{.arg layout} is not length 1",
+      c(
+        "{.arg layout} is not length 1",
         "x" = "{.arg layout} must be {.emph one} layout name or index."
       )
     )
@@ -109,7 +118,14 @@ get_layout <- function(x, layout = NULL, master = NULL, layout_by_id = TRUE, get
   l <- as.list(res)
   slide_layout <- x$slideLayouts$collection_get(l$layout_file)
   l <- c(l, slide_layout = slide_layout)
-  l <- l[c("index", "layout_name", "layout_file", "master_name", "master_file", "slide_layout")] # nice order
+  l <- l[c(
+    "index",
+    "layout_name",
+    "layout_file",
+    "master_name",
+    "master_file",
+    "slide_layout"
+  )] # nice order
   class(l) <- c("layout_info", "list")
   l
 }
@@ -132,7 +148,8 @@ get_row_by_index <- function(df, layout) {
   index <- layout
   if (!index %in% df$index) {
     cli::cli_abort(
-      c("Layout index out of bounds.",
+      c(
+        "Layout index out of bounds.",
         "x" = "Index must be between {.val {1}} and {.val {nrow(df)}}.",
         "i" = cli::col_grey("See row indexes in {.fn layout_summary}")
       ),
@@ -149,21 +166,28 @@ get_row_by_name <- function(df, layout, master, get_first = FALSE) {
   if (!is.null(master)) {
     masters <- unique(df$master_name)
     if (!master %in% masters) {
-      cli::cli_abort(c(
-        "master {.val {master}} does not exist.",
-        "i" = "See {.fn layout_summary} for available masters."
-      ), call = NULL)
+      cli::cli_abort(
+        c(
+          "master {.val {master}} does not exist.",
+          "i" = "See {.fn layout_summary} for available masters."
+        ),
+        call = NULL
+      )
     }
     df <- df[df$master_name == master, ]
   }
 
   df <- df[df$layout_name == layout, ]
   if (nrow(df) == 0) {
-    msg <- ifelse(is.null(master),
+    msg <- ifelse(
+      is.null(master),
       "Layout {.val {layout}} does not exist",
       "Layout {.val {layout}} does not exist in master {.val {master}}"
     )
-    cli::cli_abort(c(msg, "i" = "See {.fn layout_summary} for available layouts."), call = NULL)
+    cli::cli_abort(
+      c(msg, "i" = "See {.fn layout_summary} for available layouts."),
+      call = NULL
+    )
   }
 
   if (get_first) {
@@ -171,10 +195,13 @@ get_row_by_name <- function(df, layout, master, get_first = FALSE) {
   }
 
   if (nrow(df) > 1) {
-    cli::cli_abort(c(
-      "Layout {.val {layout}} exists in more than one master",
-      "x" = "Please specify the master name in arg {.arg master} for disambiguation"
-    ), call = NULL)
+    cli::cli_abort(
+      c(
+        "Layout {.val {layout}} exists in more than one master",
+        "x" = "Please specify the master name in arg {.arg master} for disambiguation"
+      ),
+      call = NULL
+    )
   }
   df
 }
@@ -185,7 +212,8 @@ get_slide_layout <- function(x, slide_idx) {
   stop_if_not_rpptx(x)
   if (length(x) == 0) {
     cli::cli_abort(
-      c("Presentation does not have any slides yet",
+      c(
+        "Presentation does not have any slides yet",
         "x" = "Can only get the layout for an existing slides",
         "i" = "You can add a slide using {.fn add_slide}"
       ),

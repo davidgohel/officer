@@ -47,13 +47,23 @@
 #' [body_add_table()], change settings with [docx_set_settings()], set
 #' properties with [set_doc_properties()],  read 'Word' styles with
 #' [styles_info()].
-print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
-                        copy_footer_refs = FALSE, preview = FALSE, ...) {
+print.rdocx <- function(
+  x,
+  target = NULL,
+  copy_header_refs = FALSE,
+  copy_footer_refs = FALSE,
+  preview = FALSE,
+  ...
+) {
   if (preview) {
     file <- tempfile(fileext = ".docx")
-    print.rdocx(x,
-                target = file, copy_header_refs = copy_header_refs,
-                copy_footer_refs = copy_footer_refs, preview = FALSE, ...
+    print.rdocx(
+      x,
+      target = file,
+      copy_header_refs = copy_header_refs,
+      copy_footer_refs = copy_footer_refs,
+      preview = FALSE,
+      ...
     )
     open_file(file)
     return(invisible(file))
@@ -80,12 +90,26 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
   # write the xml to a tempfile in a formatted way so that grepl is easy
   xml_str <- xml_document_to_chrs(x$doc_obj$get())
   xml_str <- process_sections_content(x, xml_str)
-  xml_str <- process_footnotes_content(x$doc_obj, footnotes = x$footnotes, xml_str)
+  xml_str <- process_footnotes_content(
+    x$doc_obj,
+    footnotes = x$footnotes,
+    xml_str
+  )
   xml_str <- process_comments_content(x$doc_obj, comments = x$comments, xml_str)
   xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
   xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$doc_obj)
-  xml_str <- fix_img_refs_in_wml(xml_str, x$doc_obj, x$doc_obj$relationship(), x$package_dir)
-  xml_str <- fix_svg_refs_in_wml(xml_str, x$doc_obj, x$doc_obj$relationship(), x$package_dir)
+  xml_str <- fix_img_refs_in_wml(
+    xml_str,
+    x$doc_obj,
+    x$doc_obj$relationship(),
+    x$package_dir
+  )
+  xml_str <- fix_svg_refs_in_wml(
+    xml_str,
+    x$doc_obj,
+    x$doc_obj$relationship(),
+    x$package_dir
+  )
   # make all id unique for document
   xml_str <- fix_empty_ids_in_wml(xml_str)
   if (copy_header_refs) {
@@ -97,7 +121,6 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
 
   x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
 
-
   process_docx_poured(
     doc_obj = x$doc_obj,
     relationships = x$doc_obj$relationship(),
@@ -105,16 +128,34 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
     package_dir = x$package_dir
   )
 
-  x$headers <- update_hf_list(part_list = x$headers, type = "header", package_dir = x$package_dir)
-  x$footers <- update_hf_list(part_list = x$footers, type = "footer", package_dir = x$package_dir)
+  x$headers <- update_hf_list(
+    part_list = x$headers,
+    type = "header",
+    package_dir = x$package_dir
+  )
+  x$footers <- update_hf_list(
+    part_list = x$footers,
+    type = "footer",
+    package_dir = x$package_dir
+  )
 
   for (header in x$headers) {
     xml_str <- xml_document_to_chrs(header$get())
     xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
     xml_str <- fix_empty_ids_in_wml(xml_str)
     xml_str <- fix_hyperlink_refs_in_wml(xml_str, header)
-    xml_str <- fix_img_refs_in_wml(xml_str, header, header$relationship(), x$package_dir)
-    xml_str <- fix_svg_refs_in_wml(xml_str, header, header$relationship(), x$package_dir)
+    xml_str <- fix_img_refs_in_wml(
+      xml_str,
+      header,
+      header$relationship(),
+      x$package_dir
+    )
+    xml_str <- fix_svg_refs_in_wml(
+      xml_str,
+      header,
+      header$relationship(),
+      x$package_dir
+    )
     tf_xml <- tempfile(fileext = ".txt")
     writeLines(xml_str, tf_xml, useBytes = TRUE)
     header$replace_xml(tf_xml)
@@ -124,8 +165,18 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
     xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
     xml_str <- fix_empty_ids_in_wml(xml_str)
     xml_str <- fix_hyperlink_refs_in_wml(xml_str, footer)
-    xml_str <- fix_img_refs_in_wml(xml_str, footer, footer$relationship(), x$package_dir)
-    xml_str <- fix_svg_refs_in_wml(xml_str, footer, footer$relationship(), x$package_dir)
+    xml_str <- fix_img_refs_in_wml(
+      xml_str,
+      footer,
+      footer$relationship(),
+      x$package_dir
+    )
+    xml_str <- fix_svg_refs_in_wml(
+      xml_str,
+      footer,
+      footer$relationship(),
+      x$package_dir
+    )
 
     tf_xml <- tempfile(fileext = ".txt")
     writeLines(xml_str, tf_xml, useBytes = TRUE)
@@ -136,8 +187,18 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
     xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
     xml_str <- fix_empty_ids_in_wml(xml_str)
     xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$footnotes)
-    xml_str <- fix_img_refs_in_wml(xml_str, x$footnotes, x$footnotes$relationship(), x$package_dir)
-    xml_str <- fix_svg_refs_in_wml(xml_str, x$footnotes, x$footnotes$relationship(), x$package_dir)
+    xml_str <- fix_img_refs_in_wml(
+      xml_str,
+      x$footnotes,
+      x$footnotes$relationship(),
+      x$package_dir
+    )
+    xml_str <- fix_svg_refs_in_wml(
+      xml_str,
+      x$footnotes,
+      x$footnotes$relationship(),
+      x$package_dir
+    )
 
     tf_xml <- tempfile(fileext = ".txt")
     writeLines(xml_str, tf_xml, useBytes = TRUE)
@@ -148,8 +209,18 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
     xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
     xml_str <- fix_empty_ids_in_wml(xml_str)
     xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$comments)
-    xml_str <- fix_img_refs_in_wml(xml_str, x$comments, x$comments$relationship(), x$package_dir)
-    xml_str <- fix_svg_refs_in_wml(xml_str, x$comments, x$comments$relationship(), x$package_dir)
+    xml_str <- fix_img_refs_in_wml(
+      xml_str,
+      x$comments,
+      x$comments$relationship(),
+      x$package_dir
+    )
+    xml_str <- fix_svg_refs_in_wml(
+      xml_str,
+      x$comments,
+      x$comments$relationship(),
+      x$package_dir
+    )
 
     tf_xml <- tempfile(fileext = ".txt")
     writeLines(xml_str, tf_xml, useBytes = TRUE)
@@ -188,7 +259,10 @@ print.rdocx <- function(x, target = NULL, copy_header_refs = FALSE,
 
   # save doc properties
   if (nrow(x$doc_properties$data) > 0) {
-    x$doc_properties["modified", "value"] <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+    x$doc_properties["modified", "value"] <- format(
+      Sys.time(),
+      "%Y-%m-%dT%H:%M:%SZ"
+    )
     x$doc_properties["lastModifiedBy", "value"] <- Sys.getenv("USER")
     write_core_properties(x$doc_properties, x$package_dir)
   }

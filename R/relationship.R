@@ -18,7 +18,10 @@ relationship <- R6Class(
       children <- xml_children(doc)
       ns <- xml_ns(doc)
 
-      private$id <- c(private$id, vapply(children, xml_attr, NA_character_, attr = "Id", ns))
+      private$id <- c(
+        private$id,
+        vapply(children, xml_attr, NA_character_, attr = "Id", ns)
+      )
       private$type <- c(
         private$type,
         vapply(children, xml_attr, NA_character_, attr = "Type", ns)

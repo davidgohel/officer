@@ -11,10 +11,10 @@
 
 # utils ----------
 extract_runs_attr_str <- function(
-    run_nodes,
-    node_xpath,
-    attr_name,
-    default = NULL
+  run_nodes,
+  node_xpath,
+  attr_name,
+  default = NULL
 ) {
   nodes <- suppressWarnings({
     xml_child(run_nodes, node_xpath)
@@ -33,11 +33,11 @@ extract_runs_attr_str <- function(
 }
 
 extract_runs_attr_lgl <- function(
-    run_nodes,
-    node_xpath,
-    attr_name,
-    default = NULL,
-    true_values = c("1", "on", "true", NA_character_)
+  run_nodes,
+  node_xpath,
+  attr_name,
+  default = NULL,
+  true_values = c("1", "on", "true", NA_character_)
 ) {
   nodes <- xml_child(run_nodes, node_xpath)
   nodes_exist <- !is.na(xml_name(nodes))
@@ -101,7 +101,8 @@ infotbl_tables_compute <- function(
     .by = all_of(c("table_index", "row_id")),
     add_span = as.integer(
       lag(.data$col_span, default = "1")
-    ) - 1L,
+    ) -
+      1L,
     cell_id = consecutive_id(.data$cell_id) + cumsum(.data$add_span),
     add_span = NULL
   )
@@ -117,10 +118,10 @@ infotbl_tables_compute <- function(
   )
 
   infotbl_tables <- mutate(
-      .data = infotbl_tables,
-      .by = all_of(c("table_index", "cell_id")),
-      merge_group = cumsum(.data$first) + cumsum(!.data$row_merge)
-    )
+    .data = infotbl_tables,
+    .by = all_of(c("table_index", "cell_id")),
+    merge_group = cumsum(.data$first) + cumsum(!.data$row_merge)
+  )
 
   infotbl_tables <- mutate(
     .data = infotbl_tables,
@@ -160,7 +161,11 @@ augment_with_non_text_content <- function(data, x) {
     all_of(c("id", "target"))
   )
   names(doc_rel_images) <- c("blip_id", "image_path")
-  doc_rel_images$image_path <- file.path(x$package_dir, "word", doc_rel_images$image_path)
+  doc_rel_images$image_path <- file.path(
+    x$package_dir,
+    "word",
+    doc_rel_images$image_path
+  )
 
   data <- left_join(
     data,
@@ -347,8 +352,14 @@ infotbl_join <- function(
   data <- relocate(
     .data = data,
     all_of(
-      c("doc_index", "run_index", "run_content_index",
-        "table_index", "row_id", "cell_id")
+      c(
+        "doc_index",
+        "run_index",
+        "run_content_index",
+        "table_index",
+        "row_id",
+        "cell_id"
+      )
     )
   )
   data <- mutate(
@@ -375,7 +386,6 @@ infotbl_join <- function(
 
 # extract tools ----
 docx_tablecells_information <- function(tc_nodes) {
-
   col_span_str <- rep("1", length(tc_nodes))
   col_span_nodes <- xml_child(tc_nodes, "w:tcPr/w:gridSpan")
   has_col_span_nodes <- xml_name(col_span_nodes) %in% "gridSpan"
@@ -455,7 +465,6 @@ docx_tables_information <- function(tbl_nodes) {
 }
 
 docx_runs_information <- function(run_nodes) {
-
   bold <- extract_runs_attr_lgl(
     run_nodes = run_nodes,
     node_xpath = "w:rPr/w:b",
@@ -487,9 +496,15 @@ docx_runs_information <- function(run_nodes) {
   shading <- xml_attr(shd_nodes, "val")
   shading[!is.na(shading)] <- sprintf("#%s", shading[!is.na(shading)])
   shading_color <- xml_attr(shd_nodes, "color")
-  shading_color[!is.na(shading_color)] <- sprintf("#%s", shading_color[!is.na(shading_color)])
+  shading_color[!is.na(shading_color)] <- sprintf(
+    "#%s",
+    shading_color[!is.na(shading_color)]
+  )
   shading_fill <- xml_attr(shd_nodes, "fill")
-  shading_fill[!is.na(shading_fill)] <- sprintf("#%s", shading_fill[!is.na(shading_fill)])
+  shading_fill[!is.na(shading_fill)] <- sprintf(
+    "#%s",
+    shading_fill[!is.na(shading_fill)]
+  )
 
   run_stylename <- extract_runs_attr_str(
     run_nodes = run_nodes,
@@ -550,7 +565,13 @@ docx_runs_content_information <- function(run_nodes) {
   run_content_nodes_names <- xml_name(run_nodes)
 
   suppressWarnings({
-    blip_id_ <- xml_attr(xml_child(run_nodes, "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip"), "embed")
+    blip_id_ <- xml_attr(
+      xml_child(
+        run_nodes,
+        "wp:inline/a:graphic/a:graphicData/pic:pic/pic:blipFill/a:blip"
+      ),
+      "embed"
+    )
     footnote_id_ <- xml_attr(run_nodes, "id")
     text_values <- xml_text(run_nodes)
   })
@@ -631,10 +652,10 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
   table_data <- filter(.data = data, !is.na(.data$table_index))
   table_data <- add_text_column(table_data)
   table_data <- summarise(
-      .data = table_data,
-      .by = all_of(finest_grp_by),
-      text = paste0(.data$text, collapse = "")
-    )
+    .data = table_data,
+    .by = all_of(finest_grp_by),
+    text = paste0(.data$text, collapse = "")
+  )
 
   if (preserve) {
     finest_grp_by <- c(
@@ -659,12 +680,12 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
   par_data <- filter(.data = data, is.na(.data$table_index))
   par_data <- add_text_column(par_data)
   par_data <- summarise(
-      .data = par_data,
-      .by = all_of(
-        c("doc_index", "content_type", "paragraph_stylename")
-      ),
-      text = paste0(.data$text, collapse = "")
-    )
+    .data = par_data,
+    .by = all_of(
+      c("doc_index", "content_type", "paragraph_stylename")
+    ),
+    text = paste0(.data$text, collapse = "")
+  )
 
   dataset <- bind_rows(par_data, table_data)
 
@@ -756,7 +777,12 @@ summarise_as_paragraph <- function(data, preserve = FALSE) {
 #'
 #' docx_summary(doc, detailed = TRUE)
 #' @export
-docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = FALSE) {
+docx_summary <- function(
+  x,
+  preserve = FALSE,
+  remove_fields = FALSE,
+  detailed = FALSE
+) {
   if (!requireNamespace("dplyr")) {
     cli::cli_abort(
       "package {.pkg dplyr} is required for running {.fn docx_summary}."
@@ -769,7 +795,6 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
   }
 
   if (remove_fields) {
-
     # also remove complex field characters
     fldChar_nodes <- xml_find_all(x$doc_obj$get(), "//w:fldChar")
     xml_remove(fldChar_nodes)
@@ -824,7 +849,9 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
     x$doc_obj$get(),
     "//w:r/*[not(self::w:rPr)]"
   )
-  xml_attr(run_content_nodes, "w:run_content_index") <- seq_along(run_content_nodes)
+  xml_attr(run_content_nodes, "w:run_content_index") <- seq_along(
+    run_content_nodes
+  )
 
   ## bookmark_nodes
   bookmark_nodes <- xml_find_all(
@@ -868,10 +895,19 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
 
   # info for paragraphs: infotbl_paragraphs -----
   infotbl_paragraphs <- docx_p_information(p_nodes)
-  infotbl_paragraphs <- left_join(infotbl_paragraphs, data_bookmark, by = "doc_index")
+  infotbl_paragraphs <- left_join(
+    infotbl_paragraphs,
+    data_bookmark,
+    by = "doc_index"
+  )
 
   # final joins -------
-  data <- infotbl_join(infotbl_runs_contents, infotbl_runs, infotbl_paragraphs, infotbl_tables)
+  data <- infotbl_join(
+    infotbl_runs_contents,
+    infotbl_runs,
+    infotbl_paragraphs,
+    infotbl_tables
+  )
 
   # add stylenames -----
   styles_data <- select(
@@ -898,19 +934,48 @@ docx_summary <- function(x, preserve = FALSE, remove_fields = FALSE, detailed = 
     )
   )
 
-  column_names <- c("doc_index", "content_type", "run_index", "run_content_index",
+  column_names <- c(
+    "doc_index",
+    "content_type",
+    "run_index",
+    "run_content_index",
 
-    "run_content_text", "image_path", "field_code", "footnote_text",
-    "link", "link_to_bookmark", "bookmark_start",
-    "character_stylename", "sz", "sz_cs",
-    "font_family_ascii", "font_family_eastasia", "font_family_hansi", "font_family_cs",
-    "bold", "italic", "underline", "color",
-    "shading", "shading_color", "shading_fill",
+    "run_content_text",
+    "image_path",
+    "field_code",
+    "footnote_text",
+    "link",
+    "link_to_bookmark",
+    "bookmark_start",
+    "character_stylename",
+    "sz",
+    "sz_cs",
+    "font_family_ascii",
+    "font_family_eastasia",
+    "font_family_hansi",
+    "font_family_cs",
+    "bold",
+    "italic",
+    "underline",
+    "color",
+    "shading",
+    "shading_color",
+    "shading_fill",
 
-    "paragraph_stylename", "keep_with_next", "align", "level", "num_id",
+    "paragraph_stylename",
+    "keep_with_next",
+    "align",
+    "level",
+    "num_id",
 
-    "table_index", "row_id", "cell_id", "col_span", "row_span", "is_header",
-    "table_stylename")
+    "table_index",
+    "row_id",
+    "cell_id",
+    "col_span",
+    "row_span",
+    "is_header",
+    "table_stylename"
+  )
 
   data <- select(.data = data, all_of(column_names))
 

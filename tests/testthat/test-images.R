@@ -186,8 +186,10 @@ test_that("file size does not inflate with identical images", {
 test_that("add floating image in docx with default params", {
   float_img <- floating_external_img(
     img.file,
-    width = 2, height = 1.5,
-    pos_x = 1, pos_y = 2
+    width = 2,
+    height = 1.5,
+    pos_x = 1,
+    pos_y = 2
   )
 
   x <- read_docx()
@@ -232,8 +234,8 @@ test_that("add floating image in docx with default params", {
     # Check positions (1 inch = 914400 EMUs, 2 inches = 1828800 EMUs)
     pos_x_offset <- xml_text(xml_find_first(node_pos_h, "wp:posOffset"))
     pos_y_offset <- xml_text(xml_find_first(node_pos_v, "wp:posOffset"))
-    expect_equal(pos_x_offset, "914400")   # 1 inch
-    expect_equal(pos_y_offset, "1828800")  # 2 inches
+    expect_equal(pos_x_offset, "914400") # 1 inch
+    expect_equal(pos_y_offset, "1828800") # 2 inches
 
     # Check default wrap (square, bothSides)
     node_wrap <- xml_find_first(body, "//wp:wrapSquare")
@@ -242,8 +244,8 @@ test_that("add floating image in docx with default params", {
 
     # Check dimensions (2 inches = 1828800 EMUs, 1.5 inches = 1371600 EMUs)
     node_extent <- xml_find_first(body, "//wp:extent")
-    expect_equal(xml_attr(node_extent, "cx"), "1828800")  # width
-    expect_equal(xml_attr(node_extent, "cy"), "1371600")  # height
+    expect_equal(xml_attr(node_extent, "cx"), "1828800") # width
+    expect_equal(xml_attr(node_extent, "cy"), "1371600") # height
   }
 })
 
@@ -251,8 +253,10 @@ test_that("add floating image in docx with default params", {
 test_that("add floating image with custom positioning", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 0.5, pos_y = 1.5,
+    width = 1,
+    height = 1,
+    pos_x = 0.5,
+    pos_y = 1.5,
     pos_h_from = "page",
     pos_v_from = "paragraph"
   )
@@ -282,7 +286,8 @@ test_that("add floating image with custom positioning", {
 test_that("add floating image with custom wrapping", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
+    width = 1,
+    height = 1,
     wrap_type = "tight",
     wrap_side = "left"
   )
@@ -304,7 +309,8 @@ test_that("add floating image with custom wrapping", {
 test_that("add floating image with wrap topAndBottom", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
+    width = 1,
+    height = 1,
     wrap_type = "topAndBottom"
   )
 
@@ -324,7 +330,8 @@ test_that("add floating image with wrap topAndBottom", {
 test_that("add floating image with custom distances", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
+    width = 1,
+    height = 1,
     wrap_dist_top = 0.1,
     wrap_dist_bottom = 0.2,
     wrap_dist_left = 0.3,
@@ -354,7 +361,8 @@ test_that("add floating image with custom distances", {
 test_that("add floating image with wrap none", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
+    width = 1,
+    height = 1,
     wrap_type = "none"
   )
 
@@ -374,8 +382,10 @@ test_that("add floating image with wrap none", {
 test_that("add floating image with all custom params", {
   float_img <- floating_external_img(
     img.file,
-    width = 2.5, height = 1.8,
-    pos_x = 0.75, pos_y = 1.25,
+    width = 2.5,
+    height = 1.8,
+    pos_x = 0.75,
+    pos_y = 1.25,
     pos_h_from = "column",
     pos_v_from = "line",
     wrap_type = "through",
@@ -398,12 +408,12 @@ test_that("add floating image with all custom params", {
   node_pos_h <- xml_find_first(body, "//wp:positionH")
   expect_equal(xml_attr(node_pos_h, "relativeFrom"), "column")
   pos_x_offset <- xml_text(xml_find_first(node_pos_h, "wp:posOffset"))
-  expect_equal(pos_x_offset, "685800")  # 0.75 inch
+  expect_equal(pos_x_offset, "685800") # 0.75 inch
 
   node_pos_v <- xml_find_first(body, "//wp:positionV")
   expect_equal(xml_attr(node_pos_v, "relativeFrom"), "line")
   pos_y_offset <- xml_text(xml_find_first(node_pos_v, "wp:posOffset"))
-  expect_equal(pos_y_offset, "1143000")  # 1.25 inches
+  expect_equal(pos_y_offset, "1143000") # 1.25 inches
 
   # Check wrapping
   node_wrap <- xml_find_first(body, "//wp:wrapThrough")
@@ -411,10 +421,10 @@ test_that("add floating image with all custom params", {
   expect_equal(xml_attr(node_wrap, "wrapText"), "right")
 
   # Check distances
-  expect_equal(xml_attr(node_anchor, "distT"), "45720")   # 0.05 inch
-  expect_equal(xml_attr(node_anchor, "distB"), "137160")  # 0.15 inch
-  expect_equal(xml_attr(node_anchor, "distL"), "228600")  # 0.25 inch
-  expect_equal(xml_attr(node_anchor, "distR"), "320040")  # 0.35 inch
+  expect_equal(xml_attr(node_anchor, "distT"), "45720") # 0.05 inch
+  expect_equal(xml_attr(node_anchor, "distB"), "137160") # 0.15 inch
+  expect_equal(xml_attr(node_anchor, "distL"), "228600") # 0.25 inch
+  expect_equal(xml_attr(node_anchor, "distR"), "320040") # 0.35 inch
 
   # Check dimensions (2.5 inches = 2286000 EMUs, 1.8 inches = 1645920 EMUs)
   node_extent <- xml_find_first(body, "//wp:extent")
@@ -428,8 +438,10 @@ test_that("add floating image with all custom params", {
 test_that("add floating image in RTF with default params", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 0.75,
-    pos_x = 0.5, pos_y = 1
+    width = 1,
+    height = 0.75,
+    pos_x = 0.5,
+    pos_y = 1
   )
 
   doc <- rtf_doc()
@@ -444,12 +456,15 @@ test_that("add floating image in RTF with default params", {
   expect_true(grepl("\\{\\\\\\*\\\\shpinst", rtf_text))
 
   # Check shapeType = 75 (picture frame)
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn shapeType\\}\\{\\\\sv 75\\}\\}", rtf_text))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn shapeType\\}\\{\\\\sv 75\\}\\}",
+    rtf_text
+  ))
 
   # Check position (0.5 inch = 720 twips, 1 inch = 1440 twips)
   expect_true(grepl("\\\\shpleft720", rtf_text))
   expect_true(grepl("\\\\shptop1440", rtf_text))
-  expect_true(grepl("\\\\shpright2160", rtf_text))  # left (720) + width (1440)
+  expect_true(grepl("\\\\shpright2160", rtf_text)) # left (720) + width (1440)
   expect_true(grepl("\\\\shpbottom2520", rtf_text)) # top (1440) + height (1080)
 
   # Check default positioning (margin)
@@ -475,8 +490,10 @@ test_that("add floating image in RTF with default params", {
 test_that("add floating image in RTF with custom positioning", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 1.5, pos_y = 2.5,
+    width = 1,
+    height = 1,
+    pos_x = 1.5,
+    pos_y = 2.5,
     pos_h_from = "page",
     pos_v_from = "paragraph"
   )
@@ -501,8 +518,10 @@ test_that("add floating image in RTF with custom positioning", {
 test_that("add floating image in RTF with tight wrap left", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 1, pos_y = 1,
+    width = 1,
+    height = 1,
+    pos_x = 1,
+    pos_y = 1,
     wrap_type = "tight",
     wrap_side = "left"
   )
@@ -525,8 +544,10 @@ test_that("add floating image in RTF with tight wrap left", {
 test_that("add floating image in RTF with topAndBottom wrap", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 1, pos_y = 1,
+    width = 1,
+    height = 1,
+    pos_x = 1,
+    pos_y = 1,
     wrap_type = "topAndBottom"
   )
 
@@ -545,8 +566,10 @@ test_that("add floating image in RTF with topAndBottom wrap", {
 test_that("add floating image in RTF with through wrap right", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 1, pos_y = 1,
+    width = 1,
+    height = 1,
+    pos_x = 1,
+    pos_y = 1,
     wrap_type = "through",
     wrap_side = "right"
   )
@@ -569,8 +592,10 @@ test_that("add floating image in RTF with through wrap right", {
 test_that("add floating image in RTF with none wrap", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 1, pos_y = 1,
+    width = 1,
+    height = 1,
+    pos_x = 1,
+    pos_y = 1,
     wrap_type = "none"
   )
 
@@ -589,8 +614,10 @@ test_that("add floating image in RTF with none wrap", {
 test_that("add floating image in RTF with custom wrap distances", {
   float_img <- floating_external_img(
     img.file,
-    width = 1, height = 1,
-    pos_x = 1, pos_y = 1,
+    width = 1,
+    height = 1,
+    pos_x = 1,
+    pos_y = 1,
     wrap_dist_top = 0.1,
     wrap_dist_bottom = 0.2,
     wrap_dist_left = 0.15,
@@ -609,18 +636,32 @@ test_that("add floating image in RTF with custom wrap distances", {
   # 0.2 inch = 182880 EMUs
   # 0.15 inch = 137160 EMUs
   # 0.25 inch = 228600 EMUs
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dxWrapDistLeft\\}\\{\\\\sv 137160\\}\\}", rtf_text))
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dxWrapDistRight\\}\\{\\\\sv 228600\\}\\}", rtf_text))
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dyWrapDistTop\\}\\{\\\\sv 91440\\}\\}", rtf_text))
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dyWrapDistBottom\\}\\{\\\\sv 182880\\}\\}", rtf_text))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dxWrapDistLeft\\}\\{\\\\sv 137160\\}\\}",
+    rtf_text
+  ))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dxWrapDistRight\\}\\{\\\\sv 228600\\}\\}",
+    rtf_text
+  ))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dyWrapDistTop\\}\\{\\\\sv 91440\\}\\}",
+    rtf_text
+  ))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dyWrapDistBottom\\}\\{\\\\sv 182880\\}\\}",
+    rtf_text
+  ))
 })
 
 
 test_that("add floating image in RTF with all custom params", {
   float_img <- floating_external_img(
     img.file,
-    width = 2, height = 1.5,
-    pos_x = 0.75, pos_y = 1.25,
+    width = 2,
+    height = 1.5,
+    pos_x = 0.75,
+    pos_y = 1.25,
     pos_h_from = "column",
     pos_v_from = "page",
     wrap_type = "square",
@@ -659,10 +700,22 @@ test_that("add floating image in RTF with all custom params", {
   # 0.1 inch = 91440 EMUs
   # 0.15 inch = 137160 EMUs
   # 0.2 inch = 182880 EMUs
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dyWrapDistTop\\}\\{\\\\sv 45720\\}\\}", rtf_text))
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dyWrapDistBottom\\}\\{\\\\sv 91440\\}\\}", rtf_text))
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dxWrapDistLeft\\}\\{\\\\sv 137160\\}\\}", rtf_text))
-  expect_true(grepl("\\{\\\\sp\\{\\\\sn dxWrapDistRight\\}\\{\\\\sv 182880\\}\\}", rtf_text))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dyWrapDistTop\\}\\{\\\\sv 45720\\}\\}",
+    rtf_text
+  ))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dyWrapDistBottom\\}\\{\\\\sv 91440\\}\\}",
+    rtf_text
+  ))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dxWrapDistLeft\\}\\{\\\\sv 137160\\}\\}",
+    rtf_text
+  ))
+  expect_true(grepl(
+    "\\{\\\\sp\\{\\\\sn dxWrapDistRight\\}\\{\\\\sv 182880\\}\\}",
+    rtf_text
+  ))
 
   # Check picture dimensions in twips (2 inch = 2880 twips, 1.5 inch = 2160 twips)
   expect_true(grepl("\\\\picwgoal2880", rtf_text))
@@ -775,7 +828,10 @@ test_that("from_base64 with invalid input type", {
 })
 
 test_that("from_base64 with invalid base64 string", {
-  expect_error(from_base64("not_valid_base64!!!"), "Failed to decode Base64 element")
+  expect_error(
+    from_base64("not_valid_base64!!!"),
+    "Failed to decode Base64 element"
+  )
 })
 
 

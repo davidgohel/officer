@@ -99,7 +99,12 @@ cursor_bookmark <- function(x, id) {
     !inherits(match_node, "xml_missing")
   })
   if (!any(test_start)) {
-    stop("bookmark ", shQuote(id), " has not been found in the document", call. = FALSE)
+    stop(
+      "bookmark ",
+      shQuote(id),
+      " has not been found in the document",
+      call. = FALSE
+    )
   }
 
   test_end <- sapply(nodes_with_text, function(node) {
@@ -110,7 +115,12 @@ cursor_bookmark <- function(x, id) {
 
   on_same_par <- test_start == test_end
   if (!all(on_same_par)) {
-    stop("bookmark ", shQuote(id), " does not end in the same paragraph (or is on the whole paragraph)", call. = FALSE)
+    stop(
+      "bookmark ",
+      shQuote(id),
+      " does not end in the same paragraph (or is on the whole paragraph)",
+      call. = FALSE
+    )
   }
 
   x$officer_cursor$which <- which(test_start)[1]
@@ -199,7 +209,10 @@ cursor_reach_test <- function(x, keyword) {
 #' @section cursor_forward:
 #' Move the cursor forward, it increments the cursor in the document.
 cursor_forward <- function(x) {
-  x$officer_cursor$which <- min(c(length(x$officer_cursor$nodes_names), x$officer_cursor$which + 1L))
+  x$officer_cursor$which <- min(c(
+    length(x$officer_cursor$nodes_names),
+    x$officer_cursor$which + 1L
+  ))
   x
 }
 

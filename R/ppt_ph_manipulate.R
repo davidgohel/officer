@@ -3,19 +3,37 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL) {
 
   if (is.null(ph_label)) {
     sel <- which(slsmry$type %in% type)
-    if (length(sel) < 1) stop("no shape of type ", shQuote(type), " has been found")
+    if (length(sel) < 1) {
+      stop("no shape of type ", shQuote(type), " has been found")
+    }
     sel <- sel[id]
-    if (sum(is.finite(sel)) != 1) stop("no shape of type ", shQuote(type), " and with id ", id, " has been found")
+    if (sum(is.finite(sel)) != 1) {
+      stop(
+        "no shape of type ",
+        shQuote(type),
+        " and with id ",
+        id,
+        " has been found"
+      )
+    }
   } else {
     sel <- which(slsmry$ph_label %in% ph_label)
-    if (length(sel) < 1) stop("no shape with label ", shQuote(ph_label), " has been found")
+    if (length(sel) < 1) {
+      stop("no shape with label ", shQuote(ph_label), " has been found")
+    }
     sel <- sel[id]
-    if (sum(is.finite(sel)) != 1) stop("no shape with label ", shQuote(ph_label), "and with id ", id, " has been found")
+    if (sum(is.finite(sel)) != 1) {
+      stop(
+        "no shape with label ",
+        shQuote(ph_label),
+        "and with id ",
+        id,
+        " has been found"
+      )
+    }
   }
   slsmry$id[sel]
 }
-
-
 
 
 #' @export
@@ -69,15 +87,23 @@ get_shape_id <- function(x, type = NULL, id = NULL, ph_label = NULL) {
 #' print(doc, target = fileout)
 #' @family functions for placeholders manipulation
 #' @seealso [ph_with()]
-ph_remove <- function(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL) {
+ph_remove <- function(
+  x,
+  type = "body",
+  id = 1,
+  ph_label = NULL,
+  id_chr = NULL
+) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[*/p:cNvPr[@id='%s']]", office_id))
+  current_elt <- xml_find_first(
+    slide$get(),
+    sprintf("p:cSld/p:spTree/*[*/p:cNvPr[@id='%s']]", office_id)
+  )
   xml_remove(current_elt)
 
   x
 }
-
 
 
 #' @export
@@ -100,10 +126,20 @@ ph_remove <- function(x, type = "body", id = 1, ph_label = NULL, id_chr = NULL) 
 #' print(doc, target = fileout)
 #' @family functions for placeholders manipulation
 #' @seealso [ph_with()]
-ph_slidelink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, slide_index) {
+ph_slidelink <- function(
+  x,
+  type = "body",
+  id = 1,
+  id_chr = NULL,
+  ph_label = NULL,
+  slide_index
+) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id))
+  current_elt <- xml_find_first(
+    slide$get(),
+    sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", office_id)
+  )
 
   # declare slide ref in relationships
   slide_name <- x$slide$names()[slide_index]
@@ -141,10 +177,24 @@ ph_slidelink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NUL
 #' print(doc, target = fileout)
 #' @family functions for placeholders manipulation
 #' @seealso [ph_with()]
-ph_hyperlink <- function(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href) {
+ph_hyperlink <- function(
+  x,
+  type = "body",
+  id = 1,
+  id_chr = NULL,
+  ph_label = NULL,
+  href
+) {
   slide <- x$slide$get_slide(x$cursor)
   office_id <- get_shape_id(x, type = type, id = id, ph_label = ph_label)
-  current_elt <- xml_find_first(slide$get(), sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]|p:cSld/p:spTree/*[p:nvPicPr/p:cNvPr[@id='%s']]", office_id, office_id))
+  current_elt <- xml_find_first(
+    slide$get(),
+    sprintf(
+      "p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]|p:cSld/p:spTree/*[p:nvPicPr/p:cNvPr[@id='%s']]",
+      office_id,
+      office_id
+    )
+  )
 
   # add hlinkClick
   if (xml_name(current_elt) %in% "pic") {

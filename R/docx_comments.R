@@ -45,8 +45,10 @@ docx_comments <- function(x) {
 
   comment_ids <- xml_attr(
     xml_find_all(
-      x$doc_obj$get(), "/w:document/w:body//*[self::w:commentRangeStart]"
-    ), "id"
+      x$doc_obj$get(),
+      "/w:document/w:body//*[self::w:commentRangeStart]"
+    ),
+    "id"
   )
 
   comment_text_runs <- lapply(comment_ids, function(id) {
@@ -54,9 +56,13 @@ docx_comments <- function(x) {
       x$doc_obj$get(),
       paste0(
         "/w:document/w:body//*[self::w:r[w:t and",
-        "preceding::w:commentRangeStart[@w:id=\'", id, "\']",
+        "preceding::w:commentRangeStart[@w:id=\'",
+        id,
+        "\']",
         " and ",
-        "following::w:commentRangeEnd[@w:id=\'", id, "\']]]"
+        "following::w:commentRangeEnd[@w:id=\'",
+        id,
+        "\']]]"
       )
     )
   })

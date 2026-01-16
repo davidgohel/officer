@@ -133,10 +133,22 @@ test_that("to_rtf with fp_par_lite", {
 
 test_that("border_rtf", {
   x <- fp_border()
-  expect_equal(border_rtf(x, side = "right"), "\\clbrdrr\\brdrs\\brdrw20%ftlinecolor:black%")
-  expect_equal(border_rtf(x, side = "left"), "\\clbrdrl\\brdrs\\brdrw20%ftlinecolor:black%")
-  expect_equal(border_rtf(x, side = "top"), "\\clbrdrt\\brdrs\\brdrw20%ftlinecolor:black%")
-  expect_equal(border_rtf(x, side = "bottom"), "\\clbrdrb\\brdrs\\brdrw20%ftlinecolor:black%")
+  expect_equal(
+    border_rtf(x, side = "right"),
+    "\\clbrdrr\\brdrs\\brdrw20%ftlinecolor:black%"
+  )
+  expect_equal(
+    border_rtf(x, side = "left"),
+    "\\clbrdrl\\brdrs\\brdrw20%ftlinecolor:black%"
+  )
+  expect_equal(
+    border_rtf(x, side = "top"),
+    "\\clbrdrt\\brdrs\\brdrw20%ftlinecolor:black%"
+  )
+  expect_equal(
+    border_rtf(x, side = "bottom"),
+    "\\clbrdrb\\brdrs\\brdrw20%ftlinecolor:black%"
+  )
 })
 
 test_that("fp_text_lite and rtf", {

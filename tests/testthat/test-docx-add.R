@@ -278,7 +278,6 @@ test_that("svg add", {
 })
 
 test_that("add docx into docx", {
-
   file_1 <- tempfile(fileext = ".docx")
   img.file <- file.path(R.home("doc"), "html", "logo.jpg")
   doc <- read_docx()
@@ -386,17 +385,64 @@ test_that("body_add R objects", {
   doc_summary <- docx_summary(doc)
 
   txt <- doc_summary$text
-  ref <- c("a", "b", "c", "d", "e", "setosa", "setosa", "setosa", "setosa",
-           "setosa", "1", "2", "3", "4", "5", "hello", "Sepal.Length", "Sepal.Width",
-           "Petal.Length", "Petal.Width", "Species", "5.1", "3.5", "1.4",
-           "0.2", "setosa", "4.9", "3.0", "1.4", "0.2", "setosa", "4.7",
-           "3.2", "1.3", "0.2", "setosa", "4.6", "3.1", "1.5", "0.2", "setosa",
-           "5.0", "3.6", "1.4", "0.2", "setosa", "5.4", "3.9", "1.7", "0.4",
-           "setosa")
+  ref <- c(
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "setosa",
+    "setosa",
+    "setosa",
+    "setosa",
+    "setosa",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "hello",
+    "Sepal.Length",
+    "Sepal.Width",
+    "Petal.Length",
+    "Petal.Width",
+    "Species",
+    "5.1",
+    "3.5",
+    "1.4",
+    "0.2",
+    "setosa",
+    "4.9",
+    "3.0",
+    "1.4",
+    "0.2",
+    "setosa",
+    "4.7",
+    "3.2",
+    "1.3",
+    "0.2",
+    "setosa",
+    "4.6",
+    "3.1",
+    "1.5",
+    "0.2",
+    "setosa",
+    "5.0",
+    "3.6",
+    "1.4",
+    "0.2",
+    "setosa",
+    "5.4",
+    "3.9",
+    "1.7",
+    "0.4",
+    "setosa"
+  )
   expect_equal(txt, ref)
 
   table_style_name <- doc_summary[
-    !is.na(doc_summary$table_index), ]$table_stylename
+    !is.na(doc_summary$table_index),
+  ]$table_stylename
   table_style_name <- unique(table_style_name)
   expect_equal(table_style_name, "table_template")
 })

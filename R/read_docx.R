@@ -73,9 +73,10 @@ read_docx <- function(path = NULL) {
   package_dir <- tempfile()
   unpack_folder(file = path, folder = package_dir)
 
-  obj <- structure(list(package_dir = package_dir),
-                   .Names = c("package_dir"),
-                   class = "rdocx"
+  obj <- structure(
+    list(package_dir = package_dir),
+    .Names = c("package_dir"),
+    class = "rdocx"
   )
 
   obj$settings <- update_docx_settings_from_file(
@@ -98,8 +99,16 @@ read_docx <- function(path = NULL) {
   obj$styles <- read_docx_styles(package_dir)
   obj$officer_cursor <- officer_cursor(obj$doc_obj$get())
 
-  obj$headers <- update_hf_list(part_list = list(), type = "header", package_dir = package_dir)
-  obj$footers <- update_hf_list(part_list = list(), type = "footer", package_dir = package_dir)
+  obj$headers <- update_hf_list(
+    part_list = list(),
+    type = "header",
+    package_dir = package_dir
+  )
+  obj$footers <- update_hf_list(
+    part_list = list(),
+    type = "footer",
+    package_dir = package_dir
+  )
 
   if (!file.exists(file.path(package_dir, "word", "comments.xml"))) {
     file.copy(
@@ -108,14 +117,18 @@ read_docx <- function(path = NULL) {
       copy.mode = FALSE
     )
     obj$content_type$add_override(
-      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml", "/word/comments.xml")
+      setNames(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml",
+        "/word/comments.xml"
+      )
     )
   }
 
   obj$comments <- docx_part$new(
     package_dir,
     main_file = "comments.xml",
-    cursor = "/w:comments/*[last()]", body_xpath = "/w:comments"
+    cursor = "/w:comments/*[last()]",
+    body_xpath = "/w:comments"
   )
 
   if (!file.exists(file.path(package_dir, "word", "footnotes.xml"))) {
@@ -125,7 +138,10 @@ read_docx <- function(path = NULL) {
       copy.mode = FALSE
     )
     obj$content_type$add_override(
-      setNames("application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml", "/word/footnotes.xml")
+      setNames(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml",
+        "/word/footnotes.xml"
+      )
     )
   }
 
@@ -137,9 +153,15 @@ read_docx <- function(path = NULL) {
   )
 
   default_refs <- obj$styles[obj$styles$is_default, ]
-  obj$default_styles <- setNames(as.list(default_refs$style_name), default_refs$style_type)
+  obj$default_styles <- setNames(
+    as.list(default_refs$style_name),
+    default_refs$style_type
+  )
 
-  last_sect <- xml_find_first(obj$doc_obj$get(), "/w:document/w:body/w:sectPr[last()]")
+  last_sect <- xml_find_first(
+    obj$doc_obj$get(),
+    "/w:document/w:body/w:sectPr[last()]"
+  )
   obj$sect_dim <- section_dimensions(last_sect)
 
   obj <- cursor_end(obj)
@@ -157,7 +179,7 @@ read_docx <- function(path = NULL) {
 #' doc <- read_docx()
 #' docx_body_xml(doc)
 #' @keywords internal
-docx_body_xml <- function( x ){
+docx_body_xml <- function(x) {
   x$doc_obj$get()
 }
 #' @export
@@ -171,7 +193,7 @@ docx_body_xml <- function( x ){
 #' doc <- read_docx()
 #' docx_current_block_xml(doc)
 #' @keywords internal
-docx_current_block_xml <- function( x ){
+docx_current_block_xml <- function(x) {
   ooxml_on_cursor(x$officer_cursor, x$doc_obj$get())
 }
 
@@ -185,6 +207,6 @@ docx_current_block_xml <- function( x ){
 #' doc <- read_docx()
 #' docx_body_relationship(doc)
 #' @keywords internal
-docx_body_relationship <- function( x ){
+docx_body_relationship <- function(x) {
   x$doc_obj$relationship()
 }

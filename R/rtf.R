@@ -50,7 +50,6 @@ to_rtf.block_list <- function(x, ...) {
 }
 
 
-
 ## to_rtf chunks ----
 
 #' @export
@@ -99,7 +98,8 @@ to_rtf.external_img <- function(x, ...) {
 
   rtf_str <- sprintf(
     "{\\pict\\pngblip\\picwgoal%.0f\\pichgoal%.0f ",
-    width * 1440, height * 1440
+    width * 1440,
+    height * 1440
   )
   paste(rtf_str, dat, "\n}", sep = "")
 }
@@ -156,13 +156,14 @@ to_rtf.floating_external_img <- function(x, ...) {
   # 3 = none (as if shape isn't present)
   # 4 = wrap tightly
   # 5 = wrap text through shape
-  wrap_code <- switch(wrap_type,
+  wrap_code <- switch(
+    wrap_type,
     "square" = "\\shpwr2",
     "tight" = "\\shpwr4",
     "topAndBottom" = "\\shpwr1",
     "through" = "\\shpwr5",
     "none" = "\\shpwr3",
-    "\\shpwr2"  # Default to square wrap
+    "\\shpwr2" # Default to square wrap
   )
 
   # RTF wrap side codes for \shpwrk:
@@ -170,51 +171,56 @@ to_rtf.floating_external_img <- function(x, ...) {
   # 1 = wrap left side only
   # 2 = wrap right side only
   # 3 = wrap only on largest side
-  wrap_side_code <- switch(wrap_side,
+  wrap_side_code <- switch(
+    wrap_side,
     "bothSides" = "\\shpwrk0",
     "left" = "\\shpwrk1",
     "right" = "\\shpwrk2",
     "largest" = "\\shpwrk3",
-    "\\shpwrk0"  # Default
+    "\\shpwrk0" # Default
   )
 
   # RTF positioning codes
   # Horizontal positioning relative to:
   # \shpbxpage = page, \shpbxmargin = margin, \shpbxcolumn = column
-  pos_h_code <- switch(pos_h_from,
+  pos_h_code <- switch(
+    pos_h_from,
     "page" = "\\shpbxpage",
     "margin" = "\\shpbxmargin",
     "column" = "\\shpbxcolumn",
     "character" = "\\shpbxcolumn",
-    "\\shpbxmargin"  # Default
+    "\\shpbxmargin" # Default
   )
 
   # Vertical positioning relative to:
   # \shpbypage = page, \shpbymargin = margin, \shpbypara = paragraph
-  pos_v_code <- switch(pos_v_from,
+  pos_v_code <- switch(
+    pos_v_from,
     "page" = "\\shpbypage",
     "margin" = "\\shpbymargin",
     "paragraph" = "\\shpbypara",
     "line" = "\\shpbypara",
-    "\\shpbymargin"  # Default
+    "\\shpbymargin" # Default
   )
 
   # posrelh property: 0=margin, 1=page, 2=column
-  posrelh <- switch(pos_h_from,
+  posrelh <- switch(
+    pos_h_from,
     "margin" = 0,
     "page" = 1,
     "column" = 2,
     "character" = 2,
-    0  # Default to margin
+    0 # Default to margin
   )
 
   # posrelv property: 0=margin, 1=page, 2=paragraph
-  posrelv <- switch(pos_v_from,
+  posrelv <- switch(
+    pos_v_from,
     "margin" = 0,
     "page" = 1,
     "paragraph" = 2,
     "line" = 2,
-    0  # Default to margin
+    0 # Default to margin
   )
 
   # Build the RTF shape structure following Word's format:
@@ -225,16 +231,23 @@ to_rtf.floating_external_img <- function(x, ...) {
 
   rtf_str <- paste0(
     "{\\shp",
-    sprintf("\\shpleft%.0f\\shptop%.0f\\shpright%.0f\\shpbottom%.0f",
-            pos_x_twips, pos_y_twips,
-            pos_x_twips + width_twips, pos_y_twips + height_twips),
-    "\\shpfhdr0",  # Not in header/footer
-    pos_h_code, "\\shpbxignore",  # Horizontal positioning
-    pos_v_code, "\\shpbyignore",  # Vertical positioning
-    wrap_code, wrap_side_code,  # Wrap type and side
-    "\\shpfblwtxt0",  # Image in front of text
-    "\\shpz0",  # Z-order
-    "\\shplid1027"  # Shape ID
+    sprintf(
+      "\\shpleft%.0f\\shptop%.0f\\shpright%.0f\\shpbottom%.0f",
+      pos_x_twips,
+      pos_y_twips,
+      pos_x_twips + width_twips,
+      pos_y_twips + height_twips
+    ),
+    "\\shpfhdr0", # Not in header/footer
+    pos_h_code,
+    "\\shpbxignore", # Horizontal positioning
+    pos_v_code,
+    "\\shpbyignore", # Vertical positioning
+    wrap_code,
+    wrap_side_code, # Wrap type and side
+    "\\shpfblwtxt0", # Image in front of text
+    "\\shpz0", # Z-order
+    "\\shplid1027" # Shape ID
   )
 
   # Start the shape properties ({\*\shpinst ...})
@@ -249,22 +262,36 @@ to_rtf.floating_external_img <- function(x, ...) {
     rtf_str,
     sprintf(
       "{\\sp{\\sn pib}{\\sv {\\pict\\pngblip\\picwgoal%.0f\\pichgoal%.0f %s}}}",
-      width_twips, height_twips, dat
+      width_twips,
+      height_twips,
+      dat
     )
   )
 
   # Add wrap distances (in EMUs)
   if (dist_l_emus > 0) {
-    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dxWrapDistLeft}{\\sv %.0f}}", dist_l_emus))
+    rtf_str <- paste0(
+      rtf_str,
+      sprintf("{\\sp{\\sn dxWrapDistLeft}{\\sv %.0f}}", dist_l_emus)
+    )
   }
   if (dist_r_emus > 0) {
-    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dxWrapDistRight}{\\sv %.0f}}", dist_r_emus))
+    rtf_str <- paste0(
+      rtf_str,
+      sprintf("{\\sp{\\sn dxWrapDistRight}{\\sv %.0f}}", dist_r_emus)
+    )
   }
   if (dist_t_emus > 0) {
-    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dyWrapDistTop}{\\sv %.0f}}", dist_t_emus))
+    rtf_str <- paste0(
+      rtf_str,
+      sprintf("{\\sp{\\sn dyWrapDistTop}{\\sv %.0f}}", dist_t_emus)
+    )
   }
   if (dist_b_emus > 0) {
-    rtf_str <- paste0(rtf_str, sprintf("{\\sp{\\sn dyWrapDistBottom}{\\sv %.0f}}", dist_b_emus))
+    rtf_str <- paste0(
+      rtf_str,
+      sprintf("{\\sp{\\sn dyWrapDistBottom}{\\sv %.0f}}", dist_b_emus)
+    )
   }
 
   # Add positioning properties (posrelh, posrelv are not in the Word example,
@@ -342,7 +369,10 @@ to_rtf.run_autonum <- function(x, ...) {
 
   if (x$tnd > 0) {
     z <- paste0(
-      to_rtf(run_word_field(field = paste0("STYLEREF ", x$tnd, " \\r"), prop = x$pr)),
+      to_rtf(run_word_field(
+        field = paste0("STYLEREF ", x$tnd, " \\r"),
+        prop = x$pr
+      )),
       to_rtf(ftext(x$tns, prop = x$pr))
     )
     sf_str <- paste0(z, sf_str)
@@ -367,7 +397,10 @@ to_rtf.run_autonum <- function(x, ...) {
 
 #' @export
 to_rtf.run_reference <- function(x, ...) {
-  out <- to_rtf(run_word_field(field = paste0(" REF ", x$id, " \\\\h "), prop = x$pr))
+  out <- to_rtf(run_word_field(
+    field = paste0(" REF ", x$id, " \\\\h "),
+    prop = x$pr
+  ))
   out
 }
 
@@ -413,10 +446,18 @@ to_rtf.prop_section <- function(x, ...) {
     hfr_str <- paste0(str_h, str_f)
   } else if ("evenodd" %in% hfr_type) {
     extra_rtf <- "\\facingp"
-    if (!is.null(x$header_default)) str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
-    if (!is.null(x$header_even)) str_h_even <- paste0("{\\headerr ", to_rtf(x$header_even), "}")
-    if (!is.null(x$footer_default)) str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
-    if (!is.null(x$footer_even)) str_f_even <- paste0("{\\footerr ", to_rtf(x$footer_even), "}")
+    if (!is.null(x$header_default)) {
+      str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
+    }
+    if (!is.null(x$header_even)) {
+      str_h_even <- paste0("{\\headerr ", to_rtf(x$header_even), "}")
+    }
+    if (!is.null(x$footer_default)) {
+      str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
+    }
+    if (!is.null(x$footer_even)) {
+      str_f_even <- paste0("{\\footerr ", to_rtf(x$footer_even), "}")
+    }
     hfr_str <- paste0(
       str_h,
       str_h_even,
@@ -425,12 +466,24 @@ to_rtf.prop_section <- function(x, ...) {
     )
   } else if ("evenoddfirst" %in% hfr_type) {
     extra_rtf <- "\\facingp\\titlepg"
-    if (!is.null(x$header_default)) str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
-    if (!is.null(x$header_even)) str_h_even <- paste0("{\\headerr ", to_rtf(x$header_even), "}")
-    if (!is.null(x$header_first)) str_h_first <- paste0("{\\headerf ", to_rtf(x$header_first), "}")
-    if (!is.null(x$footer_default)) str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
-    if (!is.null(x$footer_even)) str_f_even <- paste0("{\\footerr ", to_rtf(x$footer_even), "}")
-    if (!is.null(x$footer_first)) str_f_first <- paste0("{\\footerf ", to_rtf(x$footer_first), "}")
+    if (!is.null(x$header_default)) {
+      str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
+    }
+    if (!is.null(x$header_even)) {
+      str_h_even <- paste0("{\\headerr ", to_rtf(x$header_even), "}")
+    }
+    if (!is.null(x$header_first)) {
+      str_h_first <- paste0("{\\headerf ", to_rtf(x$header_first), "}")
+    }
+    if (!is.null(x$footer_default)) {
+      str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
+    }
+    if (!is.null(x$footer_even)) {
+      str_f_even <- paste0("{\\footerr ", to_rtf(x$footer_even), "}")
+    }
+    if (!is.null(x$footer_first)) {
+      str_f_first <- paste0("{\\footerf ", to_rtf(x$footer_first), "}")
+    }
     hfr_str <- paste0(
       str_h,
       str_h_even,
@@ -441,10 +494,18 @@ to_rtf.prop_section <- function(x, ...) {
     )
   } else {
     extra_rtf <- "\\titlepg"
-    if (!is.null(x$header_default)) str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
-    if (!is.null(x$header_first)) str_h_first <- paste0("{\\headerf ", to_rtf(x$header_first), "}")
-    if (!is.null(x$footer_default)) str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
-    if (!is.null(x$footer_first)) str_f_first <- paste0("{\\footerf ", to_rtf(x$footer_first), "}")
+    if (!is.null(x$header_default)) {
+      str_h <- paste0("{\\headerl ", to_rtf(x$header_default), "}")
+    }
+    if (!is.null(x$header_first)) {
+      str_h_first <- paste0("{\\headerf ", to_rtf(x$header_first), "}")
+    }
+    if (!is.null(x$footer_default)) {
+      str_f <- paste0("{\\footerl ", to_rtf(x$footer_default), "}")
+    }
+    if (!is.null(x$footer_first)) {
+      str_f_first <- paste0("{\\footerf ", to_rtf(x$footer_first), "}")
+    }
     hfr_str <- paste0(
       str_h,
       str_h_first,
@@ -501,7 +562,6 @@ to_rtf.page_mar <- function(x, ...) {
 
 #' @export
 to_rtf.page_size <- function(x, ...) {
-
   if (!is.null(x$width) && !is.null(x$height)) {
     out <- sprintf(
       "\\pghsxn%.0f\\pgwsxn%.0f%s",
@@ -521,7 +581,6 @@ to_rtf.page_size <- function(x, ...) {
     }
   }
 
-
   out
 }
 
@@ -533,7 +592,9 @@ to_rtf.section_columns <- function(x, ...) {
   columns_str <- sprintf("\\colw%.0f\\colsx%.0f", widths[length(widths)], space)
 
   linebetcol <- ""
-  if (x$sep) linebetcol <- "\\linebetcol"
+  if (x$sep) {
+    linebetcol <- "\\linebetcol"
+  }
 
   sprintf(
     "\\cols%.0f%s%s",
@@ -591,14 +652,16 @@ ppr_rtf <- function(x) {
   if (!is.na(x$padding.left) && !is.na(x$padding.right)) {
     leftright_padding <- sprintf(
       "\\fi0\\li%.0f\\ri%.0f",
-      x$padding.left * 20, x$padding.right * 20
+      x$padding.left * 20,
+      x$padding.right * 20
     )
   }
   topbot_spacing <- ""
   if (!is.na(x$padding.bottom) && !is.na(x$padding.top)) {
     topbot_spacing <- sprintf(
       "\\sb%.0f\\sa%.0f",
-      x$padding.bottom * 20, x$padding.top * 20
+      x$padding.bottom * 20,
+      x$padding.top * 20
     )
   }
 
@@ -627,7 +690,6 @@ rpr_rtf <- function(x) {
   if (!is.na(x$font.family)) {
     out <- paste0(out, "%font:", x$font.family, "%")
   }
-
 
   if (!is.na(x$italic)) {
     if (x$italic) {
@@ -697,8 +759,11 @@ border_rtf <- function(x, side) {
   color_ <- paste0("%ftlinecolor:", x$color, "%")
 
   paste0(
-    "\\clbrdr", substr(side, 1, 1), style_,
-    width_, color_
+    "\\clbrdr",
+    substr(side, 1, 1),
+    style_,
+    width_,
+    color_
   )
 }
 
@@ -738,10 +803,15 @@ tcpr_rtf <- function(x) {
   }
 
   paste0(
-    bb, bt, bl, br,
+    bb,
+    bt,
+    bl,
+    br,
     text.direction,
-    rowspan, colspan,
-    vertical.align, background.color
+    rowspan,
+    colspan,
+    vertical.align,
+    background.color
   )
 }
 
@@ -760,9 +830,11 @@ tcpr_rtf <- function(x) {
 #' @seealso [read_docx()], [print.rtf()], [rtf_add()]
 #' @return an object of class `rtf` representing an
 #' empty RTF document.
-rtf_doc <- function(def_sec = prop_section(),
-                    normal_par = fp_par(),
-                    normal_chunk = fp_text(font.family = "Arial", font.size = 11)) {
+rtf_doc <- function(
+  def_sec = prop_section(),
+  normal_par = fp_par(),
+  normal_chunk = fp_text(font.family = "Arial", font.size = 11)
+) {
   styles <- data.frame(
     style_name = "Normal",
     style_id = 1L,
@@ -923,13 +995,31 @@ rtf_add.block_list <- function(x, value, ...) {
 #' @param res resolution of the png image in ppi
 #' @param scale Multiplicative scaling factor, same as in ggsave
 #' @param ppr [fp_par()] to apply to paragraph.
-rtf_add.gg <- function(x, value, width = 6, height = 5, res = 300, scale = 1, ppr = fp_par(text.align = "center"), ...) {
+rtf_add.gg <- function(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  scale = 1,
+  ppr = fp_par(text.align = "center"),
+  ...
+) {
   if (!requireNamespace("ggplot2")) {
     stop("package ggplot2 is required to use this function")
   }
 
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
+  agg_png(
+    filename = file,
+    width = width,
+    height = height,
+    units = "in",
+    res = res,
+    scaling = scale,
+    background = "transparent",
+    ...
+  )
   tryCatch(
     {
       print(value)
@@ -940,7 +1030,12 @@ rtf_add.gg <- function(x, value, width = 6, height = 5, res = 300, scale = 1, pp
   )
 
   value <- fpar(
-    external_img(src = file, width = width, height = height, guess_size = FALSE),
+    external_img(
+      src = file,
+      width = width,
+      height = height,
+      guess_size = FALSE
+    ),
     fp_p = ppr
   )
 
@@ -949,9 +1044,27 @@ rtf_add.gg <- function(x, value, width = 6, height = 5, res = 300, scale = 1, pp
 }
 #' @export
 #' @describeIn rtf_add add a [plot_instr()] object
-rtf_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, scale = 1, ppr = fp_par(text.align = "center"), ...) {
+rtf_add.plot_instr <- function(
+  x,
+  value,
+  width = 6,
+  height = 5,
+  res = 300,
+  scale = 1,
+  ppr = fp_par(text.align = "center"),
+  ...
+) {
   file <- tempfile(fileext = ".png")
-  agg_png(filename = file, width = width, height = height, units = "in", res = res, scaling = scale, background = "transparent", ...)
+  agg_png(
+    filename = file,
+    width = width,
+    height = height,
+    units = "in",
+    res = res,
+    scaling = scale,
+    background = "transparent",
+    ...
+  )
   tryCatch(
     {
       eval(value$code)
@@ -962,7 +1075,12 @@ rtf_add.plot_instr <- function(x, value, width = 6, height = 5, res = 300, scale
   )
 
   value <- fpar(
-    external_img(src = file, width = width, height = height, guess_size = FALSE),
+    external_img(
+      src = file,
+      width = width,
+      height = height,
+      guess_size = FALSE
+    ),
     fp_p = ppr
   )
 
@@ -997,21 +1115,52 @@ print.rtf <- function(x, target = NULL, ...) {
 
   m <- gregexec(pattern = "\\%ftcolor\\:[a-zA-Z #0-9]+\\%", text = txt_to_scan)
   ftcolor <- unlist(regmatches(txt_to_scan, m))
-  m <- gregexec(pattern = "\\%ftshading\\:[a-zA-Z #0-9]+\\%", text = txt_to_scan)
+  m <- gregexec(
+    pattern = "\\%ftshading\\:[a-zA-Z #0-9]+\\%",
+    text = txt_to_scan
+  )
   ftshading <- unlist(regmatches(txt_to_scan, m))
-  m <- gregexec(pattern = "\\%ftlinecolor\\:[a-zA-Z #0-9]+\\%", text = txt_to_scan)
+  m <- gregexec(
+    pattern = "\\%ftlinecolor\\:[a-zA-Z #0-9]+\\%",
+    text = txt_to_scan
+  )
   ftlinecolor <- unlist(regmatches(txt_to_scan, m))
-  m <- gregexec(pattern = "\\%ftbgcolor\\:[a-zA-Z #0-9]+\\%", text = txt_to_scan)
+  m <- gregexec(
+    pattern = "\\%ftbgcolor\\:[a-zA-Z #0-9]+\\%",
+    text = txt_to_scan
+  )
   ftbgcolor <- unlist(regmatches(txt_to_scan, m))
 
   supported_highlight <- c(
-    "black", "blue", "cyan", "green", "magenta", "red",
-    "yellow", "darkblue", "darkcyan", "darkgreen",
-    "darkmagenta", "darkred", "#8B8000", "darkgrey", "lightgray"
+    "black",
+    "blue",
+    "cyan",
+    "green",
+    "magenta",
+    "red",
+    "yellow",
+    "darkblue",
+    "darkcyan",
+    "darkgreen",
+    "darkmagenta",
+    "darkred",
+    "#8B8000",
+    "darkgrey",
+    "lightgray"
   )
 
-  colors <- unique(c(ftcolor, ftshading, ftlinecolor, ftbgcolor, supported_highlight))
-  colors <- gsub("(^%(ftcolor|ftshading|ftlinecolor|ftbgcolor):|%$)", "", colors)
+  colors <- unique(c(
+    ftcolor,
+    ftshading,
+    ftlinecolor,
+    ftbgcolor,
+    supported_highlight
+  ))
+  colors <- gsub(
+    "(^%(ftcolor|ftshading|ftlinecolor|ftbgcolor):|%$)",
+    "",
+    colors
+  )
   color_table <- color_table(colors = colors)
 
   header <- c(
@@ -1022,8 +1171,12 @@ print.rtf <- function(x, target = NULL, ...) {
 
   default_sect <- to_rtf(x$default_section)
   all_strings <- c(
-    header, rtf_ss, default_sect, rtf_content,
-    attr(default_sect, "hfr"), "}"
+    header,
+    rtf_ss,
+    default_sect,
+    rtf_content,
+    attr(default_sect, "hfr"),
+    "}"
   )
 
   all_strings <- fix_font_ref(all_strings, family_table)
@@ -1060,7 +1213,9 @@ str_encode_to_rtf <- function(z) {
       charv[is_unic2b] <- paste0("\\uc1\\u", intv[is_unic2b], "?")
       charv[is_unic4b] <- paste0("\\uc1\\u", intv[is_unic4b] - 65536, "?")
       paste0(charv, collapse = "")
-    }, char_list, int_list,
+    },
+    char_list,
+    int_list,
     SIMPLIFY = TRUE
   )
   as.character(rtf_strings)
@@ -1091,7 +1246,9 @@ rtf_color_code <- function(color) {
   color <- as.vector(col2rgb(color, alpha = FALSE))
   sprintf(
     "\\red%.0f\\green%.0f\\blue%.0f;",
-    color[1], color[2], color[3]
+    color[1],
+    color[2],
+    color[3]
   )
 }
 
@@ -1107,7 +1264,8 @@ rtf_fp_tab <- function(x) {
 
   sprintf(
     "\\tx%.0f%s",
-    inch_to_tweep(x$pos), tab_style
+    inch_to_tweep(x$pos),
+    tab_style
   )
 }
 
@@ -1147,9 +1305,21 @@ fix_bg_color <- function(x, color_tbl) {
 }
 fix_font_shading <- function(x, color_tbl) {
   supported_highlight <- c(
-    "black", "blue", "cyan", "green", "magenta", "red",
-    "yellow", "darkblue", "darkcyan", "darkgreen",
-    "darkmagenta", "darkred", "#8B8000", "darkgrey", "lightgray"
+    "black",
+    "blue",
+    "cyan",
+    "green",
+    "magenta",
+    "red",
+    "yellow",
+    "darkblue",
+    "darkcyan",
+    "darkgreen",
+    "darkmagenta",
+    "darkred",
+    "#8B8000",
+    "darkgrey",
+    "lightgray"
   )
 
   supported_highlight <-
@@ -1164,8 +1334,16 @@ fix_font_shading <- function(x, color_tbl) {
     matches <- Filter(function(x) x > -1, m)
     if (length(matches) > 0) {
       used_shading <- unique(unlist(regmatches(x, m)))
-      if (!used_shading %in% c(supported_highlight$match_ftshading, "%ftshading:transparent%")) {
-        stop("chunk highlight color (", used_shading, ") in RTF can only have values: ", paste0(shQuote(supported_highlight$colors), collapse = ", "))
+      if (
+        !used_shading %in%
+          c(supported_highlight$match_ftshading, "%ftshading:transparent%")
+      ) {
+        stop(
+          "chunk highlight color (",
+          used_shading,
+          ") in RTF can only have values: ",
+          paste0(shQuote(supported_highlight$colors), collapse = ", ")
+        )
       }
     }
 
@@ -1186,7 +1364,12 @@ rtf_par_style <- function(fp_p = fp_par(), fp_t = NULL) {
 }
 
 # Not used in {officer}
-rtf_set_paragraph_style <- function(x, style_name, fp_p = fp_par(), fp_t = NULL) {
+rtf_set_paragraph_style <- function(
+  x,
+  style_name,
+  fp_p = fp_par(),
+  fp_t = NULL
+) {
   index <- which(x$styles$style_name %in% style_name)
   style_id <- if (length(index) < 1) {
     style_id <- nrow(x$styles) + 1L
@@ -1215,7 +1398,9 @@ rtf_stylesheet <- function(x) {
   for (i in seq_len(nrow(x$styles))) {
     out[i] <- sprintf(
       "\n{\\f%.0f\\s%.0f%s %s;}",
-      i, i, x$styles$rtf[i],
+      i,
+      i,
+      x$styles$rtf[i],
       x$styles$style_name[i]
     )
   }
@@ -1230,12 +1415,22 @@ rtf_stylesheet <- function(x) {
 # check for gregexec -----
 if (!"gregexec" %in% getNamespaceExports("base")) {
   # copied from R source, grep.R
-  gregexec <- function(pattern, text, ignore.case = FALSE, perl = FALSE,
-                       fixed = FALSE, useBytes = FALSE) {
+  gregexec <- function(
+    pattern,
+    text,
+    ignore.case = FALSE,
+    perl = FALSE,
+    fixed = FALSE,
+    useBytes = FALSE
+  ) {
     if (is.factor(text) && length(levels(text)) < length(text)) {
       out <- gregexec(
-        pattern, c(levels(text), NA_character_),
-        ignore.case, perl, fixed, useBytes
+        pattern,
+        c(levels(text), NA_character_),
+        ignore.case,
+        perl,
+        fixed,
+        useBytes
       )
       outna <- out[length(out)]
       out <- out[text]
@@ -1244,8 +1439,12 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
     }
 
     dat <- gregexpr(
-      pattern = pattern, text = text, ignore.case = ignore.case,
-      fixed = fixed, useBytes = useBytes, perl = perl
+      pattern = pattern,
+      text = text,
+      ignore.case = ignore.case,
+      fixed = fixed,
+      useBytes = useBytes,
+      perl = perl
     )
     if (perl && !fixed) {
       ## Perl generates match data, so use that
@@ -1271,10 +1470,14 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
       lapply(dat, process)
     } else {
       ## For TRE or fixed we must compute the match data ourselves
-      m1 <- lapply(regmatches(text, dat),
+      m1 <- lapply(
+        regmatches(text, dat),
         regexec,
-        pattern = pattern, ignore.case = ignore.case,
-        perl = perl, fixed = fixed, useBytes = useBytes
+        pattern = pattern,
+        ignore.case = ignore.case,
+        perl = perl,
+        fixed = fixed,
+        useBytes = useBytes
       )
       mlen <- lengths(m1)
       res <- vector("list", length(m1))

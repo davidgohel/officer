@@ -196,7 +196,6 @@ update_hf_list <- function(part_list = list(), type = "header", package_dir) {
 #' version
 #' @keywords internal
 sanitize_images <- function(x, warn_user = TRUE) {
-
   if (warn_user) {
     cli::cli_warn(
       c(
@@ -207,11 +206,10 @@ sanitize_images <- function(x, warn_user = TRUE) {
   }
 
   if (inherits(x, "rdocx")) {
-
     image_files <- c()
     all_docs <- append(x$headers, x$footers)
-    all_docs[[length(all_docs)+1]] <- x$doc_obj
-    all_docs[[length(all_docs)+1]] <- x$footnotes
+    all_docs[[length(all_docs) + 1]] <- x$doc_obj
+    all_docs[[length(all_docs) + 1]] <- x$footnotes
 
     for (doc_part in all_docs) {
       suppressWarnings({
@@ -233,12 +231,11 @@ sanitize_images <- function(x, warn_user = TRUE) {
         .data$id %in% embed_list
       )
       embed_data <- embed_data$target
-      image_files[[length(image_files)+1]] <- embed_data
+      image_files[[length(image_files) + 1]] <- embed_data
     }
 
     image_files <- do.call(c, image_files)
     image_files <- unique(image_files)
-
 
     base_doc <- file.path(x$package_dir, "word")
     existing_img <- list.files(
@@ -259,15 +256,14 @@ sanitize_images <- function(x, warn_user = TRUE) {
     for (doc_part in all_docs) {
       rel <- doc_part$relationship()
       rel_data <- rel$get_data()
-      rel_data <- rel_data[basename(rel_data$type) %in% "image",]
-      rel_data <- rel_data[!file.exists(file.path(base_doc, rel_data$target)),]
+      rel_data <- rel_data[basename(rel_data$type) %in% "image", ]
+      rel_data <- rel_data[!file.exists(file.path(base_doc, rel_data$target)), ]
       if (nrow(rel_data) > 0) {
         rel$remove(rel_data$target)
         doc_part$save()
       }
     }
   } else if (inherits(x, "rpptx")) {
-
     rel_files <- list.files(
       x$package_dir,
       pattern = "\\.xml.rels$",
@@ -293,7 +289,12 @@ sanitize_images <- function(x, warn_user = TRUE) {
       recursive = TRUE,
       full.names = TRUE
     )
-    existing_img <- gsub(paste0(base_doc, "/"), "../", existing_img, fixed = TRUE)
+    existing_img <- gsub(
+      paste0(base_doc, "/"),
+      "../",
+      existing_img,
+      fixed = TRUE
+    )
     unlink(
       file.path(base_doc, setdiff(existing_img, image_files)),
       force = TRUE

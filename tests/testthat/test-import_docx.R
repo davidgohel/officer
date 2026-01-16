@@ -6,7 +6,9 @@ test_that("body_import_docx messages", {
     x <- body_import_docx(
       x = x,
       src = system.file(
-        package = "officer", "doc_examples", "example.docx"
+        package = "officer",
+        "doc_examples",
+        "example.docx"
       )
     ),
     "Style(s) mapping(s) for 'paragraphs' are missing in the body of the document:",
@@ -18,7 +20,9 @@ test_that("body_import_docx messages", {
     x <- body_import_docx(
       x = x,
       src = system.file(
-        package = "officer", "doc_examples", "example.docx"
+        package = "officer",
+        "doc_examples",
+        "example.docx"
       ),
       par_style_mapping = list(
         "Normal" = c("List Paragraph")
@@ -34,7 +38,9 @@ test_that("body_import_docx messages", {
 test_that("body_import_docx copy the content", {
   tf <- tempfile(fileext = ".docx")
   fi <- system.file(
-    package = "officer", "doc_examples", "example.docx"
+    package = "officer",
+    "doc_examples",
+    "example.docx"
   )
   x <- read_docx()
   x <- body_import_docx(
@@ -63,7 +69,6 @@ test_that("body_import_docx copy the content", {
     head(new_doc_head)$style_name,
     c("heading 1", NA, "heading 1", "Normal", "Normal", "Normal")
   )
-
 })
 
 test_that("body_import_docx preserves abstractNum and num correspondence", {
@@ -100,9 +105,11 @@ test_that("body_import_docx preserves abstractNum and num correspondence", {
   numbering_file <- file.path(merged_doc$package_dir, "word/numbering.xml")
   merged_numbering_xml <- xml2::read_xml(numbering_file)
 
-
   # Extract abstractNum IDs
-  abstractnum_nodes <- xml2::xml_find_all(merged_numbering_xml, "//w:abstractNum")
+  abstractnum_nodes <- xml2::xml_find_all(
+    merged_numbering_xml,
+    "//w:abstractNum"
+  )
   abstractnum_ids <- xml2::xml_attr(abstractnum_nodes, "abstractNumId")
 
   # Extract num elements and their associated abstractNumId references
@@ -147,7 +154,10 @@ test_that("body_import_docx preserves abstractNum and num correspondence", {
     list_numbering_xml,
     "//w:abstractNum"
   )
-  list_abstractnum_ids <- xml2::xml_attr(list_abstractnum_nodes, "abstractNumId")
+  list_abstractnum_ids <- xml2::xml_attr(
+    list_abstractnum_nodes,
+    "abstractNumId"
+  )
 
   # Extract num IDs from list document
   list_num_nodes <- xml2::xml_find_all(list_numbering_xml, "//w:num")
@@ -207,4 +217,3 @@ test_that("body_import_docx preserves abstractNum and num correspondence", {
   unlink(tf_front)
   unlink(tf)
 })
-

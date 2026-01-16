@@ -23,38 +23,46 @@
 #' @examples
 #' read_pptx()
 #' @seealso [print.rpptx()], [add_slide()], [plot_layout_properties()], [ph_with()]
-read_pptx <- function( path = NULL ){
-
-  if( !is.null(path) && !file.exists(path))
+read_pptx <- function(path = NULL) {
+  if (!is.null(path) && !file.exists(path)) {
     stop("could not find file ", shQuote(path), call. = FALSE)
+  }
 
-  if( is.null(path) )
+  if (is.null(path)) {
     path <- system.file(package = "officer", "template/template.pptx")
+  }
 
-  if(!grepl("\\.(pptx|potx)$", path, ignore.case = TRUE)){
+  if (!grepl("\\.(pptx|potx)$", path, ignore.case = TRUE)) {
     stop("read_pptx only support pptx files", call. = FALSE)
   }
 
   package_dir <- tempfile()
-  unpack_folder( file = path, folder = package_dir )
+  unpack_folder(file = path, folder = package_dir)
 
   obj <- list(package_dir = package_dir)
-
 
   obj$table_styles <- read_table_style(package_dir)
 
   obj$presentation <- presentation$new(package_dir)
 
-  obj$masterLayouts <- dir_master$new(package_dir, slide_master$new("ppt/slideMasters") )
+  obj$masterLayouts <- dir_master$new(
+    package_dir,
+    slide_master$new("ppt/slideMasters")
+  )
 
-  obj$slideLayouts <- dir_layout$new( package_dir,
-                                      master_metadata = obj$masterLayouts$get_metadata(),
-                                      master_xfrm = obj$masterLayouts$xfrm() )
+  obj$slideLayouts <- dir_layout$new(
+    package_dir,
+    master_metadata = obj$masterLayouts$get_metadata(),
+    master_xfrm = obj$masterLayouts$xfrm()
+  )
 
-  obj$slide <- dir_slide$new( package_dir, obj$slideLayouts$get_xfrm_data() )
+  obj$slide <- dir_slide$new(package_dir, obj$slideLayouts$get_xfrm_data())
   obj$notesSlide <- dir_notesSlide$new(package_dir)
-  obj$notesMaster <- dir_notesMaster$new(package_dir, slide_master$new("ppt/notesMasters"))
-  obj$content_type <- content_type$new( package_dir )
+  obj$notesMaster <- dir_notesMaster$new(
+    package_dir,
+    slide_master$new("ppt/notesMasters")
+  )
+  obj$content_type <- content_type$new(package_dir)
   obj$core_properties <- read_core_properties(package_dir)
   obj$doc_properties_custom <- read_custom_properties(package_dir)
 
@@ -69,7 +77,7 @@ read_pptx <- function( path = NULL ){
 }
 
 
-read_table_style <- function(path){
+read_table_style <- function(path) {
   file <- file.path(path, "ppt/tableStyles.xml")
   if (!file.exists(file)) {
     warning("tableStyles.xml file does not exist in PPTX")
@@ -77,9 +85,11 @@ read_table_style <- function(path){
   }
   doc <- read_xml(file)
   nodes <- xml_find_all(doc, "//a:tblStyleLst")
-  data.frame(def = xml_attr(nodes, "def"),
-             styleName = xml_attr(nodes, "styleName"),
-             stringsAsFactors = FALSE )
+  data.frame(
+    def = xml_attr(nodes, "def"),
+    styleName = xml_attr(nodes, "styleName"),
+    stringsAsFactors = FALSE
+  )
 }
 
 
@@ -130,7 +140,9 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
   }
 
   if (is_windows() && is_doc_open(target)) {
-    cli::cli_abort("{.val {target}} is open. To write to this document, please, close it.")
+    cli::cli_abort(
+      "{.val {target}} is open. To write to this document, please, close it."
+    )
   }
   x <- pptx_fortify_slides(x)
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
@@ -149,7 +161,10 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
   x$slide$save_slides()
   x$notesSlide$save_slides()
 
-  x$core_properties["modified", "value"] <- format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ")
+  x$core_properties["modified", "value"] <- format(
+    Sys.time(),
+    "%Y-%m-%dT%H:%M:%SZ"
+  )
   x$core_properties["lastModifiedBy", "value"] <- Sys.getenv("USER")
   write_core_properties(x$core_properties, x$package_dir)
 
@@ -160,4 +175,3 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
   x <- sanitize_images(x, warn_user = FALSE)
   invisible(pack_folder(folder = x$package_dir, target = target))
 }
-

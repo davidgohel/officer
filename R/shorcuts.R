@@ -15,9 +15,13 @@ NULL
 #' @keywords NULL
 #' @export
 shortcuts <- list(
-  fp_bold = function(...) {fp_text( bold = TRUE, ... )},
-  fp_italic = function( ... ) {fp_text( italic = TRUE, ... )},
-  b_null = function( ... )  {fp_border( width = 0, ... )}
+  fp_bold = function(...) {
+    fp_text(bold = TRUE, ...)
+  },
+  fp_italic = function(...) {
+    fp_text(italic = TRUE, ...)
+  },
+  b_null = function(...) {
+    fp_border(width = 0, ...)
+  }
 )
-
-

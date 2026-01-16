@@ -18,17 +18,25 @@
 #' z <- read_pptx(pptx_file)
 #' as.matrix(z, slide_id = NULL)
 #' @export
-as.matrix.rpptx <- function(x, ..., slide_id=NA_integer_, id=NA_character_, span=c(NA_character_, "fill")) {
+as.matrix.rpptx <- function(
+  x,
+  ...,
+  slide_id = NA_integer_,
+  id = NA_character_,
+  span = c(NA_character_, "fill")
+) {
   span <- match.arg(span)
   d_summary_raw <- officer::pptx_summary(x)
   # filter to just table data
-  d_summary_prep_table <- d_summary_raw[d_summary_raw$content_type %in% "table cell", ]
-  stopifnot("No tables to extract"=nrow(d_summary_prep_table) > 0)
+  d_summary_prep_table <- d_summary_raw[
+    d_summary_raw$content_type %in% "table cell",
+  ]
+  stopifnot("No tables to extract" = nrow(d_summary_prep_table) > 0)
   d_summary_prep <-
     d_summary_prep_table[
       d_summary_prep_table$row_span > 0 & d_summary_prep_table$col_span > 0,
     ]
-  stopifnot("All cells had col_span=0 or row_span=0"=nrow(d_summary_prep) > 0)
+  stopifnot("All cells had col_span=0 or row_span=0" = nrow(d_summary_prep) > 0)
   if (is.null(slide_id)) {
     data_extract <- d_summary_prep
   } else {
@@ -36,15 +44,24 @@ as.matrix.rpptx <- function(x, ..., slide_id=NA_integer_, id=NA_character_, span
       slide_id <- min(d_summary_prep$slide_id)
       id <- min(d_summary_prep$id[d_summary_prep$slide_id == slide_id])
     }
-    data_extract <- d_summary_prep[d_summary_prep$slide_id == slide_id & d_summary_prep$id == id, ]
+    data_extract <- d_summary_prep[
+      d_summary_prep$slide_id == slide_id & d_summary_prep$id == id,
+    ]
     if (nrow(data_extract) == 0) {
-      stop("No data in slide_id=%s, id=%s", as.character(slide_id), as.character(id))
+      stop(
+        "No data in slide_id=%s, id=%s",
+        as.character(slide_id),
+        as.character(id)
+      )
     }
   }
   ret <- list()
   for (current_slide_id in unique(data_extract$slide_id)) {
     ret[[as.character(current_slide_id)]] <-
-      as_matrix_rpptx_single_slide(data_extract[data_extract$slide_id == current_slide_id, ], span=span)
+      as_matrix_rpptx_single_slide(
+        data_extract[data_extract$slide_id == current_slide_id, ],
+        span = span
+      )
   }
   if (length(slide_id) == 1 && length(id) == 1) {
     # When the user is specific, return a matrix (otherwise, return the list of
@@ -54,29 +71,35 @@ as.matrix.rpptx <- function(x, ..., slide_id=NA_integer_, id=NA_character_, span
   ret
 }
 
-as_matrix_rpptx_single_slide <- function(x, span=c(NA_character_, "fill")) {
+as_matrix_rpptx_single_slide <- function(x, span = c(NA_character_, "fill")) {
   span <- match.arg(span)
   stopifnot(nrow(x) > 0)
   stopifnot(length(unique(x$slide_id)) == 1)
   ret <- list()
   for (current_id in unique(x$id)) {
     ret[[as.character(current_id)]] <-
-      as_matrix_rpptx_single_table(x[x$id == current_id, ], span=span)
+      as_matrix_rpptx_single_table(x[x$id == current_id, ], span = span)
   }
   ret
 }
 
-as_matrix_rpptx_single_table <- function(x, span=c(NA_character_, "fill")) {
+as_matrix_rpptx_single_table <- function(x, span = c(NA_character_, "fill")) {
   span <- match.arg(span)
   stopifnot(nrow(x) > 0)
   stopifnot(length(unique(x$slide_id)) == 1)
   stopifnot(length(unique(x$id)) == 1)
-  ret <- matrix(NA_character_, nrow=max(x$row_id), ncol=max(x$cell_id))
+  ret <- matrix(NA_character_, nrow = max(x$row_id), ncol = max(x$cell_id))
   for (current_data_idx in seq_len(nrow(x))) {
     if (span %in% "fill") {
       # fill the row/col span
-      all_rows <- seq(x$row_id[current_data_idx], x$row_id[current_data_idx] + x$row_span[current_data_idx] - 1)
-      all_cols <- seq(x$cell_id[current_data_idx], x$cell_id[current_data_idx] + x$col_span[current_data_idx] - 1)
+      all_rows <- seq(
+        x$row_id[current_data_idx],
+        x$row_id[current_data_idx] + x$row_span[current_data_idx] - 1
+      )
+      all_cols <- seq(
+        x$cell_id[current_data_idx],
+        x$cell_id[current_data_idx] + x$col_span[current_data_idx] - 1
+      )
     } else {
       # just the current cell
       all_rows <- x$row_id[current_data_idx]

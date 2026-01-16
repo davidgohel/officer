@@ -162,9 +162,12 @@ test_that("fp_par_lite", {
   expect_equal(wml, "<w:pPr><w:pStyle w:pstlname=\"dummy\"/></w:pPr>")
   wml <- format(fp_par_lite(text.align = "center"), type = "wml")
   expect_equal(wml, "<w:pPr><w:jc w:val=\"center\"/></w:pPr>")
-  wml <- format(fp_par_lite(word_style = "dummy", text.align = "center"), type = "wml")
-  expect_equal(wml, "<w:pPr><w:pStyle w:pstlname=\"dummy\"/><w:jc w:val=\"center\"/></w:pPr>")
+  wml <- format(
+    fp_par_lite(word_style = "dummy", text.align = "center"),
+    type = "wml"
+  )
+  expect_equal(
+    wml,
+    "<w:pPr><w:pStyle w:pstlname=\"dummy\"/><w:jc w:val=\"center\"/></w:pPr>"
+  )
 })
-
-
-

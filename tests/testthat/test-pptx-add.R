@@ -90,7 +90,10 @@ test_that("snapshot date into placeholder", {
 })
 
 test_that("add factor into placeholder", {
-  my_factor <- factor(c("Level A", "Level B", "Level C"), levels = c("Level A", "Level B", "Level C"))
+  my_factor <- factor(
+    c("Level A", "Level B", "Level C"),
+    levels = c("Level A", "Level B", "Level C")
+  )
 
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
@@ -104,7 +107,11 @@ test_that("add factor into placeholder", {
 test_that("add date into placeholder", {
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with(doc, as.Date("2024-12-31", "%Y-%m-%d"), location = ph_location_type(type = "body"))
+  doc <- ph_with(
+    doc,
+    as.Date("2024-12-31", "%Y-%m-%d"),
+    location = ph_location_type(type = "body")
+  )
 
   sm <- slide_summary(doc)
   expect_equal(nrow(sm), 1)

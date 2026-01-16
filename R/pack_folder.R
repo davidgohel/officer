@@ -6,37 +6,53 @@
 #' @param folder folder to compress
 #' @param target path of the archive to create
 #' @keywords internal
-pack_folder <- function( folder, target ){
-
+pack_folder <- function(folder, target) {
   target <- absolute_path(target)
   dir_fi <- dirname(target)
 
-  if( !file.exists(dir_fi) ){
+  if (!file.exists(dir_fi)) {
     stop("directory ", shQuote(dir_fi), " does not exist.", call. = FALSE)
-  } else if( file.access(dir_fi) < 0 ){
+  } else if (file.access(dir_fi) < 0) {
     stop("can not write to directory ", shQuote(dir_fi), call. = FALSE)
-  } else if( file.exists(target) && file.access(target) < 0 ){
+  } else if (file.exists(target) && file.access(target) < 0) {
     stop(shQuote(target), " already exists and is not writable", call. = FALSE)
-  } else if( !file.exists(target) ){
+  } else if (!file.exists(target)) {
     old_warn <- getOption("warn")
     options(warn = -1)
-    x <- tryCatch({cat("", file = target);TRUE}, error = function(e) FALSE, finally = unlink(target, force = TRUE) )
+    x <- tryCatch(
+      {
+        cat("", file = target)
+        TRUE
+      },
+      error = function(e) FALSE,
+      finally = unlink(target, force = TRUE)
+    )
     options(warn = old_warn)
-    if( !x )
-      stop(shQuote(target), " cannot be written, please check your permissions.", call. = FALSE)
+    if (!x) {
+      stop(
+        shQuote(target),
+        " cannot be written, please check your permissions.",
+        call. = FALSE
+      )
+    }
   }
 
   curr_wd <- getwd()
   setwd(folder)
   tryCatch(
-    zip::zipr(zipfile = target, include_directories = FALSE,
-                files = list.files(path = ".", all.files = FALSE), recurse = TRUE)
-    , error = function(e) {
+    zip::zipr(
+      zipfile = target,
+      include_directories = FALSE,
+      files = list.files(path = ".", all.files = FALSE),
+      recurse = TRUE
+    ),
+    error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
     },
     finally = {
       setwd(curr_wd)
-    })
+    }
+  )
 
   target
 }
@@ -49,8 +65,7 @@ pack_folder <- function( folder, target ){
 #' @param file path of the archive to unzip
 #' @param folder folder to create
 #' @keywords internal
-unpack_folder <- function(file, folder){
-
+unpack_folder <- function(file, folder) {
   stopifnot(file.exists(file))
 
   file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", file)
@@ -58,33 +73,33 @@ unpack_folder <- function(file, folder){
   # force deletion if already existing
   unlink(folder, recursive = TRUE, force = TRUE)
 
-  if( l10n_info()$`UTF-8` ){
-    zip::unzip( zipfile = file, exdir = folder )
+  if (l10n_info()$`UTF-8`) {
+    zip::unzip(zipfile = file, exdir = folder)
   } else {
     officer_wd_folder <- getOption("officer_wd_folder")
-    if(is.null(officer_wd_folder) || !dir.exists(officer_wd_folder)){
+    if (is.null(officer_wd_folder) || !dir.exists(officer_wd_folder)) {
       officer_wd_folder <- tempdir()
     }
     # unable to unzip a file with accent when on windows
     newfile <- tempfile(tmpdir = officer_wd_folder, fileext = file_type)
     file.copy(from = file, to = newfile)
-    zip::unzip( zipfile = newfile, exdir = folder )
+    zip::unzip(zipfile = newfile, exdir = folder)
     unlink(newfile, force = TRUE)
   }
 
   absolute_path(folder)
 }
 
-absolute_path <- function(x){
-
-  if (length(x) != 1L)
+absolute_path <- function(x) {
+  if (length(x) != 1L) {
     stop("'x' must be a single character string")
+  }
   epath <- path.expand(x)
 
-  if( file.exists(epath)){
+  if (file.exists(epath)) {
     epath <- normalizePath(epath, "/", mustWork = TRUE)
   } else {
-    if( !dir.exists(dirname(epath)) ){
+    if (!dir.exists(dirname(epath))) {
       stop("directory of ", x, " does not exist.", call. = FALSE)
     }
     cat("", file = epath)
@@ -93,4 +108,3 @@ absolute_path <- function(x){
   }
   epath
 }
-

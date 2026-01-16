@@ -251,9 +251,15 @@ fp_text <- function(
     out$font.family <- font.family
   }
 
-  if (is.null(cs.family)) cs.family <- font.family
-  if (is.null(eastasia.family)) eastasia.family <- font.family
-  if (is.null(hansi.family)) hansi.family <- font.family
+  if (is.null(cs.family)) {
+    cs.family <- font.family
+  }
+  if (is.null(eastasia.family)) {
+    eastasia.family <- font.family
+  }
+  if (is.null(hansi.family)) {
+    hansi.family <- font.family
+  }
   if (is_character(cs.family)) {
     out$cs.family <- cs.family
   }
@@ -775,7 +781,6 @@ fp_par <- function(
     )
   }
 
-
   if (!missing(border.top) && !isFALSE(border.top)) {
     out <- check_set_border(obj = out, border.top)
   }
@@ -808,22 +813,22 @@ fp_par <- function(
 #' undefined properties will inherit from the default settings.
 #' @export
 fp_par_lite <- function(
-    text.align = NA,
-    padding = NA,
-    line_spacing = NA,
-    border = FALSE,
-    padding.bottom = NA,
-    padding.top = NA,
-    padding.left = NA,
-    padding.right = NA,
-    border.bottom = FALSE,
-    border.left = FALSE,
-    border.top = FALSE,
-    border.right = FALSE,
-    shading.color = NA,
-    keep_with_next = NA,
-    tabs = FALSE,
-    word_style = NA
+  text.align = NA,
+  padding = NA,
+  line_spacing = NA,
+  border = FALSE,
+  padding.bottom = NA,
+  padding.top = NA,
+  padding.left = NA,
+  padding.right = NA,
+  border.bottom = FALSE,
+  border.left = FALSE,
+  border.top = FALSE,
+  border.right = FALSE,
+  shading.color = NA,
+  keep_with_next = NA,
+  tabs = FALSE,
+  word_style = NA
 ) {
   if (isFALSE(tabs)) {
     tabs <- NULL
@@ -877,7 +882,6 @@ to_wml.fp_par <- function(x, add_ns = FALSE, ...) {
 #' @rdname fp_par
 #' @export
 print.fp_par <- function(x, ...) {
-
   out <- data.frame(
     text.align = as.character(x$text.align),
     padding.top = as.character(x$padding.top),
@@ -889,10 +893,16 @@ print.fp_par <- function(x, ...) {
   out <- as.data.frame(t(out))
   names(out) <- "values"
   print(out)
-  if (!is.null(x$border.top) && !isFALSE(x$border.top) &&
-      !is.null(x$border.bottom) && !isFALSE(x$border.bottom) &&
-      !is.null(x$border.left) && !isFALSE(x$border.left) &&
-      !is.null(x$border.right) && !isFALSE(x$border.right)) {
+  if (
+    !is.null(x$border.top) &&
+      !isFALSE(x$border.top) &&
+      !is.null(x$border.bottom) &&
+      !isFALSE(x$border.bottom) &&
+      !is.null(x$border.left) &&
+      !isFALSE(x$border.left) &&
+      !is.null(x$border.right) &&
+      !isFALSE(x$border.right)
+  ) {
     cat("borders:\n")
     borders <- rbind(
       as.data.frame(unclass(x$border.top)),
@@ -905,8 +915,6 @@ print.fp_par <- function(x, ...) {
   } else {
     cat("no borders!\n")
   }
-
-
 }
 
 

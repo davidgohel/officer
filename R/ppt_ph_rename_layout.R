@@ -30,13 +30,20 @@
 #' @return Vector of renamed ph labels.
 #' @example inst/examples/example_layout_rename_ph_labels.R
 #'
-layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL) {
+layout_rename_ph_labels <- function(
+  x,
+  layout,
+  master = NULL,
+  ...,
+  .dots = NULL
+) {
   stop_if_not_rpptx(x, "x")
   dots <- list(...)
   dots <- c(dots, .dots)
   if (length(dots) > 0 && !is_named(dots)) {
     cli::cli_abort(
-      c("Unnamed arguments are not allowed.",
+      c(
+        "Unnamed arguments are not allowed.",
         "x" = "Arguments {.arg ...} and {.arg .dots} both require key value pairs."
       ),
       call = NULL
@@ -59,14 +66,21 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
 
 #' @export
 #' @rdname layout_rename_ph_labels
-`layout_rename_ph_labels<-` <- function(x, layout, master = NULL, id = NULL, value) {
+`layout_rename_ph_labels<-` <- function(
+  x,
+  layout,
+  master = NULL,
+  id = NULL,
+  value
+) {
   l <- get_layout(x, layout, master)
   lp <- layout_properties(x, l$layout_name, l$master_name)
 
   if (!is.null(id)) {
     if (length(id) != length(value)) {
       cli::cli_abort(
-        c("{.arg id} and rhs vector must have the same length",
+        c(
+          "{.arg id} and rhs vector must have the same length",
           "x" = "Number of ids ({.val {length(id)}}) and assigned values ({.val {length(value)}}) differ"
         )
       )
@@ -77,7 +91,9 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
       cli::cli_abort(c(
         "{cli::qty(n_wrong)} {?This/These} id{?s} {?does/do} not exist: {.val {wrong_ids}}",
         "x" = "Choose one of: {.val {lp$id}}",
-        "i" = cli::col_grey("Also see {.code plot_layout_properties(..., '{l$layout_name}', '{l$master_nam}')}")
+        "i" = cli::col_grey(
+          "Also see {.code plot_layout_properties(..., '{l$layout_name}', '{l$master_nam}')}"
+        )
       ))
     }
     .idx <- match(id, lp$id) # user might enter ids in arbitrary order
@@ -93,7 +109,8 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
 
 # heuristic: if a number, then treat as ph_id
 .detect_ph_id <- function(x) {
-  suppressWarnings({ # avoid character to NA warning
+  suppressWarnings({
+    # avoid character to NA warning
     !is.na(as.numeric(x)) # nchar(x) == 1 &
   })
 }
@@ -119,10 +136,13 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   dupes_used <- intersect(label_old, dupes)
   n_dupes_used <- length(dupes_used)
   if (n_dupes_used > 0) {
-    cli::cli_warn(c(
-      "When renaming a label with duplicates, only the first occurrence is renamed.",
-      "x" = "Renaming {n_dupes_used} ph label{?s} with duplicates: {.val {dupes_used}}"
-    ), call = NULL)
+    cli::cli_warn(
+      c(
+        "When renaming a label with duplicates, only the first occurrence is renamed.",
+        "x" = "Renaming {n_dupes_used} ph label{?s} with duplicates: {.val {dupes_used}}"
+      ),
+      call = NULL
+    )
   }
 
   # check for duplicate renames
@@ -130,10 +150,13 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   if (any(is_dupe)) {
     dupes <- unique(label_old[is_dupe])
     n_dupes <- length(dupes)
-    cli::cli_abort(c(
-      "Each id or label must only have one rename entry only.",
-      "x" = "Found {n_dupes} duplicate id{?s}/label{?s} to rename: {.val {dupes}}"
-    ), call = NULL)
+    cli::cli_abort(
+      c(
+        "Each id or label must only have one rename entry only.",
+        "x" = "Found {n_dupes} duplicate id{?s}/label{?s} to rename: {.val {dupes}}"
+      ),
+      call = NULL
+    )
   }
 
   # match by label and check for unknown labels
@@ -142,10 +165,13 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   i_wrong <- is.na(row_idx_label)
   n_wrong <- sum(i_wrong)
   if (n_wrong > 0) {
-    cli::cli_abort(c(
-      "Can't rename labels that don't exist.",
-      "x" = "{cli::qty(n_wrong)}{?This label does/These labels do} not exist: {.val {label_old_[i_wrong]}}"
-    ), call = NULL)
+    cli::cli_abort(
+      c(
+        "Can't rename labels that don't exist.",
+        "x" = "{cli::qty(n_wrong)}{?This label does/These labels do} not exist: {.val {label_old_[i_wrong]}}"
+      ),
+      call = NULL
+    )
   }
 
   # match by id and check for unknown ids
@@ -154,10 +180,13 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   i_wrong <- is.na(row_idx_id)
   n_wrong <- sum(i_wrong)
   if (n_wrong > 0) {
-    cli::cli_abort(c(
-      "Can't rename ids that don't exist.",
-      "x" = "{cli::qty(n_wrong)}{?This id does/These ids do} not exist: {.val {id_old_[i_wrong]}}"
-    ), call = NULL)
+    cli::cli_abort(
+      c(
+        "Can't rename ids that don't exist.",
+        "x" = "{cli::qty(n_wrong)}{?This id does/These ids do} not exist: {.val {id_old_[i_wrong]}}"
+      ),
+      call = NULL
+    )
   }
 
   # check for collision between label and id
@@ -166,10 +195,13 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   if (n_collision > 0) {
     df <- lp[idx_collision, c("id", "ph_label")]
     pairs <- paste(df$ph_label, "<-->", df$id)
-    cli::cli_abort(c(
-      "Either specify the label {.emph OR} the id of the ph to rename, not both.",
-      "x" = "These labels and ids collide: {.val {pairs}}"
-    ), call = NULL)
+    cli::cli_abort(
+      c(
+        "Either specify the label {.emph OR} the id of the ph to rename, not both.",
+        "x" = "These labels and ids collide: {.val {pairs}}"
+      ),
+      call = NULL
+    )
   }
 
   lp$ph_label_new <- NA
@@ -182,7 +214,8 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
 .set_ph_labels <- function(l, df_renames) {
   if (!inherits(l, "layout_info")) {
     cli::cli_abort(
-      c("{.arg l} must a a {.cls layout_info} object",
+      c(
+        "{.arg l} must a a {.cls layout_info} object",
         "x" = "Got {.cls {class(l)[1]}} instead"
       ),
       call = NULL
@@ -190,7 +223,10 @@ layout_rename_ph_labels <- function(x, layout, master = NULL, ..., .dots = NULL)
   }
   layout_xml <- l$slide_layout$get()
   for (i in seq_len(nrow(df_renames))) {
-    cnvpr_node <- xml2::xml_find_first(layout_xml, sprintf("p:cSld/p:spTree/*/p:nvSpPr/p:cNvPr[@id='%s']", df_renames$id[i]))
+    cnvpr_node <- xml2::xml_find_first(
+      layout_xml,
+      sprintf("p:cSld/p:spTree/*/p:nvSpPr/p:cNvPr[@id='%s']", df_renames$id[i])
+    )
     xml2::xml_set_attr(cnvpr_node, "name", df_renames$ph_label_new[i])
   }
   l$slide_layout$save() # persist changes in slide layout xml file

@@ -233,7 +233,10 @@ body_import_docx <- function(
   body_chr <- head(body_chr, -1)
   body_chr <- tail(body_chr, -1)
 
-  z <- body_append_start_context(x, additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))])
+  z <- body_append_start_context(
+    x,
+    additional_ns = ns_from[setdiff(names(ns_from), names(ns_to))]
+  )
   cat(body_chr, sep = "\n", file = z$file_con, append = TRUE)
   x <- body_append_stop_context(z)
   x

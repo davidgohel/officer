@@ -288,7 +288,8 @@ fix_hyperlink_refs_in_wml <- function(xml_str, doc_obj) {
   hyperlink_nodes_chr <- xml_str[has_match]
 
   hyperlink_values <- gsub(
-    ".*<w:hyperlink\\s+r:id=\"([^\"]+)\"[^>]*>.*", "\\1",
+    ".*<w:hyperlink\\s+r:id=\"([^\"]+)\"[^>]*>.*",
+    "\\1",
     hyperlink_nodes_chr
   )
   hyperlink_values <- unique(hyperlink_values)

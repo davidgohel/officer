@@ -118,13 +118,18 @@ from_base64 <- function(x) {
         raw <- tryCatch(
           {
             b64_str <- base64_decode(elem)
-            if(all(nchar(b64_str) < 1)) {
+            if (all(nchar(b64_str) < 1)) {
               stop("empty result")
             }
             b64_str
           },
           error = function(e) {
-            stop("Failed to decode Base64 element: '", elem, "'.", call. = FALSE)
+            stop(
+              "Failed to decode Base64 element: '",
+              elem,
+              "'.",
+              call. = FALSE
+            )
           }
         )
         rawToChar(raw)
@@ -156,8 +161,7 @@ from_base64 <- function(x) {
 #' @export
 #' @keywords internal
 base64_to_image <- function(data_uri, output_files) {
-
-  for(i in seq_along(data_uri)) {
+  for (i in seq_along(data_uri)) {
     base64_part <- sub("^data:image/[^;]+;base64,", "", data_uri[[i]])
     raw_data <- base64_decode(base64_part)
     writeBin(raw_data, output_files[[i]])
@@ -190,7 +194,6 @@ mime_type <- function(paths) {
 #' rlogo <- file.path(R.home("doc"), "html", "logo.jpg")
 #' base64_str <- image_to_base64(rlogo)
 image_to_base64 <- function(filepaths) {
-
   mimes <- mime_type(paths = filepaths)
   if (any(is.na(mimes))) {
     cli::cli_abort(

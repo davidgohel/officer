@@ -30,7 +30,12 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
   }
   action <- match.arg(action, c("detect", "rename", "delete"))
   layout_names <- x$slideLayouts$get_metadata()$filename
-  xfrm_list <- lapply(layout_names, .dedupe_phs_in_layout, x = x, action = action)
+  xfrm_list <- lapply(
+    layout_names,
+    .dedupe_phs_in_layout,
+    x = x,
+    action = action
+  )
   x <- reload_slidelayouts(x) # reinit slideLayouts to get processed ph labels [e.g. when calling x$slideLayouts$get_xfrm_data()]
   if (print_info | action == "detect") {
     .print_dedupe_info(x = x, xfrm_list = xfrm_list, action = action)
@@ -53,11 +58,18 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
   action <- match.arg(action, c("detect", "rename", "delete"))
   layout <- x$slideLayouts$collection_get(layout_file)
   xfrm <- layout$xfrm()
-  xfrm <- subset(xfrm, duplicated(ph_label) | duplicated(ph_label, fromLast = TRUE))
+  xfrm <- subset(
+    xfrm,
+    duplicated(ph_label) | duplicated(ph_label, fromLast = TRUE)
+  )
   if (nrow(xfrm) == 0) {
     return()
   }
-  xfrm <- transform(xfrm, ph_label_new = make_strings_unique(ph_label), delete_flag = duplicated(ph_label)) # prepare once for all action types
+  xfrm <- transform(
+    xfrm,
+    ph_label_new = make_strings_unique(ph_label),
+    delete_flag = duplicated(ph_label)
+  ) # prepare once for all action types
   if (action == "detect") {
     return(xfrm) # no further action required
   } else if (action == "rename") {
@@ -69,7 +81,10 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
   # rename label or delete ph shape
   layout_xml <- layout$get()
   for (i in 1L:nrow(xfrm)) {
-    shape <- xml2::xml_find_first(layout_xml, sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", xfrm$id[i]))
+    shape <- xml2::xml_find_first(
+      layout_xml,
+      sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", xfrm$id[i])
+    )
     if (xfrm$delete_flag[i]) {
       xml2::xml_remove(shape)
     } else {
@@ -84,7 +99,8 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
 
 # reload slideLayouts (if layout XML in package_dir has changed)
 reload_slidelayouts <- function(x) {
-  x$slideLayouts$initialize(x$package_dir,
+  x$slideLayouts$initialize(
+    x$package_dir,
     master_metadata = x$masterLayouts$get_metadata(),
     master_xfrm = x$masterLayouts$xfrm()
   )
@@ -106,7 +122,11 @@ has_ph_dupes <- function(x) {
     stop("'x' must be an 'rpptx' object", call. = FALSE)
   }
   xfrm <- x$slideLayouts$get_xfrm_data()
-  dupes <- stats::aggregate(ph_label ~ master_name + name, data = xfrm, FUN = function(x) sum(duplicated(x)) > 0)
+  dupes <- stats::aggregate(
+    ph_label ~ master_name + name,
+    data = xfrm,
+    FUN = function(x) sum(duplicated(x)) > 0
+  )
   any(dupes$ph_label)
 }
 
@@ -122,12 +142,19 @@ has_ph_dupes <- function(x) {
   .df_2 <- unique(.df_2[, c("master_file", "master_name"), drop = FALSE])
   df <- merge(.df_1, .df_2, sort = FALSE)
   rownames(df) <- NULL
-  df <- df[, c("master_name", "name", "ph_label", "ph_label_new", "delete_flag"), drop = FALSE]
+  df <- df[,
+    c("master_name", "name", "ph_label", "ph_label_new", "delete_flag"),
+    drop = FALSE
+  ]
   colnames(df)[2] <- "layout_name"
   if (action == "detect") {
     cat("Placeholders with duplicate labels:\n")
-    cat(cli::col_grey("* 'ph_label_new' = new placeholder label for action = 'rename'\n"))
-    cat(cli::col_grey("* 'delete_flag' = deleted placeholders for action = 'delete'\n"))
+    cat(cli::col_grey(
+      "* 'ph_label_new' = new placeholder label for action = 'rename'\n"
+    ))
+    cat(cli::col_grey(
+      "* 'delete_flag' = deleted placeholders for action = 'delete'\n"
+    ))
   } else if (action == "rename") {
     df$delete_flag <- NULL
     cat("Renamed duplicate placeholder labels:\n")

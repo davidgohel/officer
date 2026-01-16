@@ -189,9 +189,15 @@ write_docx_settings <- function(x) {
     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n",
     "<w:settings xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
     sprintf("<w:zoom w:percent=\"%.0f\"/>", settings$zoom * 100),
-    sprintf("<w:defaultTabStop w:val=\"%.0f\"/>", settings$default_tab_stop * 1440),
+    sprintf(
+      "<w:defaultTabStop w:val=\"%.0f\"/>",
+      settings$default_tab_stop * 1440
+    ),
     if (settings$auto_hyphenation) sprintf("<w:autoHyphenation/>"),
-    sprintf("<w:hyphenationZone w:val=\"%.0f\"/>", settings$hyphenation_zone * 1440),
+    sprintf(
+      "<w:hyphenationZone w:val=\"%.0f\"/>",
+      settings$hyphenation_zone * 1440
+    ),
     sprintf(
       "<w:compat><w:compatSetting w:name=\"compatibilityMode\" w:uri=\"http://schemas.microsoft.com/office/word\" w:val=\"%s\"/></w:compat>",
       settings$compatibility_mode

@@ -8,7 +8,8 @@
 #' @param src a vector of character containing image filenames.
 #' @keywords internal
 docx_reference_img <- function(x, src) {
-  .Deprecated("",
+  .Deprecated(
+    "",
     package = "officer",
     msg = paste(
       "The `docx_reference_img()` function is no longer useful.\n",

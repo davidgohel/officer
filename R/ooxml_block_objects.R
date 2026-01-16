@@ -77,7 +77,9 @@ to_wml_block_caption_officer <- function(x, add_ns = FALSE) {
   out
 }
 to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL) {
-  if (is.null(x$label)) return("")
+  if (is.null(x$label)) {
+    return("")
+  }
 
   autonum <- ""
   if (!is.null(x$autonum)) {
@@ -100,9 +102,11 @@ to_wml_block_caption_pandoc <- function(x, bookdown_id = NULL) {
 
 #' @export
 to_wml.block_caption <- function(x, add_ns = FALSE, knitting = FALSE, ...) {
-  if (knitting)
-    to_wml_block_caption_pandoc(x, bookdown_id = list(...)$bookdown_id) else
+  if (knitting) {
+    to_wml_block_caption_pandoc(x, bookdown_id = list(...)$bookdown_id)
+  } else {
     to_wml_block_caption_officer(x, add_ns = add_ns)
+  }
 }
 
 
@@ -552,7 +556,9 @@ to_wml.table_stylenames <- function(x, add_ns = FALSE, dat, ...) {
 
 #' @export
 to_wml.table_colwidths <- function(x, add_ns = FALSE, ...) {
-  if (length(x$widths) < 1) return("")
+  if (length(x$widths) < 1) {
+    return("")
+  }
   grid_col_str <- sprintf("<w:gridCol w:w=\"%.0f\"/>", x$widths * 1440)
   grid_col_str <- paste(grid_col_str, collapse = "")
   paste0("<w:tblGrid>", grid_col_str, "</w:tblGrid>")
@@ -615,21 +621,24 @@ to_wml.prop_table <- function(x, add_ns = FALSE, base_document = NULL, ...) {
   tbl_layout <- to_wml(x$layout, add_ns = add_ns)
 
   width <- ""
-  if (!is.null(x$width) && "autofit" %in% x$layout$type)
+  if (!is.null(x$width) && "autofit" %in% x$layout$type) {
     width <- to_wml(x$width, add_ns = add_ns)
+  }
 
   colwidths <- to_wml(x$colsizes, add_ns = add_ns)
   tcf <- to_wml(x$tcf, add_ns = add_ns)
   paste0(
     "<w:tblPr>",
-    if (!is.null(x$word_title))
-      paste0("<w:tblCaption w:val=\"", htmlEscapeCopy(x$word_title), "\"/>"),
-    if (!is.null(x$word_description))
+    if (!is.null(x$word_title)) {
+      paste0("<w:tblCaption w:val=\"", htmlEscapeCopy(x$word_title), "\"/>")
+    },
+    if (!is.null(x$word_description)) {
       paste0(
         "<w:tblDescription w:val=\"",
         htmlEscapeCopy(x$word_description),
         "\"/>"
-      ),
+      )
+    },
     if (!is.na(style)) paste0("<w:tblStyle w:tstlname=\"", style, "\"/>"),
     tbl_layout,
     sprintf("<w:jc w:val=\"%s\"/>", x$align),
@@ -812,12 +821,13 @@ block_table <- function(
   alignment = NULL
 ) {
   stopifnot(is.data.frame(x))
-  if (inherits(x, "tbl_df"))
+  if (inherits(x, "tbl_df")) {
     x <- as.data.frame(
       x,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
+  }
 
   z <- list(
     x = x,
@@ -866,8 +876,9 @@ to_pml.block_table <- function(
   ph = "<p:ph/>",
   ...
 ) {
-  if (!is.null(bg) && !is.color(bg))
+  if (!is.null(bg) && !is.color(bg)) {
     stop("bg must be a valid color.", call. = FALSE)
+  }
 
   bg_str <- solid_fill_pml(bg)
 
@@ -953,7 +964,12 @@ to_pml.block_table <- function(
 #'   fp_p = fp_par(text.align = "center") )
 #' @family block functions for reporting
 #' @seealso [block_list()], [body_add_fpar()], [ph_with()]
-fpar <- function(..., fp_p = fp_par(word_style = NA_character_), fp_t = fp_text_lite(), values = NULL) {
+fpar <- function(
+  ...,
+  fp_p = fp_par(word_style = NA_character_),
+  fp_t = fp_text_lite(),
+  values = NULL
+) {
   out <- list()
 
   if (is.null(values)) {
@@ -1022,12 +1038,13 @@ to_wml.fpar <- function(x, add_ns = FALSE, style_id = NULL, ...) {
   }
   if (is.null(style_id)) {
     par_style <- ppr_wml(x$fp_p)
-  } else
+  } else {
     par_style <- paste0(
       "<w:pPr><w:pStyle w:val=\"",
       style_id,
       "\"/></w:pPr>"
     )
+  }
 
   chks <- fortify_fpar(x)
   z <- lapply(chks, to_wml)
@@ -1199,8 +1216,9 @@ unordered_list <- function(
   }
 
   if (!is.null(style)) {
-    if (inherits(style, "fp_text"))
+    if (inherits(style, "fp_text")) {
       style <- lapply(seq_len(length(str_list)), function(x) style)
+    }
   }
   x <- list(
     str = str_list,
@@ -1226,7 +1244,9 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
   if (!is.null(x$style)) {
     style_str <- sapply(x$style, format, type = "pml")
     style_str <- rep_len(style_str, length.out = length(x$str))
-  } else style_str <- rep("<a:rPr/>", length(x$str))
+  } else {
+    style_str <- rep("<a:rPr/>", length(x$str))
+  }
   tmpl <- "%s<a:pPr%s>%s</a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p>"
   lvl <- sprintf(" lvl=\"%.0f\"", x$lvl - 1)
   lvl <- ifelse(x$lvl > 1, lvl, "")

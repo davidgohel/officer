@@ -3,11 +3,11 @@ test_that("docx summary", {
 
   doc <- read_docx(path = example_docx)
   doc_data <- docx_summary(doc)
-  table_data <- doc_data[!is.na(doc_data$table_index) & doc_data$is_header,]
+  table_data <- doc_data[!is.na(doc_data$table_index) & doc_data$is_header, ]
   expect_equal(table_data$text, c("Petals", "Internode", "Sepal", "Bract"))
 
   doc_data_pr <- docx_summary(doc)
-  table_data <- doc_data_pr[!is.na(doc_data_pr$table_index),]
+  table_data <- doc_data_pr[!is.na(doc_data_pr$table_index), ]
   expect_equal(tail(doc_data_pr, 2)[["text"]], c("Note", "New line note"))
 
   doc <- read_docx()
