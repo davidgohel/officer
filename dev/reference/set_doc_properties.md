@@ -19,6 +19,7 @@ set_doc_properties(
   creator = NULL,
   description = NULL,
   created = NULL,
+  hyperlink_base = NULL,
   ...,
   values = NULL
 )
@@ -37,6 +38,11 @@ set_doc_properties(
 - created:
 
   a date object
+
+- hyperlink_base:
+
+  a string specifying the base URL for relative hyperlinks in the
+  document (only for rdocx).
 
 - ...:
 

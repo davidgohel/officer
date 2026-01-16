@@ -12,6 +12,12 @@
   [`cursor_reach_index()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
   to set the cursor at a specific index position in the document
   ([\#574](https://github.com/davidgohel/officer/issues/574)).
+- [`set_doc_properties()`](https://davidgohel.github.io/officer/dev/reference/set_doc_properties.md)
+  gains a new argument `hyperlink_base` to set the base URL for relative
+  hyperlinks in Word documents.
+  [`doc_properties()`](https://davidgohel.github.io/officer/dev/reference/doc_properties.md)
+  now returns the `HyperlinkBase` property when available
+  ([\#630](https://github.com/davidgohel/officer/issues/630)).
 
 ### Issues
 

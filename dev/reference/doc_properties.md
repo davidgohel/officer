@@ -54,4 +54,6 @@ doc_properties(x)
 #> 8         created 2017-02-28T11:18:00Z
 #> 9        modified 2020-05-13T09:11:00Z
 #> 10       category                     
+#> 11  HyperlinkBase                     
+#> 12        Company                     
 ```
