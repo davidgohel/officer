@@ -59,10 +59,12 @@ Imports:
     xml2 (>= 1.1.0),
     zip (>= 2.1.0)
 Suggests: 
+    chromote,
     devEMF,
-    doconv  (>= 0.3.0),
+    doconv (>= 0.3.0),
     gdtools,
     ggplot2,
+    gt,
     knitr,
     magick,
     rmarkdown,

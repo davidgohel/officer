@@ -11,6 +11,7 @@
 \alias{ph_with.unordered_list}
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
+\alias{ph_with.gt_tbl}
 \alias{ph_with.plot_instr}
 \alias{ph_with.external_img}
 \alias{ph_with.fpar}
@@ -45,6 +46,8 @@ ph_with.data.frame(
 )
 
 ph_with.gg(x, value, location, res = 300, alt_text = "", scale = 1, ...)
+
+ph_with.gt_tbl(x, value, location, alt_text = "", fill_loc = FALSE, ...)
 
 ph_with.plot_instr(x, value, location, res = 300, ...)
 
@@ -100,18 +103,17 @@ and 'c' for center. Default to NULL.}
 
 \item{res}{resolution of the png image in ppi}
 
-\item{alt_text}{Alt-text for screen-readers. Defaults to \code{""}. If \code{""} or \code{NULL}
-an alt text added with \code{ggplot2::labs(alt = ...)} will be used if any.}
+\item{alt_text}{Alt-text for screen-readers. Defaults to \code{""}.}
 
 \item{scale}{Multiplicative scaling factor, same as in ggsave}
-
-\item{use_loc_size}{if set to FALSE, external_img width and height will
-be used.}
 
 \item{fill_loc}{should the image be distorted to fill the location size?
 If set to \code{FALSE}, the image will be scaled as large as possible for the
 location without distorting, and then centered within it. Ignored if
 use_loc_size is \code{FALSE}.}
+
+\item{use_loc_size}{if set to FALSE, external_img width and height will
+be used.}
 }
 \description{
 add an object into a new shape in the current slide. This
@@ -146,6 +148,11 @@ advanced formattings.
 
 \item \code{ph_with.gg()}: add a ggplot object to a new shape on the
 current slide. Use package 'rvg' for more advanced graphical features.
+
+\item \code{ph_with.gt_tbl()}: add a gt_tbl object to a new shape on the
+current slide. Uses \code{\link[gt:gtsave]{gt::gtsave()}} to save the table as an image before
+inserting. Requires the \code{webshot2} and \code{magick} packages, and a
+Chrome or Chromium browser installation.
 
 \item \code{ph_with.plot_instr()}: add an R plot to a new shape on the
 current slide. Use package 'rvg' for more advanced graphical features.
@@ -265,6 +272,22 @@ if (require("ggplot2")) {
     location = ph_location_type(type = "title")
   )
 }
+
+# add a gt_tbl object ----
+# if (require("gt") && require("webshot2") && require("magick")) {
+#   doc_1 <- add_slide(doc_1, "Title and Content")
+#   gt <- gt(head(mtcars, 20))
+#   doc_1 <- ph_with(
+#     x = doc_1,
+#     value = gt,
+#     location = ph_location_type(type = "body")
+#   )
+#   doc_1 <- ph_with(
+#     x = doc_1,
+#     value = "table title",
+#     location = ph_location_type(type = "title")
+#   )
+# }
 
 # add a external images ----
 doc_1 <- add_slide(doc_1, layout = "Title and Content", master = "Office Theme")

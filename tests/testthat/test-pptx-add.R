@@ -520,5 +520,51 @@ test_that("empty_content in pptx", {
   expect_equal(slide_summary(doc)$cx, 2)
 })
 
+test_that("gt_tbl in pptx", {
+  skip_if_not_installed("gt")
+  skip_if_not_installed("webshot2")
+  skip_if_not_installed("magick")
+  skip_if_not_installed("chromote")
+  skip_if(is.null(chromote::find_chrome()),"Chrome not available for webshot2")
+
+  gt_tbl <- gt::gt(head(mtcars[, 1:3], 5))
+
+  # gt table with fill_loc = TRUE (stretches to fill location)
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(
+    doc,
+    value = gt_tbl,
+    location = ph_location(left = 1, top = 1, width = 6, height = 4),
+    fill_loc = TRUE
+  )
+
+  sm <- slide_summary(doc)
+
+  expect_equal(nrow(sm), 1)
+  expect_equal(sm$cx, 6)
+  expect_equal(sm$cy, 4)
+  expect_equal(sm$offx, 1)
+  expect_equal(sm$offy, 1)
+
+  # gt table with fill_loc = FALSE (default, preserves aspect ratio and centers)
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content", "Office Theme")
+  doc <- ph_with(
+    doc,
+    value = gt_tbl,
+    location = ph_location(left = 1, top = 1, width = 6, height = 4),
+    fill_loc = FALSE
+  )
+
+  sm <- slide_summary(doc)
+  # image should be scaled to fit within bounds
+  expect_true(sm$cx <= 6)
+  expect_true(sm$cy <= 4)
+  # at least one dimension should be at the boundary (fitted)
+  expect_true(sm$cx == 6 || sm$cy == 4)
+
+})
+
 
 unlink("*.pptx")

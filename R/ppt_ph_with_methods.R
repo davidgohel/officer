@@ -411,6 +411,39 @@ ph_with.gg <- function(
 }
 
 #' @export
+#' @describeIn ph_with add a gt_tbl object to a new shape on the
+#' current slide. Uses [gt::gtsave()] to save the table as an image before
+#' inserting. Requires the `webshot2` and `magick` packages, and a
+#' Chrome or Chromium browser installation.
+#' @param alt_text Alt-text for screen-readers. Defaults to `""`.
+ph_with.gt_tbl <- function(
+    x,
+    value,
+    location,
+    alt_text = "",
+    fill_loc = FALSE,
+    ...
+) {
+
+  if (!requireNamespace("gt", quietly = TRUE)) {
+    stop("package gt is required to use ph_with() on a gt_tbl object")
+  }
+
+  stopifnot(inherits(value, "gt_tbl"))
+
+  file <- tempfile(fileext = ".png")
+  gt::gtsave(value, file, ...) |> suppressMessages()
+
+  on.exit(unlink(file))
+
+  if (is.null(alt_text)) alt_text <- ""
+
+  ext_img <- external_img(file, guess_size = TRUE, alt = alt_text)
+
+  ph_with(x, ext_img, location = location, fill_loc = fill_loc)
+}
+
+#' @export
 #' @describeIn ph_with add an R plot to a new shape on the
 #' current slide. Use package 'rvg' for more advanced graphical features.
 ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
