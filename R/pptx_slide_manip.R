@@ -105,10 +105,15 @@ add_slide <- function(x, layout = NULL, master = NULL, ..., .dots = NULL) {
 on_slide <- function(x, index) {
   l_ <- length(x)
   if (l_ < 1) {
-    stop("presentation contains no slide", call. = FALSE)
+    cli::cli_abort("Presentation contains no slide.")
   }
   if (!between(index, 1, l_)) {
-    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
+    cli::cli_abort(
+      c(
+        "Slide index {.val {index}} is out of range.",
+        "x" = "Presentation has {cli::no(l_)} slide{?s}."
+      )
+    )
   }
 
   filename <- basename(x$presentation$slide_data()$target[index])
@@ -135,7 +140,7 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
 
   l_ <- length(x)
   if (l_ < 1) {
-    stop("presentation contains no slide to delete", call. = FALSE)
+    cli::cli_abort("Presentation contains no slide to delete.")
   }
 
   if (is.null(index)) {
@@ -150,10 +155,11 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   indices <- unique(as.integer(index))
   invalid_indices <- indices[!between(indices, 1, l_)]
   if (length(invalid_indices) > 0) {
-    stop(
-      "invalid index(es) ",
-      paste(invalid_indices, collapse = ", "),
-      call. = FALSE
+    cli::cli_abort(
+      c(
+        "Slide index{?es} {.val {invalid_indices}} {?is/are} out of range.",
+        "x" = "Presentation has {cli::no(l_)} slide{?s}."
+      )
     )
   }
 
@@ -223,13 +229,23 @@ move_slide <- function(x, index = NULL, to) {
   l_ <- length(x)
 
   if (l_ < 1) {
-    stop("presentation contains no slide", call. = FALSE)
+    cli::cli_abort("Presentation contains no slide.")
   }
   if (!between(index, 1, l_)) {
-    stop("unvalid index ", index, " (", l_, " slide(s))", call. = FALSE)
+    cli::cli_abort(
+      c(
+        "Slide index {.val {index}} is out of range.",
+        "x" = "Presentation has {cli::no(l_)} slide{?s}."
+      )
+    )
   }
   if (!between(to, 1, l_)) {
-    stop("unvalid 'to' ", to, " (", l_, " slide(s))", call. = FALSE)
+    cli::cli_abort(
+      c(
+        "Target position {.val {to}} is out of range.",
+        "x" = "Presentation has {cli::no(l_)} slide{?s}."
+      )
+    )
   }
 
   x$presentation$move_slide(from = index, to = to)
@@ -298,7 +314,7 @@ shape_properties_tags <- function(
   geom = NULL
 ) {
   if (!is.null(bg) && !is.color(bg)) {
-    stop("bg must be a valid color.", call. = FALSE)
+    cli::cli_abort("{.arg bg} must be a valid color, not {.val {bg}}.")
   }
 
   bg_str <- solid_fill_pml(bg)
