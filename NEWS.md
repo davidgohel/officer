@@ -19,6 +19,10 @@ the `HyperlinkBase` property when available (#630).
 via Nix). Previously, attempting to create presentations would fail with 
 permission errors in read-only environments (#706).
 
+## Changes
+
+- Defunct function `docx_reference_img()`.
+
 # officer 0.7.2
 
 ## Issues
