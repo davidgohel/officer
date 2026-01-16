@@ -98,6 +98,8 @@ Other functions for defining shape properties:
 ## Examples
 
 ``` r
+library(officer)
+
 sp_line()
 #>         color lwd   lty linecmpd lineend linejoin headend.type headend.width
 #> 1 transparent   1 solid      sng     rnd    round         none           med
@@ -113,13 +115,13 @@ sp_line(lty = "dot", linecmpd = "dbl")
 #> 1 transparent   1 dot      dbl     rnd    round         none           med
 #>   headend.length tailend.type tailend.width tailend.length
 #> 1            med         none           med            med
-print( sp_line (color="red", lwd = 2) )
+print(sp_line(color = "red", lwd = 2))
 #>   color lwd   lty linecmpd lineend linejoin headend.type headend.width
 #> 1   red   2 solid      sng     rnd    round         none           med
 #>   headend.length tailend.type tailend.width tailend.length
 #> 1            med         none           med            med
-obj <- sp_line (color="red", lwd = 2)
-update( obj, linecmpd = "dbl" )
+obj <- sp_line(color = "red", lwd = 2)
+update(obj, linecmpd = "dbl")
 #>   color lwd   lty linecmpd lineend linejoin headend.type headend.width
 #> 1   red   2 solid      dbl     rnd    round         none           med
 #>   headend.length tailend.type tailend.width tailend.length

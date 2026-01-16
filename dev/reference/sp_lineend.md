@@ -54,6 +54,8 @@ Other functions for defining shape properties:
 ## Examples
 
 ``` r
+library(officer)
+
 sp_lineend()
 #>   type width length
 #> 1 none   med    med
@@ -63,11 +65,11 @@ sp_lineend(type = "triangle")
 sp_lineend(type = "arrow", width = "lg", length = "lg")
 #>    type width length
 #> 1 arrow    lg     lg
-print(sp_lineend (type="triangle", width = "lg"))
+print(sp_lineend(type = "triangle", width = "lg"))
 #>       type width length
 #> 1 triangle    lg    med
-obj <- sp_lineend (type="triangle", width = "lg")
-update( obj, type = "arrow" )
+obj <- sp_lineend(type = "triangle", width = "lg")
+update(obj, type = "arrow")
 #>    type width length
 #> 1 arrow    lg    med
 ```

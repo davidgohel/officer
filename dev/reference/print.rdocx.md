@@ -91,7 +91,6 @@ doc <- body_add_par(doc, "hello world")
 output_file <- print(doc, target = tempfile(fileext = ".docx"))
 
 # preview mode: save to temp file and open locally ----
-if (FALSE) { # \dontrun{
-print(doc, preview = TRUE)
-} # }
+## Not run:
+# print(doc, preview = TRUE)
 ```
