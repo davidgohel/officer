@@ -8,6 +8,10 @@
   [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
   now supports deletion of multiple slides thanks to Wahiduzzaman Khan
   ([\#691](https://github.com/davidgohel/officer/issues/691)).
+- add
+  [`cursor_reach_index()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
+  to set the cursor at a specific index position in the document
+  ([\#574](https://github.com/davidgohel/officer/issues/574)).
 
 ### Issues
 

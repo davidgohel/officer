@@ -13,6 +13,8 @@ cursor_bookmark(x, id)
 
 cursor_end(x)
 
+cursor_reach_index(x, index)
+
 cursor_reach(x, keyword, fixed = FALSE)
 
 cursor_reach_test(x, keyword)
@@ -31,6 +33,10 @@ cursor_backward(x)
 - id:
 
   bookmark id
+
+- index:
+
+  element index in the document
 
 - keyword:
 
@@ -53,6 +59,10 @@ Set the cursor at a bookmark that has previously been set.
 
 Set the cursor at the end of the document, on the last element of the
 document.
+
+## cursor_reach_index
+
+Set the cursor at a specific index position in the document.
 
 ## cursor_reach
 

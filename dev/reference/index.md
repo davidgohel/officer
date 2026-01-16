@@ -39,6 +39,7 @@
 - [`cursor_begin()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
   [`cursor_bookmark()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
   [`cursor_end()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
+  [`cursor_reach_index()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
   [`cursor_reach()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
   [`cursor_reach_test()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
   [`cursor_forward()`](https://davidgohel.github.io/officer/dev/reference/cursor.md)
