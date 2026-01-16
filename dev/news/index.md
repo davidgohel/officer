@@ -2,6 +2,13 @@
 
 ## officer 0.7.3
 
+### Features
+
+- function
+  [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
+  now supports deletion of multiple slides thanks to Wahiduzzaman Khan
+  ([\#691](https://github.com/davidgohel/officer/issues/691)).
+
 ### Issues
 
 - fix feed_from_xml for ‘officedown’.

@@ -162,7 +162,7 @@
 - [`move_slide()`](https://davidgohel.github.io/officer/dev/reference/move_slide.md)
   : Move a slide
 - [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
-  : Remove a slide
+  : Remove slide(s)
 - [`` `slide_visible<-`() ``](https://davidgohel.github.io/officer/dev/reference/slide-visible.md)
   [`slide_visible()`](https://davidgohel.github.io/officer/dev/reference/slide-visible.md)
   : Get or set slide visibility

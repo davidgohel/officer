@@ -16,7 +16,8 @@ move_slide(x, index = NULL, to)
 
 - index:
 
-  slide index, default to current slide position.
+  slide index or a vector of slide indices to remove, default to current
+  slide position.
 
 - to:
 

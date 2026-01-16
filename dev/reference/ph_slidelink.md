@@ -69,7 +69,7 @@ doc <- ph_with(x = doc, "Un titre 2", location = loc_title)
 doc <- on_slide(doc, 1)
 slide_summary(doc) # read column ph_label here
 #>    type                                   id ph_label offx      offy cx   cy
-#> 1 title 3628a84a-39e1-4929-8bdb-8f3408105fda  Title 1  0.5 0.3003478  9 1.25
+#> 1 title 2e184051-c9fd-413e-99b1-3c30c6119a20  Title 1  0.5 0.3003478  9 1.25
 #>   rotation fld_id fld_type       text
 #> 1       NA   <NA>     <NA> Un titre 1
 doc <- ph_slidelink(x = doc, ph_label = "Title 1", slide_index = 2)

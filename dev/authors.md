@@ -40,6 +40,9 @@
 
 - **Majid Eismann**. Contributor.
 
+- **Wahiduzzaman Khan**. Contributor.  
+  vectorization of remove_slide
+
 - **Hongyuan Jia**. Contributor.
   [](https://orcid.org/0000-0002-0075-8183)
 
