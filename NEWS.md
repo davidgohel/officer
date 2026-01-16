@@ -5,6 +5,9 @@
 - fix feed_from_xml for 'officedown'.
 - `remove_field` argument of function `docx_summary()` now work as expected.
 - also remove relationships in `sanitize_images()` (#708).
+- Package now supports read-only installations (e.g., when installed as root or 
+via Nix). Previously, attempting to create presentations would fail with 
+permission errors in read-only environments (#706).
 
 # officer 0.7.2
 

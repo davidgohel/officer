@@ -193,7 +193,7 @@ slide_layout <- R6Class(
         id = "rId1", type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout",
         target = file.path("../slideLayouts", basename(self$file_name())) )
       newrel$write(path = rel_filename)
-      file.copy(path, to = new_file)
+      file.copy(path, to = new_file, copy.mode = FALSE)
       self
     },
 
