@@ -4,8 +4,11 @@
 
 - function `remove_slide()` now supports deletion of multiple slides
 thanks to Wahiduzzaman Khan (#691).
-- add `cursor_reach_index()` to set the cursor at a specific index position in 
+- add `cursor_reach_index()` to set the cursor at a specific index position in
 the document (#574).
+- `set_doc_properties()` gains a new argument `hyperlink_base` to set the base
+URL for relative hyperlinks in Word documents. `doc_properties()` now returns
+the `HyperlinkBase` property when available (#630).
 
 ## Issues
 

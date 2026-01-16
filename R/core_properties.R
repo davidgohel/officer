@@ -144,3 +144,99 @@ drop_templatenode_from_app <- function(package_dir) {
     write_xml(doc, file)
   }
 }
+
+
+# app.xml properties ----
+
+read_app_properties <- function(package_dir) {
+  file <- file.path(package_dir, "docProps", "app.xml")
+  if (!file.exists(file)) {
+    return(NULL)
+  }
+  doc <- read_xml(file)
+  ns <- xml_ns(doc)
+
+  hyperlink_base_node <- xml_find_first(doc, "//d1:HyperlinkBase", ns = ns)
+  hyperlink_base <- if (inherits(hyperlink_base_node, "xml_missing")) {
+    NA_character_
+  } else {
+    xml_text(hyperlink_base_node)
+  }
+
+  company_node <- xml_find_first(doc, "//d1:Company", ns = ns)
+  company <- if (inherits(company_node, "xml_missing")) {
+    NA_character_
+  } else {
+    xml_text(company_node)
+  }
+
+  z <- list(
+    data = data.frame(
+      name = c("HyperlinkBase", "Company"),
+      value = c(hyperlink_base, company),
+      stringsAsFactors = FALSE
+    ),
+    file = file
+  )
+  class(z) <- "app_properties"
+  z
+}
+
+
+#' @export
+`[<-.app_properties` <- function(x, i, j, value) {
+  if (!i %in% x$data$name) {
+    new_row <- data.frame(name = i, value = value, stringsAsFactors = FALSE)
+    x$data <- rbind(x$data, new_row)
+  } else {
+    x$data[x$data$name == i, j] <- value
+  }
+  x
+}
+
+
+#' @export
+`[.app_properties` <- function(x, i, j) {
+  x$data[x$data$name == i, j]
+}
+
+#' @importFrom xml2 xml_set_text
+write_app_properties <- function(app_props, package_dir) {
+  if (is.null(app_props)) {
+    return(invisible())
+  }
+
+  file <- file.path(package_dir, "docProps", "app.xml")
+  if (!file.exists(file)) {
+    return(invisible())
+  }
+
+  doc <- read_xml(file)
+  ns <- xml_ns(doc)
+
+  for (i in seq_len(nrow(app_props$data))) {
+    prop_name <- app_props$data$name[i]
+    prop_value <- app_props$data$value[i]
+
+    if (is.na(prop_value) || prop_value == "") {
+      next
+    }
+
+    xpath <- paste0("//d1:", prop_name)
+    node <- xml_find_first(doc, xpath, ns = ns)
+    if (inherits(node, "xml_missing")) {
+      new_node <- read_xml(sprintf(
+        "<%s>%s</%s>",
+        prop_name,
+        htmlEscapeCopy(prop_value),
+        prop_name
+      ))
+      xml_add_child(doc, new_node)
+    } else {
+      xml_set_text(node, prop_value)
+    }
+  }
+
+  write_xml(doc, file)
+  invisible()
+}

@@ -254,6 +254,9 @@ print.rdocx <- function(
   if (nrow(x$doc_properties_custom$data) > 0) {
     write_custom_properties(x$doc_properties_custom, x$package_dir)
   }
+  if (!is.null(x$app_properties)) {
+    write_app_properties(x$app_properties, x$package_dir)
+  }
   x <- sanitize_images(x, warn_user = FALSE)
   invisible(pack_folder(folder = x$package_dir, target = target))
 }

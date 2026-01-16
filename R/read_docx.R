@@ -89,6 +89,7 @@ read_docx <- function(path = NULL) {
 
   obj$doc_properties_custom <- read_custom_properties(package_dir)
   obj$doc_properties <- read_core_properties(package_dir)
+  obj$app_properties <- read_app_properties(package_dir)
   obj$content_type <- content_type$new(package_dir)
   obj$doc_obj <- body_part$new(
     package_dir,

@@ -11,6 +11,7 @@ set_doc_properties(
   creator = NULL,
   description = NULL,
   created = NULL,
+  hyperlink_base = NULL,
   ...,
   values = NULL
 )
@@ -21,6 +22,9 @@ set_doc_properties(
 \item{title, subject, creator, description}{text fields}
 
 \item{created}{a date object}
+
+\item{hyperlink_base}{a string specifying the base URL for relative hyperlinks
+in the document (only for rdocx).}
 
 \item{...}{named arguments (names are field names), each element is a single
 character value specifying value associated with the corresponding field name.

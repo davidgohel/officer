@@ -55,6 +55,21 @@ doc_properties <- function(x) {
     stringsAsFactors = FALSE
   )
   out <- rbind(out, out_custom)
+
+  # Add app properties for rdocx
+  if (inherits(x, "rdocx") && !is.null(x$app_properties)) {
+    app_props <- x$app_properties$data
+    app_props <- app_props[!is.na(app_props$value), , drop = FALSE]
+    if (nrow(app_props) > 0) {
+      out_app <- data.frame(
+        tag = app_props$name,
+        value = app_props$value,
+        stringsAsFactors = FALSE
+      )
+      out <- rbind(out, out_app)
+    }
+  }
+
   row.names(out) <- NULL
   out
 }
@@ -75,6 +90,8 @@ doc_properties <- function(x) {
 #' @param x an rdocx or rpptx object
 #' @param title,subject,creator,description text fields
 #' @param created a date object
+#' @param hyperlink_base a string specifying the base URL for relative hyperlinks
+#' in the document (only for rdocx).
 #' @param ... named arguments (names are field names), each element is a single
 #' character value specifying value associated with the corresponding field name.
 #' These pairs of *key-value* are added as custom properties. If a value is
@@ -99,6 +116,7 @@ set_doc_properties <- function(
   creator = NULL,
   description = NULL,
   created = NULL,
+  hyperlink_base = NULL,
   ...,
   values = NULL
 ) {
@@ -172,6 +190,35 @@ set_doc_properties <- function(
       )
     } else {
       cp["created", "value"] <- format(created, "%Y-%m-%dT%H:%M:%SZ")
+    }
+  }
+
+  if (!is.null(hyperlink_base)) {
+    if (!inherits(x, "rdocx")) {
+      cli::cli_warn(
+        c(
+          "!" = "{.arg hyperlink_base} is only supported for Word documents.",
+          "i" = "It will be ignored."
+        )
+      )
+    } else if (!is_string(hyperlink_base)) {
+      cli::cli_warn(
+        c(
+          "!" = "The value for property {.val hyperlink_base} is not a string.",
+          "i" = "It will not be set in the document properties."
+        )
+      )
+    } else {
+      if (is.null(x$app_properties)) {
+        cli::cli_warn(
+          c(
+            "!" = "No app.xml file found in the document.",
+            "i" = "{.arg hyperlink_base} will not be set."
+          )
+        )
+      } else {
+        x$app_properties["HyperlinkBase", "value"] <- hyperlink_base
+      }
     }
   }
 
