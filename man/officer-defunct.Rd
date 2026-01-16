@@ -16,3 +16,4 @@ Defunct Functions in Package officer
 \details{
 \code{docx_reference_img()} is not usefull anymore.
 }
+\keyword{internal}
