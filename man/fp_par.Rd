@@ -23,7 +23,9 @@ fp_par(
   shading.color = "transparent",
   keep_with_next = FALSE,
   tabs = NULL,
-  word_style = "Normal"
+  word_style = "Normal",
+  num_id = NULL,
+  ilvl = 0L
 )
 
 fp_par_lite(
@@ -42,7 +44,9 @@ fp_par_lite(
   shading.color = NA,
   keep_with_next = NA,
   tabs = FALSE,
-  word_style = NA
+  word_style = NA,
+  num_id = NULL,
+  ilvl = 0L
 )
 
 \method{print}{fp_par}(x, ...)
@@ -63,6 +67,8 @@ fp_par_lite(
   shading.color,
   keep_with_next,
   word_style,
+  num_id,
+  ilvl,
   ...
 )
 }
@@ -93,6 +99,14 @@ or an object returned by \code{\link[=fp_tabs]{fp_tabs()}}. Note this can only h
 or RTF outputs.}
 
 \item{word_style}{Word paragraph style name}
+
+\item{num_id}{integer referencing a numbering definition (\verb{<w:num w:numId>})
+in \code{word/numbering.xml}. When set, a \verb{<w:numPr>} element is added to the
+paragraph properties. See also \code{\link[=body_add_par]{body_add_par()}} \code{list_style} argument for
+a higher-level interface that manages numbering definitions automatically.}
+
+\item{ilvl}{integer, 0-based indentation level within the numbering
+definition (default 0). Only used when \code{num_id} is not NULL.}
 
 \item{x, object}{\code{fp_par} object}
 

@@ -4,7 +4,14 @@
 \alias{body_add_par}
 \title{Add paragraphs of text in a 'Word' document}
 \usage{
-body_add_par(x, value, style = NULL, pos = "after")
+body_add_par(
+  x,
+  value,
+  style = NULL,
+  pos = "after",
+  list_style = NULL,
+  ilvl = 0L
+)
 }
 \arguments{
 \item{x}{a docx device}
@@ -15,6 +22,17 @@ body_add_par(x, value, style = NULL, pos = "after")
 
 \item{pos}{where to add the new element relative to the cursor,
 one of "after", "before", "on".}
+
+\item{list_style}{one of \code{"bullet"} or \code{"decimal"}. When set, a
+\verb{<w:numPr>} element referencing a matching numbering definition is
+injected into the paragraph properties, producing a list item without
+requiring a pre-defined list style in the template. The numbering
+definition is appended to \code{word/numbering.xml} the first time a given
+\code{list_style} value is used in a document; subsequent calls reuse the
+same definition so items form a single continuous list.}
+
+\item{ilvl}{0-based indentation level within the numbering definition
+(default 0). Only used when \code{list_style} is not NULL.}
 }
 \description{
 Add a paragraph of text into an rdocx object
@@ -25,6 +43,13 @@ doc <- body_add_par(doc, "A title", style = "heading 1")
 doc <- body_add_par(doc, "Hello world!", style = "Normal")
 doc <- body_add_par(doc, "centered text", style = "centered")
 
+print(doc, target = tempfile(fileext = ".docx"))
+
+doc <- read_docx()
+doc <- body_add_par(doc, "Item one", list_style = "bullet")
+doc <- body_add_par(doc, "Item two", list_style = "bullet")
+doc <- body_add_par(doc, "First",    list_style = "decimal")
+doc <- body_add_par(doc, "Second",   list_style = "decimal")
 print(doc, target = tempfile(fileext = ".docx"))
 }
 \seealso{

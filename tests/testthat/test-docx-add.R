@@ -446,3 +446,138 @@ test_that("body_add R objects", {
   table_style_name <- unique(table_style_name)
   expect_equal(table_style_name, "table_template")
 })
+
+test_that("body_add_par list_style bullet", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "Item one",   list_style = "bullet")
+  doc <- body_add_par(doc, "Item two",   list_style = "bullet")
+  doc <- body_add_par(doc, "Sub-item",   list_style = "bullet", ilvl = 1L)
+
+  # numbering.xml has the new bullet abstractNum + num
+  num_doc <- read_xml(file.path(doc$package_dir, "word", "numbering.xml"))
+  bullet_fmt <- xml_find_all(num_doc, "w:abstractNum/w:lvl/w:numFmt[@w:val='bullet']")
+  expect_gt(length(bullet_fmt), 0L)
+
+  # both items share the same numId
+  bullet_num_id <- doc$officer_numbering[["bullet"]]$num_id
+  expect_false(is.null(bullet_num_id))
+
+  # second bullet call must reuse the cached numId (no duplicate abstractNums)
+  abs_count_before <- length(xml_find_all(num_doc, "w:abstractNum"))
+  doc2 <- body_add_par(doc, "Item three", list_style = "bullet")
+  num_doc2 <- read_xml(file.path(doc2$package_dir, "word", "numbering.xml"))
+  expect_equal(
+    length(xml_find_all(num_doc2, "w:abstractNum")),
+    abs_count_before
+  )
+
+  # paragraph XML contains <w:numPr> with correct numId and ilvl
+  doc <- cursor_end(doc)
+  node <- docx_current_block_xml(doc)
+  ilvl_val  <- xml_attr(xml_find_first(node, "w:pPr/w:numPr/w:ilvl"),  "val")
+  numid_val <- xml_attr(xml_find_first(node, "w:pPr/w:numPr/w:numId"), "val")
+  expect_equal(ilvl_val,  "1")
+  expect_equal(numid_val, as.character(bullet_num_id))
+})
+
+test_that("body_add_par list_style decimal", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "First",  list_style = "decimal")
+  doc <- body_add_par(doc, "Second", list_style = "decimal")
+
+  num_doc <- read_xml(file.path(doc$package_dir, "word", "numbering.xml"))
+  decimal_abs <- xml_find_all(
+    num_doc,
+    "w:abstractNum[w:lvl/w:numFmt[@w:val='decimal']][w:lvl/w:lvlText[@w:val='%1.']]"
+  )
+  expect_gt(length(decimal_abs), 0L)
+
+  decimal_num_id <- doc$officer_numbering[["decimal"]]$num_id
+  expect_false(is.null(decimal_num_id))
+
+  doc <- cursor_begin(doc)
+  node <- docx_current_block_xml(doc)
+  ilvl_val  <- xml_attr(xml_find_first(node, "w:pPr/w:numPr/w:ilvl"),  "val")
+  numid_val <- xml_attr(xml_find_first(node, "w:pPr/w:numPr/w:numId"), "val")
+  expect_equal(ilvl_val,  "0")
+  expect_equal(numid_val, as.character(decimal_num_id))
+})
+
+test_that("body_add_par bullet and decimal use different numIds", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "Bullet",  list_style = "bullet")
+  doc <- body_add_par(doc, "Decimal", list_style = "decimal")
+
+  expect_false(is.null(doc$officer_numbering[["bullet"]]))
+  expect_false(is.null(doc$officer_numbering[["decimal"]]))
+  expect_false(
+    identical(
+      doc$officer_numbering[["bullet"]]$num_id,
+      doc$officer_numbering[["decimal"]]$num_id
+    )
+  )
+})
+
+test_that("body_add_par list restarts after non-list paragraph", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "First",  list_style = "decimal")
+  doc <- body_add_par(doc, "Second", list_style = "decimal")
+  num_id_first <- doc$officer_numbering[["decimal"]]$num_id
+
+  # gap: a plain paragraph clears officer_list_last_style
+  doc <- body_add_par(doc, "Normal", style = "Normal")
+
+  doc <- body_add_par(doc, "One again", list_style = "decimal")
+  num_id_second <- doc$officer_numbering[["decimal"]]$num_id
+
+  # a new <w:num> must have been created for the restarted block
+  expect_false(identical(num_id_first, num_id_second))
+
+  # both nums reference the same abstractNum
+  num_doc <- read_xml(file.path(doc$package_dir, "word", "numbering.xml"))
+  abs_val_first <- xml_attr(
+    xml_find_first(
+      num_doc,
+      sprintf("w:num[@w:numId='%d']/w:abstractNumId", num_id_first)
+    ),
+    "val"
+  )
+  abs_val_second <- xml_attr(
+    xml_find_first(
+      num_doc,
+      sprintf("w:num[@w:numId='%d']/w:abstractNumId", num_id_second)
+    ),
+    "val"
+  )
+  expect_equal(abs_val_first, abs_val_second)
+})
+
+test_that("body_add_par list restarts after switching style", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "Bullet item", list_style = "bullet")
+  doc <- body_add_par(doc, "Step one",    list_style = "decimal")
+  num_id_decimal_first <- doc$officer_numbering[["decimal"]]$num_id
+
+  # switching back to bullet then decimal again must restart decimal
+  doc <- body_add_par(doc, "Another bullet", list_style = "bullet")
+  doc <- body_add_par(doc, "Step one again", list_style = "decimal")
+  num_id_decimal_second <- doc$officer_numbering[["decimal"]]$num_id
+
+  expect_false(identical(num_id_decimal_first, num_id_decimal_second))
+})
+
+test_that("body_add_par list_style round-trips through save/reload", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "Item one",  list_style = "bullet")
+  doc <- body_add_par(doc, "First",     list_style = "decimal")
+
+  tf <- tempfile(fileext = ".docx")
+  print(doc, target = tf)
+
+  doc2 <- read_docx(tf)
+  summary <- docx_summary(doc2, detailed = TRUE)
+
+  # docx_summary captures num_id and level for list paragraphs
+  expect_true(any(!is.na(summary$num_id)))
+  expect_true(any(!is.na(summary$level)))
+})

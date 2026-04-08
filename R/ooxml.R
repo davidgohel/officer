@@ -481,9 +481,19 @@ ppr_wml <- function(x) {
     )
   }
 
+  num_pr_ <- ""
+  if (!is.null(x$num_id)) {
+    num_pr_ <- sprintf(
+      "<w:numPr><w:ilvl w:val=\"%d\"/><w:numId w:val=\"%d\"/></w:numPr>",
+      as.integer(x$ilvl),
+      as.integer(x$num_id)
+    )
+  }
+
   paste0(
     "<w:pPr>",
     pstyle,
+    num_pr_,
     text_align_,
     keep_with_next,
     borders_,

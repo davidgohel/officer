@@ -95,6 +95,15 @@ is_align <- function(x, align) {
   val == align
 }
 
+get_num_pr <- function(x) {
+  xml_ <- format(x, type = "wml")
+  doc <- read_xml(wml_str(xml_))
+  list(
+    num_id = xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:numPr/w:numId"), "val"),
+    ilvl   = xml_attr(xml_find_first(doc, "/w:document/w:pPr/w:numPr/w:ilvl"), "val")
+  )
+}
+
 
 test_that("wml text align", {
   x <- fp_par(text.align = "center")
@@ -170,4 +179,72 @@ test_that("fp_par_lite", {
     wml,
     "<w:pPr><w:pStyle w:pstlname=\"dummy\"/><w:jc w:val=\"center\"/></w:pPr>"
   )
+})
+
+test_that("fp_par num_id emits numPr", {
+  x <- fp_par(num_id = 1L)
+  expect_equal(x$num_id, 1L)
+  expect_equal(x$ilvl, 0L)
+
+  np <- get_num_pr(x)
+  expect_equal(np$num_id, "1")
+  expect_equal(np$ilvl, "0")
+})
+
+test_that("fp_par num_id with ilvl", {
+  x <- fp_par(num_id = 2L, ilvl = 1L)
+  expect_equal(x$num_id, 2L)
+  expect_equal(x$ilvl, 1L)
+
+  np <- get_num_pr(x)
+  expect_equal(np$num_id, "2")
+  expect_equal(np$ilvl, "1")
+})
+
+test_that("fp_par without num_id emits no numPr", {
+  x <- fp_par()
+  expect_null(x$num_id)
+  xml_ <- format(x, type = "wml")
+  expect_false(grepl("numPr", xml_, fixed = TRUE))
+})
+
+test_that("fp_par_lite num_id", {
+  x <- fp_par_lite(num_id = 3L, ilvl = 2L)
+  expect_equal(x$num_id, 3L)
+  expect_equal(x$ilvl, 2L)
+  np <- get_num_pr(x)
+  expect_equal(np$num_id, "3")
+  expect_equal(np$ilvl, "2")
+})
+
+test_that("update.fp_par num_id", {
+  x <- fp_par()
+  expect_null(x$num_id)
+
+  # set num_id
+  x <- update(x, num_id = 1L)
+  expect_equal(x$num_id, 1L)
+  expect_equal(x$ilvl, 0L)
+
+  # update ilvl only
+  x <- update(x, ilvl = 2L)
+  expect_equal(x$ilvl, 2L)
+  expect_equal(x$num_id, 1L)
+
+  # clear numbering
+  x <- update(x, num_id = NULL)
+  expect_null(x$num_id)
+  expect_null(x$ilvl)
+  xml_ <- format(x, type = "wml")
+  expect_false(grepl("numPr", xml_, fixed = TRUE))
+})
+
+test_that("numPr appears after pStyle and before jc in wml", {
+  x <- fp_par(num_id = 1L, text.align = "center", word_style = "Normal")
+  xml_ <- format(x, type = "wml")
+  pos_pstyle <- regexpr("w:pStyle", xml_, fixed = TRUE)
+  pos_numpr  <- regexpr("w:numPr",  xml_, fixed = TRUE)
+  pos_jc     <- regexpr("w:jc",     xml_, fixed = TRUE)
+  expect_true(pos_pstyle < pos_numpr)
+  expect_true(pos_numpr  < pos_jc)
 })

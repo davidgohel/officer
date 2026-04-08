@@ -709,6 +709,12 @@ as.character.fp_tabs <- function(x, ...) {
 #' or an object returned by [fp_tabs()]. Note this can only have effect with Word
 #' or RTF outputs.
 #' @param word_style Word paragraph style name
+#' @param num_id integer referencing a numbering definition (`<w:num w:numId>`)
+#' in `word/numbering.xml`. When set, a `<w:numPr>` element is added to the
+#' paragraph properties. See also [body_add_par()] `list_style` argument for
+#' a higher-level interface that manages numbering definitions automatically.
+#' @param ilvl integer, 0-based indentation level within the numbering
+#' definition (default 0). Only used when `num_id` is not NULL.
 #' @return a `fp_par` object
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
@@ -731,7 +737,9 @@ fp_par <- function(
   shading.color = "transparent",
   keep_with_next = FALSE,
   tabs = NULL,
-  word_style = "Normal"
+  word_style = "Normal",
+  num_id = NULL,
+  ilvl = 0L
 ) {
   out <- list()
 
@@ -801,6 +809,12 @@ fp_par <- function(
   out <- check_set_chr(obj = out, word_style)
 
   out$keep_with_next <- keep_with_next
+
+  if (!is.null(num_id)) {
+    out$num_id <- as.integer(num_id)
+    out$ilvl <- as.integer(ilvl)
+  }
+
   class(out) <- "fp_par"
 
   out
@@ -828,7 +842,9 @@ fp_par_lite <- function(
   shading.color = NA,
   keep_with_next = NA,
   tabs = FALSE,
-  word_style = NA
+  word_style = NA,
+  num_id = NULL,
+  ilvl = 0L
 ) {
   if (isFALSE(tabs)) {
     tabs <- NULL
@@ -849,7 +865,9 @@ fp_par_lite <- function(
     shading.color = shading.color,
     keep_with_next = keep_with_next,
     tabs = tabs,
-    word_style = word_style
+    word_style = word_style,
+    num_id = num_id,
+    ilvl = ilvl
   )
 }
 
@@ -939,6 +957,8 @@ update.fp_par <- function(
   shading.color,
   keep_with_next,
   word_style,
+  num_id,
+  ilvl,
   ...
 ) {
   if (!missing(text.align)) {
@@ -1009,6 +1029,22 @@ update.fp_par <- function(
   }
   if (!missing(keep_with_next)) {
     object <- check_set_bool(object, keep_with_next)
+  }
+
+  if (!missing(num_id)) {
+    if (is.null(num_id)) {
+      object$num_id <- NULL
+      object$ilvl <- NULL
+    } else {
+      object$num_id <- as.integer(num_id)
+      if (!missing(ilvl)) {
+        object$ilvl <- as.integer(ilvl)
+      } else if (is.null(object$ilvl)) {
+        object$ilvl <- 0L
+      }
+    }
+  } else if (!missing(ilvl) && !is.null(object$num_id)) {
+    object$ilvl <- as.integer(ilvl)
   }
 
   object

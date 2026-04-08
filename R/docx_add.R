@@ -358,6 +358,95 @@ body_add_blocks <- function(x, blocks, pos = "after") {
 }
 
 
+officer_abstract_num_xml <- function(abstract_num_id, style) {
+  ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\""
+  bullet_chars <- c("\u2022", "\u25e6", "\u25aa")
+  lvls <- vapply(
+    seq_len(9) - 1L,
+    function(lvl_i) {
+      left <- 720L * (lvl_i + 1L)
+      if (style == "bullet") {
+        fmt <- "bullet"
+        text <- bullet_chars[lvl_i %% 3L + 1L]
+      } else {
+        fmt <- "decimal"
+        text <- "%1."
+      }
+      sprintf(
+        "<w:lvl w:ilvl=\"%d\"><w:start w:val=\"1\"/><w:numFmt w:val=\"%s\"/><w:lvlText w:val=\"%s\"/><w:lvlJc w:val=\"left\"/><w:pPr><w:ind w:left=\"%d\" w:hanging=\"360\"/></w:pPr></w:lvl>",
+        lvl_i, fmt, text, left
+      )
+    },
+    character(1)
+  )
+  paste0(
+    "<w:abstractNum ", ns, " w:abstractNumId=\"", abstract_num_id, "\">",
+    "<w:multiLevelType w:val=\"multilevel\"/>",
+    paste0(lvls, collapse = ""),
+    "</w:abstractNum>"
+  )
+}
+
+docx_ensure_list_style <- function(x, style) {
+  if (!is.null(x$officer_numbering[[style]])) {
+    return(x)
+  }
+
+  num_file <- file.path(x$package_dir, "word", "numbering.xml")
+  doc <- read_xml(num_file)
+
+  abs_nodes <- xml_find_all(doc, "w:abstractNum")
+  num_nodes <- xml_find_all(doc, "w:num")
+
+  next_abs_id <- max(as.integer(xml_attr(abs_nodes, "abstractNumId"))) + 1L
+  next_num_id <- max(as.integer(xml_attr(num_nodes, "numId"))) + 1L
+
+  ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\""
+  num_xml <- sprintf(
+    "<w:num %s w:numId=\"%d\"><w:abstractNumId w:val=\"%d\"/></w:num>",
+    ns, next_num_id, next_abs_id
+  )
+
+  xml_add_sibling(
+    abs_nodes[[length(abs_nodes)]],
+    as_xml_document(officer_abstract_num_xml(next_abs_id, style))
+  )
+  xml_add_sibling(
+    num_nodes[[length(num_nodes)]],
+    as_xml_document(num_xml)
+  )
+  write_xml(doc, file = num_file)
+
+  x$officer_numbering[[style]] <- list(
+    abstract_id = next_abs_id,
+    num_id = next_num_id
+  )
+  x
+}
+
+docx_new_list_num <- function(x, style) {
+  num_file <- file.path(x$package_dir, "word", "numbering.xml")
+  doc <- read_xml(num_file)
+
+  num_nodes <- xml_find_all(doc, "w:num")
+  next_num_id <- max(as.integer(xml_attr(num_nodes, "numId"))) + 1L
+
+  ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\""
+  num_xml <- sprintf(
+    "<w:num %s w:numId=\"%d\"><w:abstractNumId w:val=\"%d\"/><w:lvlOverride w:ilvl=\"0\"><w:startOverride w:val=\"1\"/></w:lvlOverride></w:num>",
+    ns, next_num_id, x$officer_numbering[[style]]$abstract_id
+  )
+
+  xml_add_sibling(
+    num_nodes[[length(num_nodes)]],
+    as_xml_document(num_xml)
+  )
+  write_xml(doc, file = num_file)
+
+  x$officer_numbering[[style]]$num_id <- next_num_id
+  x
+}
+
 #' @export
 #' @title Add paragraphs of text in a 'Word' document
 #' @description Add a paragraph of text into an rdocx object
@@ -366,6 +455,15 @@ body_add_blocks <- function(x, blocks, pos = "after") {
 #' @param style paragraph style name
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
+#' @param list_style one of `"bullet"` or `"decimal"`. When set, a
+#' `<w:numPr>` element referencing a matching numbering definition is
+#' injected into the paragraph properties, producing a list item without
+#' requiring a pre-defined list style in the template. The numbering
+#' definition is appended to `word/numbering.xml` the first time a given
+#' `list_style` value is used in a document; subsequent calls reuse the
+#' same definition so items form a single continuous list.
+#' @param ilvl 0-based indentation level within the numbering definition
+#' (default 0). Only used when `list_style` is not NULL.
 #' @examples
 #' doc <- read_docx()
 #' doc <- body_add_par(doc, "A title", style = "heading 1")
@@ -373,19 +471,47 @@ body_add_blocks <- function(x, blocks, pos = "after") {
 #' doc <- body_add_par(doc, "centered text", style = "centered")
 #'
 #' print(doc, target = tempfile(fileext = ".docx"))
+#'
+#' doc <- read_docx()
+#' doc <- body_add_par(doc, "Item one", list_style = "bullet")
+#' doc <- body_add_par(doc, "Item two", list_style = "bullet")
+#' doc <- body_add_par(doc, "First",    list_style = "decimal")
+#' doc <- body_add_par(doc, "Second",   list_style = "decimal")
+#' print(doc, target = tempfile(fileext = ".docx"))
 #' @family functions for adding content
-body_add_par <- function(x, value, style = NULL, pos = "after") {
+body_add_par <- function(x, value, style = NULL, pos = "after",
+                         list_style = NULL, ilvl = 0L) {
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
 
   style_id <- get_style_id(data = x$styles, style = style, type = "paragraph")
 
+  num_pr_ <- ""
+  if (!is.null(list_style)) {
+    list_style <- match.arg(list_style, c("bullet", "decimal"))
+    if (is.null(x$officer_numbering[[list_style]])) {
+      x <- docx_ensure_list_style(x, list_style)
+    } else if (!identical(x$officer_list_last_style, list_style)) {
+      x <- docx_new_list_num(x, list_style)
+    }
+    x$officer_list_last_style <- list_style
+    num_pr_ <- sprintf(
+      "<w:numPr><w:ilvl w:val=\"%d\"/><w:numId w:val=\"%d\"/></w:numPr>",
+      as.integer(ilvl),
+      as.integer(x$officer_numbering[[list_style]]$num_id)
+    )
+  } else {
+    x$officer_list_last_style <- NULL
+  }
+
   xml_elt <- paste0(
     wp_ns_yes,
     "<w:pPr><w:pStyle w:val=\"",
     style_id,
-    "\"/></w:pPr><w:r><w:t xml:space=\"preserve\">",
+    "\"/>",
+    num_pr_,
+    "</w:pPr><w:r><w:t xml:space=\"preserve\">",
     htmlEscapeCopy(value),
     "</w:t></w:r></w:p>"
   )
