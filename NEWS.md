@@ -1,3 +1,16 @@
+# officer 0.7.4
+
+## Features
+
+- `write_docx_settings()` now preserves the existing `settings.xml` content
+instead of rebuilding it from scratch. This fixes the loss of embedded font
+settings (`embedTrueTypeFonts`), math properties, footnote/endnote settings
+and other XML elements during docx round-trips (#554).
+- new function `docx_embed_font()` to embed TrueType or OpenType font files
+into Word documents. Embedded fonts ensure correct rendering on systems where
+the font is not installed (#554).
+
+
 # officer 0.7.3
 
 ## Features

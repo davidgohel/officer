@@ -149,33 +149,93 @@ update_docx_settings_from_file <- function(x, file) {
 
 write_docx_settings <- function(x) {
   settings <- x$settings
-  str <- paste0(
-    "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n",
-    "<w:settings xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">",
-    sprintf("<w:zoom w:percent=\"%.0f\"/>", settings$zoom * 100),
-    sprintf(
-      "<w:defaultTabStop w:val=\"%.0f\"/>",
-      settings$default_tab_stop * 1440
-    ),
-    if (settings$auto_hyphenation) sprintf("<w:autoHyphenation/>"),
-    sprintf(
-      "<w:hyphenationZone w:val=\"%.0f\"/>",
-      settings$hyphenation_zone * 1440
-    ),
-    sprintf(
-      "<w:compat><w:compatSetting w:name=\"compatibilityMode\" w:uri=\"http://schemas.microsoft.com/office/word\" w:val=\"%s\"/></w:compat>",
-      settings$compatibility_mode
-    ),
-    sprintf("<w:decimalSymbol w:val=\"%s\"/>", settings$decimal_symbol),
-    sprintf("<w:listSeparator w:val=\"%s\"/>", settings$list_separator),
-    if (settings$even_and_odd_headers) {
-      "<w:evenAndOddHeaders w:val=\"1\"/>"
-    } else {
-      "<w:evenAndOddHeaders w:val=\"0\"/>"
-    },
-    "</w:settings>"
-  )
   file <- file.path(x$package_dir, "word", "settings.xml")
-  writeLines(str, file, useBytes = TRUE)
+  doc <- read_xml(file)
+  ns <- "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+
+  upsert_simple <- function(doc, tag, attr, value) {
+    node <- xml_child(doc, tag)
+    new_xml <- sprintf(
+      "<%s xmlns:w=\"%s\" w:%s=\"%s\"/>",
+      tag,
+      ns,
+      attr,
+      value
+    )
+    if (inherits(node, "xml_missing")) {
+      xml_add_child(doc, read_xml(new_xml))
+    } else {
+      xml_replace(node, read_xml(new_xml))
+    }
+  }
+
+  upsert_simple(
+    doc,
+    "w:zoom",
+    "percent",
+    sprintf("%.0f", settings$zoom * 100)
+  )
+  upsert_simple(
+    doc,
+    "w:defaultTabStop",
+    "val",
+    sprintf("%.0f", settings$default_tab_stop * 1440)
+  )
+  upsert_simple(
+    doc,
+    "w:hyphenationZone",
+    "val",
+    sprintf("%.0f", settings$hyphenation_zone * 1440)
+  )
+  upsert_simple(doc, "w:decimalSymbol", "val", settings$decimal_symbol)
+  upsert_simple(doc, "w:listSeparator", "val", settings$list_separator)
+
+  # autoHyphenation: add if TRUE, remove if FALSE
+  node <- xml_child(doc, "w:autoHyphenation")
+  if (settings$auto_hyphenation && inherits(node, "xml_missing")) {
+    new_xml <- sprintf(
+      "<w:autoHyphenation xmlns:w=\"%s\"/>",
+      ns
+    )
+    xml_add_child(doc, read_xml(new_xml))
+  } else if (!settings$auto_hyphenation && !inherits(node, "xml_missing")) {
+    xml_remove(node)
+  }
+
+  # evenAndOddHeaders
+  eoh_val <- if (settings$even_and_odd_headers) "1" else "0"
+  upsert_simple(doc, "w:evenAndOddHeaders", "val", eoh_val)
+
+  # compat / compatSetting
+  compat_node <- xml_child(doc, "w:compat")
+  compat_xml <- sprintf(
+    paste0(
+      "<w:compat xmlns:w=\"%s\">",
+      "<w:compatSetting w:name=\"compatibilityMode\"",
+      " w:uri=\"http://schemas.microsoft.com/office/word\"",
+      " w:val=\"%s\"/></w:compat>"
+    ),
+    ns,
+    settings$compatibility_mode
+  )
+  if (inherits(compat_node, "xml_missing")) {
+    xml_add_child(doc, read_xml(compat_xml))
+  } else {
+    xml_replace(compat_node, read_xml(compat_xml))
+  }
+
+  # embedTrueTypeFonts: add if TRUE, leave existing if not set
+  if (isTRUE(settings$embed_true_type_fonts)) {
+    node <- xml_child(doc, "w:embedTrueTypeFonts")
+    if (inherits(node, "xml_missing")) {
+      new_xml <- sprintf(
+        "<w:embedTrueTypeFonts xmlns:w=\"%s\"/>",
+        ns
+      )
+      xml_add_child(doc, read_xml(new_xml))
+    }
+  }
+
+  write_xml(doc, file)
   TRUE
 }

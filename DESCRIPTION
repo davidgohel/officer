@@ -1,7 +1,7 @@
 Type: Package
 Package: officer
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.7.3
+Version: 0.7.4.001
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
@@ -80,6 +80,7 @@ Collate:
     'docx_add.R'
     'docx_comments.R'
     'docx_cursor.R'
+    'docx_embed_font.R'
     'docx_part.R'
     'docx_replace.R'
     'docx_section.R'

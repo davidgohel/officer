@@ -37,6 +37,7 @@ reference:
     - set_doc_properties
     - docx_set_paragraph_style
     - docx_set_character_style
+    - docx_embed_font
     - docx_set_settings
     - change_styles
   - title: Word documents information
