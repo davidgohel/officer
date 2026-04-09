@@ -9,6 +9,9 @@ and other XML elements during docx round-trips (#554).
 - new function `docx_embed_font()` to embed TrueType or OpenType font files
 into Word documents. Embedded fonts ensure correct rendering on systems where
 the font is not installed (#554).
+- new functions `list_item()`, `block_list_items()` and `body_add_list()`
+to create bullet or numbered lists with rich text (fpar) and multi-level
+nesting. Works in both Word and PowerPoint documents (#314).
 
 
 # officer 0.7.3

@@ -20,7 +20,8 @@ test_that("settings works", {
 
 test_that("settings preserves existing XML elements", {
   template <- system.file(
-    "doc_examples", "example.docx",
+    "doc_examples",
+    "example.docx",
     package = "officer"
   )
   x <- read_docx(template)
@@ -79,7 +80,9 @@ test_that("docx_embed_font embeds font files", {
   )
   ns <- c(w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main")
   font_node <- xml2::xml_find_first(
-    ft, "w:font[@w:name='Liberation Sans']", ns = ns
+    ft,
+    "w:font[@w:name='Liberation Sans']",
+    ns = ns
   )
   expect_false(inherits(font_node, "xml_missing"))
   embed_reg <- xml2::xml_child(font_node, "w:embedRegular")
@@ -91,8 +94,11 @@ test_that("docx_embed_font embeds font files", {
   rels <- xml2::read_xml(
     file.path(unpack_dir, "word", "_rels", "fontTable.xml.rels")
   )
-  rel_nodes <- xml2::xml_find_all(rels, "d1:Relationship",
-    ns = xml2::xml_ns(rels))
+  rel_nodes <- xml2::xml_find_all(
+    rels,
+    "d1:Relationship",
+    ns = xml2::xml_ns(rels)
+  )
   expect_equal(length(rel_nodes), 2L)
 
   # settings.xml has embedTrueTypeFonts

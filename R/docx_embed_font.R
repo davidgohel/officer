@@ -34,14 +34,13 @@
 #' doc <- read_docx()
 #' doc <- docx_embed_font(doc, font_family = "Liberation Sans")
 #'
-#' # explicit paths (no gdtools needed)
-#' doc <- docx_embed_font(
-#'   doc,
-#'   font_family = "My Font",
-#'   regular = "path/to/font-regular.ttf",
-#'   bold = "path/to/font-bold.ttf"
-#' )
-#' }
+#' # # explicit paths (no gdtools needed)
+#' # doc <- docx_embed_font(
+#' #   doc,
+#' #   font_family = "My Font",
+#' #   regular = "path/to/font-regular.ttf",
+#' #   bold = "path/to/font-bold.ttf"
+#' # )
 docx_embed_font <- function(
   x,
   font_family,
@@ -99,8 +98,11 @@ docx_embed_font <- function(
   rels_file <- file.path(package_dir, "word", "_rels", "fontTable.xml.rels")
   if (file.exists(rels_file)) {
     rels_doc <- read_xml(rels_file)
-    existing_rels <- xml_find_all(rels_doc, "d1:Relationship",
-      ns = xml_ns(rels_doc))
+    existing_rels <- xml_find_all(
+      rels_doc,
+      "d1:Relationship",
+      ns = xml_ns(rels_doc)
+    )
     existing_ids <- xml_attr(existing_rels, "Id")
     if (length(existing_ids) > 0) {
       next_rid <- max(as.integer(gsub("\\D", "", existing_ids))) + 1L
@@ -109,10 +111,13 @@ docx_embed_font <- function(
     }
   } else {
     rels_dir <- file.path(package_dir, "word", "_rels")
-    if (!dir.exists(rels_dir)) dir.create(rels_dir, recursive = TRUE)
+    if (!dir.exists(rels_dir)) {
+      dir.create(rels_dir, recursive = TRUE)
+    }
     rels_doc <- read_xml(paste0(
       '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
-      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>'))
+      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>'
+    ))
     next_rid <- 1L
   }
 
@@ -130,7 +135,9 @@ docx_embed_font <- function(
   if (inherits(font_node, "xml_missing")) {
     font_xml <- sprintf(
       '<w:font xmlns:w="%s" xmlns:r="%s" w:name="%s"/>',
-      ns_w, ns_r, font_family
+      ns_w,
+      ns_r,
+      font_family
     )
     xml_add_child(font_table_doc, read_xml(font_xml))
     font_node <- xml_find_first(
@@ -163,7 +170,10 @@ docx_embed_font <- function(
     rid <- sprintf("rId%d", next_rid)
     rel_xml <- sprintf(
       '<Relationship xmlns="%s" Id="%s" Type="%s" Target="fonts/%s"/>',
-      ns_pkg, rid, rel_type, odttf_name
+      ns_pkg,
+      rid,
+      rel_type,
+      odttf_name
     )
     xml_add_child(rels_doc, read_xml(rel_xml))
     next_rid <- next_rid + 1L
@@ -177,7 +187,11 @@ docx_embed_font <- function(
     # add embed node
     embed_xml <- sprintf(
       '<w:%s xmlns:w="%s" xmlns:r="%s" r:id="%s" w:fontKey="%s"/>',
-      embed_tag, ns_w, ns_r, rid, guid
+      embed_tag,
+      ns_w,
+      ns_r,
+      rid,
+      guid
     )
     xml_add_child(font_node, read_xml(embed_xml))
   }
@@ -242,13 +256,19 @@ detect_font_files <- function(font_family) {
 
   # print equivalent explicit call
   arg_names <- c(
-    regular = "regular", bold = "bold",
-    italic = "italic", bold_italic = "bold_italic"
+    regular = "regular",
+    bold = "bold",
+    italic = "italic",
+    bold_italic = "bold_italic"
   )
   present <- Filter(Negate(is.null), result)
-  code_args <- vapply(names(present), function(nm) {
-    sprintf("  %s = \"%s\"", arg_names[[nm]], present[[nm]])
-  }, character(1L))
+  code_args <- vapply(
+    names(present),
+    function(nm) {
+      sprintf("  %s = \"%s\"", arg_names[[nm]], present[[nm]])
+    },
+    character(1L)
+  )
   code <- paste0(
     "docx_embed_font(\n  x,\n",
     sprintf("  font_family = \"%s\",\n", font_family),

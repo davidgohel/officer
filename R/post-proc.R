@@ -157,6 +157,139 @@ process_links <- function(doc_obj, type = "wml") {
   }
 }
 
+process_list_markers <- function(xml_str, package_dir) {
+  marker_pattern <- "officer-list-(bullet|decimal)-[a-f0-9-]+"
+  has_markers <- grepl(marker_pattern, xml_str)
+  if (!any(has_markers)) {
+    return(xml_str)
+  }
+
+  all_markers <- regmatches(
+    xml_str[has_markers],
+    gregexpr(marker_pattern, xml_str[has_markers])
+  )
+  unique_markers <- unique(unlist(all_markers))
+
+  numbering_file <- file.path(package_dir, "word", "numbering.xml")
+  if (!file.exists(numbering_file)) {
+    cli::cli_abort("numbering.xml not found in {.file {package_dir}}")
+  }
+  numbering_doc <- read_xml(numbering_file)
+  ns_w <- "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+
+  abstract_nums <- xml_find_all(
+    numbering_doc,
+    "w:abstractNum",
+    ns = c(w = ns_w)
+  )
+  nums <- xml_find_all(numbering_doc, "w:num", ns = c(w = ns_w))
+  next_abstract_id <- if (length(abstract_nums) > 0) {
+    max(as.integer(xml_attr(abstract_nums, "abstractNumId"))) + 1L
+  } else {
+    0L
+  }
+  next_num_id <- if (length(nums) > 0) {
+    max(as.integer(xml_attr(nums, "numId"))) + 1L
+  } else {
+    1L
+  }
+
+  for (marker in unique_markers) {
+    list_type <- sub("officer-list-(bullet|decimal)-.*", "\\1", marker)
+    abstract_xml <- build_abstract_num_xml(
+      next_abstract_id,
+      list_type,
+      ns_w
+    )
+    num_xml <- sprintf(
+      paste0(
+        '<w:num xmlns:w="%s" w:numId="%d">',
+        '<w:abstractNumId w:val="%d"/></w:num>'
+      ),
+      ns_w,
+      next_num_id,
+      next_abstract_id
+    )
+
+    xml_add_child(numbering_doc, read_xml(abstract_xml))
+    xml_add_child(numbering_doc, read_xml(num_xml))
+
+    xml_str <- gsub(
+      marker,
+      as.character(next_num_id),
+      xml_str,
+      fixed = TRUE
+    )
+
+    next_abstract_id <- next_abstract_id + 1L
+    next_num_id <- next_num_id + 1L
+  }
+
+  write_xml(numbering_doc, numbering_file)
+  xml_str
+}
+
+build_abstract_num_xml <- function(abstract_num_id, list_type, ns_w) {
+  levels <- vapply(
+    0:8,
+    function(ilvl) {
+      indent_left <- 360L * (ilvl + 1L)
+      if (list_type == "bullet") {
+        bullets <- c(
+          "\u2022",
+          "\u25E6",
+          "\u2013",
+          "\u2022",
+          "\u25E6",
+          "\u2013",
+          "\u2022",
+          "\u25E6",
+          "\u2013"
+        )
+        sprintf(
+          paste0(
+            '<w:lvl w:ilvl="%d">',
+            '<w:numFmt w:val="bullet"/>',
+            '<w:lvlText w:val="%s"/>',
+            '<w:lvlJc w:val="left"/>',
+            '<w:pPr><w:ind w:left="%d" w:hanging="360"/></w:pPr>',
+            '</w:lvl>'
+          ),
+          ilvl,
+          bullets[ilvl + 1L],
+          indent_left
+        )
+      } else {
+        sprintf(
+          paste0(
+            '<w:lvl w:ilvl="%d">',
+            '<w:start w:val="1"/>',
+            '<w:numFmt w:val="decimal"/>',
+            '<w:lvlText w:val="%%%d."/>',
+            '<w:lvlJc w:val="left"/>',
+            '<w:pPr><w:ind w:left="%d" w:hanging="360"/></w:pPr>',
+            '</w:lvl>'
+          ),
+          ilvl,
+          ilvl + 1L,
+          indent_left
+        )
+      }
+    },
+    character(1L)
+  )
+
+  sprintf(
+    paste0(
+      '<w:abstractNum xmlns:w="%s" w:abstractNumId="%d">',
+      '<w:multiLevelType w:val="multilevel"/>%s',
+      '</w:abstractNum>'
+    ),
+    ns_w,
+    abstract_num_id,
+    paste0(levels, collapse = "")
+  )
+}
 
 update_hf_list <- function(part_list = list(), type = "header", package_dir) {
   files <- list.files(

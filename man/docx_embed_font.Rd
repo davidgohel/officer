@@ -52,6 +52,22 @@ commercial fonts restrict or prohibit embedding. Check the license
 of the font before using this function.
 }
 
+\examples{
+\dontshow{if (require("gdtools", quietly = TRUE, character.only = TRUE)) withAutoprint(\{ # examplesIf}
+# automatic detection (requires gdtools)
+gdtools::register_liberationsans()
+doc <- read_docx()
+doc <- docx_embed_font(doc, font_family = "Liberation Sans")
+
+# # explicit paths (no gdtools needed)
+# doc <- docx_embed_font(
+#   doc,
+#   font_family = "My Font",
+#   regular = "path/to/font-regular.ttf",
+#   bold = "path/to/font-bold.ttf"
+# )
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 \code{\link[gdtools:sys_fonts]{gdtools::sys_fonts()}}, \code{\link[gdtools:register_gfont]{gdtools::register_gfont()}},
 \code{\link[=docx_set_settings]{docx_set_settings()}}

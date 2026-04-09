@@ -359,6 +359,44 @@ body_add_blocks <- function(x, blocks, pos = "after") {
 
 
 #' @export
+#' @title Add a list of items into a 'Word' document
+#' @description Add a bullet or numbered list produced by
+#' [block_list_items()] into an rdocx object.
+#' @inheritParams body_add_break
+#' @param items a [block_list_items()] object.
+#' @examples
+#' library(officer)
+#'
+#' items <- block_list_items(
+#'   list_item(fpar(ftext("Item 1", fp_text(color = "red"))), level = 1),
+#'   list_item(fpar("Sub-item"), level = 2),
+#'   list_item(fpar("Item 2"), level = 1),
+#'   list_type = "bullet"
+#' )
+#'
+#' doc <- read_docx()
+#' doc <- body_add_list(doc, items = items)
+#' print(doc, target = tempfile(fileext = ".docx"))
+#' @family functions for adding content
+body_add_list <- function(x, items, pos = "after") {
+  stopifnot(inherits(items, "block_list_items"))
+
+  wml_items <- to_wml(items, add_ns = TRUE)
+  pars <- strsplit(wml_items, "(?<=</w:p>)", perl = TRUE)[[1L]]
+
+  if (length(pars) > 0) {
+    pos_vector <- rep("after", length(pars))
+    pos_vector[1] <- pos
+    for (i in seq_along(pars)) {
+      x <- body_add_xml(x, str = pars[i], pos = pos_vector[i])
+    }
+  }
+
+  x
+}
+
+
+#' @export
 #' @title Add paragraphs of text in a 'Word' document
 #' @description Add a paragraph of text into an rdocx object
 #' @param x a docx device
@@ -1061,6 +1099,29 @@ body_add.block_list <- function(x, value, ...) {
   for (i in rev(seq_along(value))) {
     str <- to_wml(value[[i]], add_ns = TRUE)
     xml_elt <- as_xml_document(str)
+    if (is.null(cursor_elt)) {
+      xml_add_child(
+        xml_find_first(x$doc_obj$get(), "/w:document/w:body"),
+        xml_elt,
+        .where = 0
+      )
+    } else {
+      xml_add_sibling(cursor_elt, xml_elt, .where = "after")
+    }
+  }
+  cursor_end(x)
+}
+
+#' @export
+#' @describeIn body_add add a [block_list_items] object (bullet or numbered list).
+body_add.block_list_items <- function(x, value, ...) {
+  x <- cursor_end(x)
+  cursor_elt <- docx_current_block_xml(x)
+  wml_str <- to_wml(value, add_ns = TRUE)
+  # split into individual paragraphs
+  pars <- strsplit(wml_str, "(?<=</w:p>)", perl = TRUE)[[1L]]
+  for (i in rev(seq_along(pars))) {
+    xml_elt <- as_xml_document(pars[i])
     if (is.null(cursor_elt)) {
       xml_add_child(
         xml_find_first(x$doc_obj$get(), "/w:document/w:body"),

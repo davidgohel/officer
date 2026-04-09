@@ -20,6 +20,10 @@ inherit from default sizes of the presentation.}
 unordered list of text for PowerPoint
 presentations. Each text is associated with
 a hierarchy level.
+
+Consider using \code{\link[=block_list_items]{block_list_items()}} instead, which supports
+rich text via \code{\link[=fpar]{fpar()}}, works in both Word and PowerPoint,
+and supports numbered lists.
 }
 \examples{
 unordered_list(
@@ -45,11 +49,13 @@ Other block functions for reporting:
 \code{\link{block_caption}()},
 \code{\link{block_gg}()},
 \code{\link{block_list}()},
+\code{\link{block_list_items}()},
 \code{\link{block_pour_docx}()},
 \code{\link{block_section}()},
 \code{\link{block_table}()},
 \code{\link{block_toc}()},
 \code{\link{fpar}()},
+\code{\link{list_item}()},
 \code{\link{plot_instr}()}
 }
 \concept{block functions for reporting}

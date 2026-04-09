@@ -301,6 +301,39 @@ ph_with.unordered_list <- function(x, value, location, ...) {
   x
 }
 
+#' @export
+#' @describeIn ph_with add a [block_list_items()] (bullet or numbered list)
+#' to a new shape on the current slide.
+ph_with.block_list_items <- function(x, value, location, ...) {
+  slide <- x$slide$get_slide(x$cursor)
+  location <- fortify_location(location, doc = x)
+
+  p <- to_pml(value)
+
+  new_ph <- shape_properties_tags(
+    left = location$left,
+    top = location$top,
+    width = location$width,
+    height = location$height,
+    label = location$ph_label,
+    ph = location$ph,
+    rot = location$rotation,
+    bg = location$bg,
+    ln = location$ln,
+    geom = location$geom
+  )
+
+  xml_elt <- paste0(
+    psp_ns_yes,
+    new_ph,
+    "<p:txBody><a:bodyPr/><a:lstStyle/>",
+    p,
+    "</p:txBody></p:sp>"
+  )
+  node <- as_xml_document(xml_elt)
+  xml_add_child(xml_find_first(slide$get(), "//p:spTree"), node)
+  x
+}
 
 #' @export
 #' @param header display header if TRUE

@@ -1173,12 +1173,193 @@ to_html.block_list <- function(x, add_ns = FALSE, ...) {
   paste0(str, collapse = "")
 }
 
+# list_item / block_list_items ----
+
+#' @export
+#' @title Create a list item
+#' @description Wrap an [fpar()] with a hierarchy level for use
+#' inside [block_list_items()].
+#' @param x an [fpar()] object or a character string
+#' (automatically converted to [fpar()])
+#' @param level hierarchy level, integer starting at 1
+#' @seealso [block_list_items()]
+#' @family block functions for reporting
+list_item <- function(x, level = 1L) {
+  if (is.character(x)) {
+    x <- fpar(x)
+  }
+  if (!inherits(x, "fpar")) {
+    cli::cli_abort("{.arg x} must be an {.cls fpar} or a character string.")
+  }
+  level <- as.integer(level)
+  if (level < 1L) {
+    cli::cli_abort("{.arg level} must be >= 1.")
+  }
+  z <- list(fpar = x, level = level)
+  class(z) <- "list_item"
+  z
+}
+
+#' @export
+#' @title List of items for Word and PowerPoint
+#' @description Create a bullet or numbered list from [list_item()]
+#' elements. Supports rich text via [fpar()] and multi-level nesting.
+#' Works in both Word and PowerPoint documents.
+#' @param ... [list_item()] objects
+#' @param list_type `"bullet"` for an unordered list or `"decimal"`
+#' for a numbered list
+#' @examples
+#' items <- block_list_items(
+#'   list_item(fpar(
+#'     ftext("Item 1", fp_text(color = "red"))
+#'   ), level = 1),
+#'   list_item(fpar("Sub-item"), level = 2),
+#'   list_item(fpar("Item 2"), level = 1),
+#'   list_type = "bullet"
+#' )
+#' items
+#' @seealso [list_item()], [body_add()], [ph_with()]
+#' @family block functions for reporting
+block_list_items <- function(..., list_type = "bullet") {
+  items <- list(...)
+  for (i in seq_along(items)) {
+    if (!inherits(items[[i]], "list_item")) {
+      cli::cli_abort("Element {i} is not a {.cls list_item}.")
+    }
+  }
+  list_type <- match.arg(list_type, c("bullet", "decimal"))
+  z <- list(
+    items = items,
+    list_type = list_type,
+    list_uid = uuid_generate()
+  )
+  class(z) <- c("block_list_items", "block")
+  z
+}
+
+#' @export
+#' @noRd
+print.block_list_items <- function(x, ...) {
+  type_label <- if (x$list_type == "bullet") "Bullet" else "Numbered"
+  cat(sprintf("%s list (%d items):\n", type_label, length(x$items)))
+  for (i in seq_along(x$items)) {
+    item <- x$items[[i]]
+    indent <- paste(rep("  ", item$level), collapse = "")
+    prefix <- if (x$list_type == "bullet") "-" else paste0(i, ".")
+    txt <- vapply(
+      item$fpar$chunks,
+      function(ch) {
+        if (is.character(ch)) {
+          ch
+        } else if (!is.null(ch$value)) {
+          ch$value
+        } else {
+          "..."
+        }
+      },
+      character(1L)
+    )
+    cat(sprintf("%s%s %s\n", indent, prefix, paste(txt, collapse = "")))
+  }
+  invisible(x)
+}
+
+#' @export
+to_wml.block_list_items <- function(x, add_ns = FALSE, ...) {
+  marker <- sprintf("officer-list-%s-%s", x$list_type, x$list_uid)
+  out <- character(length(x$items))
+  for (i in seq_along(x$items)) {
+    item <- x$items[[i]]
+    ilvl <- item$level - 1L
+    num_pr <- sprintf(
+      "<w:numPr><w:ilvl w:val=\"%d\"/><w:numId w:val=\"%s\"/></w:numPr>",
+      ilvl,
+      marker
+    )
+    wml <- to_wml(item$fpar, add_ns = add_ns, style_id = NULL)
+    # remove default w:ind so numbering controls indentation
+    wml <- sub(
+      "<w:ind w:left=\"0\" w:right=\"0\"[^/]*/>",
+      "",
+      wml
+    )
+    # inject numPr into pPr
+    if (grepl("<w:pPr>", wml, fixed = TRUE)) {
+      wml <- sub("<w:pPr>", paste0("<w:pPr>", num_pr), wml, fixed = TRUE)
+    } else if (grepl("<w:pPr/>", wml, fixed = TRUE)) {
+      wml <- sub(
+        "<w:pPr/>",
+        paste0("<w:pPr>", num_pr, "</w:pPr>"),
+        wml,
+        fixed = TRUE
+      )
+    } else {
+      # no pPr at all, add after opening <w:p> tag
+      wml <- sub("(<w:p[^>]*>)", paste0("\\1<w:pPr>", num_pr, "</w:pPr>"), wml)
+    }
+    out[i] <- wml
+  }
+  paste0(out, collapse = "")
+}
+
+#' @export
+to_pml.block_list_items <- function(x, add_ns = FALSE, ...) {
+  out <- character(length(x$items))
+  for (i in seq_along(x$items)) {
+    item <- x$items[[i]]
+    lvl <- item$level - 1L
+    pml <- to_pml(item$fpar, add_ns = add_ns)
+
+    # build bullet/number element
+    if (x$list_type == "bullet") {
+      bu_elem <- "<a:buChar char=\"&#x2022;\"/>"
+    } else {
+      bu_elem <- "<a:buAutoNum type=\"arabicPeriod\"/>"
+    }
+
+    # remove buNone (fpar default) so our bullet/number takes effect
+    pml <- sub("<a:buNone/>", "", pml, fixed = TRUE)
+    # remove marL="0" so indentation works naturally
+    pml <- sub(" marL=\"0\"", "", pml, fixed = TRUE)
+
+    # inject lvl and bullet into pPr
+    lvl_attr <- if (lvl > 0) sprintf(" lvl=\"%d\"", lvl) else ""
+    if (grepl("<a:pPr/>", pml, fixed = TRUE)) {
+      pml <- sub(
+        "<a:pPr/>",
+        sprintf("<a:pPr%s>%s</a:pPr>", lvl_attr, bu_elem),
+        pml,
+        fixed = TRUE
+      )
+    } else if (grepl("<a:pPr", pml, fixed = TRUE)) {
+      # pPr may have attributes like algn="l" marR="0"
+      pml <- sub(
+        "<a:pPr([^>]*)>",
+        sprintf("<a:pPr\\1%s>%s", lvl_attr, bu_elem),
+        pml
+      )
+    } else {
+      pml <- sub(
+        "(<a:p[^>]*>)",
+        sprintf("\\1<a:pPr%s>%s</a:pPr>", lvl_attr, bu_elem),
+        pml
+      )
+    }
+    out[i] <- pml
+  }
+  paste0(out, collapse = "")
+}
+
 # unordered list ----
 #' @export
 #' @title Unordered list
 #' @description unordered list of text for PowerPoint
 #' presentations. Each text is associated with
 #' a hierarchy level.
+#'
+#' Consider using [block_list_items()] instead, which supports
+#' rich text via [fpar()], works in both Word and PowerPoint,
+#' and supports numbered lists.
 #' @param str_list list of strings to be included in the object
 #' @param level_list list of levels for hierarchy structure. Use
 #' 0 for 'no bullet', 1 for level 1, 2 for level 2 and so on.

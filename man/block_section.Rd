@@ -34,10 +34,12 @@ Other block functions for reporting:
 \code{\link{block_caption}()},
 \code{\link{block_gg}()},
 \code{\link{block_list}()},
+\code{\link{block_list_items}()},
 \code{\link{block_pour_docx}()},
 \code{\link{block_table}()},
 \code{\link{block_toc}()},
 \code{\link{fpar}()},
+\code{\link{list_item}()},
 \code{\link{plot_instr}()},
 \code{\link{unordered_list}()}
 }

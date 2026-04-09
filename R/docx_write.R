@@ -97,6 +97,8 @@ print.rdocx <- function(
   )
   # make all id unique for document
   xml_str <- fix_empty_ids_in_wml(xml_str)
+  # resolve list markers to real numId values
+  xml_str <- process_list_markers(xml_str, x$package_dir)
   if (copy_header_refs) {
     xml_str <- copy_header_references_everywhere(x, xml_str = xml_str)
   }

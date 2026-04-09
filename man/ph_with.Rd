@@ -9,6 +9,7 @@
 \alias{ph_with.Date}
 \alias{ph_with.block_list}
 \alias{ph_with.unordered_list}
+\alias{ph_with.block_list_items}
 \alias{ph_with.data.frame}
 \alias{ph_with.gg}
 \alias{ph_with.plot_instr}
@@ -33,6 +34,8 @@ ph_with.Date(x, value, location, date_format = NULL, ...)
 ph_with.block_list(x, value, location, level_list = integer(0), ...)
 
 ph_with.unordered_list(x, value, location, ...)
+
+ph_with.block_list_items(x, value, location, ...)
 
 ph_with.data.frame(
   x,
@@ -127,6 +130,9 @@ of \code{\link[=fpar]{fpar()}} to a new shape on the current slide.
 
 \item \code{ph_with.unordered_list()}: add a \code{\link[=unordered_list]{unordered_list()}} made
 of \code{\link[=fpar]{fpar()}} to a new shape on the current slide.
+
+\item \code{ph_with.block_list_items()}: add a \code{\link[=block_list_items]{block_list_items()}} (bullet or numbered list)
+to a new shape on the current slide.
 
 \item \code{ph_with.data.frame()}: add a data.frame to a new shape on the current slide with
 function \code{\link[=block_table]{block_table()}}. Use package 'flextable' instead for more

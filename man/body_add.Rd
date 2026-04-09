@@ -9,6 +9,7 @@
 \alias{body_add.data.frame}
 \alias{body_add.block_caption}
 \alias{body_add.block_list}
+\alias{body_add.block_list_items}
 \alias{body_add.block_toc}
 \alias{body_add.external_img}
 \alias{body_add.run_pagebreak}
@@ -42,6 +43,8 @@ body_add(x, value, ...)
 \method{body_add}{block_caption}(x, value, ...)
 
 \method{body_add}{block_list}(x, value, ...)
+
+\method{body_add}{block_list_items}(x, value, ...)
 
 \method{body_add}{block_toc}(x, value, ...)
 
@@ -145,6 +148,8 @@ in a faster way because the cursor is not calculated for
 each iteraction over the elements, as a consequence the
 function only append elements at the end of the document
 and does not allow to insert elements at a specific position.
+
+\item \code{body_add(block_list_items)}: add a \link{block_list_items} object (bullet or numbered list).
 
 \item \code{body_add(block_toc)}: add a table of content (a \link{block_toc} object).
 

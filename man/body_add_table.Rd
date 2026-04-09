@@ -74,6 +74,7 @@ Other functions for adding content:
 \code{\link{body_add_fpar}()},
 \code{\link{body_add_gg}()},
 \code{\link{body_add_img}()},
+\code{\link{body_add_list}()},
 \code{\link{body_add_par}()},
 \code{\link{body_add_plot}()},
 \code{\link{body_add_toc}()},
