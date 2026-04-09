@@ -43,6 +43,7 @@ Other functions for adding content:
 [`body_add_docx()`](https://davidgohel.github.io/officer/dev/reference/body_add_docx.md),
 [`body_add_gg()`](https://davidgohel.github.io/officer/dev/reference/body_add_gg.md),
 [`body_add_img()`](https://davidgohel.github.io/officer/dev/reference/body_add_img.md),
+[`body_add_list()`](https://davidgohel.github.io/officer/dev/reference/body_add_list.md),
 [`body_add_par()`](https://davidgohel.github.io/officer/dev/reference/body_add_par.md),
 [`body_add_plot()`](https://davidgohel.github.io/officer/dev/reference/body_add_plot.md),
 [`body_add_table()`](https://davidgohel.github.io/officer/dev/reference/body_add_table.md),

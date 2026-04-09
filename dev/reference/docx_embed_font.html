@@ -21,7 +21,7 @@ explicit call for reproducibility."><meta property="og:image" content="https://d
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,6 +120,32 @@ of the font before using this function.</p>
 <code><a href="docx_set_settings.html">docx_set_settings()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># automatic detection (requires gdtools)</span></span></span>
+<span class="r-in"><span><span class="fu">gdtools</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/gdtools/reference/register_liberationsans.html" class="external-link">register_liberationsans</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu">docx_embed_font</span><span class="op">(</span><span class="va">doc</span>, font_family <span class="op">=</span> <span class="st">"Liberation Sans"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Embedding <span style="color: #0000BB;">"Liberation Sans"</span> with detected font files:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> docx_embed_font(</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   x,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   font_family = "Liberation Sans",</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   regular = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   bold = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   italic = "/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf",</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   bold_italic = "/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> )</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># # explicit paths (no gdtools needed)</span></span></span>
+<span class="r-in"><span><span class="co"># doc &lt;- docx_embed_font(</span></span></span>
+<span class="r-in"><span><span class="co">#   doc,</span></span></span>
+<span class="r-in"><span><span class="co">#   font_family = "My Font",</span></span></span>
+<span class="r-in"><span><span class="co">#   regular = "path/to/font-regular.ttf",</span></span></span>
+<span class="r-in"><span><span class="co">#   bold = "path/to/font-bold.ttf"</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

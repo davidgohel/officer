@@ -54,6 +54,8 @@
 
 - [`body_add_blocks()`](https://davidgohel.github.io/officer/dev/reference/body_add_blocks.md)
   : Add a list of blocks into a 'Word' document
+- [`body_add_list()`](https://davidgohel.github.io/officer/dev/reference/body_add_list.md)
+  : Add a list of items into a 'Word' document
 - [`body_add_caption()`](https://davidgohel.github.io/officer/dev/reference/body_add_caption.md)
   : Add Word caption in a 'Word' document
 - [`body_add_img()`](https://davidgohel.github.io/officer/dev/reference/body_add_img.md)
@@ -180,6 +182,7 @@
   [`ph_with.Date()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   [`ph_with.block_list()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   [`ph_with.unordered_list()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
+  [`ph_with.block_list_items()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   [`ph_with.data.frame()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   [`ph_with.gg()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   [`ph_with.plot_instr()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
@@ -263,6 +266,8 @@ calculated Word fields, sets of paragraphs, etc.
   : 'ggplot' block
 - [`block_list()`](https://davidgohel.github.io/officer/dev/reference/block_list.md)
   : List of blocks
+- [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
+  : List of items for Word and PowerPoint
 - [`block_pour_docx()`](https://davidgohel.github.io/officer/dev/reference/block_pour_docx.md)
   : External Word document placeholder
 - [`block_section()`](https://davidgohel.github.io/officer/dev/reference/block_section.md)
@@ -271,6 +276,8 @@ calculated Word fields, sets of paragraphs, etc.
   : Table block
 - [`block_toc()`](https://davidgohel.github.io/officer/dev/reference/block_toc.md)
   : Table of content for 'Word'
+- [`list_item()`](https://davidgohel.github.io/officer/dev/reference/list_item.md)
+  : Create a list item
 - [`unordered_list()`](https://davidgohel.github.io/officer/dev/reference/unordered_list.md)
   : Unordered list
 - [`plot_instr()`](https://davidgohel.github.io/officer/dev/reference/plot_instr.md)

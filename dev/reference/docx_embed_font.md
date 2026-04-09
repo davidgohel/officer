@@ -70,3 +70,30 @@ the font before using this function.
 [`gdtools::sys_fonts()`](https://davidgohel.github.io/gdtools/reference/sys_fonts.html),
 [`gdtools::register_gfont()`](https://davidgohel.github.io/gdtools/reference/register_gfont.html),
 [`docx_set_settings()`](https://davidgohel.github.io/officer/dev/reference/docx_set_settings.md)
+
+## Examples
+
+``` r
+# automatic detection (requires gdtools)
+gdtools::register_liberationsans()
+#> [1] TRUE
+doc <- read_docx()
+doc <- docx_embed_font(doc, font_family = "Liberation Sans")
+#> Embedding "Liberation Sans" with detected font files:
+#> docx_embed_font(
+#>   x,
+#>   font_family = "Liberation Sans",
+#>   regular = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+#>   bold = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+#>   italic = "/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf",
+#>   bold_italic = "/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf"
+#> )
+
+# # explicit paths (no gdtools needed)
+# doc <- docx_embed_font(
+#   doc,
+#   font_family = "My Font",
+#   regular = "path/to/font-regular.ttf",
+#   bold = "path/to/font-bold.ttf"
+# )
+```

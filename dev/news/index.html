@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,7 @@
 <ul><li>
 <code>write_docx_settings()</code> now preserves the existing <code>settings.xml</code> content instead of rebuilding it from scratch. This fixes the loss of embedded font settings (<code>embedTrueTypeFonts</code>), math properties, footnote/endnote settings and other XML elements during docx round-trips (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
 <li>new function <code><a href="../reference/docx_embed_font.html">docx_embed_font()</a></code> to embed TrueType or OpenType font files into Word documents. Embedded fonts ensure correct rendering on systems where the font is not installed (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
+<li>new functions <code><a href="../reference/list_item.html">list_item()</a></code>, <code><a href="../reference/block_list_items.html">block_list_items()</a></code> and <code><a href="../reference/body_add_list.html">body_add_list()</a></code> to create bullet or numbered lists with rich text (fpar) and multi-level nesting. Works in both Word and PowerPoint documents (<a href="https://github.com/davidgohel/officer/issues/314" class="external-link">#314</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

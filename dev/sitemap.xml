@@ -14,6 +14,7 @@
 <url><loc>https://davidgohel.github.io/officer/dev/reference/block_caption.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/block_gg.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/block_list.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/block_list_items.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/block_pour_docx.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/block_section.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/block_table.html</loc></url>
@@ -26,6 +27,7 @@
 <url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_fpar.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_gg.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_img.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_list.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_par.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_plot.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/body_add_table.html</loc></url>
@@ -87,6 +89,7 @@
 <url><loc>https://davidgohel.github.io/officer/dev/reference/layout_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/length.rdocx.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/length.rpptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/list_item.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/media_extract.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/move_slide.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/notes_location_label.html</loc></url>

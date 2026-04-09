@@ -15,6 +15,14 @@
   to embed TrueType or OpenType font files into Word documents. Embedded
   fonts ensure correct rendering on systems where the font is not
   installed ([\#554](https://github.com/davidgohel/officer/issues/554)).
+- new functions
+  [`list_item()`](https://davidgohel.github.io/officer/dev/reference/list_item.md),
+  [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
+  and
+  [`body_add_list()`](https://davidgohel.github.io/officer/dev/reference/body_add_list.md)
+  to create bullet or numbered lists with rich text (fpar) and
+  multi-level nesting. Works in both Word and PowerPoint documents
+  ([\#314](https://github.com/davidgohel/officer/issues/314)).
 
 ## officer 0.7.3
 

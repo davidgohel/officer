@@ -23,6 +23,8 @@ ph_with.block_list(x, value, location, level_list = integer(0), ...)
 
 ph_with.unordered_list(x, value, location, ...)
 
+ph_with.block_list_items(x, value, location, ...)
+
 ph_with.data.frame(
   x,
   value,
@@ -147,6 +149,10 @@ ph_with.xml_document(x, value, location, ...)
   made of
   [`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md)
   to a new shape on the current slide.
+
+- `ph_with.block_list_items()`: add a
+  [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
+  (bullet or numbered list) to a new shape on the current slide.
 
 - `ph_with.data.frame()`: add a data.frame to a new shape on the current
   slide with function

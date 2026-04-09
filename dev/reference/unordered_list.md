@@ -3,6 +3,12 @@
 unordered list of text for PowerPoint presentations. Each text is
 associated with a hierarchy level.
 
+Consider using
+[`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
+instead, which supports rich text via
+[`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md),
+works in both Word and PowerPoint, and supports numbered lists.
+
 ## Usage
 
 ``` r
@@ -34,11 +40,13 @@ Other block functions for reporting:
 [`block_caption()`](https://davidgohel.github.io/officer/dev/reference/block_caption.md),
 [`block_gg()`](https://davidgohel.github.io/officer/dev/reference/block_gg.md),
 [`block_list()`](https://davidgohel.github.io/officer/dev/reference/block_list.md),
+[`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md),
 [`block_pour_docx()`](https://davidgohel.github.io/officer/dev/reference/block_pour_docx.md),
 [`block_section()`](https://davidgohel.github.io/officer/dev/reference/block_section.md),
 [`block_table()`](https://davidgohel.github.io/officer/dev/reference/block_table.md),
 [`block_toc()`](https://davidgohel.github.io/officer/dev/reference/block_toc.md),
 [`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md),
+[`list_item()`](https://davidgohel.github.io/officer/dev/reference/list_item.md),
 [`plot_instr()`](https://davidgohel.github.io/officer/dev/reference/plot_instr.md)
 
 ## Examples
