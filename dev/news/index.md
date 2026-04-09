@@ -1,6 +1,24 @@
 # Changelog
 
+## officer 0.7.4
+
+### Features
+
+- `write_docx_settings()` now preserves the existing `settings.xml`
+  content instead of rebuilding it from scratch. This fixes the loss of
+  embedded font settings (`embedTrueTypeFonts`), math properties,
+  footnote/endnote settings and other XML elements during docx
+  round-trips
+  ([\#554](https://github.com/davidgohel/officer/issues/554)).
+- new function
+  [`docx_embed_font()`](https://davidgohel.github.io/officer/dev/reference/docx_embed_font.md)
+  to embed TrueType or OpenType font files into Word documents. Embedded
+  fonts ensure correct rendering on systems where the font is not
+  installed ([\#554](https://github.com/davidgohel/officer/issues/554)).
+
 ## officer 0.7.3
+
+CRAN release: 2026-01-16
 
 ### Features
 

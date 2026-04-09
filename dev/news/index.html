@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.3.008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.3" id="officer-073">officer 0.7.3<a class="anchor" aria-label="anchor" href="#officer-073"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.4" id="officer-074">officer 0.7.4<a class="anchor" aria-label="anchor" href="#officer-074"></a></h2>
+<div class="section level3">
+<h3 id="features-0-7-4">Features<a class="anchor" aria-label="anchor" href="#features-0-7-4"></a></h3>
+<ul><li>
+<code>write_docx_settings()</code> now preserves the existing <code>settings.xml</code> content instead of rebuilding it from scratch. This fixes the loss of embedded font settings (<code>embedTrueTypeFonts</code>), math properties, footnote/endnote settings and other XML elements during docx round-trips (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
+<li>new function <code><a href="../reference/docx_embed_font.html">docx_embed_font()</a></code> to embed TrueType or OpenType font files into Word documents. Embedded fonts ensure correct rendering on systems where the font is not installed (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.3" id="officer-073">officer 0.7.3<a class="anchor" aria-label="anchor" href="#officer-073"></a></h2><p class="text-muted">CRAN release: 2026-01-16</p>
 <div class="section level3">
 <h3 id="features-0-7-3">Features<a class="anchor" aria-label="anchor" href="#features-0-7-3"></a></h3>
 <ul><li>function <code><a href="../reference/remove_slide.html">remove_slide()</a></code> now supports deletion of multiple slides thanks to Wahiduzzaman Khan (<a href="https://github.com/davidgohel/officer/issues/691" class="external-link">#691</a>).</li>

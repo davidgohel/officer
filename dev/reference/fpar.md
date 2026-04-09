@@ -140,7 +140,7 @@ fpar_1
 #> 1       Arial             Arial          Arial       baseline
 #> 
 #> $chunks[[3]]
-#> [1] "/opt/R/4.5.2/lib/R/doc/html/logo.jpg"
+#> [1] "/opt/R/4.5.3/lib/R/doc/html/logo.jpg"
 #> attr(,"class")
 #> [1] "external_img" "cot"          "run"         
 #> attr(,"dims")

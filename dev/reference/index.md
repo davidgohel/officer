@@ -12,6 +12,8 @@
   : Add or replace paragraph style in a Word document
 - [`docx_set_character_style()`](https://davidgohel.github.io/officer/dev/reference/docx_set_character_style.md)
   : Add character style in a Word document
+- [`docx_embed_font()`](https://davidgohel.github.io/officer/dev/reference/docx_embed_font.md)
+  : Embed Fonts in a Word Document
 - [`docx_set_settings()`](https://davidgohel.github.io/officer/dev/reference/docx_set_settings.md)
   : Set 'Microsoft Word' Document Settings
 - [`change_styles()`](https://davidgohel.github.io/officer/dev/reference/change_styles.md)
