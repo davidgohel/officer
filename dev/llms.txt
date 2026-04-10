@@ -538,6 +538,10 @@ calculated Word fields, sets of paragraphs, etc.
   : Add a sheet
 - [`sheet_select()`](https://davidgohel.github.io/officer/dev/reference/sheet_select.md)
   : Select sheet
+- [`sheet_write_data()`](https://davidgohel.github.io/officer/dev/reference/sheet_write_data.md)
+  : Write data to a sheet
+- [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
+  : Add a drawing to an Excel sheet
 
 ## Misc
 

@@ -23,6 +23,18 @@
   to create bullet or numbered lists with rich text (fpar) and
   multi-level nesting. Works in both Word and PowerPoint documents
   ([\#314](https://github.com/davidgohel/officer/issues/314)).
+- new functions
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/dev/reference/sheet_write_data.md)
+  and
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
+  for writing data and inserting drawings (charts, vector graphics) into
+  xlsx workbooks.
+
+### Issues
+
+- [`sheet_select()`](https://davidgohel.github.io/officer/dev/reference/sheet_select.md)
+  now deselects other sheets, fixing the issue where multiple tabs
+  appeared selected when opening the workbook.
 
 ## officer 0.7.3
 

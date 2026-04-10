@@ -144,5 +144,5 @@ print(x, target = tempfile(fileext = ".docx"))
 rtf_doc <- rtf_doc()
 rtf_doc <- rtf_add(rtf_doc, an_fpar)
 print(rtf_doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpBx4Oie/file187a6279c884.rtf"
+#> [1] "/tmp/Rtmp0De7k9/file18932950ba3c.rtf"
 ```

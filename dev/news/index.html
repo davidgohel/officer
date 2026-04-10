@@ -39,6 +39,12 @@
 <code>write_docx_settings()</code> now preserves the existing <code>settings.xml</code> content instead of rebuilding it from scratch. This fixes the loss of embedded font settings (<code>embedTrueTypeFonts</code>), math properties, footnote/endnote settings and other XML elements during docx round-trips (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
 <li>new function <code><a href="../reference/docx_embed_font.html">docx_embed_font()</a></code> to embed TrueType or OpenType font files into Word documents. Embedded fonts ensure correct rendering on systems where the font is not installed (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
 <li>new functions <code><a href="../reference/list_item.html">list_item()</a></code>, <code><a href="../reference/block_list_items.html">block_list_items()</a></code> and <code><a href="../reference/body_add_list.html">body_add_list()</a></code> to create bullet or numbered lists with rich text (fpar) and multi-level nesting. Works in both Word and PowerPoint documents (<a href="https://github.com/davidgohel/officer/issues/314" class="external-link">#314</a>).</li>
+<li>new functions <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code> and <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> for writing data and inserting drawings (charts, vector graphics) into xlsx workbooks.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-4">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-4"></a></h3>
+<ul><li>
+<code><a href="../reference/sheet_select.html">sheet_select()</a></code> now deselects other sheets, fixing the issue where multiple tabs appeared selected when opening the workbook.</li>
 </ul></div>
 </div>
     <div class="section level2">

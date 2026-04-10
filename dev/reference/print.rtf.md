@@ -34,5 +34,5 @@ print(x, target = NULL, ...)
 # write a rdocx object in a rtf file ----
 doc <- rtf_doc()
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpBx4Oie/file187a5956d84a.rtf"
+#> [1] "/tmp/Rtmp0De7k9/file189342e8de13.rtf"
 ```

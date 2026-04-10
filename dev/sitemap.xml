@@ -150,7 +150,9 @@
 <url><loc>https://davidgohel.github.io/officer/dev/reference/set_doc_properties.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/set_notes.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/shape_properties_tags.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/sheet_select.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/sheet_write_data.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/shortcuts.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/slide-visible.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/slide_size.html</loc></url>
@@ -173,5 +175,7 @@
 <url><loc>https://davidgohel.github.io/officer/dev/reference/unpack_folder.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/uuid_generate.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/dev/reference/wml_link_images.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/xlsx_drawing.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/dev/reference/xlsx_styles.html</loc></url>
 </urlset>
 
