@@ -12,7 +12,13 @@ the font is not installed (#554).
 - new functions `list_item()`, `block_list_items()` and `body_add_list()`
 to create bullet or numbered lists with rich text (fpar) and multi-level
 nesting. Works in both Word and PowerPoint documents (#314).
+- new functions `sheet_write_data()` and `sheet_add_drawing()` for writing
+data and inserting drawings (charts, vector graphics) into xlsx workbooks.
 
+## Issues
+
+- `sheet_select()` now deselects other sheets, fixing the issue where
+multiple tabs appeared selected when opening the workbook.
 
 # officer 0.7.3
 

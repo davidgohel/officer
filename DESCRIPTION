@@ -67,6 +67,7 @@ Suggests:
     magick,
     rmarkdown,
     rsvg,
+    mschart,
     testthat,
     withr
 Encoding: UTF-8

@@ -63,7 +63,7 @@ worksheets <- R6Class(
       if (!inherits(xml_list, "xml_missing")) {
         xml_replace(children_[[sheets_id]], xml_elt)
       } else {
-        stop("could not find sheets entity")
+        cli::cli_abort("Could not find sheets entity in workbook XML.")
       }
 
       self
@@ -105,7 +105,7 @@ worksheets <- R6Class(
       bool_name_in_list <- sheets_df$name %in% name
       n_matches <- sum(bool_name_in_list, na.rm = TRUE)
       if (n_matches < 1) {
-        stop("could not find ", shQuote(name), " sheet", call. = FALSE)
+        cli::cli_abort("Could not find sheet {.val {name}}.")
       }
       sheets_df$sheet_id[bool_name_in_list]
     },
@@ -155,6 +155,202 @@ sheet <- R6Class(
         private$rels_doc <- new_rel
       }
       self
+    }
+  )
+)
+
+
+# xlsx_drawing ----
+#' @export
+#' @title Drawing manager for xlsx sheets
+#' @description R6 class that manages a drawing file for an xlsx
+#' sheet. Used internally by [sheet_add_drawing()] methods.
+#' @param package_dir path to the unpacked xlsx directory
+#' @param sheet_obj a sheet R6 object
+#' @param content_type a content_type R6 object
+#' @param chart_rid relationship id of the chart
+#' @param from_col top-left column anchor (0-based)
+#' @param from_row top-left row anchor (0-based)
+#' @param to_col bottom-right column anchor (0-based)
+#' @param to_row bottom-right row anchor (0-based)
+#' @param chart_basename filename of the chart XML
+#' @keywords internal
+xlsx_drawing <- R6Class(
+  "xlsx_drawing",
+  inherit = openxml_document,
+
+  public = list(
+    #' @description Create or reuse a drawing for a sheet.
+    initialize = function(package_dir, sheet_obj, content_type) {
+      super$initialize("xl/drawings")
+      private$package_dir <- package_dir
+
+      drawings_dir <- file.path(package_dir, "xl", "drawings")
+      dir.create(drawings_dir, recursive = TRUE, showWarnings = FALSE)
+      rels_dir <- file.path(drawings_dir, "_rels")
+      dir.create(rels_dir, recursive = TRUE, showWarnings = FALSE)
+
+      # check if sheet already has a drawing
+      sheet_rels <- sheet_obj$rel_df()
+      drawing_rel <- sheet_rels[
+        grepl("drawing$", sheet_rels$type),
+        ,
+        drop = FALSE
+      ]
+
+      if (nrow(drawing_rel) > 0) {
+        # reuse existing drawing
+        drawing_target <- drawing_rel$target[1L]
+        drawing_file <- file.path(
+          package_dir,
+          "xl",
+          "worksheets",
+          drawing_target
+        )
+        self$feed(normalizePath(drawing_file, mustWork = TRUE))
+      } else {
+        # create new drawing
+        drawing_name <- private$next_drawing_name(drawings_dir)
+        drawing_file <- file.path(drawings_dir, drawing_name)
+
+        drawing_xml <- paste0(
+          "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
+          "<xdr:wsDr xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
+          " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"/>"
+        )
+        writeLines(drawing_xml, drawing_file, useBytes = TRUE)
+        self$feed(drawing_file)
+
+        # add relationship from sheet to drawing
+        next_id <- sheet_obj$relationship()$get_next_id()
+        rid <- paste0("rId", next_id)
+        sheet_obj$relationship()$add(
+          id = rid,
+          type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing",
+          target = paste0("../drawings/", drawing_name)
+        )
+
+        # add <drawing r:id="rIdN"/> to sheet XML
+        ns <- c(
+          d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+        )
+        existing_drawing <- xml_find_first(
+          sheet_obj$get(),
+          "d1:drawing",
+          ns = ns
+        )
+        if (inherits(existing_drawing, "xml_missing")) {
+          drawing_ref <- read_xml(sprintf(
+            "<drawing xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"%s\"/>",
+            rid
+          ))
+          # insert before extLst if present (OOXML element order)
+          ext_lst <- xml_find_first(
+            sheet_obj$get(),
+            "d1:extLst",
+            ns = ns
+          )
+          if (!inherits(ext_lst, "xml_missing")) {
+            xml_add_sibling(ext_lst, drawing_ref, .where = "before")
+          } else {
+            xml_add_child(sheet_obj$get(), drawing_ref)
+          }
+        }
+        sheet_obj$save()
+
+        # content type
+        partname <- paste0("/xl/drawings/", drawing_name)
+        content_type$add_override(setNames(
+          "application/vnd.openxmlformats-officedocument.drawing+xml",
+          partname
+        ))
+      }
+    },
+
+    #' @description Add a chart anchor to the drawing.
+    add_chart_anchor = function(
+      chart_rid,
+      from_col = 3L,
+      from_row = 1L,
+      to_col = 10L,
+      to_row = 15L
+    ) {
+      anchor_xml <- sprintf(
+        paste0(
+          "<xdr:twoCellAnchor",
+          " xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
+          " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"",
+          " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"",
+          " xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
+          "<xdr:from><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
+          "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>",
+          "<xdr:to><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
+          "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:to>",
+          "<xdr:graphicFrame macro=\"\">",
+          "<xdr:nvGraphicFramePr>",
+          "<xdr:cNvPr id=\"%d\" name=\"Chart %d\"/>",
+          "<xdr:cNvGraphicFramePr/>",
+          "</xdr:nvGraphicFramePr>",
+          "<xdr:xfrm><a:off x=\"0\" y=\"0\"/><a:ext cx=\"0\" cy=\"0\"/></xdr:xfrm>",
+          "<a:graphic><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
+          "<c:chart r:id=\"%s\"/>",
+          "</a:graphicData></a:graphic>",
+          "</xdr:graphicFrame>",
+          "<xdr:clientData/>",
+          "</xdr:twoCellAnchor>"
+        ),
+        from_col,
+        from_row,
+        to_col,
+        to_row,
+        private$next_cNvPr_id(),
+        private$next_cNvPr_id(),
+        chart_rid
+      )
+
+      xml_add_child(self$get(), read_xml(anchor_xml))
+      self$save()
+      self
+    },
+
+    #' @description Add a relationship from the drawing to a chart file.
+    add_chart_rel = function(chart_basename) {
+      next_id <- self$relationship()$get_next_id()
+      rid <- paste0("rId", next_id)
+      self$relationship()$add(
+        id = rid,
+        type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
+        target = paste0("../charts/", chart_basename)
+      )
+      self$save()
+      rid
+    }
+  ),
+
+  private = list(
+    package_dir = NULL,
+
+    next_drawing_name = function(drawings_dir) {
+      existing <- list.files(drawings_dir, pattern = "^drawing[0-9]+\\.xml$")
+      if (length(existing) == 0L) {
+        return("drawing1.xml")
+      }
+      nums <- as.integer(gsub("\\D", "", existing))
+      paste0("drawing", max(nums) + 1L, ".xml")
+    },
+
+    next_cNvPr_id = function() {
+      nodes <- xml_find_all(
+        self$get(),
+        "//xdr:cNvPr",
+        ns = c(
+          xdr = "http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"
+        )
+      )
+      if (length(nodes) == 0L) {
+        return(2L)
+      }
+      max(as.integer(xml_attr(nodes, "id"))) + 1L
     }
   )
 )
@@ -215,7 +411,9 @@ dir_sheet <- R6Class(
     get_sheet = function(id) {
       l_ <- self$length()
       if (is.null(id) || !between(id, 1, l_)) {
-        stop("unvalid id ", id, " (", l_, " sheet(s))", call. = FALSE)
+        cli::cli_abort(
+          "Invalid sheet id {.val {id}} ({l_} sheet(s) available)."
+        )
       }
       sheet_files <- self$get_sheet_list()
       index <- which(names(private$collection) == sheet_files[id])
@@ -234,6 +432,423 @@ dir_sheet <- R6Class(
 )
 
 
+# xlsx_styles ----
+#' @export
+#' @title Style manager for xlsx workbooks
+#' @description R6 class that manages fonts, fills, borders, and
+#' cell formats in an xlsx workbook's `styles.xml`. Used internally
+#' by [sheet_write_data()] and available for extensions.
+#' @param package_dir path to the unpacked xlsx directory
+#' @param name font family name
+#' @param size font size in points
+#' @param bold logical, bold
+#' @param italic logical, italic
+#' @param underline logical, underline
+#' @param color hex color string (6 chars, without `#`)
+#' @param bg_color hex color string for fill background
+#' @param top_style border style for top side
+#' @param top_color border color for top side
+#' @param bottom_style border style for bottom side
+#' @param bottom_color border color for bottom side
+#' @param left_style border style for left side
+#' @param left_color border color for left side
+#' @param right_style border style for right side
+#' @param right_color border color for right side
+#' @param font_id integer, font index (0-based)
+#' @param fill_id integer, fill index (0-based)
+#' @param border_id integer, border index (0-based)
+#' @param num_fmt_id integer, number format id
+#' @param halign horizontal alignment
+#' @param valign vertical alignment
+#' @param text_rotation text rotation angle (0-180)
+#' @param wrap_text logical, enable text wrapping
+#' @keywords internal
+xlsx_styles <- R6Class(
+  "xlsx_styles",
+
+  public = list(
+    #' @description Initialize styles from an xlsx package directory.
+    initialize = function(package_dir) {
+      private$file <- file.path(package_dir, "xl", "styles.xml")
+      private$doc <- read_xml(private$file)
+      private$ns <- c(
+        d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+      )
+      private$index_existing()
+    },
+
+    #' @description Get or create a font index.
+    get_font_id = function(
+      name = "Calibri",
+      size = 11,
+      bold = FALSE,
+      italic = FALSE,
+      underline = FALSE,
+      color = "000000"
+    ) {
+      sig <- paste(
+        name,
+        size,
+        as.integer(bold),
+        as.integer(italic),
+        as.integer(underline),
+        color,
+        sep = "|"
+      )
+      idx <- match(sig, private$font_sigs)
+      if (!is.na(idx)) {
+        return(idx - 1L)
+      }
+
+      xml_parts <- c(
+        if (bold) "<b/>",
+        if (italic) "<i/>",
+        if (underline) "<u/>",
+        sprintf("<sz val=\"%s\"/>", size),
+        sprintf("<color rgb=\"FF%s\"/>", toupper(color)),
+        sprintf("<name val=\"%s\"/>", htmlEscapeCopy(name))
+      )
+      font_xml <- sprintf(
+        "<font xmlns=\"%s\">%s</font>",
+        private$ssml,
+        paste0(xml_parts, collapse = "")
+      )
+      private$add_to_collection("d1:fonts", font_xml, sig, "font_sigs")
+    },
+
+    #' @description Get or create a fill index.
+    get_fill_id = function(bg_color = "FFFFFF") {
+      sig <- toupper(bg_color)
+      idx <- match(sig, private$fill_sigs)
+      if (!is.na(idx)) {
+        return(idx - 1L)
+      }
+
+      fill_xml <- sprintf(
+        "<fill xmlns=\"%s\"><patternFill patternType=\"solid\"><fgColor rgb=\"FF%s\"/></patternFill></fill>",
+        private$ssml,
+        sig
+      )
+      private$add_to_collection("d1:fills", fill_xml, sig, "fill_sigs")
+    },
+
+    #' @description Get or create a border index.
+    get_border_id = function(
+      top_style = NULL,
+      top_color = NULL,
+      bottom_style = NULL,
+      bottom_color = NULL,
+      left_style = NULL,
+      left_color = NULL,
+      right_style = NULL,
+      right_color = NULL
+    ) {
+      sig <- paste(
+        top_style %||% "",
+        top_color %||% "",
+        bottom_style %||% "",
+        bottom_color %||% "",
+        left_style %||% "",
+        left_color %||% "",
+        right_style %||% "",
+        right_color %||% "",
+        sep = "|"
+      )
+      idx <- match(sig, private$border_sigs)
+      if (!is.na(idx)) {
+        return(idx - 1L)
+      }
+
+      make_side <- function(tag, style, color) {
+        if (is.null(style) || style == "") {
+          return(sprintf("<%s/>", tag))
+        }
+        sprintf(
+          "<%s style=\"%s\"><color rgb=\"FF%s\"/></%s>",
+          tag,
+          style,
+          toupper(color %||% "000000"),
+          tag
+        )
+      }
+      left_xml <- make_side("left", left_style, left_color)
+      right_xml <- make_side("right", right_style, right_color)
+      top_xml <- make_side("top", top_style, top_color)
+      bottom_xml <- make_side("bottom", bottom_style, bottom_color)
+
+      border_xml <- sprintf(
+        "<border xmlns=\"%s\">%s%s%s%s<diagonal/></border>",
+        private$ssml,
+        left_xml,
+        right_xml,
+        top_xml,
+        bottom_xml
+      )
+      private$add_to_collection("d1:borders", border_xml, sig, "border_sigs")
+    },
+
+    #' @description Get or create a cell format (xf) index.
+    get_style_id = function(
+      font_id = 0L,
+      fill_id = 0L,
+      border_id = 0L,
+      num_fmt_id = 0L,
+      halign = NA,
+      valign = NA,
+      text_rotation = 0L,
+      wrap_text = FALSE
+    ) {
+      sig <- paste(
+        font_id,
+        fill_id,
+        border_id,
+        num_fmt_id,
+        halign %||% "",
+        valign %||% "",
+        text_rotation,
+        as.integer(wrap_text),
+        sep = "|"
+      )
+      idx <- match(sig, private$xf_sigs)
+      if (!is.na(idx)) {
+        return(idx - 1L)
+      }
+
+      apply_parts <- c(
+        if (font_id > 0L) " applyFont=\"1\"",
+        if (fill_id > 0L) " applyFill=\"1\"",
+        if (border_id > 0L) " applyBorder=\"1\"",
+        if (num_fmt_id > 0L) " applyNumberFormat=\"1\""
+      )
+
+      has_align <- (!is.na(halign) && halign != "") ||
+        (!is.na(valign) && valign != "") ||
+        text_rotation > 0L ||
+        wrap_text
+      if (has_align) {
+        apply_parts <- c(apply_parts, " applyAlignment=\"1\"")
+      }
+
+      align_xml <- ""
+      if (has_align) {
+        align_parts <- c(
+          if (!is.na(halign) && halign != "") {
+            sprintf(" horizontal=\"%s\"", halign)
+          },
+          if (!is.na(valign) && valign != "") {
+            sprintf(" vertical=\"%s\"", valign)
+          },
+          if (text_rotation > 0L) {
+            sprintf(" textRotation=\"%d\"", text_rotation)
+          },
+          if (wrap_text) " wrapText=\"1\""
+        )
+        align_xml <- sprintf(
+          "<alignment%s/>",
+          paste0(align_parts, collapse = "")
+        )
+      }
+
+      xf_xml <- sprintf(
+        "<xf xmlns=\"%s\" numFmtId=\"%d\" fontId=\"%d\" fillId=\"%d\" borderId=\"%d\" xfId=\"0\"%s>%s</xf>",
+        private$ssml,
+        num_fmt_id,
+        font_id,
+        fill_id,
+        border_id,
+        paste0(apply_parts, collapse = ""),
+        align_xml
+      )
+      private$add_to_collection("d1:cellXfs", xf_xml, sig, "xf_sigs")
+    },
+
+    #' @description Get or create a cell format index for a number format.
+    get_xf_id = function(num_fmt_id) {
+      self$get_style_id(num_fmt_id = as.integer(num_fmt_id))
+    },
+
+    #' @description Save styles.xml to disk.
+    save = function() {
+      write_xml(private$doc, private$file)
+    }
+  ),
+
+  private = list(
+    file = NULL,
+    doc = NULL,
+    ns = NULL,
+    ssml = "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+    font_sigs = character(0),
+    fill_sigs = character(0),
+    border_sigs = character(0),
+    xf_sigs = character(0),
+
+    index_existing = function() {
+      ns <- private$ns
+
+      # fonts
+      font_nodes <- xml_find_all(private$doc, "d1:fonts/d1:font", ns = ns)
+      private$font_sigs <- vapply(
+        font_nodes,
+        function(node) {
+          nm <- xml_text(xml_find_first(node, "d1:name/@val", ns = ns))
+          sz <- xml_text(xml_find_first(node, "d1:sz/@val", ns = ns))
+          b <- !inherits(xml_find_first(node, "d1:b", ns = ns), "xml_missing")
+          i <- !inherits(xml_find_first(node, "d1:i", ns = ns), "xml_missing")
+          u <- !inherits(xml_find_first(node, "d1:u", ns = ns), "xml_missing")
+          col_node <- xml_find_first(node, "d1:color", ns = ns)
+          col <- if (inherits(col_node, "xml_missing")) {
+            "000000"
+          } else {
+            rgb <- xml_attr(col_node, "rgb")
+            if (!is.na(rgb) && nchar(rgb) == 8) substring(rgb, 3) else "theme"
+          }
+          paste(
+            nm,
+            sz,
+            as.integer(b),
+            as.integer(i),
+            as.integer(u),
+            col,
+            sep = "|"
+          )
+        },
+        character(1L)
+      )
+
+      # fills
+      fill_nodes <- xml_find_all(private$doc, "d1:fills/d1:fill", ns = ns)
+      private$fill_sigs <- vapply(
+        fill_nodes,
+        function(node) {
+          fg <- xml_find_first(node, "d1:patternFill/d1:fgColor", ns = ns)
+          if (inherits(fg, "xml_missing")) {
+            return("none")
+          }
+          rgb <- xml_attr(fg, "rgb")
+          if (!is.na(rgb) && nchar(rgb) == 8) {
+            toupper(substring(rgb, 3))
+          } else {
+            "none"
+          }
+        },
+        character(1L)
+      )
+
+      # borders
+      border_nodes <- xml_find_all(
+        private$doc,
+        "d1:borders/d1:border",
+        ns = ns
+      )
+      private$border_sigs <- vapply(
+        border_nodes,
+        function(node) {
+          get_side <- function(side) {
+            s <- xml_find_first(node, paste0("d1:", side), ns = ns)
+            style <- xml_attr(s, "style")
+            col_node <- xml_find_first(s, "d1:color", ns = ns)
+            col <- if (inherits(col_node, "xml_missing")) {
+              ""
+            } else {
+              rgb <- xml_attr(col_node, "rgb")
+              if (!is.na(rgb) && nchar(rgb) == 8) substring(rgb, 3) else ""
+            }
+            paste(if (is.na(style)) "" else style, col, sep = "|")
+          }
+          paste(
+            get_side("top"),
+            get_side("bottom"),
+            get_side("left"),
+            get_side("right"),
+            sep = "|"
+          )
+        },
+        character(1L)
+      )
+
+      # cellXfs
+      xf_nodes <- xml_find_all(private$doc, "d1:cellXfs/d1:xf", ns = ns)
+      private$xf_sigs <- vapply(
+        xf_nodes,
+        function(node) {
+          fid <- xml_attr(node, "fontId") %||% "0"
+          filid <- xml_attr(node, "fillId") %||% "0"
+          bid <- xml_attr(node, "borderId") %||% "0"
+          nfid <- xml_attr(node, "numFmtId") %||% "0"
+          align <- xml_find_first(node, "d1:alignment", ns = ns)
+          ha <- if (inherits(align, "xml_missing")) {
+            ""
+          } else {
+            xml_attr(align, "horizontal") %||% ""
+          }
+          va <- if (inherits(align, "xml_missing")) {
+            ""
+          } else {
+            xml_attr(align, "vertical") %||% ""
+          }
+          rot <- if (inherits(align, "xml_missing")) {
+            "0"
+          } else {
+            xml_attr(align, "textRotation") %||% "0"
+          }
+          wrap <- if (inherits(align, "xml_missing")) {
+            "0"
+          } else {
+            xml_attr(align, "wrapText") %||% "0"
+          }
+          paste(fid, filid, bid, nfid, ha, va, rot, wrap, sep = "|")
+        },
+        character(1L)
+      )
+    },
+
+    add_to_collection = function(xpath, xml_str, sig, sig_field) {
+      parent <- xml_find_first(private$doc, xpath, ns = private$ns)
+      xml_add_child(parent, read_xml(xml_str))
+      count <- length(private[[sig_field]]) + 1L
+      xml_attr(parent, "count") <- as.character(count)
+      private[[sig_field]] <- c(private[[sig_field]], sig)
+      count - 1L # 0-based
+    }
+  )
+)
+
+# validation helpers ----
+
+validate_sheet_name <- function(label) {
+  if (is.null(label) || !nzchar(label)) {
+    cli::cli_abort("Sheet name cannot be empty.")
+  }
+  if (nchar(label) > 31L) {
+    cli::cli_abort(
+      "Sheet name {.val {label}} exceeds 31 characters ({nchar(label)})."
+    )
+  }
+  if (grepl("[\\]\\[*?/\\\\:]", label, perl = TRUE)) {
+    cli::cli_abort(
+      "Sheet name {.val {label}} contains invalid characters."
+    )
+  }
+  if (grepl("^'|'$", label)) {
+    cli::cli_abort(
+      "Sheet name {.val {label}} cannot start or end with a single quote."
+    )
+  }
+  invisible(label)
+}
+
+check_sheet_exists <- function(x, sheet) {
+  available <- x$worksheets$sheet_names()
+  if (!sheet %in% available) {
+    cli::cli_abort(c(
+      "Sheet {.val {sheet}} not found.",
+      "i" = "Available sheets: {.val {available}}."
+    ))
+  }
+  invisible(sheet)
+}
+
 # read_xlsx ----
 #' @export
 #' @title Create an 'Excel' document object
@@ -245,7 +860,7 @@ dir_sheet <- R6Class(
 #' read_xlsx()
 read_xlsx <- function(path = NULL) {
   if (!is.null(path) && !file.exists(path)) {
-    stop("could not find file ", shQuote(path), call. = FALSE)
+    cli::cli_abort("Could not find file {.file {path}}.")
   }
 
   if (is.null(path)) {
@@ -253,7 +868,7 @@ read_xlsx <- function(path = NULL) {
   }
 
   if (!grepl("\\.xlsx$", path, ignore.case = TRUE)) {
-    stop("read_xlsx only support xlsx files", call. = FALSE)
+    cli::cli_abort("{.fun read_xlsx} only supports {.file .xlsx} files.")
   }
 
   package_dir <- tempfile()
@@ -268,6 +883,7 @@ read_xlsx <- function(path = NULL) {
   obj$content_type <- content_type$new(package_dir)
   obj$worksheets <- worksheets$new(package_dir)
   obj$sheets <- dir_sheet$new(obj)
+  obj$styles <- xlsx_styles$new(package_dir)
   obj$core_properties <- read_core_properties(obj$package_dir)
 
   obj
@@ -282,8 +898,9 @@ read_xlsx <- function(path = NULL) {
 #' my_ws <- read_xlsx()
 #' my_pres <- add_sheet(my_ws, label = "new sheet")
 add_sheet <- function(x, label) {
+  validate_sheet_name(label)
   if (label %in% x$worksheets$sheet_names()) {
-    stop("sheet ", shQuote(label), " already exist")
+    cli::cli_abort("Sheet {.val {label}} already exists.")
   }
 
   new_slidename <- x$worksheets$get_new_sheetname()
@@ -341,8 +958,267 @@ length.rxlsx <- function(x) {
 #' my_pres <- sheet_select(my_ws, sheet = "new sheet")
 #' print(my_ws, target = tempfile(fileext = ".xlsx") )
 sheet_select <- function(x, sheet) {
+  check_sheet_exists(x, sheet)
   x$worksheets$view_on_sheet(sheet)
+  active_index <- which(x$worksheets$sheet_names() == sheet)
+  ns <- "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+  for (i in seq_len(x$sheets$length())) {
+    sheet_obj <- x$sheets$get_sheet(i)
+    sv <- xml_find_first(
+      sheet_obj$get(),
+      "d1:sheetViews/d1:sheetView",
+      ns = c(d1 = ns)
+    )
+    if (!inherits(sv, "xml_missing")) {
+      if (i == active_index) {
+        xml_attr(sv, "tabSelected") <- "1"
+      } else {
+        xml_attr(sv, "tabSelected") <- "0"
+      }
+    }
+    sheet_obj$save()
+  }
   x
+}
+
+#' @export
+#' @title Write data to a sheet
+#' @description Write a data.frame into a sheet of an xlsx workbook.
+#' Multiple calls can write to different positions on the same sheet.
+#' @param x rxlsx object
+#' @param data a data.frame
+#' @param sheet sheet name (must already exist)
+#' @param start_row row index where the header will be written (default 1)
+#' @param start_col column index where the first column of data will be
+#' written (default 1)
+#' @examples
+#' x <- read_xlsx()
+#' x <- add_sheet(x, label = "mysheet")
+#' x <- sheet_write_data(x, data = head(iris, 5), sheet = "mysheet")
+#' x <- sheet_write_data(x, data = head(mtcars, 3), sheet = "mysheet",
+#'   start_col = 7)
+#' print(x, target = tempfile(fileext = ".xlsx"))
+sheet_write_data <- function(x, data, sheet, start_row = 1L, start_col = 1L) {
+  stopifnot(inherits(x, "rxlsx"))
+  stopifnot(is.data.frame(data))
+  check_sheet_exists(x, sheet)
+  start_row <- as.integer(start_row)
+  start_col <- as.integer(start_col)
+
+  sheet_obj <- x$sheets$get_sheet(
+    which(x$worksheets$sheet_names() == sheet)
+  )
+
+  # resolve style IDs for date/datetime columns
+  date_xf <- NULL
+  datetime_xf <- NULL
+  for (j in seq_len(ncol(data))) {
+    col <- data[[j]]
+    if (inherits(col, "POSIXct") && is.null(datetime_xf)) {
+      datetime_xf <- x$styles$get_xf_id(22L)
+    } else if (inherits(col, "Date") && is.null(date_xf)) {
+      date_xf <- x$styles$get_xf_id(14L)
+    }
+  }
+
+  new_cells <- df_to_cells(
+    data,
+    start_row,
+    start_col,
+    date_xf = date_xf,
+    datetime_xf = datetime_xf
+  )
+
+  sheet_doc <- sheet_obj$get()
+  ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+  existing_rows <- xml_find_all(sheet_doc, "d1:sheetData/d1:row", ns = ns)
+
+  if (length(existing_rows) == 0L) {
+    # fast path: no existing data, skip merge
+    row_nums <- as.integer(names(new_cells))
+    idx <- order(row_nums)
+    row_strs <- sprintf(
+      "<row r=\"%d\">%s</row>",
+      row_nums[idx],
+      unlist(new_cells[idx])
+    )
+  } else {
+    # read existing rows
+    existing_map <- list()
+    for (row_node in existing_rows) {
+      r <- xml_attr(row_node, "r")
+      cell_nodes <- xml_find_all(row_node, "d1:c", ns = ns)
+      cell_strs <- vapply(cell_nodes, as.character, character(1L))
+      existing_map[[r]] <- paste0(cell_strs, collapse = "")
+    }
+
+    # merge: new rows overwrite or extend existing rows
+    for (r in names(new_cells)) {
+      if (is.null(existing_map[[r]])) {
+        existing_map[[r]] <- new_cells[[r]]
+      } else {
+        old_doc <- read_xml(paste0("<row>", existing_map[[r]], "</row>"))
+        new_doc <- read_xml(paste0("<row>", new_cells[[r]], "</row>"))
+        old_cells <- xml_find_all(old_doc, "c")
+        new_cells_nodes <- xml_find_all(new_doc, "c")
+        old_refs <- xml_attr(old_cells, "r")
+        new_refs <- xml_attr(new_cells_nodes, "r")
+        keep <- !old_refs %in% new_refs
+        parts <- c(
+          vapply(old_cells[keep], as.character, character(1L)),
+          vapply(new_cells_nodes, as.character, character(1L))
+        )
+        existing_map[[r]] <- paste0(parts, collapse = "")
+      }
+    }
+
+    row_nums <- as.integer(names(existing_map))
+    existing_map <- existing_map[order(row_nums)]
+    row_nums <- sort(row_nums)
+    row_strs <- sprintf(
+      "<row r=\"%d\">%s</row>",
+      row_nums,
+      unlist(existing_map)
+    )
+  }
+
+  # update sheetData in the existing DOM (preserves namespaces, etc.)
+  sheet_data_node <- xml_find_first(sheet_doc, "d1:sheetData", ns = ns)
+  new_sheet_data <- read_xml(paste0(
+    "<sheetData xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">",
+    paste0(row_strs, collapse = ""),
+    "</sheetData>"
+  ))
+  xml_replace(sheet_data_node, new_sheet_data)
+
+  # remove dimension (Excel recalculates it)
+  dim_node <- xml_find_first(sheet_doc, "d1:dimension", ns = ns)
+  if (!inherits(dim_node, "xml_missing")) {
+    xml_remove(dim_node)
+  }
+
+  sheet_file <- sheet_obj$file_name()
+  write_xml(sheet_doc, sheet_file)
+  sheet_obj$feed(sheet_file)
+
+  x
+}
+
+# Convert a data.frame to a named list of cell XML strings, keyed by row number
+df_to_cells <- function(
+  data,
+  start_row = 1L,
+  start_col = 1L,
+  date_xf = NULL,
+  datetime_xf = NULL
+) {
+  nr <- nrow(data)
+  nc <- ncol(data)
+  col_indices <- seq(start_col, length.out = nc)
+  col_letters <- int_to_col(col_indices)
+  header_row <- start_row
+  data_rows <- seq(start_row + 1L, length.out = nr)
+
+  # header cells
+  header_cells <- sprintf(
+    "<c r=\"%s%d\" t=\"inlineStr\"><is><t>%s</t></is></c>",
+    col_letters,
+    header_row,
+    htmlEscapeCopy(names(data))
+  )
+
+  # data cells: matrix (nr x nc)
+  cell_matrix <- matrix(NA_character_, nrow = nr, ncol = nc)
+  for (j in seq_len(nc)) {
+    col <- data[[j]]
+    refs <- sprintf("%s%d", col_letters[j], data_rows)
+    if (inherits(col, "POSIXct") && !is.null(datetime_xf)) {
+      num_val <- sprintf("%.10f", (as.numeric(col) / 86400) + 25569)
+      cells <- sprintf(
+        "<c r=\"%s\" s=\"%d\"><v>%s</v></c>",
+        refs,
+        datetime_xf,
+        num_val
+      )
+      cells[is.na(col)] <- sprintf("<c r=\"%s\"/>", refs[is.na(col)])
+    } else if (inherits(col, "Date") && !is.null(date_xf)) {
+      num_val <- sprintf("%.17G", as.numeric(col) + 25569)
+      cells <- sprintf(
+        "<c r=\"%s\" s=\"%d\"><v>%s</v></c>",
+        refs,
+        date_xf,
+        num_val
+      )
+      cells[is.na(col)] <- sprintf("<c r=\"%s\"/>", refs[is.na(col)])
+    } else if (is.logical(col)) {
+      cells <- sprintf(
+        "<c r=\"%s\" t=\"b\"><v>%d</v></c>",
+        refs,
+        as.integer(col)
+      )
+      cells[is.na(col)] <- sprintf("<c r=\"%s\"/>", refs[is.na(col)])
+    } else if (is.numeric(col)) {
+      val_str <- sprintf("%.17G", col)
+      cells <- sprintf("<c r=\"%s\"><v>%s</v></c>", refs, val_str)
+      cells[is.na(col)] <- sprintf("<c r=\"%s\"/>", refs[is.na(col)])
+    } else {
+      col <- as.character(col)
+      na_mask <- is.na(col)
+      cells <- sprintf(
+        "<c r=\"%s\" t=\"inlineStr\"><is><t>%s</t></is></c>",
+        refs,
+        htmlEscapeCopy(col)
+      )
+      cells[na_mask] <- sprintf("<c r=\"%s\"/>", refs[na_mask])
+    }
+    cell_matrix[, j] <- cells
+  }
+
+  # build named list: row number -> already-collapsed row strings
+  row_cells <- do.call(paste0, as.data.frame(cell_matrix))
+  result <- setNames(
+    as.list(c(paste0(header_cells, collapse = ""), row_cells)),
+    as.character(c(header_row, data_rows))
+  )
+  result
+}
+
+#' @export
+#' @title Add a drawing to an Excel sheet
+#' @description Add a graphical element into a sheet of an xlsx workbook.
+#' This is a generic function dispatching on `value`. Methods are
+#' provided by extension packages 'mschart' and 'rvg'.
+#'
+#' Use [sheet_write_data()] to write data into the sheet before or
+#' after adding a drawing.
+#' @param x rxlsx object created by [read_xlsx()]
+#' @param value object to add (dispatched to the appropriate method)
+#' @param sheet sheet name (must already exist, see [add_sheet()])
+#' @param ... additional arguments passed to methods
+#' @return the rxlsx object (invisibly)
+#' @seealso [read_xlsx()], [add_sheet()], [sheet_write_data()]
+sheet_add_drawing <- function(x, value, sheet, ...) {
+  UseMethod("sheet_add_drawing", value)
+}
+
+# Convert integer column index to Excel letter (1=A, 2=B, ..., 27=AA)
+int_to_col <- function(x) {
+  vapply(
+    x,
+    function(n) {
+      if (is.na(n)) {
+        return(NA_character_)
+      }
+      col <- ""
+      while (n > 0) {
+        n <- n - 1L
+        col <- paste0(LETTERS[n %% 26L + 1L], col)
+        n <- n %/% 26L
+      }
+      col
+    },
+    character(1L)
+  )
 }
 
 #' @export
@@ -360,11 +1236,12 @@ print.rxlsx <- function(x, target = NULL, ...) {
   }
 
   if (!grepl(x = target, pattern = "\\.(xlsx)$", ignore.case = TRUE)) {
-    stop(target, " should have '.xlsx' extension.")
+    cli::cli_abort("{.file {target}} should have {.file .xlsx} extension.")
   }
 
   x$worksheets$save()
   x$content_type$save()
+  x$styles$save()
 
   x$core_properties['modified', 'value'] <- format(
     Sys.time(),
