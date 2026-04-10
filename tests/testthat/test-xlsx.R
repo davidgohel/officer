@@ -324,7 +324,7 @@ test_that("sheet_write_data handles logical columns", {
 })
 
 test_that("sheet_add_drawing creates drawing infrastructure", {
-  skip_if_not_installed("mschart")
+  skip_if_not_installed("mschart", minimum_version = "0.4.2")
   library(mschart)
 
   my_chart <- ms_barchart(
