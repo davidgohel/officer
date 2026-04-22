@@ -983,31 +983,55 @@ sheet_select <- function(x, sheet) {
 
 #' @export
 #' @title Write data to a sheet
-#' @description Write a data.frame into a sheet of an xlsx workbook.
+#' @description Write a content into a sheet of an xlsx workbook.
 #' Multiple calls can write to different positions on the same sheet.
+#'
+#' This is a generic function dispatching on `value`. Supported inputs:
+#' - `data.frame`: written as a table (header in row `start_row`, data
+#'   starting at `start_row + 1`).
+#' - `character`: each element in its own cell. The `character` method
+#'   accepts a `direction` argument (`"vertical"` -- default -- or
+#'   `"horizontal"`) to stack elements in a column or a row.
+#' - [fpar()]: richtext paragraph written into a single cell at
+#'   `(start_row, start_col)`. Font, size, colour, bold, italic,
+#'   underline, strikethrough and sub/superscript chunks are honoured.
+#' - [block_list()]: one cell per `fpar` item. Also accepts
+#'   `direction = "vertical"` (default) or `"horizontal"`.
+#'
 #' @param x rxlsx object
-#' @param value a data.frame
+#' @param value a `data.frame`, `character` vector, [fpar()] or
+#' [block_list()]
 #' @param sheet sheet name (must already exist)
-#' @param start_row row index where the header will be written (default 1)
-#' @param start_col column index where the first column of data will be
+#' @param start_row row index where the header / first cell will be
 #' written (default 1)
-#' @examples
-#' x <- read_xlsx()
-#' x <- add_sheet(x, label = "mysheet")
-#' x <- sheet_write_data(x, value = head(iris, 5), sheet = "mysheet")
-#' x <- sheet_write_data(x, value = head(mtcars, 3), sheet = "mysheet",
-#'   start_col = 7)
-#' print(x, target = tempfile(fileext = ".xlsx"))
-sheet_write_data <- function(x, value, sheet, start_row = 1L, start_col = 1L) {
+#' @param start_col column index where the first column / first cell
+#' will be written (default 1)
+#' @param ... method-specific arguments. In particular,
+#' `direction = "vertical"` (default) or `"horizontal"` is honoured by
+#' the `character` and `block_list` methods.
+#' @example inst/examples/example-sheet_write_data.R
+sheet_write_data <- function(x, value, sheet, start_row = 1L, start_col = 1L,
+                             ...) {
+  UseMethod("sheet_write_data", value)
+}
+
+#' @export
+sheet_write_data.default <- function(x, value, sheet, ...) {
+  cli::cli_abort(c(
+    "No {.fun sheet_write_data} method for an object of class
+     {.cls {class(value)[1]}}.",
+    "i" = "Supported inputs: {.cls data.frame}, {.cls character},
+           {.cls fpar}, {.cls block_list}."
+  ))
+}
+
+#' @export
+sheet_write_data.data.frame <- function(x, value, sheet,
+                                        start_row = 1L, start_col = 1L, ...) {
   stopifnot(inherits(x, "rxlsx"))
-  stopifnot(is.data.frame(value))
   check_sheet_exists(x, sheet)
   start_row <- as.integer(start_row)
   start_col <- as.integer(start_col)
-
-  sheet_obj <- x$sheets$get_sheet(
-    which(x$worksheets$sheet_names() == sheet)
-  )
 
   # resolve style IDs for date/datetime columns
   date_xf <- NULL
@@ -1029,6 +1053,15 @@ sheet_write_data <- function(x, value, sheet, start_row = 1L, start_col = 1L) {
     datetime_xf = datetime_xf
   )
 
+  write_cells_into_sheet(x, sheet, new_cells)
+}
+
+# Shared plumbing: merge a named list of row XML strings (keyed by row
+# number as character) into the target sheet's <sheetData>.
+write_cells_into_sheet <- function(x, sheet, new_cells) {
+  sheet_obj <- x$sheets$get_sheet(
+    which(x$worksheets$sheet_names() == sheet)
+  )
   sheet_doc <- sheet_obj$get()
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
   existing_rows <- xml_find_all(sheet_doc, "d1:sheetData/d1:row", ns = ns)
@@ -1181,6 +1214,168 @@ df_to_cells <- function(
     as.character(c(header_row, data_rows))
   )
   result
+}
+
+# --- Richtext cell helpers ------------------------------------------------
+# Convert one `ftext`-style chunk (list with $value and $pr = fp_text)
+# to a spreadsheetml <r><rPr>...</rPr><t xml:space="preserve">...</t></r>.
+chunk_to_xlsx_run <- function(chunk) {
+  pr <- chunk$pr
+  rpr_parts <- character(0)
+  if (isTRUE(pr$bold)) rpr_parts <- c(rpr_parts, "<b/>")
+  if (isTRUE(pr$italic)) rpr_parts <- c(rpr_parts, "<i/>")
+  if (isTRUE(pr$underlined)) rpr_parts <- c(rpr_parts, "<u/>")
+  if (isTRUE(pr$strike)) rpr_parts <- c(rpr_parts, "<strike/>")
+  if (!is.na(pr$font.size)) {
+    rpr_parts <- c(rpr_parts,
+                   sprintf("<sz val=\"%g\"/>", pr$font.size))
+  }
+  if (!is.na(pr$color) && !identical(pr$color, "transparent")) {
+    rpr_parts <- c(rpr_parts,
+                   sprintf("<color rgb=\"FF%s\"/>",
+                           hex_color(pr$color)))
+  }
+  if (!is.na(pr$font.family)) {
+    rpr_parts <- c(rpr_parts,
+                   sprintf("<rFont val=\"%s\"/>",
+                           htmlEscapeCopy(pr$font.family)))
+  }
+  if (identical(pr$vertical.align, "superscript")) {
+    rpr_parts <- c(rpr_parts, "<vertAlign val=\"superscript\"/>")
+  } else if (identical(pr$vertical.align, "subscript")) {
+    rpr_parts <- c(rpr_parts, "<vertAlign val=\"subscript\"/>")
+  }
+
+  rpr <- if (length(rpr_parts)) {
+    paste0("<rPr>", paste0(rpr_parts, collapse = ""), "</rPr>")
+  } else {
+    ""
+  }
+
+  sprintf(
+    "<r>%s<t xml:space=\"preserve\">%s</t></r>",
+    rpr,
+    htmlEscapeCopy(chunk$value)
+  )
+}
+
+# Convert a fpar to the <is>...</is> body of an inline-string cell.
+fpar_to_inlinestr <- function(fpar) {
+  chunks <- fpar$chunks
+  if (!length(chunks)) {
+    return("<is><t xml:space=\"preserve\"/></is>")
+  }
+  runs <- vapply(chunks, chunk_to_xlsx_run, character(1L))
+  paste0("<is>", paste0(runs, collapse = ""), "</is>")
+}
+
+# Build the full <c r="..."> cell for a fpar at a given ref.
+fpar_to_cell_xml <- function(fpar, ref) {
+  sprintf(
+    "<c r=\"%s\" t=\"inlineStr\">%s</c>",
+    ref,
+    fpar_to_inlinestr(fpar)
+  )
+}
+
+# --- sheet_write_data methods: character, fpar, block_list ----------------
+
+#' @export
+sheet_write_data.character <- function(x, value, sheet,
+                                       start_row = 1L, start_col = 1L,
+                                       direction = c("vertical",
+                                                     "horizontal"),
+                                       ...) {
+  stopifnot(inherits(x, "rxlsx"))
+  check_sheet_exists(x, sheet)
+  direction <- match.arg(direction)
+  start_row <- as.integer(start_row)
+  start_col <- as.integer(start_col)
+
+  n <- length(value)
+  if (direction == "vertical") {
+    rows <- seq(start_row, length.out = n)
+    cols <- rep(start_col, n)
+  } else {
+    rows <- rep(start_row, n)
+    cols <- seq(start_col, length.out = n)
+  }
+  refs <- sprintf("%s%d", int_to_col(cols), rows)
+
+  na_mask <- is.na(value)
+  cells <- character(n)
+  cells[!na_mask] <- sprintf(
+    "<c r=\"%s\" t=\"inlineStr\"><is><t xml:space=\"preserve\">%s</t></is></c>",
+    refs[!na_mask],
+    htmlEscapeCopy(value[!na_mask])
+  )
+  cells[na_mask] <- sprintf("<c r=\"%s\"/>", refs[na_mask])
+
+  # group by row
+  new_cells <- tapply(cells, rows, paste0, collapse = "")
+  new_cells <- as.list(new_cells)
+  names(new_cells) <- as.character(unique(rows))
+
+  write_cells_into_sheet(x, sheet, new_cells)
+}
+
+#' @export
+sheet_write_data.fpar <- function(x, value, sheet,
+                                  start_row = 1L, start_col = 1L, ...) {
+  stopifnot(inherits(x, "rxlsx"))
+  check_sheet_exists(x, sheet)
+  start_row <- as.integer(start_row)
+  start_col <- as.integer(start_col)
+
+  ref <- sprintf("%s%d", int_to_col(start_col), start_row)
+  cell <- fpar_to_cell_xml(value, ref)
+
+  new_cells <- setNames(list(cell), as.character(start_row))
+  write_cells_into_sheet(x, sheet, new_cells)
+}
+
+#' @export
+sheet_write_data.block_list <- function(x, value, sheet,
+                                        start_row = 1L, start_col = 1L,
+                                        direction = c("vertical",
+                                                      "horizontal"),
+                                        ...) {
+  stopifnot(inherits(x, "rxlsx"))
+  check_sheet_exists(x, sheet)
+  direction <- match.arg(direction)
+  start_row <- as.integer(start_row)
+  start_col <- as.integer(start_col)
+
+  # only fpar items are rendered -- skip non-fpar blocks with a warning
+  is_fpar <- vapply(value, inherits, logical(1), what = "fpar")
+  if (!all(is_fpar)) {
+    cli::cli_warn(c(
+      "{.fun sheet_write_data} can only render {.cls fpar} items in a
+       {.cls block_list}; skipping {sum(!is_fpar)} non-fpar item{?s}."
+    ))
+  }
+  fpars <- value[is_fpar]
+  n <- length(fpars)
+  if (n == 0L) return(invisible(x))
+
+  if (direction == "vertical") {
+    rows <- seq(start_row, length.out = n)
+    cols <- rep(start_col, n)
+  } else {
+    rows <- rep(start_row, n)
+    cols <- seq(start_col, length.out = n)
+  }
+  refs <- sprintf("%s%d", int_to_col(cols), rows)
+
+  cells <- vapply(seq_len(n), function(i) {
+    fpar_to_cell_xml(fpars[[i]], refs[i])
+  }, character(1L))
+
+  new_cells <- tapply(cells, rows, paste0, collapse = "")
+  new_cells <- as.list(new_cells)
+  names(new_cells) <- as.character(unique(rows))
+
+  write_cells_into_sheet(x, sheet, new_cells)
 }
 
 #' @export

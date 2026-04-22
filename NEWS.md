@@ -14,6 +14,12 @@ to create bullet or numbered lists with rich text (fpar) and multi-level
 nesting. Works in both Word and PowerPoint documents (#314).
 - new functions `sheet_write_data()` and `sheet_add_drawing()` for writing
 data and inserting drawings (charts, vector graphics) into xlsx workbooks.
+`sheet_write_data()` is an S3 generic: beside `data.frame`, it also
+accepts a `character` vector (one cell per element, vertical by
+default; `direction = "horizontal"` for a row), an [`fpar()`] (rich
+text inline cell honouring bold, italic, underline, strikethrough,
+size, colour, font, sub/superscript) and a [`block_list()`] (one
+cell per `fpar` item, stacked).
 - `fp_par()` and `fp_par_lite()` gain `first_line` and `hanging`
 arguments to control paragraph first-line and hanging indents (in
 points). Honored by the Word, PowerPoint, HTML and RTF renderers.

@@ -397,3 +397,77 @@ test_that("sheet_add_drawing creates drawing infrastructure", {
   )
   expect_false(grepl("externalData", chart_str))
 })
+
+sheet_cells_xml <- function(doc, sheet_xml_name = "sheet2.xml") {
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+  paste(readLines(file.path(unpack_dir, "xl/worksheets", sheet_xml_name)),
+        collapse = "\n")
+}
+
+test_that("sheet_write_data dispatches on character (vertical)", {
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "chr")
+  doc <- sheet_write_data(doc, value = c("A", "B", "C"),
+                          sheet = "chr", start_row = 2, start_col = 3)
+  xml <- sheet_cells_xml(doc)
+  expect_match(xml, "<c r=\"C2\" t=\"inlineStr\"><is><t[^>]*>A</t>", fixed = FALSE)
+  expect_match(xml, "<c r=\"C3\" t=\"inlineStr\"><is><t[^>]*>B</t>", fixed = FALSE)
+  expect_match(xml, "<c r=\"C4\" t=\"inlineStr\"><is><t[^>]*>C</t>", fixed = FALSE)
+})
+
+test_that("sheet_write_data dispatches on character (horizontal)", {
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "chr")
+  doc <- sheet_write_data(doc, value = c("X", "Y", "Z"),
+                          sheet = "chr", start_row = 1, start_col = 1,
+                          direction = "horizontal")
+  xml <- sheet_cells_xml(doc)
+  expect_match(xml, "r=\"A1\"[^>]*>[^<]*<is><t[^>]*>X</t>", fixed = FALSE)
+  expect_match(xml, "r=\"B1\"[^>]*>[^<]*<is><t[^>]*>Y</t>", fixed = FALSE)
+  expect_match(xml, "r=\"C1\"[^>]*>[^<]*<is><t[^>]*>Z</t>", fixed = FALSE)
+})
+
+test_that("sheet_write_data on fpar emits richtext runs", {
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "fp")
+  f <- fpar(
+    ftext("bold ", fp_text(bold = TRUE, color = "red")),
+    ftext("italic ", fp_text(italic = TRUE)),
+    ftext("H", fp_text()),
+    ftext("2", fp_text(vertical.align = "subscript")),
+    ftext("O", fp_text())
+  )
+  doc <- sheet_write_data(doc, value = f, sheet = "fp",
+                          start_row = 1, start_col = 1)
+  xml <- sheet_cells_xml(doc)
+  expect_match(xml, "<c r=\"A1\" t=\"inlineStr\">", fixed = TRUE)
+  expect_match(xml, "<b/>", fixed = TRUE)
+  expect_match(xml, "rgb=\"FFFF0000\"", fixed = TRUE)
+  expect_match(xml, "<i/>", fixed = TRUE)
+  expect_match(xml, "<vertAlign val=\"subscript\"/>", fixed = TRUE)
+})
+
+test_that("sheet_write_data on block_list stacks fpars vertically", {
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "bl")
+  bl <- block_list(
+    fpar(ftext("line 1", fp_text(bold = TRUE))),
+    fpar(ftext("line 2", fp_text(italic = TRUE)))
+  )
+  doc <- sheet_write_data(doc, value = bl, sheet = "bl",
+                          start_row = 5, start_col = 2)
+  xml <- sheet_cells_xml(doc)
+  expect_match(xml, "r=\"B5\"[^>]*t=\"inlineStr\"", fixed = FALSE)
+  expect_match(xml, "r=\"B6\"[^>]*t=\"inlineStr\"", fixed = FALSE)
+  expect_match(xml, "line 1", fixed = TRUE)
+  expect_match(xml, "line 2", fixed = TRUE)
+})
+
+test_that("sheet_write_data default method errors on unsupported input", {
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "x")
+  expect_error(sheet_write_data(doc, value = 42, sheet = "x"),
+               "method")
+})
