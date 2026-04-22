@@ -25,6 +25,13 @@ PNG/JPEG/GIF/... into a sheet at an inch-based position (`left`,
 `top`, `width`, `height`). A matching `gg` method renders a ggplot
 to PNG via `ragg::agg_png()` and embeds it, matching the existing
 `ph_with.gg` (pptx) and `body_add.gg` (docx) methods.
+- new function `sheet_remove()` to delete a sheet from an xlsx
+workbook (removes the worksheet XML, its relationship file and the
+content-type override). `add_sheet()` now auto-drops the template's
+default sheet the first time it is called on a pristine workbook
+(the default "Sheet1" / "Feuil1" with no cell content and no
+drawing), so scripts that build their own sheets no longer end up
+with a stray empty tab at the front.
 - `fp_par()` and `fp_par_lite()` gain `first_line` and `hanging`
 arguments to control paragraph first-line and hanging indents (in
 points). Honored by the Word, PowerPoint, HTML and RTF renderers.

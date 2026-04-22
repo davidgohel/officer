@@ -14,6 +14,27 @@ add_sheet(x, label)
 \description{
 Add a sheet into an xlsx worksheet.
 }
+\details{
+\code{read_xlsx()} returns a workbook that already contains one default
+sheet shipped with the template (named \code{"Sheet1"} or \code{"Feuil1"}
+depending on the locale). When the user adds their first sheet
+with \code{add_sheet()}, that default sheet is silently dropped if it
+still looks empty (no cell content, no drawing attached), so the
+resulting xlsx does not start with a stray empty tab. A default
+sheet that has been written into (via \code{\link[=sheet_write_data]{sheet_write_data()}} or
+\code{\link[=sheet_add_drawing]{sheet_add_drawing()}}) is kept.
+
+To bypass the auto-drop, touch the default sheet before adding any
+other sheet:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{wb <- read_xlsx()
+wb <- sheet_write_data(wb, head(iris),
+                       sheet = wb$worksheets$sheet_names()[1])
+wb <- add_sheet(wb, "second")   # both sheets kept
+}\if{html}{\out{</div>}}
+
+To remove a sheet explicitly later, use \code{\link[=sheet_remove]{sheet_remove()}}.
+}
 \examples{
 my_ws <- read_xlsx()
 my_pres <- add_sheet(my_ws, label = "new sheet")

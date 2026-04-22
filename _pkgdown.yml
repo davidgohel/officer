@@ -169,6 +169,7 @@ reference:
     - read_xlsx
     - add_sheet
     - sheet_select
+    - sheet_remove
     - sheet_write_data
     - starts_with("sheet_add_drawing")
   - title: Misc

@@ -5,12 +5,9 @@ test_that("create and manipulate sheet", {
 
   expect_true("sheet1" %in% doc$worksheets$sheet_names())
 
-  xml_sheets <- list.files(
-    file.path(doc$package_dir, "xl", "worksheets"),
-    pattern = "\\.xml$"
-  )
-  expect_equal(length(doc), 2)
-  expect_equal(xml_sheets, c("sheet1.xml", "sheet2.xml"))
+  # empty default sheet is dropped when adding the first user sheet
+  expect_equal(length(doc), 1)
+  expect_equal(doc$worksheets$sheet_names(), "sheet1")
 
   sheet_id <- doc$worksheets$get_sheet_id("sheet1")
   wb_view <- xml_find_first(
@@ -18,6 +15,37 @@ test_that("create and manipulate sheet", {
     "d1:bookViews/d1:workbookView"
   )
   expect_equal(as.integer(xml_attr(wb_view, "activeTab")), sheet_id - 1)
+})
+
+test_that("add_sheet keeps the default sheet when it has been touched", {
+  doc <- read_xlsx()
+  default_name <- doc$worksheets$sheet_names()[1]
+  doc <- sheet_write_data(doc, head(iris, 2), sheet = default_name)
+  doc <- add_sheet(doc, label = "more")
+  expect_setequal(doc$worksheets$sheet_names(),
+                  c(default_name, "more"))
+})
+
+test_that("sheet_remove removes sheet + files + content-type", {
+  # touch the default sheet so auto-drop in add_sheet is bypassed,
+  # giving us a workbook with two sheets to test sheet_remove on
+  doc <- read_xlsx()
+  default_name <- doc$worksheets$sheet_names()[1]
+  doc <- sheet_write_data(doc, head(iris, 2), sheet = default_name)
+  doc <- add_sheet(doc, label = "keep")
+  expect_length(doc$worksheets$sheet_names(), 2)
+
+  doc <- sheet_remove(doc, sheet = default_name)
+  expect_equal(doc$worksheets$sheet_names(), "keep")
+
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+  remaining <- list.files(
+    file.path(unpack_dir, "xl/worksheets"),
+    pattern = "\\.xml$"
+  )
+  expect_length(remaining, 1)
 })
 
 test_that("sheet_select deselects other sheets", {
@@ -28,13 +56,18 @@ test_that("sheet_select deselects other sheets", {
 
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
-
-  sheet1_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
+  # only one sheet remains (default was auto-dropped when add_sheet was
+  # called on a pristine workbook — the single empty default sheet)
+  sheet_files <- list.files(
+    file.path(unpack_dir, "xl/worksheets"),
+    pattern = "\\.xml$"
   )
-  sv1 <- xml_find_first(sheet1_xml, "d1:sheetViews/d1:sheetView", ns = ns)
-  expect_equal(xml_attr(sv1, "tabSelected"), "0")
+  expect_length(sheet_files, 1)
+  ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+  sheet_xml <- read_xml(file.path(unpack_dir, "xl/worksheets",
+                                  sheet_files[1]))
+  sv <- xml_find_first(sheet_xml, "d1:sheetViews/d1:sheetView", ns = ns)
+  expect_equal(xml_attr(sv, "tabSelected"), "1")
 })
 
 test_that("sheet_write_data writes correct cells", {
@@ -47,7 +80,7 @@ test_that("sheet_write_data writes correct cells", {
   unpack_folder(out, unpack_dir)
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
   rows <- xml_find_all(sheet_xml, "d1:sheetData/d1:row", ns = ns)
 
@@ -91,7 +124,7 @@ test_that("sheet_write_data with start_row and start_col", {
   unpack_folder(out, unpack_dir)
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
 
   # header at row 5, col C
@@ -135,7 +168,7 @@ test_that("sheet_write_data merges two datasets", {
   unpack_folder(out, unpack_dir)
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
 
   # row 1 has both headers
@@ -175,7 +208,7 @@ test_that("sheet_write_data handles NA", {
   unpack_folder(out, unpack_dir)
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
 
   # A3 is empty (NA numeric)
@@ -215,7 +248,7 @@ test_that("sheet_write_data handles Date columns", {
 
   # date cells have s= attribute
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
   a2 <- xml_find_first(
     sheet_xml,
@@ -267,7 +300,7 @@ test_that("sheet_write_data handles POSIXct columns", {
 
   # datetime cells have s= attribute
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
   a2 <- xml_find_first(
     sheet_xml,
@@ -302,7 +335,7 @@ test_that("sheet_write_data handles logical columns", {
   unpack_folder(out, unpack_dir)
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
   sheet_xml <- read_xml(
-    file.path(unpack_dir, "xl/worksheets/sheet2.xml")
+    file.path(unpack_dir, "xl/worksheets/sheet1.xml")
   )
 
   # TRUE -> t="b", v=1
@@ -366,7 +399,7 @@ test_that("sheet_add_drawing creates drawing infrastructure", {
   # sheet has drawing ref before extLst
   sheet_str <- paste(
     readLines(
-      file.path(unpack_dir, "xl/worksheets/sheet2.xml"),
+      file.path(unpack_dir, "xl/worksheets/sheet1.xml"),
       warn = FALSE
     ),
     collapse = ""
@@ -398,7 +431,7 @@ test_that("sheet_add_drawing creates drawing infrastructure", {
   expect_false(grepl("externalData", chart_str))
 })
 
-sheet_cells_xml <- function(doc, sheet_xml_name = "sheet2.xml") {
+sheet_cells_xml <- function(doc, sheet_xml_name = "sheet1.xml") {
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)

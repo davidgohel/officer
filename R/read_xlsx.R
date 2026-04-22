@@ -34,7 +34,7 @@ worksheets <- R6Class(
       rid <- rels[rels$target %in% target, "id"]
 
       ids <- private$sheet_id
-      new_id <- max(ids) + 1
+      new_id <- if (length(ids)) max(ids) + 1L else 1L
 
       private$sheet_id <- c(private$sheet_id, new_id)
       private$sheet_rid <- c(private$sheet_rid, rid)
@@ -120,6 +120,39 @@ worksheets <- R6Class(
         sheet_id = as.integer(xml_attr(sheet_nodes, "sheetId")),
         rid = xml_attr(sheet_nodes, "id")
       )
+    },
+
+    remove_sheet = function(label) {
+      df <- self$get_sheets_df()
+      idx <- which(df$name == label)
+      if (!length(idx)) {
+        cli::cli_abort("Sheet {.val {label}} not found.")
+      }
+      rid <- df$rid[idx]
+
+      # drop relationship in workbook.xml.rels -- relationship$remove()
+      # matches by basename(target), so look up target first
+      rels_df <- private$rels_doc$get_data()
+      target <- rels_df$target[rels_df$id == rid]
+      if (length(target)) {
+        private$rels_doc$remove(target[1])
+      }
+
+      # drop <sheet> entry in workbook.xml
+      children_ <- xml_children(self$get())
+      sheets_node <- children_[[
+        which(sapply(children_, function(x) xml_name(x) == "sheets"))
+      ]]
+      sheet_nodes <- xml_children(sheets_node)
+      xml_remove(sheet_nodes[[idx]])
+
+      # drop private state
+      private$sheet_id   <- private$sheet_id[-idx]
+      private$sheet_rid  <- private$sheet_rid[-idx]
+      private$sheet_name <- private$sheet_name[-idx]
+
+      self$save()
+      self
     }
   ),
   private = list(
@@ -961,6 +994,25 @@ read_xlsx <- function(path = NULL) {
 #' @description Add a sheet into an xlsx worksheet.
 #' @param x rxlsx object
 #' @param label sheet label
+#' @details
+#' `read_xlsx()` returns a workbook that already contains one default
+#' sheet shipped with the template (named `"Sheet1"` or `"Feuil1"`
+#' depending on the locale). When the user adds their first sheet
+#' with `add_sheet()`, that default sheet is silently dropped if it
+#' still looks empty (no cell content, no drawing attached), so the
+#' resulting xlsx does not start with a stray empty tab. A default
+#' sheet that has been written into (via [sheet_write_data()] or
+#' [sheet_add_drawing()]) is kept.
+#'
+#' To bypass the auto-drop, touch the default sheet before adding any
+#' other sheet:
+#' ```r
+#' wb <- read_xlsx()
+#' wb <- sheet_write_data(wb, head(iris),
+#'                        sheet = wb$worksheets$sheet_names()[1])
+#' wb <- add_sheet(wb, "second")   # both sheets kept
+#' ```
+#' To remove a sheet explicitly later, use [sheet_remove()].
 #' @examples
 #' my_ws <- read_xlsx()
 #' my_pres <- add_sheet(my_ws, label = "new sheet")
@@ -968,6 +1020,15 @@ add_sheet <- function(x, label) {
   validate_sheet_name(label)
   if (label %in% x$worksheets$sheet_names()) {
     cli::cli_abort("Sheet {.val {label}} already exists.")
+  }
+
+  # Drop the template's default sheet when adding the first user sheet.
+  # Only acts if the workbook still has a single empty default sheet
+  # (no cell content, no drawing). See ?add_sheet for details.
+  existing <- x$worksheets$sheet_names()
+  if (length(existing) == 1L &&
+      is_empty_default_sheet(x, existing[1L])) {
+    x <- sheet_remove(x, sheet = existing[1L])
   }
 
   new_slidename <- x$worksheets$get_new_sheetname()
@@ -1005,6 +1066,76 @@ add_sheet <- function(x, label) {
   x$sheets$update()
 
   sheet_select(x, sheet = label)
+}
+
+#' @export
+#' @title Remove a sheet
+#' @description Remove a sheet from an xlsx workbook, deleting the
+#' worksheet XML, its relationship file and the content-type override.
+#' @param x rxlsx object
+#' @param sheet name of the sheet to remove
+#' @return the rxlsx object (invisibly)
+#' @examples
+#' wb <- read_xlsx()
+#' default_name <- wb$worksheets$sheet_names()[1]
+#' # touch the default sheet first so add_sheet does not auto-drop it
+#' wb <- sheet_write_data(wb, head(iris, 2), sheet = default_name)
+#' wb <- add_sheet(wb, "kept")
+#' wb <- sheet_remove(wb, sheet = default_name)
+#' print(wb, target = tempfile(fileext = ".xlsx"))
+sheet_remove <- function(x, sheet) {
+  stopifnot(inherits(x, "rxlsx"))
+  check_sheet_exists(x, sheet)
+
+  df <- x$worksheets$get_sheets_df()
+  idx <- which(df$name == sheet)
+  rid <- df$rid[idx]
+
+  # find the sheet XML filename from workbook rels via the rel target
+  sheet_files <- x$sheets$get_sheet_list()
+  # target in workbook rels looks like "worksheets/sheetN.xml"
+  # we derive the basename from the private state carried by worksheets
+  sheet_target <- paste0("worksheets/", sheet_files)
+  # match rid to position in private state
+  pos <- match(rid, df$rid)
+  sheet_basename <- sheet_files[pos]
+
+  # remove files on disk
+  xml_path <- file.path(x$package_dir, "xl/worksheets", sheet_basename)
+  rels_path <- file.path(x$package_dir, "xl/worksheets/_rels",
+                         paste0(sheet_basename, ".rels"))
+  if (file.exists(xml_path)) file.remove(xml_path)
+  if (file.exists(rels_path)) file.remove(rels_path)
+
+  # remove content-type override
+  partname <- paste0("/xl/worksheets/", sheet_basename)
+  x$content_type$remove_slide(partname)
+
+  # update workbook XML: <sheet> entry, rels, private state
+  x$worksheets$remove_sheet(sheet)
+
+  # refresh the sheet collection
+  x$sheets$update()
+
+  invisible(x)
+}
+
+# Returns TRUE when the sheet named `label` contains no cell content
+# and no drawing -- i.e. it can be dropped without losing anything.
+is_empty_default_sheet <- function(x, label) {
+  tryCatch({
+    sheet_obj <- x$sheets$get_sheet(
+      which(x$worksheets$sheet_names() == label)
+    )
+    ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+    rows <- xml_find_all(sheet_obj$get(),
+                        "d1:sheetData/d1:row", ns = ns)
+    if (length(rows) > 0) return(FALSE)
+    drawings <- xml_find_all(sheet_obj$get(),
+                             "d1:drawing", ns = ns)
+    if (length(drawings) > 0) return(FALSE)
+    TRUE
+  }, error = function(e) FALSE)
 }
 
 #' @export
