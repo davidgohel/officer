@@ -472,6 +472,33 @@ test_that("sheet_write_data default method errors on unsupported input", {
                "method")
 })
 
+test_that("sheet_add_drawing.gg renders a ggplot as PNG and embeds it", {
+  skip_if_not_installed("ggplot2")
+  skip_if_not_installed("ragg")
+
+  gg <- ggplot2::ggplot(iris,
+                        ggplot2::aes(Sepal.Length, Sepal.Width)) +
+    ggplot2::geom_point()
+
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "plots")
+  doc <- sheet_add_drawing(doc, value = gg, sheet = "plots",
+                           left = 1, top = 1,
+                           width = 4, height = 3)
+
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+
+  media <- list.files(file.path(unpack_dir, "xl/media"))
+  expect_length(media, 1)
+  expect_match(media[1], "\\.png$")
+
+  drawings <- list.files(file.path(unpack_dir, "xl/drawings"),
+                         pattern = "\\.xml$")
+  expect_length(drawings, 1)
+})
+
 test_that("sheet_add_drawing(.external_img) embeds images", {
   img <- file.path(R.home("doc"), "html", "logo.jpg")
   skip_if_not(file.exists(img), message = "no sample image available")

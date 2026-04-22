@@ -170,7 +170,7 @@ reference:
     - add_sheet
     - sheet_select
     - sheet_write_data
-    - sheet_add_drawing
+    - starts_with("sheet_add_drawing")
   - title: Misc
     contents:
     - officer

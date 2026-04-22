@@ -1536,6 +1536,59 @@ sheet_add_drawing.external_img <- function(x, value, sheet,
   invisible(x)
 }
 
+#' @export
+#' @title Add a ggplot to an Excel sheet
+#' @description Render a ggplot object to PNG and embed it into a sheet
+#'   of an xlsx workbook via [sheet_add_drawing.external_img()]. For an
+#'   editable vector-graphics version, use `rvg::dml(ggobj = ...)` +
+#'   `rvg::sheet_add_drawing.dml()` instead.
+#' @param x rxlsx object created by [read_xlsx()]
+#' @param value a ggplot object (class `gg`)
+#' @param sheet sheet name (must already exist)
+#' @param left,top top-left anchor of the image, in inches
+#' @param width,height size of the image, in inches
+#' @param res resolution of the png image, in ppi (default 300)
+#' @param alt_text alt text for screen readers. If `""` or `NULL`,
+#'   `ggplot2::get_alt_text()` is consulted.
+#' @param scale multiplicative scaling factor, same as `ggplot2::ggsave(scale=)`
+#' @param ... passed to [ragg::agg_png()]
+#' @return the rxlsx object (invisibly)
+#' @seealso [sheet_add_drawing()], [sheet_add_drawing.external_img()]
+sheet_add_drawing.gg <- function(x, value, sheet,
+                                 left = 1, top = 1,
+                                 width = 6, height = 4,
+                                 res = 300,
+                                 alt_text = "",
+                                 scale = 1,
+                                 ...) {
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    cli::cli_abort("The {.pkg ggplot2} package is required for this method.")
+  }
+  stopifnot(inherits(value, "gg"))
+
+  file <- tempfile(fileext = ".png")
+  ragg::agg_png(
+    filename = file,
+    width = width, height = height, units = "in",
+    res = res, scaling = scale, background = "transparent",
+    ...
+  )
+  print(value)
+  dev.off()
+  on.exit(unlink(file), add = TRUE)
+
+  if (is.null(alt_text) || !nzchar(alt_text)) {
+    alt_text <- ggplot2::get_alt_text(value)
+    if (is.null(alt_text)) alt_text <- ""
+  }
+
+  sheet_add_drawing(
+    x,
+    external_img(file, width = width, height = height, alt = alt_text),
+    sheet = sheet, left = left, top = top
+  )
+}
+
 # Convert integer column index to Excel letter (1=A, 2=B, ..., 27=AA)
 int_to_col <- function(x) {
   vapply(

@@ -22,7 +22,9 @@ size, colour, font, sub/superscript) and a [`block_list()`] (one
 cell per `fpar` item, stacked). `sheet_add_drawing()` gains an
 `external_img` method: pass an [`external_img()`] object to embed a
 PNG/JPEG/GIF/... into a sheet at an inch-based position (`left`,
-`top`, `width`, `height`).
+`top`, `width`, `height`). A matching `gg` method renders a ggplot
+to PNG via `ragg::agg_png()` and embeds it, matching the existing
+`ph_with.gg` (pptx) and `body_add.gg` (docx) methods.
 - `fp_par()` and `fp_par_lite()` gain `first_line` and `hanging`
 arguments to control paragraph first-line and hanging indents (in
 points). Honored by the Word, PowerPoint, HTML and RTF renderers.
