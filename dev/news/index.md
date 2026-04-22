@@ -29,6 +29,15 @@
   [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
   for writing data and inserting drawings (charts, vector graphics) into
   xlsx workbooks.
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/dev/reference/sheet_write_data.md)
+  is an S3 generic: beside `data.frame`, it also accepts a `character`
+  vector (one cell per element, vertical by default;
+  `direction = "horizontal"` for a row), an
+  \[[`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md)\]
+  (rich text inline cell honouring bold, italic, underline,
+  strikethrough, size, colour, font, sub/superscript) and a
+  \[[`block_list()`](https://davidgohel.github.io/officer/dev/reference/block_list.md)\]
+  (one cell per `fpar` item, stacked).
 - [`fp_par()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
   and
   [`fp_par_lite()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
