@@ -6,7 +6,7 @@ write to different positions on the same sheet.
 ## Usage
 
 ``` r
-sheet_write_data(x, data, sheet, start_row = 1L, start_col = 1L)
+sheet_write_data(x, value, sheet, start_row = 1L, start_col = 1L)
 ```
 
 ## Arguments
@@ -15,7 +15,7 @@ sheet_write_data(x, data, sheet, start_row = 1L, start_col = 1L)
 
   rxlsx object
 
-- data:
+- value:
 
   a data.frame
 
@@ -37,8 +37,8 @@ sheet_write_data(x, data, sheet, start_row = 1L, start_col = 1L)
 ``` r
 x <- read_xlsx()
 x <- add_sheet(x, label = "mysheet")
-x <- sheet_write_data(x, data = head(iris, 5), sheet = "mysheet")
-x <- sheet_write_data(x, data = head(mtcars, 3), sheet = "mysheet",
+x <- sheet_write_data(x, value = head(iris, 5), sheet = "mysheet")
+x <- sheet_write_data(x, value = head(mtcars, 3), sheet = "mysheet",
   start_col = 7)
 print(x, target = tempfile(fileext = ".xlsx"))
 ```
