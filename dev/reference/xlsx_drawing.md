@@ -19,6 +19,10 @@ methods.
 
 - [`xlsx_drawing$add_chart_rel()`](#method-xlsx_drawing-add_chart_rel)
 
+- [`xlsx_drawing$add_image_rel()`](#method-xlsx_drawing-add_image_rel)
+
+- [`xlsx_drawing$add_image_anchor()`](#method-xlsx_drawing-add_image_anchor)
+
 - [`xlsx_drawing$clone()`](#method-xlsx_drawing-clone)
 
 Inherited methods
@@ -111,6 +115,58 @@ Add a relationship from the drawing to a chart file.
 - `chart_basename`:
 
   filename of the chart XML
+
+------------------------------------------------------------------------
+
+### Method `add_image_rel()`
+
+Add a relationship from the drawing to a media image.
+
+#### Usage
+
+    xlsx_drawing$add_image_rel(image_basename)
+
+#### Arguments
+
+- `image_basename`:
+
+  filename (without directory) of the image sitting in `xl/media/`.
+
+------------------------------------------------------------------------
+
+### Method `add_image_anchor()`
+
+Add an image anchor to the drawing (absolute placement in inches from
+the top-left corner of the sheet).
+
+#### Usage
+
+    xlsx_drawing$add_image_anchor(
+      image_rid,
+      left = 1,
+      top = 1,
+      width = 2,
+      height = 2,
+      alt = ""
+    )
+
+#### Arguments
+
+- `image_rid`:
+
+  relationship id of the image
+
+- `left, top`:
+
+  top-left anchor in inches
+
+- `width, height`:
+
+  size in inches
+
+- `alt`:
+
+  alternative text
 
 ------------------------------------------------------------------------
 

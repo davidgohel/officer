@@ -9,7 +9,7 @@ sheet. Used internally by sheet_add_drawing() methods."><meta property="og:image
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,8 @@ sheet. Used internally by <code><a href="sheet_add_drawing.html">sheet_add_drawi
 <ul><li><p><a href="#method-xlsx_drawing-new"><code>xlsx_drawing$new()</code></a></p></li>
 <li><p><a href="#method-xlsx_drawing-add_chart_anchor"><code>xlsx_drawing$add_chart_anchor()</code></a></p></li>
 <li><p><a href="#method-xlsx_drawing-add_chart_rel"><code>xlsx_drawing$add_chart_rel()</code></a></p></li>
+<li><p><a href="#method-xlsx_drawing-add_image_rel"><code>xlsx_drawing$add_image_rel()</code></a></p></li>
+<li><p><a href="#method-xlsx_drawing-add_image_anchor"><code>xlsx_drawing$add_image_anchor()</code></a></p></li>
 <li><p><a href="#method-xlsx_drawing-clone"><code>xlsx_drawing$clone()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="dir_name"><a href="openxml_document.html#method-dir_name"><code>officer::openxml_document$dir_name()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="feed"><a href="openxml_document.html#method-feed"><code>officer::openxml_document$feed()</code></a></span></li>
@@ -142,15 +144,68 @@ sheet. Used internally by <code><a href="sheet_add_drawing.html">sheet_add_drawi
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-xlsx_drawing-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-xlsx_drawing-add_image_rel"></a><div class="section">
+<h3 id="method-add-image-rel-">Method <code>add_image_rel()</code><a class="anchor" aria-label="anchor" href="#method-add-image-rel-"></a></h3>
+<p>Add a relationship from the drawing to a media image.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">xlsx_drawing</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">xlsx_drawing</span><span class="op">$</span><span class="fu">add_image_rel</span><span class="op">(</span><span class="va">image_basename</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>image_basename</code></dt>
+<dd><p>filename (without directory) of the image
+sitting in <code>xl/media/</code>.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-xlsx_drawing-add_image_anchor"></a><div class="section">
+<h3 id="method-add-image-anchor-">Method <code>add_image_anchor()</code><a class="anchor" aria-label="anchor" href="#method-add-image-anchor-"></a></h3>
+<p>Add an image anchor to the drawing (absolute placement
+in inches from the top-left corner of the sheet).</p><div class="section">
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">xlsx_drawing</span><span class="op">$</span><span class="fu">add_image_anchor</span><span class="op">(</span></span>
+<span>  <span class="va">image_rid</span>,</span>
+<span>  left <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  top <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  alt <span class="op">=</span> <span class="st">""</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>image_rid</code></dt>
+<dd><p>relationship id of the image</p></dd>
+
+
+<dt><code>left, top</code></dt>
+<dd><p>top-left anchor in inches</p></dd>
+
+
+<dt><code>width, height</code></dt>
+<dd><p>size in inches</p></dd>
+
+
+<dt><code>alt</code></dt>
+<dd><p>alternative text</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-xlsx_drawing-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">xlsx_drawing</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

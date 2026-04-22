@@ -377,6 +377,10 @@ calculated Word fields, sets of paragraphs, etc.
   : Write data to a sheet
 - [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
   : Add a drawing to an Excel sheet
+- [`sheet_add_drawing(`*`<external_img>`*`)`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.external_img.md)
+  : Add an image to an Excel sheet
+- [`sheet_add_drawing(`*`<gg>`*`)`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.gg.md)
+  : Add a ggplot to an Excel sheet
 
 ## Misc
 
