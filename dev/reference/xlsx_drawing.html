@@ -92,14 +92,15 @@ sheet. Used internally by <code><a href="sheet_add_drawing.html">sheet_add_drawi
 
 </div><p></p><hr><a id="method-xlsx_drawing-add_chart_anchor"></a><div class="section">
 <h3 id="method-add-chart-anchor-">Method <code>add_chart_anchor()</code><a class="anchor" aria-label="anchor" href="#method-add-chart-anchor-"></a></h3>
-<p>Add a chart anchor to the drawing.</p><div class="section">
+<p>Add a chart anchor to the drawing (absolute
+placement in inches from the top-left corner of the sheet).</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">xlsx_drawing</span><span class="op">$</span><span class="fu">add_chart_anchor</span><span class="op">(</span></span>
 <span>  <span class="va">chart_rid</span>,</span>
-<span>  from_col <span class="op">=</span> <span class="fl">3L</span>,</span>
-<span>  from_row <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  to_col <span class="op">=</span> <span class="fl">10L</span>,</span>
-<span>  to_row <span class="op">=</span> <span class="fl">15L</span></span>
+<span>  left <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  top <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -109,20 +110,12 @@ sheet. Used internally by <code><a href="sheet_add_drawing.html">sheet_add_drawi
 <dd><p>relationship id of the chart</p></dd>
 
 
-<dt><code>from_col</code></dt>
-<dd><p>top-left column anchor (0-based)</p></dd>
+<dt><code>left, top</code></dt>
+<dd><p>top-left anchor in inches</p></dd>
 
 
-<dt><code>from_row</code></dt>
-<dd><p>top-left row anchor (0-based)</p></dd>
-
-
-<dt><code>to_col</code></dt>
-<dd><p>bottom-right column anchor (0-based)</p></dd>
-
-
-<dt><code>to_row</code></dt>
-<dd><p>bottom-right row anchor (0-based)</p></dd>
+<dt><code>width, height</code></dt>
+<dd><p>size in inches</p></dd>
 
 
 </dl><p></p></div>

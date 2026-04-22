@@ -66,16 +66,17 @@ Create or reuse a drawing for a sheet.
 
 ### Method `add_chart_anchor()`
 
-Add a chart anchor to the drawing.
+Add a chart anchor to the drawing (absolute placement in inches from the
+top-left corner of the sheet).
 
 #### Usage
 
     xlsx_drawing$add_chart_anchor(
       chart_rid,
-      from_col = 3L,
-      from_row = 1L,
-      to_col = 10L,
-      to_row = 15L
+      left = 1,
+      top = 1,
+      width = 6,
+      height = 4
     )
 
 #### Arguments
@@ -84,21 +85,13 @@ Add a chart anchor to the drawing.
 
   relationship id of the chart
 
-- `from_col`:
+- `left, top`:
 
-  top-left column anchor (0-based)
+  top-left anchor in inches
 
-- `from_row`:
+- `width, height`:
 
-  top-left row anchor (0-based)
-
-- `to_col`:
-
-  bottom-right column anchor (0-based)
-
-- `to_row`:
-
-  bottom-right row anchor (0-based)
+  size in inches
 
 ------------------------------------------------------------------------
 

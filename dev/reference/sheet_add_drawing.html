@@ -103,32 +103,12 @@ after adding a drawing.</p>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>additional arguments passed to methods</p></dd>
-
-
-<dt id="arg-left-top">left, top<a class="anchor" aria-label="anchor" href="#arg-left-top"></a></dt>
-<dd><p>top-left anchor of the image, in inches (used by the
-<code>external_img</code> and <code>gg</code> methods; defaults to <code>(1, 1)</code>).</p></dd>
-
-
-<dt id="arg-width-height">width, height<a class="anchor" aria-label="anchor" href="#arg-width-height"></a></dt>
-<dd><p>size of the image, in inches. For <code>external_img</code>
-<code>NULL</code> (default) reuses the dimensions stored on <code>value</code>; for <code>gg</code>
-the defaults are 6 x 4.</p></dd>
-
-
-<dt id="arg-res">res<a class="anchor" aria-label="anchor" href="#arg-res"></a></dt>
-<dd><p>resolution of the rendered PNG in ppi (default 300, <code>gg</code>
-method only).</p></dd>
-
-
-<dt id="arg-alt-text">alt_text<a class="anchor" aria-label="anchor" href="#arg-alt-text"></a></dt>
-<dd><p>alt text for screen readers (<code>gg</code> method).</p></dd>
-
-
-<dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
-<dd><p>multiplicative scaling factor passed to
-<code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code> (<code>gg</code> method).</p></dd>
+<dd><p>method-specific arguments. In particular, the
+<code>external_img</code> and <code>gg</code> methods accept <code>left</code> / <code>top</code> (top-left
+anchor, inches, default <code>(1, 1)</code>) and <code>width</code> / <code>height</code> (size,
+inches). The <code>gg</code> method also accepts <code>res</code> (ppi, default 300),
+<code>alt_text</code> (auto-detected via <code><a href="https://ggplot2.tidyverse.org/reference/get_alt_text.html" class="external-link">ggplot2::get_alt_text()</a></code> if empty)
+and <code>scale</code> (passed to <code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code>).</p></dd>
 
 </dl></div>
     <div class="section level2">

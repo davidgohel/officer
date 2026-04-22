@@ -47,32 +47,13 @@ sheet_add_drawing(x, value, sheet, ...)
 
 - ...:
 
-  additional arguments passed to methods
-
-- left, top:
-
-  top-left anchor of the image, in inches (used by the `external_img`
-  and `gg` methods; defaults to `(1, 1)`).
-
-- width, height:
-
-  size of the image, in inches. For `external_img` `NULL` (default)
-  reuses the dimensions stored on `value`; for `gg` the defaults are 6 x
-  4.
-
-- res:
-
-  resolution of the rendered PNG in ppi (default 300, `gg` method only).
-
-- alt_text:
-
-  alt text for screen readers (`gg` method).
-
-- scale:
-
-  multiplicative scaling factor passed to
-  [`ragg::agg_png()`](https://ragg.r-lib.org/reference/agg_png.html)
-  (`gg` method).
+  method-specific arguments. In particular, the `external_img` and `gg`
+  methods accept `left` / `top` (top-left anchor, inches, default
+  `(1, 1)`) and `width` / `height` (size, inches). The `gg` method also
+  accepts `res` (ppi, default 300), `alt_text` (auto-detected via
+  [`ggplot2::get_alt_text()`](https://ggplot2.tidyverse.org/reference/get_alt_text.html)
+  if empty) and `scale` (passed to
+  [`ragg::agg_png()`](https://ragg.r-lib.org/reference/agg_png.html)).
 
 ## Value
 
