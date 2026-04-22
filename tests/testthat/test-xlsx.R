@@ -466,8 +466,10 @@ test_that("sheet_write_data on fpar emits richtext runs", {
   doc <- read_xlsx()
   doc <- add_sheet(doc, label = "fp")
   f <- fpar(
-    ftext("bold ", fp_text(bold = TRUE, color = "red")),
-    ftext("italic ", fp_text(italic = TRUE)),
+    ftext("bold ",    fp_text(bold = TRUE, color = "red")),
+    ftext("italic ",  fp_text(italic = TRUE)),
+    ftext("under ",   fp_text(underlined = TRUE)),
+    ftext("strike ",  fp_text(strike = TRUE)),
     ftext("H", fp_text()),
     ftext("2", fp_text(vertical.align = "subscript")),
     ftext("O", fp_text())
@@ -476,10 +478,121 @@ test_that("sheet_write_data on fpar emits richtext runs", {
                           start_row = 1, start_col = 1)
   xml <- sheet_cells_xml(doc)
   expect_match(xml, "<c r=\"A1\" t=\"inlineStr\">", fixed = TRUE)
-  expect_match(xml, "<b/>", fixed = TRUE)
+  expect_match(xml, "<b/>",       fixed = TRUE)
   expect_match(xml, "rgb=\"FFFF0000\"", fixed = TRUE)
-  expect_match(xml, "<i/>", fixed = TRUE)
+  expect_match(xml, "<i/>",       fixed = TRUE)
+  expect_match(xml, "<u/>",       fixed = TRUE)
+  expect_match(xml, "<strike/>",  fixed = TRUE)
   expect_match(xml, "<vertAlign val=\"subscript\"/>", fixed = TRUE)
+})
+
+test_that("xlsx_styles$get_font_id caches fonts by signature", {
+  skip_if_not_installed("gdtools")
+  skip_if_not(
+    gdtools::font_family_exists("Arial"),
+    "Arial font family is not available on this system"
+  )
+
+  doc <- read_xlsx()
+  styles <- doc$styles
+
+  # first call -> registers a new font, returns a 0-based index
+  id1 <- styles$get_font_id(name = "Arial", size = 12,
+                            bold = TRUE, italic = FALSE,
+                            underline = FALSE, color = "FF0000")
+  expect_true(is.numeric(id1))
+  expect_gte(id1, 0)
+
+  # same signature -> same index (cache hit)
+  id2 <- styles$get_font_id(name = "Arial", size = 12,
+                            bold = TRUE, italic = FALSE,
+                            underline = FALSE, color = "FF0000")
+  expect_equal(id1, id2)
+
+  # different signature -> different index
+  id3 <- styles$get_font_id(name = "Arial", size = 12,
+                            bold = FALSE, italic = TRUE,
+                            underline = TRUE, color = "00FF00")
+  expect_false(id3 == id1)
+
+  # the new font XML is persisted in styles.xml on print
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+  styles_xml <- paste(readLines(file.path(unpack_dir, "xl/styles.xml")),
+                      collapse = "\n")
+  expect_match(styles_xml, "Arial",    fixed = TRUE)
+  expect_match(styles_xml, "<b/>",     fixed = TRUE)
+  expect_match(styles_xml, "<i/>",     fixed = TRUE)
+  expect_match(styles_xml, "<u/>",     fixed = TRUE)
+  expect_match(styles_xml, "FF00FF00", fixed = TRUE)
+})
+
+test_that("xlsx_styles$get_fill_id caches fills by signature", {
+  doc <- read_xlsx()
+  styles <- doc$styles
+
+  id1 <- styles$get_fill_id(bg_color = "FF9900")
+  expect_true(is.numeric(id1))
+  expect_gte(id1, 0)
+
+  # cache hit
+  id2 <- styles$get_fill_id(bg_color = "FF9900")
+  expect_equal(id1, id2)
+
+  # different color -> different index
+  id3 <- styles$get_fill_id(bg_color = "0066CC")
+  expect_false(id3 == id1)
+
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+  styles_xml <- paste(readLines(file.path(unpack_dir, "xl/styles.xml")),
+                      collapse = "\n")
+  expect_match(styles_xml, "FFFF9900",             fixed = TRUE)
+  expect_match(styles_xml, "FF0066CC",             fixed = TRUE)
+  expect_match(styles_xml, "patternType=\"solid\"", fixed = TRUE)
+})
+
+test_that("xlsx_styles$get_border_id caches borders by signature", {
+  doc <- read_xlsx()
+  styles <- doc$styles
+
+  id1 <- styles$get_border_id(
+    top_style    = "thin",   top_color    = "000000",
+    bottom_style = "thick",  bottom_color = "FF0000",
+    left_style   = "medium", left_color   = "00FF00",
+    right_style  = "dashed", right_color  = "0000FF"
+  )
+  expect_true(is.numeric(id1))
+  expect_gte(id1, 0)
+
+  # cache hit
+  id2 <- styles$get_border_id(
+    top_style    = "thin",   top_color    = "000000",
+    bottom_style = "thick",  bottom_color = "FF0000",
+    left_style   = "medium", left_color   = "00FF00",
+    right_style  = "dashed", right_color  = "0000FF"
+  )
+  expect_equal(id1, id2)
+
+  # different signature -> different id
+  id3 <- styles$get_border_id(top_style = "thin", top_color = "000000")
+  expect_false(id3 == id1)
+
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+  styles_xml <- paste(readLines(file.path(unpack_dir, "xl/styles.xml")),
+                      collapse = "\n")
+  # sides with styles and colours
+  expect_match(styles_xml, "<top style=\"thin\"",    fixed = TRUE)
+  expect_match(styles_xml, "<bottom style=\"thick\"", fixed = TRUE)
+  expect_match(styles_xml, "<left style=\"medium\"",  fixed = TRUE)
+  expect_match(styles_xml, "<right style=\"dashed\"", fixed = TRUE)
+  expect_match(styles_xml, "FFFF0000",                fixed = TRUE)
+  # mandatory <diagonal/> empty placeholder
+  expect_match(styles_xml, "<diagonal/>",             fixed = TRUE)
 })
 
 test_that("sheet_write_data on block_list stacks fpars vertically", {
