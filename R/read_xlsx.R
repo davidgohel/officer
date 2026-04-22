@@ -324,6 +324,73 @@ xlsx_drawing <- R6Class(
       )
       self$save()
       rid
+    },
+
+    #' @description Add a relationship from the drawing to a media image.
+    #' @param image_basename filename (without directory) of the image
+    #'   sitting in `xl/media/`.
+    add_image_rel = function(image_basename) {
+      next_id <- self$relationship()$get_next_id()
+      rid <- paste0("rId", next_id)
+      self$relationship()$add(
+        id = rid,
+        type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
+        target = paste0("../media/", image_basename)
+      )
+      self$save()
+      rid
+    },
+
+    #' @description Add an image anchor to the drawing (absolute placement
+    #'   in inches from the top-left corner of the sheet).
+    #' @param image_rid relationship id of the image
+    #' @param left,top top-left anchor in inches
+    #' @param width,height size in inches
+    #' @param alt alternative text
+    add_image_anchor = function(image_rid,
+                                left = 1, top = 1,
+                                width = 2, height = 2,
+                                alt = "") {
+      emu_per_in <- 914400
+      nv_id <- private$next_cNvPr_id()
+      anchor_xml <- sprintf(
+        paste0(
+          "<xdr:absoluteAnchor",
+          " xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
+          " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"",
+          " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">",
+          "<xdr:pos x=\"%.0f\" y=\"%.0f\"/>",
+          "<xdr:ext cx=\"%.0f\" cy=\"%.0f\"/>",
+          "<xdr:pic>",
+          "<xdr:nvPicPr>",
+          "<xdr:cNvPr id=\"%d\" name=\"Picture %d\" descr=\"%s\"/>",
+          "<xdr:cNvPicPr/>",
+          "</xdr:nvPicPr>",
+          "<xdr:blipFill>",
+          "<a:blip r:embed=\"%s\"/>",
+          "<a:stretch><a:fillRect/></a:stretch>",
+          "</xdr:blipFill>",
+          "<xdr:spPr>",
+          "<a:xfrm>",
+          "<a:off x=\"%.0f\" y=\"%.0f\"/>",
+          "<a:ext cx=\"%.0f\" cy=\"%.0f\"/>",
+          "</a:xfrm>",
+          "<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>",
+          "</xdr:spPr>",
+          "</xdr:pic>",
+          "<xdr:clientData/>",
+          "</xdr:absoluteAnchor>"
+        ),
+        left * emu_per_in, top * emu_per_in,
+        width * emu_per_in, height * emu_per_in,
+        nv_id, nv_id, htmlEscapeCopy(alt),
+        image_rid,
+        left * emu_per_in, top * emu_per_in,
+        width * emu_per_in, height * emu_per_in
+      )
+      xml_add_child(self$get(), read_xml(anchor_xml))
+      self$save()
+      self
     }
   ),
 
@@ -1394,6 +1461,79 @@ sheet_write_data.block_list <- function(x, value, sheet,
 #' @seealso [read_xlsx()], [add_sheet()], [sheet_write_data()]
 sheet_add_drawing <- function(x, value, sheet, ...) {
   UseMethod("sheet_add_drawing", value)
+}
+
+#' @export
+#' @method sheet_add_drawing external_img
+#' @title Add an image to an Excel sheet
+#' @description Add an image file (PNG, JPEG, GIF, ...) to a sheet in
+#'   an xlsx workbook created with [read_xlsx()]. The image is copied
+#'   into `xl/media/` and placed on the sheet via an absolute anchor
+#'   (inch-based position and size).
+#' @param x rxlsx object (created by [read_xlsx()])
+#' @param value an [external_img()] object
+#' @param sheet sheet name (must already exist)
+#' @param left,top top-left anchor of the image, in inches. Defaults
+#'   to `(1, 1)`.
+#' @param width,height size of the image, in inches. When `NULL`
+#'   (default) the dimensions stored on `value` (from `external_img()`)
+#'   are used.
+#' @param ... unused
+#' @return the rxlsx object (invisibly)
+#' @examples
+#' img <- system.file("extdata", "example.png", package = "officer")
+#' if (nzchar(img) && file.exists(img)) {
+#'   x <- read_xlsx()
+#'   x <- add_sheet(x, label = "pics")
+#'   x <- sheet_add_drawing(
+#'     x, sheet = "pics",
+#'     value = external_img(img, width = 2, height = 2)
+#'   )
+#'   print(x, target = tempfile(fileext = ".xlsx"))
+#' }
+#' @seealso [sheet_add_drawing()], [external_img()]
+sheet_add_drawing.external_img <- function(x, value, sheet,
+                                           left = 1, top = 1,
+                                           width = NULL, height = NULL,
+                                           ...) {
+  stopifnot(inherits(x, "rxlsx"))
+  check_sheet_exists(x, sheet)
+
+  dims <- attr(value, "dims")
+  if (is.null(width))  width  <- dims$width[1]
+  if (is.null(height)) height <- dims$height[1]
+  alt <- attr(value, "alt") %||% ""
+
+  src <- as.character(value)[1]
+  if (!file.exists(src)) {
+    cli::cli_abort("Image file {.path {src}} does not exist.")
+  }
+
+  # copy image to xl/media/ with a unique name (file.copy overwrites
+  # if the destination already exists)
+  media_dir <- file.path(x$package_dir, "xl", "media")
+  dir.create(media_dir, showWarnings = FALSE, recursive = TRUE)
+  ext <- tolower(tools::file_ext(src))
+  if (!nzchar(ext)) ext <- "png"
+  target_path <- tempfile(pattern = "img",
+                          tmpdir = media_dir,
+                          fileext = paste0(".", ext))
+  file.copy(src, target_path, overwrite = TRUE)
+
+  sheet_obj <- x$sheets$get_sheet(
+    which(x$worksheets$sheet_names() == sheet)
+  )
+  drawing <- xlsx_drawing$new(x$package_dir, sheet_obj, x$content_type)
+
+  image_rid <- drawing$add_image_rel(basename(target_path))
+  drawing$add_image_anchor(
+    image_rid = image_rid,
+    left = left, top = top,
+    width = width, height = height,
+    alt = alt
+  )
+
+  invisible(x)
 }
 
 # Convert integer column index to Excel letter (1=A, 2=B, ..., 27=AA)

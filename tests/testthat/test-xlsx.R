@@ -471,3 +471,38 @@ test_that("sheet_write_data default method errors on unsupported input", {
   expect_error(sheet_write_data(doc, value = 42, sheet = "x"),
                "method")
 })
+
+test_that("sheet_add_drawing(.external_img) embeds images", {
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
+  skip_if_not(file.exists(img), message = "no sample image available")
+
+  doc <- read_xlsx()
+  doc <- add_sheet(doc, label = "pics")
+  doc <- sheet_add_drawing(doc, sheet = "pics",
+                           value = external_img(img, width = 2, height = 1.5),
+                           left = 2, top = 1)
+  doc <- sheet_add_drawing(doc, sheet = "pics",
+                           value = external_img(img, width = 3, height = 2),
+                           left = 2, top = 4)
+
+  out <- print(doc, target = tempfile(fileext = ".xlsx"))
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+
+  media <- list.files(file.path(unpack_dir, "xl/media"))
+  expect_length(media, 2)
+
+  drawings <- list.files(file.path(unpack_dir, "xl/drawings"),
+                         pattern = "\\.xml$")
+  expect_length(drawings, 1)
+
+  drawing_xml <- paste(readLines(file.path(unpack_dir, "xl/drawings",
+                                           drawings[1])),
+                       collapse = "\n")
+  # both anchors in the single drawing
+  anchors <- regmatches(drawing_xml,
+                        gregexpr("<xdr:absoluteAnchor",
+                                 drawing_xml, perl = TRUE))[[1]]
+  expect_length(anchors, 2)
+})
+

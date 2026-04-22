@@ -17,6 +17,8 @@ sheet. Used internally by \code{\link[=sheet_add_drawing]{sheet_add_drawing()}} 
 \item \href{#method-xlsx_drawing-new}{\code{xlsx_drawing$new()}}
 \item \href{#method-xlsx_drawing-add_chart_anchor}{\code{xlsx_drawing$add_chart_anchor()}}
 \item \href{#method-xlsx_drawing-add_chart_rel}{\code{xlsx_drawing$add_chart_rel()}}
+\item \href{#method-xlsx_drawing-add_image_rel}{\code{xlsx_drawing$add_image_rel()}}
+\item \href{#method-xlsx_drawing-add_image_anchor}{\code{xlsx_drawing$add_image_anchor()}}
 \item \href{#method-xlsx_drawing-clone}{\code{xlsx_drawing$clone()}}
 }
 }
@@ -101,6 +103,55 @@ Add a relationship from the drawing to a chart file.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{chart_basename}}{filename of the chart XML}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-xlsx_drawing-add_image_rel"></a>}}
+\if{latex}{\out{\hypertarget{method-xlsx_drawing-add_image_rel}{}}}
+\subsection{Method \code{add_image_rel()}}{
+Add a relationship from the drawing to a media image.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_image_rel(image_basename)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{image_basename}}{filename (without directory) of the image
+sitting in \verb{xl/media/}.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-xlsx_drawing-add_image_anchor"></a>}}
+\if{latex}{\out{\hypertarget{method-xlsx_drawing-add_image_anchor}{}}}
+\subsection{Method \code{add_image_anchor()}}{
+Add an image anchor to the drawing (absolute placement
+in inches from the top-left corner of the sheet).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_image_anchor(
+  image_rid,
+  left = 1,
+  top = 1,
+  width = 2,
+  height = 2,
+  alt = ""
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{image_rid}}{relationship id of the image}
+
+\item{\code{left, top}}{top-left anchor in inches}
+
+\item{\code{width, height}}{size in inches}
+
+\item{\code{alt}}{alternative text}
 }
 \if{html}{\out{</div>}}
 }

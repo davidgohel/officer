@@ -19,7 +19,10 @@ accepts a `character` vector (one cell per element, vertical by
 default; `direction = "horizontal"` for a row), an [`fpar()`] (rich
 text inline cell honouring bold, italic, underline, strikethrough,
 size, colour, font, sub/superscript) and a [`block_list()`] (one
-cell per `fpar` item, stacked).
+cell per `fpar` item, stacked). `sheet_add_drawing()` gains an
+`external_img` method: pass an [`external_img()`] object to embed a
+PNG/JPEG/GIF/... into a sheet at an inch-based position (`left`,
+`top`, `width`, `height`).
 - `fp_par()` and `fp_par_lite()` gain `first_line` and `hanging`
 arguments to control paragraph first-line and hanging indents (in
 points). Honored by the Word, PowerPoint, HTML and RTF renderers.
