@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,24 @@
 <dd><p>sheet label</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code><a href="read_xlsx.html">read_xlsx()</a></code> returns a workbook that already contains one default
+sheet shipped with the template (named <code>"Sheet1"</code> or <code>"Feuil1"</code>
+depending on the locale). When the user adds their first sheet
+with <code>add_sheet()</code>, that default sheet is silently dropped if it
+still looks empty (no cell content, no drawing attached), so the
+resulting xlsx does not start with a stray empty tab. A default
+sheet that has been written into (via <code><a href="sheet_write_data.html">sheet_write_data()</a></code> or
+<code><a href="sheet_add_drawing.html">sheet_add_drawing()</a></code>) is kept.</p>
+<p>To bypass the auto-drop, touch the default sheet before adding any
+other sheet:</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xlsx.html">read_xlsx</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sheet_write_data.html">sheet_write_data</a></span><span class="op">(</span><span class="va">wb</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>,</span>
+<span>                       sheet <span class="op">=</span> <span class="va">wb</span><span class="op">$</span><span class="va">worksheets</span><span class="op">$</span><span class="fu">sheet_names</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_sheet.html">add_sheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="st">"second"</span><span class="op">)</span>   <span class="co"># both sheets kept</span></span></code></pre><p></p></div>
+<p>To remove a sheet explicitly later, use <code><a href="sheet_remove.html">sheet_remove()</a></code>.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

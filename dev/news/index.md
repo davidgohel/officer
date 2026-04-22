@@ -47,6 +47,15 @@
   [`ragg::agg_png()`](https://ragg.r-lib.org/reference/agg_png.html) and
   embeds it, matching the existing `ph_with.gg` (pptx) and `body_add.gg`
   (docx) methods.
+- new function
+  [`sheet_remove()`](https://davidgohel.github.io/officer/dev/reference/sheet_remove.md)
+  to delete a sheet from an xlsx workbook (removes the worksheet XML,
+  its relationship file and the content-type override).
+  [`add_sheet()`](https://davidgohel.github.io/officer/dev/reference/add_sheet.md)
+  now auto-drops the template’s default sheet the first time it is
+  called on a pristine workbook (the default “Sheet1” / “Feuil1” with no
+  cell content and no drawing), so scripts that build their own sheets
+  no longer end up with a stray empty tab at the front.
 - [`fp_par()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
   and
   [`fp_par_lite()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
