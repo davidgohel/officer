@@ -4,12 +4,12 @@
 \alias{sheet_write_data}
 \title{Write data to a sheet}
 \usage{
-sheet_write_data(x, data, sheet, start_row = 1L, start_col = 1L)
+sheet_write_data(x, value, sheet, start_row = 1L, start_col = 1L)
 }
 \arguments{
 \item{x}{rxlsx object}
 
-\item{data}{a data.frame}
+\item{value}{a data.frame}
 
 \item{sheet}{sheet name (must already exist)}
 
@@ -25,8 +25,8 @@ Multiple calls can write to different positions on the same sheet.
 \examples{
 x <- read_xlsx()
 x <- add_sheet(x, label = "mysheet")
-x <- sheet_write_data(x, data = head(iris, 5), sheet = "mysheet")
-x <- sheet_write_data(x, data = head(mtcars, 3), sheet = "mysheet",
+x <- sheet_write_data(x, value = head(iris, 5), sheet = "mysheet")
+x <- sheet_write_data(x, value = head(mtcars, 3), sheet = "mysheet",
   start_col = 7)
 print(x, target = tempfile(fileext = ".xlsx"))
 }

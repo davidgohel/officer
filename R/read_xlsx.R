@@ -986,7 +986,7 @@ sheet_select <- function(x, sheet) {
 #' @description Write a data.frame into a sheet of an xlsx workbook.
 #' Multiple calls can write to different positions on the same sheet.
 #' @param x rxlsx object
-#' @param data a data.frame
+#' @param value a data.frame
 #' @param sheet sheet name (must already exist)
 #' @param start_row row index where the header will be written (default 1)
 #' @param start_col column index where the first column of data will be
@@ -994,13 +994,13 @@ sheet_select <- function(x, sheet) {
 #' @examples
 #' x <- read_xlsx()
 #' x <- add_sheet(x, label = "mysheet")
-#' x <- sheet_write_data(x, data = head(iris, 5), sheet = "mysheet")
-#' x <- sheet_write_data(x, data = head(mtcars, 3), sheet = "mysheet",
+#' x <- sheet_write_data(x, value = head(iris, 5), sheet = "mysheet")
+#' x <- sheet_write_data(x, value = head(mtcars, 3), sheet = "mysheet",
 #'   start_col = 7)
 #' print(x, target = tempfile(fileext = ".xlsx"))
-sheet_write_data <- function(x, data, sheet, start_row = 1L, start_col = 1L) {
+sheet_write_data <- function(x, value, sheet, start_row = 1L, start_col = 1L) {
   stopifnot(inherits(x, "rxlsx"))
-  stopifnot(is.data.frame(data))
+  stopifnot(is.data.frame(value))
   check_sheet_exists(x, sheet)
   start_row <- as.integer(start_row)
   start_col <- as.integer(start_col)
@@ -1012,8 +1012,8 @@ sheet_write_data <- function(x, data, sheet, start_row = 1L, start_col = 1L) {
   # resolve style IDs for date/datetime columns
   date_xf <- NULL
   datetime_xf <- NULL
-  for (j in seq_len(ncol(data))) {
-    col <- data[[j]]
+  for (j in seq_len(ncol(value))) {
+    col <- value[[j]]
     if (inherits(col, "POSIXct") && is.null(datetime_xf)) {
       datetime_xf <- x$styles$get_xf_id(22L)
     } else if (inherits(col, "Date") && is.null(date_xf)) {
@@ -1022,7 +1022,7 @@ sheet_write_data <- function(x, data, sheet, start_row = 1L, start_col = 1L) {
   }
 
   new_cells <- df_to_cells(
-    data,
+    value,
     start_row,
     start_col,
     date_xf = date_xf,

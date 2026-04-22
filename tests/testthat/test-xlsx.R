@@ -40,7 +40,7 @@ test_that("sheet_select deselects other sheets", {
 test_that("sheet_write_data writes correct cells", {
   doc <- read_xlsx()
   doc <- add_sheet(doc, label = "data")
-  doc <- sheet_write_data(doc, data = head(iris, 3), sheet = "data")
+  doc <- sheet_write_data(doc, value = head(iris, 3), sheet = "data")
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
 
   unpack_dir <- tempfile()
@@ -80,7 +80,7 @@ test_that("sheet_write_data with start_row and start_col", {
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(
     doc,
-    data = data.frame(a = 1:2, b = 3:4),
+    value = data.frame(a = 1:2, b = 3:4),
     sheet = "data",
     start_row = 5,
     start_col = 3
@@ -120,12 +120,12 @@ test_that("sheet_write_data merges two datasets", {
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(
     doc,
-    data = data.frame(x = 1:2),
+    value = data.frame(x = 1:2),
     sheet = "data"
   )
   doc <- sheet_write_data(
     doc,
-    data = data.frame(y = 10:11),
+    value = data.frame(y = 10:11),
     sheet = "data",
     start_col = 3
   )
@@ -166,7 +166,7 @@ test_that("sheet_write_data handles NA", {
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(
     doc,
-    data = data.frame(a = c(1, NA), b = c("x", NA)),
+    value = data.frame(a = c(1, NA), b = c("x", NA)),
     sheet = "data"
   )
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
@@ -196,7 +196,7 @@ test_that("sheet_write_data handles Date columns", {
     d = as.Date(c("2024-01-15", "2024-06-30", NA)),
     x = 1:3
   )
-  doc <- sheet_write_data(doc, data = df, sheet = "data")
+  doc <- sheet_write_data(doc, value = df, sheet = "data")
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
 
   unpack_dir <- tempfile()
@@ -248,7 +248,7 @@ test_that("sheet_write_data handles POSIXct columns", {
     ),
     x = 1:3
   )
-  doc <- sheet_write_data(doc, data = df, sheet = "data")
+  doc <- sheet_write_data(doc, value = df, sheet = "data")
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
 
   unpack_dir <- tempfile()
@@ -295,7 +295,7 @@ test_that("sheet_write_data handles logical columns", {
   doc <- read_xlsx()
   doc <- add_sheet(doc, label = "data")
   df <- data.frame(flag = c(TRUE, FALSE, NA))
-  doc <- sheet_write_data(doc, data = df, sheet = "data")
+  doc <- sheet_write_data(doc, value = df, sheet = "data")
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
 
   unpack_dir <- tempfile()
