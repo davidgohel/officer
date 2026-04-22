@@ -150,9 +150,7 @@ test_that("wml first_line / hanging indent", {
   # default: neither first_line nor hanging -> legacy firstLine="0"
   x <- fp_par()
   wml <- format(x, type = "wml")
-  expect_match(wml,
-               "w:firstLine=\"0\" w:firstLineChars=\"0\"",
-               fixed = TRUE)
+  expect_match(wml, "w:firstLine=\"0\" w:firstLineChars=\"0\"", fixed = TRUE)
 
   # hanging > 0 -> w:hanging
   x <- fp_par(padding.left = 40, hanging = 20)

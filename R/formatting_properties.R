@@ -825,7 +825,9 @@ validate_indent <- function(value, name) {
   }
   if (!is.numeric(value) || length(value) != 1) {
     stop(
-      "`", name, "` must be NA or a single numeric value (points).",
+      "`",
+      name,
+      "` must be NA or a single numeric value (points).",
       call. = FALSE
     )
   }
