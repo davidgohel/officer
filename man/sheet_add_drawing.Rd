@@ -13,22 +13,12 @@ sheet_add_drawing(x, value, sheet, ...)
 
 \item{sheet}{sheet name (must already exist, see \code{\link[=add_sheet]{add_sheet()}})}
 
-\item{...}{additional arguments passed to methods}
-
-\item{left, top}{top-left anchor of the image, in inches (used by the
-\code{external_img} and \code{gg} methods; defaults to \verb{(1, 1)}).}
-
-\item{width, height}{size of the image, in inches. For \code{external_img}
-\code{NULL} (default) reuses the dimensions stored on \code{value}; for \code{gg}
-the defaults are 6 x 4.}
-
-\item{res}{resolution of the rendered PNG in ppi (default 300, \code{gg}
-method only).}
-
-\item{alt_text}{alt text for screen readers (\code{gg} method).}
-
-\item{scale}{multiplicative scaling factor passed to
-\code{\link[ragg:agg_png]{ragg::agg_png()}} (\code{gg} method).}
+\item{...}{method-specific arguments. In particular, the
+\code{external_img} and \code{gg} methods accept \code{left} / \code{top} (top-left
+anchor, inches, default \verb{(1, 1)}) and \code{width} / \code{height} (size,
+inches). The \code{gg} method also accepts \code{res} (ppi, default 300),
+\code{alt_text} (auto-detected via \code{ggplot2::get_alt_text()} if empty)
+and \code{scale} (passed to \code{\link[ragg:agg_png]{ragg::agg_png()}}).}
 }
 \value{
 the rxlsx object (invisibly)

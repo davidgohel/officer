@@ -63,14 +63,15 @@ Create or reuse a drawing for a sheet.
 \if{html}{\out{<a id="method-xlsx_drawing-add_chart_anchor"></a>}}
 \if{latex}{\out{\hypertarget{method-xlsx_drawing-add_chart_anchor}{}}}
 \subsection{Method \code{add_chart_anchor()}}{
-Add a chart anchor to the drawing.
+Add a chart anchor to the drawing (absolute
+placement in inches from the top-left corner of the sheet).
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_chart_anchor(
   chart_rid,
-  from_col = 3L,
-  from_row = 1L,
-  to_col = 10L,
-  to_row = 15L
+  left = 1,
+  top = 1,
+  width = 6,
+  height = 4
 )}\if{html}{\out{</div>}}
 }
 
@@ -79,13 +80,9 @@ Add a chart anchor to the drawing.
 \describe{
 \item{\code{chart_rid}}{relationship id of the chart}
 
-\item{\code{from_col}}{top-left column anchor (0-based)}
+\item{\code{left, top}}{top-left anchor in inches}
 
-\item{\code{from_row}}{top-left row anchor (0-based)}
-
-\item{\code{to_col}}{bottom-right column anchor (0-based)}
-
-\item{\code{to_row}}{bottom-right row anchor (0-based)}
+\item{\code{width, height}}{size in inches}
 }
 \if{html}{\out{</div>}}
 }

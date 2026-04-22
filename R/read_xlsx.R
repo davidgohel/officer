@@ -267,25 +267,28 @@ xlsx_drawing <- R6Class(
       }
     },
 
-    #' @description Add a chart anchor to the drawing.
+    #' @description Add a chart anchor to the drawing (absolute
+    #'   placement in inches from the top-left corner of the sheet).
+    #' @param left,top top-left anchor in inches
+    #' @param width,height size in inches
     add_chart_anchor = function(
       chart_rid,
-      from_col = 3L,
-      from_row = 1L,
-      to_col = 10L,
-      to_row = 15L
+      left = 1,
+      top = 1,
+      width = 6,
+      height = 4
     ) {
+      emu_per_in <- 914400
+      nv_id <- private$next_cNvPr_id()
       anchor_xml <- sprintf(
         paste0(
-          "<xdr:twoCellAnchor",
+          "<xdr:absoluteAnchor",
           " xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
           " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"",
           " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"",
           " xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
-          "<xdr:from><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
-          "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>",
-          "<xdr:to><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
-          "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:to>",
+          "<xdr:pos x=\"%.0f\" y=\"%.0f\"/>",
+          "<xdr:ext cx=\"%.0f\" cy=\"%.0f\"/>",
           "<xdr:graphicFrame macro=\"\">",
           "<xdr:nvGraphicFramePr>",
           "<xdr:cNvPr id=\"%d\" name=\"Chart %d\"/>",
@@ -297,14 +300,11 @@ xlsx_drawing <- R6Class(
           "</a:graphicData></a:graphic>",
           "</xdr:graphicFrame>",
           "<xdr:clientData/>",
-          "</xdr:twoCellAnchor>"
+          "</xdr:absoluteAnchor>"
         ),
-        from_col,
-        from_row,
-        to_col,
-        to_row,
-        private$next_cNvPr_id(),
-        private$next_cNvPr_id(),
+        left * emu_per_in, top * emu_per_in,
+        width * emu_per_in, height * emu_per_in,
+        nv_id, nv_id,
         chart_rid
       )
 
@@ -1467,17 +1467,12 @@ sheet_write_data.block_list <- function(x, value, sheet,
 #' @param x rxlsx object created by [read_xlsx()]
 #' @param value object to add (dispatched to the appropriate method)
 #' @param sheet sheet name (must already exist, see [add_sheet()])
-#' @param left,top top-left anchor of the image, in inches (used by the
-#'   `external_img` and `gg` methods; defaults to `(1, 1)`).
-#' @param width,height size of the image, in inches. For `external_img`
-#'   `NULL` (default) reuses the dimensions stored on `value`; for `gg`
-#'   the defaults are 6 x 4.
-#' @param res resolution of the rendered PNG in ppi (default 300, `gg`
-#'   method only).
-#' @param alt_text alt text for screen readers (`gg` method).
-#' @param scale multiplicative scaling factor passed to
-#'   [ragg::agg_png()] (`gg` method).
-#' @param ... additional arguments passed to methods
+#' @param ... method-specific arguments. In particular, the
+#'   `external_img` and `gg` methods accept `left` / `top` (top-left
+#'   anchor, inches, default `(1, 1)`) and `width` / `height` (size,
+#'   inches). The `gg` method also accepts `res` (ppi, default 300),
+#'   `alt_text` (auto-detected via `ggplot2::get_alt_text()` if empty)
+#'   and `scale` (passed to [ragg::agg_png()]).
 #' @return the rxlsx object (invisibly)
 #' @examples
 #' img <- system.file("extdata", "example.png", package = "officer")
