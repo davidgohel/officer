@@ -1448,37 +1448,36 @@ sheet_write_data.block_list <- function(x, value, sheet,
 #' @export
 #' @title Add a drawing to an Excel sheet
 #' @description Add a graphical element into a sheet of an xlsx workbook.
-#' This is a generic function dispatching on `value`. Methods are
-#' provided by extension packages 'mschart' and 'rvg'.
+#' This is a generic function dispatching on `value`. Supported inputs
+#' include:
+#' - [external_img()]: an image file (PNG, JPEG, GIF, ...) copied into
+#'   `xl/media/` and placed via an absolute anchor. Position and size
+#'   are inch-based (`left`, `top`, `width`, `height`).
+#' - `gg`: a ggplot object rendered to PNG via `ragg::agg_png()` and
+#'   embedded via the `external_img` path. Extra arguments: `res`
+#'   (default 300 ppi), `alt_text` (auto-detected via
+#'   `ggplot2::get_alt_text()` when empty), `scale` (same semantics as
+#'   `ggplot2::ggsave()`).
+#'
+#' Additional methods for `ms_chart` and `dml` are provided by the
+#' extension packages 'mschart' and 'rvg'.
 #'
 #' Use [sheet_write_data()] to write data into the sheet before or
 #' after adding a drawing.
 #' @param x rxlsx object created by [read_xlsx()]
 #' @param value object to add (dispatched to the appropriate method)
 #' @param sheet sheet name (must already exist, see [add_sheet()])
+#' @param left,top top-left anchor of the image, in inches (used by the
+#'   `external_img` and `gg` methods; defaults to `(1, 1)`).
+#' @param width,height size of the image, in inches. For `external_img`
+#'   `NULL` (default) reuses the dimensions stored on `value`; for `gg`
+#'   the defaults are 6 x 4.
+#' @param res resolution of the rendered PNG in ppi (default 300, `gg`
+#'   method only).
+#' @param alt_text alt text for screen readers (`gg` method).
+#' @param scale multiplicative scaling factor passed to
+#'   [ragg::agg_png()] (`gg` method).
 #' @param ... additional arguments passed to methods
-#' @return the rxlsx object (invisibly)
-#' @seealso [read_xlsx()], [add_sheet()], [sheet_write_data()]
-sheet_add_drawing <- function(x, value, sheet, ...) {
-  UseMethod("sheet_add_drawing", value)
-}
-
-#' @export
-#' @method sheet_add_drawing external_img
-#' @title Add an image to an Excel sheet
-#' @description Add an image file (PNG, JPEG, GIF, ...) to a sheet in
-#'   an xlsx workbook created with [read_xlsx()]. The image is copied
-#'   into `xl/media/` and placed on the sheet via an absolute anchor
-#'   (inch-based position and size).
-#' @param x rxlsx object (created by [read_xlsx()])
-#' @param value an [external_img()] object
-#' @param sheet sheet name (must already exist)
-#' @param left,top top-left anchor of the image, in inches. Defaults
-#'   to `(1, 1)`.
-#' @param width,height size of the image, in inches. When `NULL`
-#'   (default) the dimensions stored on `value` (from `external_img()`)
-#'   are used.
-#' @param ... unused
 #' @return the rxlsx object (invisibly)
 #' @examples
 #' img <- system.file("extdata", "example.png", package = "officer")
@@ -1491,7 +1490,23 @@ sheet_add_drawing <- function(x, value, sheet, ...) {
 #'   )
 #'   print(x, target = tempfile(fileext = ".xlsx"))
 #' }
-#' @seealso [sheet_add_drawing()], [external_img()]
+#'
+#' if (requireNamespace("ggplot2", quietly = TRUE)) {
+#'   gg <- ggplot2::ggplot(iris, ggplot2::aes(Sepal.Length, Sepal.Width)) +
+#'     ggplot2::geom_point()
+#'   x <- read_xlsx()
+#'   x <- add_sheet(x, label = "plots")
+#'   x <- sheet_add_drawing(x, value = gg, sheet = "plots",
+#'                          width = 4, height = 3)
+#'   print(x, target = tempfile(fileext = ".xlsx"))
+#' }
+#' @seealso [read_xlsx()], [add_sheet()], [sheet_write_data()]
+sheet_add_drawing <- function(x, value, sheet, ...) {
+  UseMethod("sheet_add_drawing", value)
+}
+
+#' @export
+#' @method sheet_add_drawing external_img
 sheet_add_drawing.external_img <- function(x, value, sheet,
                                            left = 1, top = 1,
                                            width = NULL, height = NULL,
@@ -1537,23 +1552,7 @@ sheet_add_drawing.external_img <- function(x, value, sheet,
 }
 
 #' @export
-#' @title Add a ggplot to an Excel sheet
-#' @description Render a ggplot object to PNG and embed it into a sheet
-#'   of an xlsx workbook via [sheet_add_drawing.external_img()]. For an
-#'   editable vector-graphics version, use `rvg::dml(ggobj = ...)` +
-#'   `rvg::sheet_add_drawing.dml()` instead.
-#' @param x rxlsx object created by [read_xlsx()]
-#' @param value a ggplot object (class `gg`)
-#' @param sheet sheet name (must already exist)
-#' @param left,top top-left anchor of the image, in inches
-#' @param width,height size of the image, in inches
-#' @param res resolution of the png image, in ppi (default 300)
-#' @param alt_text alt text for screen readers. If `""` or `NULL`,
-#'   `ggplot2::get_alt_text()` is consulted.
-#' @param scale multiplicative scaling factor, same as `ggplot2::ggsave(scale=)`
-#' @param ... passed to [ragg::agg_png()]
-#' @return the rxlsx object (invisibly)
-#' @seealso [sheet_add_drawing()], [sheet_add_drawing.external_img()]
+#' @method sheet_add_drawing gg
 sheet_add_drawing.gg <- function(x, value, sheet,
                                  left = 1, top = 1,
                                  width = 6, height = 4,

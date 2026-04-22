@@ -14,17 +14,67 @@ sheet_add_drawing(x, value, sheet, ...)
 \item{sheet}{sheet name (must already exist, see \code{\link[=add_sheet]{add_sheet()}})}
 
 \item{...}{additional arguments passed to methods}
+
+\item{left, top}{top-left anchor of the image, in inches (used by the
+\code{external_img} and \code{gg} methods; defaults to \verb{(1, 1)}).}
+
+\item{width, height}{size of the image, in inches. For \code{external_img}
+\code{NULL} (default) reuses the dimensions stored on \code{value}; for \code{gg}
+the defaults are 6 x 4.}
+
+\item{res}{resolution of the rendered PNG in ppi (default 300, \code{gg}
+method only).}
+
+\item{alt_text}{alt text for screen readers (\code{gg} method).}
+
+\item{scale}{multiplicative scaling factor passed to
+\code{\link[ragg:agg_png]{ragg::agg_png()}} (\code{gg} method).}
 }
 \value{
 the rxlsx object (invisibly)
 }
 \description{
 Add a graphical element into a sheet of an xlsx workbook.
-This is a generic function dispatching on \code{value}. Methods are
-provided by extension packages 'mschart' and 'rvg'.
+This is a generic function dispatching on \code{value}. Supported inputs
+include:
+\itemize{
+\item \code{\link[=external_img]{external_img()}}: an image file (PNG, JPEG, GIF, ...) copied into
+\verb{xl/media/} and placed via an absolute anchor. Position and size
+are inch-based (\code{left}, \code{top}, \code{width}, \code{height}).
+\item \code{gg}: a ggplot object rendered to PNG via \code{ragg::agg_png()} and
+embedded via the \code{external_img} path. Extra arguments: \code{res}
+(default 300 ppi), \code{alt_text} (auto-detected via
+\code{ggplot2::get_alt_text()} when empty), \code{scale} (same semantics as
+\code{ggplot2::ggsave()}).
+}
+
+Additional methods for \code{ms_chart} and \code{dml} are provided by the
+extension packages 'mschart' and 'rvg'.
 
 Use \code{\link[=sheet_write_data]{sheet_write_data()}} to write data into the sheet before or
 after adding a drawing.
+}
+\examples{
+img <- system.file("extdata", "example.png", package = "officer")
+if (nzchar(img) && file.exists(img)) {
+  x <- read_xlsx()
+  x <- add_sheet(x, label = "pics")
+  x <- sheet_add_drawing(
+    x, sheet = "pics",
+    value = external_img(img, width = 2, height = 2)
+  )
+  print(x, target = tempfile(fileext = ".xlsx"))
+}
+
+if (requireNamespace("ggplot2", quietly = TRUE)) {
+  gg <- ggplot2::ggplot(iris, ggplot2::aes(Sepal.Length, Sepal.Width)) +
+    ggplot2::geom_point()
+  x <- read_xlsx()
+  x <- add_sheet(x, label = "plots")
+  x <- sheet_add_drawing(x, value = gg, sheet = "plots",
+                         width = 4, height = 3)
+  print(x, target = tempfile(fileext = ".xlsx"))
+}
 }
 \seealso{
 \code{\link[=read_xlsx]{read_xlsx()}}, \code{\link[=add_sheet]{add_sheet()}}, \code{\link[=sheet_write_data]{sheet_write_data()}}
