@@ -23,6 +23,8 @@ fp_par(
   shading.color = "transparent",
   keep_with_next = FALSE,
   tabs = NULL,
+  first_line = NA,
+  hanging = NA,
   word_style = "Normal"
 )
 
@@ -42,6 +44,8 @@ fp_par_lite(
   shading.color = NA,
   keep_with_next = NA,
   tabs = FALSE,
+  first_line = NA,
+  hanging = NA,
   word_style = NA
 )
 
@@ -62,6 +66,8 @@ fp_par_lite(
   border.right,
   shading.color,
   keep_with_next,
+  first_line,
+  hanging,
   word_style,
   ...
 )
@@ -92,6 +98,15 @@ on the same page as the next paragraph when possible.}
 or an object returned by \code{\link[=fp_tabs]{fp_tabs()}}. Note this can only have effect with Word
 or RTF outputs.}
 
+\item{first_line}{first-line indent in points (positive moves the
+first line to the right). \code{NA} (default) leaves the first-line indent
+unset. Mutually exclusive with \code{hanging} -- if both are provided,
+\code{hanging} wins.}
+
+\item{hanging}{hanging indent in points (positive moves the first
+line to the left relative to the following lines). \code{NA} (default)
+leaves the hanging indent unset.}
+
 \item{word_style}{Word paragraph style name}
 
 \item{x, object}{\code{fp_par} object}
@@ -111,6 +126,7 @@ undefined properties will inherit from the default settings.
 }
 \examples{
 fp_par(text.align = "center", padding = 5)
+fp_par(padding.left = 40, hanging = 20)
 obj <- fp_par(text.align = "center", padding = 1)
 update(obj, padding.bottom = 5)
 }

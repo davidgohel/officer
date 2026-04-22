@@ -146,6 +146,84 @@ test_that("wml padding", {
   )
 })
 
+test_that("wml first_line / hanging indent", {
+  # default: neither first_line nor hanging -> legacy firstLine="0"
+  x <- fp_par()
+  wml <- format(x, type = "wml")
+  expect_match(wml,
+               "w:firstLine=\"0\" w:firstLineChars=\"0\"",
+               fixed = TRUE)
+
+  # hanging > 0 -> w:hanging
+  x <- fp_par(padding.left = 40, hanging = 20)
+  wml <- format(x, type = "wml")
+  expect_match(wml, "w:hanging=\"400\"", fixed = TRUE)
+  expect_false(grepl("w:firstLine", wml))
+
+  # first_line > 0 -> w:firstLine
+  x <- fp_par(padding.left = 40, first_line = 15)
+  wml <- format(x, type = "wml")
+  expect_match(wml, "w:firstLine=\"300\"", fixed = TRUE)
+  expect_false(grepl("w:hanging", wml))
+
+  # hanging wins if both are provided
+  x <- fp_par(padding.left = 40, first_line = 15, hanging = 20)
+  wml <- format(x, type = "wml")
+  expect_match(wml, "w:hanging=\"400\"", fixed = TRUE)
+  expect_false(grepl("w:firstLine", wml))
+})
+
+test_that("pml first_line / hanging indent", {
+  x <- fp_par(hanging = 20)
+  pml <- format(x, type = "pml")
+  expect_match(pml, "indent=\"-254000\"", fixed = TRUE)
+
+  x <- fp_par(first_line = 15)
+  pml <- format(x, type = "pml")
+  expect_match(pml, "indent=\"190500\"", fixed = TRUE)
+
+  # default: no indent attribute
+  x <- fp_par()
+  pml <- format(x, type = "pml")
+  expect_false(grepl("indent=", pml))
+})
+
+test_that("css first_line / hanging indent", {
+  x <- fp_par(hanging = 20)
+  css <- format(x, type = "html")
+  expect_match(css, "text-indent:-20pt;", fixed = TRUE)
+
+  x <- fp_par(first_line = 15)
+  css <- format(x, type = "html")
+  expect_match(css, "text-indent:15pt;", fixed = TRUE)
+
+  x <- fp_par()
+  css <- format(x, type = "html")
+  expect_false(grepl("text-indent:", css))
+})
+
+test_that("rtf first_line / hanging indent", {
+  x <- fp_par(padding.left = 40, hanging = 20)
+  rtf <- format(x, type = "rtf")
+  expect_match(rtf, "\\fi-400", fixed = TRUE)
+
+  x <- fp_par(padding.left = 40, first_line = 15)
+  rtf <- format(x, type = "rtf")
+  expect_match(rtf, "\\fi300", fixed = TRUE)
+
+  # default (fp_par() triggers padding.left=0 via padding=0 default)
+  x <- fp_par()
+  rtf <- format(x, type = "rtf")
+  expect_match(rtf, "\\fi0", fixed = TRUE)
+})
+
+test_that("validate_indent rejects bad inputs", {
+  expect_error(fp_par(hanging = "a"), "single numeric")
+  expect_error(fp_par(first_line = c(1, 2)), "single numeric")
+  # NA is explicitly OK (default)
+  expect_silent(fp_par(hanging = NA))
+})
+
 test_that("wml shading.color", {
   x <- fp_par(shading.color = "#FF0000")
 

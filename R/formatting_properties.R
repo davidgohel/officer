@@ -708,10 +708,18 @@ as.character.fp_tabs <- function(x, ...) {
 #' @param tabs NULL (default) for no tabulation marks setting
 #' or an object returned by [fp_tabs()]. Note this can only have effect with Word
 #' or RTF outputs.
+#' @param first_line first-line indent in points (positive moves the
+#' first line to the right). `NA` (default) leaves the first-line indent
+#' unset. Mutually exclusive with `hanging` -- if both are provided,
+#' `hanging` wins.
+#' @param hanging hanging indent in points (positive moves the first
+#' line to the left relative to the following lines). `NA` (default)
+#' leaves the hanging indent unset.
 #' @param word_style Word paragraph style name
 #' @return a `fp_par` object
 #' @examples
 #' fp_par(text.align = "center", padding = 5)
+#' fp_par(padding.left = 40, hanging = 20)
 #' @export
 #' @family functions for defining formatting properties
 #' @seealso [fpar]
@@ -731,6 +739,8 @@ fp_par <- function(
   shading.color = "transparent",
   keep_with_next = FALSE,
   tabs = NULL,
+  first_line = NA,
+  hanging = NA,
   word_style = "Normal"
 ) {
   out <- list()
@@ -800,10 +810,26 @@ fp_par <- function(
 
   out <- check_set_chr(obj = out, word_style)
 
+  out$first_line <- validate_indent(first_line, "first_line")
+  out$hanging <- validate_indent(hanging, "hanging")
+
   out$keep_with_next <- keep_with_next
   class(out) <- "fp_par"
 
   out
+}
+
+validate_indent <- function(value, name) {
+  if (is.null(value) || (length(value) == 1 && is.na(value))) {
+    return(NA_real_)
+  }
+  if (!is.numeric(value) || length(value) != 1) {
+    stop(
+      "`", name, "` must be NA or a single numeric value (points).",
+      call. = FALSE
+    )
+  }
+  as.numeric(value)
 }
 
 
@@ -828,6 +854,8 @@ fp_par_lite <- function(
   shading.color = NA,
   keep_with_next = NA,
   tabs = FALSE,
+  first_line = NA,
+  hanging = NA,
   word_style = NA
 ) {
   if (isFALSE(tabs)) {
@@ -849,6 +877,8 @@ fp_par_lite <- function(
     shading.color = shading.color,
     keep_with_next = keep_with_next,
     tabs = tabs,
+    first_line = first_line,
+    hanging = hanging,
     word_style = word_style
   )
 }
@@ -938,6 +968,8 @@ update.fp_par <- function(
   border.right,
   shading.color,
   keep_with_next,
+  first_line,
+  hanging,
   word_style,
   ...
 ) {
@@ -1009,6 +1041,12 @@ update.fp_par <- function(
   }
   if (!missing(keep_with_next)) {
     object <- check_set_bool(object, keep_with_next)
+  }
+  if (!missing(first_line)) {
+    object$first_line <- validate_indent(first_line, "first_line")
+  }
+  if (!missing(hanging)) {
+    object$hanging <- validate_indent(hanging, "hanging")
   }
 
   object

@@ -650,8 +650,18 @@ ppr_rtf <- function(x) {
   }
   leftright_padding <- ""
   if (!is.na(x$padding.left) && !is.na(x$padding.right)) {
+    hang <- x$hanging %||% NA_real_
+    first <- x$first_line %||% NA_real_
+    if (!is.na(hang) && hang > 0) {
+      fi <- sprintf("\\fi-%.0f", hang * 20)
+    } else if (!is.na(first) && first > 0) {
+      fi <- sprintf("\\fi%.0f", first * 20)
+    } else {
+      fi <- "\\fi0"
+    }
     leftright_padding <- sprintf(
-      "\\fi0\\li%.0f\\ri%.0f",
+      "%s\\li%.0f\\ri%.0f",
+      fi,
       x$padding.left * 20,
       x$padding.right * 20
     )

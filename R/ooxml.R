@@ -329,10 +329,19 @@ ppr_pml <- function(x) {
 
   leftright_padding <- ""
   if (!is.na(x$padding.left) && !is.na(x$padding.right)) {
+    hang <- x$hanging %||% NA_real_
+    first <- x$first_line %||% NA_real_
+    indent_attr <- ""
+    if (!is.na(hang) && hang > 0) {
+      indent_attr <- sprintf(" indent=\"%.0f\"", -hang * 12700)
+    } else if (!is.na(first) && first > 0) {
+      indent_attr <- sprintf(" indent=\"%.0f\"", first * 12700)
+    }
     leftright_padding <- sprintf(
-      " marL=\"%.0f\" marR=\"%.0f\"",
+      " marL=\"%.0f\" marR=\"%.0f\"%s",
       x$padding.left * 12700,
-      x$padding.right * 12700
+      x$padding.right * 12700,
+      indent_attr
     )
   }
 
@@ -387,6 +396,14 @@ ppr_css <- function(x) {
     x$padding.left,
     x$padding.right
   )
+  hang <- x$hanging %||% NA_real_
+  first <- x$first_line %||% NA_real_
+  text_indent <- ""
+  if (!is.na(hang) && hang > 0) {
+    text_indent <- sprintf("text-indent:-%.0fpt;", hang)
+  } else if (!is.na(first) && first > 0) {
+    text_indent <- sprintf("text-indent:%.0fpt;", first)
+  }
   ls <- formatC(
     x$line_spacing,
     format = "f",
@@ -403,6 +420,7 @@ ppr_css <- function(x) {
     text.align,
     borders,
     paddings,
+    text_indent,
     line_spacing,
     shading.color
   )
@@ -454,10 +472,20 @@ ppr_wml <- function(x) {
 
   leftright_padding <- ""
   if (!is.na(x$padding.left) && !is.na(x$padding.right)) {
+    hang <- x$hanging %||% NA_real_
+    first <- x$first_line %||% NA_real_
+    if (!is.na(hang) && hang > 0) {
+      first_attr <- sprintf("w:hanging=\"%.0f\"", hang * 20)
+    } else if (!is.na(first) && first > 0) {
+      first_attr <- sprintf("w:firstLine=\"%.0f\"", first * 20)
+    } else {
+      first_attr <- "w:firstLine=\"0\" w:firstLineChars=\"0\""
+    }
     leftright_padding <- sprintf(
-      "<w:ind w:left=\"%.0f\" w:right=\"%.0f\" w:firstLine=\"0\" w:firstLineChars=\"0\"/>",
+      "<w:ind w:left=\"%.0f\" w:right=\"%.0f\" %s/>",
       x$padding.left * 20,
-      x$padding.right * 20
+      x$padding.right * 20,
+      first_attr
     )
   }
 
