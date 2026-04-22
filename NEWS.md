@@ -2,36 +2,39 @@
 
 ## Features
 
-- `write_docx_settings()` now preserves the existing `settings.xml` content
-instead of rebuilding it from scratch. This fixes the loss of embedded font
-settings (`embedTrueTypeFonts`), math properties, footnote/endnote settings
-and other XML elements during docx round-trips (#554).
-- new function `docx_embed_font()` to embed TrueType or OpenType font files
-into Word documents. Embedded fonts ensure correct rendering on systems where
-the font is not installed (#554).
-- new functions `list_item()`, `block_list_items()` and `body_add_list()`
-to create bullet or numbered lists with rich text (fpar) and multi-level
-nesting. Works in both Word and PowerPoint documents (#314).
+### Excel
+
 - new functions `sheet_write_data()` and `sheet_add_drawing()` for writing
 data and inserting drawings (charts, vector graphics) into xlsx workbooks.
-`sheet_write_data()` is an S3 generic: beside `data.frame`, it also
-accepts a `character` vector (one cell per element, vertical by
-default; `direction = "horizontal"` for a row), an [`fpar()`] (rich
-text inline cell honouring bold, italic, underline, strikethrough,
-size, colour, font, sub/superscript) and a [`block_list()`] (one
-cell per `fpar` item, stacked). `sheet_add_drawing()` gains an
-`external_img` method: pass an [`external_img()`] object to embed a
-PNG/JPEG/GIF/... into a sheet at an inch-based position (`left`,
-`top`, `width`, `height`). A matching `gg` method renders a ggplot
-to PNG via `ragg::agg_png()` and embeds it, matching the existing
-`ph_with.gg` (pptx) and `body_add.gg` (docx) methods.
-- new function `sheet_remove()` to delete a sheet from an xlsx
-workbook (removes the worksheet XML, its relationship file and the
-content-type override). `add_sheet()` now auto-drops the template's
-default sheet the first time it is called on a pristine workbook
-(the default "Sheet1" / "Feuil1" with no cell content and no
-drawing), so scripts that build their own sheets no longer end up
-with a stray empty tab at the front.
+`sheet_write_data()` is an S3 generic: beside `data.frame`, it also accepts
+a `character` vector (one cell per element, vertical by default; 
+`direction = "horizontal"` for a row), an [`fpar()`] (richtext inline cell honouring
+bold, italic, underline, strikethrough, size, colour, font, sub/superscript)
+and a [`block_list()`] (one cell per `fpar` item, stacked).
+`sheet_add_drawing()` has an `external_img` method and a `gg` method.
+- new function `sheet_remove()` to delete a sheet from an xlsx workbook
+`add_sheet()` auto-drops the template's default sheet the first time it is
+called on a pristine workbook.
+
+### Word
+
+- `write_docx_settings()` now preserves the existing `settings.xml`
+content instead of rebuilding it from scratch. This fixes the loss of
+embedded font settings, math properties, footnote/endnote settings and 
+other XML elements during docx roundtrips (#554).
+- new function `docx_embed_font()` to embed TrueType or OpenType font
+files into Word documents. Embedded fonts ensure correct rendering on
+systems where the font is not installed (#554).
+
+### Word & PowerPoint
+
+- new functions `list_item()`, `block_list_items()` and
+`body_add_list()` to create bullet or numbered lists with rich text
+(`fpar`) and multi-level nesting. Works in both Word and PowerPoint
+documents (#314).
+
+### Formatting properties
+
 - `fp_par()` and `fp_par_lite()` gain `first_line` and `hanging`
 arguments to control paragraph first-line and hanging indents (in
 points). Honored by the Word, PowerPoint, HTML and RTF renderers.
