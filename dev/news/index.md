@@ -29,6 +29,14 @@
   [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
   for writing data and inserting drawings (charts, vector graphics) into
   xlsx workbooks.
+- [`fp_par()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
+  and
+  [`fp_par_lite()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
+  gain `first_line` and `hanging` arguments to control paragraph
+  first-line and hanging indents (in points). Honored by the Word,
+  PowerPoint, HTML and RTF renderers. `hanging` wins when both are
+  provided (flextable
+  [\#704](https://github.com/davidgohel/officer/issues/704)).
 
 ### Issues
 

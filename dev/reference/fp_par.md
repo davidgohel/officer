@@ -25,6 +25,8 @@ fp_par(
   shading.color = "transparent",
   keep_with_next = FALSE,
   tabs = NULL,
+  first_line = NA,
+  hanging = NA,
   word_style = "Normal"
 )
 
@@ -44,6 +46,8 @@ fp_par_lite(
   shading.color = NA,
   keep_with_next = NA,
   tabs = FALSE,
+  first_line = NA,
+  hanging = NA,
   word_style = NA
 )
 
@@ -66,6 +70,8 @@ update(
   border.right,
   shading.color,
   keep_with_next,
+  first_line,
+  hanging,
   word_style,
   ...
 )
@@ -119,6 +125,18 @@ update(
   [`fp_tabs()`](https://davidgohel.github.io/officer/dev/reference/fp_tabs.md).
   Note this can only have effect with Word or RTF outputs.
 
+- first_line:
+
+  first-line indent in points (positive moves the first line to the
+  right). `NA` (default) leaves the first-line indent unset. Mutually
+  exclusive with `hanging` – if both are provided, `hanging` wins.
+
+- hanging:
+
+  hanging indent in points (positive moves the first line to the left
+  relative to the following lines). `NA` (default) leaves the hanging
+  indent unset.
+
 - word_style:
 
   Word paragraph style name
@@ -156,6 +174,20 @@ fp_par(text.align = "center", padding = 5)
 #> padding.bottom           5
 #> padding.left             5
 #> padding.right            5
+#> shading.color  transparent
+#> borders:
+#>        width color style
+#> top        0 black solid
+#> bottom     0 black solid
+#> left       0 black solid
+#> right      0 black solid
+fp_par(padding.left = 40, hanging = 20)
+#>                     values
+#> text.align            left
+#> padding.top              0
+#> padding.bottom           0
+#> padding.left            40
+#> padding.right            0
 #> shading.color  transparent
 #> borders:
 #>        width color style

@@ -15,7 +15,7 @@ undefined properties will inherit from the default settings."><meta property="og
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,8 @@ undefined properties will inherit from the default settings.</p>
 <span>  shading.color <span class="op">=</span> <span class="st">"transparent"</span>,</span>
 <span>  keep_with_next <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  tabs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  first_line <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  hanging <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  word_style <span class="op">=</span> <span class="st">"Normal"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -85,6 +87,8 @@ undefined properties will inherit from the default settings.</p>
 <span>  shading.color <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  keep_with_next <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  tabs <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  first_line <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  hanging <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  word_style <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -107,6 +111,8 @@ undefined properties will inherit from the default settings.</p>
 <span>  <span class="va">border.right</span>,</span>
 <span>  <span class="va">shading.color</span>,</span>
 <span>  <span class="va">keep_with_next</span>,</span>
+<span>  <span class="va">first_line</span>,</span>
+<span>  <span class="va">hanging</span>,</span>
 <span>  <span class="va">word_style</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -159,6 +165,19 @@ or an object returned by <code><a href="fp_tabs.html">fp_tabs()</a></code>. Note
 or RTF outputs.</p></dd>
 
 
+<dt id="arg-first-line">first_line<a class="anchor" aria-label="anchor" href="#arg-first-line"></a></dt>
+<dd><p>first-line indent in points (positive moves the
+first line to the right). <code>NA</code> (default) leaves the first-line indent
+unset. Mutually exclusive with <code>hanging</code> – if both are provided,
+<code>hanging</code> wins.</p></dd>
+
+
+<dt id="arg-hanging">hanging<a class="anchor" aria-label="anchor" href="#arg-hanging"></a></dt>
+<dd><p>hanging indent in points (positive moves the first
+line to the left relative to the following lines). <code>NA</code> (default)
+leaves the hanging indent unset.</p></dd>
+
+
 <dt id="arg-word-style">word_style<a class="anchor" aria-label="anchor" href="#arg-word-style"></a></dt>
 <dd><p>Word paragraph style name</p></dd>
 
@@ -195,6 +214,20 @@ or RTF outputs.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> padding.bottom           5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> padding.left             5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> padding.right            5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> shading.color  transparent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> borders:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        width color style</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> top        0 black solid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bottom     0 black solid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> left       0 black solid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> right      0 black solid</span>
+<span class="r-in"><span><span class="fu">fp_par</span><span class="op">(</span>padding.left <span class="op">=</span> <span class="fl">40</span>, hanging <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> text.align            left</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> padding.top              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> padding.bottom           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> padding.left            40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> padding.right            0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> shading.color  transparent</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> borders:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        width color style</span>

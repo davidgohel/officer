@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,8 @@
 <li>new function <code><a href="../reference/docx_embed_font.html">docx_embed_font()</a></code> to embed TrueType or OpenType font files into Word documents. Embedded fonts ensure correct rendering on systems where the font is not installed (<a href="https://github.com/davidgohel/officer/issues/554" class="external-link">#554</a>).</li>
 <li>new functions <code><a href="../reference/list_item.html">list_item()</a></code>, <code><a href="../reference/block_list_items.html">block_list_items()</a></code> and <code><a href="../reference/body_add_list.html">body_add_list()</a></code> to create bullet or numbered lists with rich text (fpar) and multi-level nesting. Works in both Word and PowerPoint documents (<a href="https://github.com/davidgohel/officer/issues/314" class="external-link">#314</a>).</li>
 <li>new functions <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code> and <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> for writing data and inserting drawings (charts, vector graphics) into xlsx workbooks.</li>
+<li>
+<code><a href="../reference/fp_par.html">fp_par()</a></code> and <code><a href="../reference/fp_par.html">fp_par_lite()</a></code> gain <code>first_line</code> and <code>hanging</code> arguments to control paragraph first-line and hanging indents (in points). Honored by the Word, PowerPoint, HTML and RTF renderers. <code>hanging</code> wins when both are provided (flextable <a href="https://github.com/davidgohel/officer/issues/704" class="external-link">#704</a>).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-4">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-4"></a></h3>

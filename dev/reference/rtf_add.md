@@ -165,5 +165,5 @@ anyplot <- plot_instr(code = {
 doc <- rtf_add(doc, anyplot, width = 5, height = 4, ppr = center_par)
 
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/Rtmpq6W7pe/file18cc7bba117e.rtf"
+#> [1] "/tmp/RtmpNRKqo4/file17c41dec7293.rtf"
 ```
