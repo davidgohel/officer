@@ -4,25 +4,8 @@
 
 ### Features
 
-- `write_docx_settings()` now preserves the existing `settings.xml`
-  content instead of rebuilding it from scratch. This fixes the loss of
-  embedded font settings (`embedTrueTypeFonts`), math properties,
-  footnote/endnote settings and other XML elements during docx
-  round-trips
-  ([\#554](https://github.com/davidgohel/officer/issues/554)).
-- new function
-  [`docx_embed_font()`](https://davidgohel.github.io/officer/dev/reference/docx_embed_font.md)
-  to embed TrueType or OpenType font files into Word documents. Embedded
-  fonts ensure correct rendering on systems where the font is not
-  installed ([\#554](https://github.com/davidgohel/officer/issues/554)).
-- new functions
-  [`list_item()`](https://davidgohel.github.io/officer/dev/reference/list_item.md),
-  [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
-  and
-  [`body_add_list()`](https://davidgohel.github.io/officer/dev/reference/body_add_list.md)
-  to create bullet or numbered lists with rich text (fpar) and
-  multi-level nesting. Works in both Word and PowerPoint documents
-  ([\#314](https://github.com/davidgohel/officer/issues/314)).
+#### Excel
+
 - new functions
   [`sheet_write_data()`](https://davidgohel.github.io/officer/dev/reference/sheet_write_data.md)
   and
@@ -34,28 +17,45 @@
   vector (one cell per element, vertical by default;
   `direction = "horizontal"` for a row), an
   \[[`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md)\]
-  (rich text inline cell honouring bold, italic, underline,
+  (richtext inline cell honouring bold, italic, underline,
   strikethrough, size, colour, font, sub/superscript) and a
   \[[`block_list()`](https://davidgohel.github.io/officer/dev/reference/block_list.md)\]
   (one cell per `fpar` item, stacked).
   [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
-  gains an `external_img` method: pass an
-  \[[`external_img()`](https://davidgohel.github.io/officer/dev/reference/external_img.md)\]
-  object to embed a PNG/JPEG/GIF/… into a sheet at an inch-based
-  position (`left`, `top`, `width`, `height`). A matching `gg` method
-  renders a ggplot to PNG via
-  [`ragg::agg_png()`](https://ragg.r-lib.org/reference/agg_png.html) and
-  embeds it, matching the existing `ph_with.gg` (pptx) and `body_add.gg`
-  (docx) methods.
+  has an `external_img` method and a `gg` method.
 - new function
   [`sheet_remove()`](https://davidgohel.github.io/officer/dev/reference/sheet_remove.md)
-  to delete a sheet from an xlsx workbook (removes the worksheet XML,
-  its relationship file and the content-type override).
+  to delete a sheet from an xlsx workbook
   [`add_sheet()`](https://davidgohel.github.io/officer/dev/reference/add_sheet.md)
-  now auto-drops the template’s default sheet the first time it is
-  called on a pristine workbook (the default “Sheet1” / “Feuil1” with no
-  cell content and no drawing), so scripts that build their own sheets
-  no longer end up with a stray empty tab at the front.
+  auto-drops the template’s default sheet the first time it is called on
+  a pristine workbook.
+
+#### Word
+
+- `write_docx_settings()` now preserves the existing `settings.xml`
+  content instead of rebuilding it from scratch. This fixes the loss of
+  embedded font settings, math properties, footnote/endnote settings and
+  other XML elements during docx roundtrips
+  ([\#554](https://github.com/davidgohel/officer/issues/554)).
+- new function
+  [`docx_embed_font()`](https://davidgohel.github.io/officer/dev/reference/docx_embed_font.md)
+  to embed TrueType or OpenType font files into Word documents. Embedded
+  fonts ensure correct rendering on systems where the font is not
+  installed ([\#554](https://github.com/davidgohel/officer/issues/554)).
+
+#### Word & PowerPoint
+
+- new functions
+  [`list_item()`](https://davidgohel.github.io/officer/dev/reference/list_item.md),
+  [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
+  and
+  [`body_add_list()`](https://davidgohel.github.io/officer/dev/reference/body_add_list.md)
+  to create bullet or numbered lists with rich text (`fpar`) and
+  multi-level nesting. Works in both Word and PowerPoint documents
+  ([\#314](https://github.com/davidgohel/officer/issues/314)).
+
+#### Formatting properties
+
 - [`fp_par()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
   and
   [`fp_par_lite()`](https://davidgohel.github.io/officer/dev/reference/fp_par.md)
