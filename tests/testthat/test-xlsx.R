@@ -1,13 +1,22 @@
-test_that("create and manipulate sheet", {
+# Helper: fresh workbook without the template's default sheet, so that the
+# first user-added sheet lives at xl/worksheets/sheet1.xml. Tests that don't
+# care about the underlying file name use `read_xlsx()` directly.
+new_xlsx <- function() {
+  x <- read_xlsx()
+  sheet_remove(x, sheet = x$worksheets$sheet_names()[1])
+}
+
+test_that("add_sheet is additive and does not drop the default sheet", {
   doc <- read_xlsx()
+  default_name <- doc$worksheets$sheet_names()[1]
+  doc <- add_sheet(doc, label = "sheet1")
+  expect_setequal(doc$worksheets$sheet_names(), c(default_name, "sheet1"))
+})
+
+test_that("sheet_select sets the active tab", {
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "sheet1")
   doc <- sheet_select(doc, sheet = "sheet1")
-
-  expect_true("sheet1" %in% doc$worksheets$sheet_names())
-
-  # empty default sheet is dropped when adding the first user sheet
-  expect_equal(length(doc), 1)
-  expect_equal(doc$worksheets$sheet_names(), "sheet1")
 
   sheet_id <- doc$worksheets$get_sheet_id("sheet1")
   wb_view <- xml_find_first(
@@ -17,21 +26,9 @@ test_that("create and manipulate sheet", {
   expect_equal(as.integer(xml_attr(wb_view, "activeTab")), sheet_id - 1)
 })
 
-test_that("add_sheet keeps the default sheet when it has been touched", {
-  doc <- read_xlsx()
-  default_name <- doc$worksheets$sheet_names()[1]
-  doc <- sheet_write_data(doc, head(iris, 2), sheet = default_name)
-  doc <- add_sheet(doc, label = "more")
-  expect_setequal(doc$worksheets$sheet_names(),
-                  c(default_name, "more"))
-})
-
 test_that("sheet_remove removes sheet + files + content-type", {
-  # touch the default sheet so auto-drop in add_sheet is bypassed,
-  # giving us a workbook with two sheets to test sheet_remove on
   doc <- read_xlsx()
   default_name <- doc$worksheets$sheet_names()[1]
-  doc <- sheet_write_data(doc, head(iris, 2), sheet = default_name)
   doc <- add_sheet(doc, label = "keep")
   expect_length(doc$worksheets$sheet_names(), 2)
 
@@ -49,15 +46,13 @@ test_that("sheet_remove removes sheet + files + content-type", {
 })
 
 test_that("sheet_select deselects other sheets", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "new")
   doc <- sheet_select(doc, sheet = "new")
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
 
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  # only one sheet remains (default was auto-dropped when add_sheet was
-  # called on a pristine workbook — the single empty default sheet)
   sheet_files <- list.files(
     file.path(unpack_dir, "xl/worksheets"),
     pattern = "\\.xml$"
@@ -71,7 +66,7 @@ test_that("sheet_select deselects other sheets", {
 })
 
 test_that("sheet_write_data writes correct cells", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(doc, value = head(iris, 3), sheet = "data")
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
@@ -109,7 +104,7 @@ test_that("sheet_write_data writes correct cells", {
 })
 
 test_that("sheet_write_data with start_row and start_col", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(
     doc,
@@ -149,7 +144,7 @@ test_that("sheet_write_data with start_row and start_col", {
 })
 
 test_that("sheet_write_data merges two datasets", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(
     doc,
@@ -195,7 +190,7 @@ test_that("sheet_write_data merges two datasets", {
 })
 
 test_that("sheet_write_data handles NA", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   doc <- sheet_write_data(
     doc,
@@ -223,7 +218,7 @@ test_that("sheet_write_data handles NA", {
 })
 
 test_that("sheet_write_data handles Date columns", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   df <- data.frame(
     d = as.Date(c("2024-01-15", "2024-06-30", NA)),
@@ -272,7 +267,7 @@ test_that("sheet_write_data handles Date columns", {
 })
 
 test_that("sheet_write_data handles POSIXct columns", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   df <- data.frame(
     dt = as.POSIXct(
@@ -325,7 +320,7 @@ test_that("sheet_write_data handles POSIXct columns", {
 })
 
 test_that("sheet_write_data handles logical columns", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "data")
   df <- data.frame(flag = c(TRUE, FALSE, NA))
   doc <- sheet_write_data(doc, value = df, sheet = "data")
@@ -371,7 +366,7 @@ test_that("sheet_add_drawing creates drawing infrastructure", {
     group = "group"
   )
 
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "chart")
   doc <- sheet_add_drawing(
     doc,
@@ -440,7 +435,7 @@ sheet_cells_xml <- function(doc, sheet_xml_name = "sheet1.xml") {
 }
 
 test_that("sheet_write_data dispatches on character (vertical)", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "chr")
   doc <- sheet_write_data(doc, value = c("A", "B", "C"),
                           sheet = "chr", start_row = 2, start_col = 3)
@@ -451,7 +446,7 @@ test_that("sheet_write_data dispatches on character (vertical)", {
 })
 
 test_that("sheet_write_data dispatches on character (horizontal)", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "chr")
   doc <- sheet_write_data(doc, value = c("X", "Y", "Z"),
                           sheet = "chr", start_row = 1, start_col = 1,
@@ -463,7 +458,7 @@ test_that("sheet_write_data dispatches on character (horizontal)", {
 })
 
 test_that("sheet_write_data on fpar emits richtext runs", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "fp")
   f <- fpar(
     ftext("bold ",    fp_text(bold = TRUE, color = "red")),
@@ -596,7 +591,7 @@ test_that("xlsx_styles$get_border_id caches borders by signature", {
 })
 
 test_that("sheet_write_data on block_list stacks fpars vertically", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "bl")
   bl <- block_list(
     fpar(ftext("line 1", fp_text(bold = TRUE))),
@@ -612,7 +607,7 @@ test_that("sheet_write_data on block_list stacks fpars vertically", {
 })
 
 test_that("sheet_write_data default method errors on unsupported input", {
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "x")
   expect_error(sheet_write_data(doc, value = 42, sheet = "x"),
                "method")
@@ -626,7 +621,7 @@ test_that("sheet_add_drawing.gg renders a ggplot as PNG and embeds it", {
                         ggplot2::aes(Sepal.Length, Sepal.Width)) +
     ggplot2::geom_point()
 
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "plots")
   doc <- sheet_add_drawing(doc, value = gg, sheet = "plots",
                            left = 1, top = 1,
@@ -649,7 +644,7 @@ test_that("sheet_add_drawing(.external_img) embeds images", {
   img <- file.path(R.home("doc"), "html", "logo.jpg")
   skip_if_not(file.exists(img), message = "no sample image available")
 
-  doc <- read_xlsx()
+  doc <- new_xlsx()
   doc <- add_sheet(doc, label = "pics")
   doc <- sheet_add_drawing(doc, sheet = "pics",
                            value = external_img(img, width = 2, height = 1.5),

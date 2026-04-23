@@ -997,22 +997,9 @@ read_xlsx <- function(path = NULL) {
 #' @details
 #' `read_xlsx()` returns a workbook that already contains one default
 #' sheet shipped with the template (named `"Sheet1"` or `"Feuil1"`
-#' depending on the locale). When the user adds their first sheet
-#' with `add_sheet()`, that default sheet is silently dropped if it
-#' still looks empty (no cell content, no drawing attached), so the
-#' resulting xlsx does not start with a stray empty tab. A default
-#' sheet that has been written into (via [sheet_write_data()] or
-#' [sheet_add_drawing()]) is kept.
-#'
-#' To bypass the auto-drop, touch the default sheet before adding any
-#' other sheet:
-#' ```r
-#' wb <- read_xlsx()
-#' wb <- sheet_write_data(wb, head(iris),
-#'                        sheet = wb$worksheets$sheet_names()[1])
-#' wb <- add_sheet(wb, "second")   # both sheets kept
-#' ```
-#' To remove a sheet explicitly later, use [sheet_remove()].
+#' depending on the locale). `add_sheet()` is purely additive: the
+#' default sheet is kept as-is. Remove it explicitly with
+#' [sheet_remove()] if it is not wanted.
 #' @examples
 #' my_ws <- read_xlsx()
 #' my_pres <- add_sheet(my_ws, label = "new sheet")
@@ -1020,15 +1007,6 @@ add_sheet <- function(x, label) {
   validate_sheet_name(label)
   if (label %in% x$worksheets$sheet_names()) {
     cli::cli_abort("Sheet {.val {label}} already exists.")
-  }
-
-  # Drop the template's default sheet when adding the first user sheet.
-  # Only acts if the workbook still has a single empty default sheet
-  # (no cell content, no drawing). See ?add_sheet for details.
-  existing <- x$worksheets$sheet_names()
-  if (length(existing) == 1L &&
-      is_empty_default_sheet(x, existing[1L])) {
-    x <- sheet_remove(x, sheet = existing[1L])
   }
 
   new_slidename <- x$worksheets$get_new_sheetname()
@@ -1118,24 +1096,6 @@ sheet_remove <- function(x, sheet) {
   x$sheets$update()
 
   invisible(x)
-}
-
-# Returns TRUE when the sheet named `label` contains no cell content
-# and no drawing -- i.e. it can be dropped without losing anything.
-is_empty_default_sheet <- function(x, label) {
-  tryCatch({
-    sheet_obj <- x$sheets$get_sheet(
-      which(x$worksheets$sheet_names() == label)
-    )
-    ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
-    rows <- xml_find_all(sheet_obj$get(),
-                        "d1:sheetData/d1:row", ns = ns)
-    if (length(rows) > 0) return(FALSE)
-    drawings <- xml_find_all(sheet_obj$get(),
-                             "d1:drawing", ns = ns)
-    if (length(drawings) > 0) return(FALSE)
-    TRUE
-  }, error = function(e) FALSE)
 }
 
 #' @export

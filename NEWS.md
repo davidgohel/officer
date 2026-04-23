@@ -12,9 +12,9 @@ a `character` vector (one cell per element, vertical by default;
 bold, italic, underline, strikethrough, size, colour, font, sub/superscript)
 and a [`block_list()`] (one cell per `fpar` item, stacked).
 `sheet_add_drawing()` has an `external_img` method and a `gg` method.
-- new function `sheet_remove()` to delete a sheet from an xlsx workbook
-`add_sheet()` auto-drops the template's default sheet the first time it is
-called on a pristine workbook.
+- new function `sheet_remove()` to delete a sheet from an xlsx workbook.
+`add_sheet()` is purely additive and never drops any sheet; call
+`sheet_remove()` explicitly if the template's default sheet is not wanted.
 
 ### Word
 

@@ -52,6 +52,8 @@ underline, strikethrough and sub/superscript chunks are honoured.
 library(officer)
 
 wb <- read_xlsx()
+# drop the template's default sheet so the workbook contains only `demo`
+wb <- sheet_remove(wb, sheet = wb$worksheets$sheet_names()[1])
 wb <- add_sheet(wb, label = "demo")
 
 # --- A1:C4  data.frame (tabular write) ----
