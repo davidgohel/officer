@@ -37,7 +37,7 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
     action = action
   )
   x <- reload_slidelayouts(x) # reinit slideLayouts to get processed ph labels [e.g. when calling x$slideLayouts$get_xfrm_data()]
-  if (print_info | action == "detect") {
+  if (print_info || action == "detect") {
     .print_dedupe_info(x = x, xfrm_list = xfrm_list, action = action)
   }
   invisible(x)
@@ -80,7 +80,7 @@ layout_dedupe_ph_labels <- function(x, action = "detect", print_info = FALSE) {
 
   # rename label or delete ph shape
   layout_xml <- layout$get()
-  for (i in 1L:nrow(xfrm)) {
+  for (i in seq_len(nrow(xfrm))) {
     shape <- xml2::xml_find_first(
       layout_xml,
       sprintf("p:cSld/p:spTree/*[p:nvSpPr/p:cNvPr[@id='%s']]", xfrm$id[i])

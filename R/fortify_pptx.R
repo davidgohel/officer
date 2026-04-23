@@ -1,22 +1,24 @@
 unfold_row_pml <- function(node, row_id, preserve = FALSE) {
   children_ <- xml_children(node)
-  cell_nodes <- children_[sapply(children_, function(x) xml_name(x) == "tc")]
+  cell_nodes <- children_[vapply(
+    children_, function(x) xml_name(x) == "tc", logical(1)
+  )]
 
   if (preserve) {
-    txt <- sapply(cell_nodes, function(x) {
+    txt <- vapply(cell_nodes, function(x) {
       paras <- xml2::xml_text(xml2::xml_find_all(x, ".//a:r"))
       paste0(paras, collapse = "\n")
-    })
+    }, character(1))
   } else {
-    txt <- sapply(cell_nodes, xml2::xml_text)
+    txt <- vapply(cell_nodes, xml2::xml_text, character(1))
   }
 
-  col_span <- sapply(cell_nodes, function(x) {
+  col_span <- vapply(cell_nodes, function(x) {
     as.integer(xml_attr(x, "gridSpan"))
-  })
-  h_merge <- sapply(cell_nodes, function(x) {
+  }, integer(1))
+  h_merge <- vapply(cell_nodes, function(x) {
     as.integer(xml_attr(x, "hMerge"))
-  }) %in%
+  }, integer(1)) %in%
     c(1)
   col_span[is.na(col_span)] <- 1L
   col_span[h_merge] <- 0L

@@ -214,7 +214,7 @@ ph_with.block_list <- function(
 
   location <- fortify_location(location, doc = x)
 
-  pars <- sapply(value, to_pml)
+  pars <- vapply(value, to_pml, character(1))
 
   if (length(level_list) > 0) {
     pars <- gsub("<a:buNone/>", "", pars, fixed = TRUE)

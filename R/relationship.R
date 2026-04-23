@@ -83,7 +83,7 @@ relationship <- R6Class(
       if (length(private$id)) {
         chr_stripped_id <- gsub("rId([0-9]+)", "\\1", private$id)
         test_id_as_num <- grepl("^rId[0-9]+$", private$id)
-        if (any(!test_id_as_num)) {
+        if (!all(test_id_as_num)) {
           wrong_targets <- paste0(
             "invalid id(s) for {shQuote(private$target[!test_id_as_num])}"
           )

@@ -38,7 +38,7 @@ in the upper left corner (in \emph{blue}).}
 \code{\link[=layout_properties]{layout_properties()}}) in the upper right corner (in \emph{green}).}
 
 \item{cex}{List or vector to specify font size for \code{labels}, \code{type}, and \code{id}. Default is
-\code{c(labels = .5, type = .5, id = .5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.
+\code{c(labels = 0.5, type = 0.5, id = 0.5)}. See \code{\link[graphics:text]{graphics::text()}} for details on how \code{cex} works.
 Matching by position and partial name matching is supported. A single numeric value will apply to all
 three parameters.}
 

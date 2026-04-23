@@ -13,7 +13,7 @@ add_notesMaster <- function(x) {
     theme_files <- list.files(
       path = file.path(x$package_dir, "ppt/theme"),
       pattern = "\\.xml$",
-      full.names = F
+      full.names = FALSE
     )
     theme_index <- as.integer(gsub(
       "^(theme)([0-9]+)(\\.xml)$",

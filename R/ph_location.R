@@ -710,7 +710,6 @@ ph_location_id <- function(id, newlabel = NULL, ...) {
     type = NULL,
     type_idx = NULL,
     position_right = NULL,
-    position_right = NULL,
     position_top = NULL,
     id = NULL,
     ph_id = ph_id,

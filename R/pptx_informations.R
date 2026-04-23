@@ -142,7 +142,7 @@ layout_properties <- function(x, layout = NULL, master = NULL) {
 #' @param id if `TRUE` (default), adds the placeholder's unique `id` (see column `id` from
 #'  [layout_properties()]) in the upper right corner (in *green*).
 #' @param cex List or vector to specify font size for `labels`, `type`, and `id`. Default is
-#'   `c(labels = .5, type = .5, id = .5)`. See [graphics::text()] for details on how `cex` works.
+#'   `c(labels = 0.5, type = 0.5, id = 0.5)`. See [graphics::text()] for details on how `cex` works.
 #'   Matching by position and partial name matching is supported. A single numeric value will apply to all
 #'   three parameters.
 #' @param legend Add a legend to the plot (default `FALSE`).
@@ -159,7 +159,7 @@ plot_layout_properties <- function(
   title = TRUE,
   type = TRUE,
   id = TRUE,
-  cex = c(labels = .5, type = .5, id = .5),
+  cex = c(labels = 0.5, type = 0.5, id = 0.5),
   legend = FALSE
 ) {
   stop_if_not_rpptx(x, "x")
@@ -169,7 +169,7 @@ plot_layout_properties <- function(
 
   .cex <- update_named_defaults(
     cex,
-    default = list(labels = .5, type = .5, id = .5),
+    default = list(labels = 0.5, type = 0.5, id = 0.5),
     default_if_null = TRUE,
     argname = "cex"
   )
@@ -235,8 +235,8 @@ plot_layout_properties <- function(
   )
   rect(xleft = 0, xright = w, ybottom = 0, ytop = -h, border = "darkgrey")
   rect(xleft = offx, xright = offx + cx, ybottom = -offy, ytop = -(offy + cy))
-  mtext("y [inch]", side = 2, line = 0, cex = .9, col = "darkgrey")
-  mtext("x [inch]", side = 1, line = 0, cex = .9, col = "darkgrey")
+  mtext("y [inch]", side = 2, line = 0, cex = 0.9, col = "darkgrey")
+  mtext("x [inch]", side = 1, line = 0, cex = 0.9, col = "darkgrey")
 
   if (title) {
     title(
@@ -252,7 +252,7 @@ plot_layout_properties <- function(
       labels = dat$ph_label,
       cex = .cex$labels,
       col = "red",
-      adj = c(.5, 1)
+      adj = c(0.5, 1)
     ) # adj-vert: avoid interference with type/id in small phs
   }
   if (type) {
@@ -264,7 +264,7 @@ plot_layout_properties <- function(
       labels = .type_info,
       cex = .cex$type,
       col = "blue",
-      adj = c(-.1, 1.2)
+      adj = c(-0.1, 1.2)
     )
   }
   if (id) {
@@ -283,13 +283,13 @@ plot_layout_properties <- function(
       x = w / 2,
       y = 0,
       x.intersp = 0.4,
-      xjust = .5,
+      xjust = 0.5,
       yjust = 0,
       legend = c("type [type_idx]", "ph_label", "id"),
       fill = c("blue", "red", "darkgreen"),
       bty = "n",
       pt.cex = 1.2,
-      cex = .7,
+      cex = 0.7,
       text.width = NA,
       text.col = c("blue", "red", "darkgreen"),
       horiz = TRUE,
@@ -361,7 +361,7 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx') {
     )
 
     # Blank slides have nothing
-    if (length(lp[, 1] > 0)) {
+    if (nrow(lp) > 0) {
       # Now we go through each placholder
       for (pidx in seq_len(nrow(lp))) {
         textstr <- paste(

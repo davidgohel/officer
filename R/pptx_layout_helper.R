@@ -46,13 +46,6 @@ has_layout_default <- function(x) {
   !is.null(la) && !identical(la, list(layout = NA, master = NA))
 }
 
-
-# check if layout exists
-layout_exists <- function(x, layout) {
-  stop_if_not_rpptx(x)
-  layout %in% x$slideLayouts$names()
-}
-
 #' Layout selection helper
 #'
 #' Select a layout by name or index. The master name is inferred and only required

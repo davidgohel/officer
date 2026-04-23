@@ -40,7 +40,7 @@ read_core_properties <- function(package_dir) {
   attrs <- sapply(xml_attrs(all_), function(ns_) {
     paste0('xsi:', names(ns_), '=\"', ns_, '\"', collapse = " ")
   })
-  attrs <- ifelse(sapply(xml_attrs(all_), length) < 1, "", paste0(" ", attrs))
+  attrs <- ifelse(lengths(xml_attrs(all_)) < 1, "", paste0(" ", attrs))
 
   propnames <- sapply(names_, function(x) x[2])
 

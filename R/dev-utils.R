@@ -195,7 +195,7 @@ mime_type <- function(paths) {
 #' base64_str <- image_to_base64(rlogo)
 image_to_base64 <- function(filepaths) {
   mimes <- mime_type(paths = filepaths)
-  if (any(is.na(mimes))) {
+  if (anyNA(mimes)) {
     cli::cli_abort(
       paste0(
         "Unknown image(s) format: ",
@@ -207,7 +207,7 @@ image_to_base64 <- function(filepaths) {
     )
   }
 
-  if (any(!file.exists(filepaths))) {
+  if (!all(file.exists(filepaths))) {
     cli::cli_abort(
       paste0(
         "File(s) not found: ",

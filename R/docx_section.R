@@ -100,7 +100,7 @@ body_end_section_portrait <- function(x, w = 16838 / 1440, h = 11906 / 1440) {
 body_end_section_columns <- function(
   x,
   widths = c(2.5, 2.5),
-  space = .25,
+  space = 0.25,
   sep = FALSE
 ) {
   bs <- block_section(prop_section(
@@ -137,7 +137,7 @@ body_end_section_columns <- function(
 body_end_section_columns_landscape <- function(
   x,
   widths = c(2.5, 2.5),
-  space = .25,
+  space = 0.25,
   sep = FALSE,
   w = 16838 / 1440,
   h = 11906 / 1440
@@ -269,19 +269,6 @@ process_sections_content <- function(x, xml_str) {
   }
 
   xml_str
-}
-
-guess_and_set_even_and_odd_headers <- function(x, xml_str) {
-  test_even <- any(grepl(
-    "(headerReference|footerReference)([^>]+)(w:type=\"even\")",
-    xml_str
-  ))
-  if (test_even) {
-    x$settings$even_and_odd_headers <- TRUE
-  } else {
-    x$settings$even_and_odd_headers <- FALSE
-  }
-  x
 }
 
 section_dimensions <- function(node) {

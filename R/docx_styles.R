@@ -225,7 +225,8 @@ change_styles <- function(x, mapstyles) {
   from_styles <- unique(as.character(unlist(mapstyles)))
   to_styles <- unique(names(mapstyles))
 
-  if (any(is.na(mfrom <- match(from_styles, table_styles$style_name)))) {
+  mfrom <- match(from_styles, table_styles$style_name)
+  if (anyNA(mfrom)) {
     stop(
       "could not find style ",
       paste0(shQuote(from_styles[is.na(mfrom)]), collapse = ", "),
@@ -233,7 +234,8 @@ change_styles <- function(x, mapstyles) {
       call. = FALSE
     )
   }
-  if (any(is.na(mto <- match(to_styles, table_styles$style_name)))) {
+  mto <- match(to_styles, table_styles$style_name)
+  if (anyNA(mto)) {
     stop(
       "could not find style ",
       paste0(shQuote(to_styles[is.na(mto)]), collapse = ", "),

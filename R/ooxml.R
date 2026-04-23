@@ -80,7 +80,7 @@ p_xfrm_str <- function(left = 0, top = 0, width = 3, height = 3, rot = 0) {
 css_color <- function(color) {
   color <- as.vector(col2rgb(color, alpha = TRUE)) / c(1, 1, 1, 255)
 
-  if (!(color[4] > 0)) {
+  if (color[4] <= 0) {
     "transparent"
   } else {
     sprintf(
@@ -110,7 +110,7 @@ colalpha <- function(x) {
 }
 
 is_transparent <- function(color) {
-  !(colalpha(color) > 0)
+  colalpha(color) <= 0
 }
 
 solid_fill <- function(color) {
@@ -151,7 +151,7 @@ ln_pml <- function(x) {
   ln_str <- ""
   if (!is.null(x)) {
     color_ <- ""
-    if (is_transparent(x$color) || x$lwd < .001) {
+    if (is_transparent(x$color) || x$lwd < 0.001) {
       color_ <- "<a:noFill/>"
     } else {
       color_ <- solid_fill(x$color)
@@ -218,7 +218,7 @@ border_pml <- function(x, side) {
 
   width_ <- sprintf("w=\"%.0f\"", x$width * 12700)
 
-  if (is_transparent(x$color) || x$width < .001) {
+  if (is_transparent(x$color) || x$width < 0.001) {
     color_ <- "<a:noFill/>"
   } else {
     color_ <- solid_fill(x$color)
@@ -284,7 +284,7 @@ border_wml <- function(x, side) {
 }
 border_css <- function(x, side) {
   color_ <- css_color(x$color)
-  if (!(x$width > 0)) {
+  if (x$width <= 0) {
     color_ <- "transparent"
   }
 

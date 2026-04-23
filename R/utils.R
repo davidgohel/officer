@@ -245,12 +245,12 @@ set_row_span <- function(row_details) {
 #' @importFrom grDevices col2rgb rgb
 is.color = function(x) {
   # http://stackoverflow.com/a/13290832/3315962
-  out = sapply(x, function(x) {
-    tryCatch(is.matrix(col2rgb(x)), error = function(e) F)
-  })
+  out = vapply(x, function(x) {
+    tryCatch(is.matrix(col2rgb(x)), error = function(e) FALSE)
+  }, logical(1))
 
   nout <- names(out)
-  if (!is.null(nout) && any(is.na(nout))) {
+  if (!is.null(nout) && anyNA(nout)) {
     out[is.na(nout)] = FALSE
   }
 

@@ -518,7 +518,7 @@ table_stylenames <- function(stylenames = list()) {
   }
 
   if (length(stylenames) > 0 && is.list(stylenames)) {
-    .l <- vapply(stylenames, length, FUN.VALUE = 0L)
+    .l <- lengths(stylenames)
     zz <- inverse.rle(
       structure(
         list(
@@ -1011,7 +1011,7 @@ fortify_fpar <- function(x) {
 #' @export
 as.data.frame.fpar <- function(x, ...) {
   chks <- fortify_fpar(x)
-  chks <- chks[sapply(chks, function(x) inherits(x, "ftext"))]
+  chks <- chks[vapply(chks, function(x) inherits(x, "ftext"), logical(1))]
   chks <- mapply(
     function(x) {
       data.frame(
@@ -1162,7 +1162,7 @@ to_wml.block_list <- function(x, add_ns = FALSE, ...) {
 
 #' @export
 to_pml.block_list <- function(x, add_ns = FALSE, ...) {
-  pars <- sapply(x, to_pml)
+  pars <- vapply(x, to_pml, character(1))
   pars <- paste0(pars, collapse = "")
   pars
 }
@@ -1392,7 +1392,7 @@ unordered_list <- function(
   stopifnot(is.character(str_list))
   stopifnot(is.numeric(level_list))
 
-  if (length(str_list) != length(level_list) & length(str_list) > 0) {
+  if (length(str_list) != length(level_list) && length(str_list) > 0) {
     stop("str_list and level_list have different lenghts.")
   }
 
@@ -1423,7 +1423,7 @@ to_pml.unordered_list <- function(x, add_ns = FALSE, ...) {
     open_tag <- ap_ns_yes
   }
   if (!is.null(x$style)) {
-    style_str <- sapply(x$style, format, type = "pml")
+    style_str <- vapply(x$style, format, character(1), type = "pml")
     style_str <- rep_len(style_str, length.out = length(x$str))
   } else {
     style_str <- rep("<a:rPr/>", length(x$str))

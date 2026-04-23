@@ -169,50 +169,48 @@ print.rdocx <- function(
     writeLines(xml_str, tf_xml, useBytes = TRUE)
     footer$replace_xml(tf_xml)
   }
-  if (TRUE) {
-    xml_str <- xml_document_to_chrs(x$footnotes$get())
-    xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
-    xml_str <- fix_empty_ids_in_wml(xml_str)
-    xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$footnotes)
-    xml_str <- fix_img_refs_in_wml(
-      xml_str,
-      x$footnotes,
-      x$footnotes$relationship(),
-      x$package_dir
-    )
-    xml_str <- fix_svg_refs_in_wml(
-      xml_str,
-      x$footnotes,
-      x$footnotes$relationship(),
-      x$package_dir
-    )
 
-    tf_xml <- tempfile(fileext = ".txt")
-    writeLines(xml_str, tf_xml, useBytes = TRUE)
-    x$footnotes$replace_xml(tf_xml)
-  }
-  if (TRUE) {
-    xml_str <- xml_document_to_chrs(x$comments$get())
-    xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
-    xml_str <- fix_empty_ids_in_wml(xml_str)
-    xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$comments)
-    xml_str <- fix_img_refs_in_wml(
-      xml_str,
-      x$comments,
-      x$comments$relationship(),
-      x$package_dir
-    )
-    xml_str <- fix_svg_refs_in_wml(
-      xml_str,
-      x$comments,
-      x$comments$relationship(),
-      x$package_dir
-    )
+  xml_str <- xml_document_to_chrs(x$footnotes$get())
+  xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+  xml_str <- fix_empty_ids_in_wml(xml_str)
+  xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$footnotes)
+  xml_str <- fix_img_refs_in_wml(
+    xml_str,
+    x$footnotes,
+    x$footnotes$relationship(),
+    x$package_dir
+  )
+  xml_str <- fix_svg_refs_in_wml(
+    xml_str,
+    x$footnotes,
+    x$footnotes$relationship(),
+    x$package_dir
+  )
 
-    tf_xml <- tempfile(fileext = ".txt")
-    writeLines(xml_str, tf_xml, useBytes = TRUE)
-    x$comments$replace_xml(tf_xml)
-  }
+  tf_xml <- tempfile(fileext = ".txt")
+  writeLines(xml_str, tf_xml, useBytes = TRUE)
+  x$footnotes$replace_xml(tf_xml)
+
+  xml_str <- xml_document_to_chrs(x$comments$get())
+  xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
+  xml_str <- fix_empty_ids_in_wml(xml_str)
+  xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$comments)
+  xml_str <- fix_img_refs_in_wml(
+    xml_str,
+    x$comments,
+    x$comments$relationship(),
+    x$package_dir
+  )
+  xml_str <- fix_svg_refs_in_wml(
+    xml_str,
+    x$comments,
+    x$comments$relationship(),
+    x$package_dir
+  )
+
+  tf_xml <- tempfile(fileext = ".txt")
+  writeLines(xml_str, tf_xml, useBytes = TRUE)
+  x$comments$replace_xml(tf_xml)
 
   int_id <- 1 # unique id identifier
   # make all id unique for footnote

@@ -1385,7 +1385,7 @@ if (!"gregexec" %in% getNamespaceExports("base")) {
     fixed = FALSE,
     useBytes = FALSE
   ) {
-    if (is.factor(text) && length(levels(text)) < length(text)) {
+    if (is.factor(text) && nlevels(text) < length(text)) {
       out <- gregexec(
         pattern,
         c(levels(text), NA_character_),

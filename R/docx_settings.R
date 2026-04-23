@@ -41,8 +41,8 @@
 docx_set_settings <- function(
   x,
   zoom = 1,
-  default_tab_stop = .5,
-  hyphenation_zone = .25,
+  default_tab_stop = 0.5,
+  hyphenation_zone = 0.25,
   decimal_symbol = ".",
   list_separator = ";",
   compatibility_mode = "15",
@@ -66,8 +66,8 @@ docx_set_settings <- function(
 
 docx_settings <- function(
   zoom = 1,
-  default_tab_stop = .5,
-  hyphenation_zone = .25,
+  default_tab_stop = 0.5,
+  hyphenation_zone = 0.25,
   decimal_symbol = ".",
   list_separator = ";",
   compatibility_mode = "15",
