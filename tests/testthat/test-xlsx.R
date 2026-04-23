@@ -3,14 +3,14 @@
 # care about the underlying file name use `read_xlsx()` directly.
 new_xlsx <- function() {
   x <- read_xlsx()
-  sheet_remove(x, sheet = x$worksheets$sheet_names()[1])
+  sheet_remove(x, sheet = sheet_names(x)[1])
 }
 
 test_that("add_sheet is additive and does not drop the default sheet", {
   doc <- read_xlsx()
-  default_name <- doc$worksheets$sheet_names()[1]
+  default_name <- sheet_names(doc)[1]
   doc <- add_sheet(doc, label = "sheet1")
-  expect_setequal(doc$worksheets$sheet_names(), c(default_name, "sheet1"))
+  expect_setequal(sheet_names(doc), c(default_name, "sheet1"))
 })
 
 test_that("sheet_select sets the active tab", {
@@ -28,12 +28,12 @@ test_that("sheet_select sets the active tab", {
 
 test_that("sheet_remove removes sheet + files + content-type", {
   doc <- read_xlsx()
-  default_name <- doc$worksheets$sheet_names()[1]
+  default_name <- sheet_names(doc)[1]
   doc <- add_sheet(doc, label = "keep")
-  expect_length(doc$worksheets$sheet_names(), 2)
+  expect_length(sheet_names(doc), 2)
 
   doc <- sheet_remove(doc, sheet = default_name)
-  expect_equal(doc$worksheets$sheet_names(), "keep")
+  expect_equal(sheet_names(doc), "keep")
 
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()

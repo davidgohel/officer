@@ -1069,10 +1069,8 @@ add_sheet <- function(x, label) {
 #' @return the rxlsx object (invisibly)
 #' @examples
 #' wb <- read_xlsx()
-#' default_name <- wb$worksheets$sheet_names()[1]
-#' # touch the default sheet first so add_sheet does not auto-drop it
-#' wb <- sheet_write_data(wb, head(iris, 2), sheet = default_name)
 #' wb <- add_sheet(wb, "kept")
+#' default_name <- sheet_names(wb)[1]
 #' wb <- sheet_remove(wb, sheet = default_name)
 #' print(wb, target = tempfile(fileext = ".xlsx"))
 sheet_remove <- function(x, sheet) {
@@ -1123,6 +1121,23 @@ sheet_remove <- function(x, sheet) {
 #' @rdname read_xlsx
 length.rxlsx <- function(x) {
   x$sheets$length()
+}
+
+#' @export
+#' @title Sheet names of an xlsx workbook
+#' @description Return the sheet names of an `rxlsx` object, in the
+#' order they appear in the workbook.
+#' @param x an rxlsx object (created by [read_xlsx()]).
+#' @return A character vector of sheet names.
+#' @examples
+#' wb <- read_xlsx()
+#' sheet_names(wb)
+#'
+#' wb <- add_sheet(wb, label = "new sheet")
+#' sheet_names(wb)
+sheet_names <- function(x) {
+  stopifnot(inherits(x, "rxlsx"))
+  x$worksheets$sheet_names()
 }
 
 #' @export

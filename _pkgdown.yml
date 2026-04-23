@@ -176,6 +176,7 @@ reference:
     contents:
     - read_xlsx
     - add_sheet
+    - sheet_names
     - sheet_select
     - sheet_remove
     - sheet_write_data
