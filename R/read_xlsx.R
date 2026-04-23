@@ -148,8 +148,8 @@ worksheets <- R6Class(
       xml_remove(sheet_nodes[[idx]])
 
       # drop private state
-      private$sheet_id   <- private$sheet_id[-idx]
-      private$sheet_rid  <- private$sheet_rid[-idx]
+      private$sheet_id <- private$sheet_id[-idx]
+      private$sheet_rid <- private$sheet_rid[-idx]
       private$sheet_name <- private$sheet_name[-idx]
 
       self$save()
@@ -336,9 +336,12 @@ xlsx_drawing <- R6Class(
           "<xdr:clientData/>",
           "</xdr:absoluteAnchor>"
         ),
-        left * emu_per_in, top * emu_per_in,
-        width * emu_per_in, height * emu_per_in,
-        nv_id, nv_id,
+        left * emu_per_in,
+        top * emu_per_in,
+        width * emu_per_in,
+        height * emu_per_in,
+        nv_id,
+        nv_id,
         chart_rid
       )
 
@@ -381,10 +384,14 @@ xlsx_drawing <- R6Class(
     #' @param left,top top-left anchor in inches
     #' @param width,height size in inches
     #' @param alt alternative text
-    add_image_anchor = function(image_rid,
-                                left = 1, top = 1,
-                                width = 2, height = 2,
-                                alt = "") {
+    add_image_anchor = function(
+      image_rid,
+      left = 1,
+      top = 1,
+      width = 2,
+      height = 2,
+      alt = ""
+    ) {
       emu_per_in <- 914400
       nv_id <- private$next_cNvPr_id()
       anchor_xml <- sprintf(
@@ -415,12 +422,18 @@ xlsx_drawing <- R6Class(
           "<xdr:clientData/>",
           "</xdr:absoluteAnchor>"
         ),
-        left * emu_per_in, top * emu_per_in,
-        width * emu_per_in, height * emu_per_in,
-        nv_id, nv_id, htmlEscapeCopy(alt),
+        left * emu_per_in,
+        top * emu_per_in,
+        width * emu_per_in,
+        height * emu_per_in,
+        nv_id,
+        nv_id,
+        htmlEscapeCopy(alt),
         image_rid,
-        left * emu_per_in, top * emu_per_in,
-        width * emu_per_in, height * emu_per_in
+        left * emu_per_in,
+        top * emu_per_in,
+        width * emu_per_in,
+        height * emu_per_in
       )
       xml_add_child(self$get(), read_xml(anchor_xml))
       self$save()
@@ -1081,10 +1094,17 @@ sheet_remove <- function(x, sheet) {
 
   # remove files on disk
   xml_path <- file.path(x$package_dir, "xl/worksheets", sheet_basename)
-  rels_path <- file.path(x$package_dir, "xl/worksheets/_rels",
-                         paste0(sheet_basename, ".rels"))
-  if (file.exists(xml_path)) file.remove(xml_path)
-  if (file.exists(rels_path)) file.remove(rels_path)
+  rels_path <- file.path(
+    x$package_dir,
+    "xl/worksheets/_rels",
+    paste0(sheet_basename, ".rels")
+  )
+  if (file.exists(xml_path)) {
+    file.remove(xml_path)
+  }
+  if (file.exists(rels_path)) {
+    file.remove(rels_path)
+  }
 
   # remove content-type override
   partname <- paste0("/xl/worksheets/", sheet_basename)
@@ -1169,8 +1189,14 @@ sheet_select <- function(x, sheet) {
 #' `direction = "vertical"` (default) or `"horizontal"` is honoured by
 #' the `character` and `block_list` methods.
 #' @example inst/examples/example-sheet_write_data.R
-sheet_write_data <- function(x, value, sheet, start_row = 1L, start_col = 1L,
-                             ...) {
+sheet_write_data <- function(
+  x,
+  value,
+  sheet,
+  start_row = 1L,
+  start_col = 1L,
+  ...
+) {
   UseMethod("sheet_write_data", value)
 }
 
@@ -1185,8 +1211,14 @@ sheet_write_data.default <- function(x, value, sheet, ...) {
 }
 
 #' @export
-sheet_write_data.data.frame <- function(x, value, sheet,
-                                        start_row = 1L, start_col = 1L, ...) {
+sheet_write_data.data.frame <- function(
+  x,
+  value,
+  sheet,
+  start_row = 1L,
+  start_col = 1L,
+  ...
+) {
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   start_row <- as.integer(start_row)
@@ -1383,23 +1415,32 @@ df_to_cells <- function(
 chunk_to_xlsx_run <- function(chunk) {
   pr <- chunk$pr
   rpr_parts <- character(0)
-  if (isTRUE(pr$bold)) rpr_parts <- c(rpr_parts, "<b/>")
-  if (isTRUE(pr$italic)) rpr_parts <- c(rpr_parts, "<i/>")
-  if (isTRUE(pr$underlined)) rpr_parts <- c(rpr_parts, "<u/>")
-  if (isTRUE(pr$strike)) rpr_parts <- c(rpr_parts, "<strike/>")
+  if (isTRUE(pr$bold)) {
+    rpr_parts <- c(rpr_parts, "<b/>")
+  }
+  if (isTRUE(pr$italic)) {
+    rpr_parts <- c(rpr_parts, "<i/>")
+  }
+  if (isTRUE(pr$underlined)) {
+    rpr_parts <- c(rpr_parts, "<u/>")
+  }
+  if (isTRUE(pr$strike)) {
+    rpr_parts <- c(rpr_parts, "<strike/>")
+  }
   if (!is.na(pr$font.size)) {
-    rpr_parts <- c(rpr_parts,
-                   sprintf("<sz val=\"%g\"/>", pr$font.size))
+    rpr_parts <- c(rpr_parts, sprintf("<sz val=\"%g\"/>", pr$font.size))
   }
   if (!is.na(pr$color) && !identical(pr$color, "transparent")) {
-    rpr_parts <- c(rpr_parts,
-                   sprintf("<color rgb=\"FF%s\"/>",
-                           hex_color(pr$color)))
+    rpr_parts <- c(
+      rpr_parts,
+      sprintf("<color rgb=\"FF%s\"/>", hex_color(pr$color))
+    )
   }
   if (!is.na(pr$font.family)) {
-    rpr_parts <- c(rpr_parts,
-                   sprintf("<rFont val=\"%s\"/>",
-                           htmlEscapeCopy(pr$font.family)))
+    rpr_parts <- c(
+      rpr_parts,
+      sprintf("<rFont val=\"%s\"/>", htmlEscapeCopy(pr$font.family))
+    )
   }
   if (identical(pr$vertical.align, "superscript")) {
     rpr_parts <- c(rpr_parts, "<vertAlign val=\"superscript\"/>")
@@ -1442,11 +1483,15 @@ fpar_to_cell_xml <- function(fpar, ref) {
 # --- sheet_write_data methods: character, fpar, block_list ----------------
 
 #' @export
-sheet_write_data.character <- function(x, value, sheet,
-                                       start_row = 1L, start_col = 1L,
-                                       direction = c("vertical",
-                                                     "horizontal"),
-                                       ...) {
+sheet_write_data.character <- function(
+  x,
+  value,
+  sheet,
+  start_row = 1L,
+  start_col = 1L,
+  direction = c("vertical", "horizontal"),
+  ...
+) {
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   direction <- match.arg(direction)
@@ -1481,8 +1526,14 @@ sheet_write_data.character <- function(x, value, sheet,
 }
 
 #' @export
-sheet_write_data.fpar <- function(x, value, sheet,
-                                  start_row = 1L, start_col = 1L, ...) {
+sheet_write_data.fpar <- function(
+  x,
+  value,
+  sheet,
+  start_row = 1L,
+  start_col = 1L,
+  ...
+) {
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   start_row <- as.integer(start_row)
@@ -1496,11 +1547,15 @@ sheet_write_data.fpar <- function(x, value, sheet,
 }
 
 #' @export
-sheet_write_data.block_list <- function(x, value, sheet,
-                                        start_row = 1L, start_col = 1L,
-                                        direction = c("vertical",
-                                                      "horizontal"),
-                                        ...) {
+sheet_write_data.block_list <- function(
+  x,
+  value,
+  sheet,
+  start_row = 1L,
+  start_col = 1L,
+  direction = c("vertical", "horizontal"),
+  ...
+) {
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   direction <- match.arg(direction)
@@ -1517,7 +1572,9 @@ sheet_write_data.block_list <- function(x, value, sheet,
   }
   fpars <- value[is_fpar]
   n <- length(fpars)
-  if (n == 0L) return(invisible(x))
+  if (n == 0L) {
+    return(invisible(x))
+  }
 
   if (direction == "vertical") {
     rows <- seq(start_row, length.out = n)
@@ -1528,9 +1585,13 @@ sheet_write_data.block_list <- function(x, value, sheet,
   }
   refs <- sprintf("%s%d", int_to_col(cols), rows)
 
-  cells <- vapply(seq_len(n), function(i) {
-    fpar_to_cell_xml(fpars[[i]], refs[i])
-  }, character(1L))
+  cells <- vapply(
+    seq_len(n),
+    function(i) {
+      fpar_to_cell_xml(fpars[[i]], refs[i])
+    },
+    character(1L)
+  )
 
   new_cells <- tapply(cells, rows, paste0, collapse = "")
   new_cells <- as.list(new_cells)
@@ -1596,16 +1657,26 @@ sheet_add_drawing <- function(x, value, sheet, ...) {
 
 #' @export
 #' @method sheet_add_drawing external_img
-sheet_add_drawing.external_img <- function(x, value, sheet,
-                                           left = 1, top = 1,
-                                           width = NULL, height = NULL,
-                                           ...) {
+sheet_add_drawing.external_img <- function(
+  x,
+  value,
+  sheet,
+  left = 1,
+  top = 1,
+  width = NULL,
+  height = NULL,
+  ...
+) {
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
 
   dims <- attr(value, "dims")
-  if (is.null(width))  width  <- dims$width[1]
-  if (is.null(height)) height <- dims$height[1]
+  if (is.null(width)) {
+    width <- dims$width[1]
+  }
+  if (is.null(height)) {
+    height <- dims$height[1]
+  }
   alt <- attr(value, "alt") %||% ""
 
   src <- as.character(value)[1]
@@ -1618,10 +1689,14 @@ sheet_add_drawing.external_img <- function(x, value, sheet,
   media_dir <- file.path(x$package_dir, "xl", "media")
   dir.create(media_dir, showWarnings = FALSE, recursive = TRUE)
   ext <- tolower(tools::file_ext(src))
-  if (!nzchar(ext)) ext <- "png"
-  target_path <- tempfile(pattern = "img",
-                          tmpdir = media_dir,
-                          fileext = paste0(".", ext))
+  if (!nzchar(ext)) {
+    ext <- "png"
+  }
+  target_path <- tempfile(
+    pattern = "img",
+    tmpdir = media_dir,
+    fileext = paste0(".", ext)
+  )
   file.copy(src, target_path, overwrite = TRUE)
 
   sheet_obj <- x$sheets$get_sheet(
@@ -1632,8 +1707,10 @@ sheet_add_drawing.external_img <- function(x, value, sheet,
   image_rid <- drawing$add_image_rel(basename(target_path))
   drawing$add_image_anchor(
     image_rid = image_rid,
-    left = left, top = top,
-    width = width, height = height,
+    left = left,
+    top = top,
+    width = width,
+    height = height,
     alt = alt
   )
 
@@ -1642,13 +1719,19 @@ sheet_add_drawing.external_img <- function(x, value, sheet,
 
 #' @export
 #' @method sheet_add_drawing gg
-sheet_add_drawing.gg <- function(x, value, sheet,
-                                 left = 1, top = 1,
-                                 width = 6, height = 4,
-                                 res = 300,
-                                 alt_text = "",
-                                 scale = 1,
-                                 ...) {
+sheet_add_drawing.gg <- function(
+  x,
+  value,
+  sheet,
+  left = 1,
+  top = 1,
+  width = 6,
+  height = 4,
+  res = 300,
+  alt_text = "",
+  scale = 1,
+  ...
+) {
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     cli::cli_abort("The {.pkg ggplot2} package is required for this method.")
   }
@@ -1657,8 +1740,12 @@ sheet_add_drawing.gg <- function(x, value, sheet,
   file <- tempfile(fileext = ".png")
   ragg::agg_png(
     filename = file,
-    width = width, height = height, units = "in",
-    res = res, scaling = scale, background = "transparent",
+    width = width,
+    height = height,
+    units = "in",
+    res = res,
+    scaling = scale,
+    background = "transparent",
     ...
   )
   print(value)
@@ -1673,7 +1760,9 @@ sheet_add_drawing.gg <- function(x, value, sheet,
   sheet_add_drawing(
     x,
     external_img(file, width = width, height = height, alt = alt_text),
-    sheet = sheet, left = left, top = top
+    sheet = sheet,
+    left = left,
+    top = top
   )
 }
 

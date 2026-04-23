@@ -62,7 +62,9 @@ body_append_start_context <- function(x, additional_ns = character()) {
   current_xml_str <- as.character(xml_doc)
   writeLines(current_xml_str, current_xml_file, useBytes = TRUE)
   current_xml_str_lines <- readLines(
-    current_xml_file, encoding = "UTF-8", warn = FALSE
+    current_xml_file,
+    encoding = "UTF-8",
+    warn = FALSE
   )
   unlink(current_xml_file)
 

@@ -59,8 +59,7 @@ test_that("sheet_select deselects other sheets", {
   )
   expect_length(sheet_files, 1)
   ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
-  sheet_xml <- read_xml(file.path(unpack_dir, "xl/worksheets",
-                                  sheet_files[1]))
+  sheet_xml <- read_xml(file.path(unpack_dir, "xl/worksheets", sheet_files[1]))
   sv <- xml_find_first(sheet_xml, "d1:sheetViews/d1:sheetView", ns = ns)
   expect_equal(xml_attr(sv, "tabSelected"), "1")
 })
@@ -430,27 +429,51 @@ sheet_cells_xml <- function(doc, sheet_xml_name = "sheet1.xml") {
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  paste(readLines(file.path(unpack_dir, "xl/worksheets", sheet_xml_name)),
-        collapse = "\n")
+  paste(
+    readLines(file.path(unpack_dir, "xl/worksheets", sheet_xml_name)),
+    collapse = "\n"
+  )
 }
 
 test_that("sheet_write_data dispatches on character (vertical)", {
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "chr")
-  doc <- sheet_write_data(doc, value = c("A", "B", "C"),
-                          sheet = "chr", start_row = 2, start_col = 3)
+  doc <- sheet_write_data(
+    doc,
+    value = c("A", "B", "C"),
+    sheet = "chr",
+    start_row = 2,
+    start_col = 3
+  )
   xml <- sheet_cells_xml(doc)
-  expect_match(xml, "<c r=\"C2\" t=\"inlineStr\"><is><t[^>]*>A</t>", fixed = FALSE)
-  expect_match(xml, "<c r=\"C3\" t=\"inlineStr\"><is><t[^>]*>B</t>", fixed = FALSE)
-  expect_match(xml, "<c r=\"C4\" t=\"inlineStr\"><is><t[^>]*>C</t>", fixed = FALSE)
+  expect_match(
+    xml,
+    "<c r=\"C2\" t=\"inlineStr\"><is><t[^>]*>A</t>",
+    fixed = FALSE
+  )
+  expect_match(
+    xml,
+    "<c r=\"C3\" t=\"inlineStr\"><is><t[^>]*>B</t>",
+    fixed = FALSE
+  )
+  expect_match(
+    xml,
+    "<c r=\"C4\" t=\"inlineStr\"><is><t[^>]*>C</t>",
+    fixed = FALSE
+  )
 })
 
 test_that("sheet_write_data dispatches on character (horizontal)", {
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "chr")
-  doc <- sheet_write_data(doc, value = c("X", "Y", "Z"),
-                          sheet = "chr", start_row = 1, start_col = 1,
-                          direction = "horizontal")
+  doc <- sheet_write_data(
+    doc,
+    value = c("X", "Y", "Z"),
+    sheet = "chr",
+    start_row = 1,
+    start_col = 1,
+    direction = "horizontal"
+  )
   xml <- sheet_cells_xml(doc)
   expect_match(xml, "r=\"A1\"[^>]*>[^<]*<is><t[^>]*>X</t>", fixed = FALSE)
   expect_match(xml, "r=\"B1\"[^>]*>[^<]*<is><t[^>]*>Y</t>", fixed = FALSE)
@@ -465,39 +488,52 @@ test_that("sheet_write_data on fpar mixes bare strings and ftext", {
     ftext("bold", fp_text_lite(bold = TRUE)),
     " plain again"
   )
-  doc <- sheet_write_data(doc, value = f, sheet = "fp",
-                          start_row = 1, start_col = 1)
+  doc <- sheet_write_data(
+    doc,
+    value = f,
+    sheet = "fp",
+    start_row = 1,
+    start_col = 1
+  )
   xml <- sheet_cells_xml(doc)
   expect_match(xml, "<c r=\"A1\" t=\"inlineStr\">", fixed = TRUE)
   # bare string runs have no <rPr>
   expect_match(xml, "<r><t xml:space=\"preserve\">plain </t></r>", fixed = TRUE)
-  expect_match(xml, "<b/>",              fixed = TRUE)
-  expect_match(xml, ">bold</t>",         fixed = TRUE)
-  expect_match(xml,
-    "<r><t xml:space=\"preserve\"> plain again</t></r>", fixed = TRUE)
+  expect_match(xml, "<b/>", fixed = TRUE)
+  expect_match(xml, ">bold</t>", fixed = TRUE)
+  expect_match(
+    xml,
+    "<r><t xml:space=\"preserve\"> plain again</t></r>",
+    fixed = TRUE
+  )
 })
 
 test_that("sheet_write_data on fpar emits richtext runs", {
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "fp")
   f <- fpar(
-    ftext("bold ",    fp_text(bold = TRUE, color = "red")),
-    ftext("italic ",  fp_text(italic = TRUE)),
-    ftext("under ",   fp_text(underlined = TRUE)),
-    ftext("strike ",  fp_text(strike = TRUE)),
+    ftext("bold ", fp_text(bold = TRUE, color = "red")),
+    ftext("italic ", fp_text(italic = TRUE)),
+    ftext("under ", fp_text(underlined = TRUE)),
+    ftext("strike ", fp_text(strike = TRUE)),
     ftext("H", fp_text()),
     ftext("2", fp_text(vertical.align = "subscript")),
     ftext("O", fp_text())
   )
-  doc <- sheet_write_data(doc, value = f, sheet = "fp",
-                          start_row = 1, start_col = 1)
+  doc <- sheet_write_data(
+    doc,
+    value = f,
+    sheet = "fp",
+    start_row = 1,
+    start_col = 1
+  )
   xml <- sheet_cells_xml(doc)
   expect_match(xml, "<c r=\"A1\" t=\"inlineStr\">", fixed = TRUE)
-  expect_match(xml, "<b/>",       fixed = TRUE)
+  expect_match(xml, "<b/>", fixed = TRUE)
   expect_match(xml, "rgb=\"FFFF0000\"", fixed = TRUE)
-  expect_match(xml, "<i/>",       fixed = TRUE)
-  expect_match(xml, "<u/>",       fixed = TRUE)
-  expect_match(xml, "<strike/>",  fixed = TRUE)
+  expect_match(xml, "<i/>", fixed = TRUE)
+  expect_match(xml, "<u/>", fixed = TRUE)
+  expect_match(xml, "<strike/>", fixed = TRUE)
   expect_match(xml, "<vertAlign val=\"subscript\"/>", fixed = TRUE)
 })
 
@@ -512,34 +548,51 @@ test_that("xlsx_styles$get_font_id caches fonts by signature", {
   styles <- doc$styles
 
   # first call -> registers a new font, returns a 0-based index
-  id1 <- styles$get_font_id(name = "Arial", size = 12,
-                            bold = TRUE, italic = FALSE,
-                            underline = FALSE, color = "FF0000")
+  id1 <- styles$get_font_id(
+    name = "Arial",
+    size = 12,
+    bold = TRUE,
+    italic = FALSE,
+    underline = FALSE,
+    color = "FF0000"
+  )
   expect_true(is.numeric(id1))
   expect_gte(id1, 0)
 
   # same signature -> same index (cache hit)
-  id2 <- styles$get_font_id(name = "Arial", size = 12,
-                            bold = TRUE, italic = FALSE,
-                            underline = FALSE, color = "FF0000")
+  id2 <- styles$get_font_id(
+    name = "Arial",
+    size = 12,
+    bold = TRUE,
+    italic = FALSE,
+    underline = FALSE,
+    color = "FF0000"
+  )
   expect_equal(id1, id2)
 
   # different signature -> different index
-  id3 <- styles$get_font_id(name = "Arial", size = 12,
-                            bold = FALSE, italic = TRUE,
-                            underline = TRUE, color = "00FF00")
+  id3 <- styles$get_font_id(
+    name = "Arial",
+    size = 12,
+    bold = FALSE,
+    italic = TRUE,
+    underline = TRUE,
+    color = "00FF00"
+  )
   expect_false(id3 == id1)
 
   # the new font XML is persisted in styles.xml on print
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  styles_xml <- paste(readLines(file.path(unpack_dir, "xl/styles.xml")),
-                      collapse = "\n")
-  expect_match(styles_xml, "Arial",    fixed = TRUE)
-  expect_match(styles_xml, "<b/>",     fixed = TRUE)
-  expect_match(styles_xml, "<i/>",     fixed = TRUE)
-  expect_match(styles_xml, "<u/>",     fixed = TRUE)
+  styles_xml <- paste(
+    readLines(file.path(unpack_dir, "xl/styles.xml")),
+    collapse = "\n"
+  )
+  expect_match(styles_xml, "Arial", fixed = TRUE)
+  expect_match(styles_xml, "<b/>", fixed = TRUE)
+  expect_match(styles_xml, "<i/>", fixed = TRUE)
+  expect_match(styles_xml, "<u/>", fixed = TRUE)
   expect_match(styles_xml, "FF00FF00", fixed = TRUE)
 })
 
@@ -562,10 +615,12 @@ test_that("xlsx_styles$get_fill_id caches fills by signature", {
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  styles_xml <- paste(readLines(file.path(unpack_dir, "xl/styles.xml")),
-                      collapse = "\n")
-  expect_match(styles_xml, "FFFF9900",             fixed = TRUE)
-  expect_match(styles_xml, "FF0066CC",             fixed = TRUE)
+  styles_xml <- paste(
+    readLines(file.path(unpack_dir, "xl/styles.xml")),
+    collapse = "\n"
+  )
+  expect_match(styles_xml, "FFFF9900", fixed = TRUE)
+  expect_match(styles_xml, "FF0066CC", fixed = TRUE)
   expect_match(styles_xml, "patternType=\"solid\"", fixed = TRUE)
 })
 
@@ -574,20 +629,28 @@ test_that("xlsx_styles$get_border_id caches borders by signature", {
   styles <- doc$styles
 
   id1 <- styles$get_border_id(
-    top_style    = "thin",   top_color    = "000000",
-    bottom_style = "thick",  bottom_color = "FF0000",
-    left_style   = "medium", left_color   = "00FF00",
-    right_style  = "dashed", right_color  = "0000FF"
+    top_style = "thin",
+    top_color = "000000",
+    bottom_style = "thick",
+    bottom_color = "FF0000",
+    left_style = "medium",
+    left_color = "00FF00",
+    right_style = "dashed",
+    right_color = "0000FF"
   )
   expect_true(is.numeric(id1))
   expect_gte(id1, 0)
 
   # cache hit
   id2 <- styles$get_border_id(
-    top_style    = "thin",   top_color    = "000000",
-    bottom_style = "thick",  bottom_color = "FF0000",
-    left_style   = "medium", left_color   = "00FF00",
-    right_style  = "dashed", right_color  = "0000FF"
+    top_style = "thin",
+    top_color = "000000",
+    bottom_style = "thick",
+    bottom_color = "FF0000",
+    left_style = "medium",
+    left_color = "00FF00",
+    right_style = "dashed",
+    right_color = "0000FF"
   )
   expect_equal(id1, id2)
 
@@ -598,16 +661,18 @@ test_that("xlsx_styles$get_border_id caches borders by signature", {
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  styles_xml <- paste(readLines(file.path(unpack_dir, "xl/styles.xml")),
-                      collapse = "\n")
+  styles_xml <- paste(
+    readLines(file.path(unpack_dir, "xl/styles.xml")),
+    collapse = "\n"
+  )
   # sides with styles and colours
-  expect_match(styles_xml, "<top style=\"thin\"",    fixed = TRUE)
+  expect_match(styles_xml, "<top style=\"thin\"", fixed = TRUE)
   expect_match(styles_xml, "<bottom style=\"thick\"", fixed = TRUE)
-  expect_match(styles_xml, "<left style=\"medium\"",  fixed = TRUE)
+  expect_match(styles_xml, "<left style=\"medium\"", fixed = TRUE)
   expect_match(styles_xml, "<right style=\"dashed\"", fixed = TRUE)
-  expect_match(styles_xml, "FFFF0000",                fixed = TRUE)
+  expect_match(styles_xml, "FFFF0000", fixed = TRUE)
   # mandatory <diagonal/> empty placeholder
-  expect_match(styles_xml, "<diagonal/>",             fixed = TRUE)
+  expect_match(styles_xml, "<diagonal/>", fixed = TRUE)
 })
 
 test_that("sheet_write_data on block_list stacks fpars vertically", {
@@ -617,8 +682,13 @@ test_that("sheet_write_data on block_list stacks fpars vertically", {
     fpar(ftext("line 1", fp_text(bold = TRUE))),
     fpar(ftext("line 2", fp_text(italic = TRUE)))
   )
-  doc <- sheet_write_data(doc, value = bl, sheet = "bl",
-                          start_row = 5, start_col = 2)
+  doc <- sheet_write_data(
+    doc,
+    value = bl,
+    sheet = "bl",
+    start_row = 5,
+    start_col = 2
+  )
   xml <- sheet_cells_xml(doc)
   expect_match(xml, "r=\"B5\"[^>]*t=\"inlineStr\"", fixed = FALSE)
   expect_match(xml, "r=\"B6\"[^>]*t=\"inlineStr\"", fixed = FALSE)
@@ -629,23 +699,27 @@ test_that("sheet_write_data on block_list stacks fpars vertically", {
 test_that("sheet_write_data default method errors on unsupported input", {
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "x")
-  expect_error(sheet_write_data(doc, value = 42, sheet = "x"),
-               "method")
+  expect_error(sheet_write_data(doc, value = 42, sheet = "x"), "method")
 })
 
 test_that("sheet_add_drawing.gg renders a ggplot as PNG and embeds it", {
   skip_if_not_installed("ggplot2")
   skip_if_not_installed("ragg")
 
-  gg <- ggplot2::ggplot(iris,
-                        ggplot2::aes(Sepal.Length, Sepal.Width)) +
+  gg <- ggplot2::ggplot(iris, ggplot2::aes(Sepal.Length, Sepal.Width)) +
     ggplot2::geom_point()
 
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "plots")
-  doc <- sheet_add_drawing(doc, value = gg, sheet = "plots",
-                           left = 1, top = 1,
-                           width = 4, height = 3)
+  doc <- sheet_add_drawing(
+    doc,
+    value = gg,
+    sheet = "plots",
+    left = 1,
+    top = 1,
+    width = 4,
+    height = 3
+  )
 
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
@@ -655,8 +729,10 @@ test_that("sheet_add_drawing.gg renders a ggplot as PNG and embeds it", {
   expect_length(media, 1)
   expect_match(media[1], "\\.png$")
 
-  drawings <- list.files(file.path(unpack_dir, "xl/drawings"),
-                         pattern = "\\.xml$")
+  drawings <- list.files(
+    file.path(unpack_dir, "xl/drawings"),
+    pattern = "\\.xml$"
+  )
   expect_length(drawings, 1)
 })
 
@@ -666,12 +742,20 @@ test_that("sheet_add_drawing(.external_img) embeds images", {
 
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "pics")
-  doc <- sheet_add_drawing(doc, sheet = "pics",
-                           value = external_img(img, width = 2, height = 1.5),
-                           left = 2, top = 1)
-  doc <- sheet_add_drawing(doc, sheet = "pics",
-                           value = external_img(img, width = 3, height = 2),
-                           left = 2, top = 4)
+  doc <- sheet_add_drawing(
+    doc,
+    sheet = "pics",
+    value = external_img(img, width = 2, height = 1.5),
+    left = 2,
+    top = 1
+  )
+  doc <- sheet_add_drawing(
+    doc,
+    sheet = "pics",
+    value = external_img(img, width = 3, height = 2),
+    left = 2,
+    top = 4
+  )
 
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
@@ -680,17 +764,20 @@ test_that("sheet_add_drawing(.external_img) embeds images", {
   media <- list.files(file.path(unpack_dir, "xl/media"))
   expect_length(media, 2)
 
-  drawings <- list.files(file.path(unpack_dir, "xl/drawings"),
-                         pattern = "\\.xml$")
+  drawings <- list.files(
+    file.path(unpack_dir, "xl/drawings"),
+    pattern = "\\.xml$"
+  )
   expect_length(drawings, 1)
 
-  drawing_xml <- paste(readLines(file.path(unpack_dir, "xl/drawings",
-                                           drawings[1])),
-                       collapse = "\n")
+  drawing_xml <- paste(
+    readLines(file.path(unpack_dir, "xl/drawings", drawings[1])),
+    collapse = "\n"
+  )
   # both anchors in the single drawing
-  anchors <- regmatches(drawing_xml,
-                        gregexpr("<xdr:absoluteAnchor",
-                                 drawing_xml, perl = TRUE))[[1]]
+  anchors <- regmatches(
+    drawing_xml,
+    gregexpr("<xdr:absoluteAnchor", drawing_xml, perl = TRUE)
+  )[[1]]
   expect_length(anchors, 2)
 })
-

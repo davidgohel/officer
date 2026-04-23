@@ -71,13 +71,13 @@ fortify_master_xfrm <- function(master_xfrm) {
 
   master_xfrm <- dplyr::rename(
     master_xfrm,
-    offx_ref      = "offx",
-    offy_ref      = "offy",
-    cx_ref        = "cx",
-    cy_ref        = "cy",
-    fld_id_ref    = "fld_id",
-    fld_type_ref  = "fld_type",
-    master_name   = "name"
+    offx_ref = "offx",
+    offy_ref = "offy",
+    cx_ref = "cx",
+    cy_ref = "cy",
+    fld_id_ref = "fld_id",
+    fld_type_ref = "fld_type",
+    master_name = "name"
   )
   master_xfrm$id <- NULL
   master_xfrm$ph <- NULL
@@ -136,11 +136,17 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
   x$.i_layout <- get_file_index(x$file)
   x <- arrange(
     x,
-    .data$.i_master, .data$.i_layout, .data$offy, .data$offx
+    .data$.i_master,
+    .data$.i_layout,
+    .data$offy,
+    .data$offx
   )
   x$.i_master <- NULL
   x$.i_layout <- NULL
-  x <- filter(x, !(is.na(.data$offx) | is.na(.data$offy) | is.na(.data$cx) | is.na(.data$cy)))
+  x <- filter(
+    x,
+    !(is.na(.data$offx) | is.na(.data$offy) | is.na(.data$cx) | is.na(.data$cy))
+  )
 
   x$type_idx <- stats::ave(
     x$type,
@@ -247,9 +253,13 @@ set_row_span <- function(row_details) {
 #' @importFrom grDevices col2rgb rgb
 is.color = function(x) {
   # http://stackoverflow.com/a/13290832/3315962
-  out = vapply(x, function(x) {
-    tryCatch(is.matrix(col2rgb(x)), error = function(e) FALSE)
-  }, logical(1))
+  out = vapply(
+    x,
+    function(x) {
+      tryCatch(is.matrix(col2rgb(x)), error = function(e) FALSE)
+    },
+    logical(1)
+  )
 
   nout <- names(out)
   if (!is.null(nout) && anyNA(nout)) {
