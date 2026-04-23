@@ -1377,6 +1377,8 @@ df_to_cells <- function(
 # --- Richtext cell helpers ------------------------------------------------
 # Convert one `ftext`-style chunk (list with $value and $pr = fp_text)
 # to a spreadsheetml <r><rPr>...</rPr><t xml:space="preserve">...</t></r>.
+# Bare-string chunks from `fpar()` are normalised upstream via
+# `fortify_fpar()`.
 chunk_to_xlsx_run <- function(chunk) {
   pr <- chunk$pr
   rpr_parts <- character(0)
@@ -1419,7 +1421,7 @@ chunk_to_xlsx_run <- function(chunk) {
 
 # Convert a fpar to the <is>...</is> body of an inline-string cell.
 fpar_to_inlinestr <- function(fpar) {
-  chunks <- fpar$chunks
+  chunks <- fortify_fpar(fpar)
   if (!length(chunks)) {
     return("<is><t xml:space=\"preserve\"/></is>")
   }

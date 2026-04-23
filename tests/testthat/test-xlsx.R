@@ -457,6 +457,26 @@ test_that("sheet_write_data dispatches on character (horizontal)", {
   expect_match(xml, "r=\"C1\"[^>]*>[^<]*<is><t[^>]*>Z</t>", fixed = FALSE)
 })
 
+test_that("sheet_write_data on fpar mixes bare strings and ftext", {
+  doc <- new_xlsx()
+  doc <- add_sheet(doc, label = "fp")
+  f <- fpar(
+    "plain ",
+    ftext("bold", fp_text_lite(bold = TRUE)),
+    " plain again"
+  )
+  doc <- sheet_write_data(doc, value = f, sheet = "fp",
+                          start_row = 1, start_col = 1)
+  xml <- sheet_cells_xml(doc)
+  expect_match(xml, "<c r=\"A1\" t=\"inlineStr\">", fixed = TRUE)
+  # bare string runs have no <rPr>
+  expect_match(xml, "<r><t xml:space=\"preserve\">plain </t></r>", fixed = TRUE)
+  expect_match(xml, "<b/>",              fixed = TRUE)
+  expect_match(xml, ">bold</t>",         fixed = TRUE)
+  expect_match(xml,
+    "<r><t xml:space=\"preserve\"> plain again</t></r>", fixed = TRUE)
+})
+
 test_that("sheet_write_data on fpar emits richtext runs", {
   doc <- new_xlsx()
   doc <- add_sheet(doc, label = "fp")
