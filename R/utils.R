@@ -69,20 +69,16 @@ fortify_master_xfrm <- function(master_xfrm) {
     master_xfrm <- do.call("rbind", list_xfrm)
   }
 
-  tmp_names <- names(master_xfrm)
-
-  old_ <- c("offx", "offy", "cx", "cy", "fld_id", "fld_type", "name")
-  new_ <- c(
-    "offx_ref",
-    "offy_ref",
-    "cx_ref",
-    "cy_ref",
-    "fld_id_ref",
-    "fld_type_ref",
-    "master_name"
+  master_xfrm <- dplyr::rename(
+    master_xfrm,
+    offx_ref      = "offx",
+    offy_ref      = "offy",
+    cx_ref        = "cx",
+    cy_ref        = "cy",
+    fld_id_ref    = "fld_id",
+    fld_type_ref  = "fld_type",
+    master_name   = "name"
   )
-  tmp_names[match(old_, tmp_names)] <- new_
-  names(master_xfrm) <- tmp_names
   master_xfrm$id <- NULL
   master_xfrm$ph <- NULL
   master_xfrm$ph_label <- NULL
@@ -135,10 +131,16 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
 
   x <- rbind(x, slide_xfrm_no_match, stringsAsFactors = FALSE)
 
-  i_master <- get_file_index(x$master_file)
-  i_layout <- get_file_index(x$file)
-  x <- x[order(i_master, i_layout, x$offy, x$offx), , drop = FALSE] # intuitive sorting: top -> bottom, left -> right
-  x <- x[!(is.na(x$offx) | is.na(x$offy) | is.na(x$cx) | is.na(x$cy)), ]
+  # intuitive sorting: top -> bottom, left -> right
+  x$.i_master <- get_file_index(x$master_file)
+  x$.i_layout <- get_file_index(x$file)
+  x <- arrange(
+    x,
+    .data$.i_master, .data$.i_layout, .data$offy, .data$offx
+  )
+  x$.i_master <- NULL
+  x$.i_layout <- NULL
+  x <- filter(x, !(is.na(.data$offx) | is.na(.data$offy) | is.na(.data$cx) | is.na(.data$cy)))
 
   x$type_idx <- stats::ave(
     x$type,

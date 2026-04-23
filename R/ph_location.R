@@ -99,7 +99,9 @@ get_ph_loc <- function(
     }
     # the ordering of 'type_idx' (top->bottom, left-righ) is different than for the 'id' arg (index
     # along the id colomn). Here, we restore the old ordering, to avoid a breaking change.
-    props <- props[order(props$type, as.integer(props$id)), ] # set order for type idx. Removing the line would result in the default layout properties order, i.e., top->bottom left->right.
+    # set order for type idx. Removing the line would result in the default
+    # layout properties order, i.e., top->bottom left->right.
+    props <- arrange(props, .data$type, as.integer(.data$id))
     props$.id <- stats::ave(
       props$type,
       props$master_name,

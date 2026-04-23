@@ -18,6 +18,7 @@ pack_folder <- function(folder, target) {
     stop(shQuote(target), " already exists and is not writable", call. = FALSE)
   } else if (!file.exists(target)) {
     old_warn <- getOption("warn")
+    on.exit(options(warn = old_warn), add = TRUE)
     options(warn = -1)
     x <- tryCatch(
       {
@@ -27,7 +28,6 @@ pack_folder <- function(folder, target) {
       error = function(e) FALSE,
       finally = unlink(target, force = TRUE)
     )
-    options(warn = old_warn)
     if (!x) {
       stop(
         shQuote(target),

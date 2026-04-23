@@ -72,5 +72,5 @@ docx_comments <- function(x) {
   )
 
   data <- merge(out, data, by = "comment_id", all.x = TRUE)
-  data[order(as.integer(data$comment_id)), ]
+  dplyr::arrange(data, as.integer(.data$comment_id))
 }

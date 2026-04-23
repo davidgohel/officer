@@ -139,10 +139,11 @@ worksheets <- R6Class(
       }
 
       # drop <sheet> entry in workbook.xml
-      children_ <- xml_children(self$get())
-      sheets_node <- children_[[
-        which(sapply(children_, function(x) xml_name(x) == "sheets"))
-      ]]
+      ns <- c(d1 = "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+      sheets_node <- xml_find_first(self$get(), "d1:sheets", ns = ns)
+      if (inherits(sheets_node, "xml_missing")) {
+        cli::cli_abort("No {.code <sheets>} element in workbook.xml.")
+      }
       sheet_nodes <- xml_children(sheets_node)
       xml_remove(sheet_nodes[[idx]])
 

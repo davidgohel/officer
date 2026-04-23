@@ -457,7 +457,7 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
 
   dirname <- tempfile()
   dir.create(dirname)
-  filename <- paste(dirname, "/plot%03d.png", sep = "")
+  filename <- file.path(dirname, "plot%03d.png")
   agg_png(
     filename = filename,
     width = width,
