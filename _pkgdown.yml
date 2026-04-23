@@ -61,7 +61,6 @@ reference:
     - body_add_img
     - body_add_par
     - body_add_table
-    - body_add_blocks
     - body_add_fpar
     - body_add_toc
     - body_add_break
@@ -69,11 +68,7 @@ reference:
     - body_import_docx
     - body_bookmark
     - body_add_gg
-    - body_add_caption
     - body_add_plot
-    - body_end_block_section
-    - body_set_default_section
-    - starts_with("body_end_section")
     - body_comment
     - body_append_start_context
     - write_elements_to_context
@@ -84,6 +79,9 @@ reference:
     - page_mar
     - page_size
     - section_columns
+    - body_set_default_section
+    - body_end_block_section
+    - starts_with("body_end_section")
   - title: Word simple tables
     contents:
     - prop_table
@@ -115,6 +113,9 @@ reference:
     - ph_slidelink
     - ph_hyperlink
     - ph_remove
+    - empty_content
+    - sp_line
+    - sp_lineend
     - set_notes
     - notes_location_label
     - notes_location_type
@@ -134,31 +135,38 @@ reference:
     - media_extract
     - as.matrix.rpptx
   - title: Content formatting
-    desc: Define formatted paragraphs or parts of paragraphs, such as text, calculated Word fields, sets of paragraphs, etc.
+    desc: Define formatted paragraphs or parts of paragraphs, such as text, calculated Word fields, images, or sets of paragraphs. The four sub-sections below go from the atomic formatting specs (properties) up to the composite blocks.
+  - subtitle: Properties
+    desc: Atomic formatting specs consumed by runs, paragraphs and table cells (font, colour, borders, alignment, tab stops, etc.).
+    contents:
+    - fp_text
+    - fp_text_lite
+    - fp_par
+    - fp_par_lite
+    - fp_border
+    - fp_cell
+    - fp_tabs
+    - fp_tab
+  - subtitle: Runs
+    desc: A run is a piece of text inside a paragraph with homogeneous formatting. Runs include plain formatted text, line breaks, hyperlinks, bookmarks, footnotes and Word fields.
+    contents:
+    - ftext
+    - hyperlink_ftext
+    - starts_with("run_")
+    - set_autonum_bookmark
+  - subtitle: Blocks
+    desc: A block is a paragraph-level element (paragraph, caption, table, list, section, pour, table of contents) that can be added to the body of a Word document or to a PowerPoint placeholder.
     contents:
     - fpar
     - starts_with("block_")
     - list_item
     - unordered_list
     - plot_instr
-    - ftext
-    - starts_with("run_")
-    - set_autonum_bookmark
+  - subtitle: Images
+    desc: Raster images embedded either inline in a paragraph or anchored as a floating element.
+    contents:
     - external_img
     - floating_external_img
-    - hyperlink_ftext
-    - empty_content
-    - sp_line
-    - sp_lineend
-  - title: Formatting properties
-    contents:
-    - fp_text_lite
-    - fp_text
-    - fp_par
-    - fp_border
-    - fp_cell
-    - fp_tabs
-    - fp_tab
   - title: RTF
     contents:
     - rtf_doc
@@ -176,9 +184,6 @@ reference:
     contents:
     - officer
     - open_file
-    - read_xlsx
-    - add_sheet
-    - sheet_select
     - shortcuts
 navbar:
   title: officer
