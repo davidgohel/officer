@@ -113,9 +113,6 @@ resolve_location(2)
 #> $position_right
 #> NULL
 #> 
-#> $position_right
-#> NULL
-#> 
 #> $position_top
 #> NULL
 #> 
