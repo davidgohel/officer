@@ -560,6 +560,8 @@ floating element.
   : Create an 'Excel' document object
 - [`add_sheet()`](https://davidgohel.github.io/officer/dev/reference/add_sheet.md)
   : Add a sheet
+- [`sheet_names()`](https://davidgohel.github.io/officer/dev/reference/sheet_names.md)
+  : Sheet names of an xlsx workbook
 - [`sheet_select()`](https://davidgohel.github.io/officer/dev/reference/sheet_select.md)
   : Select sheet
 - [`sheet_remove()`](https://davidgohel.github.io/officer/dev/reference/sheet_remove.md)

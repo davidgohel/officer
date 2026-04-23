@@ -73,5 +73,5 @@ x <- add_slide(x, "Title and Content")
 x <- remove_slide(x, index = c(2, 4))
 pptx_file <- print(x, target = tempfile(fileext = ".pptx"))
 pptx_file
-#> [1] "/tmp/Rtmp66PyET/file17ed4be4e619.pptx"
+#> [1] "/tmp/RtmpICdTei/file172315b53609.pptx"
 ```

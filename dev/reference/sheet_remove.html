@@ -9,7 +9,7 @@ worksheet XML, its relationship file and the content-type override."><meta prope
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.010</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,10 +64,8 @@ worksheet XML, its relationship file and the content-type override.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xlsx.html">read_xlsx</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">default_name</span> <span class="op">&lt;-</span> <span class="va">wb</span><span class="op">$</span><span class="va">worksheets</span><span class="op">$</span><span class="fu">sheet_names</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="co"># touch the default sheet first so add_sheet does not auto-drop it</span></span></span>
-<span class="r-in"><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="sheet_write_data.html">sheet_write_data</a></span><span class="op">(</span><span class="va">wb</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">2</span><span class="op">)</span>, sheet <span class="op">=</span> <span class="va">default_name</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_sheet.html">add_sheet</a></span><span class="op">(</span><span class="va">wb</span>, <span class="st">"kept"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">default_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="sheet_names.html">sheet_names</a></span><span class="op">(</span><span class="va">wb</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">wb</span> <span class="op">&lt;-</span> <span class="fu">sheet_remove</span><span class="op">(</span><span class="va">wb</span>, sheet <span class="op">=</span> <span class="va">default_name</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wb</span>, target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".xlsx"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>

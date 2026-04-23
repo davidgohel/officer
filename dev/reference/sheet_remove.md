@@ -27,10 +27,8 @@ the rxlsx object (invisibly)
 
 ``` r
 wb <- read_xlsx()
-default_name <- wb$worksheets$sheet_names()[1]
-# touch the default sheet first so add_sheet does not auto-drop it
-wb <- sheet_write_data(wb, head(iris, 2), sheet = default_name)
 wb <- add_sheet(wb, "kept")
+default_name <- sheet_names(wb)[1]
 wb <- sheet_remove(wb, sheet = default_name)
 print(wb, target = tempfile(fileext = ".xlsx"))
 ```
