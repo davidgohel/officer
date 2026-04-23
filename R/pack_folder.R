@@ -68,7 +68,7 @@ pack_folder <- function(folder, target) {
 unpack_folder <- function(file, folder) {
   stopifnot(file.exists(file))
 
-  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", file)
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-9]+)$", "\\2", file)
 
   # force deletion if already existing
   unlink(folder, recursive = TRUE, force = TRUE)

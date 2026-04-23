@@ -13,8 +13,8 @@ wml_link_images <- function(x, str) {
 # by capturing the path, we are making 'unique' new image names.
 #' @importFrom openssl sha1
 fake_newname <- function(filename) {
-  which_files <- grepl("\\.[a-zA-Z0-0]+$", filename)
-  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", filename[which_files])
+  which_files <- grepl("\\.[a-zA-Z0-9]+$", filename)
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-9]+)$", "\\2", filename[which_files])
   dest_basename <- sapply(filename[which_files], function(z) {
     as.character(sha1(file(z)))
   })

@@ -41,7 +41,7 @@ body_add_img <- function(
 
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
-  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", src)
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-9]+)$", "\\2", src)
 
   if (file_type %in% ".svg") {
     if (!requireNamespace("rsvg")) {
@@ -1150,7 +1150,7 @@ body_add.external_img <- function(x, value, style = "Normal", ...) {
     style <- x$default_styles$paragraph
   }
 
-  file_type <- gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", value)
+  file_type <- gsub("(.*)(\\.[a-zA-Z0-9]+)$", "\\2", value)
 
   if (file_type %in% ".svg") {
     if (!requireNamespace("rsvg")) {

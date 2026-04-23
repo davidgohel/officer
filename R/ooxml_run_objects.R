@@ -1214,7 +1214,7 @@ temp_blipfill <- function(value, ns = "p") {
     rsvg::rsvg_png(svg_src, file = img_src)
   } else {
     img_src <- tempfile(
-      fileext = gsub("(.*)(\\.[a-zA-Z0-0]+)$", "\\2", as.character(value))
+      fileext = gsub("(.*)(\\.[a-zA-Z0-9]+)$", "\\2", as.character(value))
     )
     file.copy(as.character(value), to = img_src)
   }
