@@ -25,10 +25,11 @@
   has an `external_img` method and a `gg` method.
 - new function
   [`sheet_remove()`](https://davidgohel.github.io/officer/dev/reference/sheet_remove.md)
-  to delete a sheet from an xlsx workbook
+  to delete a sheet from an xlsx workbook.
   [`add_sheet()`](https://davidgohel.github.io/officer/dev/reference/add_sheet.md)
-  auto-drops the template’s default sheet the first time it is called on
-  a pristine workbook.
+  is purely additive and never drops any sheet; call
+  [`sheet_remove()`](https://davidgohel.github.io/officer/dev/reference/sheet_remove.md)
+  explicitly if the template’s default sheet is not wanted.
 
 #### Word
 

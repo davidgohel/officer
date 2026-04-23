@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="section level4">
 <h4 id="excel-0-7-4">Excel<a class="anchor" aria-label="anchor" href="#excel-0-7-4"></a></h4>
 <ul><li>new functions <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code> and <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> for writing data and inserting drawings (charts, vector graphics) into xlsx workbooks. <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code> is an S3 generic: beside <code>data.frame</code>, it also accepts a <code>character</code> vector (one cell per element, vertical by default; <code>direction = "horizontal"</code> for a row), an [<code><a href="../reference/fpar.html">fpar()</a></code>] (richtext inline cell honouring bold, italic, underline, strikethrough, size, colour, font, sub/superscript) and a [<code><a href="../reference/block_list.html">block_list()</a></code>] (one cell per <code>fpar</code> item, stacked). <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> has an <code>external_img</code> method and a <code>gg</code> method.</li>
-<li>new function <code><a href="../reference/sheet_remove.html">sheet_remove()</a></code> to delete a sheet from an xlsx workbook <code><a href="../reference/add_sheet.html">add_sheet()</a></code> auto-drops the template’s default sheet the first time it is called on a pristine workbook.</li>
+<li>new function <code><a href="../reference/sheet_remove.html">sheet_remove()</a></code> to delete a sheet from an xlsx workbook. <code><a href="../reference/add_sheet.html">add_sheet()</a></code> is purely additive and never drops any sheet; call <code><a href="../reference/sheet_remove.html">sheet_remove()</a></code> explicitly if the template’s default sheet is not wanted.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="word-0-7-4">Word<a class="anchor" aria-label="anchor" href="#word-0-7-4"></a></h4>
