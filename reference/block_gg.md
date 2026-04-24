@@ -53,11 +53,13 @@ block_gg(
 Other block functions for reporting:
 [`block_caption()`](https://davidgohel.github.io/officer/reference/block_caption.md),
 [`block_list()`](https://davidgohel.github.io/officer/reference/block_list.md),
+[`block_list_items()`](https://davidgohel.github.io/officer/reference/block_list_items.md),
 [`block_pour_docx()`](https://davidgohel.github.io/officer/reference/block_pour_docx.md),
 [`block_section()`](https://davidgohel.github.io/officer/reference/block_section.md),
 [`block_table()`](https://davidgohel.github.io/officer/reference/block_table.md),
 [`block_toc()`](https://davidgohel.github.io/officer/reference/block_toc.md),
 [`fpar()`](https://davidgohel.github.io/officer/reference/fpar.md),
+[`list_item()`](https://davidgohel.github.io/officer/reference/list_item.md),
 [`plot_instr()`](https://davidgohel.github.io/officer/reference/plot_instr.md),
 [`unordered_list()`](https://davidgohel.github.io/officer/reference/unordered_list.md)
 

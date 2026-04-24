@@ -15,7 +15,7 @@ be used in conjunction with the body_add_* functions."><meta property="og:image"
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,9 @@ be used in conjunction with the <code>body_add_*</code> functions.</p>
 <span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'block_list'</span></span>
+<span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'block_list_items'</span></span>
 <span><span class="fu">body_add</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'block_toc'</span></span>
@@ -206,6 +209,7 @@ in a faster way because the cursor is not calculated for
 each iteraction over the elements, as a consequence the
 function only append elements at the end of the document
 and does not allow to insert elements at a specific position.</p></li>
+<li><p><code>body_add(block_list_items)</code>: add a <a href="block_list_items.html">block_list_items</a> object (bullet or numbered list).</p></li>
 <li><p><code>body_add(block_toc)</code>: add a table of content (a <a href="block_toc.html">block_toc</a> object).</p></li>
 <li><p><code>body_add(external_img)</code>: add an image (a <a href="external_img.html">external_img</a> object).</p></li>
 <li><p><code>body_add(run_pagebreak)</code>: add a <a href="run_pagebreak.html">run_pagebreak</a> object.</p></li>

@@ -177,6 +177,8 @@ and appveyor and you will be able to see if something broke.
   : Add or replace paragraph style in a Word document
 - [`docx_set_character_style()`](https://davidgohel.github.io/officer/reference/docx_set_character_style.md)
   : Add character style in a Word document
+- [`docx_embed_font()`](https://davidgohel.github.io/officer/reference/docx_embed_font.md)
+  : Embed Fonts in a Word Document
 - [`docx_set_settings()`](https://davidgohel.github.io/officer/reference/docx_set_settings.md)
   : Set 'Microsoft Word' Document Settings
 - [`change_styles()`](https://davidgohel.github.io/officer/reference/change_styles.md)
@@ -217,6 +219,8 @@ and appveyor and you will be able to see if something broke.
 
 - [`body_add_blocks()`](https://davidgohel.github.io/officer/reference/body_add_blocks.md)
   : Add a list of blocks into a 'Word' document
+- [`body_add_list()`](https://davidgohel.github.io/officer/reference/body_add_list.md)
+  : Add a list of items into a 'Word' document
 - [`body_add_caption()`](https://davidgohel.github.io/officer/reference/body_add_caption.md)
   : Add Word caption in a 'Word' document
 - [`body_add_img()`](https://davidgohel.github.io/officer/reference/body_add_img.md)
@@ -241,20 +245,6 @@ and appveyor and you will be able to see if something broke.
   : Add a 'ggplot' in a 'Word' document
 - [`body_add_plot()`](https://davidgohel.github.io/officer/reference/body_add_plot.md)
   : Add plot in a 'Word' document
-- [`body_end_block_section()`](https://davidgohel.github.io/officer/reference/body_end_block_section.md)
-  : Add any section
-- [`body_set_default_section()`](https://davidgohel.github.io/officer/reference/body_set_default_section.md)
-  : Define Default Section
-- [`body_end_section_columns()`](https://davidgohel.github.io/officer/reference/body_end_section_columns.md)
-  : Add multi columns section
-- [`body_end_section_columns_landscape()`](https://davidgohel.github.io/officer/reference/body_end_section_columns_landscape.md)
-  : Add a landscape multi columns section
-- [`body_end_section_continuous()`](https://davidgohel.github.io/officer/reference/body_end_section_continuous.md)
-  : Add continuous section
-- [`body_end_section_landscape()`](https://davidgohel.github.io/officer/reference/body_end_section_landscape.md)
-  : Add landscape section
-- [`body_end_section_portrait()`](https://davidgohel.github.io/officer/reference/body_end_section_portrait.md)
-  : Add portrait section
 - [`body_comment()`](https://davidgohel.github.io/officer/reference/body_comment.md)
   : Add comment in a 'Word' document
 - [`body_append_start_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
@@ -272,6 +262,20 @@ and appveyor and you will be able to see if something broke.
   : Page size object
 - [`section_columns()`](https://davidgohel.github.io/officer/reference/section_columns.md)
   : Section columns
+- [`body_set_default_section()`](https://davidgohel.github.io/officer/reference/body_set_default_section.md)
+  : Define Default Section
+- [`body_end_block_section()`](https://davidgohel.github.io/officer/reference/body_end_block_section.md)
+  : Add any section
+- [`body_end_section_columns()`](https://davidgohel.github.io/officer/reference/body_end_section_columns.md)
+  : Add multi columns section
+- [`body_end_section_columns_landscape()`](https://davidgohel.github.io/officer/reference/body_end_section_columns_landscape.md)
+  : Add a landscape multi columns section
+- [`body_end_section_continuous()`](https://davidgohel.github.io/officer/reference/body_end_section_continuous.md)
+  : Add continuous section
+- [`body_end_section_landscape()`](https://davidgohel.github.io/officer/reference/body_end_section_landscape.md)
+  : Add landscape section
+- [`body_end_section_portrait()`](https://davidgohel.github.io/officer/reference/body_end_section_portrait.md)
+  : Add portrait section
 
 ## Word simple tables
 
@@ -343,6 +347,7 @@ and appveyor and you will be able to see if something broke.
   [`ph_with.Date()`](https://davidgohel.github.io/officer/reference/ph_with.md)
   [`ph_with.block_list()`](https://davidgohel.github.io/officer/reference/ph_with.md)
   [`ph_with.unordered_list()`](https://davidgohel.github.io/officer/reference/ph_with.md)
+  [`ph_with.block_list_items()`](https://davidgohel.github.io/officer/reference/ph_with.md)
   [`ph_with.data.frame()`](https://davidgohel.github.io/officer/reference/ph_with.md)
   [`ph_with.gg()`](https://davidgohel.github.io/officer/reference/ph_with.md)
   [`ph_with.plot_instr()`](https://davidgohel.github.io/officer/reference/ph_with.md)
@@ -375,6 +380,16 @@ and appveyor and you will be able to see if something broke.
   : Hyperlink a placeholder
 - [`ph_remove()`](https://davidgohel.github.io/officer/reference/ph_remove.md)
   : Remove a shape
+- [`empty_content()`](https://davidgohel.github.io/officer/reference/empty_content.md)
+  : Empty block for 'PowerPoint'
+- [`sp_line()`](https://davidgohel.github.io/officer/reference/sp_line.md)
+  [`print(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
+  [`update(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
+  : Line properties
+- [`sp_lineend()`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
+  [`print(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
+  [`update(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
+  : Line end properties
 - [`set_notes()`](https://davidgohel.github.io/officer/reference/set_notes.md)
   : Set notes for current slide
 - [`notes_location_label()`](https://davidgohel.github.io/officer/reference/notes_location_label.md)
@@ -415,31 +430,49 @@ and appveyor and you will be able to see if something broke.
 ## Content formatting
 
 Define formatted paragraphs or parts of paragraphs, such as text,
-calculated Word fields, sets of paragraphs, etc.
+calculated Word fields, images, or sets of paragraphs. The four
+sub-sections below go from the atomic formatting specs (properties) up
+to the composite blocks.
 
-- [`fpar()`](https://davidgohel.github.io/officer/reference/fpar.md)
-  [`update(`*`<fpar>`*`)`](https://davidgohel.github.io/officer/reference/fpar.md)
-  : Formatted paragraph
-- [`block_caption()`](https://davidgohel.github.io/officer/reference/block_caption.md)
-  : Caption block
-- [`block_gg()`](https://davidgohel.github.io/officer/reference/block_gg.md)
-  : 'ggplot' block
-- [`block_list()`](https://davidgohel.github.io/officer/reference/block_list.md)
-  : List of blocks
-- [`block_pour_docx()`](https://davidgohel.github.io/officer/reference/block_pour_docx.md)
-  : External Word document placeholder
-- [`block_section()`](https://davidgohel.github.io/officer/reference/block_section.md)
-  : Section for 'Word'
-- [`block_table()`](https://davidgohel.github.io/officer/reference/block_table.md)
-  : Table block
-- [`block_toc()`](https://davidgohel.github.io/officer/reference/block_toc.md)
-  : Table of content for 'Word'
-- [`unordered_list()`](https://davidgohel.github.io/officer/reference/unordered_list.md)
-  : Unordered list
-- [`plot_instr()`](https://davidgohel.github.io/officer/reference/plot_instr.md)
-  : Wrap plot instructions for png plotting in Powerpoint or Word
+### Properties
+
+Atomic formatting specs consumed by runs, paragraphs and table cells
+(font, colour, borders, alignment, tab stops, etc.).
+
+- [`fp_text()`](https://davidgohel.github.io/officer/reference/fp_text.md)
+  [`fp_text_lite()`](https://davidgohel.github.io/officer/reference/fp_text.md)
+  [`format(`*`<fp_text>`*`)`](https://davidgohel.github.io/officer/reference/fp_text.md)
+  [`print(`*`<fp_text>`*`)`](https://davidgohel.github.io/officer/reference/fp_text.md)
+  [`update(`*`<fp_text>`*`)`](https://davidgohel.github.io/officer/reference/fp_text.md)
+  : Text formatting properties
+- [`fp_par()`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  [`fp_par_lite()`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  [`print(`*`<fp_par>`*`)`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  [`update(`*`<fp_par>`*`)`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  : Paragraph formatting properties
+- [`fp_border()`](https://davidgohel.github.io/officer/reference/fp_border.md)
+  [`update(`*`<fp_border>`*`)`](https://davidgohel.github.io/officer/reference/fp_border.md)
+  : Border properties object
+- [`fp_cell()`](https://davidgohel.github.io/officer/reference/fp_cell.md)
+  [`format(`*`<fp_cell>`*`)`](https://davidgohel.github.io/officer/reference/fp_cell.md)
+  [`print(`*`<fp_cell>`*`)`](https://davidgohel.github.io/officer/reference/fp_cell.md)
+  [`update(`*`<fp_cell>`*`)`](https://davidgohel.github.io/officer/reference/fp_cell.md)
+  : Cell formatting properties
+- [`fp_tabs()`](https://davidgohel.github.io/officer/reference/fp_tabs.md)
+  : Tabs properties object
+- [`fp_tab()`](https://davidgohel.github.io/officer/reference/fp_tab.md)
+  : Tabulation mark properties object
+
+### Runs
+
+A run is a piece of text inside a paragraph with homogeneous formatting.
+Runs include plain formatted text, line breaks, hyperlinks, bookmarks,
+footnotes and Word fields.
+
 - [`ftext()`](https://davidgohel.github.io/officer/reference/ftext.md) :
   Formatted chunk of text
+- [`hyperlink_ftext()`](https://davidgohel.github.io/officer/reference/hyperlink_ftext.md)
+  : Formatted chunk of text with hyperlink
 - [`run_autonum()`](https://davidgohel.github.io/officer/reference/run_autonum.md)
   : Auto number
 - [`run_bookmark()`](https://davidgohel.github.io/officer/reference/run_bookmark.md)
@@ -467,48 +500,48 @@ calculated Word fields, sets of paragraphs, etc.
   : Word chunk of text with a style
 - [`set_autonum_bookmark()`](https://davidgohel.github.io/officer/reference/set_autonum_bookmark.md)
   : Update bookmark of an autonumber run
+
+### Blocks
+
+A block is a paragraph-level element (paragraph, caption, table, list,
+section, pour, table of contents) that can be added to the body of a
+Word document or to a PowerPoint placeholder.
+
+- [`fpar()`](https://davidgohel.github.io/officer/reference/fpar.md)
+  [`update(`*`<fpar>`*`)`](https://davidgohel.github.io/officer/reference/fpar.md)
+  : Formatted paragraph
+- [`block_caption()`](https://davidgohel.github.io/officer/reference/block_caption.md)
+  : Caption block
+- [`block_gg()`](https://davidgohel.github.io/officer/reference/block_gg.md)
+  : 'ggplot' block
+- [`block_list()`](https://davidgohel.github.io/officer/reference/block_list.md)
+  : List of blocks
+- [`block_list_items()`](https://davidgohel.github.io/officer/reference/block_list_items.md)
+  : List of items for Word and PowerPoint
+- [`block_pour_docx()`](https://davidgohel.github.io/officer/reference/block_pour_docx.md)
+  : External Word document placeholder
+- [`block_section()`](https://davidgohel.github.io/officer/reference/block_section.md)
+  : Section for 'Word'
+- [`block_table()`](https://davidgohel.github.io/officer/reference/block_table.md)
+  : Table block
+- [`block_toc()`](https://davidgohel.github.io/officer/reference/block_toc.md)
+  : Table of content for 'Word'
+- [`list_item()`](https://davidgohel.github.io/officer/reference/list_item.md)
+  : Create a list item
+- [`unordered_list()`](https://davidgohel.github.io/officer/reference/unordered_list.md)
+  : Unordered list
+- [`plot_instr()`](https://davidgohel.github.io/officer/reference/plot_instr.md)
+  : Wrap plot instructions for png plotting in Powerpoint or Word
+
+### Images
+
+Raster images embedded either inline in a paragraph or anchored as a
+floating element.
+
 - [`external_img()`](https://davidgohel.github.io/officer/reference/external_img.md)
   : External image
 - [`floating_external_img()`](https://davidgohel.github.io/officer/reference/floating_external_img.md)
   : Floating external image
-- [`hyperlink_ftext()`](https://davidgohel.github.io/officer/reference/hyperlink_ftext.md)
-  : Formatted chunk of text with hyperlink
-- [`empty_content()`](https://davidgohel.github.io/officer/reference/empty_content.md)
-  : Empty block for 'PowerPoint'
-- [`sp_line()`](https://davidgohel.github.io/officer/reference/sp_line.md)
-  [`print(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
-  [`update(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
-  : Line properties
-- [`sp_lineend()`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
-  [`print(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
-  [`update(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
-  : Line end properties
-
-## Formatting properties
-
-- [`fp_text()`](https://davidgohel.github.io/officer/reference/fp_text.md)
-  [`fp_text_lite()`](https://davidgohel.github.io/officer/reference/fp_text.md)
-  [`format(`*`<fp_text>`*`)`](https://davidgohel.github.io/officer/reference/fp_text.md)
-  [`print(`*`<fp_text>`*`)`](https://davidgohel.github.io/officer/reference/fp_text.md)
-  [`update(`*`<fp_text>`*`)`](https://davidgohel.github.io/officer/reference/fp_text.md)
-  : Text formatting properties
-- [`fp_par()`](https://davidgohel.github.io/officer/reference/fp_par.md)
-  [`fp_par_lite()`](https://davidgohel.github.io/officer/reference/fp_par.md)
-  [`print(`*`<fp_par>`*`)`](https://davidgohel.github.io/officer/reference/fp_par.md)
-  [`update(`*`<fp_par>`*`)`](https://davidgohel.github.io/officer/reference/fp_par.md)
-  : Paragraph formatting properties
-- [`fp_border()`](https://davidgohel.github.io/officer/reference/fp_border.md)
-  [`update(`*`<fp_border>`*`)`](https://davidgohel.github.io/officer/reference/fp_border.md)
-  : Border properties object
-- [`fp_cell()`](https://davidgohel.github.io/officer/reference/fp_cell.md)
-  [`format(`*`<fp_cell>`*`)`](https://davidgohel.github.io/officer/reference/fp_cell.md)
-  [`print(`*`<fp_cell>`*`)`](https://davidgohel.github.io/officer/reference/fp_cell.md)
-  [`update(`*`<fp_cell>`*`)`](https://davidgohel.github.io/officer/reference/fp_cell.md)
-  : Cell formatting properties
-- [`fp_tabs()`](https://davidgohel.github.io/officer/reference/fp_tabs.md)
-  : Tabs properties object
-- [`fp_tab()`](https://davidgohel.github.io/officer/reference/fp_tab.md)
-  : Tabulation mark properties object
 
 ## RTF
 
@@ -527,8 +560,16 @@ calculated Word fields, sets of paragraphs, etc.
   : Create an 'Excel' document object
 - [`add_sheet()`](https://davidgohel.github.io/officer/reference/add_sheet.md)
   : Add a sheet
+- [`sheet_names()`](https://davidgohel.github.io/officer/reference/sheet_names.md)
+  : Sheet names of an xlsx workbook
 - [`sheet_select()`](https://davidgohel.github.io/officer/reference/sheet_select.md)
   : Select sheet
+- [`sheet_remove()`](https://davidgohel.github.io/officer/reference/sheet_remove.md)
+  : Remove a sheet
+- [`sheet_write_data()`](https://davidgohel.github.io/officer/reference/sheet_write_data.md)
+  : Write data to a sheet
+- [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)
+  : Add a drawing to an Excel sheet
 
 ## Misc
 
@@ -537,14 +578,6 @@ calculated Word fields, sets of paragraphs, etc.
   : Manipulate Microsoft Word and PowerPoint Documents with 'officer'
 - [`open_file()`](https://davidgohel.github.io/officer/reference/open_file.md)
   : Opens a file locally
-- [`read_xlsx()`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
-  [`length(`*`<rxlsx>`*`)`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
-  [`print(`*`<rxlsx>`*`)`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
-  : Create an 'Excel' document object
-- [`add_sheet()`](https://davidgohel.github.io/officer/reference/add_sheet.md)
-  : Add a sheet
-- [`sheet_select()`](https://davidgohel.github.io/officer/reference/sheet_select.md)
-  : Select sheet
 - [`shortcuts`](https://davidgohel.github.io/officer/reference/shortcuts.md)
   : shortcuts for formatting properties
 

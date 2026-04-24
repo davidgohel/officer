@@ -15,6 +15,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/block_caption.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_gg.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_list.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/block_list_items.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_pour_docx.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_section.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/block_table.html</loc></url>
@@ -27,6 +28,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/body_add_fpar.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/body_add_gg.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/body_add_img.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/body_add_list.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/body_add_par.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/body_add_plot.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/body_add_table.html</loc></url>
@@ -57,6 +59,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/docx_comments.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/docx_current_block_xml.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/docx_dim.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/docx_embed_font.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/docx_set_character_style.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/docx_set_paragraph_style.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/docx_set_settings.html</loc></url>
@@ -87,6 +90,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/layout_summary.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/length.rdocx.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/length.rpptx.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/list_item.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/media_extract.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/move_slide.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/notes_location_label.html</loc></url>
@@ -147,7 +151,11 @@
 <url><loc>https://davidgohel.github.io/officer/reference/set_doc_properties.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/set_notes.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/shape_properties_tags.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sheet_add_drawing.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sheet_names.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sheet_remove.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/sheet_select.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/sheet_write_data.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/shortcuts.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/slide-visible.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/slide_size.html</loc></url>
@@ -170,5 +178,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/unpack_folder.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/uuid_generate.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/wml_link_images.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/xlsx_drawing.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/xlsx_styles.html</loc></url>
 </urlset>
 

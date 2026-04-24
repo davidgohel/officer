@@ -70,7 +70,7 @@ plot_layout_properties(
 - cex:
 
   List or vector to specify font size for `labels`, `type`, and `id`.
-  Default is `c(labels = .5, type = .5, id = .5)`. See
+  Default is `c(labels = 0.5, type = 0.5, id = 0.5)`. See
   [`graphics::text()`](https://rdrr.io/r/graphics/text.html) for details
   on how `cex` works. Matching by position and partial name matching is
   supported. A single numeric value will apply to all three parameters.

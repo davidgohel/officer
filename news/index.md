@@ -1,6 +1,80 @@
 # Changelog
 
+## officer 0.7.4
+
+### Features
+
+#### Excel
+
+- new functions
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/reference/sheet_write_data.md)
+  and
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)
+  for writing data and inserting drawings (charts, vector graphics) into
+  xlsx workbooks.
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/reference/sheet_write_data.md)
+  is an S3 generic: beside `data.frame`, it also accepts a `character`
+  vector (one cell per element, vertical by default;
+  `direction = "horizontal"` for a row), an
+  \[[`fpar()`](https://davidgohel.github.io/officer/reference/fpar.md)\]
+  (richtext inline cell honouring bold, italic, underline,
+  strikethrough, size, colour, font, sub/superscript) and a
+  \[[`block_list()`](https://davidgohel.github.io/officer/reference/block_list.md)\]
+  (one cell per `fpar` item, stacked).
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)
+  has an `external_img` method and a `gg` method.
+- new function
+  [`sheet_remove()`](https://davidgohel.github.io/officer/reference/sheet_remove.md)
+  to delete a sheet from an xlsx workbook.
+  [`add_sheet()`](https://davidgohel.github.io/officer/reference/add_sheet.md)
+  is purely additive and never drops any sheet; call
+  [`sheet_remove()`](https://davidgohel.github.io/officer/reference/sheet_remove.md)
+  explicitly if the template’s default sheet is not wanted.
+
+#### Word
+
+- `write_docx_settings()` now preserves the existing `settings.xml`
+  content instead of rebuilding it from scratch. This fixes the loss of
+  embedded font settings, math properties, footnote/endnote settings and
+  other XML elements during docx roundtrips
+  ([\#554](https://github.com/davidgohel/officer/issues/554)).
+- new function
+  [`docx_embed_font()`](https://davidgohel.github.io/officer/reference/docx_embed_font.md)
+  to embed TrueType or OpenType font files into Word documents. Embedded
+  fonts ensure correct rendering on systems where the font is not
+  installed ([\#554](https://github.com/davidgohel/officer/issues/554)).
+
+#### Word & PowerPoint
+
+- new functions
+  [`list_item()`](https://davidgohel.github.io/officer/reference/list_item.md),
+  [`block_list_items()`](https://davidgohel.github.io/officer/reference/block_list_items.md)
+  and
+  [`body_add_list()`](https://davidgohel.github.io/officer/reference/body_add_list.md)
+  to create bullet or numbered lists with rich text (`fpar`) and
+  multi-level nesting. Works in both Word and PowerPoint documents
+  ([\#314](https://github.com/davidgohel/officer/issues/314)).
+
+#### Formatting properties
+
+- [`fp_par()`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  and
+  [`fp_par_lite()`](https://davidgohel.github.io/officer/reference/fp_par.md)
+  gain `first_line` and `hanging` arguments to control paragraph
+  first-line and hanging indents (in points). Honored by the Word,
+  PowerPoint, HTML and RTF renderers. `hanging` wins when both are
+  provided (flextable
+  [\#704](https://github.com/davidgohel/officer/issues/704)).
+
+### Issues
+
+- [`sheet_select()`](https://davidgohel.github.io/officer/reference/sheet_select.md)
+  now deselects other sheets, fixing the issue where multiple tabs
+  appeared selected when opening the workbook.
+
 ## officer 0.7.3
+
+CRAN release: 2026-01-16
 
 ### Features
 

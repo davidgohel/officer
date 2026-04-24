@@ -18,6 +18,16 @@ add_sheet(x, label)
 
   sheet label
 
+## Details
+
+[`read_xlsx()`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
+returns a workbook that already contains one default sheet shipped with
+the template (named `"Sheet1"` or `"Feuil1"` depending on the locale).
+`add_sheet()` is purely additive: the default sheet is kept as-is.
+Remove it explicitly with
+[`sheet_remove()`](https://davidgohel.github.io/officer/reference/sheet_remove.md)
+if it is not wanted.
+
 ## Examples
 
 ``` r

@@ -41,6 +41,9 @@ body_add(x, value, ...)
 # S3 method for class 'block_list'
 body_add(x, value, ...)
 
+# S3 method for class 'block_list_items'
+body_add(x, value, ...)
+
 # S3 method for class 'block_toc'
 body_add(x, value, ...)
 
@@ -180,6 +183,10 @@ body_add(x, value, ...)
   for each iteraction over the elements, as a consequence the function
   only append elements at the end of the document and does not allow to
   insert elements at a specific position.
+
+- `body_add(block_list_items)`: add a
+  [block_list_items](https://davidgohel.github.io/officer/reference/block_list_items.md)
+  object (bullet or numbered list).
 
 - `body_add(block_toc)`: add a table of content (a
   [block_toc](https://davidgohel.github.io/officer/reference/block_toc.md)
