@@ -1,0 +1,74 @@
+name: Issue triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  validate:
+    if: github.event.issue.pull_request == null
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+            const missing = [];
+
+            const siMarkers = [
+              /R version \d+\.\d+\.\d+/,
+              // sessionInfo() (base)
+              /Platform:\s/,
+              /Running under:\s/,
+              /attached base packages:/,
+              /other attached packages:/,
+              /locale:\s*\n/,
+              // sessioninfo::session_info()
+              /─+\s*Session info/,
+              /─+\s*Packages/,
+            ];
+            const siHits = siMarkers.filter(re => re.test(body)).length;
+            if (siHits < 2) missing.push("sessionInfo");
+
+            const hasRFence = /```r\b[\s\S]*?\S[\s\S]*?```/i.test(body);
+            const hasReprexSig = /Created on \d{4}-\d{2}-\d{2}.*reprex/i.test(body);
+            const hasReprexOutput = (body.match(/^#>\s/gm) || []).length >= 2;
+            if (!hasRFence && !hasReprexSig && !hasReprexOutput) {
+              missing.push("reprex");
+            }
+
+            const hasLocalPath = /["'](?:[A-Za-z]:[\\\/]|\/Users\/|\/home\/)/.test(body);
+
+            const labels = missing.map(m => `needs-${m}`);
+            if (hasLocalPath) labels.push("needs-portable-path");
+
+            if (labels.length === 0) return;
+
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: context.issue.number,
+              labels,
+            });
+
+            const items = {
+              "sessionInfo": "the full output of `sessionInfo()`, run after `library(officer)`",
+              "reprex": "a reproducible example in an R fenced code block (` ```r `), ideally produced by `reprex::reprex()`",
+              "portable-path": "a portable path: replace `C:/...` or `/Users/...` with `tempfile()`",
+            };
+            const keys = missing.concat(hasLocalPath ? ["portable-path"] : []);
+            const list = keys.map(k => `- ${items[k]}`).join("\n");
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: [
+                "Thanks for the report. The following items are missing before this issue can be triaged:",
+                "",
+                list,
+                "",
+                "Please edit the issue description to add them. Without these elements the issue will be closed automatically after a period of inactivity.",
+              ].join("\n"),
+            });

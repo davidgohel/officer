@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage question (not a bug)
+    url: https://stackoverflow.com/questions/tagged/officer
+    about: For "how do I do X with officer", please use Stack Overflow with the [officer] tag.
+  - name: Documentation
+    url: https://davidgohel.github.io/officer/
+    about: The documentation covers most common use cases.

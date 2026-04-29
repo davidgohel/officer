@@ -1,0 +1,30 @@
+name: Close stale incomplete issues
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          any-of-labels: "needs-sessionInfo,needs-reprex,needs-portable-path"
+          days-before-stale: 7
+          days-before-close: 7
+          stale-issue-label: "stale"
+          stale-issue-message: |
+            This issue is missing the requested information (reproducible
+            example, sessionInfo output, or portable paths) and has been
+            inactive for 7 days. It will be closed in 7 more days unless
+            the missing elements are provided.
+          close-issue-message: |
+            Closing due to missing reproducible example or sessionInfo
+            output. 
+          remove-stale-when-updated: true
+          operations-per-run: 100

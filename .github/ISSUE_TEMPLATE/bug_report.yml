@@ -1,0 +1,76 @@
+name: Bug report
+description: Report a reproducible bug in officer
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Briefly describe your problem and what output you expect. If you have
+        a question, please don't use this form — ask on
+        [Stack Overflow](https://stackoverflow.com/questions/tagged/officer) instead.
+
+        Please include a minimal reproducible example (a
+        [reprex](https://reprex.tidyverse.org/)). If you've never made one
+        before, start with <https://www.tidyverse.org/help/#reprex>.
+
+        Reports without an executable reprex will be closed without further
+        response, regardless of how well written they look.
+
+  - type: checkboxes
+    id: prereqs
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I am using the latest CRAN version of officer (or the GitHub version if the bug still exists there)
+          required: true
+        - label: I have searched both *open and closed* issues — this bug has not already been reported
+          required: true
+        - label: I ran the code below in a fresh R session and it reproduces the bug
+          required: true
+
+  - type: textarea
+    id: reprex
+    attributes:
+      label: Reproducible example (reprex)
+      description: |
+        Minimal, self-contained R code that reproduces the bug. Prefer the
+        [reprex](https://reprex.tidyverse.org/) package: `reprex::reprex()`
+        produces output you can paste here. No local paths
+        (`C:/Users/...`): use `tempfile()` instead.
+      render: r
+      placeholder: |
+        library(officer)
+        # ... minimal code that triggers the error ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: sessioninfo
+    attributes:
+      label: sessionInfo() output
+      description: |
+        Run `sessionInfo()` **after** loading the packages used in the reprex
+        above. Paste the full output, unmodified.
+      render: text
+      placeholder: |
+        R version 4.x.x (...)
+        Platform: ...
+        Running under: ...
+        ...
+        other attached packages:
+        ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs observed behaviour
+      description: |
+        Optional. Useful for behavioural bugs (wrong rendering, unexpected
+        layout) where the reprex output alone doesn't make the issue obvious.
+        Skip if the bug is a clear runtime error already shown in the reprex.
+      placeholder: |
+        Expected: ...
+        Observed: ...
