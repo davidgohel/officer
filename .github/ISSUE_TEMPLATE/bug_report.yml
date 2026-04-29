@@ -6,16 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Briefly describe your problem and what output you expect. If you have
-        a question, please don't use this form — ask on
-        [Stack Overflow](https://stackoverflow.com/questions/tagged/officer) instead.
+        Briefly describe your problem and what output you expect. If you have a question, please don't use this form, ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/officer) instead.
 
-        Please include a minimal reproducible example (a
-        [reprex](https://reprex.tidyverse.org/)). If you've never made one
-        before, start with <https://www.tidyverse.org/help/#reprex>.
+        Please include a minimal reproducible example (a [reprex](https://reprex.tidyverse.org/)). If you've never made one before, start with <https://www.tidyverse.org/help/#reprex>.
 
-        Reports without an executable reprex will be closed without further
-        response, regardless of how well written they look.
+        Reports without an executable reprex will be closed without further response, regardless of how well written they look.
 
   - type: checkboxes
     id: prereqs
@@ -24,7 +19,7 @@ body:
       options:
         - label: I am using the latest CRAN version of officer (or the GitHub version if the bug still exists there)
           required: true
-        - label: I have searched both *open and closed* issues — this bug has not already been reported
+        - label: I have searched both *open and closed* issues, this bug has not already been reported
           required: true
         - label: I ran the code below in a fresh R session and it reproduces the bug
           required: true
