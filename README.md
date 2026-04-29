@@ -159,12 +159,17 @@ considered, no matter how well crafted. This isn’t meant to discourage
 contributions, only to make sure the time you invest goes into a change
 that will actually land.
 
+Pull requests are accepted on a case-by-case basis: once a proposal has
+been agreed in an issue, the maintainer will invite you to open a PR for
+that specific change. Unsolicited PRs that bypass this step will be
+closed.
+
 This policy keeps the package coherent: officer’s internals are shared
 with several downstream packages (flextable, officedown, rvg), and
 changes that look local often have wider implications. Aligning on the
 design in an issue first saves time on both sides.
 
-Once a change has been agreed, the PR should include:
+When invited to open a PR, please include:
 
 - the new function(s) with code and roxygen tags, including runnable
   examples
