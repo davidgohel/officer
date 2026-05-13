@@ -5,6 +5,17 @@
 - drop deprecated `seqfield` argument in `run_word_field()` and remove `run_seqfield()`
 (old duplicate of `run_word_field()`) .
 
+## RTF
+
+- Multi-column sections in RTF output now render correctly (#726) thanks to
+Nathan Kosiba. (Three bugs were fixed: `section_columns()` only declared the
+last column's width (now one `\colno`/`\colw` per column, as the RTF spec
+requires); `block_section` emitted the section break before the column
+properties, so the columns applied to the empty section that followed
+(properties are now emitted before `\sect`); and `run_columnbreak()` did not
+terminate the `\column` control word with a delimiter, swallowing the first
+word of the text that followed it.)
+
 ## Excel features
 
 - Images and ggplot drawings placed on Excel sheets with

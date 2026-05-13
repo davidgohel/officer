@@ -159,3 +159,42 @@ test_that("fp_text_lite and rtf", {
   x <- fp_text_lite(vertical.align = "subscript", font.size = 12)
   expect_equal(format(x, type = "rtf"), "\\sub\\dn6\\fs24 ")
 })
+
+test_that("to_rtf.section_columns emits per-column widths (#726)", {
+  x <- section_columns(widths = c(2, 3), space = 0.25)
+  out <- officer:::to_rtf.section_columns(x)
+  expect_equal(
+    out,
+    "\\cols2\\colsx360\\colno1\\colw2880\\colsr360\\colno2\\colw4320"
+  )
+
+  # sep = TRUE adds \linebetcol just after the global \colsx
+  x2 <- section_columns(widths = c(2, 3), space = 0.25, sep = TRUE)
+  expect_equal(
+    officer:::to_rtf.section_columns(x2),
+    "\\cols2\\colsx360\\linebetcol\\colno1\\colw2880\\colsr360\\colno2\\colw4320"
+  )
+
+  # three columns: two \colsr entries (one per non-last column)
+  x3 <- section_columns(widths = c(1, 2, 3), space = 0.5)
+  out3 <- officer:::to_rtf.section_columns(x3)
+  expect_match(out3, "\\\\colno1\\\\colw1440\\\\colsr720")
+  expect_match(out3, "\\\\colno2\\\\colw2880\\\\colsr720")
+  expect_match(out3, "\\\\colno3\\\\colw4320(?!\\\\colsr)", perl = TRUE)
+})
+
+test_that("section properties precede \\sect in block_section (#726)", {
+  bs <- block_section(prop_section(
+    section_columns = section_columns(widths = c(2, 3), space = 0.25)
+  ))
+  out <- to_rtf(bs)
+  # \sect must come at the very end, after all section properties
+  expect_match(out, "\\\\cols2\\\\colsx360.*\\\\sect$")
+  expect_false(grepl("^\\\\sect", out))
+})
+
+test_that("run_columnbreak emits a delimiter after \\column (#726)", {
+  # The trailing space prevents "\columnRight" from being parsed as a
+  # single unknown control word when text follows directly.
+  expect_equal(to_rtf(run_columnbreak()), "\\column ")
+})

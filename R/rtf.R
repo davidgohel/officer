@@ -324,7 +324,7 @@ to_rtf.run_pagebreak <- function(x, ...) {
 }
 #' @export
 to_rtf.run_columnbreak <- function(x, ...) {
-  "\\column"
+  "\\column "
 }
 #' @export
 to_rtf.run_linebreak <- function(x, ...) {
@@ -408,7 +408,11 @@ to_rtf.run_reference <- function(x, ...) {
 
 #' @export
 to_rtf.block_section <- function(x, ...) {
-  paste0("\\sect", to_rtf(x$property))
+  # RTF spec: section properties precede the \sect mark. Emitting
+  # \sect first would attach the properties to the *next* section,
+  # leaving the section we just closed (the one holding the
+  # preceding content) with default properties.
+  paste0(to_rtf(x$property), "\\sect")
 }
 
 #' @export
@@ -589,7 +593,23 @@ to_rtf.section_columns <- function(x, ...) {
   widths <- x$widths * 20 * 72
   space <- x$space * 20 * 72
 
-  columns_str <- sprintf("\\colw%.0f\\colsx%.0f", widths[length(widths)], space)
+  # RTF needs one <\colno N \colw N> per column for unequal widths.
+  # \colsr (per-column right space) duplicates the global \colsx when
+  # spaces are uniform, but matches what Word/LibreOffice emit and
+  # leaves room for per-column spacing later. The last column has no
+  # trailing \colsr.
+  columns_str_all_but_last <- sprintf(
+    "\\colno%.0f\\colw%.0f\\colsr%.0f",
+    seq(length(widths) - 1),
+    widths[-length(widths)],
+    rep(space, length(widths) - 1)
+  )
+  columns_str_last <- sprintf(
+    "\\colno%.0f\\colw%.0f",
+    length(widths),
+    widths[length(widths)]
+  )
+  columns_str <- c(columns_str_all_but_last, columns_str_last)
 
   linebetcol <- ""
   if (x$sep) {
@@ -597,10 +617,11 @@ to_rtf.section_columns <- function(x, ...) {
   }
 
   sprintf(
-    "\\cols%.0f%s%s",
+    "\\cols%.0f\\colsx%.0f%s%s",
     length(widths),
+    space,
     linebetcol,
-    columns_str
+    paste(columns_str, collapse = "")
   )
 }
 
