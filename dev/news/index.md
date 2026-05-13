@@ -10,6 +10,21 @@
   [`run_word_field()`](https://davidgohel.github.io/officer/dev/reference/run_word_field.md))
   .
 
+### RTF
+
+- Multi-column sections in RTF output now render correctly
+  ([\#726](https://github.com/davidgohel/officer/issues/726)) thanks to
+  Nathan Kosiba. (Three bugs were fixed:
+  [`section_columns()`](https://davidgohel.github.io/officer/dev/reference/section_columns.md)
+  only declared the last column’s width (now one `\colno`/`\colw` per
+  column, as the RTF spec requires); `block_section` emitted the section
+  break before the column properties, so the columns applied to the
+  empty section that followed (properties are now emitted before
+  `\sect`); and
+  [`run_columnbreak()`](https://davidgohel.github.io/officer/dev/reference/run_columnbreak.md)
+  did not terminate the `\column` control word with a delimiter,
+  swallowing the first word of the text that followed it.)
+
 ### Excel features
 
 - Images and ggplot drawings placed on Excel sheets with

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,10 @@
 <div class="section level3">
 <h3 id="word-0-7-5">Word<a class="anchor" aria-label="anchor" href="#word-0-7-5"></a></h3>
 <ul><li>drop deprecated <code>seqfield</code> argument in <code><a href="../reference/run_word_field.html">run_word_field()</a></code> and remove <code>run_seqfield()</code> (old duplicate of <code><a href="../reference/run_word_field.html">run_word_field()</a></code>) .</li>
+</ul></div>
+<div class="section level3">
+<h3 id="rtf-0-7-5">RTF<a class="anchor" aria-label="anchor" href="#rtf-0-7-5"></a></h3>
+<ul><li>Multi-column sections in RTF output now render correctly (<a href="https://github.com/davidgohel/officer/issues/726" class="external-link">#726</a>) thanks to Nathan Kosiba. (Three bugs were fixed: <code><a href="../reference/section_columns.html">section_columns()</a></code> only declared the last column’s width (now one <code>\colno</code>/<code>\colw</code> per column, as the RTF spec requires); <code>block_section</code> emitted the section break before the column properties, so the columns applied to the empty section that followed (properties are now emitted before <code>\sect</code>); and <code><a href="../reference/run_columnbreak.html">run_columnbreak()</a></code> did not terminate the <code>\column</code> control word with a delimiter, swallowing the first word of the text that followed it.)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="excel-features-0-7-5">Excel features<a class="anchor" aria-label="anchor" href="#excel-features-0-7-5"></a></h3>
