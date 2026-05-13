@@ -25,11 +25,11 @@ fp_tab(pos = 0.4, style = "decimal")
 fp_tab(pos = 1, style = "right")
 }
 \seealso{
-Other functions for defining formatting properties: 
-\code{\link{fp_border}()},
-\code{\link{fp_cell}()},
-\code{\link{fp_par}()},
-\code{\link{fp_tabs}()},
-\code{\link{fp_text}()}
+Other functions for defining formatting properties:
+\code{\link[=fp_border]{fp_border()}},
+\code{\link[=fp_cell]{fp_cell()}},
+\code{\link[=fp_par]{fp_par()}},
+\code{\link[=fp_tabs]{fp_tabs()}},
+\code{\link[=fp_text]{fp_text()}}
 }
 \concept{functions for defining formatting properties}

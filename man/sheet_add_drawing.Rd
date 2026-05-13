@@ -13,12 +13,16 @@ sheet_add_drawing(x, value, sheet, ...)
 
 \item{sheet}{sheet name (must already exist, see \code{\link[=add_sheet]{add_sheet()}})}
 
-\item{...}{method-specific arguments. In particular, the
-\code{external_img} and \code{gg} methods accept \code{left} / \code{top} (top-left
-anchor, inches, default \verb{(1, 1)}) and \code{width} / \code{height} (size,
-inches). The \code{gg} method also accepts \code{res} (ppi, default 300),
-\code{alt_text} (auto-detected via \code{ggplot2::get_alt_text()} if empty)
-and \code{scale} (passed to \code{\link[ragg:agg_png]{ragg::agg_png()}}).}
+\item{...}{method-specific arguments. Common across \code{external_img}
+and \code{gg} methods: \code{left} / \code{top} (fixed-position top-left in
+inches, default \verb{(1, 1)}), \code{width} / \code{height} (size in inches),
+\code{anchor} (cell reference like \code{"B2"} or \code{"B2:H20"}, see
+description), \code{edit_as} (one of \code{"twoCell"}, \code{"oneCell"},
+\code{"absolute"}; how Excel treats the drawing when rows/columns are
+resized — only meaningful with a cell range \code{anchor}). The \code{gg}
+method also accepts \code{res} (ppi, default 300), \code{alt_text}
+(auto-detected via \code{ggplot2::get_alt_text()} if empty) and
+\code{scale} (passed to \code{\link[ragg:agg_png]{ragg::agg_png()}}).}
 }
 \value{
 the rxlsx object (invisibly)
@@ -29,13 +33,26 @@ This is a generic function dispatching on \code{value}. Supported inputs
 include:
 \itemize{
 \item \code{\link[=external_img]{external_img()}}: an image file (PNG, JPEG, GIF, ...) copied into
-\verb{xl/media/} and placed via an absolute anchor. Position and size
-are inch-based (\code{left}, \code{top}, \code{width}, \code{height}).
+the workbook and placed on the sheet.
 \item \code{gg}: a ggplot object rendered to PNG via \code{ragg::agg_png()} and
 embedded via the \code{external_img} path. Extra arguments: \code{res}
 (default 300 ppi), \code{alt_text} (auto-detected via
 \code{ggplot2::get_alt_text()} when empty), \code{scale} (same semantics as
 \code{ggplot2::ggsave()}).
+}
+
+The drawing can be positioned in three ways, matching Excel's own
+"Format Picture" options:
+\itemize{
+\item Fixed position (default): pass \code{left} / \code{top} and
+\code{width} / \code{height} in inches. The drawing stays put when rows or
+columns are inserted/resized.
+\item Move and size with cells (Excel's default): pass
+\code{anchor = "B2:H20"} (a cell range). The drawing spans those two
+cells and follows them.
+\item Move but don't size with cells: pass \code{anchor = "B2"}
+(a single cell). The drawing anchors to that cell, keeping the
+size set by \code{width} / \code{height}.
 }
 
 Additional methods for \code{ms_chart} and \code{dml} are provided by the

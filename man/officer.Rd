@@ -66,6 +66,7 @@ manuals \url{https://davidgohel.github.io/officer/}
 
 Authors:
 \itemize{
+  \item David Gohel \email{david.gohel@ardata.fr}
   \item Stefan Moog \email{moogs@gmx.de}
   \item Mark Heckmann \email{heckmann.mark@gmail.com} (\href{https://orcid.org/0000-0002-0736-7417}{ORCID})
 }

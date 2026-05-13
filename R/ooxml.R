@@ -113,6 +113,26 @@ is_transparent <- function(color) {
   colalpha(color) <= 0
 }
 
+#' @title Solid fill DrawingML fragment
+#' @description Build an `<a:solidFill>` block with an sRGB color and an
+#' alpha channel. Used inside DrawingML shape properties wrappers such
+#' as `<a:spPr>`, `<a:ln>`, `<a:rPr>`, and chartEx-specific wrappers
+#' such as `<cx:spPr>`.
+#'
+#' This is a low-level helper intended for packages that emit OOXML
+#' fragments (e.g. `mschart`, `rvg`). End users typically rely on
+#' higher-level objects ([fp_text()], [fp_border()], [sp_line()]) that
+#' embed the `<a:solidFill>` block themselves.
+#' @param color a color value: a name (`"red"`), a hex string with or
+#' without leading `#` (`"#FF0000"` or `"FF0000"`), or `"transparent"`.
+#' Anything accepted by [grDevices::col2rgb()] works; the alpha channel
+#' is honored.
+#' @return a character string with the OOXML fragment, namespaced `a:`.
+#' @examples
+#' solid_fill("red")
+#' solid_fill("#3366CC")
+#' @export
+#' @keywords internal
 solid_fill <- function(color) {
   sprintf(
     paste0(

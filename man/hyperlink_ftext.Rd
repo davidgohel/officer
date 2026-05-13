@@ -34,21 +34,21 @@ hyperlink_ftext(
 )
 }
 \seealso{
-Other run functions for reporting: 
-\code{\link{external_img}()},
-\code{\link{floating_external_img}()},
-\code{\link{ftext}()},
-\code{\link{run_autonum}()},
-\code{\link{run_bookmark}()},
-\code{\link{run_columnbreak}()},
-\code{\link{run_comment}()},
-\code{\link{run_footnote}()},
-\code{\link{run_footnoteref}()},
-\code{\link{run_linebreak}()},
-\code{\link{run_pagebreak}()},
-\code{\link{run_reference}()},
-\code{\link{run_tab}()},
-\code{\link{run_word_field}()},
-\code{\link{run_wordtext}()}
+Other run functions for reporting:
+\code{\link[=external_img]{external_img()}},
+\code{\link[=floating_external_img]{floating_external_img()}},
+\code{\link[=ftext]{ftext()}},
+\code{\link[=run_autonum]{run_autonum()}},
+\code{\link[=run_bookmark]{run_bookmark()}},
+\code{\link[=run_columnbreak]{run_columnbreak()}},
+\code{\link[=run_comment]{run_comment()}},
+\code{\link[=run_footnote]{run_footnote()}},
+\code{\link[=run_footnoteref]{run_footnoteref()}},
+\code{\link[=run_linebreak]{run_linebreak()}},
+\code{\link[=run_pagebreak]{run_pagebreak()}},
+\code{\link[=run_reference]{run_reference()}},
+\code{\link[=run_tab]{run_tab()}},
+\code{\link[=run_word_field]{run_word_field()}},
+\code{\link[=run_wordtext]{run_wordtext()}}
 }
 \concept{run functions for reporting}

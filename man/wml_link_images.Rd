@@ -16,16 +16,16 @@ This function is useless now, as the processing of images
 is automated when using \code{\link[=print.rdocx]{print.rdocx()}}.
 }
 \seealso{
-Other functions for officer extensions: 
-\code{\link{fortify_location}()},
-\code{\link{get_reference_value}()},
-\code{\link{opts_current_table}()},
-\code{\link{shape_properties_tags}()},
-\code{\link{str_encode_to_rtf}()},
-\code{\link{to_html}()},
-\code{\link{to_pml}()},
-\code{\link{to_rtf}()},
-\code{\link{to_wml}()}
+Other functions for officer extensions:
+\code{\link[=fortify_location]{fortify_location()}},
+\code{\link[=get_reference_value]{get_reference_value()}},
+\code{\link[=opts_current_table]{opts_current_table()}},
+\code{\link[=shape_properties_tags]{shape_properties_tags()}},
+\code{\link[=str_encode_to_rtf]{str_encode_to_rtf()}},
+\code{\link[=to_html]{to_html()}},
+\code{\link[=to_pml]{to_pml()}},
+\code{\link[=to_rtf]{to_rtf()}},
+\code{\link[=to_wml]{to_wml()}}
 }
 \concept{functions for officer extensions}
 \keyword{internal}

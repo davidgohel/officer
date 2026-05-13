@@ -50,7 +50,7 @@ update(obj, type = "arrow")
 \seealso{
 \link{sp_line}
 
-Other functions for defining shape properties: 
-\code{\link{sp_line}()}
+Other functions for defining shape properties:
+\code{\link[=sp_line]{sp_line()}}
 }
 \concept{functions for defining shape properties}

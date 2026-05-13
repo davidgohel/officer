@@ -1,13 +1,9 @@
-#' @importFrom cli
-#'  cli_abort
-#' @importFrom dplyr
-#'  mutate case_when left_join arrange across all_of lag consecutive_id syms n
-#'  select inner_join if_else filter relocate summarise group_by as_tibble first
-#'  bind_rows
-#' @importFrom tidyr
-#'  complete
-#' @importFrom xml2
-#'  as_xml_document xml_has_attr xml_child xml_name xml_children xml_replace
+#' @importFrom cli cli_abort
+#' @importFrom dplyr mutate case_when left_join arrange across all_of lag
+#' @importFrom dplyr consecutive_id syms n select inner_join if_else filter
+#' @importFrom dplyr relocate summarise group_by as_tibble first bind_rows
+#' @importFrom tidyr complete
+#' @importFrom xml2 as_xml_document xml_has_attr xml_child xml_name xml_children xml_replace
 
 # utils ----------
 extract_runs_attr_str <- function(

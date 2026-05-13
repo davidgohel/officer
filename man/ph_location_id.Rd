@@ -56,13 +56,13 @@ print(doc, file)
 ## file.show(file) # may not work on your system
 }
 \seealso{
-Other functions for placeholder location: 
-\code{\link{ph_location}()},
-\code{\link{ph_location_fullsize}()},
-\code{\link{ph_location_label}()},
-\code{\link{ph_location_left}()},
-\code{\link{ph_location_right}()},
-\code{\link{ph_location_template}()},
-\code{\link{ph_location_type}()}
+Other functions for placeholder location:
+\code{\link[=ph_location]{ph_location()}},
+\code{\link[=ph_location_fullsize]{ph_location_fullsize()}},
+\code{\link[=ph_location_label]{ph_location_label()}},
+\code{\link[=ph_location_left]{ph_location_left()}},
+\code{\link[=ph_location_right]{ph_location_right()}},
+\code{\link[=ph_location_template]{ph_location_template()}},
+\code{\link[=ph_location_type]{ph_location_type()}}
 }
 \concept{functions for placeholder location}

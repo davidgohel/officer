@@ -95,13 +95,13 @@ fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)
 }
 \seealso{
-Other functions for placeholder location: 
-\code{\link{ph_location}()},
-\code{\link{ph_location_fullsize}()},
-\code{\link{ph_location_id}()},
-\code{\link{ph_location_label}()},
-\code{\link{ph_location_left}()},
-\code{\link{ph_location_right}()},
-\code{\link{ph_location_template}()}
+Other functions for placeholder location:
+\code{\link[=ph_location]{ph_location()}},
+\code{\link[=ph_location_fullsize]{ph_location_fullsize()}},
+\code{\link[=ph_location_id]{ph_location_id()}},
+\code{\link[=ph_location_label]{ph_location_label()}},
+\code{\link[=ph_location_left]{ph_location_left()}},
+\code{\link[=ph_location_right]{ph_location_right()}},
+\code{\link[=ph_location_template]{ph_location_template()}}
 }
 \concept{functions for placeholder location}

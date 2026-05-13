@@ -26,11 +26,11 @@ styles_info(x)
 styles_info(x, type = "paragraph", is_default = TRUE)
 }
 \seealso{
-Other functions for Word document informations: 
-\code{\link{doc_properties}()},
-\code{\link{docx_bookmarks}()},
-\code{\link{docx_dim}()},
-\code{\link{length.rdocx}()},
-\code{\link{set_doc_properties}()}
+Other functions for Word document informations:
+\code{\link[=doc_properties]{doc_properties()}},
+\code{\link[=docx_bookmarks]{docx_bookmarks()}},
+\code{\link[=docx_dim]{docx_dim()}},
+\code{\link[=length.rdocx]{length.rdocx()}},
+\code{\link[=set_doc_properties]{set_doc_properties()}}
 }
 \concept{functions for Word document informations}

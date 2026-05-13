@@ -69,9 +69,9 @@ print(doc, target = fileout)
 \code{\link[=print.rpptx]{print.rpptx()}}, \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=add_slide]{add_slide()}}, \code{\link[=notes_location_label]{notes_location_label()}}, \code{\link[=notes_location_type]{notes_location_type()}}
 
 Other functions to manipulate slides:
-\code{\link{add_slide}()},
-\code{\link{move_slide}()},
-\code{\link{on_slide}()},
-\code{\link{remove_slide}()}
+\code{\link[=add_slide]{add_slide()}},
+\code{\link[=move_slide]{move_slide()}},
+\code{\link[=on_slide]{on_slide()}},
+\code{\link[=remove_slide]{remove_slide()}}
 }
 \concept{slide_manipulation}

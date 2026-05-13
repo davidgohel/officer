@@ -195,6 +195,196 @@ sheet <- R6Class(
 
 
 # xlsx_drawing ----
+
+#' @export
+#' @title URIs for chart relationships in xlsx drawings
+#' @description Returns the pair of URIs needed by
+#' [xlsx_drawing] to embed a chart into a sheet, keeping the
+#' relationship type and graphic URI consistent so Excel opens the
+#' file without repair.
+#' @param kind chart family. `"drawingml"` covers classic charts
+#' (bar, line, pie, scatter, area, bubble, radar, stock).
+#' `"chartex"` covers the newer family (boxplot, funnel, histogram,
+#' pareto, sunburst, treemap, waterfall).
+#' @return a named list with elements `rel_type` and `graphic_uri`.
+#' @examples
+#' ooxml_chart_uris("drawingml")
+#' ooxml_chart_uris("chartex")
+#' @keywords internal
+ooxml_chart_uris <- function(kind = c("drawingml", "chartex")) {
+  kind <- match.arg(kind)
+  if (kind == "drawingml") {
+    list(
+      rel_type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
+      graphic_uri = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+    )
+  } else {
+    list(
+      rel_type = "http://schemas.microsoft.com/office/2014/relationships/chartEx",
+      graphic_uri = "http://schemas.microsoft.com/office/drawing/2014/chartex"
+    )
+  }
+}
+
+# Parse an Excel cell reference (e.g. "C4", "AA12") into 0-based
+# col/row indices used by OOXML <xdr:from>/<xdr:to>. Lowercase
+# accepted. Errors on malformed input.
+parse_cell_ref <- function(ref) {
+  if (!is.character(ref) || length(ref) != 1L || is.na(ref) || !nzchar(ref)) {
+    stop(
+      "cell reference must be a single non-empty string like \"C4\"",
+      call. = FALSE
+    )
+  }
+  m <- regmatches(ref, regexec("^([A-Za-z]+)([0-9]+)$", ref))[[1]]
+  if (length(m) != 3L) {
+    stop("invalid cell reference: ", shQuote(ref), call. = FALSE)
+  }
+  letters_part <- toupper(m[2])
+  row1 <- as.integer(m[3])
+  if (row1 < 1L) {
+    stop("invalid cell reference: ", shQuote(ref), call. = FALSE)
+  }
+  col1 <- 0L
+  for (ch in strsplit(letters_part, "", fixed = TRUE)[[1]]) {
+    col1 <- col1 * 26L + (utf8ToInt(ch) - utf8ToInt("A") + 1L)
+  }
+  list(col = col1 - 1L, row = row1 - 1L)
+}
+
+# Translate the user-facing `anchor` string of sheet_add_drawing methods
+# into a (from, to) pair consumed by add_*_anchor R6 methods.
+#   NULL       -> list(from = NULL, to = NULL)  (fixed-position)
+#   "B2"       -> list(from = "B2", to = NULL)  (move only)
+#   "B2:H20"   -> list(from = "B2", to = "H20") (move + size)
+parse_anchor <- function(anchor) {
+  if (is.null(anchor)) {
+    return(list(from = NULL, to = NULL))
+  }
+  if (!is.character(anchor) || length(anchor) != 1L || !nzchar(anchor)) {
+    stop(
+      "`anchor` must be a single string like \"B2\" or \"B2:H20\"",
+      call. = FALSE
+    )
+  }
+  if (grepl(":", anchor, fixed = TRUE)) {
+    parts <- strsplit(anchor, ":", fixed = TRUE)[[1]]
+    if (length(parts) != 2L || !all(nzchar(parts))) {
+      stop(
+        "`anchor` range must be \"FROM:TO\" (e.g. \"B2:H20\")",
+        call. = FALSE
+      )
+    }
+    return(list(from = parts[1], to = parts[2]))
+  }
+  list(from = anchor, to = NULL)
+}
+
+# Wrap a drawing inner element (e.g. <xdr:graphicFrame>, <xdr:pic>) in
+# one of the three OOXML anchor envelopes:
+#   - <xdr:twoCellAnchor editAs="..."> when both `from` and `to` are
+#     supplied (Excel default: "Move and size with cells")
+#   - <xdr:oneCellAnchor> when only `from` is supplied (width/height
+#     in inches define the size)
+#   - <xdr:absoluteAnchor> otherwise (left/top/width/height in inches)
+# `from`/`to` are Excel cell references like "B2", "H20".
+build_anchor_xml <- function(
+  inner_xml,
+  from = NULL,
+  to = NULL,
+  edit_as = "twoCell",
+  left = 1,
+  top = 1,
+  width = 6,
+  height = 4
+) {
+  emu_per_in <- 914400
+  ns_decl <- paste0(
+    " xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
+    " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"",
+    " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
+  )
+  if (!is.null(to) && is.null(from)) {
+    stop("`to` requires `from` to be supplied as well", call. = FALSE)
+  }
+  if (!is.null(from) && !is.null(to)) {
+    f <- parse_cell_ref(from)
+    t <- parse_cell_ref(to)
+    sprintf(
+      paste0(
+        "<xdr:twoCellAnchor editAs=\"%s\"",
+        ns_decl,
+        ">",
+        "<xdr:from><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
+        "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>",
+        "<xdr:to><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
+        "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:to>",
+        "%s<xdr:clientData/></xdr:twoCellAnchor>"
+      ),
+      edit_as,
+      f$col,
+      f$row,
+      t$col,
+      t$row,
+      inner_xml
+    )
+  } else if (!is.null(from)) {
+    f <- parse_cell_ref(from)
+    sprintf(
+      paste0(
+        "<xdr:oneCellAnchor",
+        ns_decl,
+        ">",
+        "<xdr:from><xdr:col>%d</xdr:col><xdr:colOff>0</xdr:colOff>",
+        "<xdr:row>%d</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>",
+        "<xdr:ext cx=\"%.0f\" cy=\"%.0f\"/>",
+        "%s<xdr:clientData/></xdr:oneCellAnchor>"
+      ),
+      f$col,
+      f$row,
+      width * emu_per_in,
+      height * emu_per_in,
+      inner_xml
+    )
+  } else {
+    sprintf(
+      paste0(
+        "<xdr:absoluteAnchor",
+        ns_decl,
+        ">",
+        "<xdr:pos x=\"%.0f\" y=\"%.0f\"/>",
+        "<xdr:ext cx=\"%.0f\" cy=\"%.0f\"/>",
+        "%s<xdr:clientData/></xdr:absoluteAnchor>"
+      ),
+      left * emu_per_in,
+      top * emu_per_in,
+      width * emu_per_in,
+      height * emu_per_in,
+      inner_xml
+    )
+  }
+}
+
+# Build the default <c:chart>/<cx:chart> fragment placed inside
+# <a:graphicData> of a drawing anchor, dispatching on graphic_uri.
+default_chart_inner <- function(graphic_uri, chart_rid) {
+  is_chartex <- identical(
+    graphic_uri,
+    ooxml_chart_uris("chartex")$graphic_uri
+  )
+  sprintf(
+    paste0(
+      "<%1$s:chart",
+      " xmlns:%1$s=\"%2$s\"",
+      " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"",
+      " r:id=\"%3$s\"/>"
+    ),
+    if (is_chartex) "cx" else "c",
+    graphic_uri,
+    chart_rid
+  )
+}
+
 #' @export
 #' @title Drawing manager for xlsx sheets
 #' @description R6 class that manages a drawing file for an xlsx
@@ -202,12 +392,18 @@ sheet <- R6Class(
 #' @param package_dir path to the unpacked xlsx directory
 #' @param sheet_obj a sheet R6 object
 #' @param content_type a content_type R6 object
-#' @param chart_rid relationship id of the chart
-#' @param from_col top-left column anchor (0-based)
-#' @param from_row top-left row anchor (0-based)
-#' @param to_col bottom-right column anchor (0-based)
-#' @param to_row bottom-right row anchor (0-based)
+#' @param chart_rid relationship id of the chart (returned by
+#' `add_chart_rel()`). Ignored when `chart_inner` is supplied
+#' explicitly.
 #' @param chart_basename filename of the chart XML
+#' @param left,top top-left position in inches (fixed-position mode)
+#' @param width,height size in inches
+#' @param from,to Excel cell references like `"C4"` (1-based,
+#' case-insensitive)
+#' @param edit_as how Excel should treat the drawing when rows or
+#' columns are resized: `"twoCell"` (move and size with cells, the
+#' default), `"oneCell"` (move only) or `"absolute"` (neither). Only
+#' meaningful when both `from` and `to` are supplied.
 #' @keywords internal
 xlsx_drawing <- R6Class(
   "xlsx_drawing",
@@ -301,62 +497,88 @@ xlsx_drawing <- R6Class(
       }
     },
 
-    #' @description Add a chart anchor to the drawing (absolute
-    #'   placement in inches from the top-left corner of the sheet).
-    #' @param left,top top-left anchor in inches
-    #' @param width,height size in inches
+    #' @description Place a chart on the sheet. The chart can be
+    #'   positioned in three ways, matching Excel's own "Format
+    #'   Picture" options:
+    #'
+    #'   * Move and size with cells (Excel's default): supply
+    #'     `from` and `to` as cell references (e.g. `"B2"` and
+    #'     `"H20"`). The chart spans those two cells and follows them
+    #'     when rows/columns are inserted or resized.
+    #'   * Move but don't size with cells: supply `from` only.
+    #'     The chart anchors to that cell with the size set by
+    #'     `width`/`height`.
+    #'   * Fixed position: leave `from` and `to` `NULL`. The
+    #'     chart is placed at `left`/`top` with size `width`/`height`,
+    #'     independent of cell layout.
+    #' @param graphic_uri chart family URI; defaults to the classic
+    #'   chart family. Use [ooxml_chart_uris()] to obtain the value
+    #'   for the chartEx family.
+    #' @param chart_inner advanced. XML fragment referencing the chart
+    #'   part. Leave `NULL` to let the method build the right reference
+    #'   from `graphic_uri`.
     add_chart_anchor = function(
       chart_rid,
       left = 1,
       top = 1,
       width = 6,
-      height = 4
+      height = 4,
+      from = NULL,
+      to = NULL,
+      edit_as = c("twoCell", "oneCell", "absolute"),
+      graphic_uri = ooxml_chart_uris("drawingml")$graphic_uri,
+      chart_inner = NULL
     ) {
-      emu_per_in <- 914400
+      edit_as <- match.arg(edit_as)
       nv_id <- private$next_cNvPr_id()
-      anchor_xml <- sprintf(
+      if (is.null(chart_inner)) {
+        chart_inner <- default_chart_inner(graphic_uri, chart_rid)
+      }
+      frame_xml <- sprintf(
         paste0(
-          "<xdr:absoluteAnchor",
-          " xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
-          " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"",
-          " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"",
-          " xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
-          "<xdr:pos x=\"%.0f\" y=\"%.0f\"/>",
-          "<xdr:ext cx=\"%.0f\" cy=\"%.0f\"/>",
           "<xdr:graphicFrame macro=\"\">",
           "<xdr:nvGraphicFramePr>",
           "<xdr:cNvPr id=\"%d\" name=\"Chart %d\"/>",
           "<xdr:cNvGraphicFramePr/>",
           "</xdr:nvGraphicFramePr>",
           "<xdr:xfrm><a:off x=\"0\" y=\"0\"/><a:ext cx=\"0\" cy=\"0\"/></xdr:xfrm>",
-          "<a:graphic><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
-          "<c:chart r:id=\"%s\"/>",
-          "</a:graphicData></a:graphic>",
-          "</xdr:graphicFrame>",
-          "<xdr:clientData/>",
-          "</xdr:absoluteAnchor>"
+          "<a:graphic><a:graphicData uri=\"%s\">%s</a:graphicData></a:graphic>",
+          "</xdr:graphicFrame>"
         ),
-        left * emu_per_in,
-        top * emu_per_in,
-        width * emu_per_in,
-        height * emu_per_in,
         nv_id,
         nv_id,
-        chart_rid
+        graphic_uri,
+        chart_inner
       )
-
+      anchor_xml <- build_anchor_xml(
+        frame_xml,
+        from = from,
+        to = to,
+        edit_as = edit_as,
+        left = left,
+        top = top,
+        width = width,
+        height = height
+      )
       xml_add_child(self$get(), read_xml(anchor_xml))
       self$save()
       self
     },
 
-    #' @description Add a relationship from the drawing to a chart file.
-    add_chart_rel = function(chart_basename) {
+    #' @description Register a chart part with the drawing. Returns
+    #'   the relationship id, to be passed to `add_chart_anchor()`.
+    #' @param rel_type chart family relationship type; defaults to the
+    #'   classic chart family. Use [ooxml_chart_uris()] to obtain the
+    #'   value for the chartEx family.
+    add_chart_rel = function(
+      chart_basename,
+      rel_type = ooxml_chart_uris("drawingml")$rel_type
+    ) {
       next_id <- self$relationship()$get_next_id()
       rid <- paste0("rId", next_id)
       self$relationship()$add(
         id = rid,
-        type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
+        type = rel_type,
         target = paste0("../charts/", chart_basename)
       )
       self$save()
@@ -378,11 +600,12 @@ xlsx_drawing <- R6Class(
       rid
     },
 
-    #' @description Add an image anchor to the drawing (absolute placement
-    #'   in inches from the top-left corner of the sheet).
-    #' @param image_rid relationship id of the image
-    #' @param left,top top-left anchor in inches
-    #' @param width,height size in inches
+    #' @description Place an image on the sheet. Positioning works
+    #'   the same way as `add_chart_anchor()`: supply `from` and `to`
+    #'   to move and size with cells, `from` only to move (but not
+    #'   resize) with cells, or leave both `NULL` for a fixed position.
+    #' @param image_rid relationship id of the image (returned by
+    #'   `add_image_rel()`)
     #' @param alt alternative text
     add_image_anchor = function(
       image_rid,
@@ -390,18 +613,15 @@ xlsx_drawing <- R6Class(
       top = 1,
       width = 2,
       height = 2,
+      from = NULL,
+      to = NULL,
+      edit_as = c("twoCell", "oneCell", "absolute"),
       alt = ""
     ) {
-      emu_per_in <- 914400
+      edit_as <- match.arg(edit_as)
       nv_id <- private$next_cNvPr_id()
-      anchor_xml <- sprintf(
+      pic_xml <- sprintf(
         paste0(
-          "<xdr:absoluteAnchor",
-          " xmlns:xdr=\"http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing\"",
-          " xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"",
-          " xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">",
-          "<xdr:pos x=\"%.0f\" y=\"%.0f\"/>",
-          "<xdr:ext cx=\"%.0f\" cy=\"%.0f\"/>",
           "<xdr:pic>",
           "<xdr:nvPicPr>",
           "<xdr:cNvPr id=\"%d\" name=\"Picture %d\" descr=\"%s\"/>",
@@ -412,28 +632,25 @@ xlsx_drawing <- R6Class(
           "<a:stretch><a:fillRect/></a:stretch>",
           "</xdr:blipFill>",
           "<xdr:spPr>",
-          "<a:xfrm>",
-          "<a:off x=\"%.0f\" y=\"%.0f\"/>",
-          "<a:ext cx=\"%.0f\" cy=\"%.0f\"/>",
-          "</a:xfrm>",
+          "<a:xfrm><a:off x=\"0\" y=\"0\"/><a:ext cx=\"0\" cy=\"0\"/></a:xfrm>",
           "<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>",
           "</xdr:spPr>",
-          "</xdr:pic>",
-          "<xdr:clientData/>",
-          "</xdr:absoluteAnchor>"
+          "</xdr:pic>"
         ),
-        left * emu_per_in,
-        top * emu_per_in,
-        width * emu_per_in,
-        height * emu_per_in,
         nv_id,
         nv_id,
         htmlEscapeCopy(alt),
-        image_rid,
-        left * emu_per_in,
-        top * emu_per_in,
-        width * emu_per_in,
-        height * emu_per_in
+        image_rid
+      )
+      anchor_xml <- build_anchor_xml(
+        pic_xml,
+        from = from,
+        to = to,
+        edit_as = edit_as,
+        left = left,
+        top = top,
+        width = width,
+        height = height
       )
       xml_add_child(self$get(), read_xml(anchor_xml))
       self$save()
@@ -1621,13 +1838,24 @@ sheet_write_data.block_list <- function(
 #' This is a generic function dispatching on `value`. Supported inputs
 #' include:
 #' - [external_img()]: an image file (PNG, JPEG, GIF, ...) copied into
-#'   `xl/media/` and placed via an absolute anchor. Position and size
-#'   are inch-based (`left`, `top`, `width`, `height`).
+#'   the workbook and placed on the sheet.
 #' - `gg`: a ggplot object rendered to PNG via `ragg::agg_png()` and
 #'   embedded via the `external_img` path. Extra arguments: `res`
 #'   (default 300 ppi), `alt_text` (auto-detected via
 #'   `ggplot2::get_alt_text()` when empty), `scale` (same semantics as
 #'   `ggplot2::ggsave()`).
+#'
+#' The drawing can be positioned in three ways, matching Excel's own
+#' "Format Picture" options:
+#' - Fixed position (default): pass `left` / `top` and
+#'   `width` / `height` in inches. The drawing stays put when rows or
+#'   columns are inserted/resized.
+#' - Move and size with cells (Excel's default): pass
+#'   `anchor = "B2:H20"` (a cell range). The drawing spans those two
+#'   cells and follows them.
+#' - Move but don't size with cells: pass `anchor = "B2"`
+#'   (a single cell). The drawing anchors to that cell, keeping the
+#'   size set by `width` / `height`.
 #'
 #' Additional methods for `ms_chart` and `dml` are provided by the
 #' extension packages 'mschart' and 'rvg'.
@@ -1637,12 +1865,16 @@ sheet_write_data.block_list <- function(
 #' @param x rxlsx object created by [read_xlsx()]
 #' @param value object to add (dispatched to the appropriate method)
 #' @param sheet sheet name (must already exist, see [add_sheet()])
-#' @param ... method-specific arguments. In particular, the
-#'   `external_img` and `gg` methods accept `left` / `top` (top-left
-#'   anchor, inches, default `(1, 1)`) and `width` / `height` (size,
-#'   inches). The `gg` method also accepts `res` (ppi, default 300),
-#'   `alt_text` (auto-detected via `ggplot2::get_alt_text()` if empty)
-#'   and `scale` (passed to [ragg::agg_png()]).
+#' @param ... method-specific arguments. Common across `external_img`
+#'   and `gg` methods: `left` / `top` (fixed-position top-left in
+#'   inches, default `(1, 1)`), `width` / `height` (size in inches),
+#'   `anchor` (cell reference like `"B2"` or `"B2:H20"`, see
+#'   description), `edit_as` (one of `"twoCell"`, `"oneCell"`,
+#'   `"absolute"`; how Excel treats the drawing when rows/columns are
+#'   resized — only meaningful with a cell range `anchor`). The `gg`
+#'   method also accepts `res` (ppi, default 300), `alt_text`
+#'   (auto-detected via `ggplot2::get_alt_text()` if empty) and
+#'   `scale` (passed to [ragg::agg_png()]).
 #' @return the rxlsx object (invisibly)
 #' @examples
 #' img <- system.file("extdata", "example.png", package = "officer")
@@ -1680,8 +1912,12 @@ sheet_add_drawing.external_img <- function(
   top = 1,
   width = NULL,
   height = NULL,
+  anchor = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
   ...
 ) {
+  edit_as <- match.arg(edit_as)
+  ft <- parse_anchor(anchor)
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
 
@@ -1726,6 +1962,9 @@ sheet_add_drawing.external_img <- function(
     top = top,
     width = width,
     height = height,
+    from = ft$from,
+    to = ft$to,
+    edit_as = edit_as,
     alt = alt
   )
 
@@ -1742,11 +1981,14 @@ sheet_add_drawing.gg <- function(
   top = 1,
   width = 6,
   height = 4,
+  anchor = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
   res = 300,
   alt_text = "",
   scale = 1,
   ...
 ) {
+  edit_as <- match.arg(edit_as)
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     cli::cli_abort("The {.pkg ggplot2} package is required for this method.")
   }
@@ -1777,7 +2019,9 @@ sheet_add_drawing.gg <- function(
     external_img(file, width = width, height = height, alt = alt_text),
     sheet = sheet,
     left = left,
-    top = top
+    top = top,
+    anchor = anchor,
+    edit_as = edit_as
   )
 }
 

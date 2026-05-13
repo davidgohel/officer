@@ -384,6 +384,14 @@ update.sp_line <- function(
   object
 }
 
+#' @export
+#' @rdname sp_line
+#' @param add_ns unused; kept for compatibility with the [to_pml()]
+#' generic.
+to_pml.sp_line <- function(x, add_ns = FALSE, ...) {
+  ln_pml(x)
+}
+
 #' @title Line end properties
 #'
 #' @description Create a `sp_lineend` object that describes

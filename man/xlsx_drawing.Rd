@@ -9,165 +9,219 @@ sheet. Used internally by \code{\link[=sheet_add_drawing]{sheet_add_drawing()}} 
 }
 \keyword{internal}
 \section{Super class}{
-\code{officer::openxml_document} -> \code{xlsx_drawing}
+\code{openxml_document} -> \code{xlsx_drawing}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-xlsx_drawing-new}{\code{xlsx_drawing$new()}}
-\item \href{#method-xlsx_drawing-add_chart_anchor}{\code{xlsx_drawing$add_chart_anchor()}}
-\item \href{#method-xlsx_drawing-add_chart_rel}{\code{xlsx_drawing$add_chart_rel()}}
-\item \href{#method-xlsx_drawing-add_image_rel}{\code{xlsx_drawing$add_image_rel()}}
-\item \href{#method-xlsx_drawing-add_image_anchor}{\code{xlsx_drawing$add_image_anchor()}}
-\item \href{#method-xlsx_drawing-clone}{\code{xlsx_drawing$clone()}}
+  \itemize{
+    \item \href{#method-xlsx_drawing-initialize}{\code{xlsx_drawing$new()}}
+    \item \href{#method-xlsx_drawing-add_chart_anchor}{\code{xlsx_drawing$add_chart_anchor()}}
+    \item \href{#method-xlsx_drawing-add_chart_rel}{\code{xlsx_drawing$add_chart_rel()}}
+    \item \href{#method-xlsx_drawing-add_image_rel}{\code{xlsx_drawing$add_image_rel()}}
+    \item \href{#method-xlsx_drawing-add_image_anchor}{\code{xlsx_drawing$add_image_anchor()}}
+    \item \href{#method-xlsx_drawing-clone}{\code{xlsx_drawing$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="dir_name"><a href='../../officer/html/openxml_document.html#method-openxml_document-dir_name'><code>officer::openxml_document$dir_name()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="feed"><a href='../../officer/html/openxml_document.html#method-openxml_document-feed'><code>officer::openxml_document$feed()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="file_name"><a href='../../officer/html/openxml_document.html#method-openxml_document-file_name'><code>officer::openxml_document$file_name()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="get"><a href='../../officer/html/openxml_document.html#method-openxml_document-get'><code>officer::openxml_document$get()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="name"><a href='../../officer/html/openxml_document.html#method-openxml_document-name'><code>officer::openxml_document$name()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="rel_df"><a href='../../officer/html/openxml_document.html#method-openxml_document-rel_df'><code>officer::openxml_document$rel_df()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="relationship"><a href='../../officer/html/openxml_document.html#method-openxml_document-relationship'><code>officer::openxml_document$relationship()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="remove"><a href='../../officer/html/openxml_document.html#method-openxml_document-remove'><code>officer::openxml_document$remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="replace_xml"><a href='../../officer/html/openxml_document.html#method-openxml_document-replace_xml'><code>officer::openxml_document$replace_xml()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="officer" data-topic="openxml_document" data-id="save"><a href='../../officer/html/openxml_document.html#method-openxml_document-save'><code>officer::openxml_document$save()</code></a></span></li>
+  <li><code>openxml_document$dir_name()</code></li>
+  <li><code>openxml_document$feed()</code></li>
+  <li><code>openxml_document$file_name()</code></li>
+  <li><code>openxml_document$get()</code></li>
+  <li><code>openxml_document$name()</code></li>
+  <li><code>openxml_document$rel_df()</code></li>
+  <li><code>openxml_document$relationship()</code></li>
+  <li><code>openxml_document$remove()</code></li>
+  <li><code>openxml_document$replace_xml()</code></li>
+  <li><code>openxml_document$save()</code></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-xlsx_drawing-new"></a>}}
-\if{latex}{\out{\hypertarget{method-xlsx_drawing-new}{}}}
-\subsection{Method \code{new()}}{
-Create or reuse a drawing for a sheet.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$new(package_dir, sheet_obj, content_type)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-xlsx_drawing-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-xlsx_drawing-initialize}{}}}
+\subsection{\code{xlsx_drawing$new()}}{
+  Create or reuse a drawing for a sheet.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$new(package_dir, sheet_obj, content_type)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{package_dir}}{path to the unpacked xlsx directory}
+      \item{\code{sheet_obj}}{a sheet R6 object}
+      \item{\code{content_type}}{a content_type R6 object}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{package_dir}}{path to the unpacked xlsx directory}
-
-\item{\code{sheet_obj}}{a sheet R6 object}
-
-\item{\code{content_type}}{a content_type R6 object}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-xlsx_drawing-add_chart_anchor"></a>}}
 \if{latex}{\out{\hypertarget{method-xlsx_drawing-add_chart_anchor}{}}}
-\subsection{Method \code{add_chart_anchor()}}{
-Add a chart anchor to the drawing (absolute
-placement in inches from the top-left corner of the sheet).
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_chart_anchor(
+\subsection{\code{xlsx_drawing$add_chart_anchor()}}{
+  Place a chart on the sheet. The chart can be
+positioned in three ways, matching Excel's own "Format
+Picture" options:
+\itemize{
+\item Move and size with cells (Excel's default): supply
+\code{from} and \code{to} as cell references (e.g. \code{"B2"} and
+\code{"H20"}). The chart spans those two cells and follows them
+when rows/columns are inserted or resized.
+\item Move but don't size with cells: supply \code{from} only.
+The chart anchors to that cell with the size set by
+\code{width}/\code{height}.
+\item Fixed position: leave \code{from} and \code{to} \code{NULL}. The
+chart is placed at \code{left}/\code{top} with size \code{width}/\code{height},
+independent of cell layout.
+}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$add_chart_anchor(
   chart_rid,
   left = 1,
   top = 1,
   width = 6,
-  height = 4
-)}\if{html}{\out{</div>}}
+  height = 4,
+  from = NULL,
+  to = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
+  graphic_uri = ooxml_chart_uris("drawingml")$graphic_uri,
+  chart_inner = NULL
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{chart_rid}}{relationship id of the chart (returned by
+\code{add_chart_rel()}). Ignored when \code{chart_inner} is supplied
+explicitly.}
+      \item{\code{left, top}}{top-left position in inches (fixed-position mode)}
+      \item{\code{width, height}}{size in inches}
+      \item{\code{from, to}}{Excel cell references like \code{"C4"} (1-based,
+case-insensitive)}
+      \item{\code{edit_as}}{how Excel should treat the drawing when rows or
+columns are resized: \code{"twoCell"} (move and size with cells, the
+default), \code{"oneCell"} (move only) or \code{"absolute"} (neither). Only
+meaningful when both \code{from} and \code{to} are supplied.}
+      \item{\code{graphic_uri}}{chart family URI; defaults to the classic
+chart family. Use \code{\link[=ooxml_chart_uris]{ooxml_chart_uris()}} to obtain the value
+for the chartEx family.}
+      \item{\code{chart_inner}}{advanced. XML fragment referencing the chart
+part. Leave \code{NULL} to let the method build the right reference
+from \code{graphic_uri}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{chart_rid}}{relationship id of the chart}
-
-\item{\code{left, top}}{top-left anchor in inches}
-
-\item{\code{width, height}}{size in inches}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-xlsx_drawing-add_chart_rel"></a>}}
 \if{latex}{\out{\hypertarget{method-xlsx_drawing-add_chart_rel}{}}}
-\subsection{Method \code{add_chart_rel()}}{
-Add a relationship from the drawing to a chart file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_chart_rel(chart_basename)}\if{html}{\out{</div>}}
+\subsection{\code{xlsx_drawing$add_chart_rel()}}{
+  Register a chart part with the drawing. Returns
+the relationship id, to be passed to \code{add_chart_anchor()}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$add_chart_rel(
+  chart_basename,
+  rel_type = ooxml_chart_uris("drawingml")$rel_type
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{chart_basename}}{filename of the chart XML}
+      \item{\code{rel_type}}{chart family relationship type; defaults to the
+classic chart family. Use \code{\link[=ooxml_chart_uris]{ooxml_chart_uris()}} to obtain the
+value for the chartEx family.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{chart_basename}}{filename of the chart XML}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-xlsx_drawing-add_image_rel"></a>}}
 \if{latex}{\out{\hypertarget{method-xlsx_drawing-add_image_rel}{}}}
-\subsection{Method \code{add_image_rel()}}{
-Add a relationship from the drawing to a media image.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_image_rel(image_basename)}\if{html}{\out{</div>}}
+\subsection{\code{xlsx_drawing$add_image_rel()}}{
+  Add a relationship from the drawing to a media image.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$add_image_rel(image_basename)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{image_basename}}{filename (without directory) of the image
+sitting in \verb{xl/media/}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{image_basename}}{filename (without directory) of the image
-sitting in \verb{xl/media/}.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-xlsx_drawing-add_image_anchor"></a>}}
 \if{latex}{\out{\hypertarget{method-xlsx_drawing-add_image_anchor}{}}}
-\subsection{Method \code{add_image_anchor()}}{
-Add an image anchor to the drawing (absolute placement
-in inches from the top-left corner of the sheet).
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$add_image_anchor(
+\subsection{\code{xlsx_drawing$add_image_anchor()}}{
+  Place an image on the sheet. Positioning works
+the same way as \code{add_chart_anchor()}: supply \code{from} and \code{to}
+to move and size with cells, \code{from} only to move (but not
+resize) with cells, or leave both \code{NULL} for a fixed position.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$add_image_anchor(
   image_rid,
   left = 1,
   top = 1,
   width = 2,
   height = 2,
+  from = NULL,
+  to = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
   alt = ""
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{image_rid}}{relationship id of the image (returned by
+\code{add_image_rel()})}
+      \item{\code{left, top}}{top-left position in inches (fixed-position mode)}
+      \item{\code{width, height}}{size in inches}
+      \item{\code{from, to}}{Excel cell references like \code{"C4"} (1-based,
+case-insensitive)}
+      \item{\code{edit_as}}{how Excel should treat the drawing when rows or
+columns are resized: \code{"twoCell"} (move and size with cells, the
+default), \code{"oneCell"} (move only) or \code{"absolute"} (neither). Only
+meaningful when both \code{from} and \code{to} are supplied.}
+      \item{\code{alt}}{alternative text}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{image_rid}}{relationship id of the image}
-
-\item{\code{left, top}}{top-left anchor in inches}
-
-\item{\code{width, height}}{size in inches}
-
-\item{\code{alt}}{alternative text}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-xlsx_drawing-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-xlsx_drawing-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{xlsx_drawing$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{xlsx_drawing$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

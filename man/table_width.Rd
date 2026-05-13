@@ -22,11 +22,11 @@ preference to be overridden.
 }
 
 \seealso{
-Other functions for table definition: 
-\code{\link{prop_table}()},
-\code{\link{table_colwidths}()},
-\code{\link{table_conditional_formatting}()},
-\code{\link{table_layout}()},
-\code{\link{table_stylenames}()}
+Other functions for table definition:
+\code{\link[=prop_table]{prop_table()}},
+\code{\link[=table_colwidths]{table_colwidths()}},
+\code{\link[=table_conditional_formatting]{table_conditional_formatting()}},
+\code{\link[=table_layout]{table_layout()}},
+\code{\link[=table_stylenames]{table_stylenames()}}
 }
 \concept{functions for table definition}

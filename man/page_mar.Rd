@@ -48,9 +48,9 @@ the length.
 page_mar()
 }
 \seealso{
-Other functions for section definition: 
-\code{\link{page_size}()},
-\code{\link{prop_section}()},
-\code{\link{section_columns}()}
+Other functions for section definition:
+\code{\link[=page_size]{page_size()}},
+\code{\link[=prop_section]{prop_section()}},
+\code{\link[=section_columns]{section_columns()}}
 }
 \concept{functions for section definition}

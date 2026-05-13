@@ -32,11 +32,11 @@ fpar(
 )
 }
 \seealso{
-Other functions for defining formatting properties: 
-\code{\link{fp_border}()},
-\code{\link{fp_cell}()},
-\code{\link{fp_par}()},
-\code{\link{fp_tab}()},
-\code{\link{fp_text}()}
+Other functions for defining formatting properties:
+\code{\link[=fp_border]{fp_border()}},
+\code{\link[=fp_cell]{fp_cell()}},
+\code{\link[=fp_par]{fp_par()}},
+\code{\link[=fp_tab]{fp_tab()}},
+\code{\link[=fp_text]{fp_text()}}
 }
 \concept{functions for defining formatting properties}

@@ -99,19 +99,19 @@ tf <- tempfile(fileext = ".docx")
 print(x, target = tf)
 }
 \seealso{
-Other functions for adding content: 
-\code{\link{body_add_blocks}()},
-\code{\link{body_add_break}()},
-\code{\link{body_add_caption}()},
-\code{\link{body_add_docx}()},
-\code{\link{body_add_fpar}()},
-\code{\link{body_add_gg}()},
-\code{\link{body_add_img}()},
-\code{\link{body_add_list}()},
-\code{\link{body_add_par}()},
-\code{\link{body_add_plot}()},
-\code{\link{body_add_table}()},
-\code{\link{body_add_toc}()},
-\code{\link{body_append_start_context}()}
+Other functions for adding content:
+\code{\link[=body_add_blocks]{body_add_blocks()}},
+\code{\link[=body_add_break]{body_add_break()}},
+\code{\link[=body_add_caption]{body_add_caption()}},
+\code{\link[=body_add_docx]{body_add_docx()}},
+\code{\link[=body_add_fpar]{body_add_fpar()}},
+\code{\link[=body_add_gg]{body_add_gg()}},
+\code{\link[=body_add_img]{body_add_img()}},
+\code{\link[=body_add_list]{body_add_list()}},
+\code{\link[=body_add_par]{body_add_par()}},
+\code{\link[=body_add_plot]{body_add_plot()}},
+\code{\link[=body_add_table]{body_add_table()}},
+\code{\link[=body_add_toc]{body_add_toc()}},
+\code{\link[=body_append_start_context]{body_append_start_context()}}
 }
 \concept{functions for adding content}

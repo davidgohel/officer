@@ -60,11 +60,11 @@ x <- set_doc_properties(x, title = "title",
 x <- doc_properties(x)
 }
 \seealso{
-Other functions for Word document informations: 
-\code{\link{doc_properties}()},
-\code{\link{docx_bookmarks}()},
-\code{\link{docx_dim}()},
-\code{\link{length.rdocx}()},
-\code{\link{styles_info}()}
+Other functions for Word document informations:
+\code{\link[=doc_properties]{doc_properties()}},
+\code{\link[=docx_bookmarks]{docx_bookmarks()}},
+\code{\link[=docx_dim]{docx_dim()}},
+\code{\link[=length.rdocx]{length.rdocx()}},
+\code{\link[=styles_info]{styles_info()}}
 }
 \concept{functions for Word document informations}

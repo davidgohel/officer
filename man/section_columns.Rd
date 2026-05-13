@@ -21,9 +21,9 @@ The function creates a representation of the columns of a section.
 section_columns()
 }
 \seealso{
-Other functions for section definition: 
-\code{\link{page_mar}()},
-\code{\link{page_size}()},
-\code{\link{prop_section}()}
+Other functions for section definition:
+\code{\link[=page_mar]{page_mar()}},
+\code{\link[=page_size]{page_size()}},
+\code{\link[=prop_section]{prop_section()}}
 }
 \concept{functions for section definition}

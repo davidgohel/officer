@@ -4,6 +4,7 @@
 \alias{sp_line}
 \alias{print.sp_line}
 \alias{update.sp_line}
+\alias{to_pml.sp_line}
 \title{Line properties}
 \usage{
 sp_line(
@@ -31,6 +32,8 @@ sp_line(
   tailend,
   ...
 )
+
+\method{to_pml}{sp_line}(x, add_ns = FALSE, ...)
 }
 \arguments{
 \item{color}{line color - a single character value specifying
@@ -65,6 +68,9 @@ or \code{'bevel'} or \code{'miter'}}
 \item{x, object}{\code{sp_line} object}
 
 \item{...}{further arguments - not used}
+
+\item{add_ns}{unused; kept for compatibility with the \code{\link[=to_pml]{to_pml()}}
+generic.}
 }
 \value{
 a \code{sp_line} object
@@ -86,7 +92,7 @@ update(obj, linecmpd = "dbl")
 \seealso{
 \link{sp_lineend}
 
-Other functions for defining shape properties: 
-\code{\link{sp_lineend}()}
+Other functions for defining shape properties:
+\code{\link[=sp_lineend]{sp_lineend()}}
 }
 \concept{functions for defining shape properties}

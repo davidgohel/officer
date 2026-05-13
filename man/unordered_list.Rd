@@ -45,17 +45,17 @@ unordered_list(
 \seealso{
 \code{\link[=ph_with]{ph_with()}}
 
-Other block functions for reporting: 
-\code{\link{block_caption}()},
-\code{\link{block_gg}()},
-\code{\link{block_list}()},
-\code{\link{block_list_items}()},
-\code{\link{block_pour_docx}()},
-\code{\link{block_section}()},
-\code{\link{block_table}()},
-\code{\link{block_toc}()},
-\code{\link{fpar}()},
-\code{\link{list_item}()},
-\code{\link{plot_instr}()}
+Other block functions for reporting:
+\code{\link[=block_caption]{block_caption()}},
+\code{\link[=block_gg]{block_gg()}},
+\code{\link[=block_list]{block_list()}},
+\code{\link[=block_list_items]{block_list_items()}},
+\code{\link[=block_pour_docx]{block_pour_docx()}},
+\code{\link[=block_section]{block_section()}},
+\code{\link[=block_table]{block_table()}},
+\code{\link[=block_toc]{block_toc()}},
+\code{\link[=fpar]{fpar()}},
+\code{\link[=list_item]{list_item()}},
+\code{\link[=plot_instr]{plot_instr()}}
 }
 \concept{block functions for reporting}

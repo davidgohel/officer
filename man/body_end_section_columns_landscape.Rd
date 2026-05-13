@@ -41,12 +41,12 @@ doc_1 <- body_add_par(doc_1, value = str1, style = "Normal")
 print(doc_1, target = tempfile(fileext = ".docx"))
 }
 \seealso{
-Other functions for Word sections: 
-\code{\link{body_end_block_section}()},
-\code{\link{body_end_section_columns}()},
-\code{\link{body_end_section_continuous}()},
-\code{\link{body_end_section_landscape}()},
-\code{\link{body_end_section_portrait}()},
-\code{\link{body_set_default_section}()}
+Other functions for Word sections:
+\code{\link[=body_end_block_section]{body_end_block_section()}},
+\code{\link[=body_end_section_columns]{body_end_section_columns()}},
+\code{\link[=body_end_section_continuous]{body_end_section_continuous()}},
+\code{\link[=body_end_section_landscape]{body_end_section_landscape()}},
+\code{\link[=body_end_section_portrait]{body_end_section_portrait()}},
+\code{\link[=body_set_default_section]{body_set_default_section()}}
 }
 \concept{functions for Word sections}

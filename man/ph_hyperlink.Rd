@@ -44,8 +44,8 @@ print(doc, target = fileout)
 \seealso{
 \code{\link[=ph_with]{ph_with()}}
 
-Other functions for placeholders manipulation: 
-\code{\link{ph_remove}()},
-\code{\link{ph_slidelink}()}
+Other functions for placeholders manipulation:
+\code{\link[=ph_remove]{ph_remove()}},
+\code{\link[=ph_slidelink]{ph_slidelink()}}
 }
 \concept{functions for placeholders manipulation}

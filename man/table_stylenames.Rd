@@ -47,11 +47,11 @@ doc_2 <- body_add_table(doc_2,
 print(doc_2, target = tempfile(fileext = ".docx"))
 }
 \seealso{
-Other functions for table definition: 
-\code{\link{prop_table}()},
-\code{\link{table_colwidths}()},
-\code{\link{table_conditional_formatting}()},
-\code{\link{table_layout}()},
-\code{\link{table_width}()}
+Other functions for table definition:
+\code{\link[=prop_table]{prop_table()}},
+\code{\link[=table_colwidths]{table_colwidths()}},
+\code{\link[=table_conditional_formatting]{table_conditional_formatting()}},
+\code{\link[=table_layout]{table_layout()}},
+\code{\link[=table_width]{table_width()}}
 }
 \concept{functions for table definition}

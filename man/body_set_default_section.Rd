@@ -157,12 +157,12 @@ output_file <- tempfile(fileext = ".docx")
 print(doc_2, target = output_file)
 }
 \seealso{
-Other functions for Word sections: 
-\code{\link{body_end_block_section}()},
-\code{\link{body_end_section_columns}()},
-\code{\link{body_end_section_columns_landscape}()},
-\code{\link{body_end_section_continuous}()},
-\code{\link{body_end_section_landscape}()},
-\code{\link{body_end_section_portrait}()}
+Other functions for Word sections:
+\code{\link[=body_end_block_section]{body_end_block_section()}},
+\code{\link[=body_end_section_columns]{body_end_section_columns()}},
+\code{\link[=body_end_section_columns_landscape]{body_end_section_columns_landscape()}},
+\code{\link[=body_end_section_continuous]{body_end_section_continuous()}},
+\code{\link[=body_end_section_landscape]{body_end_section_landscape()}},
+\code{\link[=body_end_section_portrait]{body_end_section_portrait()}}
 }
 \concept{functions for Word sections}

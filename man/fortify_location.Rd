@@ -30,16 +30,16 @@ fortify_location(ph_location_fullsize(), doc)
 \seealso{
 \code{\link[=ph_location]{ph_location()}}, \code{\link[=ph_with]{ph_with()}}
 
-Other functions for officer extensions: 
-\code{\link{get_reference_value}()},
-\code{\link{opts_current_table}()},
-\code{\link{shape_properties_tags}()},
-\code{\link{str_encode_to_rtf}()},
-\code{\link{to_html}()},
-\code{\link{to_pml}()},
-\code{\link{to_rtf}()},
-\code{\link{to_wml}()},
-\code{\link{wml_link_images}()}
+Other functions for officer extensions:
+\code{\link[=get_reference_value]{get_reference_value()}},
+\code{\link[=opts_current_table]{opts_current_table()}},
+\code{\link[=shape_properties_tags]{shape_properties_tags()}},
+\code{\link[=str_encode_to_rtf]{str_encode_to_rtf()}},
+\code{\link[=to_html]{to_html()}},
+\code{\link[=to_pml]{to_pml()}},
+\code{\link[=to_rtf]{to_rtf()}},
+\code{\link[=to_wml]{to_wml()}},
+\code{\link[=wml_link_images]{wml_link_images()}}
 }
 \concept{functions for officer extensions}
 \keyword{internal}

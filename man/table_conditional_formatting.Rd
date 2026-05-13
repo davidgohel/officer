@@ -34,11 +34,11 @@ if you need to use them. The format is defined in a docx template.
 table_conditional_formatting(first_row = TRUE, first_column = TRUE)
 }
 \seealso{
-Other functions for table definition: 
-\code{\link{prop_table}()},
-\code{\link{table_colwidths}()},
-\code{\link{table_layout}()},
-\code{\link{table_stylenames}()},
-\code{\link{table_width}()}
+Other functions for table definition:
+\code{\link[=prop_table]{prop_table()}},
+\code{\link[=table_colwidths]{table_colwidths()}},
+\code{\link[=table_layout]{table_layout()}},
+\code{\link[=table_stylenames]{table_stylenames()}},
+\code{\link[=table_width]{table_width()}}
 }
 \concept{functions for table definition}

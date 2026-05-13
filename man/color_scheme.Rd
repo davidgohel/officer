@@ -18,14 +18,14 @@ x <- read_pptx()
 color_scheme ( x = x )
 }
 \seealso{
-Other functions for reading presentation information: 
-\code{\link{annotate_base}()},
-\code{\link{doc_properties}()},
-\code{\link{layout_properties}()},
-\code{\link{layout_summary}()},
-\code{\link{length.rpptx}()},
-\code{\link{plot_layout_properties}()},
-\code{\link{slide_size}()},
-\code{\link{slide_summary}()}
+Other functions for reading presentation information:
+\code{\link[=annotate_base]{annotate_base()}},
+\code{\link[=doc_properties]{doc_properties()}},
+\code{\link[=layout_properties]{layout_properties()}},
+\code{\link[=layout_summary]{layout_summary()}},
+\code{\link[=length.rpptx]{length.rpptx()}},
+\code{\link[=plot_layout_properties]{plot_layout_properties()}},
+\code{\link[=slide_size]{slide_size()}},
+\code{\link[=slide_summary]{slide_summary()}}
 }
 \concept{functions for reading presentation information}

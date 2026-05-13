@@ -20,11 +20,11 @@ Word document - default Word section is an uninvisible element.
 length(read_docx())
 }
 \seealso{
-Other functions for Word document informations: 
-\code{\link{doc_properties}()},
-\code{\link{docx_bookmarks}()},
-\code{\link{docx_dim}()},
-\code{\link{set_doc_properties}()},
-\code{\link{styles_info}()}
+Other functions for Word document informations:
+\code{\link[=doc_properties]{doc_properties()}},
+\code{\link[=docx_bookmarks]{docx_bookmarks()}},
+\code{\link[=docx_dim]{docx_dim()}},
+\code{\link[=set_doc_properties]{set_doc_properties()}},
+\code{\link[=styles_info]{styles_info()}}
 }
 \concept{functions for Word document informations}

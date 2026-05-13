@@ -2,26 +2,17 @@
 % Please edit documentation in R/ooxml_run_objects.R
 \name{run_word_field}
 \alias{run_word_field}
-\alias{run_seqfield}
 \title{'Word' computed field}
 \usage{
-run_word_field(field, prop = NULL, seqfield = NULL)
-
-run_seqfield(field, prop = NULL, seqfield = NULL)
+run_word_field(field, prop = NULL)
 }
 \arguments{
 \item{field}{Value for a "Word Computed Field" as a string.}
 
 \item{prop}{formatting text properties returned by \link{fp_text}.}
-
-\item{seqfield}{deprecated in favor of \code{field}.}
 }
 \description{
 Create a 'Word' computed field.
-}
-\note{
-In the previous version, this function was called \code{run_seqfield}
-but the name was wrong and should have been \code{run_word_field}.
 }
 \section{usage}{
 
@@ -36,26 +27,26 @@ run_word_field(field = "PAGE  \\\\* MERGEFORMAT")
 run_word_field(field = "Date \\\\@ \"MMMM d yyyy\"")
 }
 \seealso{
-Other run functions for reporting: 
-\code{\link{external_img}()},
-\code{\link{floating_external_img}()},
-\code{\link{ftext}()},
-\code{\link{hyperlink_ftext}()},
-\code{\link{run_autonum}()},
-\code{\link{run_bookmark}()},
-\code{\link{run_columnbreak}()},
-\code{\link{run_comment}()},
-\code{\link{run_footnote}()},
-\code{\link{run_footnoteref}()},
-\code{\link{run_linebreak}()},
-\code{\link{run_pagebreak}()},
-\code{\link{run_reference}()},
-\code{\link{run_tab}()},
-\code{\link{run_wordtext}()}
+Other run functions for reporting:
+\code{\link[=external_img]{external_img()}},
+\code{\link[=floating_external_img]{floating_external_img()}},
+\code{\link[=ftext]{ftext()}},
+\code{\link[=hyperlink_ftext]{hyperlink_ftext()}},
+\code{\link[=run_autonum]{run_autonum()}},
+\code{\link[=run_bookmark]{run_bookmark()}},
+\code{\link[=run_columnbreak]{run_columnbreak()}},
+\code{\link[=run_comment]{run_comment()}},
+\code{\link[=run_footnote]{run_footnote()}},
+\code{\link[=run_footnoteref]{run_footnoteref()}},
+\code{\link[=run_linebreak]{run_linebreak()}},
+\code{\link[=run_pagebreak]{run_pagebreak()}},
+\code{\link[=run_reference]{run_reference()}},
+\code{\link[=run_tab]{run_tab()}},
+\code{\link[=run_wordtext]{run_wordtext()}}
 
-Other Word computed fields: 
-\code{\link{run_autonum}()},
-\code{\link{run_reference}()}
+Other Word computed fields:
+\code{\link[=run_autonum]{run_autonum()}},
+\code{\link[=run_reference]{run_reference()}}
 }
 \concept{Word computed fields}
 \concept{run functions for reporting}

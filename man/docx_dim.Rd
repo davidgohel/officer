@@ -17,11 +17,11 @@ are those corresponding to the section where the cursor is.
 docx_dim(read_docx())
 }
 \seealso{
-Other functions for Word document informations: 
-\code{\link{doc_properties}()},
-\code{\link{docx_bookmarks}()},
-\code{\link{length.rdocx}()},
-\code{\link{set_doc_properties}()},
-\code{\link{styles_info}()}
+Other functions for Word document informations:
+\code{\link[=doc_properties]{doc_properties()}},
+\code{\link[=docx_bookmarks]{docx_bookmarks()}},
+\code{\link[=length.rdocx]{length.rdocx()}},
+\code{\link[=set_doc_properties]{set_doc_properties()}},
+\code{\link[=styles_info]{styles_info()}}
 }
 \concept{functions for Word document informations}

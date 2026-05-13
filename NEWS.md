@@ -1,3 +1,25 @@
+# officer 0.7.5
+
+## Excel features
+
+- Images and ggplot drawings placed on Excel sheets with
+`sheet_add_drawing()` can now be anchored to cells. Pass
+`anchor = "B2:H20"` (a cell range) to make the drawing move and
+size with cells, Excel's default behaviour. Pass `anchor = "B2"`
+(a single cell) to make it move but keep its own size. Omit
+`anchor` for the previous fixed-position layout. The `edit_as`
+argument controls what happens when rows or columns are resized.
+The same options are available to charts inserted via 'mschart'.
+- Excel sheets can host the chartEx chart family (boxplot, funnel,
+histogram, pareto, sunburst, treemap, waterfall) in addition to the
+classic chart types. The new helper `ooxml_chart_uris()` returns the
+identifiers needed by `xlsx_drawing` to wire either family.
+- Two new building blocks for packages that emit OOXML directly
+(such as 'mschart'): `solid_fill(color)` returns a DrawingML
+solid-fill fragment with optional alpha; `to_pml()` now has an
+`sp_line` method exposing line-properties conversion that was
+previously internal.
+
 # officer 0.7.4
 
 ## Features
@@ -142,7 +164,7 @@ Word users could have.
 - Fix RTF generation so that `fp_par_lite()` works also for RTF output.
 - Fix `doc_summary(... detailed=TRUE)` when the runs has a shading (w:shd) with 
 a fill but no color attribute.
-- `plot_layout_properties()`: new `slide_idx` arg to specify which slide’s layout 
+- `plot_layout_properties()`: new `slide_idx` arg to specify which slide's layout 
   to plot. The plot title now also contains the master's name (#666)
 
 # officer 0.6.9
@@ -300,7 +322,7 @@ with flextable (for Word and RTF).
 ## Features 
 
 - `fp_border()` gains support for all line border styles listed in ECMA-376 
-  § 17.18.2 and allowed CSS border styles. Closes #165 and #443.
+  section 17.18.2 and allowed CSS border styles. Closes #165 and #443.
 
 ## Changes
 

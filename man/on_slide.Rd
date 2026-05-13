@@ -41,9 +41,9 @@ print(doc, target = file)
 \code{\link[=read_pptx]{read_pptx()}}, \code{\link[=ph_with]{ph_with()}}
 
 Other functions to manipulate slides:
-\code{\link{add_slide}()},
-\code{\link{move_slide}()},
-\code{\link{remove_slide}()},
-\code{\link{set_notes}()}
+\code{\link[=add_slide]{add_slide()}},
+\code{\link[=move_slide]{move_slide()}},
+\code{\link[=remove_slide]{remove_slide()}},
+\code{\link[=set_notes]{set_notes()}}
 }
 \concept{slide_manipulation}

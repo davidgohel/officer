@@ -35,17 +35,17 @@ block_table(x = mtcars, header = TRUE,
 \seealso{
 \code{\link[=prop_table]{prop_table()}}
 
-Other block functions for reporting: 
-\code{\link{block_caption}()},
-\code{\link{block_gg}()},
-\code{\link{block_list}()},
-\code{\link{block_list_items}()},
-\code{\link{block_pour_docx}()},
-\code{\link{block_section}()},
-\code{\link{block_toc}()},
-\code{\link{fpar}()},
-\code{\link{list_item}()},
-\code{\link{plot_instr}()},
-\code{\link{unordered_list}()}
+Other block functions for reporting:
+\code{\link[=block_caption]{block_caption()}},
+\code{\link[=block_gg]{block_gg()}},
+\code{\link[=block_list]{block_list()}},
+\code{\link[=block_list_items]{block_list_items()}},
+\code{\link[=block_pour_docx]{block_pour_docx()}},
+\code{\link[=block_section]{block_section()}},
+\code{\link[=block_toc]{block_toc()}},
+\code{\link[=fpar]{fpar()}},
+\code{\link[=list_item]{list_item()}},
+\code{\link[=plot_instr]{plot_instr()}},
+\code{\link[=unordered_list]{unordered_list()}}
 }
 \concept{block functions for reporting}

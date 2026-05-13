@@ -13,11 +13,11 @@ table_colwidths(widths = NULL)
 The function defines the size of each column of a table.
 }
 \seealso{
-Other functions for table definition: 
-\code{\link{prop_table}()},
-\code{\link{table_conditional_formatting}()},
-\code{\link{table_layout}()},
-\code{\link{table_stylenames}()},
-\code{\link{table_width}()}
+Other functions for table definition:
+\code{\link[=prop_table]{prop_table()}},
+\code{\link[=table_conditional_formatting]{table_conditional_formatting()}},
+\code{\link[=table_layout]{table_layout()}},
+\code{\link[=table_stylenames]{table_stylenames()}},
+\code{\link[=table_width]{table_width()}}
 }
 \concept{functions for table definition}

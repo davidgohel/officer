@@ -28,9 +28,9 @@ in landscape mode then the length becomes the width and the width becomes the le
 page_size(orient = "landscape")
 }
 \seealso{
-Other functions for section definition: 
-\code{\link{page_mar}()},
-\code{\link{prop_section}()},
-\code{\link{section_columns}()}
+Other functions for section definition:
+\code{\link[=page_mar]{page_mar()}},
+\code{\link[=prop_section]{prop_section()}},
+\code{\link[=section_columns]{section_columns()}}
 }
 \concept{functions for section definition}
