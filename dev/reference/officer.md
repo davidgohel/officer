@@ -65,6 +65,8 @@ manuals <https://davidgohel.github.io/officer/>
 
 Authors:
 
+- David Gohel <david.gohel@ardata.fr>
+
 - Stefan Moog <moogs@gmx.de>
 
 - Mark Heckmann <heckmann.mark@gmail.com>

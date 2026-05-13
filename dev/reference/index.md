@@ -220,6 +220,7 @@
 - [`sp_line()`](https://davidgohel.github.io/officer/dev/reference/sp_line.md)
   [`print(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/dev/reference/sp_line.md)
   [`update(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/dev/reference/sp_line.md)
+  [`to_pml(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/dev/reference/sp_line.md)
   : Line properties
 - [`sp_lineend()`](https://davidgohel.github.io/officer/dev/reference/sp_lineend.md)
   [`print(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/dev/reference/sp_lineend.md)
@@ -329,7 +330,6 @@ footnotes and Word fields.
 - [`run_tab()`](https://davidgohel.github.io/officer/dev/reference/run_tab.md)
   : Tab for 'Word'
 - [`run_word_field()`](https://davidgohel.github.io/officer/dev/reference/run_word_field.md)
-  [`run_seqfield()`](https://davidgohel.github.io/officer/dev/reference/run_word_field.md)
   : 'Word' computed field
 - [`run_wordtext()`](https://davidgohel.github.io/officer/dev/reference/run_wordtext.md)
   : Word chunk of text with a style

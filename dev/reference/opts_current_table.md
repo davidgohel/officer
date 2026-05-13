@@ -32,38 +32,38 @@ a list
 
 ## knitr chunk options for Word table captions
 
-|                                                         |                 |                           |
-|---------------------------------------------------------|-----------------|---------------------------|
-| **label**                                               | **name**        | **value**                 |
-| Word stylename to use for table captions.               | tab.cap.style   | NULL                      |
-| prefix for numbering chunk (default to "Table ").       | tab.cap.pre     | Table                     |
-| suffix for numbering chunk (default to ": ").           | tab.cap.sep     | " :"                      |
-| title number depth                                      | tab.cap.tnd     | 0                         |
-| separator to use between title number and table number. | tab.cap.tns     | "-"                       |
-| caption prefix formatting properties                    | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
+|  |  |  |
+|----|----|----|
+| **label** | **name** | **value** |
+| Word stylename to use for table captions. | tab.cap.style | NULL |
+| prefix for numbering chunk (default to "Table "). | tab.cap.pre | Table |
+| suffix for numbering chunk (default to ": "). | tab.cap.sep | " :" |
+| title number depth | tab.cap.tnd | 0 |
+| separator to use between title number and table number. | tab.cap.tns | "-" |
+| caption prefix formatting properties | tab.cap.fp_text | fp_text_lite(bold = TRUE) |
 
 ## knitr chunk options for Word tables
 
-|                                                                |                     |           |
-|----------------------------------------------------------------|---------------------|-----------|
-| **label**                                                      | **name**            | **value** |
-| the Word stylename to use for tables                           | tab.style           | NULL      |
-| autofit' or 'fixed' algorithm.                                 | tab.layout          | "autofit" |
-| value of the preferred width of the table in percent (base 1). | tab.width           | 1         |
-| Alternative title text                                         | tab.alt.title       | NULL      |
-| Alternative description text                                   | tab.alt.description | NULL      |
+|  |  |  |
+|----|----|----|
+| **label** | **name** | **value** |
+| the Word stylename to use for tables | tab.style | NULL |
+| autofit' or 'fixed' algorithm. | tab.layout | "autofit" |
+| value of the preferred width of the table in percent (base 1). | tab.width | 1 |
+| Alternative title text | tab.alt.title | NULL |
+| Alternative description text | tab.alt.description | NULL |
 
 ## knitr chunk options for data.frame with officedown
 
-|                                                               |              |           |
-|---------------------------------------------------------------|--------------|-----------|
-| **label**                                                     | **name**     | **value** |
-| apply or remove formatting from the first row in the table    | first_row    | TRUE      |
-| apply or remove formatting from the first column in the table | first_column | FALSE     |
-| apply or remove formatting from the last row in the table     | last_row     | FALSE     |
-| apply or remove formatting from the last column in the table  | last_column  | FALSE     |
-| don't display odd and even rows                               | no_hband     | TRUE      |
-| don't display odd and even columns                            | no_vband     | TRUE      |
+|  |  |  |
+|----|----|----|
+| **label** | **name** | **value** |
+| apply or remove formatting from the first row in the table | first_row | TRUE |
+| apply or remove formatting from the first column in the table | first_column | FALSE |
+| apply or remove formatting from the last row in the table | last_row | FALSE |
+| apply or remove formatting from the last column in the table | last_column | FALSE |
+| don't display odd and even rows | no_hband | TRUE |
+| don't display odd and even columns | no_vband | TRUE |
 
 ## returned elements
 

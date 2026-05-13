@@ -1,6 +1,34 @@
 # Changelog
 
+## officer 0.7.5
+
+### Excel features
+
+- Images and ggplot drawings placed on Excel sheets with
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
+  can now be anchored to cells. Pass `anchor = "B2:H20"` (a cell range)
+  to make the drawing move and size with cells, Excel’s default
+  behaviour. Pass `anchor = "B2"` (a single cell) to make it move but
+  keep its own size. Omit `anchor` for the previous fixed-position
+  layout. The `edit_as` argument controls what happens when rows or
+  columns are resized. The same options are available to charts inserted
+  via ‘mschart’.
+- Excel sheets can host the chartEx chart family (boxplot, funnel,
+  histogram, pareto, sunburst, treemap, waterfall) in addition to the
+  classic chart types. The new helper
+  [`ooxml_chart_uris()`](https://davidgohel.github.io/officer/dev/reference/ooxml_chart_uris.md)
+  returns the identifiers needed by `xlsx_drawing` to wire either
+  family.
+- Two new building blocks for packages that emit OOXML directly (such as
+  ‘mschart’): `solid_fill(color)` returns a DrawingML solid-fill
+  fragment with optional alpha;
+  [`to_pml()`](https://davidgohel.github.io/officer/dev/reference/to_pml.md)
+  now has an `sp_line` method exposing line-properties conversion that
+  was previously internal.
+
 ## officer 0.7.4
+
+CRAN release: 2026-04-24
 
 ### Features
 
@@ -506,8 +534,8 @@ CRAN release: 2024-02-05
 ### Features
 
 - [`fp_border()`](https://davidgohel.github.io/officer/dev/reference/fp_border.md)
-  gains support for all line border styles listed in ECMA-376 § 17.18.2
-  and allowed CSS border styles. Closes
+  gains support for all line border styles listed in ECMA-376 section
+  17.18.2 and allowed CSS border styles. Closes
   [\#165](https://github.com/davidgohel/officer/issues/165) and
   [\#443](https://github.com/davidgohel/officer/issues/443).
 
@@ -772,7 +800,7 @@ CRAN release: 2022-06-12
 
 ### Changes
 
-- drop shortcuts$slip_{i}n_{t}ableref{()}andshortcuts$slip_in_plotref()
+- drop shortcuts$`slip_in_tableref() and shortcuts`$slip_in_plotref()
 - defunct slip_in_column_break() and slip_in_xml()
 - defunct slip_in_text()
 - remove defunct functions `slip_in_img()`, `ph_add_fpar()`,

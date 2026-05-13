@@ -22,6 +22,7 @@ body_bookmark(x, id)
 ## Examples
 
 ``` r
+
 # cursor_bookmark ----
 
 doc <- read_docx()

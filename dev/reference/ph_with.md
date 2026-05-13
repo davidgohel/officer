@@ -194,16 +194,16 @@ The `location` argument of `ph_with()` either expects a location object
 as returned by the `ph_location_*` functions or a corresponding location
 *short form* (string or numeric):
 
-|                                                                                                        |                |                                                             |
-|--------------------------------------------------------------------------------------------------------|----------------|-------------------------------------------------------------|
-| **Location function**                                                                                  | **Short form** | **Description**                                             |
-| [`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md)         | `"left"`       | Keyword string                                              |
-| [`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md)       | `"right"`      | Keyword string                                              |
-| [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md) | `"fullsize"`   | Keyword string                                              |
-| `ph_location_type("body", 1)`                                                                          | `"body [1]"`   | String: type + index in brackets (`1` if omitted)           |
-| `ph_location_label("my_label")`                                                                        | `"my_label"`   | Any string not matching a keyword or type                   |
-| `ph_location_id(1)`                                                                                    | `1`            | Length 1 integer                                            |
-| `ph_location(0, 0, 4, 5)`                                                                              | `c(0,0,4,5)`   | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` |
+|  |  |  |
+|----|----|----|
+| **Location function** | **Short form** | **Description** |
+| [`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md) | `"left"` | Keyword string |
+| [`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md) | `"right"` | Keyword string |
+| [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md) | `"fullsize"` | Keyword string |
+| `ph_location_type("body", 1)` | `"body [1]"` | String: type + index in brackets (`1` if omitted) |
+| `ph_location_label("my_label")` | `"my_label"` | Any string not matching a keyword or type |
+| `ph_location_id(1)` | `1` | Length 1 integer |
+| `ph_location(0, 0, 4, 5)` | `c(0,0,4,5)` | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` |
 
 ## Illustrations
 

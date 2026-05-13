@@ -47,15 +47,15 @@ parameter in the function call. The corresponding function from the
 `ph_location_*` family (called under the hood) is displayed on the
 right.
 
-|                |                                                   |                                                                                                        |
-|----------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| **Short form** | **Description**                                   | **Location function**                                                                                  |
-| `"left"`       | Keyword string                                    | [`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md)         |
-| `"right"`      | Keyword string                                    | [`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md)       |
-| `"fullsize"`   | Keyword string                                    | [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md) |
-| `"body [1]"`   | String: type + index in brackets (`1` if omitted) | `ph_location_type("body", 1)`                                                                          |
-| `"my_label"`   | Any string not matching a keyword or type         | `ph_location_label("my_label")`                                                                        |
-| `1`            | Length 1 integer                                  | `ph_location_id(1)`                                                                                    |
+|  |  |  |
+|----|----|----|
+| **Short form** | **Description** | **Location function** |
+| `"left"` | Keyword string | [`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md) |
+| `"right"` | Keyword string | [`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md) |
+| `"fullsize"` | Keyword string | [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md) |
+| `"body [1]"` | String: type + index in brackets (`1` if omitted) | `ph_location_type("body", 1)` |
+| `"my_label"` | Any string not matching a keyword or type | `ph_location_label("my_label")` |
+| `1` | Length 1 integer | `ph_location_id(1)` |
 
 ## See also
 

@@ -71,5 +71,5 @@ doc <- body_add_par(doc,
 
 docx_file <- print(doc, target = tempfile(fileext = ".docx"))
 docx_file
-#> [1] "/tmp/RtmpICdTei/file17231a1f4e1f.docx"
+#> [1] "/tmp/RtmpvovHFk/file192d2dbd2f08.docx"
 ```

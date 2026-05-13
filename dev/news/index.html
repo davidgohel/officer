@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.011</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.4" id="officer-074">officer 0.7.4<a class="anchor" aria-label="anchor" href="#officer-074"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.5" id="officer-075">officer 0.7.5<a class="anchor" aria-label="anchor" href="#officer-075"></a></h2>
+<div class="section level3">
+<h3 id="excel-features-0-7-5">Excel features<a class="anchor" aria-label="anchor" href="#excel-features-0-7-5"></a></h3>
+<ul><li>Images and ggplot drawings placed on Excel sheets with <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> can now be anchored to cells. Pass <code>anchor = "B2:H20"</code> (a cell range) to make the drawing move and size with cells, Excel’s default behaviour. Pass <code>anchor = "B2"</code> (a single cell) to make it move but keep its own size. Omit <code>anchor</code> for the previous fixed-position layout. The <code>edit_as</code> argument controls what happens when rows or columns are resized. The same options are available to charts inserted via ‘mschart’.</li>
+<li>Excel sheets can host the chartEx chart family (boxplot, funnel, histogram, pareto, sunburst, treemap, waterfall) in addition to the classic chart types. The new helper <code><a href="../reference/ooxml_chart_uris.html">ooxml_chart_uris()</a></code> returns the identifiers needed by <code>xlsx_drawing</code> to wire either family.</li>
+<li>Two new building blocks for packages that emit OOXML directly (such as ‘mschart’): <code>solid_fill(color)</code> returns a DrawingML solid-fill fragment with optional alpha; <code><a href="../reference/to_pml.html">to_pml()</a></code> now has an <code>sp_line</code> method exposing line-properties conversion that was previously internal.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.4" id="officer-074">officer 0.7.4<a class="anchor" aria-label="anchor" href="#officer-074"></a></h2><p class="text-muted">CRAN release: 2026-04-24</p>
 <div class="section level3">
 <h3 id="features-0-7-4">Features<a class="anchor" aria-label="anchor" href="#features-0-7-4"></a></h3>
 <div class="section level4">
@@ -281,7 +290,7 @@ Also, the default values for the <code>layout</code> (<code>"Title and Content"<
 <div class="section level3">
 <h3 id="features-0-6-4">Features<a class="anchor" aria-label="anchor" href="#features-0-6-4"></a></h3>
 <ul><li>
-<code><a href="../reference/fp_border.html">fp_border()</a></code> gains support for all line border styles listed in ECMA-376 § 17.18.2 and allowed CSS border styles. Closes <a href="https://github.com/davidgohel/officer/issues/165" class="external-link">#165</a> and <a href="https://github.com/davidgohel/officer/issues/443" class="external-link">#443</a>.</li>
+<code><a href="../reference/fp_border.html">fp_border()</a></code> gains support for all line border styles listed in ECMA-376 section 17.18.2 and allowed CSS border styles. Closes <a href="https://github.com/davidgohel/officer/issues/165" class="external-link">#165</a> and <a href="https://github.com/davidgohel/officer/issues/443" class="external-link">#443</a>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-6-4">Changes<a class="anchor" aria-label="anchor" href="#changes-0-6-4"></a></h3>
@@ -454,7 +463,7 @@ Also, the default values for the <code>layout</code> (<code>"Title and Content"<
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-4-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-4-3"></a></h3>
-<ul><li>drop shortcuts<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>l</mi><mi>i</mi><msub><mi>p</mi><mi>i</mi></msub><msub><mi>n</mi><mi>t</mi></msub><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>e</mi><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="true" form="postfix">)</mo></mrow><mi>a</mi><mi>n</mi><mi>d</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>c</mi><mi>u</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">slip_in_tableref() and shortcuts</annotation></semantics></math>slip_in_plotref()</li>
+<ul><li>drop shortcuts<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>l</mi><mi>i</mi><msub><mi>p</mi><mi>i</mi></msub><msub><mi>n</mi><mi>t</mi></msub><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>e</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="postfix">)</mo><mi>a</mi><mi>n</mi><mi>d</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>c</mi><mi>u</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">slip_in_tableref() and shortcuts</annotation></semantics></math>slip_in_plotref()</li>
 <li>defunct slip_in_column_break() and slip_in_xml()</li>
 <li>defunct slip_in_text()</li>
 <li>remove defunct functions <code>slip_in_img()</code>, <code>ph_add_fpar()</code>, <code>ph_add_par()</code> and <code>ph_add_text()</code>

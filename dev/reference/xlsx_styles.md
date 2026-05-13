@@ -9,7 +9,7 @@ and available for extensions.
 
 ### Public methods
 
-- [`xlsx_styles$new()`](#method-xlsx_styles-new)
+- [`xlsx_styles$new()`](#method-xlsx_styles-initialize)
 
 - [`xlsx_styles$get_font_id()`](#method-xlsx_styles-get_font_id)
 
@@ -27,7 +27,7 @@ and available for extensions.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `xlsx_styles$new()`
 
 Initialize styles from an xlsx package directory.
 
@@ -43,7 +43,7 @@ Initialize styles from an xlsx package directory.
 
 ------------------------------------------------------------------------
 
-### Method `get_font_id()`
+### `xlsx_styles$get_font_id()`
 
 Get or create a font index.
 
@@ -86,7 +86,7 @@ Get or create a font index.
 
 ------------------------------------------------------------------------
 
-### Method `get_fill_id()`
+### `xlsx_styles$get_fill_id()`
 
 Get or create a fill index.
 
@@ -102,7 +102,7 @@ Get or create a fill index.
 
 ------------------------------------------------------------------------
 
-### Method `get_border_id()`
+### `xlsx_styles$get_border_id()`
 
 Get or create a border index.
 
@@ -155,7 +155,7 @@ Get or create a border index.
 
 ------------------------------------------------------------------------
 
-### Method `get_style_id()`
+### `xlsx_styles$get_style_id()`
 
 Get or create a cell format (xf) index.
 
@@ -208,7 +208,7 @@ Get or create a cell format (xf) index.
 
 ------------------------------------------------------------------------
 
-### Method `get_xf_id()`
+### `xlsx_styles$get_xf_id()`
 
 Get or create a cell format index for a number format.
 
@@ -224,7 +224,7 @@ Get or create a cell format index for a number format.
 
 ------------------------------------------------------------------------
 
-### Method [`save()`](https://rdrr.io/r/base/save.html)
+### `xlsx_styles$save()`
 
 Save styles.xml to disk.
 
@@ -234,7 +234,7 @@ Save styles.xml to disk.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `xlsx_styles$clone()`
 
 The objects of this class are cloneable with this method.
 

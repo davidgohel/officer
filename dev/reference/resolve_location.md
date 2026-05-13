@@ -18,16 +18,16 @@ The following location short forms are implemented. The corresponding
 call of the function from the `ph_location_*` family is displayed on the
 right.
 
-|                |                                                             |                                                                                                        |
-|----------------|-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| **Short form** | **Description**                                             | **Location function**                                                                                  |
-| `"left"`       | Keyword string                                              | [`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md)         |
-| `"right"`      | Keyword string                                              | [`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md)       |
-| `"fullsize"`   | Keyword string                                              | [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md) |
-| `"body [1]"`   | String: type + index in brackets (`1` if omitted)           | `ph_location_type("body", 1)`                                                                          |
-| `"my_label"`   | Any string not matching a keyword or type                   | `ph_location_label("my_label")`                                                                        |
-| `2`            | Length 1 integer                                            | `ph_location_id(2)`                                                                                    |
-| `c(0,0,4,5)`   | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` | `ph_location(0, 0, 4, 5)`                                                                              |
+|  |  |  |
+|----|----|----|
+| **Short form** | **Description** | **Location function** |
+| `"left"` | Keyword string | [`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md) |
+| `"right"` | Keyword string | [`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md) |
+| `"fullsize"` | Keyword string | [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md) |
+| `"body [1]"` | String: type + index in brackets (`1` if omitted) | `ph_location_type("body", 1)` |
+| `"my_label"` | Any string not matching a keyword or type | `ph_location_label("my_label")` |
+| `2` | Length 1 integer | `ph_location_id(2)` |
+| `c(0,0,4,5)` | Length 4 numeric, optionally named, `c(top=0, left=0, ...)` | `ph_location(0, 0, 4, 5)` |
 
 ## Examples
 

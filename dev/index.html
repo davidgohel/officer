@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.4.011</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
 <p>Make corporate reporting with minimum hassle</p>
 </blockquote>
 <p><a href="https://github.com/davidgohel/officer/actions" class="external-link"><img src="https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://CRAN.R-project.org/package=officer" class="external-link"><img src="https://www.r-pkg.org/badges/version/officer" alt="version"></a> <a href="https://app.codecov.io/gh/davidgohel/officer" class="external-link"><img src="https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg" alt="codecov test coverage"></a></p>
-<p>The officer package lets R users manipulate Word (<code>.docx</code>) and PowerPoint (<code>*.pptx</code>) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available. It also supports the writing of ‘RTF’ documents.</p>
+<p>The officer package lets R users manipulate Word (<code>.docx</code>) and PowerPoint (<code>*.pptx</code>) documents. In short, one can add images, tables and text into documents from R. An initial document can be provided; contents, styles and properties of the original document will then be available. It also supports the writing of ‘RTF’ documents and basic manipulation of Excel (‘.xlsx’) workbooks.</p>
 <div class="section level2">
 <h2 id="ressources">Ressources<a class="anchor" aria-label="anchor" href="#ressources"></a>
 </h2>
@@ -158,19 +158,23 @@
 <div class="section level3">
 <h3 id="bug-reports">Bug reports<a class="anchor" aria-label="anchor" href="#bug-reports"></a>
 </h3>
-<p>When you file a <a href="https://github.com/davidgohel/officer/discussions/categories/q-a" class="external-link">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
+<p>Bugs are reported through <a href="https://github.com/davidgohel/officer/issues/new/choose" class="external-link">GitHub issues</a>. The issue form requires a reproducible example (a <a href="https://reprex.tidyverse.org/" class="external-link">reprex</a>) and the output of <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>; reports missing these elements are closed without further response. The more reproducible your report, the more time can go into investigating the bug rather than reconstructing it.</p>
+<p>For usage questions (“how do I do X with officer”), please read <a href="https://ardata-fr.github.io/officeverse/" class="external-link uri">https://ardata-fr.github.io/officeverse/</a> or <a href="https://davidgohel.github.io/officer/" class="uri">https://davidgohel.github.io/officer/</a> or use <a href="https://stackoverflow.com/questions/tagged/officer" class="external-link">Stack Overflow</a> with the <code>officer</code> tag instead.</p>
 </div>
 <div class="section level3">
-<h3 id="contributing-to-the-package-development">Contributing to the package development<a class="anchor" aria-label="anchor" href="#contributing-to-the-package-development"></a>
+<h3 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h3>
-<p>A great way to start is to contribute an example or improve the documentation.</p>
-<p>If you want to submit a Pull Request to integrate functions of yours, please provide:</p>
+<p>Before writing any code, please open an issue describing the change you have in mind and the reason for it. The proposal needs to be discussed and explicitly validated by the maintainer before work starts; pull requests for features that have not gone through this step will not be considered, no matter how well crafted. This isn’t meant to discourage contributions, only to make sure the time you invest goes into a change that will actually land.</p>
+<p>Pull requests are accepted on a case-by-case basis: once a proposal has been agreed in an issue, the maintainer will invite you to open a PR for that specific change. Unsolicited PRs that bypass this step will be closed.</p>
+<p>This policy keeps the package coherent: officer’s internals are shared with several downstream packages (flextable, officedown, rvg), and changes that look local often have wider implications. Aligning on the design in an issue first saves time on both sides.</p>
+<p>When invited to open a PR, please include:</p>
 <ul>
-<li>the new function(s) with code and roxygen tags (with examples)</li>
-<li>a new section in the appropriate vignette that describes how to use the new function</li>
-<li>add corresponding tests in directory <code>tests/testthat</code>.</li>
+<li>the new function(s) with code and roxygen tags, including runnable examples</li>
+<li>documentation updates (vignette section if relevant)</li>
+<li>corresponding tests under <code>tests/testthat</code>
+</li>
 </ul>
-<p>By using rhub (run <code>rhub::check_for_cran()</code>), you will see if everything is ok. When submitted, the PR will be evaluated automatically on travis and appveyor and you will be able to see if something broke.</p>
+<p>Run <code>rhub::check_for_cran()</code> locally before submitting; CI will run the full check suite on the PR.</p>
 </div>
 </div>
 </div>
