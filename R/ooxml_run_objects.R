@@ -186,23 +186,15 @@ to_wml.run_wordtext <- function(x, add_ns = FALSE, ...) {
 #' @export
 #' @title 'Word' computed field
 #' @description Create a 'Word' computed field.
-#' @note
-#' In the previous version, this function was called `run_seqfield`
-#' but the name was wrong and should have been `run_word_field`.
 #' @inheritSection ftext usage
 #' @param field Value for a "Word Computed Field" as a string.
-#' @param seqfield deprecated in favor of `field`.
 #' @param prop formatting text properties returned by [fp_text].
 #' @examples
 #' run_word_field(field = "PAGE  \\* MERGEFORMAT")
 #' run_word_field(field = "Date \\@ \"MMMM d yyyy\"")
 #' @family run functions for reporting
 #' @family Word computed fields
-run_word_field <- function(field, prop = NULL, seqfield = NULL) {
-  if (!is.null(seqfield)) {
-    field <- seqfield
-    message("`seqfield` argument is deprecated in favor of `field`")
-  }
+run_word_field <- function(field, prop = NULL) {
   z <- list(
     field = field,
     pr = prop
@@ -210,10 +202,6 @@ run_word_field <- function(field, prop = NULL, seqfield = NULL) {
   class(z) <- c("run_word_field", "run")
   z
 }
-
-#' @export
-#' @rdname run_word_field
-run_seqfield <- run_word_field
 
 #' @export
 to_wml.run_word_field <- function(x, add_ns = FALSE, ...) {

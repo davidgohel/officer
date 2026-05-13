@@ -1,5 +1,10 @@
 # officer 0.7.5
 
+## Word
+
+- drop deprecated `seqfield` argument in `run_word_field()` and remove `run_seqfield()`
+(old duplicate of `run_word_field()`) .
+
 ## Excel features
 
 - Images and ggplot drawings placed on Excel sheets with
