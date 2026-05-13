@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.5" id="officer-075">officer 0.7.5<a class="anchor" aria-label="anchor" href="#officer-075"></a></h2>
+<div class="section level3">
+<h3 id="word-0-7-5">Word<a class="anchor" aria-label="anchor" href="#word-0-7-5"></a></h3>
+<ul><li>drop deprecated <code>seqfield</code> argument in <code><a href="../reference/run_word_field.html">run_word_field()</a></code> and remove <code>run_seqfield()</code> (old duplicate of <code><a href="../reference/run_word_field.html">run_word_field()</a></code>) .</li>
+</ul></div>
 <div class="section level3">
 <h3 id="excel-features-0-7-5">Excel features<a class="anchor" aria-label="anchor" href="#excel-features-0-7-5"></a></h3>
 <ul><li>Images and ggplot drawings placed on Excel sheets with <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> can now be anchored to cells. Pass <code>anchor = "B2:H20"</code> (a cell range) to make the drawing move and size with cells, Excel’s default behaviour. Pass <code>anchor = "B2"</code> (a single cell) to make it move but keep its own size. Omit <code>anchor</code> for the previous fixed-position layout. The <code>edit_as</code> argument controls what happens when rows or columns are resized. The same options are available to charts inserted via ‘mschart’.</li>
