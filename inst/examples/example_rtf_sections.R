@@ -47,7 +47,10 @@ doc <- rtf_doc(
   ),
   normal_par = fp_par(padding = 3)
 )
+doc <- rtf_add(doc, block_toc(level = 3))
 
+doc <- rtf_add(doc, "Sections demo", style = "heading 1")
+doc <- rtf_add(doc, "Default section", style = "heading 2")
 doc <- quick_hello_world(doc)
 
 if (require("ggplot2")) {
@@ -56,6 +59,8 @@ if (require("ggplot2")) {
     theme_minimal()
   doc <- rtf_add(doc, gg_iris, width = 4, height = 3)
 }
+
+doc <- rtf_add(doc, "Three columns", style = "heading 2")
 
 doc <- rtf_add(doc, three_cols_section)
 
@@ -84,7 +89,7 @@ landscape_section <- block_section(prop_section(
   footer_default = quick_section_footer("Landscape section")
 ))
 doc <- rtf_add(doc, landscape_section)
-
+doc <- rtf_add(doc, "Landscape orientation", style = "heading 2")
 doc <- quick_hello_world(doc)
 
 doc <- rtf_add(
@@ -97,7 +102,6 @@ doc <- rtf_add(
     )
   )
 )
-
+doc <- rtf_add(doc, "Back to portrait", style = "heading 2")
 doc <- quick_hello_world(doc)
-
-print(doc, target = tempfile(fileext = ".rtf"))
+print(doc, target = "coco.rtf")

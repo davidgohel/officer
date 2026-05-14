@@ -29,6 +29,34 @@ RTF document which can then receive contents with
 the \code{\link[=rtf_add]{rtf_add()}} function and be written to a file with
 the \code{print(x, target="doc.rtf")} function.
 }
+\section{Built-in styles}{
+
+\code{rtf_doc()} registers four paragraph styles: \code{"Normal"} (built from
+\code{normal_par} / \code{normal_chunk}) and \code{"heading 1"} / \code{"heading 2"} /
+\code{"heading 3"} (bold, dark blue shades, with outline levels so the
+paragraphs feed Word's navigation pane and TOC field). The heading
+names mirror Word's own convention so a script that adds paragraphs
+with \code{style = "heading 1"} works identically against Word output
+(\code{body_add_par(..., style = "heading 1")}) and RTF output
+(\code{rtf_add(..., style = "heading 1")}).
+
+To override a built-in look (size, color, spacing, outline level),
+call \code{\link[=rtf_set_paragraph_style]{rtf_set_paragraph_style()}} after \code{rtf_doc()} with the same
+\code{style_id}.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{doc <- rtf_doc()
+doc <- rtf_set_paragraph_style(
+  doc,
+  style_id = "heading 1",
+  fp_p = fp_par(text.align = "center", padding = 12),
+  fp_t = fp_text_lite(bold = TRUE, font.size = 24, color = "#000000"),
+  outline_level = 1L
+)
+}\if{html}{\out{</div>}}
+
+Use \code{\link[=rtf_styles_info]{rtf_styles_info()}} to inspect the current style table.
+}
+
 \examples{
 rtf_doc(normal_par = fp_par(padding = 3))
 }

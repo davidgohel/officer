@@ -8,6 +8,7 @@
 \alias{rtf_add.double}
 \alias{rtf_add.fpar}
 \alias{rtf_add.block_list}
+\alias{rtf_add.block_toc}
 \alias{rtf_add.gg}
 \alias{rtf_add.plot_instr}
 \title{Add content into an RTF document}
@@ -16,15 +17,17 @@ rtf_add(x, value, ...)
 
 \method{rtf_add}{block_section}(x, value, ...)
 
-\method{rtf_add}{character}(x, value, ...)
+\method{rtf_add}{character}(x, value, style = NULL, ...)
 
-\method{rtf_add}{factor}(x, value, ...)
+\method{rtf_add}{factor}(x, value, style = NULL, ...)
 
-\method{rtf_add}{double}(x, value, formatter = formatC, ...)
+\method{rtf_add}{double}(x, value, formatter = formatC, style = NULL, ...)
 
-\method{rtf_add}{fpar}(x, value, ...)
+\method{rtf_add}{fpar}(x, value, style = NULL, ...)
 
-\method{rtf_add}{block_list}(x, value, ...)
+\method{rtf_add}{block_list}(x, value, style = NULL, ...)
+
+\method{rtf_add}{block_toc}(x, value, ...)
 
 \method{rtf_add}{gg}(
   x,
@@ -59,6 +62,10 @@ are vectors, graphics, block of formatted paragraphs. Use package
 adding a \code{ggplot} object or \link{plot_instr}, these arguments will be used
 by png function. See section 'Methods' to see what arguments can be used.}
 
+\item{style}{style identifier (\code{style_id}) of a paragraph style registered
+on the document. Defaults to \code{NULL} (use the document's normal style). See
+\code{\link[=rtf_set_paragraph_style]{rtf_set_paragraph_style()}} and \code{\link[=rtf_styles_info]{rtf_styles_info()}}.}
+
 \item{formatter}{function used to format the numerical values}
 
 \item{width}{height in inches}
@@ -89,6 +96,11 @@ that list supported objects.
 \item \code{rtf_add(fpar)}: add an \code{\link[=fpar]{fpar()}}
 
 \item \code{rtf_add(block_list)}: add an \code{\link[=block_list]{block_list()}}
+
+\item \code{rtf_add(block_toc)}: add a \code{\link[=block_toc]{block_toc()}} (table of contents).
+Word populates the TOC at open time from paragraphs styled with the
+built-in heading styles (which carry an outline level). LibreOffice
+will not render the TOC automatically.
 
 \item \code{rtf_add(gg)}: add a ggplot2
 
@@ -218,7 +230,10 @@ doc <- rtf_doc(
   ),
   normal_par = fp_par(padding = 3)
 )
+doc <- rtf_add(doc, block_toc(level = 3))
 
+doc <- rtf_add(doc, "Sections demo", style = "heading 1")
+doc <- rtf_add(doc, "Default section", style = "heading 2")
 doc <- quick_hello_world(doc)
 
 if (require("ggplot2")) {
@@ -227,6 +242,8 @@ if (require("ggplot2")) {
     theme_minimal()
   doc <- rtf_add(doc, gg_iris, width = 4, height = 3)
 }
+
+doc <- rtf_add(doc, "Three columns", style = "heading 2")
 
 doc <- rtf_add(doc, three_cols_section)
 
@@ -255,7 +272,7 @@ landscape_section <- block_section(prop_section(
   footer_default = quick_section_footer("Landscape section")
 ))
 doc <- rtf_add(doc, landscape_section)
-
+doc <- rtf_add(doc, "Landscape orientation", style = "heading 2")
 doc <- quick_hello_world(doc)
 
 doc <- rtf_add(
@@ -268,8 +285,7 @@ doc <- rtf_add(
     )
   )
 )
-
+doc <- rtf_add(doc, "Back to portrait", style = "heading 2")
 doc <- quick_hello_world(doc)
-
-print(doc, target = tempfile(fileext = ".rtf"))
+print(doc, target = "coco.rtf")
 }
