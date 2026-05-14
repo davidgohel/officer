@@ -1,3 +1,5 @@
+## Simple RTF example ----
+
 library(officer)
 
 def_text <- fp_text_lite(color = "#006699", bold = TRUE)
@@ -40,3 +42,5 @@ anyplot <- plot_instr(code = {
 doc <- rtf_add(doc, anyplot, width = 5, height = 4, ppr = center_par)
 
 print(doc, target = tempfile(fileext = ".rtf"))
+
+

@@ -7,14 +7,9 @@
 
 ## RTF
 
-- Multi-column sections in RTF output now render correctly (#726) thanks to
-Nathan Kosiba. (Three bugs were fixed: `section_columns()` only declared the
-last column's width (now one `\colno`/`\colw` per column, as the RTF spec
-requires); `block_section` emitted the section break before the column
-properties, so the columns applied to the empty section that followed
-(properties are now emitted before `\sect`); and `run_columnbreak()` did not
-terminate the `\column` control word with a delimiter, swallowing the first
-word of the text that followed it.)
+- RTF sections were debugged and now behave correctly: page orientation,
+columns, margins and per-section headers / footers all apply as expected,
+including multi-column layouts (#726, thanks to Nathan Kosiba).
 
 ## Excel features
 

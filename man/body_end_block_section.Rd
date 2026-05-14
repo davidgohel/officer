@@ -17,6 +17,32 @@ define any section with a \link{block_section} object. All other
 \verb{body_end_section_*} are specialized, this one is highly flexible
 but it's up to the user to define the section properties.
 }
+\section{Section model in Word}{
+
+A \code{block_section} added with \code{body_end_block_section()} applies to the
+content that \strong{precedes} the call: it closes the section that holds the
+previous paragraphs / tables and inherits any layout (orientation, columns,
+margins, headers / footers) defined by the \code{block_section}. The function
+name reflects this: it marks the \emph{end} of a section.
+
+Typical pattern: add the content, then close it with the section that
+should layout it.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{doc <- read_docx() |>
+  body_add_par("This paragraph is in landscape orientation.") |>
+  body_end_block_section(block_section(prop_section(
+    page_size = page_size(orient = "landscape")
+  )))
+}\if{html}{\out{</div>}}
+
+The default section of the document (defined by the template or by
+\code{\link[=body_set_default_section]{body_set_default_section()}}) closes any content added after the last
+\code{body_end_block_section()} call.
+
+The RTF output uses the opposite model: \code{rtf_add(block_section(...))}
+applies to the content that \emph{follows} the call. See \code{\link[=rtf_add]{rtf_add()}}.
+}
+
 \section{Illustrations}{
 
 

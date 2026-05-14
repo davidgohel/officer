@@ -183,18 +183,57 @@ test_that("to_rtf.section_columns emits per-column widths (#726)", {
   expect_match(out3, "\\\\colno3\\\\colw4320(?!\\\\colsr)", perl = TRUE)
 })
 
-test_that("section properties precede \\sect in block_section (#726)", {
+test_that("block_section emits \\sect before section properties (#726)", {
   bs <- block_section(prop_section(
     section_columns = section_columns(widths = c(2, 3), space = 0.25)
   ))
   out <- to_rtf(bs)
-  # \sect must come at the very end, after all section properties
-  expect_match(out, "\\\\cols2\\\\colsx360.*\\\\sect$")
-  expect_false(grepl("^\\\\sect", out))
+  # block_section() configures the section that follows: \sect closes
+  # the previous section, then the property keywords apply to the new
+  # one.
+  expect_match(out, "^\\\\sect\\\\sectd")
+  expect_match(out, "\\\\sectd.*\\\\cols2\\\\colsx360")
 })
 
 test_that("run_columnbreak emits a delimiter after \\column (#726)", {
   # The trailing space prevents "\columnRight" from being parsed as a
   # single unknown control word when text follows directly.
   expect_equal(to_rtf(run_columnbreak()), "\\column ")
+})
+
+test_that("each block_section emits its own {\\header}{\\footer} with resolved colors", {
+  hf <- function(label, color) {
+    block_list(fpar(ftext(label, fp_text_lite(color = color))))
+  }
+  default_section <- prop_section(
+    header_default = hf("DEFAULT-H", "#006699"),
+    footer_default = hf("DEFAULT-F", "#666666")
+  )
+  sec_b <- block_section(prop_section(
+    type = "nextPage",
+    header_default = hf("SECB-H", "#aa0000"),
+    footer_default = hf("SECB-F", "#00aa00")
+  ))
+
+  doc <- rtf_doc(def_sec = default_section)
+  doc <- rtf_add(doc, fpar(ftext("body of default section")))
+  doc <- rtf_add(doc, sec_b)
+  doc <- rtf_add(doc, fpar(ftext("body of section B")))
+
+  target <- tempfile(fileext = ".rtf")
+  print(doc, target = target)
+  rtf <- paste(readLines(target, warn = FALSE), collapse = "\n")
+
+  # both sections have header and footer groups
+  expect_equal(length(gregexpr("\\{\\\\header", rtf)[[1]]), 2L)
+  expect_equal(length(gregexpr("\\{\\\\footer", rtf)[[1]]), 2L)
+  expect_match(rtf, "DEFAULT-H")
+  expect_match(rtf, "SECB-H")
+  expect_match(rtf, "SECB-F")
+  # colors used only in headers/footers are registered and resolved (no raw placeholders)
+  expect_false(grepl("%ftcolor:", rtf, fixed = TRUE))
+  # default section header sits before the \sect that closes that section
+  default_h_pos <- regexpr("DEFAULT-H", rtf)
+  secb_props_pos <- regexpr("\\\\sect\\\\sectd", rtf)
+  expect_true(default_h_pos < secb_props_pos)
 })
