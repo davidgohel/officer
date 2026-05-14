@@ -13,7 +13,7 @@ the print(x, target="doc.rtf") function.'><meta property="og:image" content="htt
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,9 @@ the <code>print(x, target="doc.rtf")</code> function.</p>
 
 
 <dl><dt id="arg-def-sec">def_sec<a class="anchor" aria-label="anchor" href="#arg-def-sec"></a></dt>
-<dd><p>a <a href="block_section.html">block_section</a> object used to defined default section.</p></dd>
+<dd><p>a <a href="prop_section.html">prop_section</a> object used to define the default section
+(page size, margins, header / footer, columns) applied to content added
+before any explicit <code><a href="block_section.html">block_section()</a></code>.</p></dd>
 
 
 <dt id="arg-normal-par">normal_par<a class="anchor" aria-label="anchor" href="#arg-normal-par"></a></dt>
@@ -77,7 +79,9 @@ empty RTF document.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="read_docx.html">read_docx()</a></code>, <code><a href="print.rtf.html">print.rtf()</a></code>, <code><a href="rtf_add.html">rtf_add()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="read_docx.html">read_docx()</a></code>, <code><a href="print.rtf.html">print.rtf()</a></code>, <code><a href="rtf_add.html">rtf_add()</a></code>. See <code><a href="rtf_add.html">?rtf_add</a></code> for a
+complete multi-section example exercising <code>def_sec</code>, headers / footers
+and several <code><a href="block_section.html">block_section()</a></code> calls.</p></div>
     </div>
 
     <div class="section level2">

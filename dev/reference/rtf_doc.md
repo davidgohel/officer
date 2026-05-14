@@ -21,8 +21,10 @@ rtf_doc(
 - def_sec:
 
   a
-  [block_section](https://davidgohel.github.io/officer/dev/reference/block_section.md)
-  object used to defined default section.
+  [prop_section](https://davidgohel.github.io/officer/dev/reference/prop_section.md)
+  object used to define the default section (page size, margins, header
+  / footer, columns) applied to content added before any explicit
+  [`block_section()`](https://davidgohel.github.io/officer/dev/reference/block_section.md).
 
 - normal_par:
 
@@ -42,7 +44,13 @@ an object of class `rtf` representing an empty RTF document.
 
 [`read_docx()`](https://davidgohel.github.io/officer/dev/reference/read_docx.md),
 [`print.rtf()`](https://davidgohel.github.io/officer/dev/reference/print.rtf.md),
-[`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md)
+[`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md).
+See
+[`?rtf_add`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md)
+for a complete multi-section example exercising `def_sec`, headers /
+footers and several
+[`block_section()`](https://davidgohel.github.io/officer/dev/reference/block_section.md)
+calls.
 
 ## Examples
 
