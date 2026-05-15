@@ -172,6 +172,8 @@ reference:
     - rtf_doc
     - rtf_add
     - print.rtf
+    - rtf_set_paragraph_style
+    - rtf_styles_info
   - title: Excel
     contents:
     - read_xlsx
