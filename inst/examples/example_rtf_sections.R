@@ -104,4 +104,4 @@ doc <- rtf_add(
 )
 doc <- rtf_add(doc, "Back to portrait", style = "heading 2")
 doc <- quick_hello_world(doc)
-print(doc, target = "coco.rtf")
+print(doc, target = tempfile(fileext = ".rtf"))
