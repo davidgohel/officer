@@ -5,9 +5,7 @@ Create a 'Word' computed field.
 ## Usage
 
 ``` r
-run_word_field(field, prop = NULL, seqfield = NULL)
-
-run_seqfield(field, prop = NULL, seqfield = NULL)
+run_word_field(field, prop = NULL)
 ```
 
 ## Arguments
@@ -20,15 +18,6 @@ run_seqfield(field, prop = NULL, seqfield = NULL)
 
   formatting text properties returned by
   [fp_text](https://davidgohel.github.io/officer/reference/fp_text.md).
-
-- seqfield:
-
-  deprecated in favor of `field`.
-
-## Note
-
-In the previous version, this function was called `run_seqfield` but the
-name was wrong and should have been `run_word_field`.
 
 ## usage
 

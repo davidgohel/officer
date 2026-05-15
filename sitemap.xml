@@ -99,6 +99,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/officer.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/officer_url_encode.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/on_slide.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/ooxml_chart_uris.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/open_file.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/opts_current_table.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/pack_folder.html</loc></url>
@@ -133,6 +134,8 @@
 <url><loc>https://davidgohel.github.io/officer/reference/resolve_location.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/rtf_add.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/rtf_doc.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/rtf_set_paragraph_style.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/rtf_styles_info.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/run_autonum.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/run_bookmark.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/run_columnbreak.html</loc></url>
@@ -160,6 +163,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/slide-visible.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/slide_size.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/slide_summary.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/solid_fill.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/sp_line.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/sp_lineend.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/stop_if_not_in_slide_range.html</loc></url>

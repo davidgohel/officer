@@ -7,13 +7,13 @@ methods.
 
 ## Super class
 
-`officer::openxml_document` -\> `xlsx_drawing`
+`openxml_document` -\> `xlsx_drawing`
 
 ## Methods
 
 ### Public methods
 
-- [`xlsx_drawing$new()`](#method-xlsx_drawing-new)
+- [`xlsx_drawing$new()`](#method-xlsx_drawing-initialize)
 
 - [`xlsx_drawing$add_chart_anchor()`](#method-xlsx_drawing-add_chart_anchor)
 
@@ -27,20 +27,20 @@ methods.
 
 Inherited methods
 
-- [`officer::openxml_document$dir_name()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-dir_name)
-- [`officer::openxml_document$feed()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-feed)
-- [`officer::openxml_document$file_name()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-file_name)
-- [`officer::openxml_document$get()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-get)
-- [`officer::openxml_document$name()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-name)
-- [`officer::openxml_document$rel_df()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-rel_df)
-- [`officer::openxml_document$relationship()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-relationship)
-- [`officer::openxml_document$remove()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-remove)
-- [`officer::openxml_document$replace_xml()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-replace_xml)
-- [`officer::openxml_document$save()`](https://davidgohel.github.io/officer/reference/openxml_document.html#method-save)
+- `openxml_document$dir_name()`
+- `openxml_document$feed()`
+- `openxml_document$file_name()`
+- `openxml_document$get()`
+- `openxml_document$name()`
+- `openxml_document$rel_df()`
+- `openxml_document$relationship()`
+- `openxml_document$remove()`
+- `openxml_document$replace_xml()`
+- `openxml_document$save()`
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `xlsx_drawing$new()`
 
 Create or reuse a drawing for a sheet.
 
@@ -64,10 +64,20 @@ Create or reuse a drawing for a sheet.
 
 ------------------------------------------------------------------------
 
-### Method `add_chart_anchor()`
+### `xlsx_drawing$add_chart_anchor()`
 
-Add a chart anchor to the drawing (absolute placement in inches from the
-top-left corner of the sheet).
+Place a chart on the sheet. The chart can be positioned in three ways,
+matching Excel's own "Format Picture" options:
+
+- Move and size with cells (Excel's default): supply `from` and `to` as
+  cell references (e.g. `"B2"` and `"H20"`). The chart spans those two
+  cells and follows them when rows/columns are inserted or resized.
+
+- Move but don't size with cells: supply `from` only. The chart anchors
+  to that cell with the size set by `width`/`height`.
+
+- Fixed position: leave `from` and `to` `NULL`. The chart is placed at
+  `left`/`top` with size `width`/`height`, independent of cell layout.
 
 #### Usage
 
@@ -76,32 +86,64 @@ top-left corner of the sheet).
       left = 1,
       top = 1,
       width = 6,
-      height = 4
+      height = 4,
+      from = NULL,
+      to = NULL,
+      edit_as = c("twoCell", "oneCell", "absolute"),
+      graphic_uri = ooxml_chart_uris("drawingml")$graphic_uri,
+      chart_inner = NULL
     )
 
 #### Arguments
 
 - `chart_rid`:
 
-  relationship id of the chart
+  relationship id of the chart (returned by `add_chart_rel()`). Ignored
+  when `chart_inner` is supplied explicitly.
 
 - `left, top`:
 
-  top-left anchor in inches
+  top-left position in inches (fixed-position mode)
 
 - `width, height`:
 
   size in inches
 
+- `from, to`:
+
+  Excel cell references like `"C4"` (1-based, case-insensitive)
+
+- `edit_as`:
+
+  how Excel should treat the drawing when rows or columns are resized:
+  `"twoCell"` (move and size with cells, the default), `"oneCell"` (move
+  only) or `"absolute"` (neither). Only meaningful when both `from` and
+  `to` are supplied.
+
+- `graphic_uri`:
+
+  chart family URI; defaults to the classic chart family. Use
+  [`ooxml_chart_uris()`](https://davidgohel.github.io/officer/reference/ooxml_chart_uris.md)
+  to obtain the value for the chartEx family.
+
+- `chart_inner`:
+
+  advanced. XML fragment referencing the chart part. Leave `NULL` to let
+  the method build the right reference from `graphic_uri`.
+
 ------------------------------------------------------------------------
 
-### Method `add_chart_rel()`
+### `xlsx_drawing$add_chart_rel()`
 
-Add a relationship from the drawing to a chart file.
+Register a chart part with the drawing. Returns the relationship id, to
+be passed to `add_chart_anchor()`.
 
 #### Usage
 
-    xlsx_drawing$add_chart_rel(chart_basename)
+    xlsx_drawing$add_chart_rel(
+      chart_basename,
+      rel_type = ooxml_chart_uris("drawingml")$rel_type
+    )
 
 #### Arguments
 
@@ -109,9 +151,16 @@ Add a relationship from the drawing to a chart file.
 
   filename of the chart XML
 
+- `rel_type`:
+
+  chart family relationship type; defaults to the classic chart family.
+  Use
+  [`ooxml_chart_uris()`](https://davidgohel.github.io/officer/reference/ooxml_chart_uris.md)
+  to obtain the value for the chartEx family.
+
 ------------------------------------------------------------------------
 
-### Method `add_image_rel()`
+### `xlsx_drawing$add_image_rel()`
 
 Add a relationship from the drawing to a media image.
 
@@ -127,10 +176,12 @@ Add a relationship from the drawing to a media image.
 
 ------------------------------------------------------------------------
 
-### Method `add_image_anchor()`
+### `xlsx_drawing$add_image_anchor()`
 
-Add an image anchor to the drawing (absolute placement in inches from
-the top-left corner of the sheet).
+Place an image on the sheet. Positioning works the same way as
+`add_chart_anchor()`: supply `from` and `to` to move and size with
+cells, `from` only to move (but not resize) with cells, or leave both
+`NULL` for a fixed position.
 
 #### Usage
 
@@ -140,6 +191,9 @@ the top-left corner of the sheet).
       top = 1,
       width = 2,
       height = 2,
+      from = NULL,
+      to = NULL,
+      edit_as = c("twoCell", "oneCell", "absolute"),
       alt = ""
     )
 
@@ -147,15 +201,26 @@ the top-left corner of the sheet).
 
 - `image_rid`:
 
-  relationship id of the image
+  relationship id of the image (returned by `add_image_rel()`)
 
 - `left, top`:
 
-  top-left anchor in inches
+  top-left position in inches (fixed-position mode)
 
 - `width, height`:
 
   size in inches
+
+- `from, to`:
+
+  Excel cell references like `"C4"` (1-based, case-insensitive)
+
+- `edit_as`:
+
+  how Excel should treat the drawing when rows or columns are resized:
+  `"twoCell"` (move and size with cells, the default), `"oneCell"` (move
+  only) or `"absolute"` (neither). Only meaningful when both `from` and
+  `to` are supplied.
 
 - `alt`:
 
@@ -163,7 +228,7 @@ the top-left corner of the sheet).
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `xlsx_drawing$clone()`
 
 The objects of this class are cloneable with this method.
 

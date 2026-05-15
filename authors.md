@@ -51,16 +51,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidgohel/officer/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidgohel/officer/blob/main/DESCRIPTION)
 
 Gohel D, Moog S, Heckmann M (2026). *officer: Manipulation of Microsoft
-Word and PowerPoint Documents*. R package version 0.7.4,
+Word and PowerPoint Documents*. R package version 0.7.5,
 <https://ardata-fr.github.io/officeverse/>.
 
     @Manual{,
       title = {officer: Manipulation of Microsoft Word and PowerPoint Documents},
       author = {David Gohel and Stefan Moog and Mark Heckmann},
       year = {2026},
-      note = {R package version 0.7.4},
+      note = {R package version 0.7.5},
       url = {https://ardata-fr.github.io/officeverse/},
     }

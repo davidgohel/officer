@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,11 +28,30 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/davidgohel/officer/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/davidgohel/officer/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.4" id="officer-074">officer 0.7.4<a class="anchor" aria-label="anchor" href="#officer-074"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.5" id="officer-075">officer 0.7.5<a class="anchor" aria-label="anchor" href="#officer-075"></a></h2>
+<div class="section level3">
+<h3 id="word-0-7-5">Word<a class="anchor" aria-label="anchor" href="#word-0-7-5"></a></h3>
+<ul><li>drop deprecated <code>seqfield</code> argument in <code><a href="../reference/run_word_field.html">run_word_field()</a></code> and remove <code>run_seqfield()</code> (old duplicate of <code><a href="../reference/run_word_field.html">run_word_field()</a></code>) .</li>
+</ul></div>
+<div class="section level3">
+<h3 id="rtf-0-7-5">RTF<a class="anchor" aria-label="anchor" href="#rtf-0-7-5"></a></h3>
+<ul><li><p>RTF sections were debugged and now behave correctly: page orientation, columns, margins and per-section headers / footers all apply as expected, including multi-column layouts (<a href="https://github.com/davidgohel/officer/issues/726" class="external-link">#726</a>, thanks to Nathan Kosiba).</p></li>
+<li><p>New paragraph style API for RTF, aligned with <code><a href="../reference/docx_set_paragraph_style.html">docx_set_paragraph_style()</a></code> on the Word side. <code><a href="../reference/rtf_set_paragraph_style.html">rtf_set_paragraph_style()</a></code> is now exported and takes <code>style_id</code>, <code>style_name</code>, <code>base_on</code>, <code>fp_p</code>, <code>fp_t</code> and <code>outline_level</code>; <code><a href="../reference/rtf_styles_info.html">rtf_styles_info()</a></code> returns the document’s style table. <code><a href="../reference/rtf_add.html">rtf_add()</a></code> accepts a <code>style</code> argument so paragraphs (character, factor, double, fpar, block_list) can reference a named style. <code><a href="../reference/rtf_doc.html">rtf_doc()</a></code> registers built-in <code>"heading 1"</code> / <code>"heading 2"</code> / <code>"heading 3"</code> styles with <code>\outlinelevel</code> values, so styled paragraphs feed Word’s navigation pane and TOC field. Use <code><a href="../reference/rtf_set_paragraph_style.html">rtf_set_paragraph_style()</a></code> after <code><a href="../reference/rtf_doc.html">rtf_doc()</a></code> to override a built-in style; the row keyed by <code>style_id</code> is updated in place.</p></li>
+<li><p><code><a href="../reference/rtf_add.html">rtf_add()</a></code> now accepts [block_toc()] objects and emits a TOC field in the RTF stream, in parity with <code><a href="../reference/body_add_toc.html">body_add_toc()</a></code> for Word. Word populates the table at open time using the outline levels carried by the built-in heading styles; LibreOffice does not render the TOC automatically.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="excel-features-0-7-5">Excel features<a class="anchor" aria-label="anchor" href="#excel-features-0-7-5"></a></h3>
+<ul><li>Images and ggplot drawings placed on Excel sheets with <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> can now be anchored to cells. Pass <code>anchor = "B2:H20"</code> (a cell range) to make the drawing move and size with cells, Excel’s default behaviour. Pass <code>anchor = "B2"</code> (a single cell) to make it move but keep its own size. Omit <code>anchor</code> for the previous fixed-position layout. The <code>edit_as</code> argument controls what happens when rows or columns are resized. The same options are available to charts inserted via ‘mschart’.</li>
+<li>Excel sheets can host the chartEx chart family (boxplot, funnel, histogram, pareto, sunburst, treemap, waterfall) in addition to the classic chart types. The new helper <code><a href="../reference/ooxml_chart_uris.html">ooxml_chart_uris()</a></code> returns the identifiers needed by <code>xlsx_drawing</code> to wire either family.</li>
+<li>Two new building blocks for packages that emit OOXML directly (such as ‘mschart’): <code>solid_fill(color)</code> returns a DrawingML solid-fill fragment with optional alpha; <code><a href="../reference/to_pml.html">to_pml()</a></code> now has an <code>sp_line</code> method exposing line-properties conversion that was previously internal.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.4" id="officer-074">officer 0.7.4<a class="anchor" aria-label="anchor" href="#officer-074"></a></h2><p class="text-muted">CRAN release: 2026-04-24</p>
 <div class="section level3">
 <h3 id="features-0-7-4">Features<a class="anchor" aria-label="anchor" href="#features-0-7-4"></a></h3>
 <div class="section level4">
@@ -281,7 +300,7 @@ Also, the default values for the <code>layout</code> (<code>"Title and Content"<
 <div class="section level3">
 <h3 id="features-0-6-4">Features<a class="anchor" aria-label="anchor" href="#features-0-6-4"></a></h3>
 <ul><li>
-<code><a href="../reference/fp_border.html">fp_border()</a></code> gains support for all line border styles listed in ECMA-376 § 17.18.2 and allowed CSS border styles. Closes <a href="https://github.com/davidgohel/officer/issues/165" class="external-link">#165</a> and <a href="https://github.com/davidgohel/officer/issues/443" class="external-link">#443</a>.</li>
+<code><a href="../reference/fp_border.html">fp_border()</a></code> gains support for all line border styles listed in ECMA-376 section 17.18.2 and allowed CSS border styles. Closes <a href="https://github.com/davidgohel/officer/issues/165" class="external-link">#165</a> and <a href="https://github.com/davidgohel/officer/issues/443" class="external-link">#443</a>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-6-4">Changes<a class="anchor" aria-label="anchor" href="#changes-0-6-4"></a></h3>
@@ -454,7 +473,7 @@ Also, the default values for the <code>layout</code> (<code>"Title and Content"<
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-4-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-4-3"></a></h3>
-<ul><li>drop shortcuts<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>l</mi><mi>i</mi><msub><mi>p</mi><mi>i</mi></msub><msub><mi>n</mi><mi>t</mi></msub><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>e</mi><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="true" form="postfix">)</mo></mrow><mi>a</mi><mi>n</mi><mi>d</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>c</mi><mi>u</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">slip_in_tableref() and shortcuts</annotation></semantics></math>slip_in_plotref()</li>
+<ul><li>drop shortcuts<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>l</mi><mi>i</mi><msub><mi>p</mi><mi>i</mi></msub><msub><mi>n</mi><mi>t</mi></msub><mi>a</mi><mi>b</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>e</mi><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="postfix">)</mo><mi>a</mi><mi>n</mi><mi>d</mi><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi><mi>c</mi><mi>u</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">slip_in_tableref() and shortcuts</annotation></semantics></math>slip_in_plotref()</li>
 <li>defunct slip_in_column_break() and slip_in_xml()</li>
 <li>defunct slip_in_text()</li>
 <li>remove defunct functions <code>slip_in_img()</code>, <code>ph_add_fpar()</code>, <code>ph_add_par()</code> and <code>ph_add_text()</code>

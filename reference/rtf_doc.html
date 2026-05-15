@@ -13,7 +13,7 @@ the print(x, target="doc.rtf") function.'><meta property="og:image" content="htt
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ the print(x, target="doc.rtf") function.'><meta property="og:image" content="htt
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create an RTF document object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/davidgohel/officer/blob/master/R/rtf.R" class="external-link"><code>R/rtf.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/davidgohel/officer/blob/main/R/rtf.R" class="external-link"><code>R/rtf.R</code></a></small>
       <div class="d-none name"><code>rtf_doc.Rd</code></div>
     </div>
 
@@ -59,7 +59,9 @@ the <code>print(x, target="doc.rtf")</code> function.</p>
 
 
 <dl><dt id="arg-def-sec">def_sec<a class="anchor" aria-label="anchor" href="#arg-def-sec"></a></dt>
-<dd><p>a <a href="block_section.html">block_section</a> object used to defined default section.</p></dd>
+<dd><p>a <a href="prop_section.html">prop_section</a> object used to define the default section
+(page size, margins, header / footer, columns) applied to content added
+before any explicit <code><a href="block_section.html">block_section()</a></code>.</p></dd>
 
 
 <dt id="arg-normal-par">normal_par<a class="anchor" aria-label="anchor" href="#arg-normal-par"></a></dt>
@@ -76,8 +78,35 @@ the <code>print(x, target="doc.rtf")</code> function.</p>
 empty RTF document.</p>
     </div>
     <div class="section level2">
+    <h2 id="built-in-styles">Built-in styles<a class="anchor" aria-label="anchor" href="#built-in-styles"></a></h2>
+
+
+<p><code>rtf_doc()</code> registers four paragraph styles: <code>"Normal"</code> (built from
+<code>normal_par</code> / <code>normal_chunk</code>) and <code>"heading 1"</code> / <code>"heading 2"</code> /
+<code>"heading 3"</code> (bold, dark blue shades, with outline levels so the
+paragraphs feed Word's navigation pane and TOC field). The heading
+names mirror Word's own convention so a script that adds paragraphs
+with <code>style = "heading 1"</code> works identically against Word output
+(<code>body_add_par(..., style = "heading 1")</code>) and RTF output
+(<code>rtf_add(..., style = "heading 1")</code>).</p>
+<p>To override a built-in look (size, color, spacing, outline level),
+call <code><a href="rtf_set_paragraph_style.html">rtf_set_paragraph_style()</a></code> after <code>rtf_doc()</code> with the same
+<code>style_id</code>.</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rtf_doc.html">rtf_doc</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rtf_set_paragraph_style.html">rtf_set_paragraph_style</a></span><span class="op">(</span></span>
+<span>  <span class="va">doc</span>,</span>
+<span>  style_id <span class="op">=</span> <span class="st">"heading 1"</span>,</span>
+<span>  fp_p <span class="op">=</span> <span class="fu"><a href="../reference/fp_par.html">fp_par</a></span><span class="op">(</span>text.align <span class="op">=</span> <span class="st">"center"</span>, padding <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span>  fp_t <span class="op">=</span> <span class="fu"><a href="../reference/fp_text.html">fp_text_lite</a></span><span class="op">(</span>bold <span class="op">=</span> <span class="cn">TRUE</span>, font.size <span class="op">=</span> <span class="fl">24</span>, color <span class="op">=</span> <span class="st">"#000000"</span><span class="op">)</span>,</span>
+<span>  outline_level <span class="op">=</span> <span class="fl">1L</span></span>
+<span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Use <code><a href="rtf_styles_info.html">rtf_styles_info()</a></code> to inspect the current style table.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="read_docx.html">read_docx()</a></code>, <code><a href="print.rtf.html">print.rtf()</a></code>, <code><a href="rtf_add.html">rtf_add()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="read_docx.html">read_docx()</a></code>, <code><a href="print.rtf.html">print.rtf()</a></code>, <code><a href="rtf_add.html">rtf_add()</a></code>. See <code><a href="rtf_add.html">?rtf_add</a></code> for a
+complete multi-section example exercising <code>def_sec</code>, headers / footers
+and several <code><a href="block_section.html">block_section()</a></code> calls.</p></div>
     </div>
 
     <div class="section level2">

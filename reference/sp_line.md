@@ -32,6 +32,9 @@ update(
   tailend,
   ...
 )
+
+# S3 method for class 'sp_line'
+to_pml(x, add_ns = FALSE, ...)
 ```
 
 ## Arguments
@@ -83,6 +86,12 @@ update(
 - ...:
 
   further arguments - not used
+
+- add_ns:
+
+  unused; kept for compatibility with the
+  [`to_pml()`](https://davidgohel.github.io/officer/reference/to_pml.md)
+  generic.
 
 ## Value
 

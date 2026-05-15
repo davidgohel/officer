@@ -6,13 +6,14 @@
 status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
 [![codecov test
-coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/officer)
+coverage](https://codecov.io/gh/davidgohel/officer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/officer)
 
 The officer package lets R users manipulate Word (`.docx`) and
 PowerPoint (`*.pptx`) documents. In short, one can add images, tables
 and text into documents from R. An initial document can be provided;
 contents, styles and properties of the original document will then be
-available. It also supports the writing of ‘RTF’ documents.
+available. It also supports the writing of ‘RTF’ documents and basic
+manipulation of Excel (‘.xlsx’) workbooks.
 
 ## Ressources
 
@@ -116,12 +117,14 @@ Markdown documents.
 You can get the development version from GitHub:
 
 ``` r
+
 devtools::install_github("davidgohel/officer")
 ```
 
 Or the latest version on CRAN:
 
 ``` r
+
 install.packages("officer")
 ```
 
@@ -136,32 +139,54 @@ them and answer when possible.
 ### Code of Conduct
 
 Anyone getting involved in this package agrees to our [Code of
-Conduct](https://github.com/davidgohel/officer/blob/master/CONDUCT.md).
+Conduct](https://github.com/davidgohel/officer/blob/main/CONDUCT.md).
 
 ### Bug reports
 
-When you file a [bug
-report](https://github.com/davidgohel/officer/discussions/categories/q-a),
-please spend some time making it easy for me to follow and reproduce.
-The more time you spend on making the bug report coherent, the more time
-I can dedicate to investigate the bug as opposed to the bug report.
+Bugs are reported through [GitHub
+issues](https://github.com/davidgohel/officer/issues/new/choose). The
+issue form requires a reproducible example (a
+[reprex](https://reprex.tidyverse.org/)) and the output of
+[`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html); reports
+missing these elements are closed without further response. The more
+reproducible your report, the more time can go into investigating the
+bug rather than reconstructing it.
 
-### Contributing to the package development
+For usage questions (“how do I do X with officer”), please read
+<https://ardata-fr.github.io/officeverse/> or
+<https://davidgohel.github.io/officer/> or use [Stack
+Overflow](https://stackoverflow.com/questions/tagged/officer) with the
+`officer` tag instead.
 
-A great way to start is to contribute an example or improve the
-documentation.
+### Pull requests
 
-If you want to submit a Pull Request to integrate functions of yours,
-please provide:
+Before writing any code, please open an issue describing the change you
+have in mind and the reason for it. The proposal needs to be discussed
+and explicitly validated by the maintainer before work starts; pull
+requests for features that have not gone through this step will not be
+considered, no matter how well crafted. This isn’t meant to discourage
+contributions, only to make sure the time you invest goes into a change
+that will actually land.
 
-- the new function(s) with code and roxygen tags (with examples)
-- a new section in the appropriate vignette that describes how to use
-  the new function
-- add corresponding tests in directory `tests/testthat`.
+Pull requests are accepted on a case-by-case basis: once a proposal has
+been agreed in an issue, the maintainer will invite you to open a PR for
+that specific change. Unsolicited PRs that bypass this step will be
+closed.
 
-By using rhub (run `rhub::check_for_cran()`), you will see if everything
-is ok. When submitted, the PR will be evaluated automatically on travis
-and appveyor and you will be able to see if something broke.
+This policy keeps the package coherent: officer’s internals are shared
+with several downstream packages (flextable, officedown, rvg), and
+changes that look local often have wider implications. Aligning on the
+design in an issue first saves time on both sides.
+
+When invited to open a PR, please include:
+
+- the new function(s) with code and roxygen tags, including runnable
+  examples
+- documentation updates (vignette section if relevant)
+- corresponding tests under `tests/testthat`
+
+Run `rhub::check_for_cran()` locally before submitting; CI will run the
+full check suite on the PR.
 
 # Package index
 
@@ -385,6 +410,7 @@ and appveyor and you will be able to see if something broke.
 - [`sp_line()`](https://davidgohel.github.io/officer/reference/sp_line.md)
   [`print(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
   [`update(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
+  [`to_pml(`*`<sp_line>`*`)`](https://davidgohel.github.io/officer/reference/sp_line.md)
   : Line properties
 - [`sp_lineend()`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
   [`print(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
@@ -494,7 +520,6 @@ footnotes and Word fields.
 - [`run_tab()`](https://davidgohel.github.io/officer/reference/run_tab.md)
   : Tab for 'Word'
 - [`run_word_field()`](https://davidgohel.github.io/officer/reference/run_word_field.md)
-  [`run_seqfield()`](https://davidgohel.github.io/officer/reference/run_word_field.md)
   : 'Word' computed field
 - [`run_wordtext()`](https://davidgohel.github.io/officer/reference/run_wordtext.md)
   : Word chunk of text with a style
@@ -551,6 +576,10 @@ floating element.
   : Add content into an RTF document
 - [`print(`*`<rtf>`*`)`](https://davidgohel.github.io/officer/reference/print.rtf.md)
   : Write an 'RTF' File
+- [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/rtf_set_paragraph_style.md)
+  : Add or replace a paragraph style in an RTF document
+- [`rtf_styles_info()`](https://davidgohel.github.io/officer/reference/rtf_styles_info.md)
+  : Read paragraph styles defined on an RTF document
 
 ## Excel
 

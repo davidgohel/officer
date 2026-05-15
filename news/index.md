@@ -1,6 +1,79 @@
 # Changelog
 
+## officer 0.7.5
+
+### Word
+
+- drop deprecated `seqfield` argument in
+  [`run_word_field()`](https://davidgohel.github.io/officer/reference/run_word_field.md)
+  and remove `run_seqfield()` (old duplicate of
+  [`run_word_field()`](https://davidgohel.github.io/officer/reference/run_word_field.md))
+  .
+
+### RTF
+
+- RTF sections were debugged and now behave correctly: page orientation,
+  columns, margins and per-section headers / footers all apply as
+  expected, including multi-column layouts
+  ([\#726](https://github.com/davidgohel/officer/issues/726), thanks to
+  Nathan Kosiba).
+
+- New paragraph style API for RTF, aligned with
+  [`docx_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/docx_set_paragraph_style.md)
+  on the Word side.
+  [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/rtf_set_paragraph_style.md)
+  is now exported and takes `style_id`, `style_name`, `base_on`, `fp_p`,
+  `fp_t` and `outline_level`;
+  [`rtf_styles_info()`](https://davidgohel.github.io/officer/reference/rtf_styles_info.md)
+  returns the document’s style table.
+  [`rtf_add()`](https://davidgohel.github.io/officer/reference/rtf_add.md)
+  accepts a `style` argument so paragraphs (character, factor, double,
+  fpar, block_list) can reference a named style.
+  [`rtf_doc()`](https://davidgohel.github.io/officer/reference/rtf_doc.md)
+  registers built-in `"heading 1"` / `"heading 2"` / `"heading 3"`
+  styles with `\outlinelevel` values, so styled paragraphs feed Word’s
+  navigation pane and TOC field. Use
+  [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/rtf_set_paragraph_style.md)
+  after
+  [`rtf_doc()`](https://davidgohel.github.io/officer/reference/rtf_doc.md)
+  to override a built-in style; the row keyed by `style_id` is updated
+  in place.
+
+- [`rtf_add()`](https://davidgohel.github.io/officer/reference/rtf_add.md)
+  now accepts \[block_toc()\] objects and emits a TOC field in the RTF
+  stream, in parity with
+  [`body_add_toc()`](https://davidgohel.github.io/officer/reference/body_add_toc.md)
+  for Word. Word populates the table at open time using the outline
+  levels carried by the built-in heading styles; LibreOffice does not
+  render the TOC automatically.
+
+### Excel features
+
+- Images and ggplot drawings placed on Excel sheets with
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)
+  can now be anchored to cells. Pass `anchor = "B2:H20"` (a cell range)
+  to make the drawing move and size with cells, Excel’s default
+  behaviour. Pass `anchor = "B2"` (a single cell) to make it move but
+  keep its own size. Omit `anchor` for the previous fixed-position
+  layout. The `edit_as` argument controls what happens when rows or
+  columns are resized. The same options are available to charts inserted
+  via ‘mschart’.
+- Excel sheets can host the chartEx chart family (boxplot, funnel,
+  histogram, pareto, sunburst, treemap, waterfall) in addition to the
+  classic chart types. The new helper
+  [`ooxml_chart_uris()`](https://davidgohel.github.io/officer/reference/ooxml_chart_uris.md)
+  returns the identifiers needed by `xlsx_drawing` to wire either
+  family.
+- Two new building blocks for packages that emit OOXML directly (such as
+  ‘mschart’): `solid_fill(color)` returns a DrawingML solid-fill
+  fragment with optional alpha;
+  [`to_pml()`](https://davidgohel.github.io/officer/reference/to_pml.md)
+  now has an `sp_line` method exposing line-properties conversion that
+  was previously internal.
+
 ## officer 0.7.4
+
+CRAN release: 2026-04-24
 
 ### Features
 
@@ -506,8 +579,8 @@ CRAN release: 2024-02-05
 ### Features
 
 - [`fp_border()`](https://davidgohel.github.io/officer/reference/fp_border.md)
-  gains support for all line border styles listed in ECMA-376 § 17.18.2
-  and allowed CSS border styles. Closes
+  gains support for all line border styles listed in ECMA-376 section
+  17.18.2 and allowed CSS border styles. Closes
   [\#165](https://github.com/davidgohel/officer/issues/165) and
   [\#443](https://github.com/davidgohel/officer/issues/443).
 
@@ -772,7 +845,7 @@ CRAN release: 2022-06-12
 
 ### Changes
 
-- drop shortcuts$slip_{i}n_{t}ableref{()}andshortcuts$slip_in_plotref()
+- drop shortcuts$`slip_in_tableref() and shortcuts`$slip_in_plotref()
 - defunct slip_in_column_break() and slip_in_xml()
 - defunct slip_in_text()
 - remove defunct functions `slip_in_img()`, `ph_add_fpar()`,

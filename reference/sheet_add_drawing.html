@@ -3,13 +3,25 @@
 This is a generic function dispatching on value. Supported inputs
 include:
 external_img(): an image file (PNG, JPEG, GIF, ...) copied into
-xl/media/ and placed via an absolute anchor. Position and size
-are inch-based (left, top, width, height).
+the workbook and placed on the sheet.
 gg: a ggplot object rendered to PNG via ragg::agg_png() and
 embedded via the external_img path. Extra arguments: res
 (default 300 ppi), alt_text (auto-detected via
 ggplot2::get_alt_text() when empty), scale (same semantics as
 ggplot2::ggsave()).
+
+
+The drawing can be positioned in three ways, matching Excel's own
+&quot;Format Picture&quot; options:
+Fixed position (default): pass left / top and
+width / height in inches. The drawing stays put when rows or
+columns are inserted/resized.
+Move and size with cells (Excel's default): pass
+anchor = &quot;B2:H20&quot; (a cell range). The drawing spans those two
+cells and follows them.
+Move but don't size with cells: pass anchor = &quot;B2&quot;
+(a single cell). The drawing anchors to that cell, keeping the
+size set by width / height.
 
 
 Additional methods for ms_chart and dml are provided by the
@@ -19,13 +31,25 @@ after adding a drawing."><meta property="og:description" content="Add a graphica
 This is a generic function dispatching on value. Supported inputs
 include:
 external_img(): an image file (PNG, JPEG, GIF, ...) copied into
-xl/media/ and placed via an absolute anchor. Position and size
-are inch-based (left, top, width, height).
+the workbook and placed on the sheet.
 gg: a ggplot object rendered to PNG via ragg::agg_png() and
 embedded via the external_img path. Extra arguments: res
 (default 300 ppi), alt_text (auto-detected via
 ggplot2::get_alt_text() when empty), scale (same semantics as
 ggplot2::ggsave()).
+
+
+The drawing can be positioned in three ways, matching Excel's own
+&quot;Format Picture&quot; options:
+Fixed position (default): pass left / top and
+width / height in inches. The drawing stays put when rows or
+columns are inserted/resized.
+Move and size with cells (Excel's default): pass
+anchor = &quot;B2:H20&quot; (a cell range). The drawing spans those two
+cells and follows them.
+Move but don't size with cells: pass anchor = &quot;B2&quot;
+(a single cell). The drawing anchors to that cell, keeping the
+size set by width / height.
 
 
 Additional methods for ms_chart and dml are provided by the
@@ -39,7 +63,7 @@ after adding a drawing."><meta property="og:image" content="https://davidgohel.g
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +84,7 @@ after adding a drawing."><meta property="og:image" content="https://davidgohel.g
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Add a drawing to an Excel sheet</h1>
-      <small class="dont-index">Source: <a href="https://github.com/davidgohel/officer/blob/master/R/read_xlsx.R" class="external-link"><code>R/read_xlsx.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/davidgohel/officer/blob/main/R/read_xlsx.R" class="external-link"><code>R/read_xlsx.R</code></a></small>
       <div class="d-none name"><code>sheet_add_drawing.Rd</code></div>
     </div>
 
@@ -68,13 +92,22 @@ after adding a drawing."><meta property="og:image" content="https://davidgohel.g
     <p>Add a graphical element into a sheet of an xlsx workbook.
 This is a generic function dispatching on <code>value</code>. Supported inputs
 include:</p><ul><li><p><code><a href="external_img.html">external_img()</a></code>: an image file (PNG, JPEG, GIF, ...) copied into
-<code>xl/media/</code> and placed via an absolute anchor. Position and size
-are inch-based (<code>left</code>, <code>top</code>, <code>width</code>, <code>height</code>).</p></li>
+the workbook and placed on the sheet.</p></li>
 <li><p><code>gg</code>: a ggplot object rendered to PNG via <code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code> and
 embedded via the <code>external_img</code> path. Extra arguments: <code>res</code>
 (default 300 ppi), <code>alt_text</code> (auto-detected via
 <code><a href="https://ggplot2.tidyverse.org/reference/get_alt_text.html" class="external-link">ggplot2::get_alt_text()</a></code> when empty), <code>scale</code> (same semantics as
 <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave()</a></code>).</p></li>
+</ul><p>The drawing can be positioned in three ways, matching Excel's own
+"Format Picture" options:</p><ul><li><p>Fixed position (default): pass <code>left</code> / <code>top</code> and
+<code>width</code> / <code>height</code> in inches. The drawing stays put when rows or
+columns are inserted/resized.</p></li>
+<li><p>Move and size with cells (Excel's default): pass
+<code>anchor = "B2:H20"</code> (a cell range). The drawing spans those two
+cells and follows them.</p></li>
+<li><p>Move but don't size with cells: pass <code>anchor = "B2"</code>
+(a single cell). The drawing anchors to that cell, keeping the
+size set by <code>width</code> / <code>height</code>.</p></li>
 </ul><p>Additional methods for <code>ms_chart</code> and <code>dml</code> are provided by the
 extension packages 'mschart' and 'rvg'.</p>
 <p>Use <code><a href="sheet_write_data.html">sheet_write_data()</a></code> to write data into the sheet before or
@@ -103,12 +136,16 @@ after adding a drawing.</p>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>method-specific arguments. In particular, the
-<code>external_img</code> and <code>gg</code> methods accept <code>left</code> / <code>top</code> (top-left
-anchor, inches, default <code>(1, 1)</code>) and <code>width</code> / <code>height</code> (size,
-inches). The <code>gg</code> method also accepts <code>res</code> (ppi, default 300),
-<code>alt_text</code> (auto-detected via <code><a href="https://ggplot2.tidyverse.org/reference/get_alt_text.html" class="external-link">ggplot2::get_alt_text()</a></code> if empty)
-and <code>scale</code> (passed to <code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code>).</p></dd>
+<dd><p>method-specific arguments. Common across <code>external_img</code>
+and <code>gg</code> methods: <code>left</code> / <code>top</code> (fixed-position top-left in
+inches, default <code>(1, 1)</code>), <code>width</code> / <code>height</code> (size in inches),
+<code>anchor</code> (cell reference like <code>"B2"</code> or <code>"B2:H20"</code>, see
+description), <code>edit_as</code> (one of <code>"twoCell"</code>, <code>"oneCell"</code>,
+<code>"absolute"</code>; how Excel treats the drawing when rows/columns are
+resized — only meaningful with a cell range <code>anchor</code>). The <code>gg</code>
+method also accepts <code>res</code> (ppi, default 300), <code>alt_text</code>
+(auto-detected via <code><a href="https://ggplot2.tidyverse.org/reference/get_alt_text.html" class="external-link">ggplot2::get_alt_text()</a></code> if empty) and
+<code>scale</code> (passed to <code><a href="https://ragg.r-lib.org/reference/agg_png.html" class="external-link">ragg::agg_png()</a></code>).</p></dd>
 
 </dl></div>
     <div class="section level2">
