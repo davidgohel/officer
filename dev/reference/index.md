@@ -386,6 +386,10 @@ floating element.
   : Add content into an RTF document
 - [`print(`*`<rtf>`*`)`](https://davidgohel.github.io/officer/dev/reference/print.rtf.md)
   : Write an 'RTF' File
+- [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/dev/reference/rtf_set_paragraph_style.md)
+  : Add or replace a paragraph style in an RTF document
+- [`rtf_styles_info()`](https://davidgohel.github.io/officer/dev/reference/rtf_styles_info.md)
+  : Read paragraph styles defined on an RTF document
 
 ## Excel
 

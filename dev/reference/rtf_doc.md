@@ -40,6 +40,34 @@ rtf_doc(
 
 an object of class `rtf` representing an empty RTF document.
 
+## Built-in styles
+
+`rtf_doc()` registers four paragraph styles: `"Normal"` (built from
+`normal_par` / `normal_chunk`) and `"heading 1"` / `"heading 2"` /
+`"heading 3"` (bold, dark blue shades, with outline levels so the
+paragraphs feed Word's navigation pane and TOC field). The heading names
+mirror Word's own convention so a script that adds paragraphs with
+`style = "heading 1"` works identically against Word output
+(`body_add_par(..., style = "heading 1")`) and RTF output
+(`rtf_add(..., style = "heading 1")`).
+
+To override a built-in look (size, color, spacing, outline level), call
+[`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/dev/reference/rtf_set_paragraph_style.md)
+after `rtf_doc()` with the same `style_id`.
+
+    doc <- rtf_doc()
+    doc <- rtf_set_paragraph_style(
+      doc,
+      style_id = "heading 1",
+      fp_p = fp_par(text.align = "center", padding = 12),
+      fp_t = fp_text_lite(bold = TRUE, font.size = 24, color = "#000000"),
+      outline_level = 1L
+    )
+
+Use
+[`rtf_styles_info()`](https://davidgohel.github.io/officer/dev/reference/rtf_styles_info.md)
+to inspect the current style table.
+
 ## See also
 
 [`read_docx()`](https://davidgohel.github.io/officer/dev/reference/read_docx.md),

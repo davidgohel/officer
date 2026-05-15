@@ -13,18 +13,21 @@ rtf_add(x, value, ...)
 rtf_add(x, value, ...)
 
 # S3 method for class 'character'
-rtf_add(x, value, ...)
+rtf_add(x, value, style = NULL, ...)
 
 # S3 method for class 'factor'
-rtf_add(x, value, ...)
+rtf_add(x, value, style = NULL, ...)
 
 # S3 method for class 'double'
-rtf_add(x, value, formatter = formatC, ...)
+rtf_add(x, value, formatter = formatC, style = NULL, ...)
 
 # S3 method for class 'fpar'
-rtf_add(x, value, ...)
+rtf_add(x, value, style = NULL, ...)
 
 # S3 method for class 'block_list'
+rtf_add(x, value, style = NULL, ...)
+
+# S3 method for class 'block_toc'
 rtf_add(x, value, ...)
 
 # S3 method for class 'gg'
@@ -73,6 +76,14 @@ rtf_add(
   these arguments will be used by png function. See section 'Methods' to
   see what arguments can be used.
 
+- style:
+
+  style identifier (`style_id`) of a paragraph style registered on the
+  document. Defaults to `NULL` (use the document's normal style). See
+  [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/dev/reference/rtf_set_paragraph_style.md)
+  and
+  [`rtf_styles_info()`](https://davidgohel.github.io/officer/dev/reference/rtf_styles_info.md).
+
 - formatter:
 
   function used to format the numerical values
@@ -113,6 +124,12 @@ rtf_add(
 
 - `rtf_add(block_list)`: add an
   [`block_list()`](https://davidgohel.github.io/officer/dev/reference/block_list.md)
+
+- `rtf_add(block_toc)`: add a
+  [`block_toc()`](https://davidgohel.github.io/officer/dev/reference/block_toc.md)
+  (table of contents). Word populates the TOC at open time from
+  paragraphs styled with the built-in heading styles (which carry an
+  outline level). LibreOffice will not render the TOC automatically.
 
 - `rtf_add(gg)`: add a ggplot2
 
@@ -196,7 +213,7 @@ anyplot <- plot_instr(code = {
 doc <- rtf_add(doc, anyplot, width = 5, height = 4, ppr = center_par)
 
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpzYuV9Y/file18337e82bc93.rtf"
+#> [1] "/tmp/RtmpO2u5oS/file18af7f9a5b10.rtf"
 
 
 ## RTF example with sections ----
@@ -248,7 +265,10 @@ doc <- rtf_doc(
   ),
   normal_par = fp_par(padding = 3)
 )
+doc <- rtf_add(doc, block_toc(level = 3))
 
+doc <- rtf_add(doc, "Sections demo", style = "heading 1")
+doc <- rtf_add(doc, "Default section", style = "heading 2")
 doc <- quick_hello_world(doc)
 
 if (require("ggplot2")) {
@@ -257,6 +277,8 @@ if (require("ggplot2")) {
     theme_minimal()
   doc <- rtf_add(doc, gg_iris, width = 4, height = 3)
 }
+
+doc <- rtf_add(doc, "Three columns", style = "heading 2")
 
 doc <- rtf_add(doc, three_cols_section)
 
@@ -285,7 +307,7 @@ landscape_section <- block_section(prop_section(
   footer_default = quick_section_footer("Landscape section")
 ))
 doc <- rtf_add(doc, landscape_section)
-
+doc <- rtf_add(doc, "Landscape orientation", style = "heading 2")
 doc <- quick_hello_world(doc)
 
 doc <- rtf_add(
@@ -298,9 +320,8 @@ doc <- rtf_add(
     )
   )
 )
-
+doc <- rtf_add(doc, "Back to portrait", style = "heading 2")
 doc <- quick_hello_world(doc)
-
-print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpzYuV9Y/file18335b9ebc6b.rtf"
+print(doc, target = "coco.rtf")
+#> [1] "coco.rtf"
 ```

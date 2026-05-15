@@ -6,7 +6,7 @@
 status](https://github.com/davidgohel/officer/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/officer/actions)
 [![version](https://www.r-pkg.org/badges/version/officer)](https://CRAN.R-project.org/package=officer)
 [![codecov test
-coverage](https://codecov.io/gh/davidgohel/officer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/officer)
+coverage](https://codecov.io/gh/davidgohel/officer/branch/main/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/officer)
 
 The officer package lets R users manipulate Word (`.docx`) and
 PowerPoint (`*.pptx`) documents. In short, one can add images, tables
@@ -139,7 +139,7 @@ them and answer when possible.
 ### Code of Conduct
 
 Anyone getting involved in this package agrees to our [Code of
-Conduct](https://github.com/davidgohel/officer/blob/master/CONDUCT.md).
+Conduct](https://github.com/davidgohel/officer/blob/main/CONDUCT.md).
 
 ### Bug reports
 

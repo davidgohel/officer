@@ -18,6 +18,35 @@
   ([\#726](https://github.com/davidgohel/officer/issues/726), thanks to
   Nathan Kosiba).
 
+- New paragraph style API for RTF, aligned with
+  [`docx_set_paragraph_style()`](https://davidgohel.github.io/officer/dev/reference/docx_set_paragraph_style.md)
+  on the Word side.
+  [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/dev/reference/rtf_set_paragraph_style.md)
+  is now exported and takes `style_id`, `style_name`, `base_on`, `fp_p`,
+  `fp_t` and `outline_level`;
+  [`rtf_styles_info()`](https://davidgohel.github.io/officer/dev/reference/rtf_styles_info.md)
+  returns the document’s style table.
+  [`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md)
+  accepts a `style` argument so paragraphs (character, factor, double,
+  fpar, block_list) can reference a named style.
+  [`rtf_doc()`](https://davidgohel.github.io/officer/dev/reference/rtf_doc.md)
+  registers built-in `"heading 1"` / `"heading 2"` / `"heading 3"`
+  styles with `\outlinelevel` values, so styled paragraphs feed Word’s
+  navigation pane and TOC field. Use
+  [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/dev/reference/rtf_set_paragraph_style.md)
+  after
+  [`rtf_doc()`](https://davidgohel.github.io/officer/dev/reference/rtf_doc.md)
+  to override a built-in style; the row keyed by `style_id` is updated
+  in place.
+
+- [`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md)
+  now accepts \[block_toc()\] objects and emits a TOC field in the RTF
+  stream, in parity with
+  [`body_add_toc()`](https://davidgohel.github.io/officer/dev/reference/body_add_toc.md)
+  for Word. Word populates the table at open time using the outline
+  levels carried by the built-in heading styles; LibreOffice does not
+  render the TOC automatically.
+
 ### Excel features
 
 - Images and ggplot drawings placed on Excel sheets with

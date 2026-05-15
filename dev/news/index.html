@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.5.005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/davidgohel/officer/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/davidgohel/officer/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -39,7 +39,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="rtf-0-7-5">RTF<a class="anchor" aria-label="anchor" href="#rtf-0-7-5"></a></h3>
-<ul><li>RTF sections were debugged and now behave correctly: page orientation, columns, margins and per-section headers / footers all apply as expected, including multi-column layouts (<a href="https://github.com/davidgohel/officer/issues/726" class="external-link">#726</a>, thanks to Nathan Kosiba).</li>
+<ul><li><p>RTF sections were debugged and now behave correctly: page orientation, columns, margins and per-section headers / footers all apply as expected, including multi-column layouts (<a href="https://github.com/davidgohel/officer/issues/726" class="external-link">#726</a>, thanks to Nathan Kosiba).</p></li>
+<li><p>New paragraph style API for RTF, aligned with <code><a href="../reference/docx_set_paragraph_style.html">docx_set_paragraph_style()</a></code> on the Word side. <code><a href="../reference/rtf_set_paragraph_style.html">rtf_set_paragraph_style()</a></code> is now exported and takes <code>style_id</code>, <code>style_name</code>, <code>base_on</code>, <code>fp_p</code>, <code>fp_t</code> and <code>outline_level</code>; <code><a href="../reference/rtf_styles_info.html">rtf_styles_info()</a></code> returns the document’s style table. <code><a href="../reference/rtf_add.html">rtf_add()</a></code> accepts a <code>style</code> argument so paragraphs (character, factor, double, fpar, block_list) can reference a named style. <code><a href="../reference/rtf_doc.html">rtf_doc()</a></code> registers built-in <code>"heading 1"</code> / <code>"heading 2"</code> / <code>"heading 3"</code> styles with <code>\outlinelevel</code> values, so styled paragraphs feed Word’s navigation pane and TOC field. Use <code><a href="../reference/rtf_set_paragraph_style.html">rtf_set_paragraph_style()</a></code> after <code><a href="../reference/rtf_doc.html">rtf_doc()</a></code> to override a built-in style; the row keyed by <code>style_id</code> is updated in place.</p></li>
+<li><p><code><a href="../reference/rtf_add.html">rtf_add()</a></code> now accepts [block_toc()] objects and emits a TOC field in the RTF stream, in parity with <code><a href="../reference/body_add_toc.html">body_add_toc()</a></code> for Word. Word populates the table at open time using the outline levels carried by the built-in heading styles; LibreOffice does not render the TOC automatically.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="excel-features-0-7-5">Excel features<a class="anchor" aria-label="anchor" href="#excel-features-0-7-5"></a></h3>
