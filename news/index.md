@@ -1,6 +1,17 @@
 # Changelog
 
+## officer 0.7.6
+
+### Issues
+
+- drop deprecated special names (`.Names`, `.Dim`, `.Dimnames`) in
+  [`structure()`](https://rdrr.io/r/base/structure.html) calls, flagged
+  as a NOTE by r-devel checks
+  ([\#728](https://github.com/davidgohel/officer/issues/728)).
+
 ## officer 0.7.5
+
+CRAN release: 2026-05-15
 
 ### Word
 
