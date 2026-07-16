@@ -14,10 +14,10 @@ read_core_properties <- function(package_dir) {
 
   if (length(all_) < 1) {
     out <- list(
-      data = structure(
+      data = matrix(
         character(0),
-        .Dim = c(0L, 4L),
-        .Dimnames = list(
+        ncol = 4L,
+        dimnames = list(
           NULL,
           c("ns", "name", "attrs", "value")
         )
