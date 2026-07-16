@@ -52,14 +52,14 @@ my_pres <- ph_with(my_pres, iris[1:2,],
   location = ph_location_type(type="body"))
 slide_summary(my_pres)
 #>   type                                   id              ph_label offx offy cx
-#> 1 body b90c1436-5ed1-4d38-9d4c-bc02519f783e Content Placeholder 2   NA   NA NA
+#> 1 body 22c18473-9d80-4760-a65f-46387d8a1d91 Content Placeholder 2   NA   NA NA
 #>   cy rotation fld_id fld_type
 #> 1 NA       NA   <NA>     <NA>
 #>                                                                                                                              text
 #> 1 {5C22544A-7EE6-4342-B048-85BDC9FD1C3A}Sepal.LengthSepal.WidthPetal.LengthPetal.WidthSpecies5.13.51.40.2setosa4.93.01.40.2setosa
 slide_summary(my_pres, index = 1)
 #>   type                                   id           ph_label offx     offy
-#> 1   dt 9544eb30-1e74-470a-a7c1-6f9fe7d7759d Date Placeholder 3  0.5 6.951389
+#> 1   dt 7517212f-87b2-44f7-b798-b479a8b9e56e Date Placeholder 3  0.5 6.951389
 #>         cx        cy rotation fld_id fld_type       text
-#> 1 2.333333 0.3993056       NA   <NA>     <NA> 2026-05-15
+#> 1 2.333333 0.3993056       NA   <NA>     <NA> 2026-07-16
 ```

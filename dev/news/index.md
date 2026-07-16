@@ -1,6 +1,17 @@
 # Changelog
 
+## officer 0.7.6
+
+### Issues
+
+- drop deprecated `.Names` argument of
+  [`structure()`](https://rdrr.io/r/base/structure.html) to avoid a
+  warning in r-devel
+  ([\#728](https://github.com/davidgohel/officer/issues/728)).
+
 ## officer 0.7.5
+
+CRAN release: 2026-05-15
 
 ### Word
 

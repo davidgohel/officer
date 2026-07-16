@@ -160,7 +160,7 @@ value
 #> 1       Arial             Arial          Arial       baseline
 #> 
 #> $chunks[[2]]
-#> [1] "/opt/R/4.6.0/lib/R/doc/html/logo.jpg"
+#> [1] "/opt/R/4.6.1/lib/R/doc/html/logo.jpg"
 #> attr(,"class")
 #> [1] "external_img" "cot"          "run"         
 #> attr(,"dims")
