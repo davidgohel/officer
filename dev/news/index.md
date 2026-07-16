@@ -4,9 +4,9 @@
 
 ### Issues
 
-- drop deprecated `.Names` argument of
-  [`structure()`](https://rdrr.io/r/base/structure.html) to avoid a
-  warning in r-devel
+- drop deprecated special names (`.Names`, `.Dim`, `.Dimnames`) in
+  [`structure()`](https://rdrr.io/r/base/structure.html) calls, flagged
+  as a NOTE by r-devel checks
   ([\#728](https://github.com/davidgohel/officer/issues/728)).
 
 ## officer 0.7.5
