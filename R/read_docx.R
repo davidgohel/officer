@@ -75,7 +75,6 @@ read_docx <- function(path = NULL) {
 
   obj <- structure(
     list(package_dir = package_dir),
-    .Names = c("package_dir"),
     class = "rdocx"
   )
 

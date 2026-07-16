@@ -1,3 +1,9 @@
+# officer 0.7.6
+
+## Issues
+
+- drop deprecated `.Names` argument of `structure()` to avoid a warning in r-devel (#728).
+
 # officer 0.7.5
 
 ## Word
