@@ -355,9 +355,21 @@ sanitize_images <- function(x, warn_user = TRUE) {
             "r" = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
           )
         )
+        # VML images (e.g. OLE object previews) reference their media through <v:imagedata>, not <a:blip>.
+        imagedata_nodes <- xml_find_all(
+          doc_part$get(),
+          "//v:imagedata[contains(@r:id, 'rId')]",
+          ns = c(
+            "v" = "urn:schemas-microsoft-com:vml",
+            "r" = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+          )
+        )
       })
 
-      embed_list <- xml_attr(blip_nodes, "embed")
+      embed_list <- c(
+        xml_attr(blip_nodes, "embed"),
+        xml_attr(imagedata_nodes, "id")
+      )
       embed_data <- filter(
         .data = doc_part$rel_df(),
         basename(.data$type) %in% "image",

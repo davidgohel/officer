@@ -1,3 +1,12 @@
+# officer 0.7.7
+
+## Issues
+
+- fix lost images : keep images referenced through VML `<v:imagedata>` (e.g. EMF 
+previews of embedded OLE objects) when saving a document, instead of dropping 
+their media and relationship (#730).
+
+
 # officer 0.7.6
 
 ## Issues

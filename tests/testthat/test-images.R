@@ -896,3 +896,54 @@ test_that("image_to_base64 with multiple non-existent files", {
     "File\\(s\\) not found"
   )
 })
+
+test_that("VML v:imagedata media is preserved on save (#730)", {
+  # Build a minimal docx whose only reference to a media file is through a
+  # VML <v:imagedata r:id="..">, as produced for EMF previews of embedded
+  # OLE objects. Such media used to be dropped by sanitize_images().
+  src <- print(read_docx(), target = tempfile(fileext = ".docx"))
+  pkg_dir <- tempfile()
+  unpack_folder(src, pkg_dir)
+
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
+  media_dir <- file.path(pkg_dir, "word", "media")
+  dir.create(media_dir, showWarnings = FALSE, recursive = TRUE)
+  file.copy(img, file.path(media_dir, "vmltest.jpg"))
+
+  rels_path <- file.path(pkg_dir, "word", "_rels", "document.xml.rels")
+  rels <- readLines(rels_path, warn = FALSE)
+  rels <- sub(
+    "</Relationships>",
+    paste0(
+      "<Relationship Id=\"rId999\" ",
+      "Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/image\" ",
+      "Target=\"media/vmltest.jpg\"/></Relationships>"
+    ),
+    rels
+  )
+  writeLines(rels, rels_path)
+
+  doc_path <- file.path(pkg_dir, "word", "document.xml")
+  doc <- readLines(doc_path, warn = FALSE)
+  pict <- paste0(
+    "<w:p><w:r><w:pict xmlns:v=\"urn:schemas-microsoft-com:vml\">",
+    "<v:shape style=\"width:10pt;height:10pt\">",
+    "<v:imagedata r:id=\"rId999\" o:title=\"\"/>",
+    "</v:shape></w:pict></w:r></w:p>"
+  )
+  doc <- sub("<w:sectPr", paste0(pict, "<w:sectPr"), doc)
+  writeLines(doc, doc_path)
+
+  fixture <- pack_folder(pkg_dir, tempfile(fileext = ".docx"))
+
+  out <- print(read_docx(fixture), target = tempfile(fileext = ".docx"))
+  out_dir <- tempfile()
+  unpack_folder(out, out_dir)
+
+  expect_true(file.exists(file.path(out_dir, "word", "media", "vmltest.jpg")))
+  out_rels <- paste(
+    readLines(file.path(out_dir, "word", "_rels", "document.xml.rels"), warn = FALSE),
+    collapse = ""
+  )
+  expect_match(out_rels, "media/vmltest.jpg")
+})
