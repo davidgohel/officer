@@ -1,6 +1,17 @@
 # Changelog
 
+## officer 0.7.7
+
+### Issues
+
+- fix lost images : keep images referenced through VML `<v:imagedata>`
+  (e.g. EMF previews of embedded OLE objects) when saving a document,
+  instead of dropping their media and relationship
+  ([\#730](https://github.com/davidgohel/officer/issues/730)).
+
 ## officer 0.7.6
+
+CRAN release: 2026-07-16
 
 ### Issues
 
