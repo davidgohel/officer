@@ -59,7 +59,7 @@ doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(x = doc, "Un titre 1", location = loc_manual)
 slide_summary(doc) # read column ph_label here
 #>   type                                   id ph_label offx offy cx cy rotation
-#> 1 body ccdb60d0-6c30-4a0e-8e30-9ee0a84af753  mytitle    1    1  4  3       NA
+#> 1 body ab372a3d-160a-4b0f-8073-b32f7b95efd3  mytitle    1    1  4  3       NA
 #>   fld_id fld_type       text
 #> 1   <NA>     <NA> Un titre 1
 doc <- ph_hyperlink(

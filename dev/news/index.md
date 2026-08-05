@@ -14,6 +14,12 @@
   [`external_img()`](https://davidgohel.github.io/officer/dev/reference/external_img.md)
   (discussion
   [\#733](https://github.com/davidgohel/officer/issues/733)).
+- [`docx_summary()`](https://davidgohel.github.io/officer/dev/reference/docx_summary.md)
+  gains a `para_id` column containing the unique paragraph id, allowing
+  to join its results with those of
+  [`docx_comments()`](https://davidgohel.github.io/officer/dev/reference/docx_comments.md)
+  (discussion
+  [\#732](https://github.com/davidgohel/officer/issues/732)).
 
 ### Issues
 
