@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.7" id="officer-077">officer 0.7.7<a class="anchor" aria-label="anchor" href="#officer-077"></a></h2>
+<div class="section level3">
+<h3 id="features-0-7-7">Features<a class="anchor" aria-label="anchor" href="#features-0-7-7"></a></h3>
+<ul><li>
+<code><a href="../reference/body_add_gg.html">body_add_gg()</a></code> gains an <code>alt_text</code> argument (as <code><a href="../reference/ph_with.html">ph_with()</a></code> for ggplot objects); if empty, the alt text defined with <code>ggplot2::labs(alt = ...)</code> is used. <code><a href="../reference/body_add_img.html">body_add_img()</a></code> gains an <code>alt</code> argument, passed to <code><a href="../reference/external_img.html">external_img()</a></code> (discussion <a href="https://github.com/davidgohel/officer/issues/733" class="external-link">#733</a>).</li>
+</ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-7"></a></h3>
 <ul><li>fix lost images : keep images referenced through VML <code>&lt;v:imagedata&gt;</code> (e.g. EMF previews of embedded OLE objects) when saving a document, instead of dropping their media and relationship (<a href="https://github.com/davidgohel/officer/issues/730" class="external-link">#730</a>).</li>

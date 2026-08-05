@@ -2,6 +2,19 @@
 
 ## officer 0.7.7
 
+### Features
+
+- [`body_add_gg()`](https://davidgohel.github.io/officer/dev/reference/body_add_gg.md)
+  gains an `alt_text` argument (as
+  [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
+  for ggplot objects); if empty, the alt text defined with
+  `ggplot2::labs(alt = ...)` is used.
+  [`body_add_img()`](https://davidgohel.github.io/officer/dev/reference/body_add_img.md)
+  gains an `alt` argument, passed to
+  [`external_img()`](https://davidgohel.github.io/officer/dev/reference/external_img.md)
+  (discussion
+  [\#733](https://github.com/davidgohel/officer/issues/733)).
+
 ### Issues
 
 - fix lost images : keep images referenced through VML `<v:imagedata>`

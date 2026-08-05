@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,7 @@
 <span>  height <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  res <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  style <span class="op">=</span> <span class="st">"Normal"</span>,</span>
+<span>  alt_text <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  scale <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  pos <span class="op">=</span> <span class="st">"after"</span>,</span>
 <span>  unit <span class="op">=</span> <span class="st">"in"</span>,</span>
@@ -75,6 +76,11 @@ Defaults to a width of 6 and a height of 5 "in"ches.</p></dd>
 
 <dt id="arg-style">style<a class="anchor" aria-label="anchor" href="#arg-style"></a></dt>
 <dd><p>paragraph style</p></dd>
+
+
+<dt id="arg-alt-text">alt_text<a class="anchor" aria-label="anchor" href="#arg-alt-text"></a></dt>
+<dd><p>Alt-text for screen-readers. Defaults to <code>""</code>. If <code>""</code> or <code>NULL</code>
+an alt text added with <code>ggplot2::labs(alt = ...)</code> will be used if any.</p></dd>
 
 
 <dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>

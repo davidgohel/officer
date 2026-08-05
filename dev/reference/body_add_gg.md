@@ -12,6 +12,7 @@ body_add_gg(
   height = 5,
   res = 300,
   style = "Normal",
+  alt_text = "",
   scale = 1,
   pos = "after",
   unit = "in",
@@ -41,6 +42,11 @@ body_add_gg(
 - style:
 
   paragraph style
+
+- alt_text:
+
+  Alt-text for screen-readers. Defaults to `""`. If `""` or `NULL` an
+  alt text added with `ggplot2::labs(alt = ...)` will be used if any.
 
 - scale:
 
