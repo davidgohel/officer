@@ -13,7 +13,7 @@ but it's up to the user to define the section properties."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,6 +83,24 @@ should layout it.</p>
 <code>body_end_block_section()</code> call.</p>
 <p>The RTF output uses the opposite model: <code>rtf_add(block_section(...))</code>
 applies to the content that <em>follows</em> the call. See <code><a href="rtf_add.html">rtf_add()</a></code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="section-breaks-occupy-a-line">Section breaks occupy a line<a class="anchor" aria-label="anchor" href="#section-breaks-occupy-a-line"></a></h2>
+
+
+<p>Ending a section is materialized in the document by an empty
+paragraph mark holding the section properties; this is how the
+OOXML format represents a section break, there is no other way, and
+Word does the same when a section break is inserted manually. As
+any paragraph mark, it occupies one line whose height depends on
+the default paragraph style. The same applies to
+<code><a href="run_columnbreak.html">run_columnbreak()</a></code> when it has to be placed after a table: a table
+cannot host the break, so it must live in a paragraph that also
+takes one line. If that residual line matters for your layout,
+define a dedicated paragraph style with a very small font size
+(e.g. 1pt) and no spacing in your Word template, and use it for the
+paragraph hosting the break:
+<code>fpar(run_columnbreak(), fp_p = fp_par(word_style = "MyTinyStyle"))</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="illustrations">Illustrations<a class="anchor" aria-label="anchor" href="#illustrations"></a></h2>
