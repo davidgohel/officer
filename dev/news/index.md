@@ -23,6 +23,11 @@
 
 ### Issues
 
+- [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
+  now produces a valid numbering when used outside the document body.
+  The list identifiers were only resolved for the body, so a list placed
+  in a footnote, a comment, a header or a footer shipped the internal
+  marker as its `w:numId`, where Word expects an integer.
 - fix lost images : keep images referenced through VML `<v:imagedata>`
   (e.g. EMF previews of embedded OLE objects) when saving a document,
   instead of dropping their media and relationship

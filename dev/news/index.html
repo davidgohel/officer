@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-7"></a></h3>
-<ul><li>fix lost images : keep images referenced through VML <code>&lt;v:imagedata&gt;</code> (e.g. EMF previews of embedded OLE objects) when saving a document, instead of dropping their media and relationship (<a href="https://github.com/davidgohel/officer/issues/730" class="external-link">#730</a>).</li>
+<ul><li>
+<code><a href="../reference/block_list_items.html">block_list_items()</a></code> now produces a valid numbering when used outside the document body. The list identifiers were only resolved for the body, so a list placed in a footnote, a comment, a header or a footer shipped the internal marker as its <code>w:numId</code>, where Word expects an integer.</li>
+<li>fix lost images : keep images referenced through VML <code>&lt;v:imagedata&gt;</code> (e.g. EMF previews of embedded OLE objects) when saving a document, instead of dropping their media and relationship (<a href="https://github.com/davidgohel/officer/issues/730" class="external-link">#730</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
