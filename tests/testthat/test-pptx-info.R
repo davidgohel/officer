@@ -124,11 +124,16 @@ test_that("layout properties - all phs for multiple masters (#597)", {
 
 
 test_that("plot layout properties (part 1)", {
+  local_edition(3L)
+  announce_snapshot_file(name = "plot-titleslide-layout-default.png")
+  announce_snapshot_file(name = "plot-titleslide-layout-labels-only.png")
+  announce_snapshot_file(name = "plot-titleslide-layout-default-with-legend.png")
+  announce_snapshot_file(name = "plot-content-order-default.png")
+  announce_snapshot_file(name = "plot-content-order-labels-only.png")
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   skip_if_not_installed("gdtools")
   require(doconv)
-  local_edition(3L)
   x <- read_pptx()
 
   png1 <- tempfile(fileext = ".png")

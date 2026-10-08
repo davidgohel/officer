@@ -46,10 +46,11 @@ test_that("master is inferred", {
 
 
 test_that("snapshot simple elements into placeholder", {
+  local_edition(3L)
+  announce_snapshot_file(name = "pptx-add-simple.png")
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
-  local_edition(3L)
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
   doc <- ph_with(doc, c(1L, 2L), location = ph_location_left())
@@ -66,10 +67,11 @@ test_that("snapshot simple elements into placeholder", {
 
 
 test_that("snapshot date into placeholder", {
+  local_edition(3L)
+  announce_snapshot_file(name = "pptx-add-date.png")
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
-  local_edition(3L)
 
   my_date <- as.Date("2025-09-02")
 
@@ -154,12 +156,13 @@ test_that("add plot_instr with custom dimensions", {
 
 
 test_that("snapshot ggplot into placeholder", {
+  local_edition(3L)
+  announce_snapshot_file(name = "pptx-add-ggplot2.png")
   skip_if_not_installed("doconv")
   skip_if_not_installed("ggplot2")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
   require(ggplot2)
-  local_edition(3L)
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content")
   gg_plot <- ggplot(data = iris) +
@@ -184,10 +187,11 @@ test_that("snapshot ggplot into placeholder", {
 
 
 test_that("snapshot base plot into placeholder", {
+  local_edition(3L)
+  announce_snapshot_file(name = "pptx-add-barplot.png")
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
-  local_edition(3L)
   anyplot <- plot_instr(code = {
     barplot(1:5, col = 2:6)
   })
@@ -205,10 +209,11 @@ test_that("snapshot base plot into placeholder", {
 
 
 test_that("add unordered_list into placeholder", {
+  local_edition(3L)
+  announce_snapshot_file(name = "pptx-add-ul.png")
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
-  local_edition(3L)
   ul1 <- unordered_list(
     level_list = c(0, 1, 1, 0, 0, 1, 1),
     str_list = c(
@@ -246,10 +251,11 @@ test_that("add unordered_list into placeholder", {
 
 
 test_that("add block_list into placeholder", {
+  local_edition(3L)
+  announce_snapshot_file(name = "pptx-add-blocklist.png")
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())
   require(doconv)
-  local_edition(3L)
   fpt_blue_bold <- fp_text_lite(color = "#006699", bold = TRUE)
   fpt_red_italic <- fp_text_lite(color = "#C32900", italic = TRUE)
   value <- block_list(
