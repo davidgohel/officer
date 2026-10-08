@@ -130,6 +130,7 @@ print.rdocx <- function(
     xml_str <- xml_document_to_chrs(header$get())
     xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
     xml_str <- fix_empty_ids_in_wml(xml_str)
+    xml_str <- process_list_markers(xml_str, x$package_dir)
     xml_str <- fix_hyperlink_refs_in_wml(xml_str, header)
     xml_str <- fix_img_refs_in_wml(
       xml_str,
@@ -151,6 +152,7 @@ print.rdocx <- function(
     xml_str <- xml_document_to_chrs(footer$get())
     xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
     xml_str <- fix_empty_ids_in_wml(xml_str)
+    xml_str <- process_list_markers(xml_str, x$package_dir)
     xml_str <- fix_hyperlink_refs_in_wml(xml_str, footer)
     xml_str <- fix_img_refs_in_wml(
       xml_str,
@@ -173,6 +175,7 @@ print.rdocx <- function(
   xml_str <- xml_document_to_chrs(x$footnotes$get())
   xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
   xml_str <- fix_empty_ids_in_wml(xml_str)
+  xml_str <- process_list_markers(xml_str, x$package_dir)
   xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$footnotes)
   xml_str <- fix_img_refs_in_wml(
     xml_str,
@@ -194,6 +197,7 @@ print.rdocx <- function(
   xml_str <- xml_document_to_chrs(x$comments$get())
   xml_str <- convert_custom_styles_in_wml(xml_str, x$styles)
   xml_str <- fix_empty_ids_in_wml(xml_str)
+  xml_str <- process_list_markers(xml_str, x$package_dir)
   xml_str <- fix_hyperlink_refs_in_wml(xml_str, x$comments)
   xml_str <- fix_img_refs_in_wml(
     xml_str,

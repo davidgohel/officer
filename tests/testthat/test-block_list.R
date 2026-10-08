@@ -217,3 +217,68 @@ test_that("block_list_items PowerPoint output is valid", {
   expect_true(file.exists(out))
   expect_gt(file.info(out)$size, 0)
 })
+
+test_that("list markers are resolved in footnotes and comments", {
+  doc <- read_docx()
+  doc <- body_add(doc, block_list_items(list_item(fpar("Body item"))))
+  doc <- body_add_fpar(
+    doc,
+    fpar(
+      "Text",
+      run_footnote(
+        x = block_list(
+          block_list_items(list_item(fpar("Note item")), list_type = "decimal")
+        )
+      )
+    )
+  )
+  doc <- body_add_fpar(
+    doc,
+    fpar(
+      run_comment(
+        cmt = block_list(block_list_items(list_item(fpar("Comment item")))),
+        run = ftext("anchor"),
+        author = "someone",
+        date = "2026-10-08"
+      )
+    )
+  )
+  out <- print(doc, target = tempfile(fileext = ".docx"))
+
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+
+  read_part <- function(part) {
+    paste(
+      readLines(file.path(unpack_dir, "word", part), warn = FALSE),
+      collapse = ""
+    )
+  }
+  num_ids <- function(xml) {
+    unique(regmatches(xml, gregexpr("w:numId w:val=\"[^\"]+\"", xml))[[1]])
+  }
+
+  num_xml <- read_part("numbering.xml")
+
+  for (part in c("document.xml", "footnotes.xml", "comments.xml")) {
+    part_xml <- read_part(part)
+    # no marker is left behind
+    expect_false(grepl("officer-list-", part_xml), label = part)
+    ids <- num_ids(part_xml)
+    expect_length(ids, 1L)
+    id <- gsub("w:numId w:val=\"|\"", "", ids)
+    # a w:numId must be an integer, and must be declared in numbering.xml
+    expect_match(id, "^[0-9]+$")
+    expect_true(
+      grepl(sprintf("w:numId=\"%s\"", id), num_xml),
+      label = paste(part, "numId", id, "declared")
+    )
+  }
+
+  # each part gets its own list definition
+  all_ids <- unlist(lapply(
+    c("document.xml", "footnotes.xml", "comments.xml"),
+    function(part) num_ids(read_part(part))
+  ))
+  expect_length(unique(all_ids), 3L)
+})

@@ -372,75 +372,91 @@ export(xlsx_styles)
 import(graphics)
 importFrom(R6,R6Class)
 importFrom(cli,cli_abort)
-importFrom(dplyr,across)
-importFrom(dplyr,all_of)
-importFrom(dplyr,arrange)
-importFrom(dplyr,as_tibble)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,case_when)
-importFrom(dplyr,consecutive_id)
-importFrom(dplyr,filter)
-importFrom(dplyr,first)
-importFrom(dplyr,group_by)
-importFrom(dplyr,if_else)
-importFrom(dplyr,inner_join)
-importFrom(dplyr,lag)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,n)
-importFrom(dplyr,relocate)
-importFrom(dplyr,select)
-importFrom(dplyr,summarise)
-importFrom(dplyr,syms)
-importFrom(grDevices,col2rgb)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,rgb)
-importFrom(graphics,box)
-importFrom(graphics,plot)
-importFrom(graphics,rect)
-importFrom(graphics,text)
-importFrom(openssl,base64_decode)
-importFrom(openssl,base64_encode)
-importFrom(openssl,sha1)
+importFrom(dplyr,
+  across,
+  all_of,
+  arrange,
+  as_tibble,
+  bind_rows,
+  case_when,
+  consecutive_id,
+  filter,
+  first,
+  group_by,
+  if_else,
+  inner_join,
+  lag,
+  left_join,
+  mutate,
+  n,
+  relocate,
+  select,
+  summarise,
+  syms
+)
+importFrom(grDevices,
+  col2rgb,
+  dev.off,
+  rgb
+)
+importFrom(graphics,
+  box,
+  plot,
+  rect,
+  text
+)
+importFrom(openssl,
+  base64_decode,
+  base64_encode,
+  sha1
+)
 importFrom(ragg,agg_png)
-importFrom(stats,setNames)
-importFrom(stats,update)
+importFrom(stats,
+  setNames,
+  update
+)
 importFrom(tidyr,complete)
-importFrom(utils,compareVersion)
-importFrom(utils,head)
-importFrom(utils,modifyList)
-importFrom(utils,packageVersion)
-importFrom(utils,str)
-importFrom(utils,tail)
+importFrom(utils,
+  compareVersion,
+  head,
+  modifyList,
+  packageVersion,
+  str,
+  tail
+)
 importFrom(uuid,UUIDgenerate)
-importFrom(xml2,"xml_attr<-")
-importFrom(xml2,"xml_name<-")
-importFrom(xml2,"xml_text<-")
-importFrom(xml2,as_list)
-importFrom(xml2,as_xml_document)
-importFrom(xml2,read_xml)
-importFrom(xml2,write_xml)
-importFrom(xml2,xml_add_child)
-importFrom(xml2,xml_add_parent)
-importFrom(xml2,xml_add_sibling)
-importFrom(xml2,xml_attr)
-importFrom(xml2,xml_attrs)
-importFrom(xml2,xml_child)
-importFrom(xml2,xml_children)
-importFrom(xml2,xml_find_all)
-importFrom(xml2,xml_find_first)
-importFrom(xml2,xml_has_attr)
-importFrom(xml2,xml_length)
-importFrom(xml2,xml_missing)
-importFrom(xml2,xml_name)
-importFrom(xml2,xml_ns)
-importFrom(xml2,xml_parent)
-importFrom(xml2,xml_path)
-importFrom(xml2,xml_remove)
-importFrom(xml2,xml_replace)
-importFrom(xml2,xml_set_attr)
-importFrom(xml2,xml_set_attrs)
-importFrom(xml2,xml_set_text)
-importFrom(xml2,xml_text)
-importFrom(zip,unzip)
-importFrom(zip,zip)
+importFrom(xml2,
+  "xml_attr<-",
+  "xml_name<-",
+  "xml_text<-",
+  as_list,
+  as_xml_document,
+  read_xml,
+  write_xml,
+  xml_add_child,
+  xml_add_parent,
+  xml_add_sibling,
+  xml_attr,
+  xml_attrs,
+  xml_child,
+  xml_children,
+  xml_find_all,
+  xml_find_first,
+  xml_has_attr,
+  xml_length,
+  xml_missing,
+  xml_name,
+  xml_ns,
+  xml_parent,
+  xml_path,
+  xml_remove,
+  xml_replace,
+  xml_set_attr,
+  xml_set_attrs,
+  xml_set_text,
+  xml_text
+)
+importFrom(zip,
+  unzip,
+  zip
+)
