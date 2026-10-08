@@ -282,3 +282,92 @@ test_that("list markers are resolved in footnotes and comments", {
   ))
   expect_length(unique(all_ids), 3L)
 })
+
+test_that("adding a list keeps the numbering definitions valid", {
+  doc <- read_docx()
+  doc <- body_add_par(doc, "Introduction", style = "heading 1")
+  doc <- body_add_list(doc, block_list_items(list_item(fpar("Alpha"))))
+  doc <- body_add_par(doc, "Methods", style = "heading 1")
+  out <- print(doc, target = tempfile(fileext = ".docx"))
+
+  unpack_dir <- tempfile()
+  unpack_folder(out, unpack_dir)
+  num_xml <- read_xml(file.path(unpack_dir, "word", "numbering.xml"))
+  children <- xml_name(xml_children(num_xml))
+
+  # `CT_Numbering` is a sequence: no `w:abstractNum` may follow a `w:num`,
+  # otherwise Word discards the numbering definitions of the document
+  expect_true("abstractNum" %in% children)
+  expect_true("num" %in% children)
+  expect_lt(
+    max(which(children == "abstractNum")),
+    min(which(children == "num"))
+  )
+})
+
+test_that("adding a list does not drop the numbering of heading styles", {
+  skip_if_not_installed("doconv")
+  skip_if_not_installed("pdftools")
+  skip_if_not(doconv::msoffice_available())
+
+  render_text <- function(doc) {
+    docx <- print(doc, target = tempfile(fileext = ".docx"))
+    pdf <- tempfile(fileext = ".pdf")
+    doconv::to_pdf(docx, pdf)
+    paste(pdftools::pdf_text(pdf), collapse = "\n")
+  }
+
+  with_list <- function(add_list) {
+    doc <- read_docx()
+    doc <- body_add_par(doc, "Introduction", style = "heading 1")
+    if (add_list) {
+      doc <- body_add_list(doc, block_list_items(list_item(fpar("Alpha"))))
+    }
+    doc <- body_add_par(doc, "Methods", style = "heading 1")
+    render_text(doc)
+  }
+
+  # `heading 1` is numbered by the default template, with and without a list
+  reference <- with_list(FALSE)
+  expect_match(reference, "1\\.\\s+Introduction")
+  expect_match(reference, "2\\.\\s+Methods")
+
+  listed <- with_list(TRUE)
+  expect_match(listed, "1\\.\\s+Introduction")
+  expect_match(listed, "2\\.\\s+Methods")
+})
+
+test_that("new numbering definitions are inserted before w:numIdMacAtCleanup", {
+  ns_w <- "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+  package_dir <- tempfile()
+  dir.create(file.path(package_dir, "word"), recursive = TRUE)
+  writeLines(
+    sprintf(
+      paste0(
+        "<w:numbering xmlns:w=\"%s\">",
+        "<w:abstractNum w:abstractNumId=\"0\"><w:lvl w:ilvl=\"0\"/>",
+        "</w:abstractNum>",
+        "<w:num w:numId=\"1\"><w:abstractNumId w:val=\"0\"/></w:num>",
+        "<w:numIdMacAtCleanup w:val=\"5\"/>",
+        "</w:numbering>"
+      ),
+      ns_w
+    ),
+    file.path(package_dir, "word", "numbering.xml")
+  )
+
+  marker <- "officer-list-bullet-aaaaaaaa-0000-0000-0000-000000000000"
+  xml_str <- sprintf(
+    "<w:p><w:pPr><w:numPr><w:numId w:val=\"%s\"/></w:numPr></w:pPr></w:p>",
+    marker
+  )
+  res <- process_list_markers(xml_str, package_dir)
+
+  expect_false(grepl("officer-list-", res))
+
+  num_xml <- read_xml(file.path(package_dir, "word", "numbering.xml"))
+  expect_equal(
+    xml_name(xml_children(num_xml)),
+    c("abstractNum", "abstractNum", "num", "num", "numIdMacAtCleanup")
+  )
+})

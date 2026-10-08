@@ -211,8 +211,30 @@ process_list_markers <- function(xml_str, package_dir) {
       next_abstract_id
     )
 
-    xml_add_child(numbering_doc, read_xml(abstract_xml))
-    xml_add_child(numbering_doc, read_xml(num_xml))
+    # `CT_Numbering` is a sequence: every `w:abstractNum` comes before every
+    # `w:num`, itself before `w:numIdMacAtCleanup`. Appending the new nodes at
+    # the end of the part would break that order, and Word then silently
+    # discards the numbering definitions of the whole document - the numbered
+    # heading styles of a template lose their numbers.
+    abstract_node <- read_xml(abstract_xml)
+    first_num <- xml_find_first(numbering_doc, "w:num", ns = c(w = ns_w))
+    if (inherits(first_num, "xml_missing")) {
+      xml_add_child(numbering_doc, abstract_node)
+    } else {
+      xml_add_sibling(first_num, abstract_node, .where = "before")
+    }
+
+    num_node <- read_xml(num_xml)
+    cleanup <- xml_find_first(
+      numbering_doc,
+      "w:numIdMacAtCleanup",
+      ns = c(w = ns_w)
+    )
+    if (inherits(cleanup, "xml_missing")) {
+      xml_add_child(numbering_doc, num_node)
+    } else {
+      xml_add_sibling(cleanup, num_node, .where = "before")
+    }
 
     xml_str <- gsub(
       marker,

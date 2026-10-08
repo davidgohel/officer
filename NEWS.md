@@ -12,6 +12,12 @@ id, allowing to join its results with those of `docx_comments()`
 
 ## Issues
 
+- adding a list with `block_list_items()` no longer drops the numbering of the
+numbered styles of a document. The new list definition was appended at the end
+of the numbering part, after the `w:num` elements, where the schema requires
+every `w:abstractNum` to come first; Word then silently discarded the whole
+numbering part, and the numbered heading styles of a template lost their
+numbers.
 - `block_list_items()` now produces a valid numbering when used outside the
 document body. The list identifiers were only resolved for the body, so a list
 placed in a footnote, a comment, a header or a footer shipped the internal
