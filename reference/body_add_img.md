@@ -5,7 +5,16 @@ Add an image into an rdocx object.
 ## Usage
 
 ``` r
-body_add_img(x, src, style = NULL, width, height, pos = "after", unit = "in")
+body_add_img(
+  x,
+  src,
+  style = NULL,
+  width,
+  height,
+  pos = "after",
+  unit = "in",
+  alt = ""
+)
 ```
 
 ## Arguments
@@ -36,6 +45,10 @@ body_add_img(x, src, style = NULL, width, height, pos = "after", unit = "in")
 
   One of the following units in which the width and height arguments are
   expressed: "in", "cm" or "mm".
+
+- alt:
+
+  alternative text for the image
 
 ## See also
 

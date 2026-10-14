@@ -190,7 +190,12 @@ full check suite on the PR.
 
 # Package index
 
-## Working with Word documents
+## Word documents
+
+Create a Word document from scratch or from a template, add content, and
+save it.
+
+### Read and save
 
 - [`read_docx()`](https://davidgohel.github.io/officer/reference/read_docx.md)
   : Create a 'Word' document object
@@ -198,35 +203,53 @@ full check suite on the PR.
   : Write a 'Word' File
 - [`set_doc_properties()`](https://davidgohel.github.io/officer/reference/set_doc_properties.md)
   : Set document properties
-- [`docx_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/docx_set_paragraph_style.md)
-  : Add or replace paragraph style in a Word document
-- [`docx_set_character_style()`](https://davidgohel.github.io/officer/reference/docx_set_character_style.md)
-  : Add character style in a Word document
-- [`docx_embed_font()`](https://davidgohel.github.io/officer/reference/docx_embed_font.md)
-  : Embed Fonts in a Word Document
-- [`docx_set_settings()`](https://davidgohel.github.io/officer/reference/docx_set_settings.md)
-  : Set 'Microsoft Word' Document Settings
-- [`change_styles()`](https://davidgohel.github.io/officer/reference/change_styles.md)
-  : Replace styles in a 'Word' Document
 
-## Word documents information
+### Add content
 
-- [`docx_summary()`](https://davidgohel.github.io/officer/reference/docx_summary.md)
-  : Get Word content in a data.frame
-- [`docx_comments()`](https://davidgohel.github.io/officer/reference/docx_comments.md)
-  : Get comments in a Word document as a data.frame
-- [`styles_info()`](https://davidgohel.github.io/officer/reference/styles_info.md)
-  : Read 'Word' styles
-- [`doc_properties()`](https://davidgohel.github.io/officer/reference/doc_properties.md)
-  : Read document properties
-- [`docx_dim()`](https://davidgohel.github.io/officer/reference/docx_dim.md)
-  : 'Word' page layout
-- [`docx_show_chunk()`](https://davidgohel.github.io/officer/reference/docx_show_chunk.md)
-  : Show underlying text tag structure
-- [`length(`*`<rdocx>`*`)`](https://davidgohel.github.io/officer/reference/length.rdocx.md)
-  : Number of blocks inside an rdocx object
+- [`body_add_par()`](https://davidgohel.github.io/officer/reference/body_add_par.md)
+  : Add paragraphs of text in a 'Word' document
+- [`body_add_fpar()`](https://davidgohel.github.io/officer/reference/body_add_fpar.md)
+  : Add fpar in a 'Word' document
+- [`body_add_blocks()`](https://davidgohel.github.io/officer/reference/body_add_blocks.md)
+  : Add a list of blocks into a 'Word' document
+- [`body_add_list()`](https://davidgohel.github.io/officer/reference/body_add_list.md)
+  : Add a list of items into a 'Word' document
+- [`body_add_table()`](https://davidgohel.github.io/officer/reference/body_add_table.md)
+  : Add table in a 'Word' document
+- [`body_add_img()`](https://davidgohel.github.io/officer/reference/body_add_img.md)
+  : Add an image in a 'Word' document
+- [`body_add_gg()`](https://davidgohel.github.io/officer/reference/body_add_gg.md)
+  : Add a 'ggplot' in a 'Word' document
+- [`body_add_plot()`](https://davidgohel.github.io/officer/reference/body_add_plot.md)
+  : Add plot in a 'Word' document
+- [`body_add_caption()`](https://davidgohel.github.io/officer/reference/body_add_caption.md)
+  : Add Word caption in a 'Word' document
+- [`body_add_toc()`](https://davidgohel.github.io/officer/reference/body_add_toc.md)
+  : Add table of content in a 'Word' document
+- [`body_add_break()`](https://davidgohel.github.io/officer/reference/body_add_break.md)
+  : Add a page break in a 'Word' document
+- [`body_add_docx()`](https://davidgohel.github.io/officer/reference/body_add_docx.md)
+  : Add an external docx in a 'Word' document
+- [`body_import_docx()`](https://davidgohel.github.io/officer/reference/body_import_docx.md)
+  : Import an external docx in a 'Word' document
+- [`body_bookmark()`](https://davidgohel.github.io/officer/reference/body_bookmark.md)
+  : Add bookmark in a 'Word' document
+- [`body_comment()`](https://davidgohel.github.io/officer/reference/body_comment.md)
+  : Add comment in a 'Word' document
 
-## Navigate into Word documents
+### Add content to large documents
+
+Append many elements at the end of a document much faster than with the
+`body_add_*()` functions.
+
+- [`body_append_start_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
+  [`write_elements_to_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
+  [`body_append_stop_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
+  : Fast Append context to a Word document
+
+### Move in the document
+
+Choose where the next content will be added.
 
 - [`cursor_begin()`](https://davidgohel.github.io/officer/reference/cursor.md)
   [`cursor_bookmark()`](https://davidgohel.github.io/officer/reference/cursor.md)
@@ -240,44 +263,28 @@ full check suite on the PR.
 - [`docx_bookmarks()`](https://davidgohel.github.io/officer/reference/docx_bookmarks.md)
   : List Word bookmarks
 
-## Add content to Word documents
+### Change or remove existing content
 
-- [`body_add_blocks()`](https://davidgohel.github.io/officer/reference/body_add_blocks.md)
-  : Add a list of blocks into a 'Word' document
-- [`body_add_list()`](https://davidgohel.github.io/officer/reference/body_add_list.md)
-  : Add a list of items into a 'Word' document
-- [`body_add_caption()`](https://davidgohel.github.io/officer/reference/body_add_caption.md)
-  : Add Word caption in a 'Word' document
-- [`body_add_img()`](https://davidgohel.github.io/officer/reference/body_add_img.md)
-  : Add an image in a 'Word' document
-- [`body_add_par()`](https://davidgohel.github.io/officer/reference/body_add_par.md)
-  : Add paragraphs of text in a 'Word' document
-- [`body_add_table()`](https://davidgohel.github.io/officer/reference/body_add_table.md)
-  : Add table in a 'Word' document
-- [`body_add_fpar()`](https://davidgohel.github.io/officer/reference/body_add_fpar.md)
-  : Add fpar in a 'Word' document
-- [`body_add_toc()`](https://davidgohel.github.io/officer/reference/body_add_toc.md)
-  : Add table of content in a 'Word' document
-- [`body_add_break()`](https://davidgohel.github.io/officer/reference/body_add_break.md)
-  : Add a page break in a 'Word' document
-- [`body_add_docx()`](https://davidgohel.github.io/officer/reference/body_add_docx.md)
-  : Add an external docx in a 'Word' document
-- [`body_import_docx()`](https://davidgohel.github.io/officer/reference/body_import_docx.md)
-  : Import an external docx in a 'Word' document
-- [`body_bookmark()`](https://davidgohel.github.io/officer/reference/body_bookmark.md)
-  : Add bookmark in a 'Word' document
-- [`body_add_gg()`](https://davidgohel.github.io/officer/reference/body_add_gg.md)
-  : Add a 'ggplot' in a 'Word' document
-- [`body_add_plot()`](https://davidgohel.github.io/officer/reference/body_add_plot.md)
-  : Add plot in a 'Word' document
-- [`body_comment()`](https://davidgohel.github.io/officer/reference/body_comment.md)
-  : Add comment in a 'Word' document
-- [`body_append_start_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
-  [`write_elements_to_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
-  [`body_append_stop_context()`](https://davidgohel.github.io/officer/reference/body_append_context.md)
-  : Fast Append context to a Word document
+- [`body_replace_gg_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_gg_at_bkm.md)
+  [`body_replace_plot_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_gg_at_bkm.md)
+  : Add plots at bookmark location in a 'Word' document
+- [`body_replace_text_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
+  [`body_replace_img_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
+  [`headers_replace_text_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
+  [`headers_replace_img_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
+  [`footers_replace_text_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
+  [`footers_replace_img_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
+  : Replace text at a bookmark location
+- [`body_replace_all_text()`](https://davidgohel.github.io/officer/reference/body_replace_all_text.md)
+  [`headers_replace_all_text()`](https://davidgohel.github.io/officer/reference/body_replace_all_text.md)
+  [`footers_replace_all_text()`](https://davidgohel.github.io/officer/reference/body_replace_all_text.md)
+  : Replace text anywhere in the document
+- [`body_remove()`](https://davidgohel.github.io/officer/reference/body_remove.md)
+  : Remove an element in a 'Word' document
 
-## Word sections
+### Sections and page layout
+
+Orientation, margins, columns, headers and footers.
 
 - [`prop_section()`](https://davidgohel.github.io/officer/reference/prop_section.md)
   : Section properties
@@ -302,7 +309,7 @@ full check suite on the PR.
 - [`body_end_section_portrait()`](https://davidgohel.github.io/officer/reference/body_end_section_portrait.md)
   : Add portrait section
 
-## Word simple tables
+### Tables
 
 - [`prop_table()`](https://davidgohel.github.io/officer/reference/prop_table.md)
   : Table properties
@@ -317,36 +324,54 @@ full check suite on the PR.
 - [`table_width()`](https://davidgohel.github.io/officer/reference/table_width.md)
   : Preferred width for a table
 
-## Replace content in Word documents
+### Styles, fonts and settings
 
-- [`body_replace_gg_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_gg_at_bkm.md)
-  [`body_replace_plot_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_gg_at_bkm.md)
-  : Add plots at bookmark location in a 'Word' document
-- [`body_replace_text_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
-  [`body_replace_img_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
-  [`headers_replace_text_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
-  [`headers_replace_img_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
-  [`footers_replace_text_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
-  [`footers_replace_img_at_bkm()`](https://davidgohel.github.io/officer/reference/body_replace_text_at_bkm.md)
-  : Replace text at a bookmark location
-- [`body_replace_all_text()`](https://davidgohel.github.io/officer/reference/body_replace_all_text.md)
-  [`headers_replace_all_text()`](https://davidgohel.github.io/officer/reference/body_replace_all_text.md)
-  [`footers_replace_all_text()`](https://davidgohel.github.io/officer/reference/body_replace_all_text.md)
-  : Replace text anywhere in the document
+- [`docx_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/docx_set_paragraph_style.md)
+  : Add or replace paragraph style in a Word document
+- [`docx_set_character_style()`](https://davidgohel.github.io/officer/reference/docx_set_character_style.md)
+  : Add character style in a Word document
+- [`change_styles()`](https://davidgohel.github.io/officer/reference/change_styles.md)
+  : Replace styles in a 'Word' Document
+- [`docx_embed_font()`](https://davidgohel.github.io/officer/reference/docx_embed_font.md)
+  : Embed Fonts in a Word Document
+- [`docx_set_settings()`](https://davidgohel.github.io/officer/reference/docx_set_settings.md)
+  : Set 'Microsoft Word' Document Settings
 
-## Remove content from Word documents
+### Inspect a document
 
-- [`body_remove()`](https://davidgohel.github.io/officer/reference/body_remove.md)
-  : Remove an element in a 'Word' document
+Get the content, styles, comments or dimensions of an existing document.
 
-## Reading/writing PowerPoint documents
+- [`docx_summary()`](https://davidgohel.github.io/officer/reference/docx_summary.md)
+  : Get Word content in a data.frame
+- [`docx_comments()`](https://davidgohel.github.io/officer/reference/docx_comments.md)
+  : Get comments in a Word document as a data.frame
+- [`styles_info()`](https://davidgohel.github.io/officer/reference/styles_info.md)
+  : Read 'Word' styles
+- [`doc_properties()`](https://davidgohel.github.io/officer/reference/doc_properties.md)
+  : Read document properties
+- [`docx_dim()`](https://davidgohel.github.io/officer/reference/docx_dim.md)
+  : 'Word' page layout
+- [`docx_show_chunk()`](https://davidgohel.github.io/officer/reference/docx_show_chunk.md)
+  : Show underlying text tag structure
+- [`length(`*`<rdocx>`*`)`](https://davidgohel.github.io/officer/reference/length.rdocx.md)
+  : Number of blocks inside an rdocx object
+
+## PowerPoint presentations
+
+Create a presentation from a template, add slides and fill their
+placeholders.
+
+### Read and save
 
 - [`read_pptx()`](https://davidgohel.github.io/officer/reference/read_pptx.md)
   : Create a 'PowerPoint' document object
 - [`print(`*`<rpptx>`*`)`](https://davidgohel.github.io/officer/reference/print.rpptx.md)
   : Write a 'PowerPoint' file.
 
-## Manipulate slides
+### Slides
+
+Add, select, move, hide or remove slides, and choose the default layout
+of new slides.
 
 - [`add_slide()`](https://davidgohel.github.io/officer/reference/add_slide.md)
   : Add a slide
@@ -362,7 +387,10 @@ full check suite on the PR.
   [`slide_visible()`](https://davidgohel.github.io/officer/reference/slide-visible.md)
   : Get or set slide visibility
 
-## Slide content
+### Slide content
+
+Put text, tables, images or plots into a placeholder or at any position
+on the current slide.
 
 - [`ph_with()`](https://davidgohel.github.io/officer/reference/ph_with.md)
   [`ph_with.character()`](https://davidgohel.github.io/officer/reference/ph_with.md)
@@ -416,6 +444,11 @@ full check suite on the PR.
   [`print(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
   [`update(`*`<sp_lineend>`*`)`](https://davidgohel.github.io/officer/reference/sp_lineend.md)
   : Line end properties
+
+### Speaker notes
+
+Add speaker notes to slides.
+
 - [`set_notes()`](https://davidgohel.github.io/officer/reference/set_notes.md)
   : Set notes for current slide
 - [`notes_location_label()`](https://davidgohel.github.io/officer/reference/notes_location_label.md)
@@ -423,35 +456,45 @@ full check suite on the PR.
 - [`notes_location_type()`](https://davidgohel.github.io/officer/reference/notes_location_type.md)
   : Location of a placeholder for notes
 
-## Read PowerPoint information
+### Layouts and placeholders
 
-- [`pptx_summary()`](https://davidgohel.github.io/officer/reference/pptx_summary.md)
-  : PowerPoint content in a data.frame
-- [`slide_size()`](https://davidgohel.github.io/officer/reference/slide_size.md)
-  : Slides width and height
-- [`length(`*`<rpptx>`*`)`](https://davidgohel.github.io/officer/reference/length.rpptx.md)
-  : Number of slides
-- [`annotate_base()`](https://davidgohel.github.io/officer/reference/annotate_base.md)
-  : Placeholder parameters annotation
+Find out which layouts and placeholders a template provides and how to
+target them with `ph_location_*()`. Placeholder labels can also be
+renamed and duplicates fixed.
+
 - [`layout_summary()`](https://davidgohel.github.io/officer/reference/layout_summary.md)
   : Presentation layouts summary
 - [`layout_properties()`](https://davidgohel.github.io/officer/reference/layout_properties.md)
   : Slide layout properties
 - [`plot_layout_properties()`](https://davidgohel.github.io/officer/reference/plot_layout_properties.md)
   : Slide layout properties plot
-- [`layout_dedupe_ph_labels()`](https://davidgohel.github.io/officer/reference/layout_dedupe_ph_labels.md)
-  : Detect and handle duplicate placeholder labels
+- [`annotate_base()`](https://davidgohel.github.io/officer/reference/annotate_base.md)
+  : Placeholder parameters annotation
 - [`layout_rename_ph_labels()`](https://davidgohel.github.io/officer/reference/layout_rename_ph_labels.md)
   [`` `layout_rename_ph_labels<-`() ``](https://davidgohel.github.io/officer/reference/layout_rename_ph_labels.md)
   : Change ph labels in a layout
+- [`layout_dedupe_ph_labels()`](https://davidgohel.github.io/officer/reference/layout_dedupe_ph_labels.md)
+  : Detect and handle duplicate placeholder labels
+
+### Inspect a presentation
+
+Get the content of an existing presentation (text, tables and their
+positions), its slide size, its color scheme or its media files.
+
+- [`pptx_summary()`](https://davidgohel.github.io/officer/reference/pptx_summary.md)
+  : PowerPoint content in a data.frame
 - [`slide_summary()`](https://davidgohel.github.io/officer/reference/slide_summary.md)
   : Slide content in a data.frame
+- [`slide_size()`](https://davidgohel.github.io/officer/reference/slide_size.md)
+  : Slides width and height
 - [`color_scheme()`](https://davidgohel.github.io/officer/reference/color_scheme.md)
   : Color scheme of a PowerPoint file
 - [`media_extract()`](https://davidgohel.github.io/officer/reference/media_extract.md)
   : Extract media from a document object
 - [`as.matrix(`*`<rpptx>`*`)`](https://davidgohel.github.io/officer/reference/as.matrix.rpptx.md)
   : PowerPoint table to matrix
+- [`length(`*`<rpptx>`*`)`](https://davidgohel.github.io/officer/reference/length.rpptx.md)
+  : Number of slides
 
 ## Content formatting
 
@@ -568,20 +611,20 @@ floating element.
 - [`floating_external_img()`](https://davidgohel.github.io/officer/reference/floating_external_img.md)
   : Floating external image
 
-## RTF
+## RTF documents
 
 - [`rtf_doc()`](https://davidgohel.github.io/officer/reference/rtf_doc.md)
   : Create an RTF document object
 - [`rtf_add()`](https://davidgohel.github.io/officer/reference/rtf_add.md)
   : Add content into an RTF document
-- [`print(`*`<rtf>`*`)`](https://davidgohel.github.io/officer/reference/print.rtf.md)
-  : Write an 'RTF' File
 - [`rtf_set_paragraph_style()`](https://davidgohel.github.io/officer/reference/rtf_set_paragraph_style.md)
   : Add or replace a paragraph style in an RTF document
 - [`rtf_styles_info()`](https://davidgohel.github.io/officer/reference/rtf_styles_info.md)
   : Read paragraph styles defined on an RTF document
+- [`print(`*`<rtf>`*`)`](https://davidgohel.github.io/officer/reference/print.rtf.md)
+  : Write an 'RTF' File
 
-## Excel
+## Excel workbooks
 
 - [`read_xlsx()`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
   [`length(`*`<rxlsx>`*`)`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
@@ -600,7 +643,7 @@ floating element.
 - [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)
   : Add a drawing to an Excel sheet
 
-## Misc
+## Utilities
 
 - [`officer-package`](https://davidgohel.github.io/officer/reference/officer.md)
   [`officer`](https://davidgohel.github.io/officer/reference/officer.md)

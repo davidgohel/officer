@@ -19,7 +19,7 @@ workflow, after all content has been added with body_add_*() functions."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@ workflow, after all content has been added with body_add_*() functions."><meta p
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Function reference</a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">User Documentation</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">Read the officeverse book</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidgohel/officer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -83,9 +83,11 @@ function returns <code>NULL</code> without writing a file.</p></dd>
 
 <dt id="arg-copy-header-refs-copy-footer-refs">copy_header_refs, copy_footer_refs<a class="anchor" aria-label="anchor" href="#arg-copy-header-refs-copy-footer-refs"></a></dt>
 <dd><p>logical, default is FALSE.
-If TRUE, copy the references to the header and footer in each section
-of the body of the document. This parameter is experimental and may change
-in a future version.</p></dd>
+If TRUE, copy the references to the header and footer of the default
+section to each other section of the body of the document. A reference is
+only copied to a section that does not already define a header (or footer)
+of the same type (default, first or even). This parameter is experimental
+and may change in a future version.</p></dd>
 
 
 <dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
@@ -136,7 +138,7 @@ properties with <code><a href="set_doc_properties.html">set_doc_properties()</a>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a></p>
+  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link">ArData</a></p>
 </div>
 
 <div class="pkgdown-footer-right">

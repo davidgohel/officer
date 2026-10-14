@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Function reference</a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">User Documentation</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">Read the officeverse book</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidgohel/officer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -54,6 +54,24 @@
 
 </dl></div>
     <div class="section level2">
+    <h2 id="section-breaks-occupy-a-line">Section breaks occupy a line<a class="anchor" aria-label="anchor" href="#section-breaks-occupy-a-line"></a></h2>
+
+
+<p>Ending a section is materialized in the document by an empty
+paragraph mark holding the section properties; this is how the
+OOXML format represents a section break, there is no other way, and
+Word does the same when a section break is inserted manually. As
+any paragraph mark, it occupies one line whose height depends on
+the default paragraph style. The same applies to
+<code><a href="run_columnbreak.html">run_columnbreak()</a></code> when it has to be placed after a table: a table
+cannot host the break, so it must live in a paragraph that also
+takes one line. If that residual line matters for your layout,
+define a dedicated paragraph style with a very small font size
+(e.g. 1pt) and no spacing in your Word template, and use it for the
+paragraph hosting the break:
+<code>fpar(run_columnbreak(), fp_p = fp_par(word_style = "MyTinyStyle"))</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other functions for Word sections:
 <code><a href="body_end_block_section.html">body_end_block_section()</a></code>,
@@ -82,7 +100,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a></p>
+  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link">ArData</a></p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Function reference</a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">User Documentation</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">Read the officeverse book</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidgohel/officer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -31,8 +31,13 @@
     </div>
 
     <div class="section level2">
-      <h2 id="working-with-word-documents">Working with Word documents<a class="anchor" aria-label="anchor" href="#working-with-word-documents"></a></h2>
+      <h2 id="word-documents">Word documents<a class="anchor" aria-label="anchor" href="#word-documents"></a></h2>
 
+      <div class="section-desc"><p>Create a Word document from scratch or from a template, add content, and save it.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+      <h3 id="read-and-save">Read and save<a class="anchor" aria-label="anchor" href="#read-and-save"></a></h3>
 
 
       <dl></dl></div><div class="section level2">
@@ -60,44 +65,9 @@
 
         </dt>
         <dd>Set document properties</dd>
-
-        <dt>
-
-          <code><a href="docx_set_paragraph_style.html">docx_set_paragraph_style()</a></code>
-
-        </dt>
-        <dd>Add or replace paragraph style in a Word document</dd>
-
-        <dt>
-
-          <code><a href="docx_set_character_style.html">docx_set_character_style()</a></code>
-
-        </dt>
-        <dd>Add character style in a Word document</dd>
-
-        <dt>
-
-          <code><a href="docx_embed_font.html">docx_embed_font()</a></code>
-
-        </dt>
-        <dd>Embed Fonts in a Word Document</dd>
-
-        <dt>
-
-          <code><a href="docx_set_settings.html">docx_set_settings()</a></code>
-
-        </dt>
-        <dd>Set 'Microsoft Word' Document Settings</dd>
-
-        <dt>
-
-          <code><a href="change_styles.html">change_styles()</a></code>
-
-        </dt>
-        <dd>Replace styles in a 'Word' Document</dd>
       </dl></div><div class="section level2">
-      <h2 id="word-documents-information">Word documents information<a class="anchor" aria-label="anchor" href="#word-documents-information"></a></h2>
 
+      <h3 id="add-content">Add content<a class="anchor" aria-label="anchor" href="#add-content"></a></h3>
 
 
       <dl></dl></div><div class="section level2">
@@ -107,86 +77,19 @@
 
       <dl><dt>
 
-          <code><a href="docx_summary.html">docx_summary()</a></code>
+          <code><a href="body_add_par.html">body_add_par()</a></code>
 
         </dt>
-        <dd>Get Word content in a data.frame</dd>
+        <dd>Add paragraphs of text in a 'Word' document</dd>
 
         <dt>
 
-          <code><a href="docx_comments.html">docx_comments()</a></code>
+          <code><a href="body_add_fpar.html">body_add_fpar()</a></code>
 
         </dt>
-        <dd>Get comments in a Word document as a data.frame</dd>
+        <dd>Add fpar in a 'Word' document</dd>
 
         <dt>
-
-          <code><a href="styles_info.html">styles_info()</a></code>
-
-        </dt>
-        <dd>Read 'Word' styles</dd>
-
-        <dt>
-
-          <code><a href="doc_properties.html">doc_properties()</a></code>
-
-        </dt>
-        <dd>Read document properties</dd>
-
-        <dt>
-
-          <code><a href="docx_dim.html">docx_dim()</a></code>
-
-        </dt>
-        <dd>'Word' page layout</dd>
-
-        <dt>
-
-          <code><a href="docx_show_chunk.html">docx_show_chunk()</a></code>
-
-        </dt>
-        <dd>Show underlying text tag structure</dd>
-
-        <dt>
-
-          <code><a href="length.rdocx.html">length(<i>&lt;rdocx&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Number of blocks inside an rdocx object</dd>
-      </dl></div><div class="section level2">
-      <h2 id="navigate-into-word-documents">Navigate into Word documents<a class="anchor" aria-label="anchor" href="#navigate-into-word-documents"></a></h2>
-
-
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="cursor.html">cursor_begin()</a></code> <code><a href="cursor.html">cursor_bookmark()</a></code> <code><a href="cursor.html">cursor_end()</a></code> <code><a href="cursor.html">cursor_reach_index()</a></code> <code><a href="cursor.html">cursor_reach()</a></code> <code><a href="cursor.html">cursor_reach_test()</a></code> <code><a href="cursor.html">cursor_forward()</a></code> <code><a href="cursor.html">cursor_backward()</a></code>
-
-        </dt>
-        <dd>Set cursor in a 'Word' document</dd>
-
-        <dt>
-
-          <code><a href="docx_bookmarks.html">docx_bookmarks()</a></code>
-
-        </dt>
-        <dd>List Word bookmarks</dd>
-      </dl></div><div class="section level2">
-      <h2 id="add-content-to-word-documents">Add content to Word documents<a class="anchor" aria-label="anchor" href="#add-content-to-word-documents"></a></h2>
-
-
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
 
           <code><a href="body_add_blocks.html">body_add_blocks()</a></code>
 
@@ -202,10 +105,10 @@
 
         <dt>
 
-          <code><a href="body_add_caption.html">body_add_caption()</a></code>
+          <code><a href="body_add_table.html">body_add_table()</a></code>
 
         </dt>
-        <dd>Add Word caption in a 'Word' document</dd>
+        <dd>Add table in a 'Word' document</dd>
 
         <dt>
 
@@ -216,24 +119,24 @@
 
         <dt>
 
-          <code><a href="body_add_par.html">body_add_par()</a></code>
+          <code><a href="body_add_gg.html">body_add_gg()</a></code>
 
         </dt>
-        <dd>Add paragraphs of text in a 'Word' document</dd>
+        <dd>Add a 'ggplot' in a 'Word' document</dd>
 
         <dt>
 
-          <code><a href="body_add_table.html">body_add_table()</a></code>
+          <code><a href="body_add_plot.html">body_add_plot()</a></code>
 
         </dt>
-        <dd>Add table in a 'Word' document</dd>
+        <dd>Add plot in a 'Word' document</dd>
 
         <dt>
 
-          <code><a href="body_add_fpar.html">body_add_fpar()</a></code>
+          <code><a href="body_add_caption.html">body_add_caption()</a></code>
 
         </dt>
-        <dd>Add fpar in a 'Word' document</dd>
+        <dd>Add Word caption in a 'Word' document</dd>
 
         <dt>
 
@@ -272,35 +175,90 @@
 
         <dt>
 
-          <code><a href="body_add_gg.html">body_add_gg()</a></code>
-
-        </dt>
-        <dd>Add a 'ggplot' in a 'Word' document</dd>
-
-        <dt>
-
-          <code><a href="body_add_plot.html">body_add_plot()</a></code>
-
-        </dt>
-        <dd>Add plot in a 'Word' document</dd>
-
-        <dt>
-
           <code><a href="body_comment.html">body_comment()</a></code>
 
         </dt>
         <dd>Add comment in a 'Word' document</dd>
+      </dl></div><div class="section level2">
 
-        <dt>
+      <h3 id="add-content-to-large-documents">Add content to large documents<a class="anchor" aria-label="anchor" href="#add-content-to-large-documents"></a></h3>
+      <div class="section-desc"><p>Append many elements at the end of a document much faster than with the <code>body_add_*()</code> functions.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="body_append_context.html">body_append_start_context()</a></code> <code><a href="body_append_context.html">write_elements_to_context()</a></code> <code><a href="body_append_context.html">body_append_stop_context()</a></code>
 
         </dt>
         <dd>Fast Append context to a Word document</dd>
       </dl></div><div class="section level2">
-      <h2 id="word-sections">Word sections<a class="anchor" aria-label="anchor" href="#word-sections"></a></h2>
+
+      <h3 id="move-in-the-document">Move in the document<a class="anchor" aria-label="anchor" href="#move-in-the-document"></a></h3>
+      <div class="section-desc"><p>Choose where the next content will be added.</p></div>
+
+      <dl></dl></div><div class="section level2">
 
 
+
+
+      <dl><dt>
+
+          <code><a href="cursor.html">cursor_begin()</a></code> <code><a href="cursor.html">cursor_bookmark()</a></code> <code><a href="cursor.html">cursor_end()</a></code> <code><a href="cursor.html">cursor_reach_index()</a></code> <code><a href="cursor.html">cursor_reach()</a></code> <code><a href="cursor.html">cursor_reach_test()</a></code> <code><a href="cursor.html">cursor_forward()</a></code> <code><a href="cursor.html">cursor_backward()</a></code>
+
+        </dt>
+        <dd>Set cursor in a 'Word' document</dd>
+
+        <dt>
+
+          <code><a href="docx_bookmarks.html">docx_bookmarks()</a></code>
+
+        </dt>
+        <dd>List Word bookmarks</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="change-or-remove-existing-content">Change or remove existing content<a class="anchor" aria-label="anchor" href="#change-or-remove-existing-content"></a></h3>
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="body_replace_gg_at_bkm.html">body_replace_gg_at_bkm()</a></code> <code><a href="body_replace_gg_at_bkm.html">body_replace_plot_at_bkm()</a></code>
+
+        </dt>
+        <dd>Add plots at bookmark location in a 'Word' document</dd>
+
+        <dt>
+
+          <code><a href="body_replace_text_at_bkm.html">body_replace_text_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">body_replace_img_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">headers_replace_text_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">headers_replace_img_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">footers_replace_text_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">footers_replace_img_at_bkm()</a></code>
+
+        </dt>
+        <dd>Replace text at a bookmark location</dd>
+
+        <dt>
+
+          <code><a href="body_replace_all_text.html">body_replace_all_text()</a></code> <code><a href="body_replace_all_text.html">headers_replace_all_text()</a></code> <code><a href="body_replace_all_text.html">footers_replace_all_text()</a></code>
+
+        </dt>
+        <dd>Replace text anywhere in the document</dd>
+
+        <dt>
+
+          <code><a href="body_remove.html">body_remove()</a></code>
+
+        </dt>
+        <dd>Remove an element in a 'Word' document</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="sections-and-page-layout">Sections and page layout<a class="anchor" aria-label="anchor" href="#sections-and-page-layout"></a></h3>
+      <div class="section-desc"><p>Orientation, margins, columns, headers and footers.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -384,8 +342,8 @@
         </dt>
         <dd>Add portrait section</dd>
       </dl></div><div class="section level2">
-      <h2 id="word-simple-tables">Word simple tables<a class="anchor" aria-label="anchor" href="#word-simple-tables"></a></h2>
 
+      <h3 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a></h3>
 
 
       <dl></dl></div><div class="section level2">
@@ -435,38 +393,8 @@
         </dt>
         <dd>Preferred width for a table</dd>
       </dl></div><div class="section level2">
-      <h2 id="replace-content-in-word-documents">Replace content in Word documents<a class="anchor" aria-label="anchor" href="#replace-content-in-word-documents"></a></h2>
 
-
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="body_replace_gg_at_bkm.html">body_replace_gg_at_bkm()</a></code> <code><a href="body_replace_gg_at_bkm.html">body_replace_plot_at_bkm()</a></code>
-
-        </dt>
-        <dd>Add plots at bookmark location in a 'Word' document</dd>
-
-        <dt>
-
-          <code><a href="body_replace_text_at_bkm.html">body_replace_text_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">body_replace_img_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">headers_replace_text_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">headers_replace_img_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">footers_replace_text_at_bkm()</a></code> <code><a href="body_replace_text_at_bkm.html">footers_replace_img_at_bkm()</a></code>
-
-        </dt>
-        <dd>Replace text at a bookmark location</dd>
-
-        <dt>
-
-          <code><a href="body_replace_all_text.html">body_replace_all_text()</a></code> <code><a href="body_replace_all_text.html">headers_replace_all_text()</a></code> <code><a href="body_replace_all_text.html">footers_replace_all_text()</a></code>
-
-        </dt>
-        <dd>Replace text anywhere in the document</dd>
-      </dl></div><div class="section level2">
-      <h2 id="remove-content-from-word-documents">Remove content from Word documents<a class="anchor" aria-label="anchor" href="#remove-content-from-word-documents"></a></h2>
-
+      <h3 id="styles-fonts-and-settings">Styles, fonts and settings<a class="anchor" aria-label="anchor" href="#styles-fonts-and-settings"></a></h3>
 
 
       <dl></dl></div><div class="section level2">
@@ -476,13 +404,104 @@
 
       <dl><dt>
 
-          <code><a href="body_remove.html">body_remove()</a></code>
+          <code><a href="docx_set_paragraph_style.html">docx_set_paragraph_style()</a></code>
 
         </dt>
-        <dd>Remove an element in a 'Word' document</dd>
-      </dl></div><div class="section level2">
-      <h2 id="reading-writing-powerpoint-documents">Reading/writing PowerPoint documents<a class="anchor" aria-label="anchor" href="#reading-writing-powerpoint-documents"></a></h2>
+        <dd>Add or replace paragraph style in a Word document</dd>
 
+        <dt>
+
+          <code><a href="docx_set_character_style.html">docx_set_character_style()</a></code>
+
+        </dt>
+        <dd>Add character style in a Word document</dd>
+
+        <dt>
+
+          <code><a href="change_styles.html">change_styles()</a></code>
+
+        </dt>
+        <dd>Replace styles in a 'Word' Document</dd>
+
+        <dt>
+
+          <code><a href="docx_embed_font.html">docx_embed_font()</a></code>
+
+        </dt>
+        <dd>Embed Fonts in a Word Document</dd>
+
+        <dt>
+
+          <code><a href="docx_set_settings.html">docx_set_settings()</a></code>
+
+        </dt>
+        <dd>Set 'Microsoft Word' Document Settings</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="inspect-a-document">Inspect a document<a class="anchor" aria-label="anchor" href="#inspect-a-document"></a></h3>
+      <div class="section-desc"><p>Get the content, styles, comments or dimensions of an existing document.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="docx_summary.html">docx_summary()</a></code>
+
+        </dt>
+        <dd>Get Word content in a data.frame</dd>
+
+        <dt>
+
+          <code><a href="docx_comments.html">docx_comments()</a></code>
+
+        </dt>
+        <dd>Get comments in a Word document as a data.frame</dd>
+
+        <dt>
+
+          <code><a href="styles_info.html">styles_info()</a></code>
+
+        </dt>
+        <dd>Read 'Word' styles</dd>
+
+        <dt>
+
+          <code><a href="doc_properties.html">doc_properties()</a></code>
+
+        </dt>
+        <dd>Read document properties</dd>
+
+        <dt>
+
+          <code><a href="docx_dim.html">docx_dim()</a></code>
+
+        </dt>
+        <dd>'Word' page layout</dd>
+
+        <dt>
+
+          <code><a href="docx_show_chunk.html">docx_show_chunk()</a></code>
+
+        </dt>
+        <dd>Show underlying text tag structure</dd>
+
+        <dt>
+
+          <code><a href="length.rdocx.html">length(<i>&lt;rdocx&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Number of blocks inside an rdocx object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="powerpoint-presentations">PowerPoint presentations<a class="anchor" aria-label="anchor" href="#powerpoint-presentations"></a></h2>
+
+      <div class="section-desc"><p>Create a presentation from a template, add slides and fill their placeholders.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+      <h3 id="read-and-save-1">Read and save<a class="anchor" aria-label="anchor" href="#read-and-save-1"></a></h3>
 
 
       <dl></dl></div><div class="section level2">
@@ -504,9 +523,9 @@
         </dt>
         <dd>Write a 'PowerPoint' file.</dd>
       </dl></div><div class="section level2">
-      <h2 id="manipulate-slides">Manipulate slides<a class="anchor" aria-label="anchor" href="#manipulate-slides"></a></h2>
 
-
+      <h3 id="slides">Slides<a class="anchor" aria-label="anchor" href="#slides"></a></h3>
+      <div class="section-desc"><p>Add, select, move, hide or remove slides, and choose the default layout of new slides.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -555,9 +574,9 @@
         </dt>
         <dd>Get or set slide visibility</dd>
       </dl></div><div class="section level2">
-      <h2 id="slide-content">Slide content<a class="anchor" aria-label="anchor" href="#slide-content"></a></h2>
 
-
+      <h3 id="slide-content">Slide content<a class="anchor" aria-label="anchor" href="#slide-content"></a></h3>
+      <div class="section-desc"><p>Put text, tables, images or plots into a placeholder or at any position on the current slide.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -675,8 +694,17 @@
 
         </dt>
         <dd>Line end properties</dd>
+      </dl></div><div class="section level2">
 
-        <dt>
+      <h3 id="speaker-notes">Speaker notes<a class="anchor" aria-label="anchor" href="#speaker-notes"></a></h3>
+      <div class="section-desc"><p>Add speaker notes to slides.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="set_notes.html">set_notes()</a></code>
 
@@ -697,9 +725,9 @@
         </dt>
         <dd>Location of a placeholder for notes</dd>
       </dl></div><div class="section level2">
-      <h2 id="read-powerpoint-information">Read PowerPoint information<a class="anchor" aria-label="anchor" href="#read-powerpoint-information"></a></h2>
 
-
+      <h3 id="layouts-and-placeholders">Layouts and placeholders<a class="anchor" aria-label="anchor" href="#layouts-and-placeholders"></a></h3>
+      <div class="section-desc"><p>Find out which layouts and placeholders a template provides and how to target them with <code>ph_location_*()</code>. Placeholder labels can also be renamed and duplicates fixed.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -707,34 +735,6 @@
 
 
       <dl><dt>
-
-          <code><a href="pptx_summary.html">pptx_summary()</a></code>
-
-        </dt>
-        <dd>PowerPoint content in a data.frame</dd>
-
-        <dt>
-
-          <code><a href="slide_size.html">slide_size()</a></code>
-
-        </dt>
-        <dd>Slides width and height</dd>
-
-        <dt>
-
-          <code><a href="length.rpptx.html">length(<i>&lt;rpptx&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Number of slides</dd>
-
-        <dt>
-
-          <code><a href="annotate_base.html">annotate_base()</a></code>
-
-        </dt>
-        <dd>Placeholder parameters annotation</dd>
-
-        <dt>
 
           <code><a href="layout_summary.html">layout_summary()</a></code>
 
@@ -757,10 +757,10 @@
 
         <dt>
 
-          <code><a href="layout_dedupe_ph_labels.html">layout_dedupe_ph_labels()</a></code>
+          <code><a href="annotate_base.html">annotate_base()</a></code>
 
         </dt>
-        <dd>Detect and handle duplicate placeholder labels</dd>
+        <dd>Placeholder parameters annotation</dd>
 
         <dt>
 
@@ -771,10 +771,40 @@
 
         <dt>
 
+          <code><a href="layout_dedupe_ph_labels.html">layout_dedupe_ph_labels()</a></code>
+
+        </dt>
+        <dd>Detect and handle duplicate placeholder labels</dd>
+      </dl></div><div class="section level2">
+
+      <h3 id="inspect-a-presentation">Inspect a presentation<a class="anchor" aria-label="anchor" href="#inspect-a-presentation"></a></h3>
+      <div class="section-desc"><p>Get the content of an existing presentation (text, tables and their positions), its slide size, its color scheme or its media files.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="pptx_summary.html">pptx_summary()</a></code>
+
+        </dt>
+        <dd>PowerPoint content in a data.frame</dd>
+
+        <dt>
+
           <code><a href="slide_summary.html">slide_summary()</a></code>
 
         </dt>
         <dd>Slide content in a data.frame</dd>
+
+        <dt>
+
+          <code><a href="slide_size.html">slide_size()</a></code>
+
+        </dt>
+        <dd>Slides width and height</dd>
 
         <dt>
 
@@ -796,6 +826,13 @@
 
         </dt>
         <dd>PowerPoint table to matrix</dd>
+
+        <dt>
+
+          <code><a href="length.rpptx.html">length(<i>&lt;rpptx&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Number of slides</dd>
       </dl></div><div class="section level2">
       <h2 id="content-formatting">Content formatting<a class="anchor" aria-label="anchor" href="#content-formatting"></a></h2>
 
@@ -1083,7 +1120,7 @@
         </dt>
         <dd>Floating external image</dd>
       </dl></div><div class="section level2">
-      <h2 id="rtf">RTF<a class="anchor" aria-label="anchor" href="#rtf"></a></h2>
+      <h2 id="rtf-documents">RTF documents<a class="anchor" aria-label="anchor" href="#rtf-documents"></a></h2>
 
 
 
@@ -1108,13 +1145,6 @@
 
         <dt>
 
-          <code><a href="print.rtf.html">print(<i>&lt;rtf&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Write an 'RTF' File</dd>
-
-        <dt>
-
           <code><a href="rtf_set_paragraph_style.html">rtf_set_paragraph_style()</a></code>
 
         </dt>
@@ -1126,8 +1156,15 @@
 
         </dt>
         <dd>Read paragraph styles defined on an RTF document</dd>
+
+        <dt>
+
+          <code><a href="print.rtf.html">print(<i>&lt;rtf&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Write an 'RTF' File</dd>
       </dl></div><div class="section level2">
-      <h2 id="excel">Excel<a class="anchor" aria-label="anchor" href="#excel"></a></h2>
+      <h2 id="excel-workbooks">Excel workbooks<a class="anchor" aria-label="anchor" href="#excel-workbooks"></a></h2>
 
 
 
@@ -1185,7 +1222,7 @@
         </dt>
         <dd>Add a drawing to an Excel sheet</dd>
       </dl></div><div class="section level2">
-      <h2 id="misc">Misc<a class="anchor" aria-label="anchor" href="#misc"></a></h2>
+      <h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a></h2>
 
 
 
@@ -1220,7 +1257,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a></p>
+  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link">ArData</a></p>
 </div>
 
 <div class="pkgdown-footer-right">
