@@ -12,26 +12,18 @@ id, allowing to join its results with those of `docx_comments()`
 
 ## Issues
 
-- a document whose sections have headers or footers defined with officer can
-now be read with `read_docx()` and written again. The header and footer
-references kept an internal marker that made `print()` fail.
-- `print.rdocx()` arguments `copy_header_refs` and `copy_footer_refs` now
-produce valid sections. A reference is now only copied to sections that do 
-not define one of the same type, and it is placed at the top of the section 
-properties.
-- adding a list with `block_list_items()` no longer drops the numbering of the
-numbered styles of a document. The new list definition was appended at the end
-of the numbering part, after the `w:num` elements, where the schema requires
-every `w:abstractNum` to come first; Word then silently discarded the whole
-numbering part, and the numbered heading styles of a template lost their
-numbers.
-- `block_list_items()` now produces a valid numbering when used outside the
-document body. The list identifiers were only resolved for the body, so a list
-placed in a footnote, a comment, a header or a footer shipped the internal
-marker as its `w:numId`, where Word expects an integer.
-- fix lost images : keep images referenced through VML `<v:imagedata>` (e.g. EMF 
-previews of embedded OLE objects) when saving a document, instead of dropping 
-their media and relationship (#730).
+- a Word document created with officer and containing headers or footers can
+now be opened again with `read_docx()` and saved without error.
+- with `print(copy_header_refs = TRUE, copy_footer_refs = TRUE)`, headers and
+footers of the default section are now added to the other sections without
+replacing the ones a section already defines, and Word opens the result
+without complaint.
+- adding a list with `block_list_items()` no longer removes the numbering of
+the numbered headings of a template.
+- lists added with `block_list_items()` in a footnote, a comment, a header or
+a footer are now displayed correctly by Word.
+- images such as previews of embedded objects (e.g. EMF) are no longer lost
+when saving a document (#730).
 
 
 # officer 0.7.6
