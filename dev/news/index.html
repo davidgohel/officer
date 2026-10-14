@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Function reference</a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">User Documentation</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://ardata-fr.github.io/officeverse/">Read the officeverse book</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidgohel/officer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -42,13 +42,11 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-7"></a></h3>
-<ul><li>a document whose sections have headers or footers defined with officer can now be read with <code><a href="../reference/read_docx.html">read_docx()</a></code> and written again. The header and footer references kept an internal marker that made <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> fail.</li>
-<li>
-<code><a href="../reference/print.rdocx.html">print.rdocx()</a></code> arguments <code>copy_header_refs</code> and <code>copy_footer_refs</code> now produce valid sections. A reference is now only copied to sections that do not define one of the same type, and it is placed at the top of the section properties.</li>
-<li>adding a list with <code><a href="../reference/block_list_items.html">block_list_items()</a></code> no longer drops the numbering of the numbered styles of a document. The new list definition was appended at the end of the numbering part, after the <code>w:num</code> elements, where the schema requires every <code>w:abstractNum</code> to come first; Word then silently discarded the whole numbering part, and the numbered heading styles of a template lost their numbers.</li>
-<li>
-<code><a href="../reference/block_list_items.html">block_list_items()</a></code> now produces a valid numbering when used outside the document body. The list identifiers were only resolved for the body, so a list placed in a footnote, a comment, a header or a footer shipped the internal marker as its <code>w:numId</code>, where Word expects an integer.</li>
-<li>fix lost images : keep images referenced through VML <code>&lt;v:imagedata&gt;</code> (e.g. EMF previews of embedded OLE objects) when saving a document, instead of dropping their media and relationship (<a href="https://github.com/davidgohel/officer/issues/730" class="external-link">#730</a>).</li>
+<ul><li>a Word document created with officer and containing headers or footers can now be opened again with <code><a href="../reference/read_docx.html">read_docx()</a></code> and saved without error.</li>
+<li>with <code>print(copy_header_refs = TRUE, copy_footer_refs = TRUE)</code>, headers and footers of the default section are now added to the other sections without replacing the ones a section already defines, and Word opens the result without complaint.</li>
+<li>adding a list with <code><a href="../reference/block_list_items.html">block_list_items()</a></code> no longer removes the numbering of the numbered headings of a template.</li>
+<li>lists added with <code><a href="../reference/block_list_items.html">block_list_items()</a></code> in a footnote, a comment, a header or a footer are now displayed correctly by Word.</li>
+<li>images such as previews of embedded objects (e.g. EMF) are no longer lost when saving a document (<a href="https://github.com/davidgohel/officer/issues/730" class="external-link">#730</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -983,7 +981,7 @@ Also, the default values for the <code>layout</code> (<code>"Title and Content"<
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a></p>
+  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link">ArData</a></p>
 </div>
 
 <div class="pkgdown-footer-right">

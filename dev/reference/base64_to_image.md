@@ -32,5 +32,5 @@ base64_to_image(
   data_uri = base64_str,
   output_files = tempfile(fileext = ".jpeg")
 )
-#> [1] "/tmp/RtmpCdpa9h/file183117287d7.jpeg"
+#> [1] "/tmp/RtmprSUFiF/file171551f5984a.jpeg"
 ```
