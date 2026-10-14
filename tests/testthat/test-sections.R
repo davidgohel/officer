@@ -136,3 +136,94 @@ test_that("add docx landscape and portrait page dims", {
   w <- xml_attr(node_types, "w")
   expect_equal(w, c("11906", "16838", "11906"))
 })
+
+test_that("copy header and footer references to every section", {
+  x <- read_docx()
+  x <- body_add_par(x, "section without its own header")
+  x <- body_end_block_section(
+    x,
+    block_section(prop_section(type = "nextPage"))
+  )
+  x <- body_add_par(x, "section with its own default header")
+  x <- body_end_block_section(
+    x,
+    block_section(
+      prop_section(
+        type = "nextPage",
+        header_default = block_list(fpar("own_header"))
+      )
+    )
+  )
+  x <- body_add_par(x, "last section")
+  x <- body_set_default_section(
+    x,
+    prop_section(
+      header_default = bl_header_odd,
+      footer_default = bl_footer_odd
+    )
+  )
+  filename <- print(
+    x,
+    target = tempfile(fileext = ".docx"),
+    copy_header_refs = TRUE,
+    copy_footer_refs = TRUE
+  )
+  body <- docx_body_xml(read_docx(filename))
+  sects <- xml_find_all(body, "//w:sectPr")
+  expect_length(sects, 3)
+
+  default_header_id <- xml_attr(
+    xml_find_first(sects[[3]], "w:headerReference"),
+    "id"
+  )
+  default_footer_id <- xml_attr(
+    xml_find_first(sects[[3]], "w:footerReference"),
+    "id"
+  )
+
+  for (sect in as.list(sects)) {
+    # one reference per type, at the top of the section properties
+    child_names <- xml_name(xml_children(sect))
+    expect_equal(child_names[1:2], c("headerReference", "footerReference"))
+    expect_false(any(child_names[-(1:2)] %in% c("headerReference", "footerReference")))
+    expect_equal(
+      xml_attr(xml_find_first(sect, "w:footerReference"), "id"),
+      default_footer_id
+    )
+  }
+  # the section without its own header gets the default one
+  expect_equal(
+    xml_attr(xml_find_first(sects[[1]], "w:headerReference"), "id"),
+    default_header_id
+  )
+  # the section with its own header keeps it
+  expect_false(
+    xml_attr(xml_find_first(sects[[2]], "w:headerReference"), "id") ==
+      default_header_id
+  )
+})
+
+test_that("a document with section headers can be read and written again", {
+  x <- read_docx()
+  x <- body_add_par(x, "content")
+  x <- body_set_default_section(
+    x,
+    prop_section(
+      header_default = bl_header_odd,
+      footer_default = bl_footer_odd
+    )
+  )
+  filename <- print(x, target = tempfile(fileext = ".docx"))
+
+  body <- docx_body_xml(read_docx(filename))
+  expect_length(xml_find_all(body, "//*[@w:officer]"), 0)
+
+  filename <- print(read_docx(filename), target = tempfile(fileext = ".docx"))
+  x <- read_docx(filename)
+  sect <- xml_find_first(docx_body_xml(x), "/w:document/w:body/w:sectPr")
+  expect_equal(
+    xml_name(xml_children(sect))[1:2],
+    c("headerReference", "footerReference")
+  )
+  expect_true(any(grepl("header_odd", unlist(lapply(x$headers, function(h) xml_text(h$get()))))))
+})

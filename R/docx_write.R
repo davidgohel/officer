@@ -16,9 +16,11 @@
 #' or overwritten if it already exists. If `NULL` and `preview = FALSE`, the
 #' function returns `NULL` without writing a file.
 #' @param copy_header_refs,copy_footer_refs logical, default is FALSE.
-#' If TRUE, copy the references to the header and footer in each section
-#' of the body of the document. This parameter is experimental and may change
-#' in a future version.
+#' If TRUE, copy the references to the header and footer of the default
+#' section to each other section of the body of the document. A reference is
+#' only copied to a section that does not already define a header (or footer)
+#' of the same type (default, first or even). This parameter is experimental
+#' and may change in a future version.
 #' @param preview Save `x` to a temporary file and open it (default `FALSE`).
 #' When `TRUE`, the document is saved to a temporary location and opened with
 #' the system's default application for `.docx` files, useful for quick previewing
@@ -99,14 +101,16 @@ print.rdocx <- function(
   xml_str <- fix_empty_ids_in_wml(xml_str)
   # resolve list markers to real numId values
   xml_str <- process_list_markers(xml_str, x$package_dir)
-  if (copy_header_refs) {
-    xml_str <- copy_header_references_everywhere(x, xml_str = xml_str)
-  }
-  if (copy_footer_refs) {
-    xml_str <- copy_footer_references_everywhere(x, xml_str = xml_str)
-  }
 
   x <- replace_xml_body_from_chr(x = x, xml_str = xml_str)
+
+  if (copy_header_refs || copy_footer_refs) {
+    x <- copy_hf_references_everywhere(
+      x,
+      header = copy_header_refs,
+      footer = copy_footer_refs
+    )
+  }
 
   process_docx_poured(
     doc_obj = x$doc_obj,

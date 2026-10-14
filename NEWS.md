@@ -12,6 +12,13 @@ id, allowing to join its results with those of `docx_comments()`
 
 ## Issues
 
+- a document whose sections have headers or footers defined with officer can
+now be read with `read_docx()` and written again. The header and footer
+references kept an internal marker that made `print()` fail.
+- `print.rdocx()` arguments `copy_header_refs` and `copy_footer_refs` now
+produce valid sections. A reference is now only copied to sections that do 
+not define one of the same type, and it is placed at the top of the section 
+properties.
 - adding a list with `block_list_items()` no longer drops the numbering of the
 numbered styles of a document. The new list definition was appended at the end
 of the numbering part, after the `w:num` elements, where the schema requires
