@@ -23,6 +23,11 @@
 
 ### Issues
 
+- headers and footers no longer disappear from even pages when a
+  document is opened with
+  [`read_docx()`](https://davidgohel.github.io/officer/dev/reference/read_docx.md)
+  and saved again. The “different odd and even pages” option of the
+  document was always switched on, even when it was off.
 - a Word document created with officer and containing headers or footers
   can now be opened again with
   [`read_docx()`](https://davidgohel.github.io/officer/dev/reference/read_docx.md)

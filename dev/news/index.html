@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-7">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-7"></a></h3>
-<ul><li>a Word document created with officer and containing headers or footers can now be opened again with <code><a href="../reference/read_docx.html">read_docx()</a></code> and saved without error.</li>
+<ul><li>headers and footers no longer disappear from even pages when a document is opened with <code><a href="../reference/read_docx.html">read_docx()</a></code> and saved again. The “different odd and even pages” option of the document was always switched on, even when it was off.</li>
+<li>a Word document created with officer and containing headers or footers can now be opened again with <code><a href="../reference/read_docx.html">read_docx()</a></code> and saved without error.</li>
 <li>with <code>print(copy_header_refs = TRUE, copy_footer_refs = TRUE)</code>, headers and footers of the default section are now added to the other sections without replacing the ones a section already defines, and Word opens the result without complaint.</li>
 <li>adding a list with <code><a href="../reference/block_list_items.html">block_list_items()</a></code> no longer removes the numbering of the numbered headings of a template.</li>
 <li>lists added with <code><a href="../reference/block_list_items.html">block_list_items()</a></code> in a footnote, a comment, a header or a footer are now displayed correctly by Word.</li>
