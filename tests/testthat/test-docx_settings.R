@@ -18,6 +18,21 @@ test_that("settings works", {
   expect_true(x$settings$even_and_odd_headers)
 })
 
+test_that("even_and_odd_headers set to FALSE survives a read and write", {
+  x <- read_docx()
+  x <- docx_set_settings(x = x, even_and_odd_headers = FALSE)
+  file <- print(x, target = tempfile(fileext = ".docx"))
+  x <- read_docx(path = file)
+  expect_false(x$settings$even_and_odd_headers)
+
+  file <- print(x, target = tempfile(fileext = ".docx"))
+  dir_tmp <- tempfile()
+  unpack_folder(file, dir_tmp)
+  settings <- xml2::read_xml(file.path(dir_tmp, "word", "settings.xml"))
+  node <- xml2::xml_child(settings, "w:evenAndOddHeaders")
+  expect_equal(xml2::xml_attr(node, "val"), "0")
+})
+
 test_that("settings preserves existing XML elements", {
   template <- system.file(
     "doc_examples",

@@ -137,9 +137,13 @@ update_docx_settings_from_file <- function(x, file) {
     x$list_separator <- xml_attr(node_list_separator, "val")
   }
 
+  # an on/off element is on when present without `w:val`, or when `w:val`
+  # is "1", "true" or "on"
   node_evenodd_headers <- xml_child(node_doc, "w:evenAndOddHeaders")
   if (!inherits(node_evenodd_headers, "xml_missing")) {
-    x$even_and_odd_headers <- TRUE
+    eoh_val <- xml_attr(node_evenodd_headers, "val")
+    x$even_and_odd_headers <- is.na(eoh_val) ||
+      eoh_val %in% c("1", "true", "on")
   } else {
     x$even_and_odd_headers <- FALSE
   }
