@@ -42,8 +42,11 @@ print(
 - copy_header_refs, copy_footer_refs:
 
   logical, default is FALSE. If TRUE, copy the references to the header
-  and footer in each section of the body of the document. This parameter
-  is experimental and may change in a future version.
+  and footer of the default section to each other section of the body of
+  the document. A reference is only copied to a section that does not
+  already define a header (or footer) of the same type (default, first
+  or even). This parameter is experimental and may change in a future
+  version.
 
 - preview:
 

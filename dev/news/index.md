@@ -23,6 +23,16 @@
 
 ### Issues
 
+- a document whose sections have headers or footers defined with officer
+  can now be read with
+  [`read_docx()`](https://davidgohel.github.io/officer/dev/reference/read_docx.md)
+  and written again. The header and footer references kept an internal
+  marker that made [`print()`](https://rdrr.io/r/base/print.html) fail.
+- [`print.rdocx()`](https://davidgohel.github.io/officer/dev/reference/print.rdocx.md)
+  arguments `copy_header_refs` and `copy_footer_refs` now produce valid
+  sections. A reference is now only copied to sections that do not
+  define one of the same type, and it is placed at the top of the
+  section properties.
 - adding a list with
   [`block_list_items()`](https://davidgohel.github.io/officer/dev/reference/block_list_items.md)
   no longer drops the numbering of the numbered styles of a document.

@@ -19,7 +19,7 @@ workflow, after all content has been added with body_add_*() functions."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,9 +83,11 @@ function returns <code>NULL</code> without writing a file.</p></dd>
 
 <dt id="arg-copy-header-refs-copy-footer-refs">copy_header_refs, copy_footer_refs<a class="anchor" aria-label="anchor" href="#arg-copy-header-refs-copy-footer-refs"></a></dt>
 <dd><p>logical, default is FALSE.
-If TRUE, copy the references to the header and footer in each section
-of the body of the document. This parameter is experimental and may change
-in a future version.</p></dd>
+If TRUE, copy the references to the header and footer of the default
+section to each other section of the body of the document. A reference is
+only copied to a section that does not already define a header (or footer)
+of the same type (default, first or even). This parameter is experimental
+and may change in a future version.</p></dd>
 
 
 <dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
