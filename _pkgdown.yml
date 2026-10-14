@@ -18,62 +18,60 @@ home:
   links:
   - text: 'Read the officeverse book'
     href: https://ardata-fr.github.io/officeverse/
-  - text: 'Visit <img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"> website'
+  - text: 'Visit ArData website'
     href: https://www.ardata.fr
 footer:
   structure:
     left: legal
   components:
-    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+    legal: proudly brought to you by <a href="https://www.ardata.fr">ArData</a>
 authors:
   David Gohel:
     href: https://www.ardata.fr
 
 reference:
-  - title: Working with Word documents
+  - title: Word documents
+    desc: Create a Word document from scratch or from a template, add content, and save it.
+  - subtitle: Read and save
     contents:
     - read_docx
     - print.rdocx
     - set_doc_properties
-    - docx_set_paragraph_style
-    - docx_set_character_style
-    - docx_embed_font
-    - docx_set_settings
-    - change_styles
-  - title: Word documents information
+  - subtitle: Add content
     contents:
-    - docx_summary
-    - docx_comments
-    - styles_info
-    - doc_properties
-    - docx_dim
-    - docx_show_chunk
-    - length.rdocx
-  - title: Navigate into Word documents
-    contents:
-    - starts_with("cursor_")
-    - docx_bookmarks
-  - title: Add content to Word documents
-    contents:
+    - body_add_par
+    - body_add_fpar
     - body_add_blocks
     - body_add_list
-    - body_add_caption
-    - body_add_img
-    - body_add_par
     - body_add_table
-    - body_add_fpar
+    - body_add_img
+    - body_add_gg
+    - body_add_plot
+    - body_add_caption
     - body_add_toc
     - body_add_break
     - body_add_docx
     - body_import_docx
     - body_bookmark
-    - body_add_gg
-    - body_add_plot
     - body_comment
+  - subtitle: Add content to large documents
+    desc: Append many elements at the end of a document much faster than with the `body_add_*()` functions.
+    contents:
     - body_append_start_context
     - write_elements_to_context
     - body_append_stop_context
-  - title: Word sections
+  - subtitle: Move in the document
+    desc: Choose where the next content will be added.
+    contents:
+    - starts_with("cursor_")
+    - docx_bookmarks
+  - subtitle: Change or remove existing content
+    contents:
+    - ends_with("at_bkm")
+    - ends_with("all_text")
+    - body_remove
+  - subtitle: Sections and page layout
+    desc: Orientation, margins, columns, headers and footers.
     contents:
     - prop_section
     - page_mar
@@ -82,22 +80,36 @@ reference:
     - body_set_default_section
     - body_end_block_section
     - starts_with("body_end_section")
-  - title: Word simple tables
+  - subtitle: Tables
     contents:
     - prop_table
     - starts_with("table_")
-  - title: Replace content in Word documents
+  - subtitle: Styles, fonts and settings
     contents:
-    - ends_with("at_bkm")
-    - ends_with("all_text")
-  - title: Remove content from Word documents
+    - docx_set_paragraph_style
+    - docx_set_character_style
+    - change_styles
+    - docx_embed_font
+    - docx_set_settings
+  - subtitle: Inspect a document
+    desc: Get the content, styles, comments or dimensions of an existing document.
     contents:
-    - body_remove
-  - title: Reading/writing PowerPoint documents
+    - docx_summary
+    - docx_comments
+    - styles_info
+    - doc_properties
+    - docx_dim
+    - docx_show_chunk
+    - length.rdocx
+
+  - title: PowerPoint presentations
+    desc: Create a presentation from a template, add slides and fill their placeholders.
+  - subtitle: Read and save
     contents:
     - read_pptx
     - print.rpptx
-  - title: Manipulate slides
+  - subtitle: Slides
+    desc: Add, select, move, hide or remove slides, and choose the default layout of new slides.
     contents:
     - add_slide
     - layout_default
@@ -105,7 +117,8 @@ reference:
     - move_slide
     - remove_slide
     - slide_visible<-
-  - title: Slide content
+  - subtitle: Slide content
+    desc: Put text, tables, images or plots into a placeholder or at any position on the current slide.
     contents:
     - ph_with
     - phs_with
@@ -116,24 +129,32 @@ reference:
     - empty_content
     - sp_line
     - sp_lineend
+  - subtitle: Speaker notes
+    desc: Add speaker notes to slides.
+    contents:
     - set_notes
     - notes_location_label
     - notes_location_type
-  - title: Read PowerPoint information
+  - subtitle: Layouts and placeholders
+    desc: Find out which layouts and placeholders a template provides and how to target them with `ph_location_*()`. Placeholder labels can also be renamed and duplicates fixed.
     contents:
-    - pptx_summary
-    - slide_size
-    - length.rpptx
-    - annotate_base
     - layout_summary
     - layout_properties
     - plot_layout_properties
-    - layout_dedupe_ph_labels
+    - annotate_base
     - layout_rename_ph_labels
+    - layout_dedupe_ph_labels
+  - subtitle: Inspect a presentation
+    desc: Get the content of an existing presentation (text, tables and their positions), its slide size, its color scheme or its media files.
+    contents:
+    - pptx_summary
     - slide_summary
+    - slide_size
     - color_scheme
     - media_extract
     - as.matrix.rpptx
+    - length.rpptx
+
   - title: Content formatting
     desc: Define formatted paragraphs or parts of paragraphs, such as text, calculated Word fields, images, or sets of paragraphs. The four sub-sections below go from the atomic formatting specs (properties) up to the composite blocks.
   - subtitle: Properties
@@ -167,14 +188,14 @@ reference:
     contents:
     - external_img
     - floating_external_img
-  - title: RTF
+  - title: RTF documents
     contents:
     - rtf_doc
     - rtf_add
-    - print.rtf
     - rtf_set_paragraph_style
     - rtf_styles_info
-  - title: Excel
+    - print.rtf
+  - title: Excel workbooks
     contents:
     - read_xlsx
     - add_sheet
@@ -183,7 +204,7 @@ reference:
     - sheet_remove
     - sheet_write_data
     - starts_with("sheet_add_drawing")
-  - title: Misc
+  - title: Utilities
     contents:
     - officer
     - open_file
@@ -194,6 +215,6 @@ navbar:
   left:
   - text: Function reference
     href: reference/index.html
-  - text: User Documentation
+  - text: Read the officeverse book
     href: https://ardata-fr.github.io/officeverse/
 
