@@ -21,9 +21,10 @@ if parameter \code{guess_size=TRUE}, see parameter \code{guess_size}.}
 
 \item{unit}{unit for width and height, one of "in", "cm", "mm".}
 
-\item{guess_size}{If package 'magick' is installed, this option
-can be used (set it to \code{TRUE}). The images will be read and
-width and height will be guessed.}
+\item{guess_size}{If \code{TRUE}, width and height are guessed from the image
+file (see \code{\link[=image_dims]{image_dims()}}): the size in pixels is read from the header of
+'png', 'jpeg' and 'gif' files, and package 'magick' is required for other
+formats.}
 
 \item{alt}{alternative text for images}
 }

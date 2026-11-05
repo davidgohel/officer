@@ -1,7 +1,7 @@
 Type: Package
 Package: officer
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.7.7
+Version: 0.7.8.001
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
@@ -92,6 +92,7 @@ Collate:
     'formatting_properties.R'
     'fortify_docx.R'
     'fortify_pptx.R'
+    'image_dims.R'
     'knitr_utils.R'
     'officer.R'
     'ooxml.R'
@@ -127,4 +128,4 @@ Collate:
     'utils-xml.R'
     'deprecated.R'
     'zzz.R'
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

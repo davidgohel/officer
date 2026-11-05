@@ -1,3 +1,13 @@
+# officer 0.7.8
+
+## Features
+
+- new function `image_dims()` returns the size in pixels of an image file or of
+a raster object. The size of 'png', 'jpeg' and 'gif' files is read from their
+header, without decoding the image.
+- `guess_size = TRUE` in `external_img()` and `floating_external_img()` uses it:
+it is much faster and 'magick' is no longer required for these formats.
+
 # officer 0.7.7
 
 ## Features

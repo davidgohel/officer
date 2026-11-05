@@ -1085,9 +1085,10 @@ to_wml.prop_section <- function(x, add_ns = FALSE, ...) {
 #' @param src image file path
 #' @param width,height size of the image file. It can be ignored
 #' if parameter `guess_size=TRUE`, see parameter `guess_size`.
-#' @param guess_size If package 'magick' is installed, this option
-#' can be used (set it to `TRUE`). The images will be read and
-#' width and height will be guessed.
+#' @param guess_size If `TRUE`, width and height are guessed from the image
+#' file (see [image_dims()]): the size in pixels is read from the header of
+#' 'png', 'jpeg' and 'gif' files, and package 'magick' is required for other
+#' formats.
 #' @param unit unit for width and height, one of "in", "cm", "mm".
 #' @param alt alternative text for images
 #' @inheritSection ftext usage
@@ -1145,19 +1146,7 @@ external_img <- function(
   }
 
   if (guess_size) {
-    if (!requireNamespace("magick", quietly = TRUE)) {
-      stop("package magick is required when using `guess_size` option.")
-    }
-    sizes <- lapply(src, function(x) {
-      if (grepl("\\.svg$", x)) {
-        z <- magick::image_read_svg(x)
-      } else {
-        z <- magick::image_read(x)
-      }
-      z <- magick::image_data(z)
-      attr(z, "dim")[-1]
-    })
-    sizes <- do.call(rbind, sizes)
+    sizes <- do.call(rbind, lapply(src, image_dims))
     width <- sizes[, 1] / 72
     height <- sizes[, 2] / 72
   }
@@ -1374,9 +1363,10 @@ to_html.external_img <- function(x, ...) {
 #' @param wrap_type text wrapping type, one of "square", "topAndBottom", "through", "tight", "none"
 #' @param wrap_side which side text wraps around, one of "bothSides", "left", "right", "largest"
 #' @param wrap_dist_top,wrap_dist_bottom,wrap_dist_left,wrap_dist_right distance between image and text (in inches)
-#' @param guess_size If package 'magick' is installed, this option
-#' can be used (set it to `TRUE`). The images will be read and
-#' width and height will be guessed.
+#' @param guess_size If `TRUE`, width and height are guessed from the image
+#' file (see [image_dims()]): the size in pixels is read from the header of
+#' 'png', 'jpeg' and 'gif' files, and package 'magick' is required for other
+#' formats.
 #' @param unit unit for width, height, pos_x and pos_y, one of "in", "cm", "mm".
 #' @param alt alternative text for images
 #' @inheritSection ftext usage
@@ -1465,19 +1455,7 @@ floating_external_img <- function(
   }
 
   if (guess_size) {
-    if (!requireNamespace("magick", quietly = TRUE)) {
-      stop("package magick is required when using `guess_size` option.")
-    }
-    sizes <- lapply(src, function(x) {
-      if (grepl("\\.svg$", x)) {
-        z <- magick::image_read_svg(x)
-      } else {
-        z <- magick::image_read(x)
-      }
-      z <- magick::image_data(z)
-      attr(z, "dim")[-1]
-    })
-    sizes <- do.call(rbind, sizes)
+    sizes <- do.call(rbind, lapply(src, image_dims))
     width <- sizes[, 1] / 72
     height <- sizes[, 2] / 72
   }
