@@ -1,6 +1,24 @@
 # Changelog
 
+## officer 0.7.8
+
+### Features
+
+- new function
+  [`image_dims()`](https://davidgohel.github.io/officer/dev/reference/image_dims.md)
+  returns the size in pixels of an image file or of a raster object. The
+  size of ‘png’, ‘jpeg’ and ‘gif’ files is read from their header,
+  without decoding the image.
+- `guess_size = TRUE` in
+  [`external_img()`](https://davidgohel.github.io/officer/dev/reference/external_img.md)
+  and
+  [`floating_external_img()`](https://davidgohel.github.io/officer/dev/reference/floating_external_img.md)
+  uses it: it is much faster and ‘magick’ is no longer required for
+  these formats.
+
 ## officer 0.7.7
+
+CRAN release: 2026-10-14
 
 ### Features
 

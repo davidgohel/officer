@@ -15,7 +15,7 @@ added inside a paragraph."><meta property="og:image" content="https://davidgohel
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.7.009</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,9 +78,10 @@ if parameter <code>guess_size=TRUE</code>, see parameter <code>guess_size</code>
 
 
 <dt id="arg-guess-size">guess_size<a class="anchor" aria-label="anchor" href="#arg-guess-size"></a></dt>
-<dd><p>If package 'magick' is installed, this option
-can be used (set it to <code>TRUE</code>). The images will be read and
-width and height will be guessed.</p></dd>
+<dd><p>If <code>TRUE</code>, width and height are guessed from the image
+file (see <code><a href="image_dims.html">image_dims()</a></code>): the size in pixels is read from the header of
+'png', 'jpeg' and 'gif' files, and package 'magick' is required for other
+formats.</p></dd>
 
 
 <dt id="arg-alt">alt<a class="anchor" aria-label="anchor" href="#arg-alt"></a></dt>
