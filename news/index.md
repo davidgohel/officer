@@ -2,6 +2,8 @@
 
 ## officer 0.7.7
 
+CRAN release: 2026-10-14
+
 ### Features
 
 - [`body_add_gg()`](https://davidgohel.github.io/officer/reference/body_add_gg.md)
