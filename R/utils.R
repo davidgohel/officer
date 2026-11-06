@@ -88,36 +88,27 @@ fortify_master_xfrm <- function(master_xfrm) {
 }
 
 
-xfrmize <- function(slide_xfrm, master_xfrm) {
-  x <- as.data.frame(slide_xfrm)
-
-  master_ref <- unique(data.frame(
-    file = master_xfrm$file,
-    master_name = master_xfrm$name,
+xfrmize <- function(slide_xfrm, master_xfrm, master_metadata) {
+  masters <- data.frame(
+    master_file = basename(master_metadata$filename),
+    master_name = master_metadata$master_name,
     stringsAsFactors = FALSE
-  ))
-  master_xfrm <- fortify_master_xfrm(master_xfrm)
-
-  slide_key_id <- paste0(x$master_file, x$type)
-  master_key_id <- paste0(master_xfrm$file, master_xfrm$type)
-
-  slide_xfrm_no_match <- x[!slide_key_id %in% master_key_id, ]
-  slide_xfrm_no_match <- merge(
-    slide_xfrm_no_match,
-    master_ref,
-    by.x = "master_file",
-    by.y = "file",
-    all.x = TRUE,
-    all.y = FALSE
   )
+  master_ref <- fortify_master_xfrm(master_xfrm)
+  master_ref$master_name <- NULL
 
+  x <- as.data.frame(slide_xfrm)
+  # merge() and not left_join(): the order of the rows sets the order of
+  # placeholders that have exactly the same position.
+  x <- merge(x, masters, by = "master_file", all.x = TRUE)
   x <- merge(
     x,
-    master_xfrm,
+    master_ref,
     by.x = c("master_file", "type"),
     by.y = c("file", "type"),
-    all = FALSE
+    all.x = TRUE
   )
+
   x$offx <- ifelse(!is.finite(x$offx), x$offx_ref, x$offx)
   x$offy <- ifelse(!is.finite(x$offy), x$offy_ref, x$offy)
   x$cx <- ifelse(!is.finite(x$cx), x$cx_ref, x$cx)
@@ -128,8 +119,6 @@ xfrmize <- function(slide_xfrm, master_xfrm) {
   x$cy_ref <- NULL
   x$fld_id_ref <- NULL
   x$fld_type_ref <- NULL
-
-  x <- rbind(x, slide_xfrm_no_match, stringsAsFactors = FALSE)
 
   # intuitive sorting: top -> bottom, left -> right
   x$.i_master <- get_file_index(x$master_file)

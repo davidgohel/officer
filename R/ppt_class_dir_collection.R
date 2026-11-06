@@ -53,7 +53,7 @@ dir_layout <- R6Class(
     initialize = function(package_dir, master_metadata, master_xfrm) {
       super$initialize(package_dir, slide_layout$new("ppt/slideLayouts"))
       private$master_metadata <- master_metadata
-      private$xfrm_data <- xfrmize(self$xfrm(), master_xfrm)
+      private$xfrm_data <- xfrmize(self$xfrm(), master_xfrm, master_metadata)
     },
 
     get_xfrm_data = function() {

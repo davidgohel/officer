@@ -331,3 +331,43 @@ test_that("color scheme", {
   expect_is(cs$value, "character")
   expect_is(cs$theme, "character")
 })
+
+remove_master_shapes <- function(file, master = "slideMaster1.xml") {
+  dir <- tempfile()
+  unpack_folder(file, dir)
+  master_file <- file.path(dir, "ppt/slideMasters", master)
+  doc <- read_xml(master_file)
+  shapes <- xml_find_all(
+    doc,
+    "p:cSld/p:spTree/*[not(self::p:nvGrpSpPr or self::p:grpSpPr)]"
+  )
+  xml_remove(shapes)
+  write_xml(doc, master_file)
+  pack_folder(dir, tempfile(fileext = ".pptx"))
+}
+
+test_that("layout_properties() returns the name of a master without shapes", {
+  x <- read_pptx(remove_master_shapes(
+    system.file("template", "template.pptx", package = "officer")
+  ))
+  expect_gt(nrow(layout_properties(x)), 0)
+  expect_equal(unique(layout_properties(x)$master_name), "Office Theme")
+})
+
+test_that("layout_properties() keeps each master apart when one has no shapes", {
+  file <- "docs_dir/test-three-identical-masters.pptx"
+  x <- read_pptx(remove_master_shapes(file))
+  props <- layout_properties(x)
+  expect_false(anyNA(props$master_name))
+  expect_setequal(props$master_name, paste0("Master_", 1:3))
+
+  # the other masters are not affected
+  ref <- layout_properties(read_pptx(file))
+  for (master in c("Master_2", "Master_3")) {
+    new_rows <- props[props$master_name == master, ]
+    ref_rows <- ref[ref$master_name == master, ]
+    rownames(new_rows) <- NULL
+    rownames(ref_rows) <- NULL
+    expect_equal(new_rows, ref_rows)
+  }
+})

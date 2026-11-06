@@ -30,6 +30,8 @@ own name instead of `index`, so that the values can be used directly with the
 - Saving a document no longer adds blanks to its content in memory: after
 `print()`, `slide_summary()` returned the text of shapes surrounded by line breaks
 and spaces.
+- `layout_properties()` now returns the name of the master when the master has
+no shapes. It was `NA` (#488).
 
 # officer 0.7.7
 
