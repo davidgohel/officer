@@ -213,7 +213,7 @@ anyplot <- plot_instr(code = {
 doc <- rtf_add(doc, anyplot, width = 5, height = 4, ppr = center_par)
 
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpVOdFux/file173a7fdd0557.rtf"
+#> [1] "/tmp/Rtmp2pKLx4/file16cd51d2ecc0.rtf"
 
 
 ## RTF example with sections ----
@@ -323,5 +323,5 @@ doc <- rtf_add(
 doc <- rtf_add(doc, "Back to portrait", style = "heading 2")
 doc <- quick_hello_world(doc)
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpVOdFux/file173a354b44ca.rtf"
+#> [1] "/tmp/Rtmp2pKLx4/file16cd118dd18e.rtf"
 ```

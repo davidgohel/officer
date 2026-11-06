@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,14 @@
 <ul><li>new function <code><a href="../reference/image_dims.html">image_dims()</a></code> returns the size in pixels of an image file or of a raster object. The size of ‘png’, ‘jpeg’ and ‘gif’ files is read from their header, without decoding the image.</li>
 <li>
 <code>guess_size = TRUE</code> in <code><a href="../reference/external_img.html">external_img()</a></code> and <code><a href="../reference/floating_external_img.html">floating_external_img()</a></code> uses it: it is much faster and ‘magick’ is no longer required for these formats.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-8">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-8"></a></h3>
+<ul><li>
+<code><a href="../reference/ph_with.html">ph_with()</a></code> no longer pads logical values to the same width: <code>c(TRUE, FALSE)</code> was written with a space before <code>TRUE</code>.</li>
+<li>PowerPoint files no longer keep the images of removed slides: the cleaning done when saving a pptx never deleted anything, because of a wrong path.</li>
+<li>
+<code><a href="../reference/remove_slide.html">remove_slide()</a></code> now also removes the notes of the slide. They stayed in the file, with a link to a slide that no longer existed.</li>
 </ul></div>
 </div>
     <div class="section level2">

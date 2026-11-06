@@ -15,7 +15,7 @@ ph_with.numeric(x, value, location, format_fun = format, ...)
 
 ph_with.factor(x, value, location, ...)
 
-ph_with.logical(x, value, location, format_fun = format, ...)
+ph_with.logical(x, value, location, format_fun = as.character, ...)
 
 ph_with.Date(x, value, location, date_format = NULL, ...)
 

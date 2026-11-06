@@ -16,6 +16,18 @@
   uses it: it is much faster and ‘magick’ is no longer required for
   these formats.
 
+### Issues
+
+- [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
+  no longer pads logical values to the same width: `c(TRUE, FALSE)` was
+  written with a space before `TRUE`.
+- PowerPoint files no longer keep the images of removed slides: the
+  cleaning done when saving a pptx never deleted anything, because of a
+  wrong path.
+- [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
+  now also removes the notes of the slide. They stayed in the file, with
+  a link to a slide that no longer existed.
+
 ## officer 0.7.7
 
 CRAN release: 2026-10-14
