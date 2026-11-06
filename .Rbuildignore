@@ -9,7 +9,7 @@
 ^revdep$
 ^pkgdown$
 ^_pkgdown\.yml$
-^CONDUCT\.md$
+^CONTRIBUTING\.md$
 ^\.github$
 ^\.claude$
 ^tests/testthat/_snaps$
