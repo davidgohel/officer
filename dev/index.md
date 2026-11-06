@@ -136,54 +136,20 @@ them and answer when possible.
 
 ## Contributing to the package
 
-### Code of Conduct
+Please read
+[CONTRIBUTING.md](https://github.com/davidgohel/officer/blob/main/CONTRIBUTING.md)
+before opening an issue or a discussion. In short:
 
-Anyone getting involved in this package agrees to our [Code of
-Conduct](https://github.com/davidgohel/officer/blob/main/CONDUCT.md).
-
-### Bug reports
-
-Bugs are reported through [GitHub
-issues](https://github.com/davidgohel/officer/issues/new/choose). The
-issue form requires a reproducible example (a
-[reprex](https://reprex.tidyverse.org/)) and the output of
-[`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html); reports
-missing these elements are closed without further response. The more
-reproducible your report, the more time can go into investigating the
-bug rather than reconstructing it.
-
-For usage questions (“how do I do X with officer”), please read
-<https://ardata-fr.github.io/officeverse/> or
-<https://davidgohel.github.io/officer/> or use [Stack
-Overflow](https://stackoverflow.com/questions/tagged/officer) with the
-`officer` tag instead.
-
-### Pull requests
-
-Before writing any code, please open an issue describing the change you
-have in mind and the reason for it. The proposal needs to be discussed
-and explicitly validated by the maintainer before work starts; pull
-requests for features that have not gone through this step will not be
-considered, no matter how well crafted. This isn’t meant to discourage
-contributions, only to make sure the time you invest goes into a change
-that will actually land.
-
-Pull requests are accepted on a case-by-case basis: once a proposal has
-been agreed in an issue, the maintainer will invite you to open a PR for
-that specific change. Unsolicited PRs that bypass this step will be
-closed.
-
-This policy keeps the package coherent: officer’s internals are shared
-with several downstream packages (flextable, officedown, rvg), and
-changes that look local often have wider implications. Aligning on the
-design in an issue first saves time on both sides.
-
-When invited to open a PR, please include:
-
-- the new function(s) with code and roxygen tags, including runnable
-  examples
-- documentation updates (vignette section if relevant)
-- corresponding tests under `tests/testthat`
-
-Run `rhub::check_for_cran()` locally before submitting; CI will run the
-full check suite on the PR.
+- bugs are reported through [GitHub
+  issues](https://github.com/davidgohel/officer/issues/new/choose), with
+  a [reprex](https://reprex.tidyverse.org/) and the output of
+  [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html);
+- feature requests go to
+  [Discussions](https://github.com/davidgohel/officer/discussions);
+- for usage questions, read the [officeverse
+  book](https://ardata-fr.github.io/officeverse/) and the
+  [documentation](https://davidgohel.github.io/officer/), then use
+  [Stack Overflow](https://stackoverflow.com/questions/tagged/officer),
+  with the `officer` tag, or
+  [Discussions](https://github.com/davidgohel/officer/discussions);
+- pull requests are disabled.
