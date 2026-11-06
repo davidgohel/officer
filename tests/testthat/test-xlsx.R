@@ -429,10 +429,11 @@ sheet_cells_xml <- function(doc, sheet_xml_name = "sheet1.xml") {
   out <- print(doc, target = tempfile(fileext = ".xlsx"))
   unpack_dir <- tempfile()
   unpack_folder(out, unpack_dir)
-  paste(
+  xml <- paste(
     readLines(file.path(unpack_dir, "xl/worksheets", sheet_xml_name)),
     collapse = "\n"
   )
+  gsub(">\\s+<", "><", xml)
 }
 
 test_that("sheet_write_data dispatches on character (vertical)", {

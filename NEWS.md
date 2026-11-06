@@ -27,6 +27,9 @@ file, with a link to a slide that no longer existed.
 - `annotate_base()` now writes `type_idx` in each placeholder, and `id` under its
 own name instead of `index`, so that the values can be used directly with the
 `ph_location_*()` functions.
+- Saving a document no longer adds blanks to its content in memory: after
+`print()`, `slide_summary()` returned the text of shapes surrounded by line breaks
+and spaces.
 
 # officer 0.7.7
 
