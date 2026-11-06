@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.010</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.012</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,10 @@
 <li>
 <code><a href="../reference/annotate_base.html">annotate_base()</a></code> now writes <code>type_idx</code> in each placeholder, and <code>id</code> under its own name instead of <code>index</code>, so that the values can be used directly with the <code>ph_location_*()</code> functions.</li>
 <li>Saving a document no longer adds blanks to its content in memory: after <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="../reference/slide_summary.html">slide_summary()</a></code> returned the text of shapes surrounded by line breaks and spaces.</li>
+<li>
+<code><a href="../reference/layout_properties.html">layout_properties()</a></code> now returns the name of the master when the master has no shapes. It was <code>NA</code> (<a href="https://github.com/davidgohel/officer/issues/488" class="external-link">#488</a>).</li>
+<li>
+<code><a href="../reference/read_pptx.html">read_pptx()</a></code> now gives a clear error when the file has no slide layout, instead of an error about a <code><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge()</a></code> (<a href="https://github.com/davidgohel/officer/issues/612" class="external-link">#612</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

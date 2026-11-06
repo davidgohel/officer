@@ -48,6 +48,13 @@
   after [`print()`](https://rdrr.io/r/base/print.html),
   [`slide_summary()`](https://davidgohel.github.io/officer/dev/reference/slide_summary.md)
   returned the text of shapes surrounded by line breaks and spaces.
+- [`layout_properties()`](https://davidgohel.github.io/officer/dev/reference/layout_properties.md)
+  now returns the name of the master when the master has no shapes. It
+  was `NA` ([\#488](https://github.com/davidgohel/officer/issues/488)).
+- [`read_pptx()`](https://davidgohel.github.io/officer/dev/reference/read_pptx.md)
+  now gives a clear error when the file has no slide layout, instead of
+  an error about a [`merge()`](https://rdrr.io/r/base/merge.html)
+  ([\#612](https://github.com/davidgohel/officer/issues/612)).
 
 ## officer 0.7.7
 
