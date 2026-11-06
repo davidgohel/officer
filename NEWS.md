@@ -8,6 +8,11 @@ header, without decoding the image.
 - `guess_size = TRUE` in `external_img()` and `floating_external_img()` uses it:
 it is much faster and 'magick' is no longer required for these formats.
 
+## Changes
+
+- Argument `rm_images` of `remove_slide()` is deprecated: it has no effect and
+now gives a warning. Images no longer used are removed when the file is saved.
+
 ## Issues
 
 - `ph_with()` no longer pads logical values to the same width: `c(TRUE, FALSE)`

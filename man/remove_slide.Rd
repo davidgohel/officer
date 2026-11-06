@@ -12,7 +12,8 @@ remove_slide(x, index = NULL, rm_images = FALSE)
 \item{index}{slide index or a vector of slide indices to remove,
 default to current slide position.}
 
-\item{rm_images}{unused anymore.}
+\item{rm_images}{deprecated and ignored. Images no longer used are removed
+when the file is saved.}
 }
 \description{
 Remove one or more slides from a pptx presentation.

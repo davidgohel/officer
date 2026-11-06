@@ -113,13 +113,22 @@ on_slide <- function(x, index) {
 #' @param x an rpptx object
 #' @param index slide index or a vector of slide indices to remove,
 #' default to current slide position.
-#' @param rm_images unused anymore.
+#' @param rm_images deprecated and ignored. Images no longer used are removed
+#' when the file is saved.
 #' @note cursor is set on the last slide.
 #' @example inst/examples/example_remove_slide.R
 #' @family slide_manipulation
 #' @seealso [read_pptx()], [ph_with()], [ph_remove()]
 remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   stop_if_not_rpptx(x)
+  if (!missing(rm_images)) {
+    cli::cli_warn(
+      c(
+        "!" = "Argument {.arg rm_images} of {.fn remove_slide} is deprecated and ignored.",
+        "i" = "Images no longer used are removed when the file is saved."
+      )
+    )
+  }
 
   l_ <- length(x)
   if (l_ < 1) {

@@ -317,3 +317,14 @@ test_that("slide_visible", {
   x <- read_pptx(path)
   expect_equal(slide_visible(x), c(TRUE, FALSE, TRUE))
 })
+
+test_that("rm_images of remove_slide() is deprecated", {
+  x <- read_pptx()
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  x <- add_slide(x, "Title and Content", "Office Theme")
+  expect_warning(x <- remove_slide(x, 1, rm_images = TRUE), "deprecated")
+  expect_length(x, 1L)
+  expect_no_warning(x <- remove_slide(x, 1))
+  expect_length(x, 0L)
+})
+
