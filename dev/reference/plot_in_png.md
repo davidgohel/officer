@@ -71,5 +71,5 @@ plot_in_png(
   res = 72,
   units = "in"
 )
-#> [1] "/tmp/RtmpP7iOkq/file168f4c4750a1.png"
+#> [1] "/tmp/Rtmp6Eo6yx/file174142a57c7a.png"
 ```
