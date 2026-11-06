@@ -21,7 +21,8 @@ remove_slide(x, index = NULL, rm_images = FALSE)
 
 - rm_images:
 
-  unused anymore.
+  deprecated and ignored. Images no longer used are removed when the
+  file is saved.
 
 ## Note
 
@@ -73,5 +74,5 @@ x <- add_slide(x, "Title and Content")
 x <- remove_slide(x, index = c(2, 4))
 pptx_file <- print(x, target = tempfile(fileext = ".pptx"))
 pptx_file
-#> [1] "/tmp/Rtmp2pKLx4/file16cd826c063.pptx"
+#> [1] "/tmp/RtmpjXRI69/file172962caa7a9.pptx"
 ```

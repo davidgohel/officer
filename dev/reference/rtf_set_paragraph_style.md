@@ -84,5 +84,5 @@ doc <- rtf_set_paragraph_style(
 )
 doc <- rtf_add(doc, "Heads up", style = "Callout")
 print(doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/Rtmp2pKLx4/file16cd3f32628.rtf"
+#> [1] "/tmp/RtmpjXRI69/file17296a4c1431.rtf"
 ```

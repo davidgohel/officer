@@ -2,7 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-11-06T16:38Z
+last_built: 2026-11-06T17:28Z
 urls:
   reference: https://davidgohel.github.io/officer/reference
   article: https://davidgohel.github.io/officer/articles

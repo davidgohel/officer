@@ -16,6 +16,13 @@
   uses it: it is much faster and ‘magick’ is no longer required for
   these formats.
 
+### Changes
+
+- Argument `rm_images` of
+  [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
+  is deprecated: it has no effect and now gives a warning. Images no
+  longer used are removed when the file is saved.
+
 ### Issues
 
 - [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)

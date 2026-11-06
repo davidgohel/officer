@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,10 @@
 <ul><li>new function <code><a href="../reference/image_dims.html">image_dims()</a></code> returns the size in pixels of an image file or of a raster object. The size of ‘png’, ‘jpeg’ and ‘gif’ files is read from their header, without decoding the image.</li>
 <li>
 <code>guess_size = TRUE</code> in <code><a href="../reference/external_img.html">external_img()</a></code> and <code><a href="../reference/floating_external_img.html">floating_external_img()</a></code> uses it: it is much faster and ‘magick’ is no longer required for these formats.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-7-8">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-8"></a></h3>
+<ul><li>Argument <code>rm_images</code> of <code><a href="../reference/remove_slide.html">remove_slide()</a></code> is deprecated: it has no effect and now gives a warning. Images no longer used are removed when the file is saved.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="issues-0-7-8">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-8"></a></h3>
