@@ -194,13 +194,7 @@ test_that("parse_anchor decodes user-facing anchor strings", {
 })
 
 test_that("sheet_add_drawing(external_img, anchor = range) uses twoCellAnchor", {
-  img <- system.file(
-    "medias",
-    "figures",
-    "body_add_doc_1.png",
-    package = "officer"
-  )
-  skip_if_not(nzchar(img) && file.exists(img))
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
   x <- read_xlsx()
   x <- add_sheet(x, label = "pics")
   x <- sheet_add_drawing(
@@ -232,13 +226,7 @@ test_that("sheet_add_drawing(external_img, anchor = range) uses twoCellAnchor", 
 })
 
 test_that("sheet_add_drawing(external_img, anchor = single cell) uses oneCellAnchor", {
-  img <- system.file(
-    "medias",
-    "figures",
-    "body_add_doc_1.png",
-    package = "officer"
-  )
-  skip_if_not(nzchar(img) && file.exists(img))
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
   x <- read_xlsx()
   x <- add_sheet(x, label = "pics")
   x <- sheet_add_drawing(
@@ -267,13 +255,7 @@ test_that("sheet_add_drawing(external_img, anchor = single cell) uses oneCellAnc
 })
 
 test_that("sheet_add_drawing(external_img) without anchor stays absolute", {
-  img <- system.file(
-    "medias",
-    "figures",
-    "body_add_doc_1.png",
-    package = "officer"
-  )
-  skip_if_not(nzchar(img) && file.exists(img))
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
   x <- read_xlsx()
   x <- add_sheet(x, label = "pics")
   x <- sheet_add_drawing(
