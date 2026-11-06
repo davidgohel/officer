@@ -437,35 +437,24 @@ sanitize_images <- function(x, warn_user = TRUE) {
       recursive = TRUE,
       full.names = TRUE
     )
+    # Targets can be relative or absolute, and URL encoded: compare file names.
+    # All relationship types count, an image is not always of type 'image'.
+    used_img <- basename(unlist(lapply(rel_files, function(x) {
+      xml_attr(xml_children(read_xml(x)), "Target")
+    })))
 
-    image_files <- lapply(rel_files, function(x) {
-      zz <- read_xml(x)
-      rels <- xml_children(zz)
-      rels <- rels[
-        xml_attr(rels, "Type") %in%
-          "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"
-      ]
-      xml_attr(rels, "Target")
-    })
-    image_files <- unique(unlist(image_files))
-    base_doc <- file.path(x$package_dir, "ppt")
     existing_img <- list.files(
-      file.path(base_doc, "media"),
+      file.path(x$package_dir, "ppt", "media"),
       pattern = "\\.(png|jpg|jpeg|eps|emf|svg)$",
       ignore.case = TRUE,
       recursive = TRUE,
       full.names = TRUE
     )
-    existing_img <- gsub(
-      paste0(base_doc, "/"),
-      "../",
-      existing_img,
-      fixed = TRUE
-    )
-    unlink(
-      file.path(base_doc, setdiff(existing_img, image_files)),
-      force = TRUE
-    )
+    img_names <- basename(existing_img)
+    is_used <- img_names %in%
+      used_img |
+      vapply(img_names, utils::URLencode, character(1)) %in% used_img
+    unlink(existing_img[!is_used], force = TRUE)
   }
   x
 }

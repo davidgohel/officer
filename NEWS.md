@@ -12,6 +12,8 @@ it is much faster and 'magick' is no longer required for these formats.
 
 - `ph_with()` no longer pads logical values to the same width: `c(TRUE, FALSE)`
 was written with a space before `TRUE`.
+- PowerPoint files no longer keep the images of removed slides: the cleaning done
+when saving a pptx never deleted anything, because of a wrong path.
 
 # officer 0.7.7
 

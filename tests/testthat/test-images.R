@@ -980,3 +980,73 @@ test_that("VML v:imagedata media is preserved on save (#730)", {
   )
   expect_match(out_rels, "media/vmltest.jpg")
 })
+
+test_that("images no longer used are removed from a pptx", {
+  skip_if_not_installed("ragg")
+  img_a <- file.path(R.home("doc"), "html", "logo.jpg")
+  img_b <- tempfile(fileext = ".png")
+  ragg::agg_png(img_b, width = 50, height = 50)
+  grid::grid.newpage()
+  grDevices::dev.off()
+
+  add_image_slide <- function(x, img) {
+    x <- add_slide(x, "Title and Content")
+    ph_with(
+      x,
+      external_img(img, width = 1, height = 1),
+      location = ph_location(left = 1, top = 1, width = 1, height = 1)
+    )
+  }
+  media_of <- function(x) {
+    out <- print(x, target = tempfile(fileext = ".pptx"))
+    unpack_dir <- tempfile()
+    unpack_folder(out, unpack_dir)
+    list(
+      path = out,
+      dir = unpack_dir,
+      files = list.files(file.path(unpack_dir, "ppt", "media"))
+    )
+  }
+
+  x <- read_pptx()
+  x <- add_image_slide(x, img_a)
+  x <- add_image_slide(x, img_b)
+  x <- add_image_slide(x, img_a)
+  saved <- media_of(x)
+  expect_length(saved$files, 2L)
+  ext_of <- function(files) tools::file_ext(files)
+
+  # an image shared with another slide stays
+  shared <- media_of(remove_slide(read_pptx(saved$path), 1))
+  expect_setequal(ext_of(shared$files), c("jpg", "png"))
+
+  # the image of the removed slide goes, the others stay and are still linked
+  removed <- media_of(remove_slide(read_pptx(saved$path), 2))
+  expect_equal(ext_of(removed$files), "jpg")
+  rels <- read_xml(file.path(removed$dir, "ppt/slides/_rels/slide1.xml.rels"))
+  expect_true(any(grepl(removed$files, xml_attr(xml_children(rels), "Target"))))
+
+  # a target can be absolute: its image stays
+  rel_file <- file.path(saved$dir, "ppt/slides/_rels/slide2.xml.rels")
+  writeLines(
+    gsub("../media/", "/ppt/media/", readLines(rel_file), fixed = TRUE),
+    rel_file
+  )
+  absolute <- pack_folder(saved$dir, tempfile(fileext = ".pptx"))
+  kept <- media_of(remove_slide(read_pptx(absolute), 1))
+  expect_setequal(ext_of(kept$files), c("jpg", "png"))
+
+  # a target can be URL encoded: its image stays
+  png_name <- saved$files[grepl("png$", saved$files)]
+  file.rename(
+    file.path(saved$dir, "ppt/media", png_name),
+    file.path(saved$dir, "ppt/media", "my image.png")
+  )
+  writeLines(
+    gsub(png_name, "my%20image.png", readLines(rel_file), fixed = TRUE),
+    rel_file
+  )
+  encoded <- pack_folder(saved$dir, tempfile(fileext = ".pptx"))
+  kept <- media_of(remove_slide(read_pptx(encoded), 1))
+  expect_true("my image.png" %in% kept$files)
+})

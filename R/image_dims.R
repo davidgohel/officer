@@ -7,7 +7,9 @@ image_dims_from_header <- function(path) {
   if (length(header) < 10L) {
     return(NULL)
   }
-  uint <- function(bytes) sum(as.numeric(bytes) * 256^(rev(seq_along(bytes)) - 1))
+  uint <- function(bytes) {
+    sum(as.numeric(bytes) * 256^(rev(seq_along(bytes)) - 1))
+  }
 
   png_signature <- as.raw(c(0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a))
   if (identical(header[1:8], png_signature)) {
