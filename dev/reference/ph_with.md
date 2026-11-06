@@ -188,6 +188,23 @@ ph_with.xml_document(x, value, location, ...)
   the current slide. This function is to be used to add custom openxml
   code.
 
+## Location and appearance
+
+[`ph_location_type()`](https://davidgohel.github.io/officer/dev/reference/ph_location_type.md),
+[`ph_location_label()`](https://davidgohel.github.io/officer/dev/reference/ph_location_label.md),
+[`ph_location_left()`](https://davidgohel.github.io/officer/dev/reference/ph_location_left.md),
+[`ph_location_right()`](https://davidgohel.github.io/officer/dev/reference/ph_location_right.md),
+[`ph_location_id()`](https://davidgohel.github.io/officer/dev/reference/ph_location_id.md)
+and
+[`ph_location_template()`](https://davidgohel.github.io/officer/dev/reference/ph_location_template.md)
+link the new shape to a placeholder of the slide layout: its appearance,
+such as fonts, colors or bullets, comes from the template. To change it,
+modify the template.
+
+[`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md)
+creates a free shape, not linked to the slide layout: its appearance can
+be defined with arguments `bg`, `rotation`, `ln` and `geom`.
+
 ## Short forms
 
 The `location` argument of `ph_with()` either expects a location object

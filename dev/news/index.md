@@ -22,6 +22,12 @@
   [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
   is deprecated: it has no effect and now gives a warning. Images no
   longer used are removed when the file is saved.
+- The documentation of
+  [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
+  now explains how the location defines the appearance of a shape: from
+  the template with most `ph_location_*()` functions, from its arguments
+  with
+  [`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md).
 
 ### Issues
 

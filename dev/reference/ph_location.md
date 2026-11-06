@@ -3,6 +3,9 @@
 The function will return a list that complies with expected format for
 argument `location` of function
 [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md).
+The shape is not linked to a placeholder of the slide layout, so it does
+not inherit its appearance, see section *Location and appearance* of
+[`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md).
 
 ## Usage
 
