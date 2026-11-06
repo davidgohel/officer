@@ -364,13 +364,12 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx') {
     if (nrow(lp) > 0) {
       # Now we go through each placholder
       for (pidx in seq_len(nrow(lp))) {
-        textstr <- paste(
-          "type=",
+        textstr <- sprintf(
+          'type = "%s", type_idx = %d, ph_label = "%s", id = %s',
           lp$type[pidx],
-          ", index=",
-          lp$id[pidx],
-          ", ph_label=",
-          lp$ph_label[pidx]
+          lp$type_idx[pidx],
+          lp$ph_label[pidx],
+          lp$id[pidx]
         )
         ppt <- ph_with(
           x = ppt,

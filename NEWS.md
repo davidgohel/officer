@@ -24,6 +24,9 @@ was written with a space before `TRUE`.
 when saving a pptx never deleted anything, because of a wrong path.
 - `remove_slide()` now also removes the notes of the slide. They stayed in the
 file, with a link to a slide that no longer existed.
+- `annotate_base()` now writes `type_idx` in each placeholder, and `id` under its
+own name instead of `index`, so that the values can be used directly with the
+`ph_location_*()` functions.
 
 # officer 0.7.7
 

@@ -218,6 +218,21 @@ test_that("annotate base template", {
   expect_s3_class(try(annotate_base(), silent = TRUE), "rpptx")
 })
 
+test_that("annotate_base() prints the arguments of ph_location functions", {
+  x <- annotate_base(output_file = NULL)
+  i <- which(layout_summary(x)$layout == "Two Content")
+  text <- slide_summary(x, i)$text
+
+  expect_true(
+    'type = "body", type_idx = 1, ph_label = "Content Placeholder 2", id = 3' %in%
+      text
+  )
+  expect_true(
+    'type = "body", type_idx = 2, ph_label = "Content Placeholder 3", id = 4' %in%
+      text
+  )
+})
+
 test_that("no master do not generate an error", {
   x <- read_pptx("docs_dir/no_master.pptx")
   x <- add_slide(x, layout = "Page One", master = "Office Theme")
