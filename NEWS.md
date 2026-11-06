@@ -14,6 +14,8 @@ it is much faster and 'magick' is no longer required for these formats.
 was written with a space before `TRUE`.
 - PowerPoint files no longer keep the images of removed slides: the cleaning done
 when saving a pptx never deleted anything, because of a wrong path.
+- `remove_slide()` now also removes the notes of the slide. They stayed in the
+file, with a link to a slide that no longer existed.
 
 # officer 0.7.7
 

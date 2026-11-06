@@ -101,7 +101,9 @@ content_type <- R6Class(
     },
     remove_slide = function(partname) {
       id <- which(basename(names(private$override)) %in% basename(partname))
-      private$override <- private$override[-id]
+      if (length(id) > 0) {
+        private$override <- private$override[-id]
+      }
       self
     },
     add_ext = function(extension, type) {

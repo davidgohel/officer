@@ -165,3 +165,75 @@ test_that("replace notes on notesSlide", {
   expect_false(inherits(node_, "xml_missing"))
   expect_equal(xml_text(node_), "I am a new test!")
 })
+
+test_that("remove_slide() removes the notes of the slide", {
+  notes_text <- function(unpack_dir) {
+    files <- list.files(
+      file.path(unpack_dir, "ppt", "notesSlides"),
+      pattern = "\\.xml$",
+      full.names = TRUE
+    )
+    vapply(files, function(f) xml_text(read_xml(f)), character(1), USE.NAMES = FALSE)
+  }
+  # relationships of the package whose target does not exist
+  broken_rels <- function(unpack_dir) {
+    rel_files <- list.files(
+      unpack_dir,
+      pattern = "\\.rels$",
+      recursive = TRUE,
+      full.names = TRUE,
+      all.files = TRUE
+    )
+    unlist(lapply(rel_files, function(f) {
+      rels <- xml_children(read_xml(f))
+      rels <- rels[!xml_attr(rels, "TargetMode") %in% "External"]
+      targets <- xml_attr(rels, "Target")
+      paths <- ifelse(
+        startsWith(targets, "/"),
+        file.path(unpack_dir, targets),
+        file.path(dirname(dirname(f)), targets)
+      )
+      targets[!file.exists(paths)]
+    }))
+  }
+  save_and_unpack <- function(x) {
+    out <- print(x, target = tempfile(fileext = ".pptx"))
+    unpack_dir <- tempfile()
+    unpack_folder(out, unpack_dir)
+    list(path = out, dir = unpack_dir)
+  }
+  add_with_notes <- function(x, notes) {
+    x <- add_slide(x, "Title and Content", "Office Theme")
+    set_notes(x, notes, notes_location_type("body"))
+  }
+
+  x <- read_pptx()
+  x <- add_with_notes(x, "note one")
+  x <- add_with_notes(x, "note two")
+  x <- add_slide(x, "Title and Content", "Office Theme") # no notes
+  saved <- save_and_unpack(x)
+  expect_setequal(notes_text(saved$dir), c("note one", "note two"))
+
+  # the notes of the removed slide go, the others stay
+  removed <- save_and_unpack(remove_slide(read_pptx(saved$path), 1))
+  expect_equal(notes_text(removed$dir), "note two")
+  expect_length(broken_rels(removed$dir), 0L)
+  content_types <- read_xml(file.path(removed$dir, "[Content_Types].xml"))
+  parts <- xml_attr(xml_children(content_types), "PartName")
+  expect_equal(sum(grepl("notesSlides/", parts)), 1L)
+
+  # removing a slide without notes does not change the notes
+  no_notes <- save_and_unpack(remove_slide(read_pptx(saved$path), 3))
+  expect_setequal(notes_text(no_notes$dir), c("note one", "note two"))
+
+  # new notes can be added once others are removed
+  again <- remove_slide(read_pptx(saved$path), 1:2)
+  expect_length(again$notesSlide$names(), 0L)
+  again <- add_with_notes(again, "note three")
+  again <- add_with_notes(again, "note four")
+  again <- save_and_unpack(again)
+  expect_setequal(notes_text(again$dir), c("note three", "note four"))
+  expect_length(broken_rels(again$dir), 0L)
+  expect_length(read_pptx(again$path), 3L)
+})
+

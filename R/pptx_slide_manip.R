@@ -177,6 +177,7 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   # Remove slides from internal collections
   for (filename in slides_to_remove_df$filename) {
     slide_idx <- x$slide$slide_index(filename)
+    remove_slide_notes(x, filename)
     x$slide$remove_slide(slide_idx)
     x$presentation$remove_slide(filename)
     x$content_type$remove_slide(partname = filename)
@@ -185,6 +186,21 @@ remove_slide <- function(x, index = NULL, rm_images = FALSE) {
   # Set cursor to last slide
   x$cursor <- x$slide$length()
   x
+}
+
+
+# Notes belong to their slide, and refer to it: they are removed with it.
+remove_slide_notes <- function(x, filename) {
+  rels <- x$slide$collection_get(filename)$rel_df()
+  notes_files <- basename(rels$target[grepl("notesSlide$", rels$type)])
+  for (notes_file in notes_files) {
+    notes_idx <- x$notesSlide$slide_index(notes_file)
+    if (length(notes_idx) > 0) {
+      x$notesSlide$remove_slide(notes_idx)
+      x$content_type$remove_slide(partname = notes_file)
+    }
+  }
+  invisible(x)
 }
 
 
