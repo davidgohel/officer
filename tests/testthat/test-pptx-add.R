@@ -45,12 +45,21 @@ test_that("master is inferred", {
 })
 
 
-test_that("snapshot simple elements into placeholder", {
-  local_edition(3L)
-  announce_snapshot_file(name = "pptx-add-simple.png")
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  require(doconv)
+# text, level, color, bold and italic of the paragraphs of a slide
+slide_paragraphs <- function(doc, slide_idx = 1) {
+  xmldoc <- doc$slide$get_slide(id = slide_idx)$get()
+  pars <- xml_find_all(xmldoc, "//p:txBody/a:p")
+  first_run <- xml_find_first(pars, ".//a:rPr")
+  data.frame(
+    text = xml_text(pars),
+    level = xml_attr(xml_find_first(pars, "a:pPr"), "lvl"),
+    color = xml_attr(xml_find_first(first_run, "a:solidFill/a:srgbClr"), "val"),
+    bold = xml_attr(first_run, "b"),
+    italic = xml_attr(first_run, "i")
+  )
+}
+
+test_that("simple elements into placeholder", {
   doc <- read_pptx()
   doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
   doc <- ph_with(doc, c(1L, 2L), location = ph_location_left())
@@ -62,33 +71,34 @@ test_that("snapshot simple elements into placeholder", {
   doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
   doc <- ph_with(doc, c(pi, pi / 2), location = ph_location_left())
   doc <- ph_with(doc, c(TRUE, FALSE), location = ph_location_right())
-  expect_snapshot_doc(x = doc, name = "pptx-add-simple", engine = "testthat")
+
+  sm <- slide_summary(doc, index = 1)
+  sm <- sm[order(sm$offx), ]
+  expect_equal(sm$text, c("12", "rhhhvvvlllooo"))
+  sm <- slide_summary(doc, index = 2)
+  sm <- sm[order(sm$offx), ]
+  # format() pads TRUE to the width of FALSE
+  expect_equal(trimws(sm$text), c("3.1415931.570796", "TRUEFALSE"))
 })
 
 
-test_that("snapshot date into placeholder", {
-  local_edition(3L)
-  announce_snapshot_file(name = "pptx-add-date.png")
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  require(doconv)
-
+test_that("date formats in placeholder", {
+  old_opts <- options(officer.date_format = "%D")
+  on.exit(options(old_opts))
   my_date <- as.Date("2025-09-02")
 
   x <- read_pptx()
   x <- add_slide(x, layout = "Two Content", master = "Office Theme")
+  x <- ph_with(x, my_date, ph_location_type("body", type_idx = 1))
+  options(officer.date_format = NA) # NA should be okay as well
+  x <- ph_with(x, my_date, ph_location_type("body", type_idx = 2))
   x <- ph_with(x, my_date, ph_location_type("dt"))
   x <- ph_with(x, my_date, ph_location_type("ftr"), date_format = "%d.%m.%Y")
 
-  options(officer.date_format = "%D")
-  x <- ph_with(x, my_date, ph_location_type("body", type_idx = 1))
-
-  options(officer.date_format = NA) # NA should be okay as well
-  expect_no_error({
-    x <- ph_with(x, my_date, ph_location_type("body", type_idx = 2))
-  })
-
-  expect_snapshot_doc(x = x, name = "pptx-add-date", engine = "testthat")
+  sm <- slide_summary(x)
+  expect_equal(sm$text[sm$type == "body"], c("09/02/25", "2025-09-02"))
+  expect_equal(sm$text[sm$type == "dt"], "2025-09-02")
+  expect_equal(sm$text[sm$type == "ftr"], "02.09.2025")
 })
 
 test_that("add factor into placeholder", {
@@ -155,22 +165,15 @@ test_that("add plot_instr with custom dimensions", {
 })
 
 
-test_that("snapshot ggplot into placeholder", {
-  local_edition(3L)
-  announce_snapshot_file(name = "pptx-add-ggplot2.png")
-  skip_if_not_installed("doconv")
+test_that("ggplot into placeholder", {
   skip_if_not_installed("ggplot2")
-  skip_if_not(doconv::msoffice_available())
-  require(doconv)
-  require(ggplot2)
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content")
-  gg_plot <- ggplot(data = iris) +
-    geom_point(
-      mapping = aes(Sepal.Length, Petal.Length),
+  gg_plot <- ggplot2::ggplot(data = iris) +
+    ggplot2::geom_point(
+      mapping = ggplot2::aes(Sepal.Length, Petal.Length),
       size = 3
-    ) +
-    theme_minimal()
+    )
   doc <- ph_with(
     x = doc,
     value = gg_plot,
@@ -182,80 +185,59 @@ test_that("snapshot ggplot into placeholder", {
     value = "graphic title",
     location = ph_location_type(type = "title")
   )
-  expect_snapshot_doc(x = doc, name = "pptx-add-ggplot2", engine = "testthat")
+
+  xmldoc <- doc$slide$get_slide(id = 1)$get()
+  expect_length(xml_find_all(xmldoc, "//p:pic"), 1L)
+  sm <- slide_summary(doc)
+  body <- layout_properties(doc, "Title and Content", "Office Theme")
+  body <- body[body$type == "body", ]
+  expect_equal(sm$cx[sm$type == "body"], body$cx)
+  expect_equal(sm$cy[sm$type == "body"], body$cy)
+  expect_equal(sm$text[sm$type == "title"], "graphic title")
 })
 
 
-test_that("snapshot base plot into placeholder", {
-  local_edition(3L)
-  announce_snapshot_file(name = "pptx-add-barplot.png")
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  require(doconv)
-  anyplot <- plot_instr(code = {
-    barplot(1:5, col = 2:6)
-  })
+test_that("unordered_list levels and style in placeholder", {
+  strings <- c(
+    "List1",
+    "Item 1",
+    "Item 2",
+    "",
+    "List 2",
+    "Option A",
+    "Option B"
+  )
   doc <- read_pptx()
   doc <- add_slide(doc, "Title and Content")
   doc <- ph_with(
     doc,
-    anyplot,
-    location = ph_location_fullsize(),
-    bg = "#00000066",
-    pointsize = 12
+    unordered_list(level_list = c(0, 1, 1, 0, 0, 1, 1), str_list = strings),
+    location = ph_location_type()
   )
-  expect_snapshot_doc(x = doc, name = "pptx-add-barplot", engine = "testthat")
-})
-
-
-test_that("add unordered_list into placeholder", {
-  local_edition(3L)
-  announce_snapshot_file(name = "pptx-add-ul.png")
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  require(doconv)
-  ul1 <- unordered_list(
-    level_list = c(0, 1, 1, 0, 0, 1, 1),
-    str_list = c(
-      "List1",
-      "Item 1",
-      "Item 2",
-      "",
-      "List 2",
-      "Option A",
-      "Option B"
-    )
-  )
-
-  ul2 <- unordered_list(
-    level_list = c(0, 1, 2, 0, 0, 1, 2) + 1,
-    str_list = c(
-      "List1",
-      "Item 1",
-      "Item 2",
-      "",
-      "List 2",
-      "Option A",
-      "Option B"
+  doc <- add_slide(doc, "Title and Content")
+  doc <- ph_with(
+    doc,
+    unordered_list(
+      level_list = c(1, 2, 3, 1, 1, 2, 3),
+      str_list = strings,
+      style = fp_text_lite(color = "gray25")
     ),
-    style = fp_text_lite(color = "gray25")
+    location = ph_location_type()
   )
 
-  doc <- read_pptx()
-  doc <- add_slide(doc, "Title and Content")
-  doc <- ph_with(doc, ul1, location = ph_location_type())
-  doc <- add_slide(doc, "Title and Content")
-  doc <- ph_with(doc, ul2, location = ph_location_type())
-  expect_snapshot_doc(x = doc, name = "pptx-add-ul", engine = "testthat")
+  no_style <- slide_paragraphs(doc, slide_idx = 1)
+  expect_equal(no_style$text, strings)
+  expect_true(all(is.na(no_style$level)))
+  expect_true(all(is.na(no_style$color)))
+
+  styled <- slide_paragraphs(doc, slide_idx = 2)
+  expect_equal(styled$text, strings)
+  expect_equal(styled$level, c(NA, "1", "2", NA, NA, "1", "2"))
+  expect_equal(styled$color, rep("404040", length(strings)))
 })
 
 
 test_that("add block_list into placeholder", {
-  local_edition(3L)
-  announce_snapshot_file(name = "pptx-add-blocklist.png")
-  skip_if_not_installed("doconv")
-  skip_if_not(doconv::msoffice_available())
-  require(doconv)
   fpt_blue_bold <- fp_text_lite(color = "#006699", bold = TRUE)
   fpt_red_italic <- fp_text_lite(color = "#C32900", italic = TRUE)
   value <- block_list(
@@ -278,7 +260,24 @@ test_that("add block_list into placeholder", {
     location = ph_location_type(),
     level_list = c(1, 2, 3)
   )
-  expect_snapshot_doc(x = doc, name = "pptx-add-blocklist", engine = "testthat")
+
+  pars <- slide_paragraphs(doc)
+  expect_equal(pars$text, c("hello world", "hello world", "hello world"))
+  expect_equal(pars$level, c(NA, "1", "2"))
+
+  # all the runs of the second paragraph keep their own format
+  xmldoc <- doc$slide$get_slide(id = 1)$get()
+  runs <- xml_find_all(xmldoc, "//p:txBody/a:p[2]/a:r/a:rPr")
+  expect_equal(
+    xml_attr(xml_find_first(runs, "a:solidFill/a:srgbClr"), "val"),
+    c("006699", "C32900")
+  )
+  expect_equal(xml_attr(runs, "b"), c("1", NA))
+  expect_equal(xml_attr(runs, "i"), c(NA, "1"))
+
+  expect_equal(pars$color[c(1, 3)], c("006699", "C32900"))
+  expect_equal(pars$bold[c(1, 3)], c("1", NA))
+  expect_equal(pars$italic[c(1, 3)], c(NA, "1"))
 })
 
 

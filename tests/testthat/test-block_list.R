@@ -305,36 +305,71 @@ test_that("adding a list keeps the numbering definitions valid", {
   )
 })
 
-test_that("adding a list does not drop the numbering of heading styles", {
-  skip_if_not_installed("doconv")
-  skip_if_not_installed("pdftools")
-  skip_if_not(doconv::msoffice_available())
-
-  render_text <- function(doc) {
-    docx <- print(doc, target = tempfile(fileext = ".docx"))
-    pdf <- tempfile(fileext = ".pdf")
-    doconv::to_pdf(docx, pdf)
-    paste(pdftools::pdf_text(pdf), collapse = "\n")
-  }
-
-  with_list <- function(add_list) {
+test_that("adding a list does not change the numbering of heading styles", {
+  # numId of the heading style, and the styles of its list definition
+  heading_numbering <- function(add_list) {
     doc <- read_docx()
     doc <- body_add_par(doc, "Introduction", style = "heading 1")
     if (add_list) {
       doc <- body_add_list(doc, block_list_items(list_item(fpar("Alpha"))))
     }
     doc <- body_add_par(doc, "Methods", style = "heading 1")
-    render_text(doc)
+    out <- print(doc, target = tempfile(fileext = ".docx"))
+    unpack_dir <- tempfile()
+    unpack_folder(out, unpack_dir)
+
+    styles <- read_xml(file.path(unpack_dir, "word", "styles.xml"))
+    numbering <- read_xml(file.path(unpack_dir, "word", "numbering.xml"))
+    body <- read_xml(file.path(unpack_dir, "word", "document.xml"))
+    style <- xml_find_first(styles, "//w:style[w:name/@w:val='heading 1']")
+    num_id <- xml_attr(xml_find_first(style, ".//w:numId"), "val")
+    abstract_id <- function(id) {
+      xml_attr(
+        xml_find_first(
+          numbering,
+          sprintf("/w:numbering/w:num[@w:numId='%s']/w:abstractNumId", id)
+        ),
+        "val"
+      )
+    }
+    list(
+      style_id = xml_attr(style, "styleId"),
+      num_id = num_id,
+      abstract_id = abstract_id(num_id),
+      abstract_styles = xml_attr(
+        xml_find_all(
+          numbering,
+          sprintf(
+            "/w:numbering/w:abstractNum[@w:abstractNumId='%s']//w:pStyle",
+            abstract_id(num_id)
+          )
+        ),
+        "val"
+      ),
+      list_num_id = xml_attr(xml_find_all(body, "//w:numId"), "val"),
+      list_abstract_id = vapply(
+        xml_attr(xml_find_all(body, "//w:numId"), "val"),
+        abstract_id,
+        character(1),
+        USE.NAMES = FALSE
+      )
+    )
   }
 
-  # `heading 1` is numbered by the default template, with and without a list
-  reference <- with_list(FALSE)
-  expect_match(reference, "1\\.\\s+Introduction")
-  expect_match(reference, "2\\.\\s+Methods")
+  reference <- heading_numbering(FALSE)
+  expect_false(is.na(reference$num_id))
+  expect_true(reference$style_id %in% reference$abstract_styles)
 
-  listed <- with_list(TRUE)
-  expect_match(listed, "1\\.\\s+Introduction")
-  expect_match(listed, "2\\.\\s+Methods")
+  listed <- heading_numbering(TRUE)
+  expect_equal(listed$num_id, reference$num_id)
+  expect_equal(listed$abstract_id, reference$abstract_id)
+  expect_equal(listed$abstract_styles, reference$abstract_styles)
+
+  # the list has its own definition, the headings do not share it
+  expect_length(listed$list_num_id, 1L)
+  expect_false(listed$list_num_id == listed$num_id)
+  expect_false(is.na(listed$list_abstract_id))
+  expect_false(listed$list_abstract_id == listed$abstract_id)
 })
 
 test_that("new numbering definitions are inserted before w:numIdMacAtCleanup", {

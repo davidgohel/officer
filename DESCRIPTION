@@ -1,7 +1,7 @@
 Type: Package
 Package: officer
 Title: Manipulation of Microsoft Word and PowerPoint Documents
-Version: 0.7.8.001
+Version: 0.7.8.002
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "aut"),
@@ -60,12 +60,10 @@ Imports:
     zip (>= 2.1.0)
 Suggests: 
     devEMF,
-    doconv  (>= 0.3.0),
     gdtools,
     ggplot2,
     knitr,
     magick,
-    pdftools,
     rmarkdown,
     rsvg,
     mschart,
