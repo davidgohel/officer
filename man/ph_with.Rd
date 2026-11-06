@@ -163,6 +163,17 @@ on the current slide.
 current slide. This function is to be used to add custom openxml code.
 
 }}
+\section{Location and appearance}{
+
+\code{ph_location_type()}, \code{ph_location_label()}, \code{ph_location_left()},
+\code{ph_location_right()}, \code{ph_location_id()} and \code{ph_location_template()} link the
+new shape to a placeholder of the slide layout: its appearance, such as fonts,
+colors or bullets, comes from the template. To change it, modify the template.
+
+\code{ph_location()} creates a free shape, not linked to the slide layout: its
+appearance can be defined with arguments \code{bg}, \code{rotation}, \code{ln} and \code{geom}.
+}
+
 \section{Short forms}{
 
 The \code{location} argument of \code{ph_with()} either expects a location object as returned by the

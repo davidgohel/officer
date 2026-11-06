@@ -19,6 +19,15 @@
 #' adding a `ggplot` object or `plot_instr`, these arguments will be used
 #' by the png function.
 #'
+#' @section Location and appearance:
+#' `ph_location_type()`, `ph_location_label()`, `ph_location_left()`,
+#' `ph_location_right()`, `ph_location_id()` and `ph_location_template()` link the
+#' new shape to a placeholder of the slide layout: its appearance, such as fonts,
+#' colors or bullets, comes from the template. To change it, modify the template.
+#'
+#' `ph_location()` creates a free shape, not linked to the slide layout: its
+#' appearance can be defined with arguments `bg`, `rotation`, `ln` and `geom`.
+#'
 #' @section Short forms:
 #' The `location` argument of `ph_with()` either expects a location object as returned by the
 #' `ph_location_*` functions or a corresponding location *short form* (string or numeric):

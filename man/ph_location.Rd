@@ -36,6 +36,8 @@ in inches.}
 \description{
 The function will return a list that complies with
 expected format for argument \code{location} of function \code{\link[=ph_with]{ph_with()}}.
+The shape is not linked to a placeholder of the slide layout, so it does not
+inherit its appearance, see section \emph{Location and appearance} of \code{\link[=ph_with]{ph_with()}}.
 }
 \details{
 The location of the bounding box associated to a placeholder

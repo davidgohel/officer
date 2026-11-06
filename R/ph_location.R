@@ -206,6 +206,8 @@ fortify_location <- function(x, doc, ...) {
 #' @title Location for a placeholder from scratch
 #' @description The function will return a list that complies with
 #' expected format for argument `location` of function [ph_with()].
+#' The shape is not linked to a placeholder of the slide layout, so it does not
+#' inherit its appearance, see section *Location and appearance* of [ph_with()].
 #' @param left,top,width,height place holder coordinates
 #' in inches.
 #' @param newlabel a label for the placeholder. See section details.
