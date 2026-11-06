@@ -50,6 +50,17 @@ read_pptx <- function(path = NULL) {
     slide_master$new("ppt/slideMasters")
   )
 
+  layout_files <- list.files(
+    file.path(package_dir, "ppt/slideLayouts"),
+    pattern = "\\.xml$"
+  )
+  if (length(layout_files) < 1) {
+    cli::cli_abort(c(
+      "No slide layout found in {.file {path}}.",
+      "i" = "A presentation needs at least one layout to add slides."
+    ))
+  }
+
   obj$slideLayouts <- dir_layout$new(
     package_dir,
     master_metadata = obj$masterLayouts$get_metadata(),

@@ -32,6 +32,8 @@ own name instead of `index`, so that the values can be used directly with the
 and spaces.
 - `layout_properties()` now returns the name of the master when the master has
 no shapes. It was `NA` (#488).
+- `read_pptx()` now gives a clear error when the file has no slide layout, instead
+of an error about a `merge()` (#612).
 
 # officer 0.7.7
 

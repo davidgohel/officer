@@ -371,3 +371,10 @@ test_that("layout_properties() keeps each master apart when one has no shapes", 
     expect_equal(new_rows, ref_rows)
   }
 })
+
+test_that("read_pptx() explains that a file has no layout", {
+  expect_error(
+    read_pptx("docs_dir/test-no-layouts.pptx"),
+    "No slide layout found"
+  )
+})
