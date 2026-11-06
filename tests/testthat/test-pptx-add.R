@@ -77,8 +77,20 @@ test_that("simple elements into placeholder", {
   expect_equal(sm$text, c("12", "rhhhvvvlllooo"))
   sm <- slide_summary(doc, index = 2)
   sm <- sm[order(sm$offx), ]
-  # format() pads TRUE to the width of FALSE
-  expect_equal(trimws(sm$text), c("3.1415931.570796", "TRUEFALSE"))
+  expect_equal(sm$text, c("3.1415931.570796", "TRUEFALSE"))
+})
+
+
+test_that("logical values are not padded in placeholder", {
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content")
+  doc <- ph_with(doc, c(TRUE, FALSE, NA), location = ph_location_type())
+  expect_equal(slide_paragraphs(doc)$text, c("TRUE", "FALSE", "NA"))
+
+  # format_fun can still be chosen
+  doc <- add_slide(doc, "Title and Content")
+  doc <- ph_with(doc, c(TRUE, FALSE), location = ph_location_type(), format_fun = format)
+  expect_equal(slide_paragraphs(doc, slide_idx = 2)$text, c(" TRUE", "FALSE"))
 })
 
 

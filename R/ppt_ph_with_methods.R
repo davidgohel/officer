@@ -176,7 +176,9 @@ ph_with.factor <- function(x, value, location, ...) {
 }
 #' @export
 #' @rdname ph_with
-ph_with.logical <- ph_with.numeric
+ph_with.logical <- function(x, value, location, format_fun = as.character, ...) {
+  ph_with.numeric(x, value, location, format_fun = format_fun, ...)
+}
 
 
 #' @export

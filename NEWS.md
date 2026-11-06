@@ -8,6 +8,11 @@ header, without decoding the image.
 - `guess_size = TRUE` in `external_img()` and `floating_external_img()` uses it:
 it is much faster and 'magick' is no longer required for these formats.
 
+## Issues
+
+- `ph_with()` no longer pads logical values to the same width: `c(TRUE, FALSE)`
+was written with a space before `TRUE`.
+
 # officer 0.7.7
 
 ## Features
