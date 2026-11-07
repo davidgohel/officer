@@ -28,6 +28,25 @@
   the template with most `ph_location_*()` functions, from its arguments
   with
   [`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md).
+  It also explains that
+  [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
+  creates a new shape and does not fill an existing placeholder.
+- The help page
+  [`?officer`](https://davidgohel.github.io/officer/dev/reference/officer.md)
+  now points to the main functions for each format.
+- The documentation of
+  [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md)
+  no longer says that it will replace the `body_add_*()` functions: it
+  adds content at the end of the document, whatever the cursor.
+- [`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md),
+  [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md),
+  [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md),
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/dev/reference/sheet_write_data.md),
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md),
+  [`set_notes()`](https://davidgohel.github.io/officer/dev/reference/set_notes.md)
+  and the `ph_location*()` and `notes_location_*()` functions now warn
+  about arguments they do not use, such as `pos`, instead of ignoring
+  them silently.
 
 ### Issues
 
@@ -55,6 +74,11 @@
   now gives a clear error when the file has no slide layout, instead of
   an error about a [`merge()`](https://rdrr.io/r/base/merge.html)
   ([\#612](https://github.com/davidgohel/officer/issues/612)).
+- [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md)
+  now uses the default paragraph style for characters, numbers and
+  factors when `style` is not set. An empty style name was written.
+- [`ph_location_template()`](https://davidgohel.github.io/officer/dev/reference/ph_location_template.md)
+  now uses `newlabel`: the label of the new shape was always empty.
 
 ## officer 0.7.7
 

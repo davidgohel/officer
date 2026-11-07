@@ -63,11 +63,11 @@ ph_with.xml_document(x, value, location, ...)
 
 - location:
 
-  a placeholder location object or a location short form. It will be
-  used to specify the location of the new shape. This location can be
-  defined with a call to one of the `ph_location_*` functions (see
-  section `"see also"`). In `ph_with()`, several location short forms
-  can be used, as listed in section `"Short forms"`.
+  a location object or a location short form. It will be used to specify
+  the location of the new shape. This location can be defined with a
+  call to one of the `ph_location_*` functions (see section
+  `"see also"`). In `ph_with()`, several location short forms can be
+  used, as listed in section `"Short forms"`.
 
 - ...:
 
@@ -188,6 +188,21 @@ ph_with.xml_document(x, value, location, ...)
   the current slide. This function is to be used to add custom openxml
   code.
 
+## How it works
+
+Despite its name, `ph_with()` does not fill an existing placeholder. A
+new slide contains no shapes:
+[`add_slide()`](https://davidgohel.github.io/officer/dev/reference/add_slide.md)
+only sets its layout. Each call to `ph_with()` creates a new shape on
+the slide. The location decides where it goes: most `ph_location_*()`
+functions make it inherit the position and appearance of a placeholder
+of the layout, while
+[`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md)
+places it anywhere. Calling `ph_with()` twice with the same location
+therefore gives two overlapping shapes. Use
+[`ph_remove()`](https://davidgohel.github.io/officer/dev/reference/ph_remove.md)
+first to replace a shape.
+
 ## Location and appearance
 
 [`ph_location_type()`](https://davidgohel.github.io/officer/dev/reference/ph_location_type.md),
@@ -228,7 +243,7 @@ as returned by the `ph_location_*` functions or a corresponding location
 
 ## See also
 
-Specify placeholder locations with
+Specify locations with
 [ph_location_type](https://davidgohel.github.io/officer/dev/reference/ph_location_type.md),
 [ph_location](https://davidgohel.github.io/officer/dev/reference/ph_location.md),
 [ph_location_label](https://davidgohel.github.io/officer/dev/reference/ph_location_label.md),
@@ -237,7 +252,7 @@ Specify placeholder locations with
 [ph_location_fullsize](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md),
 [ph_location_template](https://davidgohel.github.io/officer/dev/reference/ph_location_template.md).
 [phs_with](https://davidgohel.github.io/officer/dev/reference/phs_with.md)
-is a sibling of `ph_with` that fills multiple placeholders at once. Use
+is a sibling of `ph_with` that adds several shapes at once. Use
 [add_slide](https://davidgohel.github.io/officer/dev/reference/add_slide.md)
 to add new slides.
 

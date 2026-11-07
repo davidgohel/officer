@@ -168,8 +168,8 @@ Get the content, styles, comments or dimensions of an existing document.
 
 ## PowerPoint presentations
 
-Create a presentation from a template, add slides and fill their
-placeholders.
+Create a presentation from a template, add slides and add content to
+them.
 
 ### Read and save
 
@@ -220,9 +220,9 @@ on the current slide.
   [`ph_with.xml_document()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   : Add objects on the current slide
 - [`phs_with()`](https://davidgohel.github.io/officer/dev/reference/phs_with.md)
-  : Fill multiple placeholders using key value syntax
+  : Add several shapes using key value syntax
 - [`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md)
-  : Location for a placeholder from scratch
+  : Location of a free shape
 - [`ph_location_fullsize()`](https://davidgohel.github.io/officer/dev/reference/ph_location_fullsize.md)
   : Location of a full size element
 - [`ph_location_id()`](https://davidgohel.github.io/officer/dev/reference/ph_location_id.md)
@@ -238,9 +238,9 @@ on the current slide.
 - [`ph_location_type()`](https://davidgohel.github.io/officer/dev/reference/ph_location_type.md)
   : Location of a placeholder based on a type
 - [`ph_slidelink()`](https://davidgohel.github.io/officer/dev/reference/ph_slidelink.md)
-  : Slide link to a placeholder
+  : Slide link to a shape
 - [`ph_hyperlink()`](https://davidgohel.github.io/officer/dev/reference/ph_hyperlink.md)
-  : Hyperlink a placeholder
+  : Hyperlink a shape
 - [`ph_remove()`](https://davidgohel.github.io/officer/dev/reference/ph_remove.md)
   : Remove a shape
 - [`empty_content()`](https://davidgohel.github.io/officer/dev/reference/empty_content.md)
@@ -383,7 +383,7 @@ footnotes and Word fields.
 
 A block is a paragraph-level element (paragraph, caption, table, list,
 section, pour, table of contents) that can be added to the body of a
-Word document or to a PowerPoint placeholder.
+Word document or to a PowerPoint slide.
 
 - [`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md)
   [`update(`*`<fpar>`*`)`](https://davidgohel.github.io/officer/dev/reference/fpar.md)
@@ -457,7 +457,8 @@ floating element.
 
 - [`officer-package`](https://davidgohel.github.io/officer/dev/reference/officer.md)
   [`officer`](https://davidgohel.github.io/officer/dev/reference/officer.md)
-  : Manipulate Microsoft Word and PowerPoint Documents with 'officer'
+  : Manipulate Microsoft Word, PowerPoint and Excel Documents with
+  'officer'
 - [`open_file()`](https://davidgohel.github.io/officer/dev/reference/open_file.md)
   : Opens a file locally
 - [`shortcuts`](https://davidgohel.github.io/officer/dev/reference/shortcuts.md)

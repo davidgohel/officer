@@ -1,4 +1,4 @@
-# Location for a placeholder from scratch
+# Location of a free shape
 
 The function will return a list that complies with expected format for
 argument `location` of function
