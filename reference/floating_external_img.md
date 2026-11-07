@@ -76,8 +76,10 @@ floating_external_img(
 
 - guess_size:
 
-  If package 'magick' is installed, this option can be used (set it to
-  `TRUE`). The images will be read and width and height will be guessed.
+  If `TRUE`, width and height are guessed from the image file (see
+  [`image_dims()`](https://davidgohel.github.io/officer/reference/image_dims.md)):
+  the size in pixels is read from the header of 'png', 'jpeg' and 'gif'
+  files, and package 'magick' is required for other formats.
 
 - alt:
 
@@ -144,5 +146,5 @@ print(x, target = tempfile(fileext = ".docx"))
 rtf_doc <- rtf_doc()
 rtf_doc <- rtf_add(rtf_doc, an_fpar)
 print(rtf_doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/Rtmpx8NvxU/file180b236933e8.rtf"
+#> [1] "/tmp/RtmpKQYyBd/file17a17e343cdc.rtf"
 ```

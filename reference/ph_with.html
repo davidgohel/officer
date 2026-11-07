@@ -11,7 +11,7 @@ section Methods (by class) to see supported outputs."><meta property="og:image" 
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@ section <strong>Methods (by class)</strong> to see supported outputs.</p>
 <span></span>
 <span><span class="fu">ph_with.factor</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ph_with.logical</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, format_fun <span class="op">=</span> <span class="va">format</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">ph_with.logical</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, format_fun <span class="op">=</span> <span class="va">as.character</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ph_with.Date</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, <span class="va">location</span>, date_format <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -102,7 +102,7 @@ package rvg, 'Microsoft' charts with package mschart.</p></dd>
 
 
 <dt id="arg-location">location<a class="anchor" aria-label="anchor" href="#arg-location"></a></dt>
-<dd><p>a placeholder location object or a location short form. It will be used
+<dd><p>a location object or a location short form. It will be used
 to specify the location of the new shape. This location can be defined with a call to one
 of the <code>ph_location_*</code> functions (see section <code>"see also"</code>). In <code>ph_with()</code>, several location
 short forms can be used, as listed in section <code>"Short forms"</code>.</p></dd>
@@ -202,6 +202,29 @@ on the current slide.</p></li>
 current slide. This function is to be used to add custom openxml code.</p></li>
 </ul></div>
     <div class="section level2">
+    <h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a></h2>
+
+
+<p>Despite its name, <code>ph_with()</code> does not fill an existing placeholder. A new
+slide contains no shapes: <code><a href="add_slide.html">add_slide()</a></code> only sets its layout. Each call to
+<code>ph_with()</code> creates a new shape on the slide. The location decides where it
+goes: most <code>ph_location_*()</code> functions make it inherit the position and
+appearance of a placeholder of the layout, while <code><a href="ph_location.html">ph_location()</a></code> places it
+anywhere. Calling <code>ph_with()</code> twice with the same location therefore gives two
+overlapping shapes. Use <code><a href="ph_remove.html">ph_remove()</a></code> first to replace a shape.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="location-and-appearance">Location and appearance<a class="anchor" aria-label="anchor" href="#location-and-appearance"></a></h2>
+
+
+<p><code><a href="ph_location_type.html">ph_location_type()</a></code>, <code><a href="ph_location_label.html">ph_location_label()</a></code>, <code><a href="ph_location_left.html">ph_location_left()</a></code>,
+<code><a href="ph_location_right.html">ph_location_right()</a></code>, <code><a href="ph_location_id.html">ph_location_id()</a></code> and <code><a href="ph_location_template.html">ph_location_template()</a></code> link the
+new shape to a placeholder of the slide layout: its appearance, such as fonts,
+colors or bullets, comes from the template. To change it, modify the template.</p>
+<p><code><a href="ph_location.html">ph_location()</a></code> creates a free shape, not linked to the slide layout: its
+appearance can be defined with arguments <code>bg</code>, <code>rotation</code>, <code>ln</code> and <code>geom</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="short-forms">Short forms<a class="anchor" aria-label="anchor" href="#short-forms"></a></h2>
 
 
@@ -216,10 +239,10 @@ current slide. This function is to be used to add custom openxml code.</p></li>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Specify placeholder locations with <a href="ph_location_type.html">ph_location_type</a>, <a href="ph_location.html">ph_location</a>,
+    <div class="dont-index"><p>Specify locations with <a href="ph_location_type.html">ph_location_type</a>, <a href="ph_location.html">ph_location</a>,
 <a href="ph_location_label.html">ph_location_label</a>, <a href="ph_location_left.html">ph_location_left</a>, <a href="ph_location_right.html">ph_location_right</a>,
 <a href="ph_location_fullsize.html">ph_location_fullsize</a>, <a href="ph_location_template.html">ph_location_template</a>. <a href="phs_with.html">phs_with</a> is a sibling of
-<code>ph_with</code> that fills multiple placeholders at once. Use <a href="add_slide.html">add_slide</a> to add new slides.</p></div>
+<code>ph_with</code> that adds several shapes at once. Use <a href="add_slide.html">add_slide</a> to add new slides.</p></div>
     </div>
 
     <div class="section level2">

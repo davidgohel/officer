@@ -1,6 +1,6 @@
-# Hyperlink a placeholder
+# Hyperlink a shape
 
-Add hyperlink to a placeholder in the current slide.
+Add hyperlink to a shape in the current slide.
 
 ## Usage
 
@@ -59,7 +59,7 @@ doc <- add_slide(doc, "Title and Content")
 doc <- ph_with(x = doc, "Un titre 1", location = loc_manual)
 slide_summary(doc) # read column ph_label here
 #>   type                                   id ph_label offx offy cx cy rotation
-#> 1 body 43afedae-cd10-43ef-9752-594aa6028511  mytitle    1    1  4  3       NA
+#> 1 body 1b71270f-f698-4d16-aa91-a20013baeeaa  mytitle    1    1  4  3       NA
 #>   fld_id fld_type       text
 #> 1   <NA>     <NA> Un titre 1
 doc <- ph_hyperlink(

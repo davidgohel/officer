@@ -37,8 +37,10 @@ external_img(
 
 - guess_size:
 
-  If package 'magick' is installed, this option can be used (set it to
-  `TRUE`). The images will be read and width and height will be guessed.
+  If `TRUE`, width and height are guessed from the image file (see
+  [`image_dims()`](https://davidgohel.github.io/officer/reference/image_dims.md)):
+  the size in pixels is read from the header of 'png', 'jpeg' and 'gif'
+  files, and package 'magick' is required for other formats.
 
 - alt:
 

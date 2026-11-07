@@ -1,11 +1,9 @@
 # Add content into a Word document
 
 This function adds objects into a Word document. Values are added as new
-paragraphs or tables.
-
-This function is experimental and will replace the `body_add_*`
-functions later. For now it is only to be used for successive additions
-and cannot be used in conjunction with the `body_add_*` functions.
+paragraphs or tables, at the end of the document, whatever the position
+of the cursor. To add content at the cursor, use the `body_add_*`
+functions.
 
 ## Usage
 
@@ -104,10 +102,10 @@ body_add(x, value, ...)
 - ...:
 
   further arguments passed to or from other methods. When adding a
-  `ggplot` object or
   [plot_instr](https://davidgohel.github.io/officer/reference/plot_instr.md),
-  these arguments will be used by png function. See method signatures to
-  see what arguments can be used.
+  these arguments are passed to the png function. Other methods warn
+  about arguments they do not use. See method signatures to see what
+  arguments can be used.
 
 - style:
 

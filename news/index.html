@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,48 @@
       <small>Source: <a href="https://github.com/davidgohel/officer/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.8" id="officer-078">officer 0.7.8<a class="anchor" aria-label="anchor" href="#officer-078"></a></h2>
+<div class="section level3">
+<h3 id="features-0-7-8">Features<a class="anchor" aria-label="anchor" href="#features-0-7-8"></a></h3>
+<ul><li>new function <code><a href="../reference/image_dims.html">image_dims()</a></code> returns the size in pixels of an image file or of a raster object. The size of ‘png’, ‘jpeg’ and ‘gif’ files is read from their header, without decoding the image.</li>
+<li>
+<code>guess_size = TRUE</code> in <code><a href="../reference/external_img.html">external_img()</a></code> and <code><a href="../reference/floating_external_img.html">floating_external_img()</a></code> uses it: it is much faster and ‘magick’ is no longer required for these formats.</li>
+<li>Option <code>officer_datetime</code> sets the “created” and “modified” properties written in documents, so that the same code produces the same document.</li>
+<li>
+<code><a href="../reference/set_doc_properties.html">set_doc_properties()</a></code> now works with Excel workbooks (<code>rxlsx</code> objects), including custom properties.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-7-8">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-8"></a></h3>
+<ul><li>
+<code><a href="../reference/rtf_add.html">rtf_add()</a></code>, <code><a href="../reference/body_add.html">body_add()</a></code>, <code><a href="../reference/ph_with.html">ph_with()</a></code>, <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code>, <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code>, <code><a href="../reference/set_notes.html">set_notes()</a></code> and the <code>ph_location*()</code> and <code>notes_location_*()</code> functions now warn about arguments they do not use instead of ignoring them silently, e.g. <code>rtf_add(doc, "text", pos = "before")</code>.</li>
+<li>Files written by officer no longer depend on the time zone, the locale or the time of writing, except for the “created” and “modified” properties: with option <code>officer_datetime</code>, the same code produces the same file.</li>
+<li>The “lastModifiedBy” property now comes from <code><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info()</a></code>, which works on all platforms, instead of the <code>USER</code> environment variable.</li>
+<li>Argument <code>rm_images</code> of <code><a href="../reference/remove_slide.html">remove_slide()</a></code> is deprecated: it has no effect and now gives a warning. Images no longer used are removed when the file is saved.</li>
+<li>Documentation: <code><a href="../reference/officer.html">?officer</a></code> now points to the main functions for each format; <code><a href="../reference/ph_with.html">?ph_with</a></code> explains that each call creates a new shape, whose appearance comes from the template (<code>ph_location_*()</code>) or from the arguments (<code><a href="../reference/ph_location.html">ph_location()</a></code>); <code><a href="../reference/body_add.html">?body_add</a></code> says that it always adds content at the end of the document, whatever the cursor.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-8">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-8"></a></h3>
+<ul><li>The “created” and “modified” properties of documents were the local time marked as UTC: they are now written in UTC, also by <code><a href="../reference/set_doc_properties.html">set_doc_properties()</a></code>.</li>
+<li>Documents created from the default templates now get the current time as “created” property, instead of the date of the template, and no “creator”: Excel workbooks had a wrong creator name. The templates no longer contain a last author, and the Excel template no longer contains a company name.</li>
+<li>
+<code><a href="../reference/ph_with.html">ph_with()</a></code> no longer pads logical values to the same width: <code>c(TRUE, FALSE)</code> was written with a space before <code>TRUE</code>.</li>
+<li>PowerPoint files no longer keep the images of removed slides: the cleaning done when saving a pptx never deleted anything, because of a wrong path (<a href="https://github.com/davidgohel/officer/issues/516" class="external-link">#516</a>).</li>
+<li>
+<code><a href="../reference/remove_slide.html">remove_slide()</a></code> now also removes the notes of the slide. They stayed in the file, with a link to a slide that no longer existed.</li>
+<li>The text that <code><a href="../reference/annotate_base.html">annotate_base()</a></code> writes in each placeholder now shows <code>type_idx</code> and <code>id</code> (previously labelled <code>index</code>), the values expected by <code><a href="../reference/ph_location_type.html">ph_location_type()</a></code> and <code><a href="../reference/ph_location_id.html">ph_location_id()</a></code>.</li>
+<li>After <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, <code><a href="../reference/slide_summary.html">slide_summary()</a></code> no longer returns the text of shapes surrounded by line breaks and spaces.</li>
+<li>
+<code><a href="../reference/layout_properties.html">layout_properties()</a></code> now returns the name of the master when the master has no shapes. It was <code>NA</code> (<a href="https://github.com/davidgohel/officer/issues/488" class="external-link">#488</a>).</li>
+<li>
+<code><a href="../reference/read_pptx.html">read_pptx()</a></code> now gives a clear error when the file has no slide layout, instead of an error about a <code><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge()</a></code> (<a href="https://github.com/davidgohel/officer/issues/612" class="external-link">#612</a>).</li>
+<li>
+<code><a href="../reference/body_add.html">body_add()</a></code> now uses the default paragraph style for character vectors, numbers and factors when <code>style</code> is not set. The paragraph had no valid style.</li>
+<li>In RTF documents, images that are not PNG files are now converted to PNG: they were declared as PNG but written in their original format.</li>
+<li>
+<code><a href="../reference/ph_location_template.html">ph_location_template()</a></code> now uses <code>newlabel</code>: the label of the new shape was always empty.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.7" id="officer-077">officer 0.7.7<a class="anchor" aria-label="anchor" href="#officer-077"></a></h2><p class="text-muted">CRAN release: 2026-10-14</p>
 <div class="section level3">

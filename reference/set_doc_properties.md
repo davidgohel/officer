@@ -1,7 +1,7 @@
 # Set document properties
 
-set Word or PowerPoint document properties. These are not visible in the
-document but are available as metadata of the document.
+set Word, PowerPoint or Excel document properties. These are not visible
+in the document but are available as metadata of the document.
 
 Any character property can be added as a document property. It provides
 an easy way to insert arbitrary fields. Given the challenges that can be
@@ -29,7 +29,7 @@ set_doc_properties(
 
 - x:
 
-  an rdocx or rpptx object
+  an rdocx, rpptx or rxlsx object
 
 - title, subject, creator, description:
 
@@ -37,7 +37,7 @@ set_doc_properties(
 
 - created:
 
-  a date object
+  a date-time object, written in UTC
 
 - hyperlink_base:
 
@@ -60,8 +60,23 @@ set_doc_properties(
 
 ## Note
 
-The "last modified" and "last modified by" fields will be automatically
-be updated when the file is written.
+The "modified" and "lastModifiedBy" properties are set when the document
+is written: the current time, in UTC, and the name of the user
+(`Sys.info()[["user"]]`). A document created from the default template,
+with
+[`read_docx()`](https://davidgohel.github.io/officer/reference/read_docx.md),
+[`read_pptx()`](https://davidgohel.github.io/officer/reference/read_pptx.md)
+or
+[`read_xlsx()`](https://davidgohel.github.io/officer/reference/read_xlsx.md)
+called without `path`, gets the current time as "created" property and
+no "creator".
+
+To write a fixed date in "created" and "modified", set option
+`officer_datetime` to a date-time:
+`options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))`. The
+same code then produces the same file, byte for byte, whatever the time
+zone or the locale, which makes it possible to compare files with a
+checksum.
 
 ## See also
 

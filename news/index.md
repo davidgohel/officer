@@ -1,5 +1,106 @@
 # Changelog
 
+## officer 0.7.8
+
+### Features
+
+- new function
+  [`image_dims()`](https://davidgohel.github.io/officer/reference/image_dims.md)
+  returns the size in pixels of an image file or of a raster object. The
+  size of ‘png’, ‘jpeg’ and ‘gif’ files is read from their header,
+  without decoding the image.
+- `guess_size = TRUE` in
+  [`external_img()`](https://davidgohel.github.io/officer/reference/external_img.md)
+  and
+  [`floating_external_img()`](https://davidgohel.github.io/officer/reference/floating_external_img.md)
+  uses it: it is much faster and ‘magick’ is no longer required for
+  these formats.
+- Option `officer_datetime` sets the “created” and “modified” properties
+  written in documents, so that the same code produces the same
+  document.
+- [`set_doc_properties()`](https://davidgohel.github.io/officer/reference/set_doc_properties.md)
+  now works with Excel workbooks (`rxlsx` objects), including custom
+  properties.
+
+### Changes
+
+- [`rtf_add()`](https://davidgohel.github.io/officer/reference/rtf_add.md),
+  [`body_add()`](https://davidgohel.github.io/officer/reference/body_add.md),
+  [`ph_with()`](https://davidgohel.github.io/officer/reference/ph_with.md),
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/reference/sheet_write_data.md),
+  [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md),
+  [`set_notes()`](https://davidgohel.github.io/officer/reference/set_notes.md)
+  and the `ph_location*()` and `notes_location_*()` functions now warn
+  about arguments they do not use instead of ignoring them silently,
+  e.g. `rtf_add(doc, "text", pos = "before")`.
+- Files written by officer no longer depend on the time zone, the locale
+  or the time of writing, except for the “created” and “modified”
+  properties: with option `officer_datetime`, the same code produces the
+  same file.
+- The “lastModifiedBy” property now comes from
+  [`Sys.info()`](https://rdrr.io/r/base/Sys.info.html), which works on
+  all platforms, instead of the `USER` environment variable.
+- Argument `rm_images` of
+  [`remove_slide()`](https://davidgohel.github.io/officer/reference/remove_slide.md)
+  is deprecated: it has no effect and now gives a warning. Images no
+  longer used are removed when the file is saved.
+- Documentation:
+  [`?officer`](https://davidgohel.github.io/officer/reference/officer.md)
+  now points to the main functions for each format;
+  [`?ph_with`](https://davidgohel.github.io/officer/reference/ph_with.md)
+  explains that each call creates a new shape, whose appearance comes
+  from the template (`ph_location_*()`) or from the arguments
+  ([`ph_location()`](https://davidgohel.github.io/officer/reference/ph_location.md));
+  [`?body_add`](https://davidgohel.github.io/officer/reference/body_add.md)
+  says that it always adds content at the end of the document, whatever
+  the cursor.
+
+### Issues
+
+- The “created” and “modified” properties of documents were the local
+  time marked as UTC: they are now written in UTC, also by
+  [`set_doc_properties()`](https://davidgohel.github.io/officer/reference/set_doc_properties.md).
+- Documents created from the default templates now get the current time
+  as “created” property, instead of the date of the template, and no
+  “creator”: Excel workbooks had a wrong creator name. The templates no
+  longer contain a last author, and the Excel template no longer
+  contains a company name.
+- [`ph_with()`](https://davidgohel.github.io/officer/reference/ph_with.md)
+  no longer pads logical values to the same width: `c(TRUE, FALSE)` was
+  written with a space before `TRUE`.
+- PowerPoint files no longer keep the images of removed slides: the
+  cleaning done when saving a pptx never deleted anything, because of a
+  wrong path
+  ([\#516](https://github.com/davidgohel/officer/issues/516)).
+- [`remove_slide()`](https://davidgohel.github.io/officer/reference/remove_slide.md)
+  now also removes the notes of the slide. They stayed in the file, with
+  a link to a slide that no longer existed.
+- The text that
+  [`annotate_base()`](https://davidgohel.github.io/officer/reference/annotate_base.md)
+  writes in each placeholder now shows `type_idx` and `id` (previously
+  labelled `index`), the values expected by
+  [`ph_location_type()`](https://davidgohel.github.io/officer/reference/ph_location_type.md)
+  and
+  [`ph_location_id()`](https://davidgohel.github.io/officer/reference/ph_location_id.md).
+- After [`print()`](https://rdrr.io/r/base/print.html),
+  [`slide_summary()`](https://davidgohel.github.io/officer/reference/slide_summary.md)
+  no longer returns the text of shapes surrounded by line breaks and
+  spaces.
+- [`layout_properties()`](https://davidgohel.github.io/officer/reference/layout_properties.md)
+  now returns the name of the master when the master has no shapes. It
+  was `NA` ([\#488](https://github.com/davidgohel/officer/issues/488)).
+- [`read_pptx()`](https://davidgohel.github.io/officer/reference/read_pptx.md)
+  now gives a clear error when the file has no slide layout, instead of
+  an error about a [`merge()`](https://rdrr.io/r/base/merge.html)
+  ([\#612](https://github.com/davidgohel/officer/issues/612)).
+- [`body_add()`](https://davidgohel.github.io/officer/reference/body_add.md)
+  now uses the default paragraph style for character vectors, numbers
+  and factors when `style` is not set. The paragraph had no valid style.
+- In RTF documents, images that are not PNG files are now converted to
+  PNG: they were declared as PNG but written in their original format.
+- [`ph_location_template()`](https://davidgohel.github.io/officer/reference/ph_location_template.md)
+  now uses `newlabel`: the label of the new shape was always empty.
+
 ## officer 0.7.7
 
 CRAN release: 2026-10-14

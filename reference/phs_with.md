@@ -1,15 +1,15 @@
-# Fill multiple placeholders using key value syntax
+# Add several shapes using key value syntax
 
 A sibling of
 [ph_with](https://davidgohel.github.io/officer/reference/ph_with.md)
-that fills mutiple placeholders at once. Placeholder locations are
-specfied using the short form syntax. The location and corresponding
-object are passed as key value pairs
-(`phs_with("short form location" = object)`). Under the hood,
+that adds several shapes at once. Locations are specified using the
+short form syntax. The location and corresponding object are passed as
+key value pairs (`phs_with("short form location" = object)`). Under the
+hood,
 [ph_with](https://davidgohel.github.io/officer/reference/ph_with.md) is
 called for each pair. Note that `phs_with` does not cover all options
-from the `ph_location_*` family and is also less customization. It is a
-covenience wrapper for the most common use cases. The implemented short
+from the `ph_location_*` family and offers less customization. It is a
+convenience wrapper for the most common use cases. The implemented short
 forms are listed in section `"Short forms"`.
 
 ## Usage

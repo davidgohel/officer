@@ -1,6 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://davidgohel.github.io/officer/404.html</loc></url>
-<url><loc>https://davidgohel.github.io/officer/CONDUCT.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/CONTRIBUTING.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/LICENSE-text.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/LICENSE.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/authors.html</loc></url>
@@ -81,6 +81,7 @@
 <url><loc>https://davidgohel.github.io/officer/reference/get_layout.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/get_reference_value.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/hyperlink_ftext.html</loc></url>
+<url><loc>https://davidgohel.github.io/officer/reference/image_dims.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/image_to_base64.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/index.html</loc></url>
 <url><loc>https://davidgohel.github.io/officer/reference/layout_dedupe_ph_labels.html</loc></url>
