@@ -335,3 +335,24 @@ test_that("[Content_Types].xml is the first entry, whatever the locale", {
   print(read_docx(), target = path)
   expect_equal(zip::zip_list(path)$filename[1], "[Content_Types].xml")
 })
+
+test_that("zip entries do not depend on the dates of the files", {
+  dir <- unpack_folder(
+    system.file(package = "officer", "template/template.docx"),
+    tempfile()
+  )
+  files <- list.files(dir, recursive = TRUE, all.files = TRUE, full.names = TRUE)
+  zip_with_file_date <- function(date) {
+    Sys.setFileTime(files, as.POSIXct(date, tz = "UTC"))
+    path <- pack_folder(dir, tempfile(fileext = ".docx"))
+    officer:::fix_zip_dates(path)
+    path
+  }
+  a <- zip_with_file_date("2001-05-05 13:13:13")
+  b <- zip_with_file_date("2025-11-30 23:59:59")
+  expect_equal(unname(tools::md5sum(a)), unname(tools::md5sum(b)))
+  # time and date of the first local header: 00:00, 1980-01-01
+  first_bytes <- readBin(a, what = "raw", n = 14)
+  expect_equal(first_bytes[11:14], as.raw(c(0x00, 0x00, 0x21, 0x00)))
+  expect_equal(nrow(zip::zip_list(a)), length(files))
+})

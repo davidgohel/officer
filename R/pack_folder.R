@@ -60,14 +60,58 @@ pack_folder <- function(folder, target) {
   target
 }
 
-# Give all files of a folder the same date before they are zipped, the one
-# Office writes: the date stored in a zip file is the local time, so that
-# files written at another time or in another time zone would differ.
-reset_file_times <- function(folder) {
-  files <- list.files(path = folder, recursive = TRUE, all.files = TRUE,
-                      full.names = TRUE)
-  Sys.setFileTime(files, as.POSIXct("1980-01-01 00:00:00"))
-  invisible(folder)
+# Write the same date in all entries of a zip file, the one Office writes:
+# 1980-01-01 00:00. The date that zip stores is the date of the file converted
+# to local time by the C library, which does not follow the time zone of R on
+# Windows, so files written at another time or in another time zone differ.
+# The date and time fields are rewritten in the central directory and in the
+# local header of each entry. Zip64 archives (more than 4 GB or 65535 entries)
+# are left as they are.
+fix_zip_dates <- function(path) {
+  size <- file.size(path)
+  bytes <- readBin(path, what = "raw", n = size)
+
+  u16 <- function(i) as.integer(bytes[i]) + 256L * as.integer(bytes[i + 1L])
+  u32 <- function(i) sum(as.numeric(bytes[i:(i + 3L)]) * 256^(0:3))
+  is_sig <- function(i, sig) identical(bytes[i:(i + 3L)], as.raw(sig))
+
+  # the end of central directory record is in the last 65557 bytes
+  eocd <- NA_integer_
+  for (i in seq.int(size - 21L, max(1L, size - 65556L))) {
+    if (is_sig(i, c(0x50, 0x4b, 0x05, 0x06))) {
+      eocd <- i
+      break
+    }
+  }
+  if (is.na(eocd)) {
+    return(invisible(path))
+  }
+  n_entries <- u16(eocd + 10L)
+  cd_offset <- u32(eocd + 16L)
+  if (n_entries == 0xFFFF || cd_offset == 0xFFFFFFFF) {
+    return(invisible(path))
+  }
+
+  dos_time <- as.raw(c(0x00, 0x00))
+  dos_date <- as.raw(c(0x21, 0x00)) # 1980-01-01
+  pos <- cd_offset + 1
+  for (k in seq_len(n_entries)) {
+    if (!is_sig(pos, c(0x50, 0x4b, 0x01, 0x02))) {
+      cli::cli_abort("Unexpected structure in zip file {.file {path}}.")
+    }
+    bytes[pos + 12:13] <- dos_time
+    bytes[pos + 14:15] <- dos_date
+    local <- u32(pos + 42L) + 1
+    if (!is_sig(local, c(0x50, 0x4b, 0x03, 0x04))) {
+      cli::cli_abort("Unexpected structure in zip file {.file {path}}.")
+    }
+    bytes[local + 10:11] <- dos_time
+    bytes[local + 12:13] <- dos_date
+    pos <- pos + 46 + u16(pos + 28L) + u16(pos + 30L) + u16(pos + 32L)
+  }
+
+  writeBin(bytes, path)
+  invisible(path)
 }
 
 #' @export

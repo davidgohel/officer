@@ -2087,6 +2087,7 @@ print.rxlsx <- function(x, target = NULL, ...) {
   }
   x$rel$write(file.path(x$package_dir, "_rels", ".rels"))
 
-  reset_file_times(x$package_dir)
-  invisible(pack_folder(folder = x$package_dir, target = target))
+  target <- pack_folder(folder = x$package_dir, target = target)
+  fix_zip_dates(target)
+  invisible(target)
 }
