@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.017</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.018</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,7 @@
 <h3 id="changes-0-7-8">Changes<a class="anchor" aria-label="anchor" href="#changes-0-7-8"></a></h3>
 <ul><li>
 <code><a href="../reference/rtf_add.html">rtf_add()</a></code>, <code><a href="../reference/body_add.html">body_add()</a></code>, <code><a href="../reference/ph_with.html">ph_with()</a></code>, <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code>, <code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code>, <code><a href="../reference/set_notes.html">set_notes()</a></code> and the <code>ph_location*()</code> and <code>notes_location_*()</code> functions now warn about arguments they do not use instead of ignoring them silently, e.g. <code>rtf_add(doc, "text", pos = "before")</code>.</li>
+<li>Files written by officer no longer depend on the time zone, the locale or the time of writing, except for the “created” and “modified” properties: with option <code>officer_datetime</code>, the same code produces the same file.</li>
 <li>The “lastModifiedBy” property now comes from <code><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info()</a></code>, which works on all platforms, instead of the <code>USER</code> environment variable.</li>
 <li>Argument <code>rm_images</code> of <code><a href="../reference/remove_slide.html">remove_slide()</a></code> is deprecated: it has no effect and now gives a warning. Images no longer used are removed when the file is saved.</li>
 <li>Documentation: <code><a href="../reference/officer.html">?officer</a></code> now points to the main functions for each format; <code><a href="../reference/ph_with.html">?ph_with</a></code> explains that each call creates a new shape, whose appearance comes from the template (<code>ph_location_*()</code>) or from the arguments (<code><a href="../reference/ph_location.html">ph_location()</a></code>); <code><a href="../reference/body_add.html">?body_add</a></code> says that it always adds content at the end of the document, whatever the cursor.</li>

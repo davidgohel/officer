@@ -19,7 +19,7 @@ approach to automatic document generation from R."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.017</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.018</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,9 +110,11 @@ written: the current time, in UTC, and the name of the user
 (<code>Sys.info()[["user"]]</code>). A document created from the default template, with
 <code><a href="read_docx.html">read_docx()</a></code>, <code><a href="read_pptx.html">read_pptx()</a></code> or <code><a href="read_xlsx.html">read_xlsx()</a></code> called without <code>path</code>, gets the
 current time as "created" property and no "creator".</p>
-<p>To write a fixed date in "created" and "modified", for example to compare the
-files produced by the same code, set option <code>officer_datetime</code> to a
-date-time: <code>options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))</code>.</p>
+<p>To write a fixed date in "created" and "modified", set option
+<code>officer_datetime</code> to a date-time:
+<code>options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))</code>. The
+same code then produces the same file, byte for byte, whatever the time
+zone or the locale, which makes it possible to compare files with a checksum.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

@@ -33,6 +33,10 @@
   and the `ph_location*()` and `notes_location_*()` functions now warn
   about arguments they do not use instead of ignoring them silently,
   e.g. `rtf_add(doc, "text", pos = "before")`.
+- Files written by officer no longer depend on the time zone, the locale
+  or the time of writing, except for the “created” and “modified”
+  properties: with option `officer_datetime`, the same code produces the
+  same file.
 - The “lastModifiedBy” property now comes from
   [`Sys.info()`](https://rdrr.io/r/base/Sys.info.html), which works on
   all platforms, instead of the `USER` environment variable.

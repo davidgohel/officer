@@ -71,10 +71,12 @@ or
 called without `path`, gets the current time as "created" property and
 no "creator".
 
-To write a fixed date in "created" and "modified", for example to
-compare the files produced by the same code, set option
+To write a fixed date in "created" and "modified", set option
 `officer_datetime` to a date-time:
-`options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))`.
+`options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))`. The
+same code then produces the same file, byte for byte, whatever the time
+zone or the locale, which makes it possible to compare files with a
+checksum.
 
 ## See also
 
