@@ -10,41 +10,37 @@ it is much faster and 'magick' is no longer required for these formats.
 
 ## Changes
 
-- Argument `rm_images` of `remove_slide()` is deprecated: it has no effect and
-now gives a warning. Images no longer used are removed when the file is saved.
-- The documentation of `ph_with()` now explains how the location defines the
-appearance of a shape: from the template with most `ph_location_*()` functions,
-from its arguments with `ph_location()`. It also explains that `ph_with()` creates
-a new shape and does not fill an existing placeholder.
-- The help page `?officer` now points to the main functions for each format.
-- The documentation of `body_add()` no longer says that it will replace the
-`body_add_*()` functions: it adds content at the end of the document, whatever the
-cursor.
 - `rtf_add()`, `body_add()`, `ph_with()`, `sheet_write_data()`,
 `sheet_add_drawing()`, `set_notes()` and the `ph_location*()` and
-`notes_location_*()` functions now warn about arguments they do not use, such as
-`pos`, instead of ignoring them silently.
+`notes_location_*()` functions now warn about arguments they do not use instead
+of ignoring them silently, e.g. `rtf_add(doc, "text", pos = "before")`.
+- Argument `rm_images` of `remove_slide()` is deprecated: it has no effect and
+now gives a warning. Images no longer used are removed when the file is saved.
+- Documentation: `?officer` now points to the main functions for each format;
+`?ph_with` explains that each call creates a new shape, whose appearance comes
+from the template (`ph_location_*()`) or from the arguments (`ph_location()`);
+`?body_add` says that it always adds content at the end of the document, whatever
+the cursor.
 
 ## Issues
 
 - `ph_with()` no longer pads logical values to the same width: `c(TRUE, FALSE)`
 was written with a space before `TRUE`.
 - PowerPoint files no longer keep the images of removed slides: the cleaning done
-when saving a pptx never deleted anything, because of a wrong path.
+when saving a pptx never deleted anything, because of a wrong path (#516).
 - `remove_slide()` now also removes the notes of the slide. They stayed in the
 file, with a link to a slide that no longer existed.
-- `annotate_base()` now writes `type_idx` in each placeholder, and `id` under its
-own name instead of `index`, so that the values can be used directly with the
-`ph_location_*()` functions.
-- Saving a document no longer adds blanks to its content in memory: after
-`print()`, `slide_summary()` returned the text of shapes surrounded by line breaks
-and spaces.
+- The text that `annotate_base()` writes in each placeholder now shows `type_idx`
+and `id` (previously labelled `index`), the values expected by
+`ph_location_type()` and `ph_location_id()`.
+- After `print()`, `slide_summary()` no longer returns the text of shapes
+surrounded by line breaks and spaces.
 - `layout_properties()` now returns the name of the master when the master has
 no shapes. It was `NA` (#488).
 - `read_pptx()` now gives a clear error when the file has no slide layout, instead
 of an error about a `merge()` (#612).
-- `body_add()` now uses the default paragraph style for characters, numbers and
-factors when `style` is not set. An empty style name was written.
+- `body_add()` now uses the default paragraph style for character vectors,
+numbers and factors when `style` is not set. The paragraph had no valid style.
 - `ph_location_template()` now uses `newlabel`: the label of the new shape was
 always empty.
 
