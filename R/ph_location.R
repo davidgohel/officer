@@ -203,7 +203,7 @@ fortify_location <- function(x, doc, ...) {
 # main ----
 
 #' @export
-#' @title Location for a placeholder from scratch
+#' @title Location of a free shape
 #' @description The function will return a list that complies with
 #' expected format for argument `location` of function [ph_with()].
 #' The shape is not linked to a placeholder of the slide layout, so it does not

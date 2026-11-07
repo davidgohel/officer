@@ -107,8 +107,8 @@ ph_remove <- function(
 
 
 #' @export
-#' @title Slide link to a placeholder
-#' @description Add slide link to a placeholder in the current slide.
+#' @title Slide link to a shape
+#' @description Add slide link to a shape in the current slide.
 #' @inheritParams ph_remove
 #' @param slide_index slide index to reach
 #' @examples
@@ -158,8 +158,8 @@ ph_slidelink <- function(
 
 
 #' @export
-#' @title Hyperlink a placeholder
-#' @description Add hyperlink to a placeholder in the current slide.
+#' @title Hyperlink a shape
+#' @description Add hyperlink to a shape in the current slide.
 #' @inheritParams ph_remove
 #' @param href hyperlink (do not forget http or https prefix)
 #' @examples

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_with_methods.R
 \name{phs_with}
 \alias{phs_with}
-\title{Fill multiple placeholders using key value syntax}
+\title{Add several shapes using key value syntax}
 \usage{
 phs_with(x, ..., .dots = NULL, .slide_idx = NULL)
 }
@@ -18,11 +18,11 @@ with blanks, you must wrap it in quotes or backticks.}
 keyword \code{all} for all slides.}
 }
 \description{
-A sibling of \link{ph_with} that fills mutiple placeholders at once. Placeholder locations are
-specfied using the short form syntax. The location and corresponding object are passed as key value pairs
+A sibling of \link{ph_with} that adds several shapes at once. Locations are
+specified using the short form syntax. The location and corresponding object are passed as key value pairs
 (\code{phs_with("short form location" = object)}). Under the hood, \link{ph_with} is called for each pair. Note
-that \code{phs_with} does not cover all options from the \verb{ph_location_*} family and is also less customization. It is a
-covenience wrapper for the most common use cases. The implemented short forms are listed in section
+that \code{phs_with} does not cover all options from the \verb{ph_location_*} family and offers less customization. It is a
+convenience wrapper for the most common use cases. The implemented short forms are listed in section
 \code{"Short forms"}.
 }
 \section{Short forms}{

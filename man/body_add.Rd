@@ -118,11 +118,8 @@ arguments are expressed: "in", "cm" or "mm".}
 }
 \description{
 This function adds objects into a Word document. Values are added
-as new paragraphs or tables.
-
-This function is experimental and will replace the \verb{body_add_*} functions
-later. For now it is only to be used for successive additions and cannot
-be used in conjunction with the \verb{body_add_*} functions.
+as new paragraphs or tables, at the end of the document, whatever the position
+of the cursor. To add content at the cursor, use the \verb{body_add_*} functions.
 }
 \section{Methods (by class)}{
 \itemize{

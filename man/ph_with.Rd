@@ -68,7 +68,7 @@ unordered list of formatted paragraphs,
 pretty tables with package flextable, editable graphics with
 package rvg, 'Microsoft' charts with package mschart.}
 
-\item{location}{a placeholder location object or a location short form. It will be used
+\item{location}{a location object or a location short form. It will be used
 to specify the location of the new shape. This location can be defined with a call to one
 of the \verb{ph_location_*} functions (see section \code{"see also"}). In \code{ph_with()}, several location
 short forms can be used, as listed in section \code{"Short forms"}.}
@@ -163,6 +163,17 @@ on the current slide.
 current slide. This function is to be used to add custom openxml code.
 
 }}
+\section{How it works}{
+
+Despite its name, \code{ph_with()} does not fill an existing placeholder. A new
+slide contains no shapes: \code{\link[=add_slide]{add_slide()}} only sets its layout. Each call to
+\code{ph_with()} creates a new shape on the slide. The location decides where it
+goes: most \verb{ph_location_*()} functions make it inherit the position and
+appearance of a placeholder of the layout, while \code{\link[=ph_location]{ph_location()}} places it
+anywhere. Calling \code{ph_with()} twice with the same location therefore gives two
+overlapping shapes. Use \code{\link[=ph_remove]{ph_remove()}} first to replace a shape.
+}
+
 \section{Location and appearance}{
 
 \code{ph_location_type()}, \code{ph_location_label()}, \code{ph_location_left()},
@@ -380,8 +391,8 @@ x <- ph_with(x, "More content", c(5, .5, 5, 2)) # numeric vector (left, top, wid
 # }
 }
 \seealso{
-Specify placeholder locations with \link{ph_location_type}, \link{ph_location},
+Specify locations with \link{ph_location_type}, \link{ph_location},
 \link{ph_location_label}, \link{ph_location_left}, \link{ph_location_right},
 \link{ph_location_fullsize}, \link{ph_location_template}. \link{phs_with} is a sibling of
-\code{ph_with} that fills multiple placeholders at once. Use \link{add_slide} to add new slides.
+\code{ph_with} that adds several shapes at once. Use \link{add_slide} to add new slides.
 }

@@ -14,7 +14,12 @@ it is much faster and 'magick' is no longer required for these formats.
 now gives a warning. Images no longer used are removed when the file is saved.
 - The documentation of `ph_with()` now explains how the location defines the
 appearance of a shape: from the template with most `ph_location_*()` functions,
-from its arguments with `ph_location()`.
+from its arguments with `ph_location()`. It also explains that `ph_with()` creates
+a new shape and does not fill an existing placeholder.
+- The help page `?officer` now points to the main functions for each format.
+- The documentation of `body_add()` no longer says that it will replace the
+`body_add_*()` functions: it adds content at the end of the document, whatever the
+cursor.
 
 ## Issues
 

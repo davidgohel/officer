@@ -103,7 +103,7 @@ reference:
     - length.rdocx
 
   - title: PowerPoint presentations
-    desc: Create a presentation from a template, add slides and fill their placeholders.
+    desc: Create a presentation from a template, add slides and add content to them.
   - subtitle: Read and save
     contents:
     - read_pptx
@@ -176,7 +176,7 @@ reference:
     - starts_with("run_")
     - set_autonum_bookmark
   - subtitle: Blocks
-    desc: A block is a paragraph-level element (paragraph, caption, table, list, section, pour, table of contents) that can be added to the body of a Word document or to a PowerPoint placeholder.
+    desc: A block is a paragraph-level element (paragraph, caption, table, list, section, pour, table of contents) that can be added to the body of a Word document or to a PowerPoint slide.
     contents:
     - fpar
     - starts_with("block_")

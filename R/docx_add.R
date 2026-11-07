@@ -944,11 +944,8 @@ body_comment <- function(
 #' @export
 #' @title Add content into a Word document
 #' @description This function adds objects into a Word document. Values are added
-#' as new paragraphs or tables.
-#'
-#' This function is experimental and will replace the `body_add_*` functions
-#' later. For now it is only to be used for successive additions and cannot
-#' be used in conjunction with the `body_add_*` functions.
+#' as new paragraphs or tables, at the end of the document, whatever the position
+#' of the cursor. To add content at the cursor, use the `body_add_*` functions.
 #' @param x an rdocx object
 #' @param value object to add in the document. Supported objects
 #' are vectors, data.frame, graphics, block of formatted paragraphs,

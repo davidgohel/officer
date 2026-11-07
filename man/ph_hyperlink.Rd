@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_manipulate.R
 \name{ph_hyperlink}
 \alias{ph_hyperlink}
-\title{Hyperlink a placeholder}
+\title{Hyperlink a shape}
 \usage{
 ph_hyperlink(x, type = "body", id = 1, id_chr = NULL, ph_label = NULL, href)
 }
@@ -25,7 +25,7 @@ If used, \code{type} and \code{id} are ignored.}
 \item{href}{hyperlink (do not forget http or https prefix)}
 }
 \description{
-Add hyperlink to a placeholder in the current slide.
+Add hyperlink to a shape in the current slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")

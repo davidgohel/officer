@@ -4,11 +4,11 @@
 \name{officer}
 \alias{officer-package}
 \alias{officer}
-\title{Manipulate Microsoft Word and PowerPoint Documents with 'officer'}
+\title{Manipulate Microsoft Word, PowerPoint and Excel Documents with 'officer'}
 \description{
 The officer package facilitates access to and manipulation of
-'Microsoft Word' and 'Microsoft PowerPoint' documents from R.
-It also supports the writing of 'RTF' documents.
+'Microsoft Word', 'Microsoft PowerPoint' and 'Microsoft Excel' documents
+from R. It also supports the writing of 'RTF' documents.
 
 Examples of usage are:
 \itemize{
@@ -19,21 +19,67 @@ Examples of usage are:
 \item Production of reports from a shiny application
 }
 
-To start with officer, read about \code{\link[=read_docx]{read_docx()}}, \code{\link[=read_pptx]{read_pptx()}}
-or \code{\link[=rtf_doc]{rtf_doc()}}.
+To start with officer, read about \code{\link[=read_docx]{read_docx()}}, \code{\link[=read_pptx]{read_pptx()}},
+\code{\link[=read_xlsx]{read_xlsx()}} or \code{\link[=rtf_doc]{rtf_doc()}}.
 
-The package is also providing several objects that can be printed
+The package also provides several objects that can be printed
 in 'R Markdown' documents for advanced Word or PowerPoint
 reporting as \code{\link[=run_autonum]{run_autonum()}} and \code{\link[=block_caption]{block_caption()}}.
 }
-\section{Get Word content in a data.frame}{
+\section{Word documents}{
 
 
-While officer allows you to generate Word and PowerPoint documents,
-an important feature is also the ability to read the content of existing
-Word documents. Use \code{\link[=docx_summary]{docx_summary()}} to extract document content as a
-structured data.frame, making it easy to analyze and process Word files
-programmatically.
+Start with \code{\link[=read_docx]{read_docx()}} and save with \code{\link[=print.rdocx]{print.rdocx()}}.
+
+Content is added with one function per kind of content, such as
+\code{\link[=body_add_par]{body_add_par()}}, \code{\link[=body_add_fpar]{body_add_fpar()}}, \code{\link[=body_add_table]{body_add_table()}}, \code{\link[=body_add_gg]{body_add_gg()}}
+and \code{\link[=body_add_toc]{body_add_toc()}}. They add it at the cursor, which is moved with
+\code{\link[=cursor_begin]{cursor_begin()}}, \code{\link[=cursor_reach]{cursor_reach()}} and similar functions. For large documents,
+see \code{\link[=body_append_start_context]{body_append_start_context()}}.
+
+Sections are defined with \code{\link[=block_section]{block_section()}} and \code{\link[=body_end_block_section]{body_end_block_section()}}.
+Use \code{\link[=docx_summary]{docx_summary()}} to read the content of an existing document as a
+data.frame.
+}
+
+\section{PowerPoint presentations}{
+
+
+Start with \code{\link[=read_pptx]{read_pptx()}} and save with \code{\link[=print.rpptx]{print.rpptx()}}. Add slides with
+\code{\link[=add_slide]{add_slide()}}, then content with \code{\link[=ph_with]{ph_with()}}. \code{\link[=layout_summary]{layout_summary()}} and
+\code{\link[=plot_layout_properties]{plot_layout_properties()}} show what a template provides.
+
+A new slide contains no shapes, and each call to \code{ph_with()} creates a new
+one. Despite the \code{ph_} prefix, which stands for placeholder, it does not fill
+an existing placeholder or replace what is already there. See section
+\emph{How it works} of \code{\link[=ph_with]{ph_with()}}.
+
+Use \code{\link[=pptx_summary]{pptx_summary()}} to read the content of an existing presentation as a
+data.frame.
+}
+
+\section{Excel workbooks}{
+
+
+Start with \code{\link[=read_xlsx]{read_xlsx()}} and save with \code{\link[=print.rxlsx]{print.rxlsx()}}. Add sheets with
+\code{\link[=add_sheet]{add_sheet()}}, then content with \code{\link[=sheet_write_data]{sheet_write_data()}} and
+\code{\link[=sheet_add_drawing]{sheet_add_drawing()}}.
+}
+
+\section{RTF documents}{
+
+
+Start with \code{\link[=rtf_doc]{rtf_doc()}} and save with \code{\link[=print.rtf]{print.rtf()}}. Add content with
+\code{\link[=rtf_add]{rtf_add()}}. There is no cursor: elements can only be added one after the
+other, at the end of the document, and an existing RTF file cannot be read.
+}
+
+\section{Formatted content}{
+
+
+These objects work with several formats: \code{\link[=fpar]{fpar()}} and \code{\link[=ftext]{ftext()}} for formatted
+text, \code{\link[=fp_text]{fp_text()}} and \code{\link[=fp_par]{fp_par()}} for their properties, \code{\link[=block_list]{block_list()}} for a
+sequence of blocks.
 }
 
 \section{Copy an officer object}{

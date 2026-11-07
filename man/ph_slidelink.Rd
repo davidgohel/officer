@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppt_ph_manipulate.R
 \name{ph_slidelink}
 \alias{ph_slidelink}
-\title{Slide link to a placeholder}
+\title{Slide link to a shape}
 \usage{
 ph_slidelink(
   x,
@@ -32,7 +32,7 @@ If used, \code{type} and \code{id} are ignored.}
 \item{slide_index}{slide index to reach}
 }
 \description{
-Add slide link to a placeholder in the current slide.
+Add slide link to a shape in the current slide.
 }
 \examples{
 fileout <- tempfile(fileext = ".pptx")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_location.R
 \name{ph_location}
 \alias{ph_location}
-\title{Location for a placeholder from scratch}
+\title{Location of a free shape}
 \usage{
 ph_location(
   left = 1,
