@@ -56,6 +56,8 @@ no shapes. It was `NA` (#488).
 of an error about a `merge()` (#612).
 - `body_add()` now uses the default paragraph style for character vectors,
 numbers and factors when `style` is not set. The paragraph had no valid style.
+- In RTF documents, images that are not PNG files are now converted to PNG: they
+were declared as PNG but written in their original format.
 - `ph_location_template()` now uses `newlabel`: the label of the new shape was
 always empty.
 

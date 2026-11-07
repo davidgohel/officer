@@ -237,3 +237,15 @@ test_that("each block_section emits its own {\\header}{\\footer} with resolved c
   secb_props_pos <- regexpr("\\\\sect\\\\sectd", rtf)
   expect_true(default_h_pos < secb_props_pos)
 })
+
+test_that("jpeg images are converted to png", {
+  skip_if_not_installed("magick")
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
+  blip_data <- function(rtf) {
+    sub("^.*\\\\pngblip\\\\picwgoal[0-9]+\\\\pichgoal[0-9]+ ([0-9a-f]{8}).*$", "\\1", rtf)
+  }
+  inline <- to_rtf(external_img(img, width = 1, height = 1))
+  expect_equal(blip_data(inline), "89504e47")
+  floating <- to_rtf(floating_external_img(img, width = 1, height = 1))
+  expect_equal(blip_data(floating), "89504e47")
+})

@@ -106,7 +106,7 @@ to_rtf.external_img <- function(x, ...) {
   if (!grepl("\\.png$", x)) {
     imgpath <- tempfile(fileext = ".png")
     img <- magick::image_read(x)
-    magick::image_write(img, path = imgpath)
+    magick::image_write(img, path = imgpath, format = "png")
   } else {
     imgpath <- x
   }
@@ -147,7 +147,7 @@ to_rtf.floating_external_img <- function(x, ...) {
   if (!grepl("\\.png$", x)) {
     imgpath <- tempfile(fileext = ".png")
     img <- magick::image_read(x)
-    magick::image_write(img, path = imgpath)
+    magick::image_write(img, path = imgpath, format = "png")
   } else {
     imgpath <- x
   }
