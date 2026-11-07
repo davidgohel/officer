@@ -74,6 +74,7 @@ ph_with <- function(x, value, location, ...) {
 #' @describeIn ph_with add a character vector to a new shape on the
 #' current slide, values will be added as paragraphs.
 ph_with.character <- function(x, value, location, ...) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
@@ -157,6 +158,7 @@ ph_with.numeric <- function(x, value, location, format_fun = format, ...) {
 #' current slide, values will be be converted as character and then
 #' added as paragraphs.
 ph_with.factor <- function(x, value, location, ...) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
   value <- as.character(value)
   location <- fortify_location(location, doc = x)
@@ -236,6 +238,7 @@ ph_with.block_list <- function(
   level_list = integer(0),
   ...
 ) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
@@ -297,6 +300,7 @@ ph_with.block_list <- function(
 #' @describeIn ph_with add a [unordered_list()] made
 #' of [fpar()] to a new shape on the current slide.
 ph_with.unordered_list <- function(x, value, location, ...) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
   location <- fortify_location(location, doc = x)
 
@@ -331,6 +335,7 @@ ph_with.unordered_list <- function(x, value, location, ...) {
 #' @describeIn ph_with add a [block_list_items()] (bullet or numbered list)
 #' to a new shape on the current slide.
 ph_with.block_list_items <- function(x, value, location, ...) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
   location <- fortify_location(location, doc = x)
 
@@ -378,6 +383,7 @@ ph_with.data.frame <- function(
   alignment = NULL,
   ...
 ) {
+  chkDots(...)
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
@@ -530,6 +536,7 @@ ph_with.plot_instr <- function(x, value, location, res = 300, ...) {
 #' ignored, their values will be those of the location,
 #' unless use_loc_size is set to FALSE.
 ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
+  chkDots(...)
   location <- fortify_location(location, doc = x)
 
   slide <- x$slide$get_slide(x$cursor)
@@ -564,6 +571,7 @@ ph_with.external_img <- function(x, value, location, use_loc_size = TRUE, ...) {
 #' @describeIn ph_with add an [fpar()] to a new shape
 #' on the current slide as a single paragraph in a [block_list()].
 ph_with.fpar <- function(x, value, location, ...) {
+  chkDots(...)
   ph_with.block_list(x, value = block_list(value), location = location)
 
   x
@@ -573,6 +581,7 @@ ph_with.fpar <- function(x, value, location, ...) {
 #' @describeIn ph_with add an [empty_content()] to a new shape
 #' on the current slide.
 ph_with.empty_content <- function(x, value, location, ...) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)
@@ -683,6 +692,7 @@ xml_to_slide <- function(slide, location, value, package_dir) {
 #' @describeIn ph_with add an xml_document object to a new shape on the
 #' current slide. This function is to be used to add custom openxml code.
 ph_with.xml_document <- function(x, value, location, ...) {
+  chkDots(...)
   slide <- x$slide$get_slide(x$cursor)
 
   location <- fortify_location(location, doc = x)

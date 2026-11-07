@@ -952,8 +952,9 @@ body_comment <- function(
 #' unordered list of formatted paragraphs,
 #' pretty tables with package flextable, 'Microsoft' charts with package mschart.
 #' @param ... further arguments passed to or from other methods. When
-#' adding a `ggplot` object or [plot_instr], these arguments will be used
-#' by png function. See method signatures to see what arguments can be used.
+#' adding a [plot_instr], these arguments are passed to the png function.
+#' Other methods warn about arguments they do not use. See method signatures
+#' to see what arguments can be used.
 #' @example inst/examples/example_body_add_1.R
 #' @section Illustrations:
 #'
@@ -970,6 +971,7 @@ body_add <- function(x, value, ...) {
 #' and are the names of the Word styles defined in the base document (see
 #' argument `path` from [read_docx]).
 body_add.character <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
@@ -1027,6 +1029,7 @@ body_add.factor <- function(
 #' @describeIn body_add add a [fpar] object. These objects enable
 #' the creation of formatted paragraphs made of formatted chunks of text.
 body_add.fpar <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   img_src <- sapply(value$chunks, function(x) {
     if (inherits(x, "external_img")) {
       as.character(x)
@@ -1062,6 +1065,7 @@ body_add.data.frame <- function(
   alignment = NULL,
   ...
 ) {
+  chkDots(...)
   pt <- prop_table(
     style = style,
     layout = table_layout(),
@@ -1085,6 +1089,7 @@ body_add.data.frame <- function(
 #' @describeIn body_add add a [block_caption] object. These objects enable
 #' the creation of set of formatted paragraphs made of formatted chunks of text.
 body_add.block_caption <- function(x, value, ...) {
+  chkDots(...)
   if (!value$style %in% x$styles$style_name) {
     stop(
       "caption is using style ",
@@ -1108,6 +1113,7 @@ body_add.block_caption <- function(x, value, ...) {
 #' function only append elements at the end of the document
 #' and does not allow to insert elements at a specific position.
 body_add.block_list <- function(x, value, ...) {
+  chkDots(...)
   x <- cursor_end(x)
   cursor_elt <- docx_current_block_xml(x)
   for (i in rev(seq_along(value))) {
@@ -1129,6 +1135,7 @@ body_add.block_list <- function(x, value, ...) {
 #' @export
 #' @describeIn body_add add a [block_list_items] object (bullet or numbered list).
 body_add.block_list_items <- function(x, value, ...) {
+  chkDots(...)
   x <- cursor_end(x)
   cursor_elt <- docx_current_block_xml(x)
   wml_str <- to_wml(value, add_ns = TRUE)
@@ -1152,6 +1159,7 @@ body_add.block_list_items <- function(x, value, ...) {
 #' @export
 #' @describeIn body_add add a table of content (a [block_toc] object).
 body_add.block_toc <- function(x, value, ...) {
+  chkDots(...)
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
 }
@@ -1160,6 +1168,7 @@ body_add.block_toc <- function(x, value, ...) {
 #' @export
 #' @describeIn body_add add an image (a [external_img] object).
 body_add.external_img <- function(x, value, style = "Normal", ...) {
+  chkDots(...)
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
@@ -1202,6 +1211,7 @@ body_add.external_img <- function(x, value, style = "Normal", ...) {
 #' @export
 #' @describeIn body_add add a [run_pagebreak] object.
 body_add.run_pagebreak <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
@@ -1223,6 +1233,7 @@ body_add.run_pagebreak <- function(x, value, style = NULL, ...) {
 #' @export
 #' @describeIn body_add add a [run_columnbreak] object.
 body_add.run_columnbreak <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   if (is.null(style)) {
     style <- x$default_styles$paragraph
   }
@@ -1271,6 +1282,7 @@ body_add.gg <- function(
       c("Found a {.arg units} argument. Did you mean {.arg unit}?")
     )
   }
+  chkDots(...)
 
   unit <- check_unit(unit, c("in", "cm", "mm"))
 
@@ -1330,6 +1342,7 @@ body_add.plot_instr <- function(
 #' @export
 #' @describeIn body_add pour content of an external docx file with with a [block_pour_docx] object
 body_add.block_pour_docx <- function(x, value, ...) {
+  chkDots(...)
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
 }
@@ -1338,6 +1351,7 @@ body_add.block_pour_docx <- function(x, value, ...) {
 #' @export
 #' @describeIn body_add ends a section with a [block_section] object
 body_add.block_section <- function(x, value, ...) {
+  chkDots(...)
   xml_elt <- to_wml(value, add_ns = TRUE, base_document = x)
   body_add_xml2(x = x, str = xml_elt)
 }

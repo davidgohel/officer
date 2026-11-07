@@ -754,3 +754,31 @@ test_that("add_slide, phs_with: ... and .dots", {
   expect_equal(st_1, st_4)
   expect_equal(st_1, st_5)
 })
+
+test_that("ph_location_template() uses newlabel", {
+  doc <- read_pptx()
+  doc <- add_slide(doc, "Title and Content")
+  doc <- ph_with(
+    doc,
+    "from template",
+    location = ph_location_template(
+      left = 1,
+      top = 1,
+      width = 2,
+      height = 1,
+      type = "title",
+      newlabel = "my_label"
+    )
+  )
+  expect_true("my_label" %in% slide_summary(doc)$ph_label)
+})
+
+test_that("ph_with() warns about arguments it does not use", {
+  doc <- add_slide(read_pptx(), "Title and Content")
+  expect_warning(
+    ph_with(doc, "a", location = ph_location_type("title"), foo = 1),
+    "foo"
+  )
+  expect_warning(ph_location_type("title", foo = 1), "foo")
+})
+

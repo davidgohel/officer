@@ -349,7 +349,6 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx') {
     ppt <- ph_with(
       x = ppt,
       value = fpar_,
-      ph_label = "layout_ph",
       location = ph_location(
         left = 0,
         top = -0.5,
@@ -374,10 +373,7 @@ annotate_base <- function(path = NULL, output_file = 'annotated_layout.pptx') {
         ppt <- ph_with(
           x = ppt,
           value = textstr,
-          location = ph_location_label(
-            type = lp$type[pidx],
-            ph_label = lp$ph_label[pidx]
-          )
+          location = ph_location_label(ph_label = lp$ph_label[pidx])
         )
       }
     }

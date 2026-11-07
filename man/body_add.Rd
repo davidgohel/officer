@@ -90,8 +90,9 @@ unordered list of formatted paragraphs,
 pretty tables with package flextable, 'Microsoft' charts with package mschart.}
 
 \item{...}{further arguments passed to or from other methods. When
-adding a \code{ggplot} object or \link{plot_instr}, these arguments will be used
-by png function. See method signatures to see what arguments can be used.}
+adding a \link{plot_instr}, these arguments are passed to the png function.
+Other methods warn about arguments they do not use. See method signatures
+to see what arguments can be used.}
 
 \item{style}{paragraph style name. These names are available with function \link{styles_info}
 and are the names of the Word styles defined in the base document (see

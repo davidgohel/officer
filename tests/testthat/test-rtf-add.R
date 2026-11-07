@@ -147,3 +147,17 @@ test_that("rtf_add works with text, paragraphs, and plots (ggplot2 too)", {
   outfile <- print(doc, target = tempfile(fileext = ".rtf"))
   expect_true(file.exists(outfile))
 })
+
+test_that("rtf_add() warns about arguments it does not use", {
+  doc <- rtf_doc()
+  expect_warning(
+    doc <- rtf_add(doc, "a", pos = "before"),
+    "pos"
+  )
+  expect_warning(rtf_add(doc, 1.5, digits = 2), "digits")
+  expect_warning(rtf_add(doc, block_section(prop_section()), "b"))
+  expect_no_warning(rtf_add(doc, "a", style = NULL))
+  # the argument is ignored, the paragraph is still added at the end
+  expect_length(doc$content, 1)
+})
+

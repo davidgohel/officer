@@ -160,6 +160,7 @@ get_or_create_notesSlide <- function(x) {
 #' @param ph_label placeholder label of the used notes master
 #' @param ... unused arguments
 notes_location_label <- function(ph_label, ...) {
+  chkDots(...)
   x <- list(ph_label = ph_label)
   class(x) <- c("location_label", "location_str")
   x
@@ -172,6 +173,7 @@ notes_location_label <- function(ph_label, ...) {
 #' @param type placeholder label of the used notes master
 #' @param ... unused arguments
 notes_location_type <- function(type = "body", ...) {
+  chkDots(...)
   ph_types <- c("ftr", "sldNum", "hdr", "body", "sldImg")
   if (!type %in% ph_types) {
     stop(
@@ -271,6 +273,7 @@ set_notes <- function(x, value, location, ...) {
 #' @describeIn set_notes add a character vector to a place holder in the notes on the
 #' current slide, values will be added as paragraphs.
 set_notes.character <- function(x, value, location, ...) {
+  chkDots(...)
   # get or create notesSlide for current slide
   nslidename <- get_or_create_notesSlide(x)
 
@@ -310,6 +313,7 @@ set_notes.character <- function(x, value, location, ...) {
 #' @describeIn set_notes add a [block_list()] to a place holder in the notes on the
 #' current slide.
 set_notes.block_list <- function(x, value, location, ...) {
+  chkDots(...)
   # get or create notesSlide for current slide
   nslidename <- get_or_create_notesSlide(x)
 

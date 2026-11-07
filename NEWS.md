@@ -20,6 +20,10 @@ a new shape and does not fill an existing placeholder.
 - The documentation of `body_add()` no longer says that it will replace the
 `body_add_*()` functions: it adds content at the end of the document, whatever the
 cursor.
+- `rtf_add()`, `body_add()`, `ph_with()`, `sheet_write_data()`,
+`sheet_add_drawing()`, `set_notes()` and the `ph_location*()` and
+`notes_location_*()` functions now warn about arguments they do not use, such as
+`pos`, instead of ignoring them silently.
 
 ## Issues
 
@@ -41,6 +45,8 @@ no shapes. It was `NA` (#488).
 of an error about a `merge()` (#612).
 - `body_add()` now uses the default paragraph style for characters, numbers and
 factors when `style` is not set. An empty style name was written.
+- `ph_location_template()` now uses `newlabel`: the label of the new shape was
+always empty.
 
 # officer 0.7.7
 

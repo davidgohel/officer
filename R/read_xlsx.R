@@ -1433,6 +1433,7 @@ sheet_write_data <- function(
 
 #' @export
 sheet_write_data.default <- function(x, value, sheet, ...) {
+  chkDots(...)
   cli::cli_abort(c(
     "No {.fun sheet_write_data} method for an object of class
      {.cls {class(value)[1]}}.",
@@ -1450,6 +1451,7 @@ sheet_write_data.data.frame <- function(
   start_col = 1L,
   ...
 ) {
+  chkDots(...)
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   start_row <- as.integer(start_row)
@@ -1723,6 +1725,7 @@ sheet_write_data.character <- function(
   direction = c("vertical", "horizontal"),
   ...
 ) {
+  chkDots(...)
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   direction <- match.arg(direction)
@@ -1765,6 +1768,7 @@ sheet_write_data.fpar <- function(
   start_col = 1L,
   ...
 ) {
+  chkDots(...)
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   start_row <- as.integer(start_row)
@@ -1787,6 +1791,7 @@ sheet_write_data.block_list <- function(
   direction = c("vertical", "horizontal"),
   ...
 ) {
+  chkDots(...)
   stopifnot(inherits(x, "rxlsx"))
   check_sheet_exists(x, sheet)
   direction <- match.arg(direction)
@@ -1915,6 +1920,7 @@ sheet_add_drawing.external_img <- function(
   edit_as = c("twoCell", "oneCell", "absolute"),
   ...
 ) {
+  chkDots(...)
   edit_as <- match.arg(edit_as)
   ft <- parse_anchor(anchor)
   stopifnot(inherits(x, "rxlsx"))

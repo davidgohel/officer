@@ -1038,6 +1038,7 @@ rtf_add <- function(x, value, ...) {
 #' @export
 #' @describeIn rtf_add add a new section definition
 rtf_add.block_section <- function(x, value, ...) {
+  chkDots(...)
   x$content[[length(x$content) + 1]] <- value
   x
 }
@@ -1102,6 +1103,7 @@ apply_rtf_style <- function(value, style) {
 #' on the document. Defaults to `NULL` (use the document's normal style). See
 #' [rtf_set_paragraph_style()] and [rtf_styles_info()].
 rtf_add.character <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   styled <- resolve_rtf_style(x, style)
   chunk_prop <- if (is.null(styled)) x$normal_chunk else NULL
   par_prop <- if (is.null(styled)) x$normal_par else fp_par()
@@ -1122,6 +1124,7 @@ rtf_add.character <- function(x, value, style = NULL, ...) {
 #' @export
 #' @describeIn rtf_add add a factor vector as new paragraphs
 rtf_add.factor <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   styled <- resolve_rtf_style(x, style)
   chunk_prop <- if (is.null(styled)) x$normal_chunk else NULL
   par_prop <- if (is.null(styled)) x$normal_par else fp_par()
@@ -1143,6 +1146,7 @@ rtf_add.factor <- function(x, value, style = NULL, ...) {
 #' @describeIn rtf_add add a double vector as new paragraphs
 #' @param formatter function used to format the numerical values
 rtf_add.double <- function(x, value, formatter = formatC, style = NULL, ...) {
+  chkDots(...)
   styled <- resolve_rtf_style(x, style)
   chunk_prop <- if (is.null(styled)) x$normal_chunk else NULL
   par_prop <- if (is.null(styled)) x$normal_par else fp_par()
@@ -1163,6 +1167,7 @@ rtf_add.double <- function(x, value, formatter = formatC, style = NULL, ...) {
 #' @export
 #' @describeIn rtf_add add an [fpar()]
 rtf_add.fpar <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   styled <- resolve_rtf_style(x, style)
   x$content[[length(x$content) + 1]] <- apply_rtf_style(value, styled)
   x
@@ -1171,6 +1176,7 @@ rtf_add.fpar <- function(x, value, style = NULL, ...) {
 #' @export
 #' @describeIn rtf_add add an [block_list()]
 rtf_add.block_list <- function(x, value, style = NULL, ...) {
+  chkDots(...)
   styled <- resolve_rtf_style(x, style)
   items <- lapply(as.list(value), apply_rtf_style, style = styled)
   x$content <- append(x$content, items)
@@ -1183,6 +1189,7 @@ rtf_add.block_list <- function(x, value, style = NULL, ...) {
 #' built-in heading styles (which carry an outline level). LibreOffice
 #' will not render the TOC automatically.
 rtf_add.block_toc <- function(x, value, ...) {
+  chkDots(...)
   x$content[[length(x$content) + 1]] <- value
   x
 }

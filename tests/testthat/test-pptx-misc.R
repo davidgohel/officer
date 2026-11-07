@@ -253,7 +253,6 @@ test_that("no master do not generate an error", {
   x <- try(
     ph_with(
       x,
-      i,
       value = "graphic title",
       location = ph_location_type(type = "body")
     ),
