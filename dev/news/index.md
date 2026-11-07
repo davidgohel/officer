@@ -15,29 +15,15 @@
   [`floating_external_img()`](https://davidgohel.github.io/officer/dev/reference/floating_external_img.md)
   uses it: it is much faster and ‘magick’ is no longer required for
   these formats.
+- Option `officer_datetime` sets the “created” and “modified” properties
+  written in documents, so that the same code produces the same
+  document.
+- [`set_doc_properties()`](https://davidgohel.github.io/officer/dev/reference/set_doc_properties.md)
+  now works with Excel workbooks (`rxlsx` objects), including custom
+  properties.
 
 ### Changes
 
-- Argument `rm_images` of
-  [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
-  is deprecated: it has no effect and now gives a warning. Images no
-  longer used are removed when the file is saved.
-- The documentation of
-  [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
-  now explains how the location defines the appearance of a shape: from
-  the template with most `ph_location_*()` functions, from its arguments
-  with
-  [`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md).
-  It also explains that
-  [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
-  creates a new shape and does not fill an existing placeholder.
-- The help page
-  [`?officer`](https://davidgohel.github.io/officer/dev/reference/officer.md)
-  now points to the main functions for each format.
-- The documentation of
-  [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md)
-  no longer says that it will replace the `body_add_*()` functions: it
-  adds content at the end of the document, whatever the cursor.
 - [`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md),
   [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md),
   [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md),
@@ -45,28 +31,57 @@
   [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md),
   [`set_notes()`](https://davidgohel.github.io/officer/dev/reference/set_notes.md)
   and the `ph_location*()` and `notes_location_*()` functions now warn
-  about arguments they do not use, such as `pos`, instead of ignoring
-  them silently.
+  about arguments they do not use instead of ignoring them silently,
+  e.g. `rtf_add(doc, "text", pos = "before")`.
+- The “lastModifiedBy” property now comes from
+  [`Sys.info()`](https://rdrr.io/r/base/Sys.info.html), which works on
+  all platforms, instead of the `USER` environment variable.
+- Argument `rm_images` of
+  [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
+  is deprecated: it has no effect and now gives a warning. Images no
+  longer used are removed when the file is saved.
+- Documentation:
+  [`?officer`](https://davidgohel.github.io/officer/dev/reference/officer.md)
+  now points to the main functions for each format;
+  [`?ph_with`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
+  explains that each call creates a new shape, whose appearance comes
+  from the template (`ph_location_*()`) or from the arguments
+  ([`ph_location()`](https://davidgohel.github.io/officer/dev/reference/ph_location.md));
+  [`?body_add`](https://davidgohel.github.io/officer/dev/reference/body_add.md)
+  says that it always adds content at the end of the document, whatever
+  the cursor.
 
 ### Issues
 
+- The “created” and “modified” properties of documents were the local
+  time marked as UTC: they are now written in UTC, also by
+  [`set_doc_properties()`](https://davidgohel.github.io/officer/dev/reference/set_doc_properties.md).
+- Documents created from the default templates now get the current time
+  as “created” property, instead of the date of the template, and no
+  “creator”: Excel workbooks had a wrong creator name. The templates no
+  longer contain a last author, and the Excel template no longer
+  contains a company name.
 - [`ph_with()`](https://davidgohel.github.io/officer/dev/reference/ph_with.md)
   no longer pads logical values to the same width: `c(TRUE, FALSE)` was
   written with a space before `TRUE`.
 - PowerPoint files no longer keep the images of removed slides: the
   cleaning done when saving a pptx never deleted anything, because of a
-  wrong path.
+  wrong path
+  ([\#516](https://github.com/davidgohel/officer/issues/516)).
 - [`remove_slide()`](https://davidgohel.github.io/officer/dev/reference/remove_slide.md)
   now also removes the notes of the slide. They stayed in the file, with
   a link to a slide that no longer existed.
-- [`annotate_base()`](https://davidgohel.github.io/officer/dev/reference/annotate_base.md)
-  now writes `type_idx` in each placeholder, and `id` under its own name
-  instead of `index`, so that the values can be used directly with the
-  `ph_location_*()` functions.
-- Saving a document no longer adds blanks to its content in memory:
-  after [`print()`](https://rdrr.io/r/base/print.html),
+- The text that
+  [`annotate_base()`](https://davidgohel.github.io/officer/dev/reference/annotate_base.md)
+  writes in each placeholder now shows `type_idx` and `id` (previously
+  labelled `index`), the values expected by
+  [`ph_location_type()`](https://davidgohel.github.io/officer/dev/reference/ph_location_type.md)
+  and
+  [`ph_location_id()`](https://davidgohel.github.io/officer/dev/reference/ph_location_id.md).
+- After [`print()`](https://rdrr.io/r/base/print.html),
   [`slide_summary()`](https://davidgohel.github.io/officer/dev/reference/slide_summary.md)
-  returned the text of shapes surrounded by line breaks and spaces.
+  no longer returns the text of shapes surrounded by line breaks and
+  spaces.
 - [`layout_properties()`](https://davidgohel.github.io/officer/dev/reference/layout_properties.md)
   now returns the name of the master when the master has no shapes. It
   was `NA` ([\#488](https://github.com/davidgohel/officer/issues/488)).
@@ -75,8 +90,8 @@
   an error about a [`merge()`](https://rdrr.io/r/base/merge.html)
   ([\#612](https://github.com/davidgohel/officer/issues/612)).
 - [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md)
-  now uses the default paragraph style for characters, numbers and
-  factors when `style` is not set. An empty style name was written.
+  now uses the default paragraph style for character vectors, numbers
+  and factors when `style` is not set. The paragraph had no valid style.
 - [`ph_location_template()`](https://davidgohel.github.io/officer/dev/reference/ph_location_template.md)
   now uses `newlabel`: the label of the new shape was always empty.
 

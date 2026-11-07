@@ -49,9 +49,9 @@ doc_properties(x)
 #> 3         creator                     
 #> 4        keywords                     
 #> 5     description                     
-#> 6  lastModifiedBy          David Gohel
+#> 6  lastModifiedBy                     
 #> 7        revision                    9
-#> 8         created 2017-02-28T11:18:00Z
+#> 8         created 2026-11-07T14:43:50Z
 #> 9        modified 2020-05-13T09:11:00Z
 #> 10       category                     
 #> 11  HyperlinkBase                     
