@@ -28,7 +28,8 @@ read_pptx <- function(path = NULL) {
     stop("could not find file ", shQuote(path), call. = FALSE)
   }
 
-  if (is.null(path)) {
+  from_template <- is.null(path)
+  if (from_template) {
     path <- system.file(package = "officer", "template/template.pptx")
   }
 
@@ -75,6 +76,9 @@ read_pptx <- function(path = NULL) {
   )
   obj$content_type <- content_type$new(package_dir)
   obj$core_properties <- read_core_properties(package_dir)
+  if (from_template) {
+    obj$core_properties <- reset_template_properties(obj$core_properties)
+  }
   obj$doc_properties_custom <- read_custom_properties(package_dir)
 
   obj$rel <- relationship$new()
@@ -172,11 +176,7 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
   x$slide$save_slides()
   x$notesSlide$save_slides()
 
-  x$core_properties["modified", "value"] <- format(
-    Sys.time(),
-    "%Y-%m-%dT%H:%M:%SZ"
-  )
-  x$core_properties["lastModifiedBy", "value"] <- Sys.getenv("USER")
+  x$core_properties <- update_core_properties(x$core_properties)
   write_core_properties(x$core_properties, x$package_dir)
 
   if (nrow(x$doc_properties_custom$data) > 0) {

@@ -252,11 +252,7 @@ print.rdocx <- function(
 
   # save doc properties
   if (nrow(x$doc_properties$data) > 0) {
-    x$doc_properties["modified", "value"] <- format(
-      Sys.time(),
-      "%Y-%m-%dT%H:%M:%SZ"
-    )
-    x$doc_properties["lastModifiedBy", "value"] <- Sys.getenv("USER")
+    x$doc_properties <- update_core_properties(x$doc_properties)
     write_core_properties(x$doc_properties, x$package_dir)
   }
   if (nrow(x$doc_properties_custom$data) > 0) {

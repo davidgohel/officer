@@ -96,6 +96,40 @@ default_cp_tags <- list(
 }
 
 
+# The current time, or option `officer_datetime` when it is set, so that the
+# same code produces the same document, for testing and validation.
+officer_now <- function() {
+  now <- getOption("officer_datetime", default = Sys.time())
+  if (!inherits(now, "POSIXct") || length(now) != 1L || is.na(now)) {
+    cli::cli_abort(c(
+      "Option {.code officer_datetime} must be a single date-time ({.cls POSIXct}).",
+      "i" = "For example: {.code options(officer_datetime = as.POSIXct(\"2026-01-01\", tz = \"UTC\"))}."
+    ))
+  }
+  now
+}
+
+# Date-times of core properties are written in UTC (W3CDTF).
+format_core_datetime <- function(x) {
+  format(x, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+}
+
+# A document created from a template shipped with officer does not keep the
+# creation date and the creator of the template.
+reset_template_properties <- function(x) {
+  x["created", "value"] <- format_core_datetime(officer_now())
+  x["creator", "value"] <- ""
+  x
+}
+
+# Update the properties that officer sets each time a document is saved: the
+# date of last modification and the user who saved it.
+update_core_properties <- function(x) {
+  x["modified", "value"] <- format_core_datetime(officer_now())
+  x["lastModifiedBy", "value"] <- Sys.info()[["user"]]
+  x
+}
+
 write_core_properties <- function(core_matrix, package_dir) {
   ns_ <- core_matrix$ns
   core_matrix <- core_matrix$data

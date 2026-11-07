@@ -7,6 +7,10 @@ a raster object. The size of 'png', 'jpeg' and 'gif' files is read from their
 header, without decoding the image.
 - `guess_size = TRUE` in `external_img()` and `floating_external_img()` uses it:
 it is much faster and 'magick' is no longer required for these formats.
+- Option `officer_datetime` sets the "created" and "modified" properties written
+in documents, so that the same code produces the same document.
+- `set_doc_properties()` now works with Excel workbooks (`rxlsx` objects),
+including custom properties.
 
 ## Changes
 
@@ -14,6 +18,8 @@ it is much faster and 'magick' is no longer required for these formats.
 `sheet_add_drawing()`, `set_notes()` and the `ph_location*()` and
 `notes_location_*()` functions now warn about arguments they do not use instead
 of ignoring them silently, e.g. `rtf_add(doc, "text", pos = "before")`.
+- The "lastModifiedBy" property now comes from `Sys.info()`, which works on all
+platforms, instead of the `USER` environment variable.
 - Argument `rm_images` of `remove_slide()` is deprecated: it has no effect and
 now gives a warning. Images no longer used are removed when the file is saved.
 - Documentation: `?officer` now points to the main functions for each format;
@@ -24,6 +30,12 @@ the cursor.
 
 ## Issues
 
+- The "created" and "modified" properties of documents were the local time
+marked as UTC: they are now written in UTC, also by `set_doc_properties()`.
+- Documents created from the default templates now get the current time as
+"created" property, instead of the date of the template, and no "creator": Excel
+workbooks had a wrong creator name. The templates no longer contain a last
+author, and the Excel template no longer contains a company name.
 - `ph_with()` no longer pads logical values to the same width: `c(TRUE, FALSE)`
 was written with a space before `TRUE`.
 - PowerPoint files no longer keep the images of removed slides: the cleaning done

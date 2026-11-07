@@ -17,11 +17,11 @@ set_doc_properties(
 )
 }
 \arguments{
-\item{x}{an rdocx or rpptx object}
+\item{x}{an rdocx, rpptx or rxlsx object}
 
 \item{title, subject, creator, description}{text fields}
 
-\item{created}{a date object}
+\item{created}{a date-time object, written in UTC}
 
 \item{hyperlink_base}{a string specifying the base URL for relative hyperlinks
 in the document (only for rdocx).}
@@ -36,8 +36,8 @@ character value specifying value associated with the corresponding field name.
 If \code{values} is provided, argument \code{...} will be ignored.}
 }
 \description{
-set Word or PowerPoint document properties. These are not visible
-in the document but are available as metadata of the document.
+set Word, PowerPoint or Excel document properties. These are not
+visible in the document but are available as metadata of the document.
 
 Any character property can be added as a document property.
 It provides an easy way to insert arbitrary fields. Given the challenges
@@ -46,8 +46,15 @@ use of document fields and quick text fields provides a much more robust
 approach to automatic document generation from R.
 }
 \note{
-The "last modified" and "last modified by" fields will be automatically be updated
-when the file is written.
+The "modified" and "lastModifiedBy" properties are set when the document is
+written: the current time, in UTC, and the name of the user
+(\code{Sys.info()[["user"]]}). A document created from the default template, with
+\code{read_docx()}, \code{read_pptx()} or \code{read_xlsx()} called without \code{path}, gets the
+current time as "created" property and no "creator".
+
+To write a fixed date in "created" and "modified", for example to compare the
+files produced by the same code, set option \code{officer_datetime} to a
+date-time: \code{options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))}.
 }
 \examples{
 x <- read_docx()

@@ -76,8 +76,8 @@ doc_properties <- function(x) {
 
 #' @export
 #' @title Set document properties
-#' @description set Word or PowerPoint document properties. These are not visible
-#' in the document but are available as metadata of the document.
+#' @description set Word, PowerPoint or Excel document properties. These are not
+#' visible in the document but are available as metadata of the document.
 #'
 #' Any character property can be added as a document property.
 #' It provides an easy way to insert arbitrary fields. Given the challenges
@@ -85,11 +85,18 @@ doc_properties <- function(x) {
 #' use of document fields and quick text fields provides a much more robust
 #' approach to automatic document generation from R.
 #' @note
-#' The "last modified" and "last modified by" fields will be automatically be updated
-#' when the file is written.
-#' @param x an rdocx or rpptx object
+#' The "modified" and "lastModifiedBy" properties are set when the document is
+#' written: the current time, in UTC, and the name of the user
+#' (`Sys.info()[["user"]]`). A document created from the default template, with
+#' `read_docx()`, `read_pptx()` or `read_xlsx()` called without `path`, gets the
+#' current time as "created" property and no "creator".
+#'
+#' To write a fixed date in "created" and "modified", for example to compare the
+#' files produced by the same code, set option `officer_datetime` to a
+#' date-time: `options(officer_datetime = as.POSIXct("2026-01-01", tz = "UTC"))`.
+#' @param x an rdocx, rpptx or rxlsx object
 #' @param title,subject,creator,description text fields
-#' @param created a date object
+#' @param created a date-time object, written in UTC
 #' @param hyperlink_base a string specifying the base URL for relative hyperlinks
 #' in the document (only for rdocx).
 #' @param ... named arguments (names are field names), each element is a single
@@ -122,10 +129,10 @@ set_doc_properties <- function(
 ) {
   if (inherits(x, "rdocx")) {
     cp <- x$doc_properties
-  } else if (inherits(x, "rpptx")) {
+  } else if (inherits(x, "rpptx") || inherits(x, "rxlsx")) {
     cp <- x$core_properties
   } else {
-    stop("x should be a rpptx or rdocx object.")
+    stop("x should be a rpptx, a rdocx or a rxlsx object.")
   }
 
   if (!is.null(title)) {
@@ -189,7 +196,7 @@ set_doc_properties <- function(
         )
       )
     } else {
-      cp["created", "value"] <- format(created, "%Y-%m-%dT%H:%M:%SZ")
+      cp["created", "value"] <- format_core_datetime(created)
     }
   }
 

@@ -62,7 +62,8 @@ read_docx <- function(path = NULL) {
     stop("could not find file ", shQuote(path), call. = FALSE)
   }
 
-  if (is.null(path)) {
+  from_template <- is.null(path)
+  if (from_template) {
     path <- system.file(package = "officer", "template/template.docx")
   }
 
@@ -88,6 +89,9 @@ read_docx <- function(path = NULL) {
 
   obj$doc_properties_custom <- read_custom_properties(package_dir)
   obj$doc_properties <- read_core_properties(package_dir)
+  if (from_template) {
+    obj$doc_properties <- reset_template_properties(obj$doc_properties)
+  }
   obj$app_properties <- read_app_properties(package_dir)
   obj$content_type <- content_type$new(package_dir)
   obj$doc_obj <- body_part$new(
