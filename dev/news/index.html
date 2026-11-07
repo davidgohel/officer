@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.019</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.020</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,7 @@
 <code><a href="../reference/read_pptx.html">read_pptx()</a></code> now gives a clear error when the file has no slide layout, instead of an error about a <code><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge()</a></code> (<a href="https://github.com/davidgohel/officer/issues/612" class="external-link">#612</a>).</li>
 <li>
 <code><a href="../reference/body_add.html">body_add()</a></code> now uses the default paragraph style for character vectors, numbers and factors when <code>style</code> is not set. The paragraph had no valid style.</li>
+<li>In RTF documents, images that are not PNG files are now converted to PNG: they were declared as PNG but written in their original format.</li>
 <li>
 <code><a href="../reference/ph_location_template.html">ph_location_template()</a></code> now uses <code>newlabel</code>: the label of the new shape was always empty.</li>
 </ul></div>

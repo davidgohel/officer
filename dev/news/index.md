@@ -96,6 +96,8 @@
 - [`body_add()`](https://davidgohel.github.io/officer/dev/reference/body_add.md)
   now uses the default paragraph style for character vectors, numbers
   and factors when `style` is not set. The paragraph had no valid style.
+- In RTF documents, images that are not PNG files are now converted to
+  PNG: they were declared as PNG but written in their original format.
 - [`ph_location_template()`](https://davidgohel.github.io/officer/dev/reference/ph_location_template.md)
   now uses `newlabel`: the label of the new shape was always empty.
 
