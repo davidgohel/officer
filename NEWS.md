@@ -39,6 +39,8 @@ and spaces.
 no shapes. It was `NA` (#488).
 - `read_pptx()` now gives a clear error when the file has no slide layout, instead
 of an error about a `merge()` (#612).
+- `body_add()` now uses the default paragraph style for characters, numbers and
+factors when `style` is not set. An empty style name was written.
 
 # officer 0.7.7
 

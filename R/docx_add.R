@@ -970,11 +970,10 @@ body_add <- function(x, value, ...) {
 #' and are the names of the Word styles defined in the base document (see
 #' argument `path` from [read_docx]).
 body_add.character <- function(x, value, style = NULL, ...) {
-  if (!is.null(style)) {
-    style_id <- get_style_id(data = x$styles, style = style, type = "paragraph")
-  } else {
-    style_id <- NULL
+  if (is.null(style)) {
+    style <- x$default_styles$paragraph
   }
+  style_id <- get_style_id(data = x$styles, style = style, type = "paragraph")
 
   runs <- paste0(
     "<w:r><w:t xml:space=\"preserve\">",

@@ -446,3 +446,16 @@ test_that("body_add R objects", {
   table_style_name <- unique(table_style_name)
   expect_equal(table_style_name, "table_template")
 })
+
+test_that("body_add() uses the default paragraph style when style is NULL", {
+  x <- read_docx()
+  x <- body_add(x, "a")
+  x <- body_add(x, 1.5)
+  x <- body_add(x, factor("f"))
+  styles <- xml_attr(
+    xml_find_all(docx_body_xml(x), "//w:body/w:p/w:pPr/w:pStyle"),
+    "val"
+  )
+  expect_equal(tail(styles, 3), rep("Normal", 3))
+})
+
