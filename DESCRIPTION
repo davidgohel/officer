@@ -1,6 +1,6 @@
 Type: Package
 Package: officer
-Title: Manipulation of Microsoft Word and PowerPoint Documents
+Title: Manipulation of Microsoft Word, PowerPoint and Excel Documents
 Version: 0.7.8.020
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
@@ -33,8 +33,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-0075-8183")),
     person("Michael", "Stackhouse", , "mike.stackhouse@atorusresearch.com", role = "ctb")
   )
-Description: Access and manipulate 'Microsoft Word', 'RTF' and 'Microsoft
-    PowerPoint' documents from R.  The package focuses on tabular and
+Description: Access and manipulate 'Microsoft Word', 'Microsoft PowerPoint',
+    'Microsoft Excel' and 'RTF' documents from R.  The package focuses on tabular and
     graphical reporting from R; it also provides two functions that let
     users get document content into data objects. A set of functions lets
     add and remove images, tables and paragraphs of text in new or
