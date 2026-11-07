@@ -262,5 +262,6 @@ print.rdocx <- function(
     write_app_properties(x$app_properties, x$package_dir)
   }
   x <- sanitize_images(x, warn_user = FALSE)
+  reset_file_times(x$package_dir)
   invisible(pack_folder(folder = x$package_dir, target = target))
 }

@@ -18,6 +18,9 @@ including custom properties.
 `sheet_add_drawing()`, `set_notes()` and the `ph_location*()` and
 `notes_location_*()` functions now warn about arguments they do not use instead
 of ignoring them silently, e.g. `rtf_add(doc, "text", pos = "before")`.
+- Files written by officer no longer depend on the time zone, the locale or the
+time of writing, except for the "created" and "modified" properties: with option
+`officer_datetime`, the same code produces the same file.
 - The "lastModifiedBy" property now comes from `Sys.info()`, which works on all
 platforms, instead of the `USER` environment variable.
 - Argument `rm_images` of `remove_slide()` is deprecated: it has no effect and

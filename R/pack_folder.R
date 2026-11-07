@@ -37,24 +37,37 @@ pack_folder <- function(folder, target) {
     }
   }
 
-  curr_wd <- getwd()
-  setwd(folder)
+  # All files, hidden files at the root of the folder excepted, sorted in an
+  # order that does not depend on the locale.
+  files <- list.files(path = folder, recursive = TRUE, all.files = TRUE)
+  files <- files[!startsWith(sub("/.*$", "", files), ".")]
+  files <- sort(files, method = "radix")
+
   tryCatch(
     zip::zipr(
       zipfile = target,
+      files = files,
+      recurse = FALSE,
       include_directories = FALSE,
-      files = list.files(path = ".", all.files = FALSE),
-      recurse = TRUE
+      root = folder,
+      mode = "mirror"
     ),
     error = function(e) {
       stop("Could not write ", shQuote(target), " [", e$message, "]")
-    },
-    finally = {
-      setwd(curr_wd)
     }
   )
 
   target
+}
+
+# Give all files of a folder the same date before they are zipped, the one
+# Office writes: the date stored in a zip file is the local time, so that
+# files written at another time or in another time zone would differ.
+reset_file_times <- function(folder) {
+  files <- list.files(path = folder, recursive = TRUE, all.files = TRUE,
+                      full.names = TRUE)
+  Sys.setFileTime(files, as.POSIXct("1980-01-01 00:00:00"))
+  invisible(folder)
 }
 
 #' @export

@@ -184,5 +184,6 @@ print.rpptx <- function(x, target = NULL, preview = FALSE, ...) {
   }
 
   x <- sanitize_images(x, warn_user = FALSE)
+  reset_file_times(x$package_dir)
   invisible(pack_folder(folder = x$package_dir, target = target))
 }

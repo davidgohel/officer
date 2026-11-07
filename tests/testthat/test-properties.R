@@ -291,3 +291,47 @@ test_that("templates carry no company and no last author", {
     expect_equal(xml2::xml_text(company), "", label = ext)
   }
 })
+
+test_that("the same code produces the same file", {
+  withr::local_options(
+    officer_datetime = as.POSIXct("2026-01-01", tz = "UTC")
+  )
+  img <- file.path(R.home("doc"), "html", "logo.jpg")
+  writers <- list(
+    docx = function(path) {
+      doc <- body_add_img(read_docx(), img, width = 1, height = 1)
+      print(doc, target = path)
+    },
+    pptx = function(path) {
+      doc <- add_slide(read_pptx(), "Title and Content", "Office Theme")
+      doc <- ph_with(doc, external_img(img, width = 1, height = 1),
+                     location = ph_location(left = 1, top = 1))
+      print(doc, target = path)
+    },
+    xlsx = function(path) {
+      doc <- sheet_write_data(read_xlsx(), head(iris), sheet = "Feuil1")
+      print(doc, target = path)
+    }
+  )
+  for (ext in names(writers)) {
+    md5 <- vapply(c("UTC", "Pacific/Auckland"), function(tz) {
+      withr::local_timezone(tz)
+      path <- tempfile(fileext = paste0(".", ext))
+      writers[[ext]](path)
+      unname(tools::md5sum(path))
+    }, character(1))
+    expect_equal(md5[[1]], md5[[2]], label = ext)
+  }
+})
+
+test_that("[Content_Types].xml is the first entry, whatever the locale", {
+  old <- Sys.getlocale("LC_COLLATE")
+  on.exit(Sys.setlocale("LC_COLLATE", old), add = TRUE)
+  skip_if(
+    identical(suppressWarnings(Sys.setlocale("LC_COLLATE", "fr_FR.UTF-8")), ""),
+    "locale fr_FR.UTF-8 is not available"
+  )
+  path <- tempfile(fileext = ".docx")
+  print(read_docx(), target = path)
+  expect_equal(zip::zip_list(path)$filename[1], "[Content_Types].xml")
+})
