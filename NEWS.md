@@ -3,12 +3,16 @@
 ## Features
 
 - new function `run_equation()`: an equation written in LaTeX, to be used in
-a paragraph made with `fpar()`, in 'Word' documents (`body_add_fpar()`) and
-in 'PowerPoint' presentations (`ph_with()`). It is written as an 'Office'
-equation, which stays editable. As in 'Word', an equation
-alone in its paragraph uses the display style and follows the alignment of the
+a paragraph made with `fpar()`. It works in 'Word' documents
+(`body_add_fpar()`), in 'PowerPoint' presentations (`ph_with()`) and in
+'Excel' workbooks, in a text box (`sheet_add_drawing()`). It is written as an
+'Office' equation, which stays editable. As in 'Word', an equation alone in
+its paragraph uses the display style and follows the alignment of the
 paragraph; an equation in a sentence uses the inline style. The package
 'equatags' (>= 0.4.0) converts the equations.
+- `sheet_add_drawing()` adds a paragraph made with `fpar()` or a `block_list()`
+of paragraphs in a text box of an 'Excel' sheet. 'Excel' does not accept
+equations in cells: `sheet_write_data()` stops with an explicit error.
 
 # officer 0.7.8
 

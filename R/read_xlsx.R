@@ -655,6 +655,59 @@ xlsx_drawing <- R6Class(
       xml_add_child(self$get(), read_xml(anchor_xml))
       self$save()
       self
+    },
+
+    #' @description Place a text box (no fill, no line) on the sheet.
+    #'   Positioning works the same way as `add_chart_anchor()`.
+    #' @param paragraphs_xml DrawingML paragraphs (`a:p` elements, as
+    #'   written by `to_pml()`), in one string.
+    add_textbox_anchor = function(
+      paragraphs_xml,
+      left = 1,
+      top = 1,
+      width = 3,
+      height = 1,
+      from = NULL,
+      to = NULL,
+      edit_as = c("twoCell", "oneCell", "absolute")
+    ) {
+      edit_as <- match.arg(edit_as)
+      nv_id <- private$next_cNvPr_id()
+      sp_xml <- sprintf(
+        paste0(
+          "<xdr:sp macro=\"\" textlink=\"\">",
+          "<xdr:nvSpPr>",
+          "<xdr:cNvPr id=\"%d\" name=\"TextBox %d\"/>",
+          "<xdr:cNvSpPr txBox=\"1\"/>",
+          "</xdr:nvSpPr>",
+          "<xdr:spPr>",
+          "<a:xfrm><a:off x=\"0\" y=\"0\"/><a:ext cx=\"0\" cy=\"0\"/></a:xfrm>",
+          "<a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom>",
+          "<a:noFill/><a:ln><a:noFill/></a:ln>",
+          "</xdr:spPr>",
+          "<xdr:txBody>",
+          "<a:bodyPr wrap=\"none\" rtlCol=\"0\" anchor=\"t\"/>",
+          "<a:lstStyle/>%s",
+          "</xdr:txBody>",
+          "</xdr:sp>"
+        ),
+        nv_id,
+        nv_id,
+        paragraphs_xml
+      )
+      anchor_xml <- build_anchor_xml(
+        sp_xml,
+        from = from,
+        to = to,
+        edit_as = edit_as,
+        left = left,
+        top = top,
+        width = width,
+        height = height
+      )
+      xml_add_child(self$get(), read_xml(anchor_xml))
+      self$save()
+      self
     }
   ),
 
@@ -1654,6 +1707,12 @@ df_to_cells <- function(
 # Bare-string chunks from `fpar()` are normalised upstream via
 # `fortify_fpar()`.
 chunk_to_xlsx_run <- function(chunk) {
+  if (inherits(chunk, "run_equation")) {
+    cli::cli_abort(c(
+      "Equations can not be written in the cells of a workbook.",
+      "i" = "Use {.fn sheet_add_drawing} to add them in a text box."
+    ))
+  }
   pr <- chunk$pr
   rpr_parts <- character(0)
   if (isTRUE(pr$bold)) {
@@ -1869,6 +1928,13 @@ sheet_write_data.block_list <- function(
 #'   (a single cell). The drawing anchors to that cell, keeping the
 #'   size set by `width` / `height`.
 #'
+#' A paragraph made with [fpar()], or a [block_list()] of paragraphs, is
+#' added in a text box. This is the way to add equations made with
+#' [run_equation()] to a workbook: 'Excel' does not accept equations in
+#' cells. When the paragraphs only contain equations, the default `width`
+#' and `height` are computed from the size of the equations; otherwise they
+#' are 3 and 1 inches.
+#'
 #' Additional methods for `ms_chart` and `dml` are provided by the
 #' extension packages 'mschart' and 'rvg'.
 #'
@@ -2036,6 +2102,87 @@ sheet_add_drawing.gg <- function(
     anchor = anchor,
     edit_as = edit_as
   )
+}
+
+#' @export
+#' @method sheet_add_drawing fpar
+sheet_add_drawing.fpar <- function(
+  x,
+  value,
+  sheet,
+  left = 1,
+  top = 1,
+  width = NULL,
+  height = NULL,
+  anchor = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
+  ...
+) {
+  sheet_add_drawing(
+    x,
+    value = block_list(value),
+    sheet = sheet,
+    left = left,
+    top = top,
+    width = width,
+    height = height,
+    anchor = anchor,
+    edit_as = edit_as,
+    ...
+  )
+}
+
+#' @export
+#' @method sheet_add_drawing block_list
+sheet_add_drawing.block_list <- function(
+  x,
+  value,
+  sheet,
+  left = 1,
+  top = 1,
+  width = NULL,
+  height = NULL,
+  anchor = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
+  ...
+) {
+  chkDots(...)
+  edit_as <- match.arg(edit_as)
+  ft <- parse_anchor(anchor)
+  stopifnot(inherits(x, "rxlsx"))
+  check_sheet_exists(x, sheet)
+  is_fpar <- vapply(value, inherits, NA, what = "fpar")
+  if (!all(is_fpar)) {
+    cli::cli_abort(
+      "A text box can only contain paragraphs made with {.fn fpar}."
+    )
+  }
+
+  size <- equation_textbox_size(value)
+  if (is.null(width)) {
+    width <- if (is.null(size)) 3 else size$width
+  }
+  if (is.null(height)) {
+    height <- if (is.null(size)) 1 else size$height
+  }
+
+  sheet_obj <- x$sheets$get_sheet(
+    which(x$worksheets$sheet_names() == sheet)
+  )
+  drawing <- xlsx_drawing$new(x$package_dir, sheet_obj, x$content_type)
+  paragraphs <- vapply(value, to_pml, FUN.VALUE = "")
+  drawing$add_textbox_anchor(
+    paste0(paragraphs, collapse = ""),
+    left = left,
+    top = top,
+    width = width,
+    height = height,
+    from = ft$from,
+    to = ft$to,
+    edit_as = edit_as
+  )
+
+  invisible(x)
 }
 
 # Convert integer column index to Excel letter (1=A, 2=B, ..., 27=AA)

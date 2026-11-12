@@ -55,6 +55,13 @@ cells and follows them.
 size set by \code{width} / \code{height}.
 }
 
+A paragraph made with \code{\link[=fpar]{fpar()}}, or a \code{\link[=block_list]{block_list()}} of paragraphs, is
+added in a text box. This is the way to add equations made with
+\code{\link[=run_equation]{run_equation()}} to a workbook: 'Excel' does not accept equations in
+cells. When the paragraphs only contain equations, the default \code{width}
+and \code{height} are computed from the size of the equations; otherwise they
+are 3 and 1 inches.
+
 Additional methods for \code{ms_chart} and \code{dml} are provided by the
 extension packages 'mschart' and 'rvg'.
 

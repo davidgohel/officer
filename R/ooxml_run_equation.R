@@ -7,8 +7,10 @@
 #'
 #' The equation is converted by the package 'equatags' into an 'Office'
 #' equation ('Office Open XML Math'): it stays editable in 'Word' and
-#' 'PowerPoint'. Use it with [body_add_fpar()] in a 'Word' document and with
-#' [ph_with()] in a 'PowerPoint' presentation.
+#' 'PowerPoint'. Use it with [body_add_fpar()] in a 'Word' document, with
+#' [ph_with()] in a 'PowerPoint' presentation and with [sheet_add_drawing()]
+#' in an 'Excel' workbook, where equations are in a text box ('Excel' does
+#' not accept equations in cells).
 #'
 #' @section Inline and display style:
 #' As in 'Word', the style of the equation depends on its paragraph:
@@ -60,6 +62,15 @@
 #'   location = ph_location_type("body")
 #' )
 #' print(pres, target = tempfile(fileext = ".pptx"))
+#'
+#' wb <- read_xlsx()
+#' wb <- sheet_add_drawing(
+#'   wb,
+#'   value = fpar(run_equation(quadratic)),
+#'   sheet = "Feuil1",
+#'   anchor = "C2"
+#' )
+#' print(wb, target = tempfile(fileext = ".xlsx"))
 #' @family run functions for reporting
 run_equation <- function(x, prop = NULL) {
   check_equatags()
@@ -234,4 +245,44 @@ equation_par_pml <- function(chunks, fp_p) {
     paste0(eqs, collapse = ""),
     "</m:oMathPara>"
   ))
+}
+
+# Excel ----
+
+# Size (inches) of a text box that only contains paragraphs of equations,
+# from the size computed by equatags::equation_size() (font 'STIX Two Math',
+# a little larger than 'Cambria Math'), the paddings of the paragraphs and
+# the insets of the text box (0.1 inch left and right, 0.05 inch top and
+# bottom); NULL when a paragraph contains something else. Without `prop`,
+# the size of the equations is the default size of a text box in Excel, 11
+# points.
+equation_textbox_size <- function(value) {
+  pars <- lapply(value, fortify_fpar)
+  if (!length(pars) || !all(vapply(pars, is_equation_par, NA))) {
+    return(NULL)
+  }
+  sizes <- mapply(
+    function(chunks, fp_p) {
+      s <- do.call(rbind, lapply(chunks, function(chk) {
+        font_size <- if (is.null(chk$pr) || is.na(chk$pr$font.size)) {
+          11
+        } else {
+          chk$pr$font.size
+        }
+        equatags::equation_size(chk$value, size = font_size, display = TRUE)
+      }))
+      pad <- function(p) if (is.na(p)) 0 else p / 72
+      c(
+        width = sum(s$width) + pad(fp_p$padding.left) + pad(fp_p$padding.right),
+        height = max(s$height + s$depth) * 1.2 +
+          pad(fp_p$padding.top) + pad(fp_p$padding.bottom)
+      )
+    },
+    pars,
+    lapply(value, function(z) z$fp_p)
+  )
+  list(
+    width = max(sizes["width", ]) + 0.2,
+    height = sum(sizes["height", ]) + 0.1
+  )
 }

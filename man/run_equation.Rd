@@ -21,8 +21,10 @@ paragraph made with \code{\link[=fpar]{fpar()}}.
 
 The equation is converted by the package 'equatags' into an 'Office'
 equation ('Office Open XML Math'): it stays editable in 'Word' and
-'PowerPoint'. Use it with \code{\link[=body_add_fpar]{body_add_fpar()}} in a 'Word' document and with
-\code{\link[=ph_with]{ph_with()}} in a 'PowerPoint' presentation.
+'PowerPoint'. Use it with \code{\link[=body_add_fpar]{body_add_fpar()}} in a 'Word' document, with
+\code{\link[=ph_with]{ph_with()}} in a 'PowerPoint' presentation and with \code{\link[=sheet_add_drawing]{sheet_add_drawing()}}
+in an 'Excel' workbook, where equations are in a text box ('Excel' does
+not accept equations in cells).
 }
 \section{Inline and display style}{
 
@@ -78,6 +80,15 @@ pres <- ph_with(
   location = ph_location_type("body")
 )
 print(pres, target = tempfile(fileext = ".pptx"))
+
+wb <- read_xlsx()
+wb <- sheet_add_drawing(
+  wb,
+  value = fpar(run_equation(quadratic)),
+  sheet = "Feuil1",
+  anchor = "C2"
+)
+print(wb, target = tempfile(fileext = ".xlsx"))
 }
 \seealso{
 Other run functions for reporting:

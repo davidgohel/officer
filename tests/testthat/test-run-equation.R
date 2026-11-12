@@ -112,3 +112,74 @@ test_that("equations are written in a PowerPoint presentation", {
   expect_length(xml2::xml_find_all(slide, "//a14:m/m:oMath", ns), 1)
   expect_s3_class(read_pptx(path), "rpptx")
 })
+
+xlsx_drawing_xml <- function(x) {
+  path <- print(x, target = tempfile(fileext = ".xlsx"))
+  dir <- unpack_folder(path, tempfile())
+  xml2::read_xml(file.path(dir, "xl", "drawings", "drawing1.xml"))
+}
+xlsx_ns <- c(
+  xdr = "http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing",
+  a = "http://schemas.openxmlformats.org/drawingml/2006/main",
+  a14 = "http://schemas.microsoft.com/office/drawing/2010/main",
+  m = "http://schemas.openxmlformats.org/officeDocument/2006/math"
+)
+
+test_that("Excel: equations are written in a text box", {
+  x <- read_xlsx()
+  x <- sheet_add_drawing(
+    x,
+    value = block_list(
+      fpar(run_equation("\\frac{a}{b}")),
+      fpar("in a sentence: ", run_equation("x^2"))
+    ),
+    sheet = "Feuil1",
+    anchor = "B2",
+    width = 3,
+    height = 1
+  )
+  doc <- xlsx_drawing_xml(x)
+  sp <- xml2::xml_find_all(doc, "//xdr:oneCellAnchor/xdr:sp", xlsx_ns)
+  expect_length(sp, 1)
+  expect_identical(
+    xml2::xml_attr(xml2::xml_find_first(sp, ".//xdr:cNvSpPr", xlsx_ns), "txBox"),
+    "1"
+  )
+  # paragraphs with their properties: Excel empties a paragraph without them
+  expect_length(xml2::xml_find_all(sp, ".//a:p/a:pPr", xlsx_ns), 2)
+  expect_length(xml2::xml_find_all(sp, ".//a14:m/m:oMathPara/m:oMath", xlsx_ns), 1)
+  expect_length(xml2::xml_find_all(sp, ".//a14:m/m:oMath", xlsx_ns), 1)
+  ext <- xml2::xml_find_first(doc, "//xdr:oneCellAnchor/xdr:ext", xlsx_ns)
+  expect_identical(xml2::xml_attr(ext, "cx"), "2743200")
+})
+
+test_that("Excel: the text box of an equation gets the size of the equation", {
+  tex <- "x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}"
+  x <- read_xlsx()
+  x <- sheet_add_drawing(x, value = fpar(run_equation(tex)), sheet = "Feuil1")
+  doc <- xlsx_drawing_xml(x)
+  ext <- xml2::xml_find_first(doc, "//xdr:absoluteAnchor/xdr:ext", xlsx_ns)
+  s <- equatags::equation_size(tex, size = 11, display = TRUE)
+  expect_equal(
+    as.numeric(xml2::xml_attr(ext, "cx")) / 914400,
+    s$width + 0.2,
+    tolerance = 1e-5
+  )
+  expect_equal(
+    as.numeric(xml2::xml_attr(ext, "cy")) / 914400,
+    (s$height + s$depth) * 1.2 + 0.1,
+    tolerance = 1e-5
+  )
+})
+
+test_that("Excel: text boxes only contain paragraphs, cells no equations", {
+  x <- read_xlsx()
+  expect_error(
+    sheet_add_drawing(x, value = block_list(fpar("a"), block_toc()), sheet = "Feuil1"),
+    "paragraphs made with"
+  )
+  expect_error(
+    sheet_write_data(x, fpar(run_equation("x")), sheet = "Feuil1"),
+    "can not be written in the cells"
+  )
+})

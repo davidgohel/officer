@@ -19,6 +19,7 @@ sheet. Used internally by \code{\link[=sheet_add_drawing]{sheet_add_drawing()}} 
     \item \href{#method-xlsx_drawing-add_chart_rel}{\code{xlsx_drawing$add_chart_rel()}}
     \item \href{#method-xlsx_drawing-add_image_rel}{\code{xlsx_drawing$add_image_rel()}}
     \item \href{#method-xlsx_drawing-add_image_anchor}{\code{xlsx_drawing$add_image_anchor()}}
+    \item \href{#method-xlsx_drawing-add_textbox_anchor}{\code{xlsx_drawing$add_textbox_anchor()}}
     \item \href{#method-xlsx_drawing-clone}{\code{xlsx_drawing$clone()}}
   }
 }
@@ -200,6 +201,44 @@ columns are resized: \code{"twoCell"} (move and size with cells, the
 default), \code{"oneCell"} (move only) or \code{"absolute"} (neither). Only
 meaningful when both \code{from} and \code{to} are supplied.}
       \item{\code{alt}}{alternative text}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-xlsx_drawing-add_textbox_anchor"></a>}}
+\if{latex}{\out{\hypertarget{method-xlsx_drawing-add_textbox_anchor}{}}}
+\subsection{\code{xlsx_drawing$add_textbox_anchor()}}{
+  Place a text box (no fill, no line) on the sheet.
+Positioning works the same way as \code{add_chart_anchor()}.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{xlsx_drawing$add_textbox_anchor(
+  paragraphs_xml,
+  left = 1,
+  top = 1,
+  width = 3,
+  height = 1,
+  from = NULL,
+  to = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute")
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{paragraphs_xml}}{DrawingML paragraphs (\code{a:p} elements, as
+written by \code{to_pml()}), in one string.}
+      \item{\code{left, top}}{top-left position in inches (fixed-position mode)}
+      \item{\code{width, height}}{size in inches}
+      \item{\code{from, to}}{Excel cell references like \code{"C4"} (1-based,
+case-insensitive)}
+      \item{\code{edit_as}}{how Excel should treat the drawing when rows or
+columns are resized: \code{"twoCell"} (move and size with cells, the
+default), \code{"oneCell"} (move only) or \code{"absolute"} (neither). Only
+meaningful when both \code{from} and \code{to} are supplied.}
     }
     \if{html}{\out{</div>}}
   }
