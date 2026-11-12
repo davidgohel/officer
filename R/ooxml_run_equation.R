@@ -5,8 +5,10 @@
 #' @description Create an equation written in LaTeX, to be used in a
 #' paragraph made with [fpar()].
 #'
-#' The equation is converted by the package 'equatags' into an equation of
-#' 'Word' ('Office Open XML Math'): it stays editable in 'Word'.
+#' The equation is converted by the package 'equatags' into an 'Office'
+#' equation ('Office Open XML Math'): it stays editable in 'Word' and
+#' 'PowerPoint'. Use it with [body_add_fpar()] in a 'Word' document and with
+#' [ph_with()] in a 'PowerPoint' presentation.
 #'
 #' @section Inline and display style:
 #' As in 'Word', the style of the equation depends on its paragraph:
@@ -23,7 +25,7 @@
 #' @param prop formatting text properties returned by [fp_text()] or
 #' [fp_text_lite()]. Only the font size and the color are used, the font is
 #' the math font of the document ('Cambria Math' by default). With `NULL`,
-#' the default size and color of the document.
+#' the default size and color of the document or of the shape.
 #' @examples
 #' library(officer)
 #'
@@ -46,6 +48,18 @@
 #'   )
 #' )
 #' print(doc, target = tempfile(fileext = ".docx"))
+#'
+#' pres <- read_pptx()
+#' pres <- add_slide(pres, layout = "Title and Content")
+#' pres <- ph_with(
+#'   pres,
+#'   block_list(
+#'     fpar("The quadratic formula:"),
+#'     fpar(run_equation(quadratic), fp_p = fp_par(text.align = "center"))
+#'   ),
+#'   location = ph_location_type("body")
+#' )
+#' print(pres, target = tempfile(fileext = ".pptx"))
 #' @family run functions for reporting
 run_equation <- function(x, prop = NULL) {
   check_equatags()
@@ -150,4 +164,74 @@ equation_par_wml <- function(chunks, fp_p) {
     paste0(eqs, collapse = ""),
     "</m:oMathPara>"
   )
+}
+
+# PowerPoint ----
+
+equation_rpr_pml <- function(pr) {
+  if (is.null(pr)) {
+    return(NULL)
+  }
+  size <- if (!is.na(pr$font.size)) {
+    sprintf(" sz=\"%.0f\"", pr$font.size * 100)
+  } else {
+    ""
+  }
+  fill <- if (!is.na(pr$color)) {
+    alpha <- colalpha(pr$color)
+    sprintf(
+      "<a:solidFill><a:srgbClr val=\"%s\">%s</a:srgbClr></a:solidFill>",
+      hex_color(pr$color),
+      if (alpha < 1) sprintf("<a:alpha val=\"%.0f\"/>", alpha * 100000) else ""
+    )
+  } else {
+    ""
+  }
+  if (!nzchar(size) && !nzchar(fill)) {
+    return(NULL)
+  }
+  paste0("<a:rPr", size, ">", fill, "</a:rPr>")
+}
+
+# The equations of PowerPoint (and of the text boxes of Excel) are in an
+# a14:m element, read by Office 2010 and later, inside mc:AlternateContent.
+# As PowerPoint writes them: an inline equation is an m:oMath, the equations
+# of a paragraph that only contains equations are in an m:oMathPara.
+a14_math_pml <- function(x) {
+  paste0(
+    "<mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\">",
+    "<mc:Choice xmlns:a14=\"http://schemas.microsoft.com/office/drawing/2010/main\" Requires=\"a14\">",
+    "<a14:m>",
+    x,
+    "</a14:m></mc:Choice></mc:AlternateContent>"
+  )
+}
+
+#' @export
+to_pml.run_equation <- function(x, add_ns = FALSE, display = FALSE, ...) {
+  omml <- equation_omml(
+    x$value,
+    display = display,
+    rpr = equation_rpr_pml(x$pr)
+  )
+  if (display) {
+    return(omml)
+  }
+  a14_math_pml(omml)
+}
+
+equation_par_pml <- function(chunks, fp_p) {
+  eqs <- vapply(
+    chunks,
+    function(chk) to_pml(chk, display = TRUE),
+    FUN.VALUE = ""
+  )
+  a14_math_pml(paste0(
+    "<m:oMathPara xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\">",
+    "<m:oMathParaPr><m:jc m:val=\"",
+    math_jc(fp_p$text.align),
+    "\"/></m:oMathParaPr>",
+    paste0(eqs, collapse = ""),
+    "</m:oMathPara>"
+  ))
 }

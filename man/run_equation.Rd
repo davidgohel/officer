@@ -13,14 +13,16 @@ can be used, see \url{https://katex.org/docs/supported.html}.}
 \item{prop}{formatting text properties returned by \code{\link[=fp_text]{fp_text()}} or
 \code{\link[=fp_text_lite]{fp_text_lite()}}. Only the font size and the color are used, the font is
 the math font of the document ('Cambria Math' by default). With \code{NULL},
-the default size and color of the document.}
+the default size and color of the document or of the shape.}
 }
 \description{
 Create an equation written in LaTeX, to be used in a
 paragraph made with \code{\link[=fpar]{fpar()}}.
 
-The equation is converted by the package 'equatags' into an equation of
-'Word' ('Office Open XML Math'): it stays editable in 'Word'.
+The equation is converted by the package 'equatags' into an 'Office'
+equation ('Office Open XML Math'): it stays editable in 'Word' and
+'PowerPoint'. Use it with \code{\link[=body_add_fpar]{body_add_fpar()}} in a 'Word' document and with
+\code{\link[=ph_with]{ph_with()}} in a 'PowerPoint' presentation.
 }
 \section{Inline and display style}{
 
@@ -64,6 +66,18 @@ doc <- body_add_fpar(
   )
 )
 print(doc, target = tempfile(fileext = ".docx"))
+
+pres <- read_pptx()
+pres <- add_slide(pres, layout = "Title and Content")
+pres <- ph_with(
+  pres,
+  block_list(
+    fpar("The quadratic formula:"),
+    fpar(run_equation(quadratic), fp_p = fp_par(text.align = "center"))
+  ),
+  location = ph_location_type("body")
+)
+print(pres, target = tempfile(fileext = ".pptx"))
 }
 \seealso{
 Other run functions for reporting:

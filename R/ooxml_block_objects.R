@@ -1066,9 +1066,13 @@ to_pml.fpar <- function(x, add_ns = FALSE, ...) {
 
   par_style <- ppr_pml(x$fp_p)
   chks <- fortify_fpar(x)
-  z <- lapply(chks, to_pml)
-  z$collapse <- ""
-  z <- do.call(paste0, z)
+  if (is_equation_par(chks)) {
+    z <- equation_par_pml(chks, x$fp_p)
+  } else {
+    z <- lapply(chks, to_pml)
+    z$collapse <- ""
+    z <- do.call(paste0, z)
+  }
   paste0(open_tag, par_style, z, "</a:p>")
 }
 
