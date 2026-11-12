@@ -1,3 +1,14 @@
+# officer 0.7.9
+
+## Features
+
+- new function `run_equation()`: an equation written in LaTeX, to be used in
+a paragraph made with `fpar()`, for example with `body_add_fpar()`. It is
+written as a 'Word' equation, which stays editable. As in 'Word', an equation
+alone in its paragraph uses the display style and follows the alignment of the
+paragraph; an equation in a sentence uses the inline style. The package
+'equatags' (>= 0.4.0) converts the equations.
+
 # officer 0.7.8
 
 ## Features

@@ -1047,9 +1047,13 @@ to_wml.fpar <- function(x, add_ns = FALSE, style_id = NULL, ...) {
   }
 
   chks <- fortify_fpar(x)
-  z <- lapply(chks, to_wml)
-  z$collapse <- ""
-  z <- do.call(paste0, z)
+  if (is_equation_par(chks)) {
+    z <- equation_par_wml(chks, x$fp_p)
+  } else {
+    z <- lapply(chks, to_wml)
+    z$collapse <- ""
+    z <- do.call(paste0, z)
+  }
   paste0(open_tag, par_style, z, "</w:p>")
 }
 

@@ -102,6 +102,7 @@ Other run functions for reporting:
 \code{\link[=run_bookmark]{run_bookmark()}},
 \code{\link[=run_columnbreak]{run_columnbreak()}},
 \code{\link[=run_comment]{run_comment()}},
+\code{\link[=run_equation]{run_equation()}},
 \code{\link[=run_footnote]{run_footnote()}},
 \code{\link[=run_footnoteref]{run_footnoteref()}},
 \code{\link[=run_linebreak]{run_linebreak()}},
