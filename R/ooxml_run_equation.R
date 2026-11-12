@@ -12,6 +12,11 @@
 #' in an 'Excel' workbook, where equations are in a text box ('Excel' does
 #' not accept equations in cells).
 #'
+#' In HTML (`to_html()`), equations are drawn by 'KaTeX' (its stylesheet is
+#' linked). In RTF documents ([rtf_add()]), they are images drawn by
+#' 'equatags' (R >= 4.3), placed on the baseline of the text; with an older
+#' version of R, the LaTeX source is written as text, with a warning.
+#'
 #' @section Inline and display style:
 #' As in 'Word', the style of the equation depends on its paragraph:
 #'
@@ -285,4 +290,96 @@ equation_textbox_size <- function(value) {
     width = max(sizes["width", ]) + 0.2,
     height = sum(sizes["height", ]) + 0.1
   )
+}
+
+# HTML ----
+
+# KaTeX draws equations at 1.21 em (`.katex {font-size: 1.21em}`): the font
+# size of `prop` is divided by 1.21 so that equations have this size. An
+# equation alone in its paragraph follows the alignment and the spacing of
+# the paragraph (KaTeX centers them, with margins).
+#' @export
+to_html.run_equation <- function(x, display = FALSE, ...) {
+  out <- equatags::transform_mathjax(x$value, to = "html", display = display)
+  out <- trimws(out)
+  if (display) {
+    out <- sub(
+      "<span class=\"katex-display\"><span class=\"katex\">",
+      paste0(
+        "<span class=\"katex-display\" style=\"text-align:inherit;margin:0;\">",
+        "<span class=\"katex\" style=\"text-align:inherit;\">"
+      ),
+      out,
+      fixed = TRUE
+    )
+  }
+  css <- character()
+  if (!is.null(x$pr) && !is.na(x$pr$font.size)) {
+    css <- c(css, sprintf("font-size:%.2fpt;", x$pr$font.size / 1.21))
+  }
+  if (!is.null(x$pr) && !is.na(x$pr$color)) {
+    css <- c(css, sprintf("color:#%s;", hex_color(x$pr$color)))
+  }
+  if (length(css)) {
+    out <- sprintf("<span style=\"%s\">%s</span>", paste0(css, collapse = ""), out)
+  }
+  out
+}
+
+# RTF ----
+
+can_draw_equations <- function() {
+  getRversion() >= "4.3.0" &&
+    "equation_grob" %in% getNamespaceExports("equatags")
+}
+
+# RTF has no equations readable by every reader: an equation is a PNG image
+# drawn by equatags::equation_grob() (R >= 4.3), lowered by its depth
+# (`\dn`, in half points) so that its baseline is the baseline of the text.
+# Without the size of `prop`, 11 points.
+#' @export
+to_rtf.run_equation <- function(x, display = FALSE, ...) {
+  if (!can_draw_equations()) {
+    warning(
+      "Equations are written as LaTeX text in RTF: drawing them needs ",
+      "R >= 4.3.",
+      call. = FALSE
+    )
+    return(str_encode_to_rtf(x$value))
+  }
+  size <- if (is.null(x$pr) || is.na(x$pr$font.size)) 11 else x$pr$font.size
+  colour <- if (is.null(x$pr) || is.na(x$pr$color)) "black" else x$pr$color
+  s <- equatags::equation_size(x$value, size = size, display = display)
+  height <- s$height + s$depth
+  if (is.na(s$width) || s$width <= 0 || height <= 0) {
+    return(str_encode_to_rtf(x$value))
+  }
+  path <- tempfile(fileext = ".png")
+  on.exit(unlink(path))
+  ragg::agg_png(
+    filename = path,
+    width = s$width,
+    height = height,
+    units = "in",
+    res = 300,
+    background = "transparent"
+  )
+  grid::grid.newpage()
+  grid::grid.draw(equatags::equation_grob(
+    x$value,
+    size = size,
+    display = display,
+    x0 = 0,
+    y0 = 0,
+    hjust = 0,
+    vjust = 0,
+    colour = colour
+  ))
+  grDevices::dev.off()
+  img <- to_rtf(external_img(src = path, width = s$width, height = height))
+  lower <- round(s$depth * 72 * 2)
+  if (lower > 0) {
+    img <- sprintf("{\\dn%.0f %s}", lower, img)
+  }
+  img
 }

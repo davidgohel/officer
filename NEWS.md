@@ -9,7 +9,9 @@ a paragraph made with `fpar()`. It works in 'Word' documents
 'Office' equation, which stays editable. As in 'Word', an equation alone in
 its paragraph uses the display style and follows the alignment of the
 paragraph; an equation in a sentence uses the inline style. The package
-'equatags' (>= 0.4.0) converts the equations.
+'equatags' (>= 0.4.0) converts the equations. In HTML, equations are drawn
+by 'KaTeX'; in RTF documents (`rtf_add()`), they are images placed on the
+baseline of the text (R >= 4.3).
 - `sheet_add_drawing()` adds a paragraph made with `fpar()` or a `block_list()`
 of paragraphs in a text box of an 'Excel' sheet. 'Excel' does not accept
 equations in cells: `sheet_write_data()` stops with an explicit error.

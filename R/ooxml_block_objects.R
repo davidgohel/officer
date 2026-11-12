@@ -1081,7 +1081,7 @@ to_pml.fpar <- function(x, add_ns = FALSE, ...) {
 to_html.fpar <- function(x, add_ns = FALSE, ...) {
   par_style <- ppr_css(x$fp_p)
   chks <- fortify_fpar(x)
-  z <- lapply(chks, to_html)
+  z <- lapply(chks, to_html, display = is_equation_par(chks))
   z$collapse <- ""
   z <- do.call(paste0, z)
   sprintf("<p style=\"%s\">%s</p>", par_style, z)

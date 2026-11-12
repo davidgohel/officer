@@ -28,7 +28,7 @@ to_rtf <- function(x, ...) {
 #' @export
 to_rtf.fpar <- function(x, ...) {
   chks <- fortify_fpar(x)
-  rtf_chunks <- lapply(chks, to_rtf)
+  rtf_chunks <- lapply(chks, to_rtf, display = is_equation_par(chks))
   rtf_chunks$collapse <- ""
   rtf_chunks <- do.call(paste0, rtf_chunks)
   style_index <- attr(x, "rtf_style_index")

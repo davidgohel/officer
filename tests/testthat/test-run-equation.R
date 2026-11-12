@@ -183,3 +183,46 @@ test_that("Excel: text boxes only contain paragraphs, cells no equations", {
     "can not be written in the cells"
   )
 })
+
+test_that("HTML: equations are written by KaTeX", {
+  html <- to_html(fpar("Euler: ", run_equation("x^2")))
+  expect_match(html, "<span class=\"katex\">", fixed = TRUE)
+  expect_no_match(html, "katex-display", fixed = TRUE)
+  # alone in its paragraph: display style, with the alignment of the paragraph
+  html <- to_html(fpar(run_equation("x^2"), fp_p = fp_par(text.align = "right")))
+  expect_match(html, "text-align:right", fixed = TRUE)
+  expect_match(
+    html,
+    "<span class=\"katex-display\" style=\"text-align:inherit;margin:0;\"><span class=\"katex\" style=\"text-align:inherit;\">",
+    fixed = TRUE
+  )
+  # size (KaTeX draws at 1.21 em) and color
+  prop <- fp_text_lite(font.size = 12.1, color = "red")
+  html <- to_html(fpar("a ", run_equation("x", prop = prop)))
+  expect_match(html, "<span style=\"font-size:10.00pt;color:#FF0000;\">", fixed = TRUE)
+})
+
+test_that("RTF: equations are images on the baseline of the text", {
+  skip_if_not(officer:::can_draw_equations())
+  tex <- "\\frac{a}{b}"
+  rtf <- to_rtf(fpar("eq: ", run_equation(tex, prop = fp_text_lite(font.size = 12))))
+  s <- equatags::equation_size(tex, size = 12)
+  pict <- sprintf(
+    "{\\dn%.0f {\\pict\\pngblip\\picwgoal%.0f\\pichgoal%.0f ",
+    round(s$depth * 144),
+    s$width * 1440,
+    (s$height + s$depth) * 1440
+  )
+  expect_match(rtf, pict, fixed = TRUE)
+  # alone in its paragraph: display style, larger
+  rtf <- to_rtf(fpar(run_equation(tex, prop = fp_text_lite(font.size = 12))))
+  s <- equatags::equation_size(tex, size = 12, display = TRUE)
+  expect_match(rtf, sprintf("\\picwgoal%.0f\\", s$width * 1440), fixed = TRUE)
+})
+
+test_that("RTF: equations are LaTeX text when they can not be drawn", {
+  local_mocked_bindings(can_draw_equations = function() FALSE)
+  expect_warning(rtf <- to_rtf(fpar(run_equation("\\frac{a}{b}"))), "LaTeX text")
+  expect_match(rtf, "\\frac{a}{b}", fixed = TRUE)
+  expect_no_match(rtf, "\\pngblip", fixed = TRUE)
+})

@@ -25,6 +25,11 @@ equation ('Office Open XML Math'): it stays editable in 'Word' and
 \code{\link[=ph_with]{ph_with()}} in a 'PowerPoint' presentation and with \code{\link[=sheet_add_drawing]{sheet_add_drawing()}}
 in an 'Excel' workbook, where equations are in a text box ('Excel' does
 not accept equations in cells).
+
+In HTML (\code{to_html()}), equations are drawn by 'KaTeX' (its stylesheet is
+linked). In RTF documents (\code{\link[=rtf_add]{rtf_add()}}), they are images drawn by
+'equatags' (R >= 4.3), placed on the baseline of the text; with an older
+version of R, the LaTeX source is written as text, with a warning.
 }
 \section{Inline and display style}{
 
