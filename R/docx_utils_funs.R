@@ -311,7 +311,7 @@ set_doc_properties <- function(
 docx_bookmarks <- function(x) {
   stopifnot(inherits(x, "rdocx"))
 
-  doc_ <- xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
+  doc_ <- xml_find_all(x$doc_obj$get(), "/descendant::w:bookmarkStart[@w:name]")
   setdiff(xml_attr(doc_, "name"), "_GoBack")
 }
 

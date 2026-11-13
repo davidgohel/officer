@@ -33,7 +33,7 @@ process_images <- function(
 ) {
   hl_nodes <- xml_find_all(
     doc_obj$get(),
-    "//a:blip[@r:embed]|//asvg:svgBlip[@r:embed]",
+    "/descendant::a:blip[@r:embed]|/descendant::asvg:svgBlip[@r:embed]",
     ns = c(
       "a" = "http://schemas.openxmlformats.org/drawingml/2006/main",
       "asvg" = "http://schemas.microsoft.com/office/drawing/2016/SVG/main",
@@ -84,7 +84,7 @@ process_docx_poured <- function(
 ) {
   hl_nodes <- xml_find_all(
     doc_obj$get(),
-    "//w:altChunk[@r:id]",
+    "/descendant::w:altChunk[@r:id]",
     ns = c(
       "w" = "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
       "r" = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -129,9 +129,9 @@ process_docx_poured <- function(
 process_links <- function(doc_obj, type = "wml") {
   rel <- doc_obj$relationship()
   if ("wml" %in% type) {
-    hl_nodes <- xml_find_all(doc_obj$get(), "//w:hyperlink[@r:id]")
+    hl_nodes <- xml_find_all(doc_obj$get(), "/descendant::w:hyperlink[@r:id]")
   } else {
-    hl_nodes <- xml_find_all(doc_obj$get(), "//a:hlinkClick[@r:id]")
+    hl_nodes <- xml_find_all(doc_obj$get(), "/descendant::a:hlinkClick[@r:id]")
   }
   which_to_add <- hl_nodes[!grepl("^rId[0-9]+$", xml_attr(hl_nodes, "id"))]
   hl_ref <- unique(xml_attr(which_to_add, "id"))
@@ -370,7 +370,7 @@ sanitize_images <- function(x, warn_user = TRUE) {
       suppressWarnings({
         blip_nodes <- xml_find_all(
           doc_part$get(),
-          "//a:blip[contains(@r:embed, 'rId')]|//asvg:svgBlip[contains(@r:embed, 'rId')]",
+          "/descendant::a:blip[contains(@r:embed, 'rId')]|/descendant::asvg:svgBlip[contains(@r:embed, 'rId')]",
           ns = c(
             "a" = "http://schemas.openxmlformats.org/drawingml/2006/main",
             "asvg" = "http://schemas.microsoft.com/office/drawing/2016/SVG/main",
@@ -380,7 +380,7 @@ sanitize_images <- function(x, warn_user = TRUE) {
         # VML images (e.g. OLE object previews) reference their media through <v:imagedata>, not <a:blip>.
         imagedata_nodes <- xml_find_all(
           doc_part$get(),
-          "//v:imagedata[contains(@r:id, 'rId')]",
+          "/descendant::v:imagedata[contains(@r:id, 'rId')]",
           ns = c(
             "v" = "urn:schemas-microsoft-com:vml",
             "r" = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"

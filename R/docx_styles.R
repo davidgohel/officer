@@ -273,7 +273,7 @@ change_styles <- function(x, mapstyles) {
   for (i in seq_len(nrow(mapping))) {
     all_nodes <- xml_find_all(
       x$doc_obj$get(),
-      sprintf("//w:%sStyle[@w:val='%s']", mapping$types[i], mapping$from[i])
+      sprintf("/descendant::w:%sStyle[@w:val='%s']", mapping$types[i], mapping$from[i])
     )
     xml_attr(all_nodes, "w:val") <- rep(mapping$to[i], length(all_nodes))
   }

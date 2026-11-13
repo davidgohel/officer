@@ -49,19 +49,19 @@ body_replace_img_at_bkm <- function(x, bookmark, value) {
 
 xml_replace_text_at_bkm <- function(node, bookmark, value) {
   text <- enc2utf8(value)
-  xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", bookmark)
+  xpath_ <- sprintf("/descendant::w:bookmarkStart[@w:name='%s']", bookmark)
   bm_start <- xml_find_first(node, xpath_)
   if (inherits(bm_start, "xml_missing")) {
     return(FALSE)
   }
 
   str_ <- sprintf(
-    "//w:bookmarkStart[@w:name='%s']/following-sibling::w:r",
+    "/descendant::w:bookmarkStart[@w:name='%s']/following-sibling::w:r",
     bookmark
   )
   following_start <- sapply(xml_find_all(node, str_), xml_path)
   str_ <- sprintf(
-    "//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r",
+    "/descendant::w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r",
     xml_attr(bm_start, "id")
   )
   preceding_end <- sapply(xml_find_all(node, str_), xml_path)
@@ -89,19 +89,19 @@ docxpart_replace_img_at_bkm <- function(node, bookmark, value) {
   stopifnot(is_scalar_character(bookmark))
   stopifnot(inherits(value, "external_img"))
 
-  xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", bookmark)
+  xpath_ <- sprintf("/descendant::w:bookmarkStart[@w:name='%s']", bookmark)
   bm_start <- xml_find_first(node, xpath_)
   if (inherits(bm_start, "xml_missing")) {
     stop("cannot find bookmark ", shQuote(bookmark), call. = FALSE)
   }
 
   str_ <- sprintf(
-    "//w:bookmarkStart[@w:name='%s']/following-sibling::w:r",
+    "/descendant::w:bookmarkStart[@w:name='%s']/following-sibling::w:r",
     bookmark
   )
   following_start <- sapply(xml_find_all(node, str_), xml_path)
   str_ <- sprintf(
-    "//w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r",
+    "/descendant::w:bookmarkEnd[@w:id='%s']/preceding-sibling::w:r",
     xml_attr(bm_start, "id")
   )
   preceding_end <- sapply(xml_find_all(node, str_), xml_path)

@@ -16,6 +16,14 @@ baseline of the text (R >= 4.3).
 of paragraphs in a text box of an 'Excel' sheet. 'Excel' does not accept
 equations in cells: `sheet_write_data()` stops with an explicit error.
 
+## Issues
+
+- `print()` of very large Word documents (more than about 10 million XML
+nodes, for example a listing of several hundred pages made with 'flextable')
+failed with "growing nodeset hit limit" or made R crash. The XML queries run
+by `print()`, and those of the bookmark, comment and style functions, no
+longer build the set of all the nodes of the document (flextable#737).
+
 # officer 0.7.8
 
 ## Features

@@ -24,7 +24,7 @@ cursor_begin <- function(x) {
 #' Set the cursor at a bookmark that has previously been set.
 #' @export
 cursor_bookmark <- function(x, id) {
-  xpath_ <- sprintf("//w:bookmarkStart[@w:name='%s']", id)
+  xpath_ <- sprintf("/descendant::w:bookmarkStart[@w:name='%s']", id)
   bm_start <- xml_find_first(x$doc_obj$get(), xpath_)
 
   if (inherits(bm_start, "xml_missing")) {
