@@ -29,6 +29,18 @@ The drawing can be positioned in three ways, matching Excel's own
   The drawing anchors to that cell, keeping the size set by `width` /
   `height`.
 
+A paragraph made with
+[`fpar()`](https://davidgohel.github.io/officer/dev/reference/fpar.md),
+or a
+[`block_list()`](https://davidgohel.github.io/officer/dev/reference/block_list.md)
+of paragraphs, is added in a text box. This is the way to add equations
+made with
+[`run_equation()`](https://davidgohel.github.io/officer/dev/reference/run_equation.md)
+to a workbook: 'Excel' does not accept equations in cells. When the
+paragraphs only contain equations, the default `width` and `height` are
+computed from the size of the equations; otherwise they are 3 and 1
+inches.
+
 Additional methods for `ms_chart` and `dml` are provided by the
 extension packages 'mschart' and 'rvg'.
 

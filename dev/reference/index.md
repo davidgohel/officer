@@ -360,6 +360,8 @@ footnotes and Word fields.
   : Column break for 'Word'
 - [`run_comment()`](https://davidgohel.github.io/officer/dev/reference/run_comment.md)
   : Comment for 'Word'
+- [`run_equation()`](https://davidgohel.github.io/officer/dev/reference/run_equation.md)
+  : Equation
 - [`run_footnote()`](https://davidgohel.github.io/officer/dev/reference/run_footnote.md)
   : Footnote for 'Word'
 - [`run_footnoteref()`](https://davidgohel.github.io/officer/dev/reference/run_footnoteref.md)

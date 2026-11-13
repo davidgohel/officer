@@ -109,6 +109,7 @@ Other run functions for reporting:
 [`run_bookmark()`](https://davidgohel.github.io/officer/dev/reference/run_bookmark.md),
 [`run_columnbreak()`](https://davidgohel.github.io/officer/dev/reference/run_columnbreak.md),
 [`run_comment()`](https://davidgohel.github.io/officer/dev/reference/run_comment.md),
+[`run_equation()`](https://davidgohel.github.io/officer/dev/reference/run_equation.md),
 [`run_footnote()`](https://davidgohel.github.io/officer/dev/reference/run_footnote.md),
 [`run_footnoteref()`](https://davidgohel.github.io/officer/dev/reference/run_footnoteref.md),
 [`run_linebreak()`](https://davidgohel.github.io/officer/dev/reference/run_linebreak.md),
@@ -146,5 +147,5 @@ print(x, target = tempfile(fileext = ".docx"))
 rtf_doc <- rtf_doc()
 rtf_doc <- rtf_add(rtf_doc, an_fpar)
 print(rtf_doc, target = tempfile(fileext = ".rtf"))
-#> [1] "/tmp/RtmpUfNSVJ/file17772fd08ee5.rtf"
+#> [1] "/tmp/RtmplRLRuO/file18a173ab2580.rtf"
 ```

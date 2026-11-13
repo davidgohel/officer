@@ -23,6 +23,8 @@ methods.
 
 - [`xlsx_drawing$add_image_anchor()`](#method-xlsx_drawing-add_image_anchor)
 
+- [`xlsx_drawing$add_textbox_anchor()`](#method-xlsx_drawing-add_textbox_anchor)
+
 - [`xlsx_drawing$clone()`](#method-xlsx_drawing-clone)
 
 Inherited methods
@@ -225,6 +227,53 @@ cells, `from` only to move (but not resize) with cells, or leave both
 - `alt`:
 
   alternative text
+
+------------------------------------------------------------------------
+
+### `xlsx_drawing$add_textbox_anchor()`
+
+Place a text box (no fill, no line) on the sheet. Positioning works the
+same way as `add_chart_anchor()`.
+
+#### Usage
+
+    xlsx_drawing$add_textbox_anchor(
+      paragraphs_xml,
+      left = 1,
+      top = 1,
+      width = 3,
+      height = 1,
+      from = NULL,
+      to = NULL,
+      edit_as = c("twoCell", "oneCell", "absolute")
+    )
+
+#### Arguments
+
+- `paragraphs_xml`:
+
+  DrawingML paragraphs (`a:p` elements, as written by
+  [`to_pml()`](https://davidgohel.github.io/officer/dev/reference/to_pml.md)),
+  in one string.
+
+- `left, top`:
+
+  top-left position in inches (fixed-position mode)
+
+- `width, height`:
+
+  size in inches
+
+- `from, to`:
+
+  Excel cell references like `"C4"` (1-based, case-insensitive)
+
+- `edit_as`:
+
+  how Excel should treat the drawing when rows or columns are resized:
+  `"twoCell"` (move and size with cells, the default), `"oneCell"` (move
+  only) or `"absolute"` (neither). Only meaningful when both `from` and
+  `to` are supplied.
 
 ------------------------------------------------------------------------
 

@@ -58,6 +58,7 @@ Other run functions for reporting:
 [`run_autonum()`](https://davidgohel.github.io/officer/dev/reference/run_autonum.md),
 [`run_bookmark()`](https://davidgohel.github.io/officer/dev/reference/run_bookmark.md),
 [`run_columnbreak()`](https://davidgohel.github.io/officer/dev/reference/run_columnbreak.md),
+[`run_equation()`](https://davidgohel.github.io/officer/dev/reference/run_equation.md),
 [`run_footnote()`](https://davidgohel.github.io/officer/dev/reference/run_footnote.md),
 [`run_footnoteref()`](https://davidgohel.github.io/officer/dev/reference/run_footnoteref.md),
 [`run_linebreak()`](https://davidgohel.github.io/officer/dev/reference/run_linebreak.md),

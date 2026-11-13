@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.020</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.9.005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.8" id="officer-078">officer 0.7.8<a class="anchor" aria-label="anchor" href="#officer-078"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.9" id="officer-079">officer 0.7.9<a class="anchor" aria-label="anchor" href="#officer-079"></a></h2>
+<div class="section level3">
+<h3 id="features-0-7-9">Features<a class="anchor" aria-label="anchor" href="#features-0-7-9"></a></h3>
+<ul><li>new function <code><a href="../reference/run_equation.html">run_equation()</a></code>: an equation written in LaTeX, to be used in a paragraph made with <code><a href="../reference/fpar.html">fpar()</a></code>. It works in ‘Word’ documents (<code><a href="../reference/body_add_fpar.html">body_add_fpar()</a></code>), in ‘PowerPoint’ presentations (<code><a href="../reference/ph_with.html">ph_with()</a></code>) and in ‘Excel’ workbooks, in a text box (<code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code>). It is written as an ‘Office’ equation, which stays editable. As in ‘Word’, an equation alone in its paragraph uses the display style and follows the alignment of the paragraph; an equation in a sentence uses the inline style. The package ‘equatags’ (&gt;= 0.4.0) converts the equations. In HTML, equations are drawn by ‘KaTeX’; in RTF documents (<code><a href="../reference/rtf_add.html">rtf_add()</a></code>), they are images placed on the baseline of the text (R &gt;= 4.3).</li>
+<li>
+<code><a href="../reference/sheet_add_drawing.html">sheet_add_drawing()</a></code> adds a paragraph made with <code><a href="../reference/fpar.html">fpar()</a></code> or a <code><a href="../reference/block_list.html">block_list()</a></code> of paragraphs in a text box of an ‘Excel’ sheet. ‘Excel’ does not accept equations in cells: <code><a href="../reference/sheet_write_data.html">sheet_write_data()</a></code> stops with an explicit error.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-7-9">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-9"></a></h3>
+<ul><li>
+<code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> of very large Word documents (more than about 10 million XML nodes, for example a listing of several hundred pages made with ‘flextable’) failed with “growing nodeset hit limit” or made R crash. The XML queries run by <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, and those of the bookmark, comment and style functions, no longer build the set of all the nodes of the document (flextable#737).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.8" id="officer-078">officer 0.7.8<a class="anchor" aria-label="anchor" href="#officer-078"></a></h2><p class="text-muted">CRAN release: 2026-11-07</p>
 <div class="section level3">
 <h3 id="features-0-7-8">Features<a class="anchor" aria-label="anchor" href="#features-0-7-8"></a></h3>
 <ul><li>new function <code><a href="../reference/image_dims.html">image_dims()</a></code> returns the size in pixels of an image file or of a raster object. The size of ‘png’, ‘jpeg’ and ‘gif’ files is read from their header, without decoding the image.</li>

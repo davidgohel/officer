@@ -24,6 +24,12 @@ Move but don't size with cells: pass anchor = &quot;B2&quot;
 size set by width / height.
 
 
+A paragraph made with fpar(), or a block_list() of paragraphs, is
+added in a text box. This is the way to add equations made with
+run_equation() to a workbook: 'Excel' does not accept equations in
+cells. When the paragraphs only contain equations, the default width
+and height are computed from the size of the equations; otherwise they
+are 3 and 1 inches.
 Additional methods for ms_chart and dml are provided by the
 extension packages 'mschart' and 'rvg'.
 Use sheet_write_data() to write data into the sheet before or
@@ -52,6 +58,12 @@ Move but don't size with cells: pass anchor = &quot;B2&quot;
 size set by width / height.
 
 
+A paragraph made with fpar(), or a block_list() of paragraphs, is
+added in a text box. This is the way to add equations made with
+run_equation() to a workbook: 'Excel' does not accept equations in
+cells. When the paragraphs only contain equations, the default width
+and height are computed from the size of the equations; otherwise they
+are 3 and 1 inches.
 Additional methods for ms_chart and dml are provided by the
 extension packages 'mschart' and 'rvg'.
 Use sheet_write_data() to write data into the sheet before or
@@ -63,7 +75,7 @@ after adding a drawing."><meta property="og:image" content="https://davidgohel.g
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.8.020</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.9.005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +120,13 @@ cells and follows them.</p></li>
 <li><p>Move but don't size with cells: pass <code>anchor = "B2"</code>
 (a single cell). The drawing anchors to that cell, keeping the
 size set by <code>width</code> / <code>height</code>.</p></li>
-</ul><p>Additional methods for <code>ms_chart</code> and <code>dml</code> are provided by the
+</ul><p>A paragraph made with <code><a href="fpar.html">fpar()</a></code>, or a <code><a href="block_list.html">block_list()</a></code> of paragraphs, is
+added in a text box. This is the way to add equations made with
+<code><a href="run_equation.html">run_equation()</a></code> to a workbook: 'Excel' does not accept equations in
+cells. When the paragraphs only contain equations, the default <code>width</code>
+and <code>height</code> are computed from the size of the equations; otherwise they
+are 3 and 1 inches.</p>
+<p>Additional methods for <code>ms_chart</code> and <code>dml</code> are provided by the
 extension packages 'mschart' and 'rvg'.</p>
 <p>Use <code><a href="sheet_write_data.html">sheet_write_data()</a></code> to write data into the sheet before or
 after adding a drawing.</p>
