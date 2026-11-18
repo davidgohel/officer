@@ -21,7 +21,11 @@ documents
 ([`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md)),
 they are images drawn by 'equatags' (R \>= 4.3), placed on the baseline
 of the text; with an older version of R, the LaTeX source is written as
-text, with a warning.
+text, with a warning. 'Word' does not leave room for the part of these
+images below the baseline: an equation larger than the text, or with a
+fraction, can touch the next line. A larger line spacing avoids it
+(`fp_par(line_spacing = 1.3)`); in the cells of a table, the margins of
+the cells leave this room.
 
 ## Usage
 
