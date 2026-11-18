@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">officer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.9.005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.7.9.006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +43,7 @@
 <h3 id="issues-0-7-9">Issues<a class="anchor" aria-label="anchor" href="#issues-0-7-9"></a></h3>
 <ul><li>
 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> of very large Word documents (more than about 10 million XML nodes, for example a listing of several hundred pages made with ‘flextable’) failed with “growing nodeset hit limit” or made R crash. The XML queries run by <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>, and those of the bookmark, comment and style functions, no longer build the set of all the nodes of the document (flextable#737).</li>
+<li>The alternative text of images (<code>external_img(alt =)</code>, <code>floating_external_img(alt =)</code>) and the name of frames in ‘PowerPoint’ (<code>newlabel</code> of the location functions) were written in the XML without escaping: a text with <code>&amp;</code>, <code>&lt;</code> or <code>"</code> gave an invalid document and an error (<a href="https://github.com/davidgohel/officer/issues/737" class="external-link">#737</a>). They are now escaped, in ‘Word’, ‘PowerPoint’, ‘Excel’ and HTML. A text already escaped to work around this problem (<code>"A &amp;amp; B"</code>) must now be given as is (<code>"A &amp; B"</code>), otherwise it is escaped twice.</li>
 </ul></div>
 </div>
     <div class="section level2">

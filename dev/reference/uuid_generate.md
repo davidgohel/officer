@@ -24,9 +24,9 @@ uuid_generate(n = 1, ...)
 
 ``` r
 uuid_generate(n = 5)
-#> [1] "a871c0bc-fe69-4b0d-a7c5-a620e52cef42"
-#> [2] "a717e4f8-3a92-4ff1-bd27-986169cac532"
-#> [3] "a1474f75-e0e7-4db7-a777-cdc0b2ac4cde"
-#> [4] "a60e86c6-f86c-4500-8e29-7ac53848373f"
-#> [5] "383bdeb3-3f13-46ef-bcc3-211d9cf22ec7"
+#> [1] "ea42df04-cb4b-4ed5-8663-5b28a851f37b"
+#> [2] "157908dd-6803-4d7c-b31b-668dd15db011"
+#> [3] "bed14649-8811-4779-b1eb-c71176db4f0e"
+#> [4] "6ae9cf37-317a-4b3d-b65f-bf202e27be6c"
+#> [5] "8bab49bc-a426-4da8-be0d-f43a26319686"
 ```
