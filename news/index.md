@@ -1,6 +1,58 @@
 # Changelog
 
+## officer 0.7.9
+
+### Features
+
+- new function
+  [`run_equation()`](https://davidgohel.github.io/officer/reference/run_equation.md):
+  an equation written in LaTeX, to be used in a paragraph made with
+  [`fpar()`](https://davidgohel.github.io/officer/reference/fpar.md). It
+  works in ‘Word’ documents
+  ([`body_add_fpar()`](https://davidgohel.github.io/officer/reference/body_add_fpar.md)),
+  in ‘PowerPoint’ presentations
+  ([`ph_with()`](https://davidgohel.github.io/officer/reference/ph_with.md))
+  and in ‘Excel’ workbooks, in a text box
+  ([`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)).
+  It is written as an ‘Office’ equation, which stays editable. As in
+  ‘Word’, an equation alone in its paragraph uses the display style and
+  follows the alignment of the paragraph; an equation in a sentence uses
+  the inline style. The package ‘equatags’ (\>= 0.4.0) converts the
+  equations. In HTML, equations are drawn by ‘KaTeX’, at the size of the
+  text; in RTF documents
+  ([`rtf_add()`](https://davidgohel.github.io/officer/reference/rtf_add.md)),
+  they are images placed on the baseline of the text (R \>= 4.3).
+- [`sheet_add_drawing()`](https://davidgohel.github.io/officer/reference/sheet_add_drawing.md)
+  adds a paragraph made with
+  [`fpar()`](https://davidgohel.github.io/officer/reference/fpar.md) or
+  a
+  [`block_list()`](https://davidgohel.github.io/officer/reference/block_list.md)
+  of paragraphs in a text box of an ‘Excel’ sheet. ‘Excel’ does not
+  accept equations in cells:
+  [`sheet_write_data()`](https://davidgohel.github.io/officer/reference/sheet_write_data.md)
+  stops with an explicit error.
+
+### Issues
+
+- [`print()`](https://rdrr.io/r/base/print.html) of very large Word
+  documents (more than about 10 million XML nodes, for example a listing
+  of several hundred pages made with ‘flextable’) failed with “growing
+  nodeset hit limit” or made R crash. The XML queries run by
+  [`print()`](https://rdrr.io/r/base/print.html), and those of the
+  bookmark, comment and style functions, no longer build the set of all
+  the nodes of the document (flextable#737).
+- The alternative text of images (`external_img(alt =)`,
+  `floating_external_img(alt =)`) and the name of frames in ‘PowerPoint’
+  (`newlabel` of the location functions) were written in the XML without
+  escaping: a text with `&`, `<` or `"` gave an invalid document and an
+  error ([\#737](https://github.com/davidgohel/officer/issues/737)).
+  They are now escaped, in ‘Word’, ‘PowerPoint’, ‘Excel’ and HTML. A
+  text already escaped to work around this problem (`"A &amp; B"`) must
+  now be given as is (`"A & B"`), otherwise it is escaped twice.
+
 ## officer 0.7.8
+
+CRAN release: 2026-11-07
 
 ### Features
 
