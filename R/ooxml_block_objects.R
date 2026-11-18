@@ -907,7 +907,11 @@ to_pml.block_table <- function(
   str <- paste0(
     "<p:graphicFrame xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\">",
     "<p:nvGraphicFramePr>",
-    sprintf("<p:cNvPr id=\"%s\" name=\"%s\"/>", id, label),
+    sprintf(
+      "<p:cNvPr id=\"%s\" name=\"%s\"/>",
+      id,
+      htmlEscapeCopy(label, attribute = TRUE)
+    ),
     "<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp=\"1\"/></p:cNvGraphicFramePr>",
     sprintf("<p:nvPr>%s</p:nvPr>", ph),
     "</p:nvGraphicFramePr>",

@@ -23,6 +23,13 @@ nodes, for example a listing of several hundred pages made with 'flextable')
 failed with "growing nodeset hit limit" or made R crash. The XML queries run
 by `print()`, and those of the bookmark, comment and style functions, no
 longer build the set of all the nodes of the document (flextable#737).
+- The alternative text of images (`external_img(alt =)`,
+`floating_external_img(alt =)`) and the name of frames in 'PowerPoint'
+(`newlabel` of the location functions) were written in the XML without
+escaping: a text with `&`, `<` or `"` gave an invalid document and an error
+(#737). They are now escaped, in 'Word', 'PowerPoint', 'Excel' and HTML. A
+text already escaped to work around this problem (`"A &amp; B"`) must now be
+given as is (`"A & B"`), otherwise it is escaped twice.
 
 # officer 0.7.8
 

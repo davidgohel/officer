@@ -639,7 +639,7 @@ xlsx_drawing <- R6Class(
         ),
         nv_id,
         nv_id,
-        htmlEscapeCopy(alt),
+        htmlEscapeCopy(alt, attribute = TRUE),
         image_rid
       )
       anchor_xml <- build_anchor_xml(

@@ -339,7 +339,16 @@ shape_properties_tags <- function(
 
   str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr>%s%s%s%s</p:spPr>"
 
-  sprintf(str, randomid, label, ph, xfrm_str, geom_str, bg_str, ln_str)
+  sprintf(
+    str,
+    randomid,
+    htmlEscapeCopy(label, attribute = TRUE),
+    ph,
+    xfrm_str,
+    geom_str,
+    bg_str,
+    ln_str
+  )
 }
 
 

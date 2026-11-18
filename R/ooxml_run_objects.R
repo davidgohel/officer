@@ -1253,7 +1253,7 @@ to_wml.external_img <- function(x, add_ns = FALSE, ...) {
       height * 12700 * 72
     ),
     "<wp:docPr id=\"\" name=\"\" descr=\"",
-    attr(x, "alt"),
+    htmlEscapeCopy(attr(x, "alt"), attribute = TRUE),
     "\"/>",
     "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
     "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",
@@ -1320,8 +1320,8 @@ to_pml.external_img <- function(
   sprintf(
     str,
     id,
-    label,
-    attr(x, "alt"),
+    htmlEscapeCopy(label, attribute = TRUE),
+    htmlEscapeCopy(attr(x, "alt"), attribute = TRUE),
     ph,
     blipfill,
     xfrm_str,
@@ -1342,7 +1342,7 @@ to_html.external_img <- function(x, ...) {
     width * 72,
     height * 72,
     b64_str,
-    attr(x, "alt")
+    htmlEscapeCopy(attr(x, "alt"), attribute = TRUE)
   )
 }
 
@@ -1562,7 +1562,7 @@ to_wml.floating_external_img <- function(x, add_ns = FALSE, ...) {
     "<wp:effectExtent l=\"0\" t=\"0\" r=\"0\" b=\"0\"/>",
     wrap_element,
     "<wp:docPr id=\"\" name=\"\" descr=\"",
-    attr(x, "alt"),
+    htmlEscapeCopy(attr(x, "alt"), attribute = TRUE),
     "\"/>",
     "<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" noChangeAspect=\"1\"/></wp:cNvGraphicFramePr>",
     "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">",

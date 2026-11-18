@@ -204,7 +204,12 @@ ph_from_location.location_label <- function(loc, doc, ...) {
 
   id <- uuid_generate()
   str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
-  new_ph <- sprintf(str, id, location$ph_label, location$ph)
+  new_ph <- sprintf(
+    str,
+    id,
+    htmlEscapeCopy(location$ph_label, attribute = TRUE),
+    location$ph
+  )
   return(list(ph = new_ph, label = location$ph_label))
 }
 
@@ -219,7 +224,12 @@ ph_from_location.location_type <- function(loc, doc, ...) {
 
   id <- uuid_generate()
   str <- "<p:nvSpPr><p:cNvPr id=\"%s\" name=\"%s\"/><p:cNvSpPr><a:spLocks noGrp=\"1\"/></p:cNvSpPr><p:nvPr>%s</p:nvPr></p:nvSpPr><p:spPr/>"
-  new_ph <- sprintf(str, id, location$ph_label[1], location$ph[1])
+  new_ph <- sprintf(
+    str,
+    id,
+    htmlEscapeCopy(location$ph_label[1], attribute = TRUE),
+    location$ph[1]
+  )
   return(list(ph = new_ph, label = location$ph_label[1]))
 }
 
