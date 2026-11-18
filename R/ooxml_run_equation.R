@@ -294,34 +294,44 @@ equation_textbox_size <- function(value) {
 
 # HTML ----
 
-# KaTeX draws equations at 1.21 em (`.katex {font-size: 1.21em}`): the font
-# size of `prop` is divided by 1.21 so that equations have this size. An
-# equation alone in its paragraph follows the alignment and the spacing of
-# the paragraph (KaTeX centers them, with margins).
+# The style of KaTeX draws equations at 1.21 em (`.katex {font-size:
+# 1.21em}`). The font size is set on the element `.katex` itself, so that
+# equations have the size of the text around them, as in 'flextable'
+# (`.katex{font-size:1em}`), 'Word' and `equatags::equation_size()`: 1 em,
+# or the font size of `prop`. An equation alone in its paragraph follows the
+# alignment and the spacing of the paragraph (KaTeX centers them, with
+# margins).
 #' @export
 to_html.run_equation <- function(x, display = FALSE, ...) {
   out <- equatags::transform_mathjax(x$value, to = "html", display = display)
   out <- trimws(out)
+  css <- "font-size:1em;"
+  if (!is.null(x$pr) && !is.na(x$pr$font.size)) {
+    css <- sprintf("font-size:%spt;", format(x$pr$font.size))
+  }
+  if (!is.null(x$pr) && !is.na(x$pr$color)) {
+    css <- c(css, sprintf("color:#%s;", hex_color(x$pr$color)))
+  }
+  katex_style <- paste0(css, collapse = "")
   if (display) {
     out <- sub(
       "<span class=\"katex-display\"><span class=\"katex\">",
       paste0(
         "<span class=\"katex-display\" style=\"text-align:inherit;margin:0;\">",
-        "<span class=\"katex\" style=\"text-align:inherit;\">"
+        "<span class=\"katex\" style=\"text-align:inherit;",
+        katex_style,
+        "\">"
       ),
       out,
       fixed = TRUE
     )
-  }
-  css <- character()
-  if (!is.null(x$pr) && !is.na(x$pr$font.size)) {
-    css <- c(css, sprintf("font-size:%.2fpt;", x$pr$font.size / 1.21))
-  }
-  if (!is.null(x$pr) && !is.na(x$pr$color)) {
-    css <- c(css, sprintf("color:#%s;", hex_color(x$pr$color)))
-  }
-  if (length(css)) {
-    out <- sprintf("<span style=\"%s\">%s</span>", paste0(css, collapse = ""), out)
+  } else {
+    out <- sub(
+      "<span class=\"katex\">",
+      paste0("<span class=\"katex\" style=\"", katex_style, "\">"),
+      out,
+      fixed = TRUE
+    )
   }
   out
 }

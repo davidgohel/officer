@@ -186,20 +186,25 @@ test_that("Excel: text boxes only contain paragraphs, cells no equations", {
 
 test_that("HTML: equations are written by KaTeX", {
   html <- to_html(fpar("Euler: ", run_equation("x^2")))
-  expect_match(html, "<span class=\"katex\">", fixed = TRUE)
+  # the size of the text: KaTeX draws at 1.21 em without this style
+  expect_match(html, "<span class=\"katex\" style=\"font-size:1em;\">", fixed = TRUE)
   expect_no_match(html, "katex-display", fixed = TRUE)
   # alone in its paragraph: display style, with the alignment of the paragraph
   html <- to_html(fpar(run_equation("x^2"), fp_p = fp_par(text.align = "right")))
   expect_match(html, "text-align:right", fixed = TRUE)
   expect_match(
     html,
-    "<span class=\"katex-display\" style=\"text-align:inherit;margin:0;\"><span class=\"katex\" style=\"text-align:inherit;\">",
+    "<span class=\"katex-display\" style=\"text-align:inherit;margin:0;\"><span class=\"katex\" style=\"text-align:inherit;font-size:1em;\">",
     fixed = TRUE
   )
-  # size (KaTeX draws at 1.21 em) and color
-  prop <- fp_text_lite(font.size = 12.1, color = "red")
+  # size and color of prop, on the element .katex
+  prop <- fp_text_lite(font.size = 12, color = "red")
   html <- to_html(fpar("a ", run_equation("x", prop = prop)))
-  expect_match(html, "<span style=\"font-size:10.00pt;color:#FF0000;\">", fixed = TRUE)
+  expect_match(
+    html,
+    "<span class=\"katex\" style=\"font-size:12pt;color:#FF0000;\">",
+    fixed = TRUE
+  )
 })
 
 test_that("RTF: equations are images on the baseline of the text", {
