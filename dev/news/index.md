@@ -18,7 +18,8 @@
   ‘Word’, an equation alone in its paragraph uses the display style and
   follows the alignment of the paragraph; an equation in a sentence uses
   the inline style. The package ‘equatags’ (\>= 0.4.0) converts the
-  equations. In HTML, equations are drawn by ‘KaTeX’; in RTF documents
+  equations. In HTML, equations are drawn by ‘KaTeX’, at the size of the
+  text; in RTF documents
   ([`rtf_add()`](https://davidgohel.github.io/officer/dev/reference/rtf_add.md)),
   they are images placed on the baseline of the text (R \>= 4.3).
 - [`sheet_add_drawing()`](https://davidgohel.github.io/officer/dev/reference/sheet_add_drawing.md)
