@@ -29,7 +29,11 @@ not accept equations in cells).
 In HTML (\code{to_html()}), equations are drawn by 'KaTeX' (its stylesheet is
 linked). In RTF documents (\code{\link[=rtf_add]{rtf_add()}}), they are images drawn by
 'equatags' (R >= 4.3), placed on the baseline of the text; with an older
-version of R, the LaTeX source is written as text, with a warning.
+version of R, the LaTeX source is written as text, with a warning. 'Word'
+does not leave room for the part of these images below the baseline: an
+equation larger than the text, or with a fraction, can touch the next
+line. A larger line spacing avoids it (\code{fp_par(line_spacing = 1.3)});
+in the cells of a table, the margins of the cells leave this room.
 }
 \section{Inline and display style}{
 
