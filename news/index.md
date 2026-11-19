@@ -2,6 +2,8 @@
 
 ## officer 0.7.9
 
+CRAN release: 2026-11-18
+
 ### Features
 
 - new function
